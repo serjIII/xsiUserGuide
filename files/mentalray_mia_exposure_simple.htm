@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D4B1E103-768F-476F-B69B-40BB68800686">
+      <meta name="topic-type" content="concept">
+      <title>mia_exposure_simple</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D4B1E103-768F-476F-B69B-40BB68800686"></a></span><div class="head">
+            <h1>mia_exposure_simple</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-4D8EE03E-68AF-4D8B-A01C-B38429B98533"></a></span> <em class="strong">Category:</em> mental ray &gt; Lens 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0048975B-000A-4B99-9690-94A6196C08CD"></a></span> <em class="strong">Shader Family:</em> Lens 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A6202798-E0A2-46F8-8E49-ECF8368EA02F"></a></span> <em class="strong">Output:</em> Color 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-88641C3D-DDC0-486C-8FF1-6C1AD9989604"></a></span> <span class="MenuCascade" id="GUID-733B55EF-AB76-46D3-8078-2F54A13038D9">Related Softimage shader:</span> <span class="char_link"><a href="lens_shaders_SimpleToneMapping.htm">Simple Tone Mapping (mia)</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-34BBD465-DBF5-4266-B3AC-DD32BD939DF7"></a></span>When rendering physical light levels, problems can occur with managing the HDRI output
+               of the real physics vs. the limited dynamic range of computer monitor displays. One
+               method to deal with this to create visually pleasing results is known as tone mapping.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-21C56A4F-4193-402A-8DE2-D69BDC188A27"></a></span>The mia_exposure_simple shader is a simple tone mapper. It simply adds a knee compression
+               to "squash" overbrights into a manageable range. This shader takes the high dynamic
+               range color and performs these operations in this order: 
+            </p><span class="anchor_wrapper"><a name="GUID-46267917-9A1E-47E2-8F1F-AEA649F906F7"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-29EFE4B0-9B56-4F5C-99B1-EB1CDE001805"></a></span>The Pedestal parameter value is added to the color. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-17686D85-C92F-4805-A68E-A87D0F7ABA64"></a></span>The color components are then multiplied by the Gain parameter value. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EC7A9CB2-F9EC-47A5-A31C-152C15BC9914"></a></span>The resulting colors are checked if they are above the Knee parameter value. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-57053AEC-5773-4090-A124-B425933E350E"></a></span>If they are above this value, they are "squashed" by the Compression ratio value.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F14FEFE1-D280-48A8-8338-DB4F85AB60F3"></a></span>Finally, Gamma correction is performed. 
+                  </p> 
+               </li>
+            </ol><span class="anchor_wrapper"><a name="TABLE_566C8D160AB84225A73515F390D2C064"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-57EA1469-1566-4CD9-ACA6-285472328226"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4D534889-A762-41A1-B33F-0688427ACA6F">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1AC316C2-3DA4-486E-97F3-8E6C45989277"></a></span><p class="table-body">The shader's name. Enter any name you like, or leave the default. </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-73861828-C0AA-45E1-91CF-9CCD6C068443"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D022182D-3BE4-4433-B0A4-5849F1DDFB60">pedestal</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7FF9E517-37EC-49BD-B3B6-EE14B24C858E"></a></span><p class="table-body">Allows you to tweak the equivalent of the "black level". A positive value adds some
+                           light so even the darkest black becomes slightly gray. A negative value subtracts
+                           some light and lets you create more contrasting effects. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9B277B34-7873-42FC-AE47-F1B9D2DDB716"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-29506574-DECD-4847-B7E6-3B86054FD1FE">gain</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4F3FD7D6-DFB3-4154-965F-75CD0C549524"></a></span><p class="table-body">Controls the overall brightness. This is the main point where the high dynamic range
+                           values are converted to low dynamic range values. For example: if you know that the
+                           approximate range of color intensities goes between 0 and 10, the <span class="MenuCascade" id="GUID-77C4728F-2F57-4CFD-8EAF-87902B86B4E3">gain</span> value should be approximately 0.1 to get the larger color intensity range in the
+                           desired range of 0 to 1. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-ED03D570-61A5-4929-BE52-CC0E75BFBC05"></a></span><p class="table-body">However, since the point of tone mapping is not to blindly scale the range down, simply
+                           setting it to 0.1 will most likely yield a dark and boring image. A more likely value
+                           is 0.15 or even 0.2, but a value of 0.2 maps the 0-to-10 range down to 0 to 2. To
+                           deal with what's above 1, you need to use <span class="MenuCascade" id="GUID-3012DF2C-0EDD-4CD9-9897-9CB0E54C8D6C">compression</span>. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2016C18E-664F-4100-BB2E-330124F64ED9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4C667B47-1661-46E7-92B8-D45D1F529F8F">knee</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DB802E19-96F2-4C8A-B05C-05616E176493"></a></span><p class="table-body">The point where the overbrights begin to get "squashed". Since this is applied after
+                           <span class="MenuCascade" id="GUID-85A1CA38-2208-44C8-8514-7B1B0DF7F19D">gain</span>, it should be in the range of 0 to 1. A useful range is 0.5 to 0.75. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D8CDB71F-97E0-4BE2-AADB-9A7E8CC1D253"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-38BE9F9F-0145-4833-82DD-BAF96301729E">compression</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C3791C55-563C-4E89-B1B1-25B49DA40228"></a></span><p class="table-body">Compresses the overbrights. If you set this to 0.75, any color (after having <span class="MenuCascade" id="GUID-5F0A7D86-3FEF-4C2A-9591-CA55667B2C90">pedestal</span> added and multiplied by <span class="MenuCascade" id="GUID-D8EAD8A4-C971-41F0-B5FB-8279858E95A2">gain</span>) that comes out above 0.75 is compressed. A value of 5.0 is fairly strong compression;
+                           0 is no compression. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-569C0D7B-0972-4C03-B9BF-6613518CCDA6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-782F6897-DA9B-4A67-9121-46C9696B04F1">gamma</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-190DDCA5-8A82-44B9-8753-455DFD74B97C"></a></span><p class="table-body">Corrects the resulting compressed color for the output device (such as the computer
+                           screen). 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-019BD5A0-B95E-411A-BD90-F1BCA7FF90DE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-29767600-CE1E-4A0A-B75A-A81B03703BC6">preview</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-103C5B7A-C701-4FF5-A6C4-740AD0A3E5EF"></a></span><p class="table-body">To tweak the tone mapping using a preview image, do the following: </p> <span class="anchor_wrapper"><a name="GUID-FD01F312-F92B-4241-84D6-2774BDF981DF"></a></span><ol type="1" start="1">
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8CBBD5BA-FBB8-46D1-BED1-621863759492"></a></span>Disable the mia_exposure_simple shader. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8E35B9FE-B54B-420C-8862-25A1F1EE72A7"></a></span>Render the image to a file in an HDRI capable format (such as *.exr, *.hdr, etc.)
+                                 and name it, for example, preview.exr. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DA0EFECF-2D8F-4D4D-8C68-555432504D9F"></a></span>Add the preview image to the scene as an image clip and source. For more information,
+                                 see <span class="char_link"><a href="tex_clip_source_LoadingCreatingSourcesandClips.htm#WS268DA51328BC334380524F8F66369EBF-0012">Creating Sources and Clips</a></span>. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D1D0E801-9081-4464-94B4-BA8029BE1ECB"></a></span>Enable the mia_exposure_simple shader again. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3811A042-5815-454C-8376-D4F21CB4B8A9"></a></span>In the render tree, get the preview image from the Clips menu and connect it to the
+                                 shader's <span class="MenuCascade" id="GUID-71624058-CFE4-4C7B-9A4B-BB79CB813C32">preview</span> input port. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-92FAE555-3BBA-4944-864D-66F10BC04A55"></a></span>Select the use_preview checkbox. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E5DBE2CE-0DAC-4EE7-9391-67BD5460230D"></a></span>Disable any photon mapping or final gathering. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-626037A5-119C-4B8F-889D-A75F3FD27197"></a></span>Re-render. The rendering will be nearly instant, because no actual rendering occurs
+                                 at all: the image is read from the preview file and is immediately tone mapped to
+                                 screen. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3262700A-0BA1-435D-9A87-891639B4F982"></a></span>Tweak the parameters and render again until you are satisfied with the results. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-34024D1E-D565-4119-8ADE-9CE6A2103FEF"></a></span>Re-enable any photons or final gathering. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-590A0329-0472-4478-BDC3-47F416BC7B43"></a></span>Turn off use_preview. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-FE254C0C-420E-43E2-BBA3-FC712D027F93"></a></span>The shader is tuned and ready for final output. 
+                              </p> 
+                           </li>
+                        </ol> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F0DBF892-7E78-4FA2-AD3D-D4B1DD153C20"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-61243C2E-511E-45E5-A4D7-719DEC911A06">use_preview</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0DD10B63-1446-4AA7-BFCC-01C51C021C56"></a></span><p class="table-body">Enables a preview image which makes the process of tweaking the tone mapper more interactive
+                           by allowing you to preview and edit the results. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

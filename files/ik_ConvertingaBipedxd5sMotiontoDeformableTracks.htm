@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D5EE287E-86FB-4EF7-9C9E-24147035AC58">
+      <meta name="indexterm" content="retargeting animation: deforming biped motion on tracks">
+      <meta name="indexterm" content="deform motion: about">
+      <meta name="indexterm" content="motion capture data: deform motion of bipeds on tracks">
+      <meta name="indexterm" content="deform motion: setting biped tags">
+      <meta name="indexterm" content="deform motion: defining step marks">
+      <meta name="indexterm" content="action clips: matching">
+      <meta name="indexterm" content="matching: action clips">
+      <meta name="indexterm" content="biped tags: matching actions clips">
+      <meta name="topic-type" content="concept">
+      <title>Converting a Biped's Motion to Deformable Tracks</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D5EE287E-86FB-4EF7-9C9E-24147035AC58"></a></span><div class="head">
+            <h1>Converting a Biped's Motion to Deformable Tracks</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-19952169-D4E6-4311-B24B-2F3DC25587B3"></a></span>The motion deformation tools let you convert the animation from a biped's feet and
+               center or gravity (usually the hips) into a set of tracks (curves), allowing you to
+               visualize the animation in space. You then deform and edit the tracks just like you
+               would any other curve (move points, use deformers, etc.) and the character adapts
+               to the new shape of the tracks. 
+            </p><span class="anchor_wrapper"><a name="FIG_DEE8B8AC8A844E21A881EA0C37472154"></a></span><div class="figure-anchor"><img src="../images/GUID-C3709DC8-AB71-41F4-B5B1-3CE1A2B8EAB5-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-2669B86B-5A1D-4C88-BFC8-46C12232291C"></a></span>Motion deformation lets you modify animation for many different purposes, such as:
+               
+            </p><span class="anchor_wrapper"><a name="UL_6E3F087EF7F946799477D923DFD6E735"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AB6850E8-1D58-49B1-9651-2DFB06A7159A"></a></span>Adapting a character's animation to a new environment where the terrain or path is
+                     different. For example, you could use a lattice or shrinkwrap the curves to a new
+                     surface and have the character follow all the bumps and crevices. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-13C31E44-055D-4345-9084-D5DFD56C59A5"></a></span>Changing the character's body proportions by changing the amount of space between
+                     the curves. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EC1CBD2C-0721-4042-8218-0E7CAA2886C9"></a></span>Giving different personalities to different characters whose animation comes from
+                     the same motion capture data (such as with crowd animation). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AA6749E0-5DD4-441B-81D6-7992012B8337"></a></span>For example, you could make one character have a high stepping height while another
+                     has a bounce when he walks. With motion capture, this can save you time because you
+                     don't have to reanimate the whole body. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-FFAC9331-006F-4796-81EC-222EB92DF6B4"></a></span><div class="note-tip"><span class="label">TIP:</span>To retarget motion for different kinds of characters, you need a rig that can be dynamically
+                        reproportioned, such as the ones you can create in Softimage (see <span class="char_link"><a href="char_rig.htm">Character Rigging</a></span>). 
+                     </div>
+                  </div> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-3948FDA2-7E5B-40F8-A485-D29C85A2A68B"></a></span>The curves that are created are like train tracks that represent the motion in space
+               and carry the character along them. This allows you to deform the motion and keep
+               the correlation between the feet and the center of gravity. The motion itself keeps
+               a constant length. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS24727D400D5ABC48ACE3AECBC1F4BC5F-002F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-899F8F5C-A864-4E5C-817E-DC812B87DE3E"></a></span>Getting Set Up
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-9E3ACCEC-C911-41E1-8B5C-5424FF599D03"></a></span>Before you use the motion deform tools, you should make sure that the character whose
+                  animation you want to modify is set up correctly. 
+               </p> <span class="anchor_wrapper"><a name="UL_7D20CD64FB1F4804B973723A4343A9E2"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0A4E09C3-A488-4EC8-84D8-80697B9AD5FE"></a></span>The character must be bipedal. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A0918C01-D725-4AB6-8E34-F97FA7B466E4"></a></span>There must be animation on the two feet and the center of gravity. This can be either
+                        IK (effector positions) or FK (bone rotations), but the character must be moving "in
+                        space" (that is, no stationary walk cycles). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-09830B84-B618-43B7-B1B3-9785FD5FA1C7"></a></span>Set the timeline to the exact frames of animation you want to process; otherwise the
+                        velocity of other animation on the character will be calculated as part of the velocity
+                        and ruin the resulting step marks and motion tracks. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS24727D400D5ABC48ACE3AECBC1F4BC5F-0030"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5F65DA73-552D-4F51-84F4-FBF30E9EC2F0"></a></span>Creating the Motion Tracks
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-075B1088-23A7-4F1B-ACA6-502B66A3074B"></a></span>You must tag three elements that drive the animation for a biped: the two feet and
+                  the center of gravity, or hips. The motion deformer takes all three of these elements
+                  into consideration because a character's motion is a result of their combination.
+                  
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-B119A83A-F01C-401D-B9CA-38756729A1AE"></a></span><div class="note-tip"><span class="label">TIP:</span>The predefined character rigs (see <span class="char_link"><a href="char_rig_GettingStartedwithPredefinedRigs.htm">Overview of Using the Predefined Rigs</a></span>) are pre-tagged for your convenience. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS24727D400D5ABC48ACE3AECBC1F4BC5F-0031"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-41EC92BD-85C2-4E5D-920A-0E257FFC1123"></a></span>To create tracks to modify a character's motion
+                  </h3> <span class="anchor_wrapper"><a name="GUID-BAA90A90-EA63-4BF9-9E33-D14DDD65B070"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C9FE8B44-5289-4848-BAEB-486680456300"></a></span>One by one, select each these animated elements in the character, then choose the
+                           corresponding command from the <span class="MenuCascade" id="GUID-5A4BFDD0-1362-45CE-8948-59A93ACDA530">Create <img src="../images/ac.menuaro.gif"> Character <img src="../images/ac.menuaro.gif"> Biped - Tags</span> menu on the Animate toolbar: <span class="MenuCascade" id="GUID-DB3BD2E2-D79F-4342-B784-07AE76B5A464">Left Foot, Right Foot</span>, and Center of <span class="MenuCascade" id="GUID-F8B184FE-9B0B-4747-B9F7-FD1E09D2FEEF">Gravity</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6AEFD32F-0D6C-4BA4-8963-AC6423A6654A"></a></span>Figure out the Velocity Threshold by doing a test run with the <span class="MenuCascade" id="GUID-2ED60249-FEEA-4674-873D-CF3018C0009E">Create <img src="../images/ac.menuaro.gif"> Character <img src="../images/ac.menuaro.gif"> Biped - Define Step Marks</span> command. This creates little icons that represent the stepping positions, allowing
+                           you to tune the correct Velocity Threshold. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-B346B3E4-DC0B-4E53-A543-40419BE3C7DA-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FA294F96-CBB6-481E-B228-5215173FDE4C"></a></span>You need to find the lowest velocity of the animated elements, such as where a foot
+                           is on the ground, going from one step to the next. This value needs to be the closest
+                           to zero, but not zero. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8777E718-0A06-49A1-9FF7-9E1FACC8E14B"></a></span>You can reiteratively test this, starting at a very low threshold and working up until
+                           you see that all step marks are present. If a value is too low or high, just delete
+                           the step marks and try a new level. You can delete the step marks after you've run
+                           the Deform Motion command. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E5C028F4-DE62-46BB-897F-92B62CD9F92D"></a></span>Once you know the Velocity Threshold, choose <span class="MenuCascade" id="GUID-36B0E179-FECD-4CE3-884A-3875ECB6191F">Create <img src="../images/ac.menuaro.gif"> Character <img src="../images/ac.menuaro.gif"> Biped - Deform Motion</span>. This retargets the character's motion based on the step marks you set. Three curves
+                           are created, representing the motion path for the character. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-B75380C3-4EC1-49AA-976E-0DCB8DA28097-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-80FBB651-6E77-46F3-B0EB-F5561B571A74"></a></span>In the Offset Multiplier controls that appear in a property set, you can offset the
+                           rotation and position of the tracks, thus warping the animation in space. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A7181B6D-165C-4B85-9D31-8DAE62A56057"></a></span>Deform the tracks like you would any other curve and see how the character responds
+                           to the changes. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-20A35D5D-25A8-46DC-B265-CDC12D77CCDA"></a></span>For example, you could create a chain from the curve, then drag the effector to change
+                           the path. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-80FD9CA5-2F9B-45BB-9C61-8EE0ADC36CEA-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS24727D400D5ABC48ACE3AECBC1F4BC5F-0035"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-77570809-F2E0-494B-9776-676FEAF1EA33"></a></span>Matching Clips
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-4408287C-C33E-4EAD-87F6-89536D270933"></a></span>Using the <span class="MenuCascade" id="GUID-A7D4A753-B3C7-472C-B47A-9933EDDB153C">Clip <img src="../images/ac.menuaro.gif"> Match Clips</span> command in the animation mixer, you can align two clips based on a reference object
+                  that are tagged with the <span class="MenuCascade" id="GUID-3B9592F9-5A81-4553-9338-E0D0AB9B0CFF">Character <img src="../images/ac.menuaro.gif"> Biped Tags</span> commands. Using the information from the tagged object, Softimage computes and sets
+                  the appropriate pose offset on the target clip to make it match the reference clip
+                  at the target's first frame. This is very useful for aligning two motion capture clips
+                  one after the other (or overlapping) so that they are in the same space for mixing.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-43BD31EE-F503-4359-8A74-87D768EEBCA0"></a></span>This command may also be useful for aligning an object that is not driven by a clip
+                  but is affected by it, such as a child of a parent that is driven by a clip. You can
+                  tag the child, select the clips, and choose the Match Clips command. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-F54E646F-7A69-436D-A795-A5CFCA93C28B"></a></span><div class="note-note"><span class="label">NOTE:</span>This tool works only with animation done on the XZ plane; that is, it only does a
+                     full translation and rotation about the Y axis, assuming that the Y axis is pointing
+                     in the "up" direction. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS24727D400D5ABC48ACE3AECBC1F4BC5F-0036"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-59733664-B477-41EE-8E25-F58524F52632"></a></span>To align two clips
+                  </h3> <span class="anchor_wrapper"><a name="GUID-82363DE1-04D5-477B-AE2E-7EF62A11C933"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E82DE474-CF0A-4A05-A128-F39C56F7E5C6"></a></span>Tag the objects to use as part of the matching process using the <span class="MenuCascade" id="GUID-F7AE2893-98FD-44EE-AA57-3EBE899F302D">Character <img src="../images/ac.menuaro.gif"> Biped Tags <img src="../images/ac.menuaro.gif"> Left Foot, Right Foot</span>, and <span class="MenuCascade" id="GUID-669171FF-357B-4B14-944A-6F258D22BACE">Center of Gravity</span> commands on the Animate toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B1A100A8-EB9A-40A6-901F-5A20D30B1FD5"></a></span>The reason you tag the objects is to use them as a point of reference. That object's
+                           pose should match after you use the Match Clips command. For example, select the object
+                           to be considered the left foot and tag it with the <span class="MenuCascade" id="GUID-859FF657-4391-49CC-AA2A-5F1A43D9B44C">Biped Tags <img src="../images/ac.menuaro.gif"> Left Foot</span> tag. Do the same with objects considered the right foot and the center of gravity.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-41C476DE-E10D-4099-8F9C-DEAA5DD803E5"></a></span>In this order, select the reference clip and the target clip (which is the one to
+                           offset). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E4EED913-24A7-4FEC-AFC9-F32E5BDEAE23"></a></span>The target clip can either follow the reference clip or else overlap it. If it is
+                           overlapping, the time reference is the start of the overlap. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D0CF0DFE-08AA-40D1-8F55-73BD1F385BC1"></a></span>Choose <span class="MenuCascade" id="GUID-00B54BEB-8908-4C7C-AF7F-47539D09C1A1">Clip <img src="../images/ac.menuaro.gif"> Match Clips</span> from the animation mixer command bar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1AFFD465-CAAE-48FA-ADC2-14BF521BADB2"></a></span>A pose offset is created for the target clip. The animation at the beginning of the
+                           second clip is matched to the end (or overlaps the start) of the first clip. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-31CA1EB3-12B2-4868-BEE4-3F5E21F10EA5">
+      <meta name="indexterm" content="CrowdFX: following along a path">
+      <meta name="topic-type" content="concept">
+      <title>Following Along a Path</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-31CA1EB3-12B2-4868-BEE4-3F5E21F10EA5"></a></span><div class="head">
+            <h1>Following Along a Path</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-44510FB0-522B-4CD0-8C8F-296289CBF651"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-5651C258-630F-40DD-8649-DAA17FF0EA13"></a></span>When you make the actors in a crowd follow along a path, they are actually moving
+            in sequence along a number of "goals" along a curve. However, you don't need to create
+            the actual goal objects: the positions along the curve are the implied goals. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-8304E89E-C673-4A04-821A-E703AC011092"></a></span>The particle emitter can be placed anywhere along the curve and the actors will go
+            to the closest "goal" on the curve: they don't all try to start at the beginning of
+            the curve. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-0F2E3E11-47FF-4814-9841-98F6F24B26DD"></a></span>In this image, two paths are created with actors following along each one, and some
+            even starting out from the opposite direction. 
+         </p><span class="anchor_wrapper"><a name="FIG_CD0A2709C6E848F0A72020A39BCA6CBD"></a></span><div class="figure-anchor"><img src="../images/GUID-6118516D-C276-465F-BC5B-A2C9C3540622-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-10A1B737-1B80-41CB-A820-C0CF7830C682"></a></span>To make actors follow a path: 
+         </p><span class="anchor_wrapper"><a name="OL_4862A87DC57A46ACADB46F477DDC3190"></a></span><ol type="1" start="1">
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-8245AC9D-BB3E-4AE7-B13C-0205C9CC9A92"></a></span>Create a curve to use as the path. You may want to avoid creating tight corners on
+                  the curve because the actors can get congested as they slow down to navigate them.
+                  
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-9A74E8FF-AC64-4A4D-AF32-6C3E7B87626D"></a></span>In the crowd point cloud's Behavior ICE tree, create a <span class="MenuCascade" id="GUID-669ED37D-D3A3-4458-AAE6-D112D712B094">Get Data</span> node for the curve. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-041B8006-E63D-413C-A1D6-E683702A7873"></a></span>Get a <span class="char_link"><a href="iceref_Set_Goal_By_Follow_Curve.htm">Set Goal By Follow Curve</a></span> compound and plug it into the <span class="MenuCascade" id="GUID-90996582-7832-4F88-8E57-25F5ECF7799C">Goal</span> port of the <span class="char_link"><a href="iceref_Set_Velocity_Using_Collision_Avoidance.htm">Set Velocity Using Collision Avoidance</a></span> compound. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-3402279F-FDB1-441D-8F34-7847AC4D8F89"></a></span>Plug the curve's Out Name output into the <span class="MenuCascade" id="GUID-5A45295C-47CE-42E5-8F42-413A30CD6F19">Curve Name</span> port of the <span class="MenuCascade" id="GUID-47F0A570-FE71-4667-BF45-7FB25EDAC6AD">Follow Curve</span> compound. 
+               </p> <span class="anchor_wrapper"><a name="FIG_000BDEF430F2445FBD797F092D59703C"></a></span><div class="figure-anchor"><img src="../images/GUID-A5109875-95DE-435D-B406-3AAEA54C299A-low.png"></div> 
+            </li>
+            <li>Set the parameters in the <span class="char_link"><a href="iceref_Set_Goal_By_Follow_Curve.htm">Set Goal By Follow Curve</a></span> compound's property editor, including these two: 
+            </li>
+         </ol><span class="anchor_wrapper"><a name="UL_088F438E05E64D309F49FCD1C882F892"></a></span><ul>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-4AA9CFD4-1777-43EF-A970-0A77A917256B"></a></span>To set the number of goals along the curve, set the <span class="MenuCascade" id="GUID-EFDF8A3F-CDC8-4F9D-B71A-1D820242EC62">Curve Sampling</span> value. The higher this value, the more closely the actors will move along the curve.
+                  
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-F616A046-2948-47A0-B926-540D0CA0989A"></a></span>To make the actors move directly on the curve or in parallel along it, set the <span class="MenuCascade" id="GUID-C208CCD3-FCB3-4552-8107-6A2C3CD9B195">Converging Factor</span> value. 
+               </p> 
+            </li>
+         </ul>
+         <div><span class="anchor_wrapper"><a name="GUID-DF0B3CAA-A08F-44AD-9D9A-D71D7CA5ECD9"></a></span><div class="note-note"><span class="label">NOTE:</span>You may need to lower the <em class="strong">Far Interaction Limit</em> in <span class="char_link"><a href="iceref_Initialize_Collision_Avoidance.htm">Initialize Collision Avoidance</a></span> compound to 0 to prevent actors from turning and running away from the curve when
+               there is another actor very close in front of them along the curve. You could also
+               use social groups (see <span class="char_link"><a href="GUID-0B2FAB4E-2F3B-4807-B2CD-9911115E597D.htm">Creating Social Groups</a></span>). 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

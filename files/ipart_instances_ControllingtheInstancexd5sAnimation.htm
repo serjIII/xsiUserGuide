@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-751BD5AC-82AF-4D2C-AED0-1D6ACE0BFBCF">
+      <meta name="indexterm" content="ICE particle instances: controlling the animation">
+      <meta name="topic-type" content="concept">
+      <title>Controlling the Instance's Animation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-751BD5AC-82AF-4D2C-AED0-1D6ACE0BFBCF"></a></span><div class="head">
+            <h1>Controlling the Instance's Animation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-253A0EFC-D8E1-439F-A4BE-BC001755FDEC"></a></span>You can create instances using animated master objects (see <span class="char_link"><a href="ipart_instances_UsingAnimatedMasterObjects.htm">Using Animated Master Objects</a></span>), then control them using the Control Instance Animation compound. This compound
+               is like a playback control for how you want the instance's animation played during
+               the particle simulation. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-87CE919F-90EB-4861-BFAE-0ABB3BA252E4"></a></span>Any frame of its animation can then be instantiated independently. You can have animation
+               offsets to be able to display each instance at a different frame of its animation
+               during the particle simulation. If you're doing a crowd, for example, each character
+               can walk at different paces using the same walk cycle. This animation is displayed
+               both in the viewport and in the rendered animation. 
+            </p><span class="anchor_wrapper"><a name="FIG_1358F3AAC8EC41ABB9D41AAD19B8A41E"></a></span><div class="figure-anchor"><img src="../images/GUID-5159EF32-AF78-44E1-AA2E-743D2A692EF7-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-C9D568E5-3ABE-498F-84AD-19F835222675"></a></span>Two simple animated rigs are used as master objects for the particles: one hopping,
+               one rolling. They flow around the cylinder which is set as an obstacle (Flow Around
+               Surface compound). 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-0023"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EC687490-F6AD-42CC-A604-EA541FB7BD2B"></a></span>To controls the particle instance's animation
+               </h2> <span class="anchor_wrapper"><a name="GUID-C8F66E44-63E3-49BE-A968-A140424DC4F2"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5C9017D6-F1C7-4D3B-B714-119618003C98"></a></span>Set up the particle instance object in the ICE tree as described in <span class="char_link"><a href="ipart_instances_CreatingParticleInstances.htm#WSE366BC828DD84A479387FB556A4F61C5-000D">Creating Particle Instances Using the Set Instance Geometry Compound</a></span> and <span class="char_link"><a href="ipart_instances_UsingAnimatedMasterObjects.htm">Using Animated Master Objects</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E0EC7F05-C9C5-443F-BBD9-D8FA6AC305CB"></a></span>In the <span class="char_link"><a href="iceref_Set_Instance_Geometry_.htm">Set Instance Geometry</a></span> property editor, you can select which frame of the instance's animation you want
+                        to use as the starting frame for each particle. This means that all particles are
+                        emitted using the same frame of animation. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-753BD163-D055-4739-9792-054787E39669"></a></span>Choose the <span class="MenuCascade" id="GUID-2E72C60B-5C10-439C-8ECA-B4A86487E92D">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Control Instance Animation</span> command from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0D33E4D7-3B6D-4FC2-AFF5-5353F3DD5E34"></a></span>This command adds the Control Instance Animation compound to the ICE tree, plugging
+                        it into the Execute port of the Simulation Root compound. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EDC65719-B206-4EEB-AFEE-1C97F9D2BE20"></a></span>The tree below has a number of other compounds that are used to randomize the instance's
+                        size and group index. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-17BAFD21-897C-44EE-B733-1107B583F261-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F28A9192-C1B4-4659-9644-91DC003E47C7"></a></span>In the <span class="char_link"><a href="iceref_Control_Instance_Animation.htm">Control Instance Animation</a></span> property editor, set the instance's Animation Start and End Frame values that you
+                        want to use in the particle simulation. For example, if the instance's animation goes
+                        from frames 1 - 50, you can choose to use only frames 20 - 40 of its animation in
+                        the simulation. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-99553172-BADE-41EE-A548-C7D61036BCE0"></a></span>You can also set the animation Loop Method and the Playback Speed Multiplier (a value
+                        of 1 is the instance's original animation speed). 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

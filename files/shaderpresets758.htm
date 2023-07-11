@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-DF5B6B9F-AD45-43A8-A174-54BE32B6E5CC">
+      <meta name="topic-type" content="concept">
+      <title>OGLShadowMap</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-DF5B6B9F-AD45-43A8-A174-54BE32B6E5CC"></a></span><div class="head">
+            <h1>OGLShadowMap</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-8C294806-EB17-44CF-B5D6-1784A566190B"></a></span><em class="strong">DEPRECATED.</em> This shader is unsupported, but it may still get installed with Softimage to provide
+               compatibility with older scenes that use it. It is recommended that you replace unsupported
+               shaders in your scenes with equivalent shaders from the current Softimage shader library.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-894E7DB4-CF66-4CCA-9D4E-21E85F65ECA8"></a></span> <span class="MenuCascade" id="GUID-0D95D341-6E09-4E25-8F34-C0843A54AFDD">Shader Type:</span> RealTime 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DD45816D-3228-423B-B335-33A4C506063A"></a></span> <em class="strong">Output:</em> RealTime 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-2AE03880-B1E5-4AE8-9902-33BC8F9C525D"></a></span><div class="note-note"><span class="label">NOTE:</span>This shader is no longer supported, and scenes using it will not display correctly.
+                  
+               </div>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-B14D43E0-C10F-4618-83AE-78E0F9D9F7FE"></a></span>The OGL Shadowmap uses a shadowmap algorithm to reproduce the shadows created by a
+               single spotlight. The shadows are output to a buffer, and then projected onto the
+               objects to which the shader is applied. Because it accurately reproduces any one spotlight's
+               shadows, this shader is a useful tool for previewing shadows before you render a scene.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0D2AEE2E-78AE-4335-95E6-039428EF07D9"></a></span>Although the shadowmap shader works like other OGL shaders, it is subject to a few
+               restrictions, namely: 
+            </p><span class="anchor_wrapper"><a name="UL_4E276F00B91543868D5DE18A634F127A"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B9928825-D7FA-47D8-B87E-23A53AB46BA2"></a></span>It can only be used with a spotlight. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C2D5B6FB-FB18-4ED5-B49C-C123BF7B2852"></a></span>It must be applied to a single material shared by all shadow casting, and shadow receiving
+                     objects. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-163D04C9-025C-4A2A-B787-F0E5F483F506"></a></span>It must be used in its own drawing pass. If you want to see shadows with other surface
+                     attributes, you have to blend the shadows with those attributes in a second pass.
+                     
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0004"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-339323AA-357B-42C1-B49A-CF6ACFEBD325"></a></span>Spotlight Parameters
+               </h2> <span class="anchor_wrapper"><a name="TABLE_D8AB6439EC5C4707A37B852C6CA09B8C"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-73549B22-A88A-4F67-BDE2-A34D5FCA079E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B867BA34-2D55-415A-91D8-37835DB96940">Light ID</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-787068FE-2725-4F50-B7B7-F20CE7EE5618"></a></span><p class="table-body">The OGL numeric ID for the light whose shadows are being rendered. </p> <span class="anchor_wrapper"><a name="GUID-07B5E505-3A30-47F3-8471-0B8B714160C9"></a></span><p class="table-body">If the correct shadows are not displayed in viewports where Realtime Shaders viewing
+                              mode is enabled, an incorrect light ID is the likely culprit. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-F20B04C1-D0BD-41DE-B92F-BE1DF242DEEA"></a></span><p class="table-body">Enable the Show Frustum option (below), and switch from one light ID to the next until
+                              you see the frustum and shadows for the desired light. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AC9FA2C0-F356-4F2E-932E-55B06B01DE27"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-77B74780-D168-4053-ACD7-AF9F053BE707">Frustum <img src="../images/ac.menuaro.gif"> Field of View</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CC6C5739-6D7A-451C-8C89-75150234F638"></a></span><p class="table-body">Adjusts the frustum of the spotlight specified by the LightID. This is similar to
+                              adjusting a spotlight's Cone Angle. Lower values produce a smaller spot while higher
+                              values produce a larger spot. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-5AC96FC3-A9C4-485C-96C1-347AA582AF02"></a></span><p class="table-body">For the shadow map shadows to match rendered shadows, the Frustum value must be the
+                              same as the spotlight's Cone Angle value. It's a good idea to link these parameters
+                              if you are going to modify them frequently. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CCA4E13F-7492-4D36-8BC1-AC3F2E791104"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-837F473E-E5DD-4E23-9710-030EFC1D884F">Frustum <img src="../images/ac.menuaro.gif"> Near/Far Plane</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5D304DAE-21CF-452B-9CEC-72C05F9EC25A"></a></span><p class="table-body">Similar to a camera's clipping planes, the near and far planes specify the range within
+                              which the spotlight is active. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-11256045-61C0-413F-BFB5-D38367BDEF55"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-01F322CD-881D-4F51-820A-AF9E993626B9">Frustum <img src="../images/ac.menuaro.gif"> Show Frustum</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EFA0A84F-DEE1-4C24-9990-7E66AEB94C5A"></a></span><p class="table-body">Displays a wireframe of the spotlight's frustum in any viewports where Realtime Shaders
+                              viewing mode is enabled. This is similar to displaying a spotlight's cone, but the
+                              cone's near and far planes are displayed as well. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0005"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F1EBC8CB-8A15-460F-B688-7B3C8ADF1C69"></a></span>PBuffer Parameters
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B3E3D389-785F-4BCE-A978-6439DD31C5A0"></a></span>The PBuffer parameters control the buffer to which the shadowmap is rendered. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_3AB27812FE434EEFBD1A91577952E8E2"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3C259534-6CC7-45BD-A021-BD6DA85C9FCE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8DBC8A86-969F-4CE5-98B1-576674E50C92">Resolution</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F5DE44FD-6104-4EFE-B87C-957D0016D932"></a></span><p class="table-body">Specifies the resolution of the shadowmap. Higher values give a smoother result but
+                              take more time to render and consume more memory. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-75CD5CC4-6D99-4C1A-83F2-DCA0FCC2A5D4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C800B5BE-A8BD-49C6-9DB7-0C38ABBA9D1A">Show PBuffer</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-20EF305B-DACC-48F2-A693-270C497A9786"></a></span><p class="table-body">Displays the contents of the PBuffer in a separate window. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-058FA12F-A779-4718-854B-C870E615DA83"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-26E04F94-76A5-4A3C-B1C8-331A6ACB4670">Output <img src="../images/ac.menuaro.gif"> Capture PBuffer</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1C1011A2-9A94-4EC1-B2FD-2FCC85AEFD8D"></a></span><p class="table-body">When enabled, the content's of the PBuffer are written to a file. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E6C9DCCF-3637-4658-BE2E-A9708C755A1F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F6F2782D-4683-4452-A2E0-69BB0CC85D0D">Output <img src="../images/ac.menuaro.gif"> Filename</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-11928351-66E4-46A4-831C-4735E562F565"></a></span><p class="table-body">If Capture PBuffer is enabled, this is where you specify the filename, path, and extension
+                              of the file to which the buffer is written. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-B54CFFBB-8916-4048-995A-59A1AA37C36D"></a></span><p class="table-body">When you are capturing the PBuffer to a file, it is updated at every frame and the
+                              target file is overwritten. Over time, this can consume large amounts of memory and
+                              degrade performance. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-65634960-5EA3-4A9E-96AE-AF4E1A219D28"></a></span>Render Tree Usage:
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1268E895-6902-432D-888F-917E14A37D71"></a></span>The OGL Shadowmap shader should be connected in its own drawing pass. Because it is
+                  a draw type shader, you can connect directly to the target material's realtime input.
+                  However, as the shader does not have built-in blending functions, you must connect
+                  it to a draw shader (OGLDraw, for example) if you wish to blend the shadows with surface
+                  attributes defined in another pass. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

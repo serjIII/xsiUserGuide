@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-151E6A28-A72A-498F-A402-7574BA22A8EA">
+      <meta name="topic-type" content="concept">
+      <title>Using Private User Data in Scripted Operators</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-151E6A28-A72A-498F-A402-7574BA22A8EA"></a></span><div class="head">
+            <h1>Using Private User Data in Scripted Operators</h1>
+         </div>
+         <div class="bodyProcess">
+            <p>Scripted operator presets provide a mechanism for storing your own private data in
+               the UserData property of the UpdateContext class.
+            </p>
+            <p>Inside a scripted operator, you can access this property using <span class="MenuCascade" id="GUID-6B321BB2-5622-4870-AC43-686F56DFF153">In_UpdateContext.UserData</span>. This data is cached separately for each instance of a preset operator, so the Update
+               method can modify UserData based on the input connections and variable values without
+               affecting any other instance of the same operator. The UserData property is a variant
+               and can be used to store any data type, including arrays and collections.
+            </p>
+            <p>In conjunction with the UserData property, there are two methods:</p>
+            <ul>
+               <li> 
+                  <p>The <span class="MenuCascade" id="GUID-0F61B0AB-D03D-4727-B201-9722D5DFB911">Init</span> method runs only when the operator is applied or reapplied, as well as when the scene
+                     is opened. You would typically use it to set the UserData property to an initial value.
+                  </p> 
+               </li>
+               <li> 
+                  <p>The <span class="MenuCascade" id="GUID-CA73F70E-52C0-4E61-86E5-90C9DBB45E0A">Term</span> method runs when the scene is closed, that is, when you open another scene or close
+                     Softimage. You can use it to perform anything you want done at the end, for example,
+                     saving UserData to file.
+                  </p> 
+                  <p>You do not need to destroy any objects you instantiated in the Init method: Softimage
+                     takes care of that automatically.
+                  </p> 
+               </li>
+            </ul>
+            <p>For example, you can use the Init method to instantiate an ActiveX object like a spreadsheet
+               and store it in In_UpdateContext.UserData. The Update method can then use and modify
+               this data. You can then use the Term method to save the modified spreadsheet. This
+               lets you create your own simulations and store the results.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0059"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-78ACD370-71AA-43BC-9143-B1A234D53694"></a></span>Creating Init and Term Procedures
+               </h2> 
+               <p>You can write the Init and Term functions directly in the bottom pane of the scripted
+                  operator editor. These functions should have a single argument which Softimage uses
+                  to pass a pointer to an UpdateContext object.
+               </p> 
+               <p>Refer to the UpdateContext [SDK Guide] for information about the properties and methods
+                  supported by UpdateContext.
+               </p> 
+               <p>Here is an example of stub Init and Term procedures in VBScript:</p> 
+               <div class="codeBlock"><pre>
+Sub Init (InUC)
+  LogMessage "Initializing scripted operator..."
+End Sub
+Sub Term (InUC)
+  LogMessage "Terminating scripted operator..."
+End Sub</pre></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

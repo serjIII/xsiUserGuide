@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-9202BCA8-7854-4077-AEE9-D7BD18DFD15C">
+      <meta name="indexterm" content="ICE modeling: simulated topology">
+      <meta name="topic-type" content="concept">
+      <title>Tips for Procedural Modeling</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-9202BCA8-7854-4077-AEE9-D7BD18DFD15C"></a></span><div class="head">
+            <h1>Tips for Procedural Modeling</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-3210398F-F058-466F-A6F3-B442A90500C0"></a></span>There are some things you should be aware of as you build ICE modeling trees. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_16EBD7C970474F95A8CD40EBCA734188"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-509E8DAD-FC7A-4B73-A031-162616B9A086"></a></span>Setting the Topology Attribute
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-FACE8C0B-A3E5-48CB-ADA3-AEBBC615DD25"></a></span> Setting the Topology attribute is time-consuming because it essentially executes
+               all the topology operations that have been accumulated so far. In particular, avoid
+               setting it inside a loop like Repeat or While. A good strategy is to save the value
+               as a custom attribute inside the loop, and then set the actual Topology attribute
+               afterward. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-EC15628E-7706-482D-827C-F026E57A731E"></a></span> However, some operations can't be done until the Topology has been set. For example:
+               <span class="anchor_wrapper"><a name="UL_482B3525EDC644E1B8970C08AD1746DA"></a></span><ul>
+                  <li>You cannot get or set data on new components. </li>
+                  <li>You cannot use geometry queries like Raycast on the modified topology. </li>
+                  <li>Attributes like NbPoints reflect the old topology. </li>
+               </ul> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_74EFEF510E02449AAB7283C07C3FB790"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-5EB19769-9069-4EE6-BDF1-BD50B7FB919E"></a></span>Attribute Values on New Components
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-814D9C73-ACC8-4E01-8680-4B96C7F77742"></a></span>Apart from intrinsic attributes like PointPosition and so on, the ICE attributes of
+               new components are set to the default values. They are not interpolated in the same
+               way that, for example, weights are interpolated when you add new points using non-ICE
+               operators. This means that you can find new components by setting a custom attribute
+               like PreExisting to True, setting Topology, and then filtering for PreExisting = False.
+               
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_A5294E1E1DA649CCB1AFEB6F0694F02B"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-6F8A2F74-A05B-4C0E-B9F6-B5C834FB8F44"></a></span>Creating Invalid Geometry
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-05B54325-BA25-40AC-94D9-DF5A754438C0"></a></span>It is possible to create invalid geometry, such as disconnected vertices. These vertices
+               are automatically cleaned up after the entire tree is evaluated, but they still exist
+               between execution branches of the tree. However, getting attributes on these invalid
+               vertices will give incorrect values, even for intrinsic attributes like PointPosition.
+               
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_95060F784DF44C20B6C59389F303F07C"></a></span>  
+            <h2><span class="anchor_wrapper"><a name="GUID-A5582EF6-E896-47A6-9CF1-4107BBABAFBE"></a></span>Simulated Topology
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-B3E9C27A-8441-4C15-B466-A8FAE23E4774"></a></span>Although you cannot set a polymesh's Topology attribute in the Simulation region,
+               you can calculate a topology value and use it to set a custom attribute in a simulated
+               ICE tree on another object. You can then get this attribute in an ICE tree in the
+               Modeling region of an empty mesh and use it to set Self.Topology. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_01904D42B8D9469B9ACA79B7FFE8527C"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-98A4E3ED-122A-4FE7-A8D7-62BF5401D40E"></a></span>Getting Data from Different Component Contexts
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-BC144F7E-F454-4CFF-9D34-E8E5F017357C"></a></span>When modeling, you often need to get or set data from different contexts. For example,
+               the current context may be per-polygon but you need to access per-edge data. In these
+               situations, the <span class="char_link"><a href="iceref_Build_Array_from_Set.htm">Build Array from Set</a></span> node is useful for building arrays of component data that can be accessed in any
+               context. The following subtree gets the length of the longest edge per polygon. 
+            </p> <img src="../images/GUID-C9C4B68A-6C67-48C2-B4C8-40C463C9AE13-low.png"> 
+            <p><span class="anchor_wrapper"><a name="GUID-494C9F7C-E2A6-482D-8DE0-B737774A9838"></a></span>Be careful using Build Array from Set with filtered sets. Any values that have been
+               filtered out are replaced by the default value for that data type. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-2E62725B-7B3C-489A-A6CD-F253DB4433D1"></a></span>If you want to get the value of an attribute of a single component and access it in
+               any context, use the Per Object Single Value output port of one of the "Test Component
+               Index" compounds in the Conditionals group of the <span class="MenuCascade" id="GUID-9B8AD130-6603-45D7-A8EB-948710DFD253">Task <img src="../images/ac.menuaro.gif"> Topology</span> tab in the preset manager. 
+            </p> <img src="../images/GUID-C521650A-79ED-49B6-8ACE-B358E2EECA7B-low.png"> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

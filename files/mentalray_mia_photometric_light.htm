@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D031BE54-6AFF-43B9-B2AC-6BFABBA1786F">
+      <meta name="topic-type" content="concept">
+      <title>mia_photometric_light</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D031BE54-6AFF-43B9-B2AC-6BFABBA1786F"></a></span><div class="head">
+            <h1>mia_photometric_light</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-416486D0-65EB-4C0A-8828-275DDF2828DA"></a></span> <em class="strong">Category:</em> mental ray &gt; Light 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-512FB1FD-398F-44F1-B8CF-4F30D110BCE2"></a></span> <em class="strong">Shader Family:</em> Light 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F5BFD6C4-0193-4F9F-9E86-7CC3E1697E31"></a></span> <em class="strong">Output:</em> Color 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFDCB412EBAB20C42B1BFA92680A813C9-0005"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8E594F27-5C10-4FDE-8FC2-2B2A8CA03D7B"></a></span>The Problem
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C2D7734D-67FF-467D-9149-7D3DDC890CBD"></a></span>The difficulty in using base mental ray shaders to render a physically correct scenes
+                  with global illumination (using photons), is in balancing the photon energy and the
+                  direct light correctly. This is because the intensity is generally specified as an
+                  intensity for some given direction (for example the peak intensity on a spotlight),
+                  but the energy is the sum of of all such intensities in all directions. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7E642868-820D-4AE2-A9C1-8CB36EAA86EC"></a></span>Given a spotlight, for the same peak intensity, you would need different photon energies
+                  depending on the width of the spotlight cone and the shape of the intensity distribution
+                  within that cone. And while this can be calculated for a mathematically defined intensity
+                  distribution (such as a spotlight cone), it becomes problematic with an arbitrary
+                  distribution such as one defined by a light profile. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6E84C0E9-BEBE-41C7-A854-6DDA4535000B"></a></span>Furthermore, to ensure optimal convergence of the photon solution for a light which
+                  varies its intensity based on the direction of light (such as a spotlight or a light
+                  using a light profile), instead of emitting photons of different energy in different
+                  directions, photons of similar energy should be emitted in different densities. So
+                  the amount of energy-per-area (the density of photon energy) at a given point must
+                  match the direct light arriving at that point. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFDCB412EBAB20C42B1BFA92680A813C9-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AD140317-1CC3-49B6-B9A1-3A5609232D4B"></a></span>The Solution
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6F25ED1A-F750-46C1-ACB4-1C4412513A04"></a></span>The mia_photometric_light solves these issues. It takes all the guesswork out of balancing
+                  the photon energy with the light intensity by peforming a numerical integration of
+                  the chosen intensity distribution to calculate the proper photon energy automatically.
+                  As well, it takes care of adapting the photon density to the distribution. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B95D9032-FB50-42F4-94EB-4DAE98C19E79"></a></span>For information on IES light profiles and how to set them up with the mia_photometric_light
+                  shader in the render tree, see <span class="char_link"><a href="lights_CreatingLights.htm#GUID-C12807A0-A1B6-44E0-8BA0-97AD523CA268">Creating Lights With IES Profiles</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFDCB412EBAB20C42B1BFA92680A813C9-0007"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CE98A22A-9112-45CF-B6A0-7D592EAB4D1B"></a></span>Colors
+               </h2> <span class="anchor_wrapper"><a name="TABLE_8E70C9460FA942DCB19F9596FD5A443A"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EAE37225-C416-4C31-910E-E6478E6D7588"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9C0F6C5D-CC47-4BB3-A42E-2631834D28F1">[color]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C6F8ECCE-86FE-44AE-BED8-7DEB487B5F31"></a></span><p class="table-body">The color of the light. </p> <span class="anchor_wrapper"><a name="GUID-137F1515-C311-4F1E-AF74-BC435030FB28"></a></span><p class="table-body">Only if this is a normalized color (for example the mi_luminance() of the color is
+                              1.0) will the Intensity settings below be accurate. You can use shaders such as <span class="char_link"><a href="mentalray_mib_cie_d.htm">mib_cie_d</a></span> and <span class="char_link"><a href="mentalray_mib_blackbody.htm">mib_blackbody</a></span> to return normalized colors. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-866AE2AB-0D1C-4D03-AC1F-A9CA3E818B56"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-41F47373-9A0C-44D1-9627-8E353DEA8618">Intensity</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C2FF47CB-B55D-4263-8DE8-515F81370D51"></a></span><p class="table-body">Allows you to tweak the intensity like a dimmer. Only when this is 1.0 will the <span class="MenuCascade" id="GUID-4AC11FB0-CEB8-4D2C-9604-AA39619ED5BB">Intensity</span> settings below be accurate. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFDCB412EBAB20C42B1BFA92680A813C9-0008"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5076E5DE-3F2B-48C9-9770-A3FBE7397308"></a></span>Intensity
+               </h2> <span class="anchor_wrapper"><a name="TABLE_BF2FDB490D434B41B97B5076C4899FD2"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7BCE8127-89EF-43F6-A05D-E367BA6A77D6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B5D0B076-A572-4598-8565-0232131F6543">Mode</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0886A453-78D8-4D1B-9CE0-4728C706B0BE"></a></span><p class="table-body">Specifies which parameter and in what unit the light intensity is defined: </p> <span class="anchor_wrapper"><a name="UL_5EE083C8A15348A0A2BDA1614C4348EE"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-CF9B92F3-F203-47AE-9C8B-764F8C6E6889"></a></span>Use the <span class="MenuCascade" id="GUID-3DD640F5-FEAA-41C5-A026-75CD52C4C995">Peak Intensity (cd)</span> mode. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-D99A2D22-5FEA-450A-A97B-E2779816EEC5"></a></span>Use the <span class="MenuCascade" id="GUID-FF84B6C1-F56C-40C1-97BD-E07E0E359C09">Overall Flux (lm)</span> mode. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-F14B42E9-16C7-4E2A-B010-8ADC31A86472"></a></span>Use the <span class="MenuCascade" id="GUID-932F41B1-3039-48B7-A79F-EB1422B50B72">Light Profile</span> mode, where the intensity is derived directly from the values stored in the IES profile.
+                                    
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B52C6EDB-F209-4DD5-A041-DA5952B6102D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D489A3F2-9743-46A1-9A28-F1112B694ABF">Peak Intensity (cd)</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2604D2BA-60F8-4D99-8FDA-0CF19111CD20"></a></span><p class="table-body">The peak intensity of the light defined in candela. <span class="MenuCascade" id="GUID-FD2F805C-E1E7-481C-93EA-64A71A459BDB">Intensity <img src="../images/ac.menuaro.gif"> Mode</span> must be set to <span class="MenuCascade" id="GUID-A2B27645-F0CA-42F2-BEFC-CAB56182F775">Peak Intensity (cd)</span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5B278C62-5D68-4976-8121-E76EEA22BD1D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-70779493-D158-403F-8E81-CF77C9B87E8A">Overall Flux (lm)</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B6F4714B-B9BF-426D-9002-D0B6244849D1"></a></span><p class="table-body">The overall flux of the light defined in lument. <span class="MenuCascade" id="GUID-10512737-CF1E-45E4-A5AE-E2768519F99E">Intensity <img src="../images/ac.menuaro.gif"> Mode</span> must be set to <span class="MenuCascade" id="GUID-04027040-D8AE-4E04-B190-9975DDC50339">Overall Flux (lm)</span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFDCB412EBAB20C42B1BFA92680A813C9-0009"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-74BF80D5-3420-4C21-BA30-5753B53B6488"></a></span>Distribution
+               </h2> <span class="anchor_wrapper"><a name="TABLE_DC595917C1FB4F3C9E1CEF68315968BF"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-73D44DA0-F277-451E-907C-4EDD7C1BB9A0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-809C17E9-B281-420C-A944-44080D07C16A">Mode</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E1AE4855-97D6-43C9-8FF8-278BFD894EBA"></a></span><p class="table-body">Defines how the light is distributed in different directions: </p> <span class="anchor_wrapper"><a name="UL_AFF540B7EAF94E21AD23018031E627E3"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-34E29712-A1FA-4C62-BD32-E4726B1514CA"></a></span>Use <span class="MenuCascade" id="GUID-9E1A99BF-1717-4609-9CA8-9F59BF2B9742">Isotropic</span> mode, where the light shines exactly the same in all directions. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-9BE09EA5-28E1-4229-8509-83969C93FF76"></a></span>Use <span class="MenuCascade" id="GUID-C88D2715-E951-4B2D-B951-82CF5099A217">Spotlight</span> mode. The light must have a spread parameter to define the width of the beam. The
+                                    distribution of light within the cone follows a cosine function, raised to the power
+                                    of the <span class="MenuCascade" id="GUID-C40D81BE-B02D-4AE3-ADE3-381A39378547">Bias</span> parameter. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-D6B3B1EE-706D-4079-984D-960F2562B2EC"></a></span>Use <span class="MenuCascade" id="GUID-9AA1F52D-7556-4A00-A23F-68A7D3D696C8">IES Profile</span> mode, where the intensity distribution of the light is derived from the values stored
+                                    in the IES profile. 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-86A048FA-92E3-4EAD-8523-39C1BA61DF57"></a></span>Note that you can combine the IES profile distribution mode with either the peak or
+                                    overall flux intensity modes. In these cases, the IES profile is used in relative
+                                    mode, and tries to accomodate the desired intensity while still using the directional
+                                    distribution of the IES profile. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-101E7DFE-9BD4-405E-8E12-FA6A61AAD37A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6FDC3BFC-3606-4588-BC80-956151168CF1">Bias</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-97CD41FD-F22B-4FDF-A2D0-1024B8DEF59F"></a></span><p class="table-body">Specifies the distribution of light within a spotlight's cone using a cosine function,
+                              raised to the power of this parameter. A bias below 1.0 will push light towards the
+                              edges of the cone, and a bias above 1.0 will push light towards the center of the
+                              cone. <span class="MenuCascade" id="GUID-32BE4C15-683F-4229-A39B-5BFDE9BAA95E">Distribution <img src="../images/ac.menuaro.gif"> Mode</span> must be set to <span class="MenuCascade" id="GUID-2F05A130-C72E-4103-962E-8DB8002B9115">Spotlight</span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFDCB412EBAB20C42B1BFA92680A813C9-000A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DEDFCC0F-4AC3-4D24-AFE5-6BC4C52F9D1C"></a></span>Light Profile
+               </h2> <span class="anchor_wrapper"><a name="TABLE_D8B1E25127EC4E1FB27C469C39D2D823"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B6DA7132-DBE8-43B5-B5DE-D2DD84AEC48C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5F1E8C25-8FAF-450F-AA6C-74C1FEEE3922">[profile]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2252FDF8-21F2-4525-B9FD-F10BA0D187BC"></a></span><p class="table-body">Specifies the intensity of the light using the values stored in an IES profile referenced
+                              by this shader. <span class="MenuCascade" id="GUID-EA0F045C-FC42-4BEE-A137-E3DC48AC0773">Intensity <img src="../images/ac.menuaro.gif"> Mode</span> and <span class="MenuCascade" id="GUID-65CC14B4-4999-466D-B41B-E0A6601AF40C">Distribution <img src="../images/ac.menuaro.gif"> Mode</span> must be set to <span class="MenuCascade" id="GUID-C444A5F7-E5DB-40E4-BAE3-5E75115F585A">IES Profile</span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFDCB412EBAB20C42B1BFA92680A813C9-000B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E364276C-3DB9-4286-8405-B6120BEF9E1E"></a></span>Units
+               </h2> <span class="anchor_wrapper"><a name="TABLE_85E0156DDF6B44D281BD839D9E13CB6D"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-54B6B1CD-55A7-44B1-8536-52E0DAD54D24"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9E799D88-0934-4F80-8891-0BB50284595A">Units to Meter Scale</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-524518D2-EC72-474C-B29C-CDF9A9603051"></a></span><p class="table-body">Physical lighting in real world units is highly scale dependent, so this parameter
+                              defines how many scene units go into one meter. For example, if one scene unit is
+                              one millimeter, this would be 1000. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F263DAE2-8A6F-4064-84DB-1AD968CD28EE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-61FE93FA-D5DD-4AC9-BF5A-AC3F3AC02C85">cd/m^2 Factor</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1161A32F-F266-4856-91A2-5A04FC10AF93"></a></span><p class="table-body">The conversion factor between pixel values and candela per square meter luminance
+                              values. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-E1433530-76B6-4321-B0AC-716C16CA2A0A"></a></span><p class="table-body">This should match the cm2_factor of the <span class="char_link"><a href="mentalray_mia_exposure_photographic.htm">mia_exposure_photographic</a></span> shader to yield a photographically correct render (in terms of intensity). 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

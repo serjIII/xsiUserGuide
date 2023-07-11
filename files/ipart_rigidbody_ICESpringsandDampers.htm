@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-367EA173-1584-436E-9344-F176C09EC205">
+      <meta name="indexterm" content="ICE rigid bodies: springs and dampers">
+      <meta name="indexterm" content="springs: ICE rigid bodies">
+      <meta name="indexterm" content="dampers: ICE rigid bodies">
+      <meta name="topic-type" content="concept">
+      <title>ICE Springs and Dampers</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-367EA173-1584-436E-9344-F176C09EC205"></a></span><div class="head">
+            <h1>ICE Springs and Dampers</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-255724CF-9EAE-4BD7-A3DC-56AD23C30BAA"></a></span>You can connect together points on an object using ICE springs and the Simulate Rigid
+               Bodies node. These springs are based on Hooke's law which states that the force a
+               spring exerts is directly proportional to how much it extends (its length). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-65674E95-F21F-476E-90A6-64035D847D7E"></a></span>You can also create dampers to reduce the spring's strength by providing a resisting
+               force to it. Dampers are actually independent of springs and can be used on their
+               own to reduce any velocity between points. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E05BDAB6-A4F1-4EE6-97BC-96A0035B6CA7"></a></span>You can create springs and/or dampers between points in point clouds, polygon meshes,
+               NURBs surfaces or curves, or lattices. This allows you to create different deformation
+               effects such as soft body simulations, or create any type of collision where you want
+               a springy reaction. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-01684B97-8B55-4BF1-AB1F-8401C81DDD69"></a></span><div class="note-note"><span class="label">NOTE:</span>Springs and dampers are not supported by the Simulate Bullet Rigid Bodies node. 
+               </div>
+            </div><span class="anchor_wrapper"><a name="FIG_86A4A49464694D16B9803AC29A1602F1"></a></span><div class="figure-anchor"><img src="../images/GUID-77442D41-487C-4BA9-A95D-7AC9B809CCEE-low.png"><p><span class="anchor_wrapper"><a name="GUID-A1FEF9E9-4ADC-44DD-A2FF-281DD8BE8597"></a></span>A character collides with a wall whose bricks are held together by springs. The springs
+                  make the bricks more cohesive, eventually snapping back together. 
+               </p>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-CA167B4D-B069-4C6F-94DA-6C902B12A35C"></a></span>ICE springs are based on these attributes that you can set per point. The data can
+               be either arrays or single values for these attributes: 
+            </p><span class="anchor_wrapper"><a name="UL_B0688D4C294845399BD67037C0687824"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0A4D2529-6936-42EA-909F-1832B85E4366"></a></span> <span class="char_link"><a href="iceref_attributes_ConnectionIndices.htm">ConnectionIndices</a></span> is the point index or array of indices with which you can create ICE spring connections.
+                     This is the master array. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9585F7C6-B24B-4195-A8F4-B61177C4B739"></a></span> <span class="char_link"><a href="iceref_attributes_SpringLengths.htm">SpringLengths</a></span> is the relaxed length (or rest length) that the ICE spring tries to return to during
+                     the simulation. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9FFC6888-E047-4EE9-93B9-50A5D37643E8"></a></span> <span class="char_link"><a href="iceref_attributes_SpringCoeffs.htm">SpringCoeffs</a></span> is the constant that determines the strength of the ICE spring (the spring constant
+                     in Hooke's law). Its value is multiplied by the difference in the spring's length
+                     from its relaxed length to determine the force exerted on each set of points. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-389B00E5-7E0B-43FF-B974-2615B62B259A"></a></span> <span class="char_link"><a href="iceref_attributes_DamperCoeffs.htm">DamperCoeffs</a></span> is an opposing force which reduces the velocity between points (such as the velocity
+                     coming from springs). It basically tries to prevent two points moving relatively from
+                     one another. You can use dampers independently from springs, but you may want to combine
+                     them with springs to help stabilize some simulations. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D0E76612-2506-4EB0-AF97-71A4102C8106"></a></span> <span class="char_link"><a href="iceref_attributes_ConnectionMute.htm">ConnectionMute</a></span> mutes the effect of the springs and/or dampers. 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-002F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BC62F583-A51D-464F-8B45-D0D834D38220"></a></span>Basic Workflow for ICE Springs and Dampers
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-AB2C1ED2-F77F-4783-BD9E-2D31E8BB118C"></a></span>Here's a possible workflow that you can follow to use ICE springs and dampers using
+                  a simple object to show you the basics. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-11A5D9BE-36E1-45AA-B946-F641FB473C76"></a></span>This is the minimum amount of data required for creating springs and/or dampers: 
+               </p> <span class="anchor_wrapper"><a name="UL_93C7434CC9794AA8831B7CF78CA0DCD5"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-913C4B9F-4670-4EB7-A27E-2DFE1E2F0A51"></a></span>On the object on which you want to create springs, create a simulated ICE tree that
+                        includes the Simulate Rigid Bodies node, forces, and optionally, obstacles. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2C77B8A9-C405-4C1D-AB8C-949FA7B79A26"></a></span>Set the object's mass in either a simulated or unsimulated ICE tree. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B1177D6C-EFF4-4399-89A4-E879E4E80678"></a></span>To create a spring, you must have at least one connection defined for the ConnectionIndices
+                        attribute, one length defined for the SpringLengths attribute, and the SpringCoeffs
+                        value set to a non-zero value. These attributes are often defined in an unsimulated
+                        ICE tree. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3564B2A5-ECE8-4CA0-AF55-93B94AA9F2AF"></a></span>To create a damper, you must have at least one connection defined for the ConnectionIndices
+                        attribute and the DamperCoeffs value set to a non-zero value. These attributes are
+                        often defined in an unsimulated ICE tree. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0030"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1C613450-1E55-4214-A458-7A634EC9A351"></a></span>Setting Up ICE Springs and Dampers
+                  </h3> <span class="anchor_wrapper"><a name="GUID-ABDE22DD-73A5-49DB-99FA-4828EB1EA02A"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-10723FB4-05FD-4F0F-B5C6-28EC69607B8B"></a></span>Create a rigid body particle emission — see <span class="char_link"><a href="ICE_rigidbody_MakingICEParticlesintoRigidBodies.htm">Creating an ICE Rigid Body Particle Emission</a></span>, but using the Simulate Rigid Bodies node. Make sure that it includes forces and,
+                           optionally, obstacles. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1A309678-0553-497C-B464-E295F3785E14"></a></span>Set the object or particle's Mass attribute to a value above 0. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-68B3F17E-925C-454D-84A1-0242DB879ECA"></a></span>This can be set in a simulated tree if you need it to be updated every frame, or in
+                           an unsimulated ICE tree if you want the value to stay the same. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6141F937-D0E0-4A7F-B2D7-5C7214AF101B"></a></span>If you're creating particles via an Emit compound, the particles have a Mass of 1
+                           by default. If you're creating particles in another way or using another type of object,
+                           you'll need to set this separately, such as in a Set Data node. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_5146E4A9D11F49C2B0F8CCE4C9BE4093"></a></span><div class="figure-anchor"><img src="../images/GUID-7FB8E655-3A1C-4FDE-ADD4-0D43D138DA2B-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CE3E33BB-5A80-43E1-9765-74CE52DBF99A"></a></span>On the same point cloud or object, create an unsimulated ICE tree in which you can
+                           define the springs and/or dampers on the geometry. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_668C6733B22240A281C73E0080F106EB"></a></span><div class="figure-anchor"><img src="../images/GUID-87F09443-01F4-437A-A1B1-9CB3EB975068-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-30B31B8A-049B-4AF3-A653-F1417D39C8CE"></a></span>It's preferable to have this tree unsimulated because you don't typically want the
+                           spring and/or damper attribute values to change as they do in a simulation (they don't
+                           need to be reset every frame). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-587FA40F-02AC-4AD7-A850-5BDCBA1A3313"></a></span>However, you may want to define the spring and/or damper attributes in a simulated
+                           tree if their values need the data from the previous frame for their calculations.
+                           For example, you may want the SpringCoeffs value to change over time to vary the spring
+                           strength. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E5868430-D2FC-472E-9FBB-C911306707DE"></a></span>Get a <span class="char_link"><a href="iceref_Set_Particle_RBD.htm">Set Particle RBD</a></span> compound and specify the Springs and Dampers options there: Connection Indices, Spring
+                           Lengths, Spring Coeffs, and optionally, Damper Coeffs. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E862F3CD-B963-4070-AE9D-E58D1730FCD3"></a></span>You can also set these in a separate Set Data node, if you like. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_78D0DEE42AC947AAA3E16BF8F918E004"></a></span><div class="figure-anchor"><img src="../images/GUID-3CD7154B-E416-4E23-947C-DB94E3D36C6A-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-40CA25C5-82DD-4519-B39D-8AD64962EE30"></a></span>If you want to set Damper Coeffs independently from the springs, you need to also
+                           specify the ConnectionIndices attribute with it. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E5D3A473-FC2F-450A-900D-B1FB1705CF0E"></a></span>Get the connection data for the object's points that you want to have connected by
+                           springs and plug it into the <span class="MenuCascade" id="GUID-1FD40058-B598-4C03-9820-EFC40AF49EA4">Connection Indices</span> port. The data can be either arrays or single values for this attribute. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8498687D-1B37-404F-8531-96BAB781AD2E"></a></span>There are different ways in which you can do this, depending on the complexity of
+                           the object and the type of spring connections you want to make. Here are three possibilities:
+                           
+                        </p> <span class="anchor_wrapper"><a name="UL_F2F316CD82C74B278A468C2D7AB628B2"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-5547D573-EFE5-44C2-A2D1-5F5F4757304F"></a></span>For a simple object, you could use the Build Array from Per Point Data compound that
+                                 connects all points on an object. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8FCA82A7-7D54-4761-B092-DE4C39499541"></a></span>For a more complex object, use a Get Data node and specify the Self.PointNeighbors
+                                 attribute to get adjoining points. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-5475C800-3A70-478F-94EA-C393438AE6D0"></a></span>For a point cloud, you could use the Get Neighboring Particles compound, then filter
+                                 the points affected. This gives you multiple points in your index array to which you
+                                 can attach the springs, but they are filtered by the distance or number of points
+                                 that you specify in the Get Neighboring Particles compound. 
+                              </p> 
+                           </li>
+                        </ul> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C7B48335-4A10-4D24-B864-E0BBB81AF7E6"></a></span>See the tree below for an example of this. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-32D18EE1-BF90-40F6-9B10-A7F374341274"></a></span>Set the spring's relaxed length to any value you want and plug that into the <span class="MenuCascade" id="GUID-EBD4F6FD-2709-4FB4-B8E9-0AEB18FB0A4E">Spring Lengths</span> port. The data can be either arrays or single values for this attribute. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A2089907-8FCC-4447-9158-026DD252AD1C"></a></span>For example, the following tree shows how to set the spring length to the current
+                           distance between neighboring points in an object. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_763471523C76449AA94D61232F0D3792"></a></span><div class="figure-anchor"><img src="../images/GUID-9BD6FEC3-5350-42D0-B6DA-54D6518996FC-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CA4170B1-D0C4-4F0E-9AF0-AA2CCBD92E34"></a></span>Set the spring strength and plug this value into the <span class="MenuCascade" id="GUID-7BF0F237-8EF3-4AE7-9584-61DFCEB51AF2">Spring Coeffs</span> port. The data can be either arrays or single values for this attribute. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-39F21ABF-5EA4-4105-A314-63AE8C100BD6"></a></span>In this case, a simple Scalar node is used to define the spring coefficient's strength.
+                           
+                        </p> <span class="anchor_wrapper"><a name="FIG_D29F6006FB39487A990EA212974732F8"></a></span><div class="figure-anchor"><img src="../images/GUID-57881438-4E3C-4563-BA4E-87AE42BC0785-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-62FD1EEF-3228-49B6-BF6E-AD72B0EF7158"></a></span>If you specified the <span class="MenuCascade" id="GUID-96BAACB3-B09F-42E9-B3F4-38925A411FF1">Damper Coeffs</span> attribute, set the damper strength and plug this value into the DamperCoeffs port.
+                           The data can be either arrays or single values for this attribute. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-22E0D24B-44BD-44C7-AFA0-9D8EAB571013"></a></span>In this case, a simple Scalar node is used to define the damper coefficient's strength.
+                           It needs to be set to a value lower than the SpringCoeffs value. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-08C91B56-719F-4A16-A578-F4682236AA1A"></a></span>Dampers are not necessary for springs, but they may help make some simulations more
+                           stable. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_75B1FCF8FEB4436B81DA405FDD67CA8B"></a></span><div class="figure-anchor"><img src="../images/GUID-9B7D5C0E-520A-4D16-A208-289569415D64-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2F8CC11C-4564-4ECC-AECA-717F296DD683"></a></span>You can also select the <span class="MenuCascade" id="GUID-10760BAC-0E0F-4A95-9262-1622FC257813">Connection Mute</span> option in the Set Particle RBD compound to mute the connections per spring. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D8DBA135-449F-47E6-8899-AE404E8A0C2B"></a></span>If you like, you can hook this up into an If node or State setup to control its activation
+                           based on different conditions. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

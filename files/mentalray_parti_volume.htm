@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-75EEC8C7-A79A-4AAC-AAA6-B9C7FA6ABF3C">
+      <meta name="topic-type" content="concept">
+      <title>parti_volume</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-75EEC8C7-A79A-4AAC-AAA6-B9C7FA6ABF3C"></a></span><div class="head">
+            <h1>parti_volume</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-9493D39D-20C5-4D1D-A6F6-7AC2491253B7"></a></span> <em class="strong">Category</em>: mental ray &gt; Volume 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2DFE399A-B3C8-44CD-834C-B47CD2879DB2"></a></span> <em class="strong">Shader Family</em>: Volume 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-610833D8-4620-48ED-9FFF-5FA5143F885F"></a></span> <em class="strong">Output</em>: Color 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B523A80C-AC8F-4A9B-946A-C1BAF22CEFC5"></a></span>Fog, clouds, silty water, and similar media scatter some of the light that travels
+               through it,and therefore, these media are said to participate in the light transport.
+               A volume shader is needed to simulate participating media. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B4C6D0B2-95BC-4095-B767-7E6F5C0475AB"></a></span>The parti_volume shader can simulate homogeneous (uniform density) and non-homogeneous
+               participating media with isotropic (diffuse) or anisotropic scattering. parti_volume
+               and <span class="char_link"><a href="mentalray_parti_volume_photon.htm">parti_volume_photon</a></span> use a two-lobed scattering model, which means that light scatters both forward and
+               back in the incoming light direction. This scattering model is invented by Ch. Schlick
+               and can model real scattering from dust, mist, rain-drops, etc. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-18068F75-0373-4A34-BA6E-B9D247E01D02"></a></span>Any medium (other than a vacuum) is assumed to contain suspended particles which scatter
+               light traveling through it. Scattering plays an important role in the shading of volumes,
+               and it is the size of the particles in relation to the wavelength of light which determines
+               the type of scattering. If the particle radii are much smaller than the wavelength
+               of light, there is no discernible scattering and the light is absorbed. Particles
+               only slightly smaller than the wavelength of light produce what is known as <span class="MenuCascade" id="GUID-D8F54BE8-DCAA-4CF2-AC89-5E6AF5637646">Rayleigh</span> scattering (cigarette smoke and dust). Particles roughly the same size as the wavelength
+               of light give rise to Mie scattering (water droplets or fog). The Mie model can account
+               for both sparse and dense particle densities, referred to as Hazy Mie and Murky Mie
+               respectively. When the particle size is much larger than the wavelength of light,
+               geometric optics comes into effect (normal solid surfaces). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-894F97EC-86C3-420B-A60F-781D2D3C22C1"></a></span>Glassner suggests the following values: 
+            </p><span class="anchor_wrapper"><a name="TABLE_10F505E90AED420EB1E3C33C8BB65BD7"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledHeading">
+                     <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-731D76B9-42AF-48A5-96F9-6A9A98AD7C0B"></a></span><p class="table-heading">Function </p> 
+                     </th>
+                     <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-C4D55C8E-E93E-4068-A016-5F075A2954D8"></a></span><p class="table-heading">r </p> 
+                     </th>
+                     <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-B74E5A16-1E65-4679-BE9B-52A1E6BE3F88"></a></span><p class="table-heading">g<sup>1</sup> 
+                        </p> 
+                     </th>
+                     <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-9A5DB00A-8257-4FBE-9BF9-A2F158E4E38E"></a></span><p class="table-heading">g<sup>2</sup> 
+                        </p> 
+                     </th>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BBD4EB60-A8D7-4D37-BAEC-C5DB0A266D2D"></a></span><p class="table-body">Rayleigh Murky </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8F7E38EF-F8FF-4D01-8B8B-75CD4A03A9D6"></a></span><p class="table-body">0.50 </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FE5CAF05-3859-4A7F-9677-FDD9B15F79EC"></a></span><p class="table-body">-0.46 </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5D130772-A715-4DF9-9E62-AEEB0AE509B7"></a></span><p class="table-body">0.46 </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-255289D4-B059-4B02-BFD8-1751A2390F9A"></a></span><p class="table-body">Hazy Mie </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-382ED911-8359-4E7E-8306-DDC213E2CEE3"></a></span><p class="table-body">0.12 </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2B90581F-2D5E-4FB0-877B-7FC67D092E95"></a></span><p class="table-body">-0.50 </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-86CDA97F-62C0-4694-BED8-A117D7C0C667"></a></span><p class="table-body">0.70 </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-31F8DECA-0FC9-4642-B6F6-88719664B33B"></a></span><p class="table-body">Mie </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-442B9360-0000-41D5-AC97-C601F9BAFF10"></a></span><p class="table-body">0.19 </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FA3B0C89-F088-4DC9-A35E-98E8DCB4EB74"></a></span><p class="table-body">-0.65 </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-292EF468-1041-4EE7-BF52-AA13AD3B123E"></a></span><p class="table-body">0.91 </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div><span class="anchor_wrapper"><a name="TABLE_EADEC758DE8B4D9CB264B4123C42F8CC"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B82D1726-D4EC-46F5-96E6-93940417AE07"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FA9CC86A-E988-4D86-8870-0588169F4620">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-23B57AC9-BB3F-4427-BC09-00467F67D4A8"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1F595283-6898-4CD3-93DB-527AAA23E640"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ECA373B1-64F8-44F3-B74A-6D317942870E">mode</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-14A63243-B8A2-4F37-9128-DC9BD4EF0A84"></a></span><p class="table-body">When mode is set to 0 (zero), the participating medium fills the entire volume. </p> <span class="anchor_wrapper"><a name="GUID-E95ECA4E-2666-4406-BC9E-2DDB17026CBB"></a></span><p class="table-body">When mode is set to 1, there is only participation medium below the given <span class="MenuCascade" id="GUID-0638B0DF-602E-4F5E-9BD2-F60CB14C2515">height</span>, and there is clear air or vacuum above. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CFCB8EFF-5B2D-4844-9ACB-3E081A0C5DE4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7791B1A6-C5A5-4FDD-AF7E-B3C9E8B0A275">scatter</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-31967A61-34D7-4745-BFF9-88C9F78A9DB4"></a></span><p class="table-body">The color of the scattering medium. This determines the color of the direct and indirect
+                           light that is scattered by the medium. It also acts as a multiplier of the photon
+                           energy for the photons in the photon volume map. Its dependency with the <span class="MenuCascade" id="GUID-5CAFD58C-E27F-4C9E-92EE-6EC3FEF2D7CD">extinction</span> coefficient is inverse. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8F141FCC-4BB1-425A-A516-EE90549B3B06"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D801B0F7-215E-45D1-B7A4-E7D02FA51872">extinction</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B4C7F586-D583-4767-9458-34BEBE6F399B"></a></span><p class="table-body">The extinction coefficient of the medium. It determines how much light is absorbed
+                           or scattered in the medium. 0 (zero) means clear air or a vacuum. The higher the coefficient,
+                           the denser the medium (and the more photon scattering). Note that a high extinction
+                           coefficient doesn't allow photons to enter deep into the volume, as they are already
+                           scattered after a short distance. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B27AD730-F076-4358-8187-A90B3CC40FE7"></a></span><p class="table-body"> <em class="strong">r g<sup>1</sup> g<sup>2</sup></em> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6BE972AD-ACB3-4624-BE56-8523203CD4B1"></a></span><p class="table-body">Controls for scattering. </p> <span class="anchor_wrapper"><a name="GUID-ED6CA2CB-940F-4435-9D2E-ED1EC0575E29"></a></span><p class="table-body">If both g1 and g2 are zero (the default), isotropic scattering is modeled, and all
+                           scattering directions have equal probability. This is sometimes also called diffuse
+                           scattering. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-369CEDED-473F-49FA-BE80-05FF17E28A63"></a></span><p class="table-body">Anisotropic reflection is modeled by a two-lobed scattering model. Each lobe can be:
+                           
+                        </p> <span class="anchor_wrapper"><a name="UL_A79BA6734F8B435CA91EC329573F9DB4"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-469E3361-81C4-458E-8D5B-FE10DB842E6D"></a></span>backscattering ( -1 &lt; g &lt; 0) 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-5E1CADF9-FF5F-4B9E-BD54-2789B72AE0A4"></a></span>diffuse/isotropic (g = 0) 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-68F7CE2C-5E08-4B18-B504-7D99BFC9F0A3"></a></span>forward scattering ( 0 &lt; g &lt; 1) 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-6BE7CDB1-AE82-41E9-B8E5-68FC597CF890"></a></span>The first lobe is weighted by r and the second lobe by 1 - r. 
+                              </p> 
+                              <div class="figure-anchor"><img src="../images/GUID-A2A1F6C6-AC96-467D-9DD0-30B955804BD5-low.png"></div> 
+                           </li>
+                        </ul> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-166FEC58-CF2F-4E0E-94C0-2863DDBFC4C1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FD11C397-A586-4B5F-B2F4-694C56C383E3">nonuniform</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F478C1CA-CB09-4AFD-B5E2-8E8304A44DF5"></a></span><p class="table-body">Determines if the medium is homogeneous (uniform density) or non-homogeneous (cloud-like
+                           density variation). Specify a number between 0 and 1. 
+                        </p> <span class="anchor_wrapper"><a name="UL_28895BBAF56249B1857697A83A8F7F6C"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-648C0739-1858-46AC-B725-66FE571B02BD"></a></span>A value of 0 (zero) makes the medium completely homogeneous and depends only on the
+                                 <span class="MenuCascade" id="GUID-7C8C0E7F-F0C6-492D-A1D2-0202D2C851EE">extinction</span> parameter. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B0521F9D-450D-48F7-B3EA-18E4A060F2F4"></a></span>A value of 1 creates a cloud-like Blinn density variation. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CB424F46-9C27-4942-B192-E31294338E38"></a></span>Values between 0 and 1 give a mix between the two extremes. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E274724A-EE8C-4F2C-8B7B-3AF39F0EDFA2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-198B5156-0CF9-4FBA-9B6C-33BAA56DBD17">height</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-339D2F38-5472-420C-86B8-ADD49EB1E59E"></a></span><p class="table-body">When the <span class="MenuCascade" id="GUID-CB2E9E93-87AD-40DE-9D4A-A9872D3AA49A">mode</span> iparameter s set to 1, this option determines the height above which there is clear
+                           air or vacuum. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6D4A5FE7-C7A0-475E-A941-4D03A7AF86A7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8BF1E927-8B5D-4C7D-AA24-1B027B84EE3B">min_step_len</span> 
+                        </p> <span class="anchor_wrapper"><a name="GUID-30D429A0-43A9-4DDD-9B5C-BE32A42C1FC7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3557394B-36A5-4939-85F7-4395692E9580">max_step_len</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C3E3D73E-D407-48AA-A549-59D9180DEB0E"></a></span><p class="table-body">Determines the step length for ray marching. Usually keep the minimum value at 10
+                           percent of the maximum value. The smaller the maximum is, the more accurately, though
+                           slowly, the volume steps will be sampled for visibility. The same parameter is used
+                           in <span class="char_link"><a href="mentalray_parti_volume_photon.htm">parti_volume_photon</a></span> for volume photon lookup. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-44B830F8-A253-4959-AF95-451415369C55"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B48A95DB-3999-4CB0-A90F-DE8497A6453C">light_dist</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DDE67D4F-0C01-403F-860B-CA724FD5E20D"></a></span><p class="table-body">Optimizes the sampling of area light sources. It is used if the area light source
+                           has the optional lower sampling. For example: 
+                        </p> <span class="anchor_wrapper"><a name="GUID-4033A0A5-0C14-4198-A36B-56876EC082B9"></a></span><p class="table-body"> rectangle 0.5 0.0 0.0 0.0 0.0 0.5 10 10 3 2 2 </p> <span class="anchor_wrapper"><a name="GUID-404CAB75-F404-49E7-861B-45DB148FBE2B"></a></span><p class="table-body">For efficiency, parti_volume always uses the lower number of samples (in this case
+                           2 2). This is usually sufficient since the direct illumination is computed at many
+                           points along each ray during ray marching. However, the higher number of samples (in
+                           this case 10 10) should be used near an area light source. The light_dist parameter
+                           determines how far away from a light source the higher number of samples have to be
+                           used. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F44614CC-0FF4-4FE0-A358-D8E5416B58F5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9F6CF3DA-AACA-4579-94D2-2FAB5F0F4FD6">min_level</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-787FCB9F-4224-407B-9513-E307FE36097F"></a></span><p class="table-body">This parameter is ignored (it is used by the corresponding <span class="char_link"><a href="mentalray_parti_volume_photon.htm">parti_volume_photon</a></span> shader). 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-150CFBE7-6165-4515-97F4-EAFBBC2AAC48"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A0CF0559-990A-4AA6-95C5-5E4ED194DB65">no_globil_where_direct</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2E1BD92E-D08A-46AC-AB64-F681821A030E"></a></span><p class="table-body">Tells the shader not to calculate global illumination in the volume effect but just
+                           the direct illumination. This is for optimization if such contribution is not required.
+                           
+                        </p> <span class="anchor_wrapper"><a name="GUID-DB0068B3-A897-4CE1-9ACF-2AC111EDD696"></a></span><p class="table-body">When set to 1 (on) the parameters relative to the directionality of the scattering
+                           effect, r, g1, and g2 are not taken into account for the indirect illumination, they
+                           are however evaluated for direct illumination. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6ECC9A1EC21E3C46A322E717D3D72648-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1A3F95C9-89D1-4707-935F-2B6421418BBE"></a></span>Lights
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-47EECD89-3FA0-4845-BB75-090EE57A80AE"></a></span>Creates a light list to specifiy which lights should produce the effect. For more
+                  information, see <span class="char_link"><a href="dir_lights_UsingLightLists.htm">Using Light Lists</a></span> [<span class="char_link"><a href="dir_lights_cover.htm">Direct Illumination</a></span>]. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

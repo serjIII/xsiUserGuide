@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-DE0F8773-892C-4F05-934B-1FB97F014EA7">
+      <meta name="topic-type" content="concept">
+      <title>Retargeting Animation from Rig to Rig</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-DE0F8773-892C-4F05-934B-1FB97F014EA7"></a></span><div class="head">
+            <h1>Retargeting Animation from Rig to Rig</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-835DCB00-6601-44D8-9E03-1B0E1177D5CB"></a></span>When you retarget animation between rigs, the retargeting operator figures out which
+               rig elements match based on their tags. Then it maps and generates the animation that
+               is transferred to the target rig. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0ECC9EAA-8B94-451F-8A7B-24659AFFD14B"></a></span>While you can retarget any type of animation between characters, it is especially
+               useful for reusing motion capture data to animate many different characters with the
+               same movements, such as you would for a game. For example, you can reuse a basic run
+               mocap file for many characters and then adjust the animation for each one as you like
+               by adding offsets in different animation layers. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A0A5E017-6053-4851-A659-9970F82DD18E"></a></span>You normally retarget with the source rig being animated, but you can also retarget
+               without the source being animated, such as for mocap rigs that have animated parameters
+               with flat fcurves. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-084DD090-ED23-43AD-BF99-AE304DDC0D9A"></a></span>The animation between the two rigs is a live link that allows for interaction; for
+               example, you can adjust the animation on the source rig, and those adjustments are
+               transferred immediately to the target rig. If you want to save the animation on the
+               target rig, you must plot (bake) it. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF771846490AA034681026F9546B3894A-0022"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3AFCD9F8-D1E3-4640-B679-29B83DE8DBD4"></a></span>Tips for Retargeting
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8A1367B5-2FF0-4E85-894A-EE9FC3C64F96"></a></span>Before you map the animation, there are several things you need to do to make sure
+                  that the process goes smoothly: 
+               </p> <span class="anchor_wrapper"><a name="UL_34276C3E115D475C8078FC67F80AF497"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-35565F7C-F63F-4A35-A251-78EF8C3A43A4"></a></span>Characters need to be of the same basic structure, such as both bipedal or both quadrupedal.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-346F6351-D20E-4DC4-9EA6-18B4CFC754FF"></a></span>Make sure that the source and target skeletons/rigs are within models. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6AEF0242-31F0-48F6-A454-EDAFBA56078D"></a></span>The rigs with which you want to share animation need to be tagged. If the rigs are
+                        not tagged, you will need to tag the rig first or load a saved tag template file for
+                        the rig (see <span class="char_link"><a href="mocap_TaggingaRigxd5sElements.htm#WSF771846490AA034681026F9546B3894A-000E">Loading an Existing Tag Template</a></span>). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-019A2036-5740-4663-A344-68431FE3C5AC"></a></span>Having similarly tagged rig elements between the source and target rigs makes it easier
+                        for the retargeting operator to produce more favorable mapping results. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-ACD1550A-AFC4-4207-ABED-6F2977AA68D3"></a></span>If the source rig has several action sources saved for it, make sure that the one
+                        you want to copy is currently applied. Only the current animation is transferred to
+                        the target rig. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-A069D723-8439-411A-8694-552A432AA561-low.png"></div> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF771846490AA034681026F9546B3894A-0024"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0BC09A6B-6157-4377-8D9C-9AE1DAFEE396"></a></span>To retarget animation between rigs
+                  </h3> <span class="anchor_wrapper"><a name="GUID-194461C5-754E-4ACD-8D0D-44FAF9205170"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-52B4CEF0-E7ED-4DC8-99C8-785E87A7E418"></a></span>Make sure that both source and target rigs have been tagged — see <span class="char_link"><a href="mocap_TaggingaRigxd5sElements.htm">Tagging a Rig's Elements</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F53CC1DF-9F27-414F-8851-77606BAE6E21"></a></span>Select any element on the <span class="MenuCascade" id="GUID-0EBCCAD1-6FD0-4F5F-948C-98759A5F46D2">source</span> rig (the rig whose animation you want to retarget), then press Ctrl while you select
+                           any element on the <span class="MenuCascade" id="GUID-DAC036E0-DD0B-4591-BB89-469743D5C9F8">target</span> rig (the one to which you want to retarget the animation). 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-1F520F55-4812-4B94-A50B-A008DA68CA4B"></a></span><div class="note-note"><span class="label">NOTE:</span>You must select the source and target rigs in this order for Softimage to know in
+                              which "direction" to transfer the animation. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DB35AD85-3F46-4713-840E-672B2E63A00D"></a></span>Choose <span class="MenuCascade" id="GUID-6F363DD5-051C-448D-9ABA-E65B95EBFDF1">Tools <img src="../images/ac.menuaro.gif"> MOTOR <img src="../images/ac.menuaro.gif"> Rig</span> to Rig from the Animate toolbar to open the Rig to Rig property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C61F0E27-52B2-4F66-A393-64C799D87286"></a></span>In this property editor, you can check that the source and target rigs are correct.
+                           If not, you can click the <span class="MenuCascade" id="GUID-26BF6A7D-2669-4713-BB69-5253A4F748F2">Pick</span> button on this page, then pick the correct source or target rig. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C5F4FFDD-94C5-4E2B-9B83-CF2087B33EE2"></a></span>Softimage searches for the tag properties on the target and source rigs when you choose
+                           this command. If the rigs are not already tagged, a message appears stating that you
+                           will need to tag the rigs or load a tag template file for each rig before you can
+                           retarget animation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-35BEC3DC-17A4-4423-846F-FF9730E0461D"></a></span>Click the <span class="MenuCascade" id="GUID-91D6C815-EDF8-49F2-991B-F4481D5C9F19">Apply</span> button in this property editor to retarget the animation from the source to the target
+                           rig. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AB468DE3-ACE5-429C-921A-B98972EDE111"></a></span>The retargeting operator generates the animation so that it's "live" on the target
+                           rig. (You can find the retargeting operator under each tagged rig element's <span class="MenuCascade" id="GUID-F2B2EE56-DE06-491C-ADF8-0706CF68075A">Kinematics <img src="../images/ac.menuaro.gif"> Local Transform</span> node.) 
+                        </p> <span class="anchor_wrapper"><a name="UL_C6958C1AF7F046D189D6B9683AF4015A"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D8C3B125-B3B1-40F1-BBF6-0FBDEECA00A5"></a></span>If you like, you can select the target rig and click the <span class="MenuCascade" id="GUID-5821EB43-A8BC-4EB6-B072-88C3BADEF67E">Adjust</span> button to make adjustments to the retargeted animation, such as offsetting its position
+                                 from the source rig's — see <span class="char_link"><a href="mocap_AdjustingtheRetargetedMocapData.htm">Adjusting the Retargeted Animation on a Rig</a></span> for more information. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-729221EF-D0E7-4DEA-B939-E0B5B8CDABF8"></a></span>To remove the retargeted animation from the target rig, select it and click the <span class="MenuCascade" id="GUID-1A0C67D9-55C8-432B-99EB-C7189221C1EE">Remove</span> button. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2F0F505D-0B95-44BF-B251-11DEA6A92B0D"></a></span>To convert the retargeted animation to fcurves, select the target rig and click the
+                                 <span class="MenuCascade" id="GUID-493B071D-CA3E-4E31-BD33-102672F87314">Plot</span> button to plot the animation — see <span class="char_link"><a href="mocap_PlottingRetargetedAnimationontheRig.htm">Plotting Retargeted Animation on the Rig</a></span> for information. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

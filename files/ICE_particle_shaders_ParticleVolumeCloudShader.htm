@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-A7762CDF-9453-4FB7-84C9-78D164D602CE">
+      <meta name="indexterm" content="ICE particle shaders: Particle Volume Cloud">
+      <meta name="indexterm" content="Particle Volume Cloud shader (ICE)">
+      <meta name="indexterm" content="volume shading: ICE particles">
+      <meta name="topic-type" content="concept">
+      <title>Particle Volume Cloud Shader</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-A7762CDF-9453-4FB7-84C9-78D164D602CE"></a></span><div class="head">
+            <h1>Particle Volume Cloud Shader</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-CEA2D30B-E473-45C0-B0B6-529800DEE996"></a></span>The Particle Volume Cloud shader renders the point cloud's bounding box as a volume.
+               Unlike rendering solid objects with well-defined boundaries, volumetric shading determines
+               how light passes through an object, not just how it bounces off the object. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E8425868-1482-4444-8D15-8A9A4C334009"></a></span>You can replace each particle's geometry in a point cloud with a volume to create
+               effects such as smoke, fog, or fire. Each particle's volume melds seamlessly with
+               those of its neighbors to create an effect that can look like the real thing. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C2B986E8-5F12-4ABF-AC84-5B16A5A1EFA0"></a></span>Rendering volumes and raytraced shadows can be time-consuming, so the Particle Volume
+               Cloud shader uses a lookup table to store the shadows and other volume data of adjacent
+               voxel, which are points in 3D space. You can define the voxel size by setting the
+               cell size in the shader's lookup table. Smaller cell sizes create a better look and
+               nice shadows, but more memory is required; larger cell size is faster, but gives little
+               interpolation, so the look is not as good or detailed. 
+            </p><span class="anchor_wrapper"><a name="FIG_ECC99639DAE5451AB853950F7069A5AF"></a></span><div class="figure-anchor"><img src="../images/GUID-4FFEAEEC-FF4E-4A00-8D63-EEC1090726EB-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-22FA5A03-FF8F-422C-BEB2-75F3F2704E58"></a></span>Shader Compounds
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0A22D1C8-99E6-4270-B62D-0563F31F2DBD"></a></span>Because the Particle Volume Cloud shader has many options to set, you can start out
+                  with the Particle Renderer or Particle Shaper shader compound to render a volume quickly.
+                  Both of these compounds contain the Particle Volume Cloud shader, the Particle Density
+                  shader, plus some other shaders to help you set up for basic volume effects. Parameters
+                  values have been set up for you, and fewer parameters of these shaders are exposed
+                  so they're simpler to use. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-16E412D6-556B-4199-B01B-6BB4F7C80BD0"></a></span>See <span class="char_link"><a href="ICE_particle_shaders_ICEParticleShaderCompounds.htm">ICE Particle Shader Compounds</a></span> for more information on shader compounds. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C3027F4B-B53B-42C4-80A6-FBAC480DD65F"></a></span>Connecting the Particle Volume Cloud shader
+               </h2> <span class="anchor_wrapper"><a name="GUID-75ED91D8-4449-43E6-B1E4-D605BDF1F29D"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-044B98A4-D7CF-4CDA-B2A9-A8949615B7FB"></a></span>Select a point cloud. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CB474FF2-3AA9-40A1-9BDA-69D13C68FCAC"></a></span>Open a render tree in a viewport or press <span class="MenuCascade" id="GUID-FE694E23-FED6-4DA5-9F99-B598CD2E2A35">7</span> to open one in a floating window. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3E3182B2-6125-4BA0-B024-C74B6803C935"></a></span>Click the Update icon or press F6 to display the render tree for the selected point
+                        cloud. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-6AB21B08-904D-48CF-A01E-9036BE0A2EDB-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E0227D33-327B-4A4F-A830-27B792A0BF27"></a></span>In the render tree, drag the <span class="MenuCascade" id="GUID-70F2737C-6BF2-4444-B403-21755273BE75">Particle Volume Cloud</span> shader from the Particles group in the preset manager on the left, or choose the
+                        <span class="MenuCascade" id="GUID-E1A8126D-9957-4EE5-A82A-97EE737E6687">Nodes <img src="../images/ac.menuaro.gif"> Particles <img src="../images/ac.menuaro.gif"> Particle Volume Cloud</span> shader from the toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4CF1390B-46CC-401A-B4FF-9BAFFBDE7BF1"></a></span>Plug the Volume output from this shader into the Volume port of the point cloud's
+                        Material node. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C15C54C0-1031-4D45-B0DC-90E5D0F5DF54"></a></span>Because you're only rendering the volume of the particle, you don't need the Surface,
+                        Shadow, or Photon ports defined by a surface shader (such as Phong, Lambert, etc.).
+                        
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-B5219D5B-8025-411B-83C5-75B34044EA30-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2E4772D9-6D52-4E29-82F9-487D39D16EBA"></a></span>Plug the Particle Density shader into the Density port of the Particle Volume Cloud
+                        shader. This shader defines each particle within the volume so that the point cloud
+                        doesn't look like a single volumetric mass. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2D588425-DF48-4A89-B65E-C17E143C29B6"></a></span>You can then plug the Fractal Scalar and/or Cell Scalar shaders into the Particle
+                        Density shader to add noise to the density. For more realistic or complicated smoke
+                        effects, you may want to use two Fractal Scalar shaders. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-535BFFAB-8AAA-4FA0-A3BC-8F1F200446FC"></a></span>Finally, you can plug the Particle Gradient shader into the Particle Density shader
+                        to use a gradient on the particle color and/or density. 
+                     </p> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-F1FA01A5-11B0-46F7-81F6-E516EB59B06F"></a></span>For details on each parameter in the Particle Volume Cloud property editor, as well
+                  as a general workflow overview, see <span class="char_link"><a href="particles_shaders_ParticleVolumeICE.htm">Particle Volume Cloud</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="FIG_B72597F7D196496F8DED6D3D8B54E6B9"></a></span><div class="figure-anchor"><img src="../images/GUID-E1597A3E-A5E7-482C-86BE-C37ADBC10799-low.png"></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

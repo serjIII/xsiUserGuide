@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F8806F7B-AFFE-4632-A9DD-531769A81ABE">
+      <meta name="indexterm" content="rendering: large meshes and scenes">
+      <meta name="indexterm" content="meshes: splitting during rendering">
+      <meta name="indexterm" content="render options: large mesh splitting factor">
+      <meta name="indexterm" content="render options: split factor">
+      <meta name="indexterm" content="rendering: mesh splitting factor">
+      <meta name="indexterm" content="mesh splitting factor: about">
+      <meta name="indexterm" content="splitting factor">
+      <meta name="topic-type" content="concept">
+      <title>Mesh Splitting</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F8806F7B-AFFE-4632-A9DD-531769A81ABE"></a></span><div class="head">
+            <h1>Mesh Splitting</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-93B894B8-8807-4F18-B5A5-A079AAAD0F3F"></a></span> <span class="MenuCascade" id="GUID-08A1E2C0-A626-4DF4-8FAA-83EBC6B206D4">Location:</span> 
+            </p><span class="anchor_wrapper"><a name="UL_C45E9E81F63D419AB4D7F04F64511806"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FC09ABF7-4A6C-424D-A156-F37D6918ADD6"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; mental ray (Global Renderer) 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C26AE54B-0572-4587-B4E0-4C884EDC3348"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; (expand a pass) &gt; mental ray 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C01B21D9-BFCC-41CF-8790-5DF3372F0593"></a></span>Set the current pass and choose Render &gt; Render &gt; Renderer Options from the Render
+                     toolbar. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B4EA35D8-1EBC-429C-8B1F-EFBAE5351D61"></a></span>Tab: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-004B">Render Type</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>] 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-09954408-D2DB-4919-B07E-BA78EA65BE28"></a></span>Options: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-0052">Geometry</a></span> 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-AE203A40-34E8-4B69-B61A-DA913A67F7C3"></a></span>At render time, Softimage splits large objects into many pieces, each of which can
+               be computed separately. It then sends a minimal amount of object data to the mental
+               ray renderer which, in turn, uses a system of callbacks to request only portions of
+               the object that it needs. For example, if you are rendering the head of a very large
+               character, only the head (or part of it) is created and sent to the renderer. Should
+               mental ray run out of memory, it can flush portions of the object that it no longer
+               needs and call them again later, if necessary. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-736AEC2D-0115-4D32-BC9B-E981C3583B62"></a></span>The practical upshot of this system is that, in addition to being able to free up
+               memory for the renderer as needed, Softimage seldom, if ever needs a huge chunk of
+               contiguous memory to compute a large object. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3AD8CB3118B018428EECABE18AC72826-0019"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-146CE8C2-290E-4A8C-BBDB-2126D9B9C081"></a></span>Setting the Mesh Splitting Factor
+               </h2>      
+               <p><span class="anchor_wrapper"><a name="GUID-40496099-3655-4280-A57F-F867F27C722A"></a></span>Mesh splitting is usually a transparent process, meaning that you don't have to adjust
+                  any options to make it work. However, should you find yourself running out of memory
+                  while trying to render an exceptionally demanding scene, you may be able to get it
+                  to render by changing the <span class="MenuCascade" id="GUID-4C80F2D6-963C-438F-9E04-0893DBAE9544">Mesh Splitting Factor</span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-06824FD4-32E4-44F4-8F60-47DB72402B1F"></a></span>The <span class="MenuCascade" id="GUID-0F7E362D-A66C-44AB-ACA2-28FF578E1FEC">Mesh Splitting Factor</span> affects the size (in triangles) and number of pieces that are created when the mesh
+                  is split. The default value of 1 splits a given mesh into the number of pieces that
+                  the underlying computations determine to be appropriate. Lowering the factor value
+                  to, say, 0.5 doubles the number of pieces, but halves their size. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-29DE255F-91C3-4316-A6AC-3D9F9800F7D8"></a></span>For example, let's say you have an object composed of 64000 tessellated triangles.
+                  With the splitting factor set to 1, the object might be split into four pieces of
+                  16000 triangles each. If you lower the factor to 0.5, the object is then split into
+                  eight pieces of 8000 triangles each. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AA59C364-D337-44AE-A205-C4C6624175F9"></a></span>As a rule, you should not have to adjust the splitting factor at all. However, in
+                  certain circumstances, you may have to lower it to get your scene to render properly:
+                  
+               </p> <span class="anchor_wrapper"><a name="UL_40425D6772A64CEF952405F7A41407B8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DB1FCB4B-867A-47C9-8537-9B470BA58220"></a></span>If you are dealing with extremely large objects (millions, or tens of millions of
+                        triangles) that are difficult to render, lowering the factor value allows mental ray
+                        to more easily flush unneeded pieces of the mesh, and makes it less likely that mental
+                        ray will run out of memory when rendering your scene. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6D58779E-9E77-4C1D-ABBC-6EFC848158B0"></a></span>For example, if a given tile only contains half of a split-object piece, the other
+                        half is not needed but still takes up memory. If the object is split into smaller
+                        pieces, it is more likely that the unnecessary piece can be flushed. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B565452C-0145-4775-96C6-6540883E8F88"></a></span>If scene objects have very heavy displacement, the tessellated displaced surface resulting
+                        from a split piece can be too large to fit in memory. In that case, lowering the mesh
+                        splitting factor creates more split pieces whose smaller size helps to compensate
+                        for the extra geometry added by the displacement. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-2114EB76-E7AD-4DB1-8297-A2D88048BF5A"></a></span><div class="note-note"><span class="label">NOTE:</span>Lowering the mesh splitting factor is only one of a number of optimizations that you
+                           can make to get a large and demanding scene to render. For information about other
+                           such optimizations, see <span class="char_link"><a href="renderoptions_mr_OptimizingLargeScenesforScalability.htm">Optimizing Large Scenes for Scalability</a></span>. 
+                        </div>
+                     </div> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-DF69B5F2-C3B9-41AC-A292-7879CA8C7A7E"></a></span>Advanced users may also find that raising the mesh splitting factor is useful in certain
+                  circumstances: 
+               </p> <span class="anchor_wrapper"><a name="UL_3154003FF8774DCFBFE8635E036E83F3"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D13CC8F3-D28D-4164-AB0F-F2484D310A5C"></a></span>If the mesh is being subdivided into so many pieces that the amount of memory required
+                        to manage them is slowing down a render 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B635F671-59F7-4017-9312-5AA3505FCE31"></a></span>If scene objects have very light displacement. This is because, to ensure correct
+                        displacement, each split piece of a displaced object requires additional information
+                        about the triangles on the borders that is shares with other pieces. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-313C2D48-7419-48EF-979F-D0022C6CD18B"></a></span>If the object is split into too many pieces of too small a size, this extra information
+                        can greatly increase the size of each piece, and the resulting redundant calculations
+                        can slow down rendering. Increasing the splitting factor forces Softimage to split
+                        the object into larger pieces with less redundant information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-474269BA-0930-4EA3-87E0-5F5040E9CDBB"></a></span>If you are running Softimage on a 64-bit system, larger pieces of a split object can
+                        be fit into memory. In this case, increasing the splitting factor may yield a marginal
+                        increase in render speed. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-937583A5-530A-4D12-9C8B-5DD0E1037ABE"></a></span>Although there is no easy way to find out how a given object is split, there are a
+                  couple of things you can do: 
+               </p> <span class="anchor_wrapper"><a name="UL_AFCA334F540143B0911A611D140D717F"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0324892A-56D6-4D8A-A689-5FA54CE63074"></a></span>Read through an .mi file from the scene, where you can see the number of objects into
+                        which the object is split. For more information about echoing .mi files, see <span class="char_link"><a href="renderoptions_ExportingtoMI2Files.htm">mi Archives and Stand-ins</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5CA08200-D8C1-4063-A4B1-8F48A42BCA70"></a></span>Write a custom diagnostic shader that renders each piece of the split object in a
+                        different color. For more information, see Custom Shaders [SDK Guide]. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-DE3C21C5-0350-40F0-B095-1E1C55F9FFAA">
+      <meta name="indexterm" content="hierarchies: transforming">
+      <meta name="indexterm" content="transformations: hierarchies and">
+      <meta name="indexterm" content="Child Transform Compensation">
+      <meta name="indexterm" content="Constrain - Child Transform Compensation">
+      <meta name="indexterm" content="ChldComp">
+      <meta name="indexterm" content="hierarchies: parent constraint">
+      <meta name="indexterm" content="parent constraint">
+      <meta name="indexterm" content="constraints: parent">
+      <meta name="topic-type" content="concept">
+      <title>Transformations and Hierarchies</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-DE3C21C5-0350-40F0-B095-1E1C55F9FFAA"></a></span><div class="head">
+            <h1>Transformations and Hierarchies</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-2E0A48C6-39D4-4772-A1AD-9B6CE90292CF"></a></span>Transformations are propagated down hierarchies. Each object's local position is stored
+               relative to its parent. It's as if the parent's center is the origin of the child's
+               world. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3007C96FCDD0404D93BB01988152D579-00C9"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9D0EC56F-D817-4801-AF8F-88444240D1DD"></a></span>Basics of Transforming Hierarchies
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-97FF7D59-2EA9-4D54-9683-EEB9F17DC6EA"></a></span>Objects in hierarchies behave differently when they transformed depending on certain
+                  conditions. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-693E1EF5-8B64-4EA2-86C0-28D4A8C406E2"></a></span>By default, a child object follows it parent when the parent is transformed if any
+                  of the following conditions are true: 
+               </p> <span class="anchor_wrapper"><a name="UL_E226D88C52A64A3D888E3BBCACFBFDA0"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E8370E1F-35E5-47FA-9473-0FB2A932AF28"></a></span>The object has animation on the corresponding local transformation parameters. This
+                        is because animation on the local transformations is stored relative to the parent's
+                        center — when the transform values are updated to their animated values, the child
+                        snaps into its correct place in relation to its parent. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-092E4DA4-7072-480F-80FA-47C66C75CA90"></a></span>The <span class="MenuCascade" id="GUID-6C32C1EA-EDB1-4DEE-BFEE-A1CC615AAD51">ChldComp</span> (<span class="MenuCascade" id="GUID-FD75189C-2758-4715-A48A-79D8CAF2264C">Child Transform Compensation</span>) option is off on the Constrain panel. See <span class="char_link"><a href="transforms_TransformationsandHierarchies.htm#WS3007C96FCDD0404D93BB01988152D579-00CA"> Child Transform Compensation</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C2FC9308-5372-454D-9D55-176346749E5C"></a></span>The parent is branch-selected. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-CB4C9C05-7F68-40B7-A48C-2B2C8ED38FA5"></a></span>A child does not follow the parent if all of the following conditions are true: 
+               </p> <span class="anchor_wrapper"><a name="UL_84C67A9EF0344A6AA217B587DD3688C2"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5D9B824F-7D1C-445F-A364-4BB592210E9F"></a></span>The parent is node-selected. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DA4A8E25-4F94-4087-97B5-219711A15C4F"></a></span>ChldComp is on. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-85ABDD6B-9DCD-4103-A5D7-8895CCCF5DCE"></a></span>The child does not have animation on the corresponding local transformation parameters.
+                        For example, suppose the child's local translation is animated but its rotation isn't:
+                        if you translate the parent, the child follows; however if you rotate the parent,
+                        the child stays in place. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-0811C2FB-2A57-4332-95B0-ECA358A63F6D"></a></span>You can change the default behavior by deactivating the parent constraint. See <span class="char_link"><a href="transforms_TransformationsandHierarchies.htm#WS3007C96FCDD0404D93BB01988152D579-00CB">Parent Constraint</a></span>. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-5C820F96-A51A-481A-B8AE-C7216DD53D12"></a></span><div class="note-note"><span class="label">NOTE:</span>Kinematic chains are an exception because the end location of one element always determines
+                     the start location of the next one in the chain. 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3007C96FCDD0404D93BB01988152D579-00CA"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-112A42FD-D753-4A8A-840E-B3E2182BC1A9"></a></span> Child Transform Compensation
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-4AA5F945-6AE7-4695-8EAB-E90D8AF28058"></a></span>The <span class="MenuCascade" id="GUID-7E59D3EC-51AE-47E5-A033-88242471A265">ChldComp</span> option on the Constrain panel controls what happens to unanimated children if an
+                  object is node-selected and transformed. This is the same as the <span class="MenuCascade" id="GUID-1F0D1704-0E55-460E-B506-91606AC7CC44">Constrain <img src="../images/ac.menuaro.gif"> Child Transform Compensation</span> menu item. 
+               </p> <span class="anchor_wrapper"><a name="UL_7950FB59AEDD44ABB786C289A9CEA770"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8A8E84CF-3D67-4047-9CDC-4AD59C89BCA4"></a></span>If this option is on, the children are not visibly affected. Their local transformations
+                        are compensated so that they maintain the same global position, orientation, and size.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9DEE28C9-6AC0-4D45-80FC-46D6ACF92802"></a></span>If this option is off, all children with an active parent constraint follow the parent.
+                        You cannot move the parent without moving its children. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-B8DF00AB-C720-4349-AB1A-283B2E3CA724"></a></span>Child Transform Compensation does not affect what happens when a child has local animation
+                  on the corresponding transformation parameters or when the parent is branch-selected.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3007C96FCDD0404D93BB01988152D579-00CB"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AC90DD15-C42B-4964-9921-52E00F511E50"></a></span>Parent Constraint
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-62D8D369-7D5F-4776-9D4A-A8D4B9500053"></a></span>The settings on the Options tab of the <span class="char_link"><a href="property2506.htm#WS047B9AE0D53E60409648610FF3437768-0017">SRT</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>] control how an object inherits transformations from its parents. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3007C96FCDD0404D93BB01988152D579-00CC"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-169AEFA9-B626-4ED0-B2F3-30370F95D207"></a></span>Activating and Deactivating Transformation Inheritance
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D075DF56-A9CC-4573-B6B8-A8B4CBA8EC67"></a></span>The <span class="MenuCascade" id="GUID-58B30F98-4342-4892-BB66-0ADB4BAE0E2D">Active</span> option on the Options tab of the Local Transform property editor turns the parent
+                     constraint on or off. When this option is off, the object does not follow its parent
+                     when the parent is transformed, not even when the parent is branch-selected nor when
+                     <span class="MenuCascade" id="GUID-36E37146-7EB4-4714-8E9A-3ED31F4E7FBA">Child Transform Compensation</span> is off. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4624EA98-B784-463A-8E5D-D8A1863FBD0A"></a></span>You can also use the <span class="MenuCascade" id="GUID-2358549C-A8A0-4063-B29D-C7D043D174DC">Position</span>, <span class="MenuCascade" id="GUID-04044886-0022-4117-B9CC-FC4F5BB24E27">Orientation</span>, and <span class="MenuCascade" id="GUID-776FC403-05DF-4599-83BA-701F810B9244">Scaling</span> options to turn inheritance on or off for translation, rotation, or scaling individually.
+                     
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3007C96FCDD0404D93BB01988152D579-00CD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9ED142BF-FEFD-4D22-A74A-58CF60FF7021"></a></span>Controlling How Position Is Affected
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-91EBD53B-5236-4565-B68B-56B56A43CF83"></a></span>When the parent of an object is scaled or rotated, the object's position can be affected.
+                     
+                  </p> <span class="anchor_wrapper"><a name="UL_A389B840AEF64801BB9BB5AD5B41E2E3"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0EE980BC-B449-4AD2-8B24-BF9BB1930AED"></a></span>The <span class="MenuCascade" id="GUID-591CD9B0-C755-428E-8F48-87C1860BAD9D">Affected by Orientation</span> option on the Options tab of the Local Transform property editor changes the object's
+                           position when its parent or ancestor is rotated. When this option is on, the descendant
+                           orbits like a geosynchronous satellite that stays over a fixed spot on the earth as
+                           the earth rotates. When it is off, the descendant spins around its own center when
+                           an ancestor is rotated. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EF6F3046-13EA-4152-868E-995FBD7424E7"></a></span><span class="MenuCascade" id="GUID-4C755BF2-C8B1-4295-99A7-C137338CA62B">Affected by Scaling</span> changes the object's position when its parent or ancestor is scaled. When this option
+                           is on, the object moves away from or towards its parent in global space as the units
+                           of distance (in which its relative position in local space is measured) change size.
+                           When this option is off, the child scales with its parent but its center does not
+                           move. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

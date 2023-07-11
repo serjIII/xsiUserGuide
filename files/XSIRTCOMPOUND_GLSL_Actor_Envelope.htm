@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-82E51CA0-4373-448F-9D54-DF48E968D98C">
+      <meta name="topic-type" content="concept">
+      <title>GLSL Actor Envelope</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-82E51CA0-4373-448F-9D54-DF48E968D98C"></a></span><div class="head">
+            <h1>GLSL Actor Envelope</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-ED494898-5B05-4283-BBD0-BE8E0079CB9F"></a></span> <em class="strong">Category:</em> Realtime &gt; OpenGL 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-88160EF6-1429-4045-B95B-F7794CB088C6"></a></span> <em class="strong">Shader Family:</em> Realtime 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-78AE21CA-C9F2-425D-B422-392EE6581752"></a></span> <em class="strong">Output:</em> Realtime 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-C9D5574F-7413-4673-BD8B-50F83EE08F6F"></a></span>This shader compound displays the mesh proxy object on each instanced actor in a CrowdFX
+            simulation in the OpenGL display mode. It deforms each actor instance envelopes according
+            to the simulation. This allows for faster display of heavy crowd simulations. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-07E47D2F-E359-4F63-BE65-442ECBEE692D"></a></span>This shader compound is used only when the <span class="char_link"><a href="iceref_Set_Shape_Instance_Bones.htm">Set Shape Instance Bones</a></span> ICE compound in the crowd simulation's point cloud is enabled. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-A7CD84F8-1586-45CA-92D0-CBB70F195E1D"></a></span>See <span class="char_link"><a href="GUID-9CE64265-93DD-4F5B-AEEE-2594DD00B212.htm">Viewing the Actor's Envelope</a></span> for more information. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_D51F0626DC484B9D80FD0AC1656550E5"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-05B2D945-EE56-47E1-B8BD-DC474C80A1D5"></a></span>Setup
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-7933B0A4-EDA6-4CA1-BE8A-976FBCA00DA9"></a></span> <span class="anchor_wrapper"><a name="TABLE_53FC81B5AC234DE4897DA420C9BAE000"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D4B0EBB7-B3EA-4CCC-82F2-0B6156E6CAF5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7AA8FC65-DC57-4EB2-838C-7EBE9641FD15">Link ICE Attributes</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7B75E0CF-1C31-41E9-8CEE-F8791CB3DC91"></a></span><p class="table-body">Click this button to link the attributes that exist in the ICE tree for the mesh proxy
+                              object in the CrowdFX simulation. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-3B6A88F7-409F-4DA4-9FC2-9B65C72B5D84"></a></span><p class="table-body">The correct attributes are automatically so you don't need to specify them yourself.
+                              
+                           </p> <span class="anchor_wrapper"><a name="GUID-B2DE78CF-767F-4C15-8E94-A76FFBE4C50C"></a></span><p class="table-body">The ShapeInstanceEnvelopeShader GLSL shader inside this compound automatically connects
+                              the correct GLSL Uniforms depending on the parameters that you have set here. Don't
+                              connect or disconnect those ports manually. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_0E0A5865B9D4452F838753D2F223D945"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-BE1CA203-66A5-4772-B467-A6F80751EF32"></a></span>Deformation
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-326F9959-2A3C-468C-B89E-218EDA27AAC6"></a></span> <span class="anchor_wrapper"><a name="TABLE_B81D47CA2C024377BB812454683DA1E7"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4F97F483-F02A-429C-B432-60A1F1DC3DB5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ECC085A9-F07E-4A46-A855-2004CACD218E">Max Bones</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7AFF9BDF-9013-431D-8CC7-F4EF90CF21B7"></a></span><p class="table-body">The maximum number of deformers (bones) in the actor's rig proxy that are used for
+                              deforming the envelope in the OpenGL display. This value is used in the array that
+                              the shader builds in order to calculate the envelope's deformations. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-14567588-D4BA-41FC-9633-5E7359B29497"></a></span><p class="table-body">You want to use the smallest number of bones to make the playback faster while retaining
+                              a good envelope deformation. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1EE8813C-0891-4746-974C-3180020AE56E"></a></span><p class="table-body">See <span class="char_link"><a href="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4.htm">Modifying the Actor's Rig</a></span> for more information. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_FC875DBB3C4A4BE58FD1A10403A50A66"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-5C325083-4C69-42C7-93A3-E2D11DE1DCF0"></a></span>Shading
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-ABF3F7C4-D7A7-4550-9190-90A3602B72E6"></a></span> <span class="anchor_wrapper"><a name="TABLE_D8DCFEACB0A94E6D95AB84779AA0C9AB"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1B15ECFD-7FF7-4CC3-933C-56B234701A4B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6CD289EA-B62E-44E8-95C7-D712826B847B">Max Lights</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-66CAB79E-E633-4D85-8F3E-A77B0FE46825"></a></span><p class="table-body">The maximum number of lights in the scene to use for lighting in the OpenGL display.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7885CA31-65A8-4492-B421-C5ACE05198B6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-54FC1BB0-873D-46F6-BFD6-AF62657F042A">Incidence</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2FA8B821-1A3C-4199-BEC5-95606610A40D"></a></span><p class="table-body">Displays shading on the actor instances using the direction and distance from the
+                              light sources to calculate the incident angle. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-44F421B1-5388-420C-BDDF-91CFD0E9757B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8117EBFD-4099-4FFF-B5D0-4271F47295BB">Display Gamma</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-33716EA5-D031-4231-9B19-51639B2F66EF"></a></span><p class="table-body">Applies a gamma correction to the color. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_69F4DCB1633245C4841051043C19E745"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-4708BAD3-3099-404F-A7C0-3AFE931C81A8"></a></span>Color
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-6F2F0925-9F62-4368-9786-5A44B57F81AB"></a></span> <span class="anchor_wrapper"><a name="TABLE_E055CFEBBBAD4D3F864121B0A82810C0"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0D502A83-2200-4332-AE81-7175F1523889"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-09EE3457-A4F7-426E-A433-DF3E5B87D024">Flat Color</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1F408799-1B63-4814-B73B-32F5886C9BE9"></a></span><p class="table-body">Displays a flat color on each actor instance envelope as defined by the Color attribute
+                              you have set in the mesh proxy object's ICE tree. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AA154521-7E5E-4B62-AB77-89B3B08F4E19"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-26A1BDEF-8C32-435D-B7AA-FA6C74169D3C">Bone Colors</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D1F1F19F-E25E-4A6D-A4EE-8EB58BA6F682"></a></span><p class="table-body">Displays the rig deformer (bone) colors as defined by the ShapeInstanceBoneColors
+                              attribute in the mesh proxy object's ICE tree. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_08DAFB1557C6418B8B75FD70CADD31E7"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-BAC8CFCF-5DBA-4F32-9C9C-84B48467B52D"></a></span>Texture
+            </h2> <span class="anchor_wrapper"><a name="TABLE_47E99470306644AC8864150F8565F891"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7F91E416-B9E2-45F6-BFE5-0CB1E8BAC373"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B5A1E831-7E6E-4DCB-9859-1C6EF2EE4862">Textured</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-75218679-1E11-4BAC-9107-46A2666167AA"></a></span><p class="table-body">Toggles the display of the texture on each actor's envelope as you have specified
+                           below. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2595F38C-1449-421B-8C10-A69698C76DEF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0B98CD74-F69A-469A-B1B4-B62FC2BB9FD7">Texture Regions</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-098659E3-C71E-49D9-AC84-8B0C9B8BC6CF"></a></span><p class="table-body">If the <span class="MenuCascade" id="GUID-DA7812DE-840C-44DB-9642-E823F4C95171">Textured</span> option is selected, this displays a color map that defines the texture regions for
+                           the texture you have selected. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A0712CDD-4AE3-464B-B005-808B0A3DAE8D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D24AB1C8-6F4E-4DD1-940E-7C34C1043771">Texture</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E8C25AD6-00B0-4E53-8759-7F0A914839C0"></a></span><p class="table-body">The texture to display on each actor's envelope when the <span class="MenuCascade" id="GUID-3F67CFD2-35B3-49F0-B72F-E1994D9305C0">Textured</span> option is selected. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WSE01CAE12613BAC489F94F606C5973FF5-0011"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-17788D4C-A41B-4EFB-995D-F05822A8F983"></a></span>Render Tree Usage
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-5366852B-89F5-44C1-8275-45966AC95051"></a></span>This shader compound plugs into a Realtime port on the Material node of a mesh proxy
+               object used in CrowdFX simulations - see <span class="char_link"><a href="GUID-9CE64265-93DD-4F5B-AEEE-2594DD00B212.htm">Viewing the Actor's Envelope</a></span> for more information. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-E9065F65-8EE5-4EDF-9839-6950A605BDBB"></a></span> <img src="../images/GUID-08D04F57-D561-4F6E-AEE7-A8E907C42F1E-low.png"> 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

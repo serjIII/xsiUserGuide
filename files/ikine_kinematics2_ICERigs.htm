@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-AB55FE06-14C6-456A-9643-25647458CBCA">
+      <meta name="indexterm" content="ICE kinematics: rigs">
+      <meta name="topic-type" content="concept">
+      <title>ICE Rigs</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-AB55FE06-14C6-456A-9643-25647458CBCA"></a></span><div class="head">
+            <h1>ICE Rigs</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-8B72C1B9-98D5-4D33-A262-8D43E33FE3A9"></a></span>Using ICE, you can create efficient rigs that don't require a huge hierarchy of control
+               objects, but that instead calculate deformer transformations directly from the manipulators.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5B6D3D48-1D5F-4B1A-BBE6-5DBA40C6F57E"></a></span>There is no universal recipe for making a rig. Each rig is a response to specific
+               production needs. ICE provides great flexibility in this regard. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-FFD26148-2085-45D9-BFFA-7D9AFE34AFE6"></a></span>The rest of this section provides some general guidelines and recommendations for
+               ICE-based rigs. For an example of a rig built on these principles, open the Kinematics_Rabbit_Rig.scn
+               scene in the ICE subfolder of the Scenes folder of the XSI_SAMPLES project. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-16CDE5C1-E016-4B25-B98A-5185E0D1C23E"></a></span>Separating Manipulators and Deformers
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-A25DBC11-59C3-40E1-BA48-4F66E5C70651"></a></span>It is important to separate the manipulators (drivers) from the deformers (driven).
+                  This avoids cycles in evaluation, and also increases reuse and portability. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3BE1A6E8-1428-4717-BD7B-3FE9C9613D33"></a></span>The driven hierarchy can be anything you like because it doesn't depend on traditional
+                  parents to propagate transformations. On the other hand, the manipulators can use
+                  traditional parenting for saving keys on local transformations. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-44D88E5A-BB67-4E62-852D-889A22B18408"></a></span>Evaluating Deformer Transformations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2840F22A-99D3-4942-9C5F-03B341FE054E"></a></span>It's a good idea to put all evaluations in a tree on a single object such as a null.
+                  The deformers' transformations can be calculated and stored as an array of matrices
+                  in a custom ICE attribute on the rig evaluation null. The array can be indexed by
+                  a deformer ID stored as a custom parameter on each deformer. The same custom property
+                  can be used to store other useful data, such as length (if you are using nulls instead
+                  of bones as deformers) and the ID of the previous deformer in the chain (for the purpose
+                  of calculating offsets). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F0D6AED6-62DA-4FC0-A6CC-CDBF50BDE8B4"></a></span>You can use multiple groups to get data for similar elements in the rig, for example,
+                  a group for the first deformers in the legs, a group for the second deformers in the
+                  legs, and so on. This lets you pass the data for similar elements through the tree
+                  as arrays, effectively calculating the transformations of multiple elements at the
+                  same time. It also lets you easily add an extra leg or arm by adding the elements
+                  to the corresponding groups. When creating these groups you must select the elements
+                  consistently, for example first the left one and then the right one, so that the data
+                  in the arrays are coherent. If necessary, you can reorder elements in groups as described
+                  in <span class="char_link"><a href="3dexplorer510.htm#WS048B4B56E6774847810BFA5D3F1134D0-0054">Reordering Scene Objects in the Explorer</a></span> [<span class="char_link"><a href="ui_windows.htm">Windows and Views</a></span>]. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BE7D041D-96C2-4C74-9A76-463E4984AC82"></a></span>Because you cannot set data on groups, each deformer needs to have a small ICE tree
+                  that gets and sets its transformation from the array on the rig evaluation null. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-30793AA6-8099-4B36-A717-1751ECC0D5BC"></a></span>With a system like this, it is easy to change the rig's behavior by changing a single
+                  ICE tree. You can make fixes or even substitute a completely different tree, for example,
+                  to change a rig where a rabbit's transformations are driven by the hips as usual to
+                  one where the rabbit gets picked up by its ears. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-0015"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-153ED554-A59A-4871-914C-CE1B67B5F7D5"></a></span>Initializing Rig Data
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8301FD2F-D7EE-482F-8DF8-C15DCCC8BEDE"></a></span>If you need to initialize data for your rig, for example to store initial offsets
+                  based on Static_KineState properties, then you should do this in a separate ICE tree
+                  on a different null. This prevents the ICE tree from being re-evaluated unnecessarily
+                  and speeds up the execution. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A91A56B3-C1FC-488D-BC26-B4CAEBA60982"></a></span>Alternatively if your rig uses a simulation for secondary dynamics, you can use a
+                  tree in the Pre-Simulation region to initialize data. Operators in this region do
+                  not get updated after the first frame of a simulation. For more about using simulation
+                  with ICE kinematics, see <span class="char_link"><a href="ikine_kinematics2_ICEKinematicsandSimulation.htm">ICE Kinematics and Simulation</a></span>. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

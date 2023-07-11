@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-2480F9CD-52F9-4011-A551-9FE5787F39DB">
+      <meta name="indexterm" content="constraints: evaluation cycles">
+      <meta name="indexterm" content="cycles: checking for animation">
+      <meta name="indexterm" content="expressions: evaluation cycles">
+      <meta name="indexterm" content="evaluation cycles for animation">
+      <meta name="indexterm" content="dependency cycles between animated objects">
+      <meta name="indexterm" content="animation evaluation cycles">
+      <meta name="indexterm" content="CycleChecking command">
+      <meta name="topic-type" content="concept">
+      <title>Checking for Animation Dependency Cycles</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-2480F9CD-52F9-4011-A551-9FE5787F39DB"></a></span><div class="head">
+            <h1>Checking for Animation Dependency Cycles</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-812886DD-48E4-4357-A12D-DD844AD2E2EA"></a></span>Building animation relationships involving constraints, expressions, and scripted
+               operators can often lead to evaluation cycles. An evaluation cycle is a looped graph
+               dependency where an operation becomes dependent upon itself. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A78BBBF3-3037-4D28-9AA6-C1F99A3A63C0"></a></span>As a simple example, constraining object <span class="MenuCascade" id="GUID-D176F8D4-B0B6-4DDC-BFB6-311E6E909D08">A</span> to object <span class="MenuCascade" id="GUID-5CB870DA-6A2B-4A99-B5EF-740E04293293">B</span> (such as with an orientation constraint) then constraining object <span class="MenuCascade" id="GUID-9852ED2F-1CB0-4A72-A068-EE85FD2AD21F">B</span> to object <span class="MenuCascade" id="GUID-773626F9-3B7D-401E-803E-751CEB76C6F6">A</span> with the same type of constraint will create a cycle of dependencies. Another example
+               is putting an expression on the Length parameter of a bone in a chain, where the expression
+               is the distance from the chain's root to its effector. This is a cycle because you're
+               driving the Length parameter using the translation of the effector, but the effector's
+               position is bound to the bone's length (and rotation). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5E0872C0-5847-4615-9A58-B1769A1D7083"></a></span>Softimage implements internal cycle checking to prevent cycles from occurring in a
+               scene. Using the <span class="MenuCascade" id="GUID-1DAE15EF-E023-4D27-BF4B-4B3E0DB29D68">CycleChecking</span> command, Softimage checks for cycles as soon as you create a constraint or expression,
+               and warns you immediately if a cycle in dependencies is created. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-82EA54C7-15B1-473D-A508-FE537896A2C8"></a></span>The CycleChecking command simply reports cycle details in the command history so that
+               you can check that there's not a problem; for example, sometimes you want to intentionally
+               create a cycle, such as direction-constraining two objects to create a piston. This
+               command does not prevent a scene from loading even if there is a cycle problem. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F7CDE6B8-BB72-4D77-BB88-0DC070A919C6"></a></span>If there is a problem cycle, the warning messages and information in the script editor
+               can help you break it. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS79D98F401944364D82F573BD6DA35BD8-005E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-05622372-4DF4-4E30-BEDD-C1854E3DC977"></a></span>Avoiding Cycles
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4858581E-9100-466F-A62E-032DE6CB6EAA"></a></span>To help you prevent creating cycles, you can do any of the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_04227C77FFF54E59B5028184220AA8AE"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-32D43193-24C6-441D-B6CB-AD427189A527"></a></span>Check where constraints already exist in a 3D view or in the schematic view — see
+                        <span class="char_link"><a href="constraints_ViewingConstraintsandTheirInformation.htm">Viewing Constraints and Their Information</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A785A618-37C1-4944-90AD-3D7FD305B244"></a></span>Select an object and choose <span class="MenuCascade" id="GUID-D93C8C29-90BE-46BF-BADD-046F145EBF79">Constrain <img src="../images/ac.menuaro.gif"> Select Constraining Objects</span> to see the objects to which the selected object is constrained. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4A08639A-C8EC-4570-A3CB-5F07DC194FEE"></a></span>Type the command <span class="MenuCascade" id="GUID-E61748AC-C88F-4E16-9E31-913DF06A67FC">CycleChecking</span> in the script editor and click <span class="MenuCascade" id="GUID-29F2C25D-A6DB-47DE-AFB6-60D6C7F6546D">Run</span> to check an entire scene. Select the command and press F1 to get more information
+                        on it. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-5BDE615D-B5F6-4612-8F41-78EC8D451379"></a></span>For information on constraints, see <span class="char_link"><a href="ani_constraints.htm">Animating with Constraints</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8DCC178E-646B-484B-864F-C034DE0CE937"></a></span>For information on expressions, see <span class="char_link"><a href="ani_expressions.htm">Animating with Expressions</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-949536A6-A353-493D-8030-C7379A60B4FE"></a></span>For information on scripted operators, see <span class="char_link"><a href="custom_scripted_ops.htm">Scripted Operators</a></span> [<span class="char_link"><a href="custom_cover.htm">Customizing Softimage</a></span>]. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS79D98F401944364D82F573BD6DA35BD8-005F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-31A24446-B3F7-4657-B35E-B48D698E0DBA"></a></span>Disabling Cycle Checking
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0C35C979-5B69-43B0-B25C-B54509B0AFF7"></a></span>You can disable cycle checking if you want to avoid unwanted warning messages in some
+                  situations where you know desirable cycles exist. There are two options on the Scene
+                  Debugging tab in <span class="char_link"><a href="userprefs519.htm">Data Management Preferences</a></span> that you can set: 
+               </p> <span class="anchor_wrapper"><a name="UL_459BB8F2098F4216AE5686E6EAF57546"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E3AB5783-1962-4061-96FB-7933C6CF25A4"></a></span> <span class="MenuCascade" id="GUID-7D79560F-F673-4573-AE5A-01F5650FF7EC">Disable cycle checking when applying animation operators</span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C72CCEBB-2C4F-48F5-ABDD-8FD1580165B2"></a></span> <span class="MenuCascade" id="GUID-0BFC7717-9E27-439A-8644-A1A9AEA0B495">Disable cycle checking when editing ICE trees</span> 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS79D98F401944364D82F573BD6DA35BD8-0060"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-754DD849-1EC1-4573-B027-2879D4A4663B"></a></span>Breaking Cycles
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C41D61DB-F3F0-4392-B8FC-265F3C30D87A"></a></span>To break an evaluation cycle, you should look for and remove the main contributors
+                  within the cycle. 
+               </p> <span class="anchor_wrapper"><a name="GUID-B96FE828-BD72-4356-85E1-36033743E963"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0F585FC6-A60C-4065-898E-7E03832C124F"></a></span>Open the script editor and check for cycle warning messages and information to help
+                        you break a cycle. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E32A97EA-1CA5-407D-8A00-6F2B521C13C1"></a></span>In this example, these warning messages appeared because there was a cycle created
+                        by two expressions driving the same parameter. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_9CB1C65A7959454D83D7119BC766A88D"></a></span><div class="figure-anchor"><img src="../images/GUID-B102E293-1368-4422-A82E-BA57DDB51640-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D494F4B3-51C3-4511-B2DB-71259CB18E0C"></a></span>To look for key contributors in the cycle, start with the <span class="MenuCascade" id="GUID-A160A0FB-8D80-4829-B8A6-15D897EF49FE">Cycle Breaking Point</span> statement, which is the location where the evaluation check has terminated. This
+                        is the critical location for scene evaluation differences or any odd results and behaviors
+                        you many notice with problematic cycles. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9315F41F-9CD4-4A47-A332-834BDD6C3F1D"></a></span>Trace down the output with the <span class="MenuCascade" id="GUID-F85C32EC-5792-4048-8CBC-BD3CEDD12E30">Cycle through</span> operators until the same Cycle Breaking Point operator is found and labeled as a
+                        Cycle through operator. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0A38ADEC-8285-4FF3-AD20-60567F81AACF"></a></span>These are the main contributors to the cycle: breaking one of these key dependencies
+                        will break the dependency cycle. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7EB14065-73EE-4C95-8444-A7FE743DD5D5"></a></span>Look through the contributors for familiar cycle creators such as Expression, ScriptedOp,
+                        or kine.Constraints. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A029A461-D29A-4108-AF56-B6616E88B740"></a></span>Check your animation that uses these operators and resolve the problem by reworking
+                        the animation or deleting the operator. 
+                     </p> 
+                  </li>
+               </ol> 
+               <div><span class="anchor_wrapper"><a name="GUID-742EA77B-50EC-4B44-A5F1-990AA5B13EF1"></a></span><div class="note-tip"><span class="label">TIP:</span> <span class="anchor_wrapper"><a name="UL_2C47A15C6D7D422E9A0A617F95290CCD"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-739D515B-4B90-4C7E-B0F6-A2F7E2D1DB7D"></a></span>If a cycle exists with constrained objects, a message appears telling you to remove
+                              the last constraint you applied to resolve the conflict (see <span class="char_link"><a href="constraints_RemovingRelaxingConstraints.htm">Removing (Relaxing) Constraints</a></span>). 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-10985875-0ADC-47CB-8B98-02DEF44A9CC0"></a></span>You can also deactivate a constraint (see <span class="char_link"><a href="constraints_ActivatingandDeactivatingConstraints.htm">Activating and Deactivating Constraints</a></span>) to break a cycle because inactive constraints are not considered when Softimage
+                              checks for cycles. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-23E157EA-374A-4CBB-9431-ACB65DA310DD"></a></span>Muting or having 0 as the Blend Weight value for a constraint doesn't stop it from
+                              being evaluated so it could contribute to a cycle. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

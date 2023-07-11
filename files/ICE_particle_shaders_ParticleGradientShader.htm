@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-CF79A042-7505-42EA-82B7-7A43D8BBC44D">
+      <meta name="indexterm" content="ICE particle shaders: Particle Gradient">
+      <meta name="indexterm" content="Particle Gradient shader (ICE)">
+      <meta name="indexterm" content="color gradients: shader for ICE particles">
+      <meta name="indexterm" content="gradients: shader for ICE particles">
+      <meta name="indexterm" content="density: gradient shader for ICE particles">
+      <meta name="topic-type" content="concept">
+      <title>Particle Gradient Shader</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-CF79A042-7505-42EA-82B7-7A43D8BBC44D"></a></span><div class="head">
+            <h1>Particle Gradient Shader</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-9D63EDFD-D3C4-4523-B762-E413A538AB16"></a></span>Using the Particle Gradient shader, you can change the color and/or density of the
+               particles based on density, age, or any other ICE attribute that you define for the
+               particles. 
+            </p><span class="anchor_wrapper"><a name="TABLE_F7E5607AB14C4B95B3588FC27D457F1F"></a></span><div class="table_NotRuled">
+               <table cellpadding="0" cellspacing="0" class="not-ruled">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <tr class="not-ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D59DB5B0-5420-4555-B72B-8B7E00D3DDBC"></a></span><p class="table-body">A gradient is applied to the particle </p> 
+                     </td>
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B36F34BA-3BBD-4975-955F-82E0E69ADE16"></a></span><p class="table-body">This image shows how the color gradient is influenced by the density of the particle.
+                           
+                        </p> 
+                     </td>
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B84B8DC2-DAA0-42ED-B781-D7E68A1334F3"></a></span><p class="table-body">A fractal is used for the density shape input of the Particle Density shader to which
+                           the Particle Gradient shader is also connected. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="not-ruledEvenRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-3363074F-262D-427B-9B77-FD3432887123-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-021DD71A-4184-4C6F-A7EF-5003CF375622-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-F49468C7-17CB-42C7-8774-156CE61DDC38-low.png"> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-C49C3D5D-676F-4868-8E77-E78F990A3443"></a></span>The shader parameters on the Gradient Position page in the Particle Gradient shader's
+               property editor control the position of a gradient or "ramp". The gradient/ramp position
+               is controlled by six attributes. The first two attributes (Density, Age %) are predefined
+               while the other four attributes (Inputs) can be controlled by any input shader, such
+               as a fractal texture (like Fractal Scalar or Cell Scalar). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-BB1E2EEC-9EBD-4076-9F85-19A433DB2FC1"></a></span>You can render the particle's color using an RGBA color gradient/ramp. The shader
+               uses the same gradient controls as found in the Gradient Mixer shader (see <span class="char_link"><a href="tex_concept_CreatingGradients.htm">Creating Gradients</a></span>) but is designed to be "particle friendly" for color shifts based on a particle's
+               age. As well, it is optimized for working with a large number of particles. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0026"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FB48B6D3-C3FC-4794-BB4B-23A013F79506"></a></span>To connect the Particle Gradient shader
+               </h2> <span class="anchor_wrapper"><a name="GUID-7E743EE2-37AC-48C5-B45A-43E6F4B73D33"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-88B76670-5EFA-4EDA-A061-33E146DF6491"></a></span>Select a point cloud. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-768BE6B7-AED9-426A-8909-AA196E352B82"></a></span>Open a render tree in a viewport and click the Update icon or press F6 to display
+                        the render tree for the selected point cloud. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-6AB21B08-904D-48CF-A01E-9036BE0A2EDB-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E1D0C7F2-14B2-48EB-A85A-B06BF8F4EB14"></a></span>In the render tree, drag the <span class="MenuCascade" id="GUID-CF7C3229-7413-4D29-A38F-7CF5AF5B7A5D">Particle Gradient</span> shader from the Particles group in the preset manager on the left, or choose <span class="MenuCascade" id="GUID-9A763322-64F1-4A14-97E0-8D726001CBA5">Nodes <img src="../images/ac.menuaro.gif"> Particle <img src="../images/ac.menuaro.gif"> Particle Gradient</span> from the toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9FC6D078-34D6-4E79-AD00-79D1C6D31AF3"></a></span>Plug the output from this shader into any of the <span class="MenuCascade" id="GUID-169C5558-101E-4372-9318-342C1AE1FE15">Per Cloud or Gradient</span> ports (such as Color and Density) of the Particle Density shader which, in turn,
+                        is connected to the Particle Volume Cloud shader's Density and Color ports. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D1EAA81D-345A-4443-B857-669C71FA808B"></a></span>You can also plug the Particle Gradient shader into any Gradient port of the shader
+                        compounds. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F14501C0-FD68-4CBE-88DF-7952CF872D86"></a></span>You can also use any of the Attribute shaders as inputs into this shader to drive
+                        the color gradient based on almost any ICE attribute for the particles, such as their
+                        velocity, size, orientation, mass, point position, etc. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8189A185-0FB7-4EC8-BEEA-E260AF023122"></a></span>For details on each parameter in the Particle Gradient property editor, see <span class="char_link"><a href="particles_shaders_ParticleGradientICE.htm">Particle Gradient</a></span>. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-A2099372-FB26-457B-A9A6-D94C1A58F8C5-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0029"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7E08230B-D421-4A43-BD7F-4EB31FCB333B"></a></span>Using the Gradient Controls
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3A9F99D6-D520-4DB3-9EBB-020807C08271"></a></span>The gradient sliders on the Gradient Position page in the Particle Gradient shader's
+                  property editor is where you create and adjust the gradient. The bars displays the
+                  gradient left-to-right that is used from the particle's birth (Pos of 0) to its death
+                  (Pos of 1). 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-429B3F3A-5323-4A45-AC95-6D7793056797"></a></span><div class="note-tip"><span class="label">TIP:</span>The Particle Gradient Control shader contains only the parameters on the Gradient
+                     Position page, allowing you to apply a gradient controller independently. See <span class="char_link"><a href="particles_shaders_ParticleGradientControlICE.htm">Particle Gradient Control</a></span> for information on this shader. 
+                  </div>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-1FE53E6F-0E40-4619-ACD1-BF66EAFE6BE0"></a></span>Below, the candle flame uses color gradient based on its age percentage. 
+               </p> <span class="anchor_wrapper"><a name="FIG_CC789D5C2C1C445EB3A3C9DA618015B4"></a></span><div class="figure-anchor"><img src="../images/GUID-82995A98-5893-4AD8-9E42-EF12AAE335BC-low.png"></div> <span class="anchor_wrapper"><a name="UL_22111A15C0E84861A722E361DE6089F7"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-895E4FDA-FE49-4075-9479-CCF70B30154D"></a></span>If the <span class="MenuCascade" id="GUID-2BA58448-1722-416D-B737-EE7571D270FD">Gradient Start At</span> is set to 0 (particle birth), the color in the color box on the farthest left of
+                        the gradient control is used. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-26C1F6E6-384E-4294-93D0-A4BCA6A2C826"></a></span>If the <span class="MenuCascade" id="GUID-367C2B41-2ED7-4118-AC7B-2A66A7652A41">Gradient Ends At</span> is set to 1 (particle death), the color in the color box on the farthest right of
+                        the gradient control is used. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-079EEFE0-4EB2-426E-8B58-08A184F8CC98"></a></span>For example, if the <span class="MenuCascade" id="GUID-8E94083A-117B-4A3D-A1A9-D3A5A4EFC530">Gradient Start At</span> value is set to 0 the color at the left end of the gradient is used at the birth
+                  of the particle. But if the <span class="MenuCascade" id="GUID-B6A582CA-C218-497A-9BA4-C283BF2454FA">Gradient Ends At</span> value is 0.5, only half of the particle's lifetime has been reached, so the colors
+                  stop changing in the middle of the age of the particle. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-002B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-82AB2BED-310E-4E40-AA91-BC401D2E07E7"></a></span>Using the RGBA Gradient Controls
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EA64934D-076A-4F14-9D51-485D80BE4182"></a></span>The color sliders on the RGBA Gradient page let you determine the color range used
+                     by the attributes on the Gradient Position page. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_599C79068CB74079AC25484C91BDC135"></a></span><div class="figure-anchor"><img src="../images/GUID-70D5DE58-3086-4C4A-B68E-825034910DD4-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_8C1E94D879CB4255B7BA03CE42C6EC79"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9CA682FB-0243-4258-B585-E7886B03444E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-26CAFE77-050C-4C75-9FD4-863B1ED26EB8">A</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9BF122B6-F2F9-4A3F-B696-B24F19CCB2A0"></a></span><p class="table-body">Gradient slider displays how the color/alpha values change. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8A378BE6-FEC9-4991-9FA7-1E148A7EFD33"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BBCFF253-C2E1-4B00-A376-DF0C7C3C72B8">B</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5BD515CD-1D77-4EC4-8524-510A929FA1EB"></a></span><p class="table-body">Selected square marker shows current color value and its Pos (position) value. </p> <span class="anchor_wrapper"><a name="GUID-55D2FFD3-9060-4B2D-B47E-0EC0477B608F"></a></span><p class="table-body">Drag the RGBA sliders to change the color defined for this marker. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-75EC3DA7-DA02-46C7-B902-4E87B450805B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D7748F08-6448-4610-887C-2AD4C255714A">C</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4211C05B-49F5-4787-AEFD-7368A5E944C5"></a></span><p class="table-body">Use these buttons to animate the markers on the gradient. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8EFB119E-F85B-4E75-B444-A40325E4851D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D97D60B2-F45D-4727-ACE4-8AAF965126CB">D</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-454B94B5-6307-4CDB-B9BE-E3C077284E13"></a></span><p class="table-body">Inverts the direction of the colors on the gradient slider. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-116D7A6F-FEE7-4C2E-B179-6C8A9A18C815"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-061FFE1E-5269-4A5B-8FA2-68B5F0B6835D">E</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-17887A9E-11F4-4EA6-89BF-954030BF15B3"></a></span><p class="table-body">Click a Preset button to load that color scheme into the gradient. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8E156F2E-DC15-433A-9CA2-9F9E294E78F7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3A177E77-06D2-40B5-8ED1-47A940E78889">F</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C3E23F6D-CAC0-4F89-A637-345211B5880A"></a></span><p class="table-body">Round markers indicate the mid-point of the blending between two square color markers.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7C88990B-F873-4657-B514-799C91172ADB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7ED0C649-767F-4993-AF67-76E261C02BDA">G</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-29E52682-F2CC-4B2F-9185-B5B97E1097EB"></a></span><p class="table-body">Click anywhere in the gradient slider to add a color marker at that point. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-002D"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-E9678486-49AD-4C3E-9CF9-E1C71951CCAE"></a></span>To select color markers
+                     </h4> <span class="anchor_wrapper"><a name="UL_241D7A3B0DB0411F93CC98295BE4DE72"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0816EB87-6EAB-4C1C-A603-3C1ACF0F4331"></a></span>Click a square marker below the gradient slider. You can then set its color using
+                              the color sliders or key its position. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-002E"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-7F241F37-2E99-47CA-8B15-FF32C1F34C42"></a></span>To set the gradient color/alpha values
+                     </h4> <span class="anchor_wrapper"><a name="GUID-F59D40E5-477C-4E64-8A18-333231810367"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F7B2F9B6-6D03-4ACF-9DA0-4B53A710ED7D"></a></span>Click a square marker to select the color you want to adjust. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-937FB7EE-BC0D-4D0A-A584-7D744B2A7D49"></a></span>Use the color sliders below the gradient control to set the RGB/alpha values to use
+                              for this marker. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-733B80C1-DF53-4BF3-B382-5203DD924E61"></a></span><div class="note-tip"><span class="label">TIP:</span>Click one of the <span class="MenuCascade" id="GUID-7ABDF52A-75E3-4E44-9085-F365F05E5395">Preset</span> buttons to load a specific gradient control setup. 
+                              </div>
+                           </div> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-002F"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-14505436-A820-4B7F-96D9-B68D4CB5B573"></a></span>To change the gradient composition
+                     </h4> <span class="anchor_wrapper"><a name="UL_C8BAE2678D064741A2417B1278573B53"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E6CCEAC7-966B-4930-A949-8405993658FF"></a></span>Drag a color marker anywhere along the gradient. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0030"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-FB51E382-B6E9-4BFA-8D84-9889BAF31EF6"></a></span>To insert a color marker
+                     </h4> <span class="anchor_wrapper"><a name="UL_47C14F7375C9450583FE1B0E0562E55D"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-99D22A3D-7558-4AA5-888E-C0A7433B1E8D"></a></span>Click at any point along the gradient slider. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0879D224-7387-4FFA-B606-D9B518C0B533"></a></span>By default, the new marker assumes the color at that point in the gradient. You can
+                              use up to eight color markers, each with its own color. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0031"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-AAD4C0A4-EF4D-433F-BC46-119BBEC5C216"></a></span>To delete a color marker
+                     </h4> <span class="anchor_wrapper"><a name="UL_F5E948711D254D7CA7CDE297A4E88E05"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B1590710-5236-4988-8A44-0AFA7412F72F"></a></span>Select it and press Delete, or right-click it and choose <span class="MenuCascade" id="GUID-DDDF821D-EB0C-4B65-97FD-C1AC4608DDE1">Delete marker</span>. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0032"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-5C8C8BE7-01D9-463E-9D2B-D1B8761F4F3B"></a></span>To change the blending between two colors
+                     </h4> <span class="anchor_wrapper"><a name="UL_B523F9276A70401BB22DA4FEF2197997"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-387E3DBD-0558-4831-BC22-C9663D2D8401"></a></span>Drag a round marker above the gradient slider closer to one of the square markers
+                              on either side of it. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1DF11592-C09F-48BA-9ED7-F0E8A05AF270"></a></span>Round markers appear between each pair of color markers, indicating the mid-point
+                              in the blend between those two colors. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0033"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-7F37C3C9-8B7E-4FDA-9BA1-9AD632A10A2C"></a></span>To set the gradient's interpolation
+                     </h4> <span class="anchor_wrapper"><a name="UL_883C5EE7B9F3420D93E9ABCF806992BC"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E8C75D18-FE3A-4CC0-9BF3-D3D60262D362"></a></span>Click the <span class="MenuCascade" id="GUID-7EBF0BDC-17AA-4C4C-8C91-29DDC7730550">Cubic/Linear</span> button to toggle between these types of interpolation of the gradient. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2571DE95-AD07-4A51-B4E5-6359EDE1F199"></a></span>Cubic interpolation results in a smoother transition between alpha values, while linear
+                              interpolation results in sharper transitions. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0034"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-26C61EC4-1C87-4CF4-8533-F978DE4CDA40"></a></span>To invert the colors on the gradient
+                     </h4> <span class="anchor_wrapper"><a name="UL_45719FA5CAA24E959D2B8A3C66E51003"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A27DAD26-5CA4-4A50-B613-6AA5A56AD92B"></a></span>Select the <span class="MenuCascade" id="GUID-8FFAAD97-6C40-474B-B1C1-7B7A3725081D">Invert Direction</span> option. All colors switch to opposite positions on the gradient. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0035"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-3FEF6A84-E211-4D38-B3F5-2008E3615E9B"></a></span>To animate the markers
+                     </h4> <span class="anchor_wrapper"><a name="GUID-0D06B901-0E3A-459C-AC70-A02615C5D6BA"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-8101B575-07CA-46C1-B78A-D649B95993AF"></a></span>Go to the frame at which you want to set keys. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C6E6C6D8-5B30-41B2-9944-83C67C6B36AD"></a></span>Do one of the following: 
+                           </p> <span class="anchor_wrapper"><a name="UL_823E1DCCC40443029AA33B74D6F4C3E7"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-D0AEFDF3-BA70-4C54-B8D7-7FA46D1A7EE6"></a></span>Click the <span class="MenuCascade" id="GUID-D05A3B46-0663-4580-BD71-E6FEE231B15E">Key All</span> button to key all markers' positions on the gradient slider (both square and round
+                                    markers). 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-DF66F563-6272-420F-991F-4F03AF4C65DA"></a></span> <em class="mild">or</em> 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-9C13268B-D1D6-43CD-96C4-14F3B79D4BE6"></a></span>Select a square color marker and click the <span class="MenuCascade" id="GUID-3A46176B-51E2-4ACF-89FE-4CF576188D7D">Pos</span> parameter's animation icon. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0036"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-260F9B42-7AA4-437C-8F3C-5FF8BCA49CBA"></a></span>To remove the animation on the markers
+                     </h4> <span class="anchor_wrapper"><a name="UL_5A69C9D1CB184D3EB42EF14F984B9DFF"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A9F3C81C-EA80-4528-9F03-EB14F78D7B23"></a></span>At any frame, do one of the following: 
+                           </p> <span class="anchor_wrapper"><a name="UL_B5E0379FCBDE4FC785232A9DEAAA3C3A"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-C4F15D48-FD4E-4F2A-8E88-CE92B4340D7D"></a></span>Click the <span class="MenuCascade" id="GUID-86F985D9-083C-4A47-A7C8-B175625B036A">Remove Keys</span> button to remove all keys from the markers (both square and round markers). 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-26BE2935-54B4-4EC8-9296-E44AEBDEA228"></a></span> <em class="mild">or</em> 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-A4374C9E-506A-4CCF-859A-EA97B06FA2B2"></a></span>Select a square color marker and go to a frame where there is a key. Then click the
+                                    <span class="MenuCascade" id="GUID-EB111C77-E228-40FE-9FE3-D8AFC608D618">Pos</span> parameter's animation icon. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0037"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-34770BA1-BF15-45A0-90A4-956771470759"></a></span>To remove all shaders from the markers
+                     </h4> <span class="anchor_wrapper"><a name="UL_03E3FD35E674495598D6348F33E42CEB"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-512B8F1D-F921-4E2A-90FD-BC778DD7F645"></a></span>Click the <span class="MenuCascade" id="GUID-D91FFC79-B109-4D9E-9F74-EEC10D4E8CF4">Remove Shaders</span> button. Any shaders attached to any of the gradient markers' Color/Alpha and position
+                              parameters are disconnected. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

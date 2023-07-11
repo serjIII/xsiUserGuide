@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-CEE0FB16-8623-4493-B084-F22FDA00CBE7">
+      <meta name="indexterm" content="photons: preparing objects for">
+      <meta name="topic-type" content="concept">
+      <title>Preparing Object Surfaces</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-CEE0FB16-8623-4493-B084-F22FDA00CBE7"></a></span><div class="head">
+            <h1>Preparing Object Surfaces</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-A0638595-E942-409C-B6DC-85F34F592640"></a></span>To achieve a good caustic or global illumination effect, you have to set up your geometric
+               objects' shaders in such a way as to enhance the effect. Here is a short checklist
+               of things to keep in mind:
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8E3B56BA-CE0D-4A58-8859-7B6E8EAF4C6F"></a></span>Assign surface shaders to the objects that are receiving caustic or global illumination
+                     effects; otherwise, the default gray render settings are used.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-04D1FFC7-1595-405A-A0F0-2985FE9D2EDD"></a></span>For global illumination effects, use the Lambert, Phong, Cook-Torrance, anisotropic,
+                     or Blinn surface shaders. You cannot use a constant surface shader.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F6598610-6836-4F56-BE41-5C8A5F4E740C"></a></span>For caustic effects, use Phong, Blinn, or anisotropic surface shaders because the
+                     caustic effect is driven by the object's specularity.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-03239BC3-8B4F-44FB-840B-A21DA1CDB4B0"></a></span>Objects that cast, receive, or create global illumination or caustics cannot be black
+                     (in other words, the object's diffuse color cannot be RGB 0,0,0). Purely black objects
+                     absorb photons so they won't create an effect.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0D94C14A-C2F8-43CC-B8BC-4F83980A3E29"></a></span>Some surface shaders may seem more difficult to balance in a final global illumination
+                     rendering. An object's ability to transmit light is related to its diffuse value.
+                     Objects with the usual diffuse values rendered with global illumination may look more
+                     saturated when hit by direct light (particularly point lights).
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A3109815-C476-4900-82C8-2CF0A316F835"></a></span>Lowering the diffuse intensity greatly helps manage the color-saturation balance between
+                     direct and indirect illumination. Use the Luminance of the HLS color sliders in the
+                     surface shader's property editor to change the intensity value quickly.
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-B58A1A1E-AC16-428A-BDBB-1AE3A8C4200C"></a></span><div class="note-tip"><span class="label">TIP:</span>Caustics are actually the reflection of an object's specularity. You should adjust
+                        the object's specularity, not its reflectivity, to control the appearance of caustics.
+                     </div>
+                  </div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-931D6306-9F2B-497B-AA26-DC8022C1E474"></a></span>Caustics are influenced by the caustic-casting object refractivity. No refraction
+                     (a setting of 1) produces caustics that are very subtle. Settings higher than 1 create
+                     a "focusing" effect (try settings of 1.33 or 1.50 for this). Settings lower than 1
+                     greatly diffuse the effect.
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-F9D7D8DD-4C37-4D0B-A33D-1C6046405624"></a></span>Both scenes (below) have the same setup, same shaders, and an equal number of lights.
+               Notice in the second scene how the side of the desk with drawers is illuminated with
+               ambient light, whereas the image above it has a very sharp falloff that appears less
+               realistic when compared to a render using global illumination.
+            </p>
+            <div class="figure-anchor"><img src="../images/GUID-A867C37C-2D6F-42B9-A7B1-51D9050CBE4C-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-32FBF8C0-D196-45FB-A94F-16B8E0B0DE23"></a></span>This scene has not been rendered with global illumination.
+            </p>
+            <div class="figure-anchor"><img src="../images/GUID-9EB127CA-ECF9-4973-8C8C-ED04BDE603C4-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-A57AC581-6D4B-4856-AD3D-7B6C25480037"></a></span>This scene uses a high Photon Reflection setting that causes the light from the windows
+               to hit the floor and bounce off the walls.
+            </p>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

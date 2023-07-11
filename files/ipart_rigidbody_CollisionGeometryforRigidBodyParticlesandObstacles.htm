@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-88ED5C3B-E16B-4B26-B814-C9234CCD437F">
+      <meta name="indexterm" content="ICE rigid bodies: collision geometry for particles">
+      <meta name="indexterm" content="ICE rigid bodies: collision geometry for instanced shapes">
+      <meta name="indexterm" content="ICE rigid bodies: CollisionShape attribute">
+      <meta name="indexterm" content="CollisionShape attribute, ICE rigid bodies">
+      <meta name="indexterm" content="ICE rigid bodies: CollisionSize and CollisionScale attributes">
+      <meta name="indexterm" content="CollisionSize attribute, ICE rigid bodies">
+      <meta name="indexterm" content="CollisionScale attribute, ICE rigid bodies">
+      <meta name="indexterm" content="ICE rigid bodies: collision size and scale for particles">
+      <meta name="indexterm" content="ICE rigid bodies: collision geometry for obstacles">
+      <meta name="topic-type" content="concept">
+      <title>Collision Geometry for Rigid Body Particles and Obstacles</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-88ED5C3B-E16B-4B26-B814-C9234CCD437F"></a></span><div class="head">
+            <h1>Collision Geometry for Rigid Body Particles and Obstacles</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-E35A15CE-0176-41F9-9734-19343047D159"></a></span>The Simulate Rigid Bodies and Simulate Bullet Rigid Bodies nodes calculate the rigid
+               body collisions according to the size and shape of the collision geometries, which
+               are not necessarily the same as the particle or obstacle's actual geometric shape.
+               The collision geometry used is different for the particles and the obstacles: 
+            </p><span class="anchor_wrapper"><a name="UL_FA0DC1092F784FB8856E93B1BAFECCE1"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E975351A-49F5-4084-8386-202A12C90FD6"></a></span>See <span class="char_link"><a href="ipart_rigidbody_CollisionGeometryforRigidBodyParticlesandObstacles.htm#WSE8B2E643337E5445B9AAF683EB9608B2-0017">Collision Geometry for Rigid Body Particles</a></span> below 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C68FF21B-879C-497E-992A-40E4938F3FD4"></a></span>See <span class="char_link"><a href="ipart_rigidbody_CollisionGeometryforRigidBodyParticlesandObstacles.htm#WSE8B2E643337E5445B9AAF683EB9608B2-001A">Collision Geometry for Rigid Body Obstacles</a></span> below 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0017"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8B771414-F2C0-44F2-9B8C-E192130CC050"></a></span>Collision Geometry for Rigid Body Particles
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2D8A5574-7B75-4C90-8D1B-9072CE2DB259"></a></span>Different types of shapes are used for the rigid body particle's collision geometry
+                  depending on the particle's shape type: bounding shapes for the basic particles shapes
+                  or convex hull approximations for instanced shapes. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_84B0DC17042D486FB7ED94ECA2389438"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A17EA0A7-04DF-4426-A3BE-7C61DD675222"></a></span>Collision Geometry for Basic Particle Shapes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-68252E9B-246A-46E2-ACE9-BBC2829BCA06"></a></span>A bounding shape is automatically assigned to the particle when it becomes a rigid
+                     body, using whatever bounding shape is closest to the current particle Shape attribute
+                     that is set for it (such as in the Emit compound): bounding sphere, box, capsule,
+                     or cone. Bounding shapes provide a quick solution for calculating particle collisions
+                     because they don't have to calculate detailed geometry. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_86D9F4152F6C419DB3316DAF019F7D5E"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col width="50%">
+                           <col width="50%">
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-7B47819A-63ED-4B83-8D35-CAAA7D6604F8-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-1456531E-5361-4B9E-9894-581A1D6C2844-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EE7C66A4-32A3-45DD-A742-51CA760A161A"></a></span><p class="table-body">Bounding boxes are used for the Box, Disc, and Rectangle shapes. </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7FD92474-6135-4881-8452-64670413103B"></a></span><p class="table-body">Bounding spheres are used for the Sphere and Blob shapes. Points are approximated
+                                 by very small spheres. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-0ACB0CE5-9D99-4AE3-A116-B7642D533207-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-2FF9437B-306C-4D68-ACFE-C23D63B6BCFA-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-231CEB8D-CA6B-48C8-ADEF-21933FD843E5"></a></span><p class="table-body">Bounding capsules are used for the Capsule, Cylinder, and Segment shapes. They are
+                                 also used for the Cone shape by the Simulate Rigid Bodies node. 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7E55CE52-E920-4334-AA8A-E7D3A1B45C13"></a></span><p class="table-body">Bounding cones are used for the Cone shape by the Simulate Bullet Rigid Bodies node.
+                                 The bounding cone's center of mass is set close to its bottom (as opposed to the middle
+                                 of the bounding shape for capsules) so that a rotation that is more indicative of
+                                 a cone results during collision. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_3A3CEEDD726845FEBECA5C1E34BE1F1A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F2D8D3A0-98F8-4728-93F0-07831091A75A"></a></span>Collision Geometry for Instanced Shapes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8021B46F-C61B-40F8-9BC5-2F671A99825D"></a></span>If you're using instanced shapes on the rigid body particles (see <span class="char_link"><a href="ipart_instances.htm">ICE Particle Instances</a></span>), what is available for the particle's collision geometry depends on which Simulate
+                     node you're using: 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="SECTION_1FFC432EA7A54D11BD19DC08FEBA19CD"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-F5F9502D-7055-42F9-8FB8-002866A1DD56"></a></span>Convex Hulls
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-95D23E63-2572-4567-AC17-D0F632302FCC"></a></span> Convex hulls for instanced shapes for particles work in the same way as convex hulls
+                        for obstacles (see below). Convex hull calculations take a bit longer than bounding
+                        boxes, especially when you have many particles, but they give a more accurate representation
+                        of the instanced geometry. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-97B65FE3-A15F-40B0-B512-6B6D76A816CC"></a></span>If you're using the Simulate Bullet Rigid Bodies node, select <span class="MenuCascade" id="GUID-CDEAE494-6FAE-4A2C-BEE9-C74122012DD3">Convex Hull (Bullet RBDs Only)</span> as the <span class="MenuCascade" id="GUID-B4D8F0D7-E8B9-4702-8468-C711B126439E">RBD Type</span> in the <span class="char_link"><a href="iceref_Instance_Shape.htm">Instance Shape</a></span> or <span class="char_link"><a href="iceref_Set_Instance_Geometry_.htm">Set Instance Geometry</a></span> node to use convex hulls. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-183730A1-D8D0-474B-800B-A9F0554381E6"></a></span>Convex hulls are not supported by the Simulate Rigid Bodies node. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_458B05F669744654AAC4A106644D1D9B"></a></span><div class="figure-anchor"><img src="../images/GUID-1713DA49-0D56-4EE7-B5EE-83A47862B69A-low.png"><p><span class="anchor_wrapper"><a name="GUID-19D9E764-57F9-4208-9FE3-2349945C99F9"></a></span>In this image, the cereal pieces are using convex hull approximations. Their holes
+                           are not considered for the collision geometry, but their outer contours are. This
+                           allows them to pile up with a fair amount of accuracy. 
+                        </p>
+                     </div> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="SECTION_C8BF92B9119A4AEC93E1705186B1E8FD"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-F50F35CD-C290-490B-931E-3203C5C2D958"></a></span>Bounding Boxes
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CD1CC48F-B804-4CE1-8A66-36D8691FDE31"></a></span>Bounding boxes create a box shape around the instanced geometry, not considering their
+                        contours or any concavities. This lets you create faster, but less accurate, rigid
+                        body simulations. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-58E8AD21-F127-4180-AD41-5A2DD0D20CEC"></a></span>However, you can set the <span class="char_link"><a href="iceref_attributes_CollisionShape.htm">CollisionShape</a></span> attribute (in a Set Data node) to change the shape of the collision geometry for
+                        particles to Box or Sphere. For example, you may want to use a bounding sphere if
+                        it better reflects the shape of the instanced geometry you're using. If you do this,
+                        you will probably also need to set the CollisionSize attribute to better reflect the
+                        size of the particle geometry (see below). 
+                     </p> <span class="anchor_wrapper"><a name="UL_4830763128834209938BD23D21C15994"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-22AFE2ED-176E-452E-ACE4-29D1B26071D2"></a></span>If you're using the Simulate Bullet Rigid Bodies node, select <span class="MenuCascade" id="GUID-246C1640-9B69-4A70-8E8F-3272079EB0E6">BBox</span> as the <span class="MenuCascade" id="GUID-AEE00330-DB1B-430A-BD26-767869712773">RBD Type</span> in the <span class="char_link"><a href="iceref_Instance_Shape.htm">Instance Shape</a></span> or <span class="char_link"><a href="iceref_Set_Instance_Geometry_.htm">Set Instance Geometry</a></span> node to use a bounding box for the instanced geometry. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1C5EFE44-7F2C-4061-BFA5-00EF89B27C0B"></a></span>If you're using the Simulate Rigid Bodies node, only bounding boxes are supported
+                              for the instanced geometry shape. 
+                           </p> <span class="anchor_wrapper"><a name="FIG_EFB618FCF3414E858FCDCDA65F32F700"></a></span><div class="figure-anchor"><img src="../images/GUID-914B37D1-5CA4-47CD-B3C8-79ADD7D9FDBE-low.png"></div> 
+                        </li>
+                     </ul>
+                     <p><span class="anchor_wrapper"><a name="GUID-741E67F5-6919-4C9B-80FA-0186AF3AAAB9"></a></span>In this image, the cereal pieces are using bounding boxes, which doesn't let them
+                        pile up with the same accuracy as convex hulls; however, the simulation is faster.
+                        
+                     </p> 
+                  </div> 
+                  <div><span class="anchor_wrapper"><a name="GUID-467DD220-5355-4C1C-BFB8-51EC854F7A3B"></a></span><div class="note-note"><span class="label">NOTE:</span>If you really need the colliding particles to be the actual shape of the instanced
+                        geometry, especially for any "hero" pieces that get close to the camera, you may want
+                        to use the non-ICE rigid body system (see <span class="char_link"><a href="rigidbody_RigidBodies.htm">Rigid Bodies</a></span>). 
+                     </div>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0018"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FF7A0638-32A4-4D0A-A945-EC11A23A577E"></a></span>Setting Offsets for the Particle Collision Size and Scale
+                  </h3>     
+                  <p><span class="anchor_wrapper"><a name="GUID-40AFDE23-E556-43FD-AC7F-75FBFC1DEBA7"></a></span>Rigid body particles have a thin skin surrounding them. This usually helps to prevent
+                     objects from going through one another without colliding, or helps prevent problems
+                     when using grids and flat objects as obstacles. However, the skin is also why you
+                     may notice small interpenetrations with the rigid bodies. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F0DF4DB0-BF2D-4820-855C-FBDE3DF9E021"></a></span>To solve this problem, there are two particle attributes that you can set to determine
+                     the particle's collision geometry size: CollisionSize and CollisionScale. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-56A0A865-EBE9-4717-BEEA-93C06830B5F6"></a></span> The particle's Size attribute is used for collisions unless the CollisionSize attribute
+                     is defined; likewise for the particle's Scale and CollisionScale attributes. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FD5326A1-17B8-4CDF-8CA0-CECE98E5902F"></a></span> <span class="anchor_wrapper"><a name="UL_CAB72CADAA824E3DA51917B285DB3BD5"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-02839C77-0C0D-4BA4-A510-B3A0D6513825"></a></span><span class="char_link"><a href="iceref_attributes_CollisionSize.htm">CollisionSize</a></span> is the size of the particle's collision geometry. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-12DE3075-58DE-42E7-BA7B-3DAC98D15FB0"></a></span>You can set a particle's collision geometry size to be bigger than the particle size
+                              and counter the interpenetration caused by the skin. Making the CollisionSize value
+                              larger increases the chance of collisions while keeping the actual particle size small.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2ABEEBDF-0F7B-41CE-90F6-E095C7D42DFA"></a></span><span class="char_link"><a href="iceref_attributes_CollisionScale.htm">CollisionScale</a></span> is the size of the particle collision geometry on each of its XYZ axes. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-04D7BC28-5A64-42A0-A7E1-389FE166D705"></a></span>This attribute is useful for creating oblong shapes that cannot be defined by Size
+                              or CollisionSize alone. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-037B23E4-9006-4471-B686-094316130DA0"></a></span>To set these attributes, create a Set Data node and expose each attribute in it —
+                     see <span class="char_link"><a href="ICE_particles_UsingICEParticleAttributes.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0174">Getting and Setting ICE Particle Attributes</a></span> for more information on how to do this. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-08D3A0CA-A74D-4AFE-9A89-A3402D12D34B"></a></span>Plug the Set Data node's Execute output into the Execute on Emit port of an Emit compound
+                     to set this value once. Or plug it into an Execute port in the Simulation Root node
+                     (above the Simulate Bullet Rigid Bodies or Simulate Rigid Bodies node) to update the
+                     data at every frame. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-001A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-58E576FA-8266-4DEA-9EE6-003E8A0D98C1"></a></span>Collision Geometry for Rigid Body Obstacles
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-1F559103-FEA1-4393-99BC-B1A1BCAD96B8"></a></span>You can use either the actual shape or a convex hull of the obstacle's geometry depending
+                  on which Simulate node you're using to simulate the rigid bodies. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_8AE090DA545846BF843EBF62560111E0"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A8C0A4A2-AF15-4831-859F-A7B14DF4057A"></a></span>Actual Shape
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6A4BDD8C-6604-4806-9D1E-B9A3A2B8C951"></a></span>Actual shape is just that: the actual shape of the obstacle's geometry is used as
+                     the collision geometry. This allows you to use obstacles that are concave (such as
+                     bowls or boxes). For best results, the obstacle should be volumetric: this is because
+                     the Bullet physics engine decomposes the object into multiple convex hulls based on
+                     volume in order to calculate the object's actual shape. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-89044793-8D5A-4642-A998-E90DDF9CDD27"></a></span>The obstacle's geometry can also deform over time (such as being shape-animated) and
+                     the collisions will remain accurate; however this may increase the simulation time
+                     because the shape is recalculated at every frame. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1F794665-BD27-411E-8F09-D61F67E79D70"></a></span>If you're using the Simulate Bullet Rigid Bodies node, select the <span class="MenuCascade" id="GUID-62EEB59B-4C83-4138-B5E5-851172A4092A">Exact Shape</span> option (per obstacle) in the Simulate Bullet Rigid Bodies node to use that obstacle's
+                     actual shape. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3F0F243A-ECF6-4CE1-9E3C-ECA6F9568A06"></a></span>Actual shape is not supported by the Simulate Rigid Bodies node. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_9D74C56BD38349DAA7BA24761C9C4699"></a></span><div class="figure-anchor"><img src="../images/GUID-D3BDABFD-7A22-4DC0-A717-1398CE27B44A-low.png"><p><span class="anchor_wrapper"><a name="GUID-77617DD4-D135-4AE7-87E3-5707E1A2056A"></a></span>In this image, the actual shape of both the cereal box and bowl are used. The particles
+                        are emitted from a volume shape that is inside the box. 
+                     </p>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_553E740FF2C84BE3A4CD32346446E405"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-38E82836-B615-421E-9E08-5CC052A72AC0"></a></span>Convex Hulls
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-03979165-7C83-43CA-8F23-DF790D84B6CE"></a></span>Convex hulls give a quick approximation of an object's actual shape to be used for
+                     the collision geometry, with the results similar to an object being shrinkwrapped
+                     with plastic. Convex hulls don't calculate any dips or holes in the rigid body geometry,
+                     but are otherwise the same as the rigid body's original shape (the basic outer contours
+                     are respected). 
+                  </p> <span class="anchor_wrapper"><a name="UL_D07F7A1095BE4886829C2CA6468006ED"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6DBA8A14-BA97-4F7F-B6D4-D60CC823F8E6"></a></span>If you're using the Simulate Bullet Rigid Bodies node, deselect the <span class="MenuCascade" id="GUID-03296DA2-B41B-4701-A253-862A4817EA7B">Exact Shape</span> option (per obstacle) in the Simulate Bullet Rigid Bodies node to use convex hulls.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B19C2874-D516-4F4F-A0CD-38FD6B64F835"></a></span>If you're using the Simulate Rigid Bodies node, you can use only the convex hull approximation
+                           of the obstacle's shape. However, you can "create" your own non-convex obstacle by
+                           decomposing the obstacle object into separate proxy geometries, grouping them, and
+                           then using the group as the obstacle. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_32592F9C0CA34C3C904D8C7EFE0D142F"></a></span><div class="figure-anchor"><img src="../images/GUID-7AC16294-92E0-4638-ADC2-57E94E732BB0-low.png"></div> 
+                     </li>
+                  </ul>
+                  <p><span class="anchor_wrapper"><a name="GUID-397EC88B-94D9-420D-ADEC-172530F679F6"></a></span>In this image, the bowl's interior is "cut off" from being part of the collision,
+                     so the cereal pieces simply bounce off its top as if it was shrinkwrapped. However,
+                     the cereal pieces collide correctly with the outside of the bowl. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_FC0C055037DE45DA914046715213DB04"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-93B5C3AD-FDFF-460A-804A-8B5D84835A4C"></a></span>Tips for Better Collisions
+               </h2> <span class="anchor_wrapper"><a name="UL_91774ECD481344FF823A7BE017BACA2B"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E40DF5F0-6070-4A8C-AE50-D72953A76E01"></a></span>Collisions don't work well with very thin objects, so grids are generally not a good
+                        idea to use as obstacles. It's better to use a flattened cube that has some thickness,
+                        such as for creating a ground plane or table. You can use the <span class="char_link"><a href="iceref_Apply_Thickness.htm">Apply Thickness</a></span> tool to quickly make a 2D polygon mesh object have volume! The thickness that you
+                        need depends on the particles' size and speed, as well as the simulation precision.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8CA0A661-FDAD-4162-AE97-738044B0DE86"></a></span>Small particles (especially sphere-shaped ones) with a high velocity can sometimes
+                        go through collision objects. To remedy this, you can set the <span class="MenuCascade" id="GUID-ECA5CFC6-CD8D-4A9B-911E-A60B24960724">Precision</span> parameter in the Simulate Rigid Bodies or Simulate Bullet Rigid Bodies property editor.
+                        It allows you to set the number of substep iterations that should be made when detecting
+                        collisions and resolving motion. By default, the precision is 60 (a substep iteration
+                        cannot be longer than 1/60 seconds). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-36C1FAF7-2491-44C6-8512-735107D3E23B"></a></span>You can also increase the particle's Subframe Sample value for more accurate collisions
+                        - see <span class="char_link"><a href="GUID-04F54DC8-7FB3-4034-B563-53412C86908D.htm">ICE Simulation Subframe Sampling</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6B56F681-6B97-4CFB-9CD4-62D17302D871"></a></span>To prevent rigid body particles from poking through collision objects as they are
+                        born, make sure that the emitter object is at least half of the maximum particle radius
+                        away from the collision objects. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8F6F63C6-00AD-4C1D-95D6-CBA55C3A00D0"></a></span>When rigid body particles are born, their collision geometry can overlap, which causes
+                        them to repel each other with increased velocity on the first frame of the simulation.
+                        To help reduce this problem, you can decrease the size of the collision geometry (set
+                        the CollisionSize attribute lower than the particle Size - see above). Make sure that
+                        the size isn't so low that the rigid body particles noticeably penetrate each other.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-042C1EC3-AE44-4802-A9C0-5B55DF612F23"></a></span>You can also selectively mute collisions per particle based on time or on overlapping
+                        collision geometry. Simply muting the collisions when a particle is very young can
+                        give it enough time to move away from its neighbors and avoid "blasting apart" when
+                        it's born. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C3259528-06B7-480A-B810-97E729D4891B"></a></span>If the particles are bouncing around too much when they collide, set their Elasticity
+                        attribute with a low value and/or lower the collision object's <span class="MenuCascade" id="GUID-3180620B-DB2A-4E92-B921-53828CEE7E1B">Elasticity</span> value — see <span class="char_link"><a href="ICE_rigidbody_SettingtheElasticityandFriction.htm">Setting the Elasticity and Friction</a></span>. You can also reduce the particle speed (see <span class="char_link"><a href="ICE_particles_ICEParticleSpeed.htm">ICE Particle Speed</a></span>), which also has an effect on how rambunctious they are when colliding with each
+                        other. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F0DE0E3B-7234-4B48-9ED5-A7E601F736E7">
+      <meta name="indexterm" content="caching: ICE simulations with Cache on File node">
+      <meta name="indexterm" content="ICE simulations: caching with Cache on File node">
+      <meta name="indexterm" content="ICE particles: caching with Cache on File node">
+      <meta name="indexterm" content="ICE simulations: writing simulations to file with Cache on File node">
+      <meta name="indexterm" content="Cache on File node">
+      <meta name="indexterm" content="ICE attributes: caching into files">
+      <meta name="indexterm" content="caching: reading cache files in the ICE tree">
+      <meta name="indexterm" content="ICE simulations: reading cache files with the Cache on File node">
+      <meta name="indexterm" content="caching: blending cache files in the ICE tree">
+      <meta name="indexterm" content="ICE simulations: blending cache files with the Cache on File node">
+      <meta name="topic-type" content="concept">
+      <title>Caching ICE Simulations in the ICE Tree</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F0DE0E3B-7234-4B48-9ED5-A7E601F736E7"></a></span><div class="head">
+            <h1>Caching ICE Simulations in the ICE Tree</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-C2DD893B-37F0-4530-A061-889B9CE426F2"></a></span>Much of the work in creating a convincing simulation is the process of trial and error.
+               You usually need to try out many different combinations of settings until you find
+               the right effect. Caching can help you do this, similar to how you create a flipbook
+               for testing out animations. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D67723AF-5E73-4DC5-91D4-D32A4987063E"></a></span>Cache files are useful for: 
+            </p><span class="anchor_wrapper"><a name="UL_C19E0B0E5C76451CA72837F2D08D8F3B"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FC6282C3-0583-4CEB-9AC1-C8B5EED416F5"></a></span>Saving different variations of a simulation or animated deformation. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6399C8F3-32E1-4F11-B476-E1BF9CDEE474"></a></span>Being able to play a simulation backwards or scrub it. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1683F21E-5DE1-47B3-AEBF-6B66FDBC1DFE"></a></span>Reducing the number of calculations that are performed when playing back or rendering
+                     scenes. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-85BD7E07-887D-432B-8858-EC268B4B30AF"></a></span>Exporting an object's data to other scenes, other computers, and to other 3D software
+                     packages, such as Autodesk® Maya® or Autodesk® 3ds Max®. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1C7FC459-DA95-4442-9971-6C8500B75F44"></a></span>Blending multiple cache file clips in the animation mixer to create various effects.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-01A2A2B4-44BA-4E29-AFD4-B9B864C120AB"></a></span>Blending multiple cache files in an ICE tree by using the Cache On File node. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-13471C98-F2E8-4AB5-A74B-D66DD750A19B"></a></span>When the simulation is cached, each frame that has been played is evaluated and stored.
+               This means that you need to play through the whole simulation (with the <span class="MenuCascade" id="GUID-CFAB3657-193C-4E37-AF86-75CE9A74E611">All</span> frames button selected in the timeline, and not <span class="MenuCascade" id="GUID-DF23C5EF-57D0-49C0-9529-EF49376CF6CB">RT</span>) to cache each frame of it. If you change something in the simulation, all subsequent
+               frames are affected, so the cache is emptied and you need to cache again to update
+               it with the changes. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-073151E1-3466-4D49-B548-0264CB94E8F0"></a></span>There are three ways of caching ICE simulation data: 
+            </p><span class="anchor_wrapper"><a name="UL_21F8DBA2CADC4FD09FD58AD7AF0DA973"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8351F167-8F2E-450A-B70D-10AE1DF97957"></a></span>Use the <span class="MenuCascade" id="GUID-E25E516D-7DEB-4E9E-B1D7-7D3EC8ACC7F7">Cache on File</span> node in the ICE tree to save ICE simulations or animated deformations and their ICE
+                     attributes in point cache files — see <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#WS2A020F56F634064C904087E0C75076C7-0037">Writing Cache Files in the ICE Tree</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A49AC7D9-43A9-44E1-8FAA-3C70867D0FAB"></a></span>You can also use the Cache on File node to read (load) attribute information from
+                     a cache file, as well as blend or merge cache file sequences with each other — see
+                     <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#WS2A020F56F634064C904087E0C75076C7-003C">Reading a Cache File in the ICE Tree</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2FB019B1-E7E1-4E51-97D0-C001D2E00443"></a></span>Use the options on the <span class="MenuCascade" id="GUID-A24535C2-B0C2-44CB-B6EA-1F7EB0D0E520">Write</span> tab in the <span class="MenuCascade" id="GUID-29BE7657-410B-4DB6-9FF0-533A2F7DABC7">Cache Manager</span> to plot ICE simulations or animated deformations and their ICE attributes into point
+                     cache files — see <span class="char_link"><a href="sim_cache_PlottingSimulationorAnimationDataintoCacheFiles.htm">Writing Cache Files</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7433E874-559A-46A7-9919-B3BCB06DC9E5"></a></span>Use the <span class="MenuCascade" id="GUID-8253E0DD-5A25-4742-AA73-4C8341A49F05">Simulation Time Controls</span> to cache ICE simulations and their local ICE attribute values to a point cache file,
+                     and optionally to an action source. This also creates a simulation environment cache
+                     that allows you to play the simulation backwards and scrub through it. These controls
+                     are available from the ICE simulation's environment via the explorer, or from the
+                     Simulation page in the Cache Manager — see <span class="char_link"><a href="rigidbody_CachingtheRigidBodySimulation.htm">Creating ICE Simulation Environment Cache Files</a></span>. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-9E5FD181-4B9E-413E-9580-588F2BA8BCD0"></a></span>The point cache file that is created with the Cache on File node is the same type
+               as the one created when using the Cache Manager — see <span class="char_link"><a href="sim_cache_CachingSimulations.htm">The Cache Manager</a></span>. This means that you can use the resulting cache file in either the ICE tree or the
+               animation mixer. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-0564BFD5-15D2-4E86-8D1E-EDF23DB159F8"></a></span><div class="note-tip"><span class="label">TIP:</span>To set up the default path, file name syntax, and file format for the cache files,
+                  see <span class="char_link"><a href="sim_cache_SettingtheDefaultPathsforCacheFiles.htm">Setting the Defaults for Cache Files</a></span>. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0036"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E4F8F26F-7A9A-49D0-ADE9-F28A114007D2"></a></span>About the Cache on File Node
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-9FD52D34-B774-4D6F-94EE-FE7CC59660BC"></a></span>The Cache On File node is an advanced feature. It should be used as a dedicated operator
+                  to write or read simulation data, and not be changed dynamically. It's best to use
+                  it to read a cached sequence, and then blend it with other sequences, add nodes to
+                  it to build a new ICE tree, or to improve on the simulation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-695AA7D6-A78D-4E7E-ACBA-91DEDBCDD143"></a></span>The Cache On File node needs you to tell it what to do — in fact, it's so lazy that
+                  it's set to "do nothing" by default. You must use either of these two modes to make
+                  it do some work: 
+               </p> <span class="anchor_wrapper"><a name="UL_0C9CAB1FC67644D0933CC2DE764A1F5A"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-14A1E871-E4D1-4811-8399-F531C0C7917C"></a></span>Set it to <span class="MenuCascade" id="GUID-B0A5C897-C10B-440A-B72F-4FDF1B0F24B9">Write Cache</span> mode when you want to write a simulation sequence to a cache file — see <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#WS2A020F56F634064C904087E0C75076C7-0037">Writing Cache Files in the ICE Tree</a></span> below. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-39D3B382-EC8C-4C3D-9CD5-15C4759BD17F"></a></span>Set it to <span class="MenuCascade" id="GUID-2A341526-C3F6-4968-8E8A-808FD68708FA">Read Cache</span> mode when you want to load a cache file into the ICE tree — see <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#WS2A020F56F634064C904087E0C75076C7-003C">Reading a Cache File in the ICE Tree</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0037"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9236E1FD-A19E-462C-9836-BE4CFE62055D"></a></span>Writing Cache Files in the ICE Tree
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-F658F069-1DDC-4B0B-80A2-53980B383FD8"></a></span>You can use the Cache on File node in the ICE tree to write the simulation or animated
+                  deformation data stored on an object, including its ICE attribute information, to
+                  a cache file. You may want to write a cache file in this way if you're using a dedicated
+                  write cache operator with some special data manipulation that you've created. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B35E493C-8AC6-4CE3-8835-ECE93CC3EBC0"></a></span>Writing the cache from the ICE tree stores the values at the evaluation point and
+                  outputs these values from that point on, until you click the Update icon. If the values
+                  change over time, it stores only one frame, and evaluates the next one. This node
+                  optimizes parts of the ICE tree so that it does not evaluate at every frame. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5136E906-E707-452F-A617-2462DCE73DCE"></a></span>Only the simulated frames of an ICE tree are written to the cache, which doesn't include
+                  the first frame of the scene. This frame is considered to be the initial state and
+                  is therefore not simulated. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-287561CF-AA0E-45B2-8AB0-24EA7A3AD0CA"></a></span>The Cache on File node doesn't know when a simulation has changed: if there is a change
+                  that you want to cache, you need to run the simulation again to rewrite the cache.
+                  Likewise, be aware that as long as this node is plugged in and set to Write Cache
+                  mode, the cache file is overwritten every time you play the simulation. Make sure
+                  to disconnect the node or set it to "Do Nothing" when you're ready to stop caching.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7257DDA3-3A48-40DD-8261-2DD2FC1078B2"></a></span> To write to a cache file: <span class="anchor_wrapper"><a name="GUID-52D169F3-DCC9-462A-B9DC-28FD07562E13"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CE8B68A5-654C-4329-A508-59D3B76190CF"></a></span>Select an object or point cloud whose ICE simulation you want to cache. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B80F27A4-535E-4AFD-90BA-DAB590307F77"></a></span>In the preset manager of the ICE Tree view, click the Tool tab and drag the <span class="MenuCascade" id="GUID-126BA4CE-3EE4-4C35-A7CC-25AB85161F2F">Cache on File</span> node from the Data Access group into the tree workspace. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-81CAE2AF-9EC0-479E-BC13-DA04F60123C7"></a></span>Plug its Execute output into the lowest port on the ICETree node (below all other
+                           nodes that are plugged into it) if you want the whole ICE tree to be evaluated for
+                           caching. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-DD3F8A41-0033-4DBD-9B2A-84ACD5014A4F-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-89F6CFA6-6F20-49EC-AE7F-95C9C22BBE00"></a></span>Open the <span class="char_link"><a href="iceref_Cache_on_File.htm">Cache on File</a></span> property editor, and select <span class="MenuCascade" id="GUID-83139698-51C7-4E04-B105-78988BE28222">Write Cache</span> from the <span class="MenuCascade" id="GUID-372C478F-9E9E-40D7-ADFD-101946B02459">File Mode</span> list. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-8AE2EFF6-79A0-4AB6-824E-55B748968EEE"></a></span><div class="note-note"><span class="label">NOTE:</span>If you want to drive the File Mode directly with a node, you can use the <span class="MenuCascade" id="GUID-B7E37243-C424-4F0F-A111-6DFF68ABAF2F">Caching Mode</span> parameter on the Cache Binding tab. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CA87307A-C401-4332-856C-2EA655558485"></a></span>Select the <span class="MenuCascade" id="GUID-74F2A07E-E0E0-4C5E-B1A3-B6EDE82E9B65">Path</span> for the current cache file — see <span class="char_link"><a href="iceref_Cache_on_File.htm">Cache on File</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-81F37EEE-D7C0-42C7-A2A2-C026685D9631"></a></span>The <span class="MenuCascade" id="GUID-684CF364-1AB0-4AAE-810C-39C989E18BB2">File Name</span> for the cache has this syntax: [<em class="mild">object</em>]_[<em class="mild">version</em>]_[<em class="mild">frame</em>] 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4827E2F5-12BA-410F-B52B-AADBAE558BB7"></a></span>The tokens used for the Path and File Name are automatically set according to what's
+                           used in the <span class="char_link"><a href="userprefs516.htm">Simulation Preferences</a></span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4350D749-F149-40D9-98E9-8D629902B988"></a></span>If you want to change the tokens used for the Path or File Name, click the <span class="MenuCascade" id="GUID-E8E041EE-224A-4385-AB00-354A6D83842F">Tokens</span> button to see which ones are available to use. You can use any of the Universal tokens,
+                           in addition to the ones for Caching. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-070DEEC8-3ADB-4D9A-A0EA-340B63AE5B36"></a></span><div class="note-note"><span class="label">NOTE:</span>If you want to drive the Path and File Name directly, you can use the <span class="MenuCascade" id="GUID-A1A23BE9-6812-44E4-BA05-721A0EDC7885">File Full Name</span> parameter on the Cache Binding tab. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-50807A29-C777-4C63-B1A0-380CBB84C9A4"></a></span>Select a cache file <span class="MenuCascade" id="GUID-B2F90EEB-A9F5-40B4-85F1-4723DE295C9C">Format</span> from the list — see <span class="char_link"><a href="data_cache_CacheFileFormats.htm">Cache File Formats</a></span>. Only the ICEcache and Custom formats are supported. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-99E5A02E-04F3-405D-A2CB-078E049BE95B"></a></span>Use the <span class="MenuCascade" id="GUID-E131EC09-0A4F-4D49-8145-860DD0DA1BBA">Attribute List</span> text box to specify the ICE attributes that you want to include in the cache file
+                           — see <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#WS2A020F56F634064C904087E0C75076C7-003A">Specifying ICE Attributes in the Cache File</a></span>. If you specify nothing here, all required attributes are included in the cache file.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CE41E25C-B855-43D3-8300-AE6DDEA7ECFA"></a></span>By default, the Current Frame node is plugged into the Frame port of the Cache on
+                           File node. This port specifies the frame number to be used to resolve the file name.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8ACE668E-B3F7-4450-BDBB-1C2E4CAF5E3F"></a></span>You could plug another node or compound in here to drive the frames used for the cache,
+                           such as the <span class="char_link"><a href="iceref_Frame_Cycle_Control.htm">Frame Cycle Control</a></span> compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E5C749FD-F053-4628-94DF-A2FED334F59A"></a></span>Play the whole simulation to cache each frame of it, or play only the frames you want
+                           to cache. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CE36469E-B390-4CC4-AB98-48CA2A5944A3"></a></span>Make sure that the <span class="MenuCascade" id="GUID-3FB56CD1-09CE-4A1F-9C84-501E74E71EDF">All</span> frames button is selected in the timeline, and not <span class="MenuCascade" id="GUID-7586945F-418F-4612-84EB-0E08B0950645">RT</span> (real time), otherwise some frames may be skipped. See <span class="char_link"><a href="ani_play_PlayingBackAllFramesorPlayinginRealTime.htm"> Playing Back All Frames or Playing in Real Time</a></span> for more information. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B315F511-0C74-4266-925F-DE0D7078B0C6"></a></span>When you first play the simulation, the data is being cached so it takes a bit of
+                           time. However, once it's cached, the playback is usually faster than if no source
+                           was cached. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C1B83B9B-BE5B-4EF2-81D2-5EB1C2A99A49"></a></span>The frames that are played are cached into the file in the path that you specified.
+                           
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-2233FC35-B23C-492F-9218-E1A5A8BF7172"></a></span><div class="note-tip"><span class="label">TIP:</span>Only the simulated frames of an ICE tree are written to the cache, which doesn't include
+                              the first frame of the scene. This frame is considered to be the initial state and
+                              is therefore not simulated. For example, if your scene starts at frame 1 and ends
+                              at frame 100 frames, 99 simulated frames are written to the cache, beginning with
+                              frame 2. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-25593764-468E-4AB0-838E-1E39DC9F6AB1"></a></span>Now you can do either of the following with the cache file: 
+                        </p> <span class="anchor_wrapper"><a name="UL_E10705CDB85D4D29A21FAA1277736157"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-173EE0AD-9363-45B3-8713-6E41737BE434"></a></span>Read the cache file in this ICE tree or in the ICE tree for another object — see <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#WS2A020F56F634064C904087E0C75076C7-003C">Reading a Cache File in the ICE Tree</a></span>. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B2C332C8-0CA4-4953-86EA-2A7B7B6E733B"></a></span>Load it into the animation mixer as a cache clip on a track. You can then do things
+                                 like creating cycles for looping simulations, scaling the clip's time, using a timewarp
+                                 on them to reverse the simulation or adjust the timing with a curve, or blending cache
+                                 clips together. See <span class="char_link"><a href="sim_cache_LoadingtheCacheFileintotheAnimationMixer.htm#WSBCC68D637F05FE469ECDBB479E3055EE-0030">Using Cache Files in the Animation Mixer</a></span> for information. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-003A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E757B2E8-DF1C-45DE-9DA5-CD8350411289"></a></span>Specifying ICE Attributes in the Cache File
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-2D995458-FF81-4023-9A3D-D721CB1725E3"></a></span>At the bottom of the Cache on File property editor, you can specify which attributes
+                  you want to write into the cache file. If you don't enter anything into this list,
+                  Softimage automatically makes sure that all required attributes are included. These
+                  are the attributes that are used in the object's ICE tree and in the render tree for
+                  rendering (such as those being used by an attribute shader in a render tree). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F1409A07-8091-4578-BBD3-8910B2C824E3"></a></span>However, if you want to cache only specific attributes, you can do so by entering
+                  their names in the <span class="MenuCascade" id="GUID-8B74CD23-2BE4-48C3-B002-812682B7DA1A">Attribute List</span> text box. Make sure to separate each attribute name by a comma (for example: PointPosition,PointVelocity,Color,Shape,Size,Mass),
+                  but don't put any spaces between the comma and the following attribute name. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DCDB55A9-E8AC-4689-A098-C377FDB58B94"></a></span>Note that when you specify attributes here, <em class="mild">only</em> those attributes will be cached into the file: they are not added to the required
+                  attributes. 
+               </p> <span class="anchor_wrapper"><a name="FIG_30D4CD1E39F04435B2C3CA36F4561056"></a></span><div class="figure-anchor"><img src="../images/GUID-D78591A2-072C-4CBA-895B-AB625B249978-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-6E971724-0DEA-4B31-B3F4-64EC68ECD4F0"></a></span>For more information on specifying which attributes to cache, see <span class="char_link"><a href="sim_cache_PlottingSimulationorAnimationDataintoCacheFiles.htm#WSBCC68D637F05FE469ECDBB479E3055EE-0014">Setting ICE Attributes for Caching</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-867D8242-D222-465E-A9DD-0A1CF57A7782"></a></span>For information on ICE attributes in general, see <span class="char_link"><a href="iceref_attributes_a.htm">ICE Attributes</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-003C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E87FBD33-1258-4E16-84BB-8E28A0FE0B06"></a></span>Reading a Cache File in the ICE Tree
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-2E5FA57D-C9D0-485B-B6B3-EDB5E9EE2972"></a></span>Once you have created a cache file, you can use the load it in the ICE tree using
+                  the Cache on File node. You can use this node to simply play back the cached data,
+                  or you can modify the cache file data by plugging in nodes as you would to build and
+                  modify any ICE tree. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-22AE0D98-13BC-4077-9787-4EF85DAF0D92"></a></span>You can also load the cache file onto a track in the animation mixer — see <span class="char_link"><a href="sim_cache_LoadingtheCacheFileintotheAnimationMixer.htm#WSBCC68D637F05FE469ECDBB479E3055EE-0030">Using Cache Files in the Animation Mixer</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DFA6C91F-46D1-41F6-80EA-98D010087C2E"></a></span>You can apply the cache file to the same object for which you created the cache file,
+                  or to another object. If you're loading a cache file onto a different object, the
+                  number of points on this object must match the number of points that were on the object
+                  whose data was cached. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-058875F0-D622-449B-B30A-22B2CDC6F6F6"></a></span>When in read mode, the Cache on File node overrides any Simulate nodes that are plugged
+                  into the ICE tree so that their simulation is ignored. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3AD088B6-6F67-47B5-99A1-662CBBA941C9"></a></span>If you have multiple Cache on File nodes plugged into the ICE tree node, you can blend
+                  them together in different ways (see <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#WS2A020F56F634064C904087E0C75076C7-003E">Blending Cache Files</a></span>). If you don't blend them, only the data from the lowest Cache on File node is played
+                  because it is the last node that is evaluated. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E88D288D-5778-48CD-9378-C35487D2CB51"></a></span> To read a cache file in the ICE tree: <span class="anchor_wrapper"><a name="GUID-19409329-F9ED-49E9-B450-FDFE7A6E8380"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D409A33F-316C-46C9-BEA7-FA4D153AC0CF"></a></span>Select the object to which you want to apply the cache file. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1E173DE8-5CA8-4392-8784-5761A09A6C81"></a></span>Create a simulated ICE tree node for the object so that the frames are updated. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E1241AC5-92EC-46E7-9588-8C7E02B60B91"></a></span>In the preset manager of the ICE Tree view, click the Tool tab and drag the <span class="MenuCascade" id="GUID-C6D5D029-8C98-41FD-9BE7-DC618DF20E42">Cache on File</span> node from the Data Access group into the tree workspace. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-79D4640F-85DB-49B4-B1FE-025D658BD399"></a></span>If you want to blend the results of multiple cache files, see <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#WS2A020F56F634064C904087E0C75076C7-003E">Blending Cache Files</a></span> below. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6F64F750-EC9F-4FC3-806F-B85459AA17DC"></a></span>Plug its Execute output into a port on the ICETree node, most likely below any Simulate
+                           nodes. No matter where it's plugged in, the Cache on File node overrides any Simulate
+                           nodes that are in the tree. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E0DF76C4-DF49-4D20-B660-C2AC90699967"></a></span>In the Cache on File property editor, select <span class="MenuCascade" id="GUID-81C2E1D4-98BB-455D-89CA-D6E5573C805C">Read Cache</span> from the <span class="MenuCascade" id="GUID-07F55F16-95FC-458C-BAE4-4D7B001CC2E7">File Mode list</span>. This loads the data from the file you select and inserts it at this point in the
+                           tree. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-83C17F15-58D8-496A-A312-A5EC5FF5205F"></a></span><div class="note-note"><span class="label">NOTE:</span>If you want to drive the File Mode directly with a node, you can use the <span class="MenuCascade" id="GUID-994C2089-A29F-44C8-A4E1-50C5B62970D9">Caching Mode</span> parameter on the Cache Binding tab. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1A8C75B2-E2A3-4276-A6EF-6CF912C0321F"></a></span>In this property editor, select a cache file from the <span class="MenuCascade" id="GUID-2B750C3F-B418-400F-8AA0-34A7FF37EEDD">Path</span> text box. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DFCB8383-2440-4C4D-B848-76F216D973FC"></a></span>By default, the <span class="MenuCascade" id="GUID-891570AD-CE98-4C31-AD1E-CFFA0FC12A7A">Current Frame</span> node is plugged into the Frame port of the Cache on File node. This port specifies
+                           the frame number to be used to resolve the file name. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-E56A0D3A-7E28-4CC0-A56A-C5FD332B8711"></a></span><div class="note-tip"><span class="label">TIP:</span> <span class="anchor_wrapper"><a name="UL_0EAC9145281D4B5B8799778847DAC582"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-C5B89901-5030-47B7-89B4-F9229D827D9F"></a></span>If you want to play the cache file using the frames in the scene timeline, select
+                                       the <span class="MenuCascade" id="GUID-98D8D1CA-5C9C-4C07-B4DB-486072360CA2">Global Time</span> option in the Current Frame node. This option is off by default, which means that
+                                       the cache file's local simulation frames are used, which are often offset from the
+                                       scene's frames. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-89904DE8-FF92-4F1E-8525-66BF0549B5FF"></a></span>You can replace the Current Frame node with another one to drive the cache frames
+                                       played. For example, you could use: 
+                                    </p> <span class="anchor_wrapper"><a name="UL_26C792FF61494CB6BFAF5E83CBF31D5E"></a></span><ul>
+                                       <li> 
+                                          <p><span class="anchor_wrapper"><a name="GUID-936C6539-FE95-48CB-A205-A46BC895B3B7"></a></span>The Frame Cycle Control compound to cycle the frames. 
+                                          </p> 
+                                       </li>
+                                       <li> 
+                                          <p><span class="anchor_wrapper"><a name="GUID-5EFECDF9-1179-4D1B-89F2-DB2426CCFC7F"></a></span>A Scalar node to use any multiplier value: set a value of 1 on the first frame, then
+                                             a value of 100 at the last frame. Animate these values, make the curve linear, and
+                                             adjust it as you like. 
+                                          </p> 
+                                       </li>
+                                    </ul> 
+                                 </li>
+                              </ul> 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6AF7E1AE-1BAA-435F-AB59-13A01BA0D7D7"></a></span>Use the playback controls to play the simulation in the cache files on the selected
+                           object. You can also play the simulation backwards, or scrub the playback cursor back
+                           and forth. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-912D3B3A-4459-4734-BE8A-B5114E92BBC9"></a></span>Select the <span class="MenuCascade" id="GUID-B0DDF02B-42A9-4A84-9AB2-6FB215C8FD4C">Mute</span> option on the Cache Binding tab in the Cache on File property editor to temporarily
+                           disable the playback of the cache file. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-003E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4245D5E7-9407-4B74-9C12-5E00FDBC7873"></a></span>Blending Cache Files
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-EAEB4A08-23B2-4BFC-A995-2BAAA00C66F1"></a></span>You can blend the ICE attribute data stored in a cache file with another cache file,
+                  or with the object's current attribute data in the scene. You can use these options
+                  only if you have two or more Cache on File nodes plugged into an ICE tree. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-10B05165-71CC-4DAE-9ED7-007EA2B3FFDA"></a></span> To blend multiple cache files: <span class="anchor_wrapper"><a name="GUID-4D2C941B-ED53-43CF-B4D4-BBB25ED15CFB"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8968B051-3628-4F54-8ED7-7BE8E4292689"></a></span>Get a Cache on File node for each cache file and plug each of them into the ICETree
+                           node. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FDD4F2FF-9A2C-4273-B003-4786606C12DF"></a></span>The Cache on File node that is at the lowest port on the ICETree node is the only
+                           one that is played unless you set the blending values. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CA4F0B1F-77B1-4C0F-999F-E7CA5FBDB40C"></a></span>In each of the nodes' <span class="char_link"><a href="iceref_Cache_on_File.htm">Cache on File</a></span> property editors, make sure that each Cache on File node is set to <span class="MenuCascade" id="GUID-F5700C56-BE4D-49A1-85D0-873D0D04787B">Read from File</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ED584387-C165-477C-B349-1D8B8232DC1E"></a></span>Click the <span class="MenuCascade" id="GUID-1CAB2DC3-0C9D-4439-8C18-DB41B7FE7943">Cache Binding</span> tab in the property editor of the lowest Cache on File node and select one or more
+                           of the following options to control the blending. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0040"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5D2AA1D5-5C49-4433-B1D0-36EC32E69EDE"></a></span>Blend
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2B5FFE0E-FC64-4AD3-A881-29C9D1B6BE18"></a></span>This option specifies the amount of blending of attribute values from this cache file
+                     with the ones in other cache files that are plugged in, or in the current scene. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F53884C6-E737-4B83-8005-C3ABC5A33313"></a></span>Set this value to 1 to simply overwrite the other attribute values with those in this
+                     cache file. Any value less than 1 uses only a percentage of the value weight in this
+                     cache file, such as a value of 0.5 using only 50% of the value weight. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_DB51325C31C1465BBB0393EE78C0B448"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="27.158894645941277%" align="left">
+                           <col width="72.84110535405873%" align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-6AC75313-C630-43D0-9440-B1875EE5D471-low.png"> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp; <img src="../images/GUID-95F82F77-B26A-4772-AD12-EEACC7692E71-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BB08AA51-2DEC-46E5-9994-EF5355836984"></a></span><p class="table-body">Cache file A being read from a Cache on File node at a Blend value of 1 (not blended).
+                                 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-39188A67-F6DC-4C18-A1C3-1C7D17826204"></a></span><p class="table-body">Cache file B being read from a Cache on File node at a Blend value of 1. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-23492B04-0EF8-4A65-BCCE-E261DD1112BF-low.png"> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp; <img src="../images/GUID-111F4A6F-5D90-4C9F-BF5D-DA7C2D545ACE-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4C642C0D-C86B-45CA-AE9C-64D98753EA47"></a></span><p class="table-body">Cache files A and B being blended together at a Blend value of 0.5. </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5A2C981F-190C-4583-A8E3-387F0D48149C"></a></span><p class="table-body">Cache files A and B being blended together at a Blend value of 0.75 so that cache
+                                 file A is dominant. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0045"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-15D2EC22-F27B-4FF8-9CED-7C02C7FAE03E"></a></span>Normalize
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-43D13905-0005-4991-8DB0-DE3E1F226C5C"></a></span>This option normalizes (averages) the attribute values from the cache file with the
+                     ones in other cache files or in the current scene. If this option is not selected,
+                     the attribute values are added together (additive) when blended. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_308431BBF8D94BF2B34ED37E430F9F93"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="23.775949862906383%" align="left">
+                           <col width="76.22405013709361%" align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-23492B04-0EF8-4A65-BCCE-E261DD1112BF-low.png"> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp; <img src="../images/GUID-8D300E14-5D5C-4100-83E5-F80EAB061D14-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-403B528C-E204-47A4-ADEE-1408B184A1A7"></a></span><p class="table-body">Cache files A and B being blended together at a Blend value of 0.5. </p> <span class="anchor_wrapper"><a name="GUID-24EE02F2-73C7-485E-9B33-A902810CC11F"></a></span><p class="table-body">The Normalize option is on so that their attribute values are averaged (normalized).
+                                 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B15D7D7C-BAFF-4987-9807-C68D26E5AFFB"></a></span><p class="table-body">The same cache files being blended together at a Blend value of 0.5. </p> <span class="anchor_wrapper"><a name="GUID-7AFEE075-C428-4537-9965-6A6EB705AF2D"></a></span><p class="table-body">The Normalize option is off so that their attribute values are added together instead
+                                 of averaged. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0048"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-48794472-A27D-43F5-8630-A5AF0B3F0EF5"></a></span>Overlay
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8066E7FA-F8BF-45F4-8496-189C1FAD5E4B"></a></span>This option blends cache files by overlaying one cache file sequence with a second
+                     one. If this option is not selected, the particle's ID is used. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A6FFF99C-2368-4D02-B922-D72F7DFD269F"></a></span>When overlaying, particles are linearly removed from the first sequence and added
+                     to the next one based on the second sequence. The balance is defined by the Blend
+                     value. A value of 0.5 means 50% of the particles in each cloud are deleted from the
+                     first sequence and then added to the next one. Their attributes are not blended. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_99B8F3BD08AA4A50A5126AA150EC21D9"></a></span><div class="figure-anchor"><img src="../images/GUID-D60E8464-829B-4AB4-9438-7E6F9D055FB8-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7699164C-09A8-4686-946E-502944E9B1D3"></a></span>Cache files A and B being blended together at a Blend value of 0.5 with the Overlay
+                     option on. Because the blend is 50%, half of the particles from the first sequence
+                     are deleted and then added to the second one. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-004A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5E076449-A512-4D43-96E4-F1D556ACBBF8"></a></span>Append
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C003A2A7-0FF0-4459-AB22-3250C36FDF2F"></a></span>This option merges the particles into the existing point cloud when loading multiple
+                     file cache sequences. The cached points are added to the existing points instead of
+                     replacing them. If this option is not selected, the particles blend with each other.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9BCB5EBE-4C9E-4CE4-BFDC-6140BAE5A1B6"></a></span>This option works only on point clouds. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_5BD430F82F8B44BEA1F28C49B054986B"></a></span><div class="figure-anchor"><img src="../images/GUID-307545DD-C020-4A7E-9BC3-A5114A95F8D4-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-99804C61-868C-497D-8FF5-96F3FCB6A014"></a></span>Cache files A and B being blended together with the Append option on. The particles
+                     from the first sequence are added to the second one. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

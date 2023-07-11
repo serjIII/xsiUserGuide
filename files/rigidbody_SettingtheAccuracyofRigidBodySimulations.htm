@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-82C0D6C9-7BE4-478B-A4BF-3CE7A8109255">
+      <meta name="indexterm" content="rigid body: accuracy of simulation and collisions">
+      <meta name="indexterm" content="simulation accuracy for rigid bodies">
+      <meta name="indexterm" content="collisions: accuracy for PhysX rigid bodies">
+      <meta name="indexterm" content="rigid body: PhysX collision accuracy">
+      <meta name="indexterm" content="collisions: accuracy for ODE rigid bodies">
+      <meta name="indexterm" content="rigid body: ODE collision accuracy">
+      <meta name="topic-type" content="concept">
+      <title>Setting the Accuracy of Rigid Body Simulations</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-82C0D6C9-7BE4-478B-A4BF-3CE7A8109255"></a></span><div class="head">
+            <h1>Setting the Accuracy of Rigid Body Simulations</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-71DADE22-AF21-444D-82A4-8450DCF8BFDB"></a></span>The rigid body dynamics operator solves the simulation for all elements that are part
+               of its rigid body simulation environment: rigid bodies, forces, constraints, and the
+               time controls. As a result, you can set the accuracy of the whole simulation by using
+               the options in its property editor. This helps resolve simulation problems that may
+               occur when rigid bodies' geometry interpenetrate during a collision. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C22A8D03-87F8-4E14-BCD6-B12C660D5861"></a></span>The dynamics operator that is used depends on which dynamics engine is active for
+               the current environment: PhysX or ODE (see <span class="char_link"><a href="rigidbody_ChoosingaDynamicsEngine.htm">Choosing a Dynamics Engine</a></span> for general information on each). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6F7CB76B-E45D-441E-9C42-8B5DC8F6B58C"></a></span>For some information on other ways to stabilize the simulation, see <span class="char_link"><a href="rigidbody_TipsforWorkingwithRigidBodies.htm">Tips for Working with Rigid Bodies</a></span>. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0099"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-04389CCC-286C-4404-BE8A-B8B84A8F8162"></a></span>Setting the Simulation Accuracy for PhysX
+               </h2> <span class="anchor_wrapper"><a name="GUID-5CD937F7-D3D3-477C-A540-EA540478B451"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2619C2EF-5584-4C39-8351-24073DD7868F"></a></span>Open the PhysX Dynamics Operator property editor for the simulation environment by
+                        choosing <span class="MenuCascade" id="GUID-ADCBA06B-7A58-44F9-BC43-3B314C1764B1">Modify <img src="../images/ac.menuaro.gif"> Rigid Body <img src="../images/ac.menuaro.gif"> Edit Simulation Properties</span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BFE5D506-DEBA-48DE-B121-AEF529BEE1A6"></a></span>You can also select the <span class="MenuCascade" id="GUID-50E69657-E5E2-4FE5-83F9-EA0657AE1389">Curr. Envir.</span> or <span class="MenuCascade" id="GUID-4E7D2F3E-C1BB-470C-ADFB-3F06B108E5FB">Environments</span> scope in the explorer, then click the PhysX Dynamics Operator icon to open this property
+                        editor. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_2B620D7DF8D443AE8E9C412A8EC1B9C2"></a></span><div class="figure-anchor"><img src="../images/GUID-65601EA0-F608-4849-AC47-C5A08263DF08-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A1FF2B18-D468-4E2D-98F0-F06BFD89F27C"></a></span>On the Simulation Accuracy page, set the <span class="MenuCascade" id="GUID-EA710D19-0F99-45D8-8F52-3CDD33008C06">Substeps</span> value. This value is the number of times that the rigid body simulation is evaluated
+                        (sampled) for each frame. For example, at 30 frames per second, setting this value
+                        to 4 would mean that the simulation is updated 120 times a second. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-ECB26A3B-190E-40E5-87B5-A3B9DE85C063"></a></span>Increasing the substep value can make the simulations more accurate, especially with
+                        collisions that involve either fast-moving or complex-shaped rigid bodies. As well,
+                        it can make the constraints a bit stiffer. Of course, nothing's for free: increasing
+                        this value also increases the calculation time of the simulation. Sorry. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-07E19036-EFB8-4F3C-AA9C-1FC0FE30B791"></a></span>You should start with a low level and gradually work up in small increments. Increasing
+                        this value gradually usually helps to stabilize a scene, at least enough to troubleshoot.
+                        You shouldn't usually need a value higher than 100 or lower than 4. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-234C7509-AFF5-4D56-9523-9A8A4D592D05"></a></span><div class="note-tip"><span class="label">TIP:</span>For information on the parameters, see the <span class="char_link"><a href="property7051.htm#WS27C0BB100463114CA95C32C3B7D11633-002C">Advanced</a></span> page in the PhysX Dynamics Operator property editor. 
+                        </div>
+                     </div> 
+                  </li>
+               </ol> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-009C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B28B1025-F4CF-4273-8491-600A355BD8B6"></a></span>Setting the Accuracy of Collisions for PhysX
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-DDCA2BE7-3F65-46C3-83F6-6C4073D7E955"></a></span>You can also set <span class="MenuCascade" id="GUID-4B1A55D4-FC58-409F-A455-1C6B304218FF">Adaptive Substepping</span> options for <em class="mild">all</em> colliding rigid bodies in the simulation environment. You may want to set the collision
+                     accuracy level for fast-moving rigid bodies. <span class="anchor_wrapper"><a name="UL_E7009CE91328470F9C46EC5C0AF0EA41"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4A985870-FCF5-4158-8166-5150D51F15F2"></a></span>On the Simulation Accuracy page in the PhysX Dynamics Operator property editor, select
+                              the <span class="MenuCascade" id="GUID-2F469DD2-2995-4D67-9771-3058E7E59886">Adaptive Substepping <img src="../images/ac.menuaro.gif"> Enabled</span> option to use the <span class="MenuCascade" id="GUID-8F5E18B0-1EB5-4DF0-B9E3-A60DED94F13C">Subdivision Depth</span> value. This computes collisions more accurately by increasing the number of simulation
+                              substeps around the moment that the collisions occur. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-8A0E3F82-8537-4D8F-83E2-0534B1885B88"></a></span>If you're using bounding shapes for the collision geometry, you should deselect the
+                              <span class="MenuCascade" id="GUID-34350A56-6B65-43D4-B467-1714753BF1C4">Adaptive Substepping</span> option. Bounding-shape collisions do not usually need the added accuracy of adaptive
+                              levels, and this higher accuracy costs you speed (more levels = more time). 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D9B7CED2-2300-48A6-9636-10E0CC9A45D2"></a></span>If the collision detection can't be resolved with the current number of substeps,
+                              it increases the number and solves again. Each time, the number of substeps is doubled
+                              until either the collision can be resolved accurately or the <span class="MenuCascade" id="GUID-5CFD5273-C447-486B-BF09-CE5089B1856C">Subdivision Depth</span> that you specify is reached. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D40FDE1B-AA4D-4E66-8C65-6BC76F0D45E7"></a></span>Set the <span class="MenuCascade" id="GUID-E9CF9767-7A07-4110-A831-022F3F74070E">Subdivision Depth</span> value to determine how accurately the dynamics operator solves collisions. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-88B716EF-CEEC-436F-A3C0-54D5192C59CB"></a></span>Increasing this value make the collisions more accurate, especially ones that involve
+                              either small or thin rigid bodies. Of course, increasing this value also increases
+                              the calculation time of the simulation. You should start with a low level and gradually
+                              work up in small increments. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-1456B4F7-A1E0-4721-A681-B5EF15509272"></a></span><div class="note-note"><span class="label">NOTE:</span>If you increase the <span class="MenuCascade" id="GUID-DA0BB594-276E-4BD6-90A8-F8C9CEA87A24">Substeps</span> value significantly (such as to 100), make sure to reduce the <span class="MenuCascade" id="GUID-5333A709-C363-4004-BDAD-198745FB9E05">Subdivision Depth</span> value (to 6 or less) because the combination of these two parameters can increase
+                                 the calculations per frame immensely which can bring your system to a grinding halt!
+                                 
+                              </div>
+                           </div> 
+                        </li>
+                     </ul> 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-009E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A24A3817-FF1C-4EB1-90C4-3117CC2519E6"></a></span>Setting the Simulation Accuracy for ODE
+               </h2> <span class="anchor_wrapper"><a name="GUID-E9623EEB-798D-4A86-AA0D-B1220BE659C5"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1F32C4E8-DE68-4578-BE82-8D98DDC356EE"></a></span>Open the ODE Dynamics Operator property editor for the simulation environment by choosing
+                        <span class="MenuCascade" id="GUID-FA0BCE49-6609-4594-8A11-43B54199F03F">Modify <img src="../images/ac.menuaro.gif"> Rigid Body <img src="../images/ac.menuaro.gif"> Edit Simulation Properties</span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BB40AA48-B2FF-4A94-B62B-BF874F0A4574"></a></span>You can also select the <span class="MenuCascade" id="GUID-3DC6E8F1-74C8-4242-A131-2B666B2B1072">Curr. Envir.</span> or <span class="MenuCascade" id="GUID-9BA052A5-59EF-4CEE-AC63-5C3C2BEB5CB6">Environments</span> scope in the explorer, then click the ODE Dynamics Operator icon to open this property
+                        editor. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_A5627EB73F0F4E6E8F585D7D7311D82A"></a></span><div class="figure-anchor"><img src="../images/GUID-E54C7F8D-F798-42A3-A5B2-48E811F65EEA-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-814C1E1F-B664-43AB-84FF-A1B27F8981BE"></a></span>Set the <span class="MenuCascade" id="GUID-52FC969B-C6E1-495B-B2AE-957D86D0B909">Simulation Accuracy <img src="../images/ac.menuaro.gif"> Sub steps</span> value. This value is the number of times that the rigid body simulation is evaluated
+                        (sampled) for each frame. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_39F14E6A72934AAD844FF24CD6396CE8"></a></span><div class="figure-anchor"><img src="../images/GUID-D4C4B0D7-A4D0-4EB0-8927-C828647544E5-low.png"></div> 
+                  </li>
+               </ol> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-00A2"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BC47EB24-E097-4902-8A64-848BE4A91749"></a></span>Setting the Accuracy of Collisions for ODE
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-AA25F41B-E995-4390-95AF-AB7D42D898EC"></a></span>In the ODE Dynamics Operator property editor, you can set <span class="MenuCascade" id="GUID-1A7050E0-2ED0-4014-BD57-1BDB881C3F70">Collision Accuracy</span> options for <em class="mild">all</em> colliding rigid bodies in the simulation environment. You may want to set the collision
+                     accuracy level for fast-moving rigid bodies, or for rigid bodies that use actual shape
+                     as the collision geometry. <span class="anchor_wrapper"><a name="UL_4ACC46E2D6644404A2FEB8778BC394EB"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F99C842D-3F9C-4FEE-84D1-68D101DED86C"></a></span>In the Dynamics Operator property editor, select the <span class="MenuCascade" id="GUID-F97F0651-F04E-49E3-B19F-D796AEAE0CCD">Adaptive Collisions</span> option to use the <span class="MenuCascade" id="GUID-A10C5F83-5433-4C4F-939F-EA82B70CA9DA">Adaptive Level</span> value. This computes collisions more accurately by increasing the number of simulation
+                              substeps around the moment that the collisions occur. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C576FB28-BA38-4D31-96A1-7958B6CC5849"></a></span>If the collision detection can't be resolved with the current number of substeps,
+                              it increases the number and solves again. Each time, the number of substeps is doubled
+                              until either the collision can be resolved accurately or the <span class="MenuCascade" id="GUID-699A4EB3-936D-4F1C-9C9C-124B789FA244">Adaptive Level</span> that you specify is reached. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4132BAB9-CB8D-4486-9F49-F0B4E073A822"></a></span>Set the <span class="MenuCascade" id="GUID-BC89FC99-587A-448C-9E4A-3F34FF637AFF">Adaptive Level</span> value to determine how accurately the dynamics operator solves collisions. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A3AC8FE0-A042-40BE-81FE-9D0F932B5320"></a></span>Increasing this value make the collisions more accurate, especially ones that involve
+                              either small or thin rigid bodies, or ones that use the Actual Shape of the object
+                              as the collision geometry (see <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0070">Selecting a Collision Geometry Type</a></span>). Of course, increasing this value also increases the calculation time of the simulation.
+                              You should start with a low level and gradually work up in small increments. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-D6EF11D4-1C7C-4BC0-B473-7C42DDC818FE"></a></span><div class="note-note"><span class="label">NOTE:</span>If you increase the <span class="MenuCascade" id="GUID-CF6F1233-7BCE-42B2-90A6-04BEB72CA227">Substeps</span> value significantly (such as to 100), make sure to reduce the <span class="MenuCascade" id="GUID-F8DA3286-31F4-4DDC-B5D5-D8DED47B21F7">Adaptive Level</span> value (to 6 or less) because the combination of these two parameters can increase
+                                 the calculations per frame immensely which can bring your system to a grinding halt!
+                                 
+                              </div>
+                           </div> 
+                        </li>
+                     </ul> 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-01AAD6D6-6120-4DCE-AB32-EBF0056B0BB8">
+      <meta name="topic-type" content="concept">
+      <title>misss_fast_shader</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-01AAD6D6-6120-4DCE-AB32-EBF0056B0BB8"></a></span><div class="head">
+            <h1>misss_fast_shader</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-C65CC1BF-1A27-4A53-93E2-C53665F90169"></a></span> <em class="strong">Category:</em> mental ray &gt; Materials 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-21127D94-D51B-41EE-AC6B-92280DFD2B0B"></a></span> <em class="strong">Shader Family:</em> Surface Material 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-AD3DB55D-3A80-42DA-9672-1B3C7097012D"></a></span> <em class="strong">Output:</em> Color 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0DA87CB2-6BCE-4387-B774-CE2E9A2CAD5A"></a></span>This shader is the workhorse shader that does the actual scattering. It is highly
+               modular and works with several input shaders that provide the actual contribution
+               for the various layers through the <span class="MenuCascade" id="GUID-A84CFA16-821F-4244-8735-24FB42717F9F">bump, diffuse_illum</span>, and <span class="MenuCascade" id="GUID-9ADE216D-F237-4008-B33E-D7320D2BE086">specular_illum</span> input ports. This shader can even be cascaded into itself (again using the diffuse_illum
+               port) for multi-layer scattering (this is exactly how the Fast Skin Subsurface Scattering
+               phenomenon works). The misss_fast_shader layers the results from the input shaders
+               with the scattered light from the lightmap and then presents the final shaded result.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4626D016-1AD7-4027-A570-30813DAC0901"></a></span>This shader can be connected into multiple copies of itself via its <span class="MenuCascade" id="GUID-8B84C076-A356-40FE-BBE5-965A6D8A70BE">diffuse_illum</span> port for multi-layer scattering, but the final destination is usually to have its
+               <span class="MenuCascade" id="GUID-8626BB0E-D3A3-45C0-9C16-46B26ACF630C">result</span> output port connected to the Material node's <span class="MenuCascade" id="GUID-DE1CE3A0-82E0-4A30-A241-F6CB1F6BFBFB">Surface</span> input port. 
+            </p><span class="anchor_wrapper"><a name="TABLE_FF479E375AF34DCFBE7DAA8B926F2858"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-434BD0CF-E5FE-40AC-BE21-7F9302B30D0D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3CCEFF3D-F7E9-4164-8D6C-A6E75F988A70">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AFD93AC3-07DF-476B-A366-5AADF360D515"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ECC8F1D0-13F9-4D32-A104-468F27F8E902"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DB77ABF2-4A10-4C64-9427-E82DDA37E54D">lightmap</span> 
+                        </p> <span class="anchor_wrapper"><a name="GUID-4B81EF8F-3841-424D-B0FE-F780B4B43FA0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-226E6B74-4C96-47C4-B12A-4D8EB907720C">depthmap</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-97BEE32B-51A6-4E8D-8718-991F155E9DB0"></a></span><p class="table-body">Specifies a writable color texture and depthmap. </p> <span class="anchor_wrapper"><a name="GUID-43B2403C-8967-40B1-8D33-4FBDA404814F"></a></span><p class="table-body">You can Edit the image clip, or get a New image clip from file or from source. For
+                           more information about working with images, see <span class="char_link"><a href="data_image_sources_clips.htm">Managing Image Sources &amp; Clips</a></span>. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D7003235-B50C-4D04-8A94-A0A6A63E7B66"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1A5FFBB7-991D-452C-8F0A-FC756AFF3A71">bump</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0844D619-4483-4D3D-9683-3DFBC92DE642"></a></span><p class="table-body">Pick the shader that perturbs the normals. While one could use a shader list and something
+                           like <span class="char_link"><a href="mentalray_mib_passthrough_bump_map.htm">mib_passthrough_bump_map</a></span> before this shader, for large scattering radii it is preferred that the shader is
+                           aware of the normal vector before bump mapping. When a bump mapping shader is assigned
+                           to this parameter instead, misss_fast_shader will know the normal both before and
+                           after bump mapping. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-372FEAB0-C27E-4B0A-B06F-0D4CBD2A1CE4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-28E46FF7-54C8-493A-A14A-CF6666D1306A">diffuse_illum</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-254A73A8-70BD-4492-BFD7-519871BFC1F9"></a></span><p class="table-body">Passes any normal illumination shader (returning a color) as the diffuse illumination,
+                           generally <span class="char_link"><a href="mentalray_mib_illum_lambert.htm">mib_illum_lambert</a></span> is be used. If nothing is passed, it automatically defaults to Lambert. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8E82E00B-4A34-4E06-9666-1C067D46A7D2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2634FF4D-ED95-4DF4-A6E6-89D2FAEB770A">diffuse_color</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9B80FC55-54A5-4323-B3B3-07A9F040E73F"></a></span><p class="table-body">Defines the color of the diffuse illumination component. This is normally driven by
+                           the object's main surface texture. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-946DE32C-DE83-4867-9BCA-72428681171F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AFA2533B-1D43-45E0-ADA9-6E492FC66BFC">specular_illum</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-01D95CF9-CD99-4A6D-8D97-E3BCB8114AC3"></a></span><p class="table-body">Passes any normal illumination shader (returning a color) for the specular and reflective
+                           components. If nothing is passed, no specular shading happens. This is layered on
+                           top of any diffuse contributions. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5660F50D-1B4F-493D-BD0D-4029FA29AB77"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CD371796-6A30-4317-9826-58390BBDBAD3">diffuse_weight</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EECAF047-EB72-4F33-9D76-C31076ACACD5"></a></span><p class="table-body">Controls the weight of the diffuse illumination component when it is blended with
+                           the other components (ambient, scattering, etc.). 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F4F3DFE0-E1AE-499B-9322-EFCE1B759532"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E6C75550-7083-4765-A114-DBB23D5ECBD8">front_sss_color</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2BC54A92-6F0F-44D8-98BC-61A4AA9C29C1"></a></span><p class="table-body">Controls the color for the front surface scattering. The front surface is the side
+                           of the object facing the camera, and so front surface scattering is most visible when
+                           that side is well lit. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E1410EFF-1CA7-478B-9257-EC10EF242985"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7A57AD6F-F125-4E2B-B13B-77AFE0B79008">front_sss_weight</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2878CCE1-B4C7-4C16-B25F-00D1ACAC9C70"></a></span><p class="table-body">Controls the weight of the front scattering surface when it is blended with the other
+                           lighting components (back scattering, diffuse, etc.). 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8C1BB0D9-8FCC-436B-8062-B4976F2F0645"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F3D2D3FC-7C17-459D-828E-3014368D4A71">front_sss_radius</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6EDDC092-4F1E-468D-862D-D6321F20EF9D"></a></span><p class="table-body">Controls the distance that light scatters along the front surface. This value is measured
+                           in scene units, but is divided by the <span class="MenuCascade" id="GUID-F2F0FD11-8AF9-432A-9C0A-E1BDA3F7936B">Scale</span> value on the Advanced Settings tab. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CE3EAB37-3D4B-49FF-86EA-989EFF5DB84F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B1E58CF1-0818-4693-B111-2831FDE39327">back_sss_color</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4A5E4A4F-3030-44CD-B379-1296A032EE29"></a></span><p class="table-body">Controls the color for the back surface scattering (the light going through the object).
+                           The Back surface is the side facing away from the camera. Back scattering is most
+                           visible when the object is backlit to some extent, or when light passes directly through
+                           the object. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-37814163-F6A9-4104-B4B9-6111CF4795E8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-36C0C06C-E790-489C-94D5-9DE34CF28C45">back_sss_weight</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-18F1E23A-C73B-45CA-BD8C-1A47290CE3AA"></a></span><p class="table-body">Controls the weight of the back scattering when it is blended with the other lighting
+                           components (front scattering, diffuse, etc.). 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C153FEAA-02C4-4083-B29B-61579981F06E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E6F50BBD-D505-432D-B720-9BBC1D7015E3">back_sss_radius</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F09DD85F-E572-4118-99B3-EC63C09047D4"></a></span><p class="table-body">Controls the distance that light scatters along the back surface. This value is measured
+                           in scene units, but is divided by the <span class="MenuCascade" id="GUID-4772E332-ACC1-4AA7-9234-0DE028861596">scale</span> value on the Advanced Settings tab. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-3B4E9E9D-02CF-4A08-8A97-B4BF09C9912C"></a></span><p class="table-body">Normally, the back scattering radius should be set to the same value as the <span class="MenuCascade" id="GUID-8A24A2AD-50F7-4BAF-BFD1-AD1C2201C9AB">back_sss_depth</span> parameter. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9A018879-D351-4ED1-A85E-F3523B9202E0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-961F499D-3D35-4F51-9412-CDEBB473BCA5">back_sss_depth</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CABBCD4D-BF87-4090-8E49-2193C4177848"></a></span><p class="table-body">Controls the back scatter depth. The higher the value, the more deeply light is scattered
+                           within the object. In effect, raising the depth makes the object appear more translucent
+                           when backlit. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-9469EE9A-6B56-45F0-A4A1-1340D376C2CC"></a></span><p class="table-body">Generally speaking, higher depth values require an increased number of lightmap samples
+                           in order to remove speckling in the rendered image. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-BDB40474-6E22-4541-8BB7-E14F448A8E91"></a></span><p class="table-body">Normally, the back scattering depth should be set to the same value as the <span class="MenuCascade" id="GUID-9D814949-1128-444E-A4DD-848A60C902BD">back_sss_radius</span> parameter. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-70A1BF83-27E4-42C7-826D-FFEA97C253C8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D0502A3F-32DF-44D2-8580-312F4AFDDED1">scale</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3B0DA274-E52A-4DFE-A7CB-EC712A3BB082"></a></span><p class="table-body">A simple utility function that allows a linear division of all distances. Since scattering
+                           is distance dependent, loading a material designed for a model made in inches will
+                           not work on a model where the unit is meters, and vice versa. Use this option as the
+                           conversion factor for scale. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1A6DCC35-05E8-4555-8C4F-5128B7A069E4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C1EBA222-91CE-41CB-885D-FDD639FD56B1">screen_composit</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-44334DA2-9A78-4C25-8FDD-2E35191CE764"></a></span><p class="table-body">When enabled, screen compositing is used. When adding together the contribution of
+                           many layers of light, it is very easy to quickly blow out and overexpose into white,
+                           but the human eye is inherently nonlinear and perceives intensities in a different
+                           way. This option allows you to use what is known in many compositing applications
+                           as a screen transfer mode between the layers, which yields a softer, more pleasing
+                           result. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-10A15A45-C7FF-462A-ADFA-D666485DD9CF"></a></span><p class="table-body">When disabled, normal addition is used. If rendering in a high dynamic range, and
+                           a proper tone-operator is applied in the final output stage already compressing the
+                           final luminance, it is best to disable this option. If not, enable it for a more pleasing
+                           result. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-06BDD593-E1F3-40F9-B4EF-2F2DD0AB8A77"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-65F423C5-0656-445E-9037-ECADFDE54484">output_sss_only</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DF80BBDE-A39E-4545-97B9-A768CCB0274D"></a></span><p class="table-body">Use for debugging and testing or for preparing for external compositing. When enabled,
+                           only the scattered contribution is shown. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A6E632F9-FE76-4F08-A955-31558924E813"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4781B038-7CE4-457A-A5F8-007D106EBC97">falloff</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1C1182C0-1ADB-455C-B119-6DA07B66851C"></a></span><p class="table-body">Defines the falloff profile for light scattered along the radius. Higher values cause
+                           a sharper falloff. Lower values cause a smoother falloff but cause the scatter distance
+                           to appear shorter, though you can increase the Radius value to compensate. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-E5904F78-EB82-48D2-B5F1-667E68D811A2"></a></span><p class="table-body">For high values (1.0 to 10.0), almost all samples within the scatter radius are weighted
+                           equally. For low values (0.1 to 1.0), the samples near the edge of the scatter radius
+                           are weighted as less. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1D8A59C2-B965-49BB-A487-6D13896F4B5B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E92ABAFA-DDDF-49E1-B9D6-9141CCF8FB71">samples</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-11CBF0A8-BE71-43A2-8C06-C246DC49ADCB"></a></span><p class="table-body">Specifies the number of lightmap samples considered by each rendered ray. Generally,
+                           this should be set to a power of two (16, 32, 64, 128, etc.). 
+                        </p> <span class="anchor_wrapper"><a name="GUID-9A6D3BDC-6E9B-4F4E-A9D7-605C8E41F7DB"></a></span><p class="table-body">Subtle scattering effects typically require few samples. However, as you begin to
+                           increase the front and back scattering radii, or the back scattering depth, you will
+                           need to increase the number of samples to avoid speckling in the rendered image. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

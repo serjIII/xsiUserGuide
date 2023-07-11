@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-81576D3B-864E-4A95-A7B7-29AE461BD84E">
+      <meta name="indexterm" content="collisions: rigid body">
+      <meta name="indexterm" content="rigid body: collisions">
+      <meta name="indexterm" content="collisions: bounding shapes">
+      <meta name="indexterm" content="rigid body: bounding shapes for collision geometry">
+      <meta name="indexterm" content="bounding shapes for rigid body collisions">
+      <meta name="indexterm" content="collisions: convex hull">
+      <meta name="indexterm" content="convex hull collision geometry for rigid bodies">
+      <meta name="indexterm" content="rigid body: convex hulls for collision geometry">
+      <meta name="indexterm" content="physX: convex hulls for collision geometry">
+      <meta name="indexterm" content="collisions: actual shape">
+      <meta name="indexterm" content="actual shape collision geometry for rigid bodies">
+      <meta name="indexterm" content="rigid body: actual shape used for collision geometry">
+      <meta name="indexterm" content="physX: actual shape for collision geometry">
+      <meta name="indexterm" content="collisions: layers for">
+      <meta name="indexterm" content="layers: rigid body collisions">
+      <meta name="indexterm" content="collisions: animated deformations on objects">
+      <meta name="indexterm" content="collisions: activating">
+      <meta name="indexterm" content="collisions: muting">
+      <meta name="indexterm" content="muting: rigid body collisions">
+      <meta name="topic-type" content="concept">
+      <title>Collisions with Rigid Bodies</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-81576D3B-864E-4A95-A7B7-29AE461BD84E"></a></span><div class="head">
+            <h1>Collisions with Rigid Bodies</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-5383159C-BD4D-4666-85AB-3155A16F40C7"></a></span>Rigid bodies are all collision objects as soon as they come in contact with one other.
+               This is a little different from other simulations in Softimage (soft body, cloth,
+               and hair) where you need to specifically set up an obstacle object to create a collision.
+               For example, to animate billiard balls colliding with each other, you simply make
+               the balls into rigid bodies. Then when they come in contact with each other, they
+               all react to the collision. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-B938FB3A-1B84-4D49-8867-33FA83CB6F8E"></a></span><div class="note-tip"><span class="label">TIP:</span>For a list of tips about collisions, see <span class="char_link"><a href="rigidbody_TipsforWorkingwithRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-001F">Tips for Successful Collisions</a></span>. 
+               </div>
+            </div><span class="anchor_wrapper"><a name="FIG_3A6AACCD73444ECD8E65025E8052FE73"></a></span><div class="figure-anchor"><img src="../images/GUID-C6DD1389-8DDB-40CE-98BC-D90A3AE8042E-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-6781285D-99DF-4264-825C-832C6199AA0A"></a></span>All billiard balls are assigned as active rigid bodies, so when the white ball (circled)
+               hits them, they all react to the collision. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-006E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B57319B8-9DA5-4361-8D41-96D4D72D5D65"></a></span>Setting Up Collisions for Rigid Bodies
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6896595D-1CDC-4A72-A04F-72D624F59955"></a></span>At least one rigid body must be active to create a collision. When you have collisions
+                  between two or more active objects, they all move because they are all affected by
+                  the dynamics. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-72A8EE8E-CFC1-4AA4-B13E-953CF2006D13"></a></span>If you want to create an obstacle that doesn't move (not affected by dynamics), it
+                  must be a passive rigid body. For example, if you want to animate a billiard ball
+                  bouncing against the edges of a pool table, make the ball an active rigid body and
+                  the table a passive rigid body. As soon as the ball comes in contact with the table
+                  edge, the ball rebounds off it but the table doesn't move. For more information on
+                  active and passive rigid bodies, see <span class="char_link"><a href="rigidbody_CreatingRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0043">Active or Passive?</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BE5A85CD-6B52-4696-8881-C9553040C39A"></a></span>All rigid bodies use a set of collision properties to calculate their reactions to
+                  each other during a collision. These properties include elasticity, friction, and
+                  the collision geometry type (the geometry used during the calculation of the collision).
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F89F4CF2-847F-431B-A643-E7FE6E6C027F"></a></span>To keep the relationships simple with collisions, it's usually best to set the values
+                  for only one rigid body at a time. For example, if you have many active rigid bodies
+                  bouncing off a passive one, you could set the collision properties for only the passive
+                  one. This way you can maintain the passive rigid body's parameters as a constant.
+                  Then if you want each active rigid body to react differently to the passive one, you
+                  can set each of those separately after you've established the base collision properties
+                  of the passive rigid body. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-2661DA5B-B13B-4F30-BB9A-3940987EFE76"></a></span><div class="note-note"><span class="label">NOTE:</span>Rigid body collisions are single-faced. To make them double-faced, duplicate the rigid
+                     body geometry and inverse it. 
+                  </div>
+               </div> <span class="anchor_wrapper"><a name="GUID-6D7FB33F-74F7-43B2-B606-28B55147A393"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3FED1411-A251-4A1A-9AF1-45C489870868"></a></span>Select two or more rigid bodies with at least one of them being active. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B1EACF34-4661-4BC7-8A41-E9F112022F11"></a></span>Make sure that the geometries of the objects come into contact with each other (their
+                        geometries interpenetrate at some point). 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3A1EA7E1-4A07-439F-8036-4F7672C0349C"></a></span>For best results, you should set up the rigid bodies so that their geometries don't
+                        interpenetrate at the first frame (initial state) of the simulation. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9EE43B58-D7A2-47A7-9BEB-F598D8A7A52C"></a></span>Set the collision properties for all of the rigid bodies in their Rigid Body Properties
+                        editor as described in this section. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A9880AC2-749D-4164-A037-54D52DFD7555"></a></span>Play the simulation to have the rigid bodies collide. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-19EFE89C-F698-4103-8439-8268F7B9F5C9"></a></span><div class="note-tip"><span class="label">TIP:</span>Watch out for too much energy in the spin after a collision. Try lowering the values
+                           for the rigid bodies' <span class="MenuCascade" id="GUID-E3DBEF55-3612-45DA-AA8C-A2F76F190DA6">Velocity - Limit Angular</span> and <span class="MenuCascade" id="GUID-A3AD8087-209C-4C38-99C4-C70636BE2273">Linear Limit</span> if they do — see <span class="char_link"><a href="rigidbody_SettingLimitsontheRigidBodyxd5sVelocityandAcceleration.htm">Setting Limits on the Rigid Body's Velocity and Acceleration</a></span>. 
+                        </div>
+                     </div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0070"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BE923E2B-FA76-4ACA-BE66-0C94E1EAE264"></a></span>Selecting a Collision Geometry Type
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-D5822235-FB0E-4A4F-A7AA-1E4C2A05FD7B"></a></span>During rigid body collisions, you can set the type of geometry to be used for each
+                  rigid body only for the collision. This geometry can be: 
+               </p> <span class="anchor_wrapper"><a name="UL_7AECC12BE9BC470B920172790ED1C6D6"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6C948D43-38B1-45FB-AFD9-9A2EADBC750F"></a></span>Bounding box/sphere/capsule — see <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0073">Bounding Shapes</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E9264684-DC92-4E0F-9B0E-5B81A82E10CE"></a></span>Convex hull — see <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0078">Convex Hulls</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3DAC3FBC-737A-4F3A-B3F6-EE90918D315B"></a></span>Actual shape of the rigid body's geometry — see <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-007B">Actual Shape</a></span>. 
+                     </p> 
+                  </li>
+               </ul> <span class="anchor_wrapper"><a name="FIG_9BC014F33EBF4EDD97AF28D0F20D596B"></a></span><div class="figure-anchor"><img src="../images/GUID-4D897804-73A3-4536-B6EB-B4DDF6B0D3B1-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-A3075F66-8412-4E45-B588-3E3378A605A2"></a></span>Each type of collision geometry can interact happily with the others; for example,
+                  a rigid body with a bounding box can collide with a rigid body with actual shape geometry.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3D7507D3-124C-4D63-A177-63EBD4C9EB07"></a></span>As a rule of thumb, you should use the bounding shapes (box, sphere and capsule) if
+                  possible. These are faster and more stable than the other collision types. The next
+                  fastest and stable collision type is the convex hull. Actual shape collisions should
+                  only be used only if you really need to reflect the exact shape of your object. Actual
+                  shapes are stable and fairly quick, but do require some tweaking to get the right
+                  behavior. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-13A834A5-A4AF-4CCE-A8BC-3FF43FF87E8B"></a></span><div class="note-tip"><span class="label">TIP:</span>If you're creating a ground plane or table, use a flattened cube with some thickness
+                     instead of a grid, which is very thin. Collisions don't generally work well with very
+                     thin objects. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0072"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9CAF333C-511E-4AC6-85E5-0E3166A53DFB"></a></span>Displaying the Collision Volume
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-816C9588-3329-416F-BF1F-EE106D958221"></a></span>When you select a rigid body, a yellow wireframe is displayed around it to show the
+                     extents of its collision volume, according to the type of collision geometry you have
+                     selected. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C863C4E1-32D4-45D7-992E-565014721BB8"></a></span>You can toggle the visibility of the collision geometry with the <span class="MenuCascade" id="GUID-4B8C9E1B-0E74-4721-9876-DC9BF0F1AA58">Collision Primitives</span> settings on the Attributes page in the Visibility Options property editor (press
+                     Shift+S). 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0073"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6D1F63B4-930B-47CA-864F-CF2B61E9BB01"></a></span>Bounding Shapes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A4EAC126-1466-4FF7-A6A2-F9E3E6F8031B"></a></span>Bounding shapes provide a quick solution for collisions when shape accuracy is not
+                     an issue or the bounding shape's geometry is close enough to the shape of the rigid
+                     body. Since a simulation continuously calculates the positions of objects while checking
+                     for collisions, using a bounding shape can save a lot of time. For example, if you
+                     want to simulate billiard balls being poured onto a table, you could use bounding
+                     spheres for the balls and a bounding box for the table. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E11FC57F-A4F4-498A-A82B-4AF49F3983B9"></a></span>Bounding shapes are computed around the object's points. For NURBS and subdivided
+                     surfaces, this means that the bounding volumes don't bound exactly on their surfaces
+                     because their points lie above their surfaces. <span class="anchor_wrapper"><a name="GUID-07BCABF3-6DBC-40E8-93BC-E287EE8CA43D"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C87B57D1-AAD6-4C91-8C84-01BB8D0FFA2E"></a></span>Select one or more rigid bodies. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-655EBD5A-C401-4A28-BBA4-C63E35A4E835"></a></span>In the Rigid Body property editor, select <span class="MenuCascade" id="GUID-6942FFCC-FAA2-4ACD-85D0-6B2598E44E21">Bounding Box</span>, <span class="MenuCascade" id="GUID-50A1D4D9-7A74-4F25-BC4F-EC2915B16930">Bounding Sphere</span>, or <span class="MenuCascade" id="GUID-B45F92D6-2C2F-43CB-910B-B8A15BD8C67F">Bounding Capsule</span> from the <span class="MenuCascade" id="GUID-DE92FC53-5CF8-4B2E-9726-40C6148E166F">Collision Type</span> list. 
+                           </p> <span class="anchor_wrapper"><a name="TABLE_011FEFA5EB8F4C4B8C6BE03A45165896"></a></span><div class="table_Ruled">
+                              <table cellpadding="0" cellspacing="0" class="ruled">
+                                 <colgroup>
+                                    <col width="24.503311258278146%" align="left">
+                                    <col width="32.94701986754967%" align="left">
+                                    <col width="42.549668874172184%" align="left">
+                                 </colgroup>
+                                 <tr class="ruledOddRow">
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-4F96793A-6405-4F95-A020-2EC663238EF1-low.png"> 
+                                    </td>
+                                    <td class="table-body" align="left">&nbsp; <img src="../images/GUID-C6D9C218-EC09-4A84-BE72-9EAB1C069B74-low.png"> 
+                                    </td>
+                                    <td class="table-body" align="left">&nbsp; <img src="../images/GUID-D96D2D4B-A4D4-4F5B-B1A4-C086812CBDF7-low.png"> 
+                                    </td>
+                                 </tr>
+                                 <tr class="ruledEvenRow">
+                                    <td class="table-body">&nbsp;</td>
+                                    <td class="table-body" colspan="2" align="left"> <span class="anchor_wrapper"><a name="GUID-FB2DB581-9C19-42B3-975A-78B7477AEF9E"></a></span><p class="table-body">Bounding shapes (capsules, spheres, and boxes) provide a quick solution for collisions
+                                          when shape accuracy is not an issue or the bounding shape's geometry is close enough
+                                          to the shape of the rigid body. 
+                                       </p> 
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div> 
+                        </li>
+                     </ol> 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0078"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-991F3BFF-D4B0-4BFE-8A61-B17EA6EB2FA9"></a></span>Convex Hulls
+                  </h3>     
+                  <p><span class="anchor_wrapper"><a name="GUID-27DA7FE4-50E6-4513-B209-D8B17EF8CC35"></a></span>This option is available only for the PhysX dynamics engine (see <span class="char_link"><a href="rigidbody_ChoosingaDynamicsEngine.htm">Choosing a Dynamics Engine</a></span>). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B2BFABC9-98E9-4CE2-9E69-94CB7309DC98"></a></span>Convex hulls give a quick approximation of an object's actual shape, with the results
+                     similar to an object being shrinkwrapped. Convex hull doesn't calculate any dips or
+                     holes in the rigid body geometry, but is otherwise the same as the rigid body's original
+                     shape. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7D295B63-1F96-490D-8D55-D88D0AF077AB"></a></span>Convex hulls resemble the actual shape of the rigid body well enough for most cases,
+                     and have the advantage of being faster than actual shape geometry. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_9F4F97C1A36D44E4B8D5C9E449D4609D"></a></span><div class="figure-anchor"><img src="../images/GUID-4AE152AF-A188-440F-A52C-A22B4471A4D3-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1815858B-B0D1-4B87-A84F-3B16088EF478"></a></span>The yellow lines show the collision geometry so that you can predict where the collisions
+                     will occur. Here, the yellow lines indicate that the inside of the bowl is "cut off"
+                     from being part of the collision, so the cherries simply bounce off the bowl's top.
+                     <span class="anchor_wrapper"><a name="GUID-0914786D-FD0E-4C9E-9CA8-E7ED0BAC8BA6"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-387D6DE9-6F7E-43A2-AEEA-A252425226E9"></a></span>Select one or more rigid bodies. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6EC7CFF3-1E0A-4EDB-A721-C11063D05515"></a></span>In the Rigid Body property editor, select <span class="MenuCascade" id="GUID-F18C4F77-0255-48AC-A240-53374A1B7CF3">Convex Hull</span> from the <span class="MenuCascade" id="GUID-0D2D78C7-006C-43FA-B663-7E57584E3905">Collision Type</span> list. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-007B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-06503CB5-AA9D-4AEB-9AC7-9CC49E0F4678"></a></span>Actual Shape
+                  </h3>    
+                  <p><span class="anchor_wrapper"><a name="GUID-403E1A10-281C-4334-B604-6E329BF6998B"></a></span>You can set Actual Shape as the collision geometry whether you are using the PhysX
+                     (see <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-007D">Actual Shape - PhysX</a></span>) dynamics engine; however, the process and results are different for each. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-926875BD-A1D7-4829-9423-18A08439DA49"></a></span>Actual Shape provides an accurate collision but takes longer to calculate than bounding
+                     shapes or convex hulls. You may need to use the actual shape, however, for rigid body
+                     geometry that is irregular in shape or has holes, dips, or peaks that you want to
+                     consider for the collision. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_F69B02DCAFB04D6EBD64AE003B3846C1"></a></span><div class="figure-anchor"><img src="../images/GUID-22046FD5-27DF-4C68-A4B7-E3B4CA944C9D-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-65285F9A-786E-436C-BC0D-8E78B40CEEBF"></a></span>Actual Shape collision geometry is necessary for rigid body objects that have irregular
+                     shapes or have holes, dips, or peaks that you want to consider for the collision,
+                     such as this bowl with cherries falling inside of it. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-CDE948CF-EA05-4E8C-9238-9F9930190106"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_4DA47EEE13544CF79F0BD8CDC227658B"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-C4274799-17C5-4A50-8080-9E8ABC9B97B9"></a></span>If you select Actual Shape as the collision geometry for a rigid body created from
+                                 an implicit object, Softimage switches to the Bounding Sphere type of collision geometry.
+                                 This is because implicit objects don't have actual geometry, which Actual Shape needs
+                                 to perform its calculations. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-BCEAF327-43D0-46BE-82F0-3F6E7A43CA2B"></a></span>The actual shape collision geometry often requires some approximation of the rigid
+                                 body's real geometry; for example, NURBS may be converted into a triangulation. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </div>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-007D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9C0873AB-40FF-4F79-A2C5-193D3A5CB2DD"></a></span>Actual Shape - PhysX
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-CC919820-A2E0-436E-AF71-488FDCA7F570"></a></span>When you select Actual Shape with PhysX as the dynamics engine, collision data is
+                     created to calculate each rigid body's geometry for the collision. This collision
+                     data is based on the rigid body's actual geometry at collision time. <span class="anchor_wrapper"><a name="GUID-7CEA8C0F-A529-4D2A-93BA-9C0DAFDA5DBF"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A049844F-C73A-420E-8B2E-F936041844B6"></a></span>Select one or more rigid bodies. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-EFE95696-19EE-4F30-885A-9FA0D6C43B95"></a></span>In the Rigid Body property editor, select <span class="MenuCascade" id="GUID-8398D6AB-1D0B-41E5-8B17-337133299A72">Actual Shape</span> from the <span class="MenuCascade" id="GUID-744775B9-6BB1-48DD-A7CC-2E029DDDD963">Collision Type</span> list. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C2586651-6950-48D3-961A-A51AF72AE639"></a></span>Set the <span class="MenuCascade" id="GUID-17DF8A4B-2302-41F7-8890-6C74E5D289B0">Detail</span> to define how accurately you want the collision data to follow the rigid body's shape:
+                              Low, Medium, High, or Coffee break. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C84DF903-BFF8-4C37-BED0-88D748B1D389"></a></span>Set the collision geometry's resolution by changing the value for the <span class="MenuCascade" id="GUID-7CF9AF61-45A4-4070-BC7F-2A603A8FEA34">Subdivision Level</span>. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-007F"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-155B7600-08D2-4850-92C4-352FDC89404B"></a></span>Collision Data for Actual Shape
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-57331B01-AAE7-4DD8-904B-390124CB49C6"></a></span>With actual shape collisions, collision data (also known as a penetration map, or
+                        <em class="mild">pmap</em>) is created for the rigid bodies. The collision data is basically a solid model (a
+                        3D map) of the rigid body which tells the colliding objects which way to bounce based
+                        on global information about the whole rigid body. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1C1434E1-D7DE-4249-8B4C-B2A53EB93E4F"></a></span>Collision data may take a bit of time to calculate initially, but once it is done,
+                        the collisions are fast and accurate. If different rigid bodies have the same geometry
+                        (such as if they are duplicates), they can all share the same collision data. This
+                        lets you have many rigid bodies in a scene without adversely affecting the time required
+                        to calculate the simulation. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9D9BAEB1-8CF3-41C2-86B6-5AD8D8C38445"></a></span>Collision data is created for each rigid body at each frame of the simulation and
+                        is kept in your computer's cache when the scene is open. When you save the scene,
+                        only the collision data for the current frame is saved (the frame at which the simulation
+                        is at the time you save). This prevents the scene file from getting too large, especially
+                        when you have many rigid bodies, each with their own collision data. When you reload
+                        the scene, the collision data is re-created for each rigid body. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-E5504B4C-7311-4572-87B4-11EEBEDC12B9"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_458E6270027A417A8DF4CA21D37DB348"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-4AF7D951-A5F0-423D-9FFC-FBA3C6BD54EE"></a></span>Because the collision data is kept only for the frame at the time of saving the scene,
+                                    this means that a rigid body with an animated deformation on it will have collision
+                                    data only for one frame of its deformation state. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-77AE9CCB-0B74-4AF1-8AE1-D8B8D64D0AEB"></a></span>If you have manipulated the rigid body's center, such as by translating it from its
+                                    original location, generating the collision data for the actual shape may take a long
+                                    time because Softimage has to recalculate the difference in point positions at each
+                                    frame of the simulation. To prevent these time-consuming calculations, you can freeze
+                                    the rigid body before you run the simulation. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </div>
+                     </div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AD30657A-1880-4925-A10A-7F2A599DE8D7"></a></span>There are four factors which influence how well an actual shape collides with other
+                        objects: 
+                     </p> <span class="anchor_wrapper"><a name="UL_4F95EDC277A04FB29F887910DE977475"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FCCA0FD0-8AB8-4B6D-B442-11B098F5E5AA"></a></span>The resolution of the rigid body's geometry (see <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0080">High-resolution Geometry</a></span>) 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D43DCBA8-2806-4F6F-8791-97BB453980C8"></a></span>The Detail level (see <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0081">Detail</a></span>) 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-22BF31A3-0826-4592-BDC4-D56473A7B32C"></a></span>The Subdivision level (see <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0083">Subdivision Level</a></span>) 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B5CA35F9-F577-474B-A25A-A949D37C9708"></a></span>The number of Simulation Substeps (see <span class="char_link"><a href="rigidbody_SettingtheAccuracyofRigidBodySimulations.htm">Setting the Accuracy of Rigid Body Simulations</a></span>) 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0080"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-472E247E-9382-4397-A94A-422104FEA783"></a></span>High-resolution Geometry
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B74DBED0-94BA-4E7D-9861-62C58972FDE6"></a></span>Actual shape collisions work best on high-resolution geometry because it provides
+                        more information about the shape of the object for the calculations: the more triangles,
+                        the better. An advantage of using highly tessellated geometry is that the surface
+                        normals are smoother, which results in more realistic-looking collisions. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3593815F-5413-4F24-A70B-ED60C8BEFDF3"></a></span>You can create a high-resolution geometry for the rigid body by either subdividing
+                        it in the usual way, or you can use the <span class="MenuCascade" id="GUID-7B964F75-C353-4CDB-8890-C226C4AB9883">Subdivision Level</span> option in this property page (see below), which won't affect the geometry outside
+                        of the simulation world. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0BD32CFE-0088-4D5C-AC30-34293B401D92"></a></span>In addition to making sure your collision geometry is detailed enough, you should
+                        try to keep the sizes of the facets roughly the same among the rigid bodies. For example,
+                        upon collision, a rigid body made of very small triangles may pass right through a
+                        rigid body made of very large triangles. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2F4B7CF1-FC9F-4413-9908-2057C660E8A0"></a></span>Actual shape collisions also work better on geometry that is thicker or closed — not
+                        flat, like a sheet of paper. Grids are generally <em class="mild">not</em> a good idea to use: it's better to use a flattened cube that has some thickness.
+                        
+                     </p> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0081"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-59E52231-EC4E-4BB7-BE01-453D19171736"></a></span>Detail
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6EB88246-C169-49BA-8A62-0A2235F7C5C8"></a></span>The <span class="MenuCascade" id="GUID-0A43BE30-A275-4DA5-8CA8-5C19ABD7D97F">Detail</span> level lets you define how accurately you want the collision data to follow the rigid
+                        body's shape: Low, Medium, High, or Coffee break. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-63BDE78F-C7C7-4AE0-968B-66161B8732DD"></a></span>As you can imagine, the Low setting is the fastest and Coffee break is, well, self-explanatory.
+                        You usually need the Detail to be higher than Medium if the rigid body geometry has
+                        holes, dips, and peaks. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D362B2A9-1C61-42C3-A82C-8B35E8D007CE"></a></span>To illustrate which setting to use, consider a tree: the Low setting captures the
+                        large-scale shape of the tree (the trunk, large branches); Medium gets down to smaller
+                        twigs and clusters of leaves; and High considers the individual leaves. While you
+                        may need a higher setting for a tree, using Medium or High on a plain or smooth object
+                        would make no difference to the accuracy of the collision data. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_806ED2469F0A47908AA6E8D61AD29673"></a></span><div class="figure-anchor"><img src="../images/GUID-EAAF0862-8CA6-4E27-9411-B725E060E6B9-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B6598893-EFE7-46D2-8DAA-F9730C0518A3"></a></span>The links in this chain are fine with a Low Detail setting, but you will probably
+                        need to set the Detail to Medium or High for the spiky ball. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-78F0B896-C924-456E-87E7-CD14A525F320"></a></span><div class="note-tip"><span class="label">TIP:</span>If the collisions are not resolving properly even with a High Detail setting, you
+                           may want to increase the number of <span class="MenuCascade" id="GUID-4E6ADA87-8C4C-4D31-BD84-06ED957F8F17">Simulation Substeps</span> (see <span class="char_link"><a href="rigidbody_SettingtheAccuracyofRigidBodySimulations.htm">Setting the Accuracy of Rigid Body Simulations</a></span>) instead of using a higher Detail setting. By taking more simulation steps per frame,
+                           collision calculations become more accurate and collisions become slightly stiffer.
+                           
+                        </div>
+                     </div> 
+                     <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0083"></a></span> 
+                        <h5><span class="anchor_wrapper"><a name="GUID-C206B475-45CC-4A93-9A96-D5D6E88967FD"></a></span>Subdivision Level
+                        </h5> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B819307E-00D1-4D76-8B5E-4178D4DD56C3"></a></span>You can set the collision geometry's resolution by changing the value for the <span class="MenuCascade" id="GUID-0D3A356E-1853-4844-AFE9-B648A1473FF3">Subdivision Level</span>. This option uses a simple linear subdivision rule, and won't affect the rigid body's
+                           geometry outside of the simulation world (it's independent of the rigid body's actual
+                           geometry). The higher this value, the smoother the surface used for collisions and
+                           the more accurate the collision. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C39D6705-2D02-49B8-A14E-16297C5E9DE4"></a></span>For example, increasing this value for thin or low-resolution rigid bodies can help
+                           solve collision problems. This value has a profound impact on how accurate the collision
+                           is, yet it does not greatly affect the time it takes to create the collision data.
+                           
+                        </p> <span class="anchor_wrapper"><a name="FIG_6DCDF1D8BF5441CCB9D7B1399AA49D3B"></a></span><div class="figure-anchor"><img src="../images/GUID-36058381-9C88-429F-9DEA-AE32C352F2E6-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E1706FDF-DEE2-4E3D-9450-904D3B4FCAA5"></a></span>Actual Shape collision geometry can work with thin objects like these interlocking
+                           rings if the Subdivision Level is high enough. 
+                        </p> <span class="anchor_wrapper"><a name="UL_F5A031547A0142B9BBA8143F27CA1404"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-49811B42-9A04-4585-B20C-28CE617E7987"></a></span>For subdivided surfaces, the Subdivision Level defines which level of subdivision
+                                 should be used for collision, independent from the one that is viewed. Only Catmull-Clark
+                                 subdivision is supported. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-F5D5ACA5-10B1-42A4-9BEE-8625740407DD"></a></span>For NURBS, this is the level of sampling of the NURBS surface used for collisions,
+                                 independent from the level used in its geometry approximation property. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </div> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0085"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-5C459A38-D5D8-44F4-A64D-2CC151583E0D"></a></span>Actual Shape - ODE
+                     </h4> <span class="anchor_wrapper"><a name="GUID-616EDB8E-AA77-4C5D-9ED6-FF37D88FB670"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-009F4275-9D71-4E90-A8A7-D4B2F0991A93"></a></span>Select one or more rigid bodies. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-AF8E5CC9-4CC9-46AA-923F-B06396C738E0"></a></span>In the Rigid Body property editor, select <span class="MenuCascade" id="GUID-7C71ACED-3274-4D34-BBA1-964DA8A967DB">Actual Shape</span> from the <span class="MenuCascade" id="GUID-442FC43A-EF56-49B6-B6AB-18BD176AB968">Collision Type</span> list. 
+                           </p> 
+                        </li>
+                     </ol> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AA107FF5-209E-4011-BFA9-5F5FDB26DA22"></a></span>You may also want to use the <span class="MenuCascade" id="GUID-64272C63-3CD2-40F3-8231-E6A18F135D43">Adaptive Substepping</span> option, which can help make the collisions more accurate. Increasing the number of
+                        substeps per frame, as well as reducing the elasticity, can also increase the stability
+                        of actual shape collisions. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-58FA2C07-479C-48F0-B74F-28E06580B3EC"></a></span>For more information, see <span class="char_link"><a href="rigidbody_SettingtheAccuracyofRigidBodySimulations.htm#WSA1B6EFC221254041A441258FAB7C7AE4-009C">Setting the Accuracy of Collisions for PhysX</a></span>. 
+                     </p> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0087"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-841ADF17-C68E-41FB-90E4-D0780190EA5C"></a></span>Setting Up Collision Layers
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-50A82701-CAEA-4265-B1D8-25D40089FAD6"></a></span>Collision layers allow you to create exclusive groups of rigid bodies that can collide
+                     with each other. Only rigid bodies with matching collision layer numbers are allowed
+                     to collide with each other. By putting rigid bodies that don't need to collide with
+                     each other in different collision layers, you can lessen the collision processing
+                     time. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AE290FE3-51C9-41F6-8F31-8DDEB706383A"></a></span>For example, let's say that you have several objects that make up the body in a character
+                     that you want to have collide only with each other, but not elements in its environment.
+                     To do this, you simply assign the character's rigid bodies the same layer number (such
+                     as 1), which is different from any other rigid body in the environment (such as the
+                     default 0). 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-6579413F-90DC-47E9-946B-495EF85984F1"></a></span><div class="note-note"><span class="label">NOTE:</span>Collision layers are not related to scene or animation layers as found in the Layers
+                        panel (click the KP/L tab at the bottom of the main command panel): collision layers
+                        are only for rigid body collisions. 
+                     </div>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-06BF1845-7340-4E54-991D-17378873818B"></a></span>To assign a collision layer number to a rigid body: 
+                  </p> <span class="anchor_wrapper"><a name="GUID-BD98C5B9-E1D8-4B85-9355-7429F4643E95"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-21FABC3D-9F5A-4525-8842-112137495B96"></a></span>Select the rigid body that you want in a collision layer. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E68DCC26-B6BE-4946-98CC-046952EE5BD1"></a></span>Select the <span class="MenuCascade" id="GUID-AE14A0FC-2F89-4517-8628-EE9FC8C6E705">Collide with <img src="../images/ac.menuaro.gif"> Layer</span> option in its Rigid Body property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-44019617-735D-4B63-B0D2-45BF7CCD39F5"></a></span>Enter a layer number in the <span class="MenuCascade" id="GUID-F15E7FB9-5101-482A-9420-853CC459DF06">Layer</span> text box. 
+                        </p> 
+                     </li>
+                  </ol> <span class="anchor_wrapper"><a name="FIG_A596FCB4455143B58E83C0C2BD3BC396"></a></span><div class="figure-anchor"><img src="../images/GUID-7BF7EA73-55FB-4793-8F33-C3B268E890FE-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C8640E76-25F3-40BC-B790-F6689B129A32"></a></span>By default, all rigid bodies are assigned a collision layer of 0, meaning that all
+                     rigid bodies can collide with each other. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7B37752B-EEC3-4529-AFD9-F1F4C297A5DF"></a></span>The maximum number of layers that can be used is 28 (including 0). 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-008D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7DFE0B23-8090-4130-AD32-5902A9D83349"></a></span>Collisions with Deformed Rigid Bodies
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-26553EEE-9DD5-44BE-AC60-AB48465753E0"></a></span>Rigid bodies can have animated deformations applied to them. Animated deformations
+                     includes lattices, shape animation, envelopes, waves — any deform operator. If a rigid
+                     body that is part of a collision does have an animated deformation, you should select
+                     the <span class="MenuCascade" id="GUID-8666A5D5-48E1-4C40-9466-9AFF37AC12AC">Animatable Deformation</span> option on the Rigid Body property page. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BBB78430-132B-4219-BE58-90B16E37F3A3"></a></span>This option is only needed if the geometry is actually deforming over time. It is
+                     not required for animated transformations (scale, rotate, translate). 
+                  </p> <span class="anchor_wrapper"><a name="UL_DE7BD9AEDD0B4B38977FFD3A383A632E"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BAD290FA-85BB-4449-B45D-7BEF5702E1FF"></a></span>When this option is on, it correctly detects collisions using the current shape of
+                           the deform-animated rigid body at each frame. This slows down the simulation, but
+                           makes it more accurate. Unless you really need this option on (depending on the nature
+                           of the animated deformation and how accurate you need the collision to be), you should
+                           leave it off because it can use lots of memory. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-40FE53E9-C88C-4714-9B2D-B42D010EF2B5"></a></span>When this option if off, the shape of the deformed rigid body is calculated only at
+                           the first frame of the simulation, and then this same shape is used for any collisions
+                           during the rest of the simulation. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-008A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5B8E68A5-B9AD-48AA-9C63-E3DCF29C1F68"></a></span>Activating or Muting Rigid Body Collisions
+                  </h3>    
+                  <p><span class="anchor_wrapper"><a name="GUID-A34A224C-F285-46C4-8182-CD9366B5B161"></a></span>When you create an active rigid body, it is included in all collisions by default,
+                     regardless of the collision Layer number. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F2A4B3C1-E080-451D-BE55-BF73CC216032"></a></span>You can also temporarily disable (mute) a rigid body's participation in a collision.
+                     This is useful, for example, if you have several colliding objects in a simulation
+                     and you want to quickly test the results of each one independently. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E53705D4-30D4-4D08-94AF-B4E69B61CE36"></a></span>To activate the rigid body collision: 
+                  </p> <span class="anchor_wrapper"><a name="GUID-C7D59496-DE3C-4E86-9671-8703A395691F"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B8D9DCD6-12B8-4D26-BA57-D3810A7B4914"></a></span>Select the rigid body you want to have collide with all other rigid bodies (in all
+                           layers). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4D862050-2279-44EC-8C98-6A1738113838"></a></span>Select the <span class="MenuCascade" id="GUID-B4FA8025-083F-414E-9951-36D2C6A41070">Collide with <img src="../images/ac.menuaro.gif"> Everything</span> option in its Rigid Body property editor. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-65F45BC8-B6D6-4811-99C1-CB1C430ACDC7"></a></span>To mute the rigid body collision: 
+                  </p> <span class="anchor_wrapper"><a name="GUID-C08D5C12-F92D-40AA-9823-F6FF0B43CF45"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FB10DE08-523A-496A-BCD2-CB647052652D"></a></span>Select the rigid body whose collisions you want to mute. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0DDF5721-7D6C-46BA-B037-D2BDB9AF27A0"></a></span>Select the <span class="MenuCascade" id="GUID-1CE74F9A-FBE0-4C18-9599-9EE32F94E0AD">Collide with <img src="../images/ac.menuaro.gif"> Nothing</span> option in its Rigid Body property editor. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

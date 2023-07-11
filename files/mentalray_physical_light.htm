@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-413DBA71-6A24-433E-ACF2-85BA5BA59D3E">
+      <meta name="topic-type" content="concept">
+      <title>physical_light</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-413DBA71-6A24-433E-ACF2-85BA5BA59D3E"></a></span><div class="head">
+            <h1>physical_light</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-6E762B87-8443-4DA5-98D9-0F9788F0ECB5"></a></span> <em class="strong">Category:</em> mental ray &gt; Light
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-039442D4-A6D5-41F7-84AB-7241AC1F8901"></a></span> <em class="strong">Shader Family:</em> Light
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-887E1930-D13A-447E-A727-6DE15998BA71"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-76A6AE4F-BC6C-4B57-ADE0-E29FC41E400A"></a></span>This shader models physically correct light sources. Ideal for point lights, the light
+               intensity falls off with the inverse square of the distance. If physical correctness
+               is not important, this falloff can be modified by changing the exponent. In general
+               the falloff is <span class="MenuCascade" id="GUID-CE45B959-FB6B-4902-AF0A-5EA2CB965AC6">1/e^d</span> where <span class="MenuCascade" id="GUID-1D576BD1-C307-4626-B5DE-D48B97B73360">e</span> is the falloff exponent and <span class="MenuCascade" id="GUID-1158F880-F155-404B-B602-7F79D5B0F856">d</span> is the distance between the light source and the illuminated point. For directional
+               lights there is no falloff since the light rays are parallel.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-920345EE-BD46-4865-B4D1-1F7AFE77B4A4"></a></span>The sphysical_light shader reads the direction, spread, and exponent parameters directly
+               from the light source.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DF70D198-19C9-4476-AE43-27A64D7FF086"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-14A046A4-81D6-425F-A28F-EC7B2EF80BFC">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-778C4AD1-D582-46E6-8030-CFAC7CE95ADA"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A94445B9-44FF-420D-8694-6F4F2E2A86E2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E2CC66D2-F45D-4776-876F-1E1710C7BF91">color</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-220A4EEA-3EC7-4889-A72B-25BEADB017C5"></a></span><p class="table-body">Specifies the light energy. Since this shader is physically correct, its energy is
+                           distance-dependent and not normally in the range 0...1. This is normally a copy of
+                           the light source energy, but keeping it separate makes it possible to adjust direct
+                           and indirect illumination separately.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-55733226-F341-4398-84A8-46933E998643"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-89E56045-5A42-42DD-918D-3A9332303516">cone</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2F283486-3729-44E3-8848-F861735A5D4D"></a></span><p class="table-body">If the shader is attached to a spot light source, this is the cosine of the opening
+                           angle of the inner solid cone.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9C159C98-3A30-43BD-B25A-19C63B03D196"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8B048718-63AB-41F2-A6A7-F1710FE7304E">threshold</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5F3FFD6F-E852-4035-9E54-53800A4218D7"></a></span><p class="table-body">Optimization: if the illumination is less than the threshold, the illumination is
+                           discarded and no shadow rays are cast. The default is 0 (zero).
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-12B9B090-F8C5-411F-989F-6B78EC715720"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FE69AA4D-92E4-4A92-B7A9-6287DBBB30D8">cos_exp</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-90F33782-E7A7-4D08-ABFF-3F298DE7DEE0"></a></span><p class="table-body">For flat area lights only (rectangle and disc): the default cosine illumination distribution
+                           is made more narrow by taking cosine to the cos_exp power. The default is 1.
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

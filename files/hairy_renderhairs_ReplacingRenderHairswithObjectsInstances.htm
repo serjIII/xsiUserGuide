@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D1443428-7540-43D8-AFD2-4BB97DDB609F">
+      <meta name="indexterm" content="hair: replacing hair with geometry">
+      <meta name="indexterm" content="hair: instances">
+      <meta name="indexterm" content="instances: hair">
+      <meta name="topic-type" content="concept">
+      <title>Rendering Objects (Instances) in Place of Hairs</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D1443428-7540-43D8-AFD2-4BB97DDB609F"></a></span><div class="head">
+            <h1>Rendering Objects (Instances) in Place of Hairs</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-50D307BD-A855-4E75-B61A-63BFD2FE92BE"></a></span>Replacing hairs with objects allows you to use any type of geometry in a hair simulation.
+               You can replace hair with one or more geometric objects (referred to as <em class="mild">instances</em>) to create many different effects. For example, you could instance a feather object
+               for a bird or instance a leaf object to create a jungle of lush vegetation. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-54A6A2F3-69CF-47FA-9DD9-6E655BEBBD76"></a></span>The instanced geometry can be animated, such as its local rotation or scaling, or
+               animated with deformations. This allows you to animate the hair without needing to
+               use dynamics, such as instancing wriggling snakes on a head to transform an ordinary
+               character into Medusa! 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-353DA44E-553A-4888-935A-C415FA80694E"></a></span>To render instances for the hairs, simply put the objects you want to instance into
+               a group, and each object in the group is assigned to a guide hair. The instanced geometry
+               is calculated at render time so you'll only see the effect in a render region or when
+               you render the frames of your scene. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D74C07C9-2208-4DAD-8991-D9CA6AD03AE7"></a></span>You can choose whether to replace the render hairs or just the guide hairs. You can
+               also control how the instances are assigned to the hair (randomly or using a weight
+               map values), as well as control its orientation by using a tangent map or have the
+               instances follow an object's direction. 
+            </p><span class="anchor_wrapper"><a name="FIG_36C043075806477A83F3D0673FEAA57A"></a></span><div class="figure-anchor"><img src="../images/GUID-99D192E9-84DF-489B-A6AF-CCF0C7349642-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-006A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-14DFC3AD-02F7-4EC8-8F0E-0F5D7F89571F"></a></span>Replacing Hair with Instances
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-FCD62694-54F7-4403-8AF8-65EE4231E293"></a></span>When the instanced geometry replaces the hair, its local Y axis is aligned along the
+                  guide hair strand, and it is scaled to fit the length of the strand. Objects that
+                  aren't generally the same shape and length as the hair strand can get distorted, so
+                  be sure to choose an object that is proportionally appropriate. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-82F6465B-CFA5-4B5D-8A0E-DB24555AA969"></a></span>The instanced geometry takes on the hair's grooming state and dynamics, deforming
+                  with the shape of the guide hair. To have the instanced object deform smoothly with
+                  the hair, make sure that it has enough subdivisions, especially along its Y axis.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-006B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BDB5F4FE-8699-41B3-AACC-95EF7C67EA35"></a></span>To replace hairs with instances
+                  </h3> <span class="anchor_wrapper"><a name="GUID-181321B4-6353-42B2-9638-B1C0B5B0B35B"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E3F23037-54D4-4CBE-843D-BD02056FF247"></a></span>Select one or more objects you want to instance and create a group that includes them
+                           (press Ctrl+G or click the <span class="MenuCascade" id="GUID-FEDA522B-37FB-408D-92E8-91046BBE8FEB">Group</span> button on the Edit panel). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0CBE4BC8-EDD1-4F7B-A0DC-782DA76CBF16"></a></span>Select the hair object to which you want to attach the instances and open its Hair
+                           property editor. 
+                        </p> <span class="anchor_wrapper"><a name="TABLE_3C9A8708036F4FBA9111EFBE970F5022"></a></span><div class="table_NotRuled">
+                           <table cellpadding="0" cellspacing="0" class="not-ruled">
+                              <colgroup>
+                                 <col>
+                                 <col>
+                              </colgroup>
+                              <tr class="not-ruledOddRow">
+                                 <td class="table-body">&nbsp; <img src="../images/GUID-77BFFE31-2339-41A4-BF21-736A530D8F1C-low.png"> 
+                                 </td>
+                              </tr>
+                              <tr class="not-ruledEvenRow">
+                                 <td class="table-body" valign="middle">&nbsp; <img src="../images/GUID-23045516-3745-44F0-8923-C7BFBBBB29AC-low.png"> 
+                                 </td>
+                              </tr>
+                           </table>
+                        </div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F9B53E9D-32B5-4E42-B2CA-F989872C5B9F"></a></span>On the left the orange cylinder and blue cone source objects are put into a group
+                           for instancing. These objects are proportionally correct to be instanced along the
+                           hair strands. Their geometry also has enough subdivisions to allow for smooth deformation
+                           according to the hair strand's grooming and dynamics. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D0F9DE3D-49AC-4EAB-AEF7-D604E8D95354"></a></span>On the right is the Hair object whose hairs will be replaced by the two objects. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-D6CBD226-63C2-4D3D-BADA-D55378885154"></a></span><div class="note-tip"><span class="label">TIP:</span>To make sure that the instance source objects aren't rendered, select the <span class="MenuCascade" id="GUID-554652D6-29A4-46D5-8DFC-1A98A1CF4069">Instance Master Hidden</span> option on the Rendering tab in the Visibility property editor of the instance source
+                              object. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-05734523-C1BA-469C-B07F-377458113399"></a></span>On the Instancing page in the Hair property editor, select the <span class="MenuCascade" id="GUID-4C017157-0C6B-4DA9-A8E4-5E70BB02EFA0">Enabled</span> option to activate instanced geometry as the render type instead of the hair geometry.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E0AFB141-81F7-4260-AFD9-0B1315608C76"></a></span>Click the <span class="MenuCascade" id="GUID-7CEB0753-E12D-4F7F-868A-D1BC22DBE09A">Pick</span> button beside the <span class="MenuCascade" id="GUID-19025540-DE96-464B-8F68-F51B8176AE51">Instance Group</span> text box, then in the explorer, pick the group of objects you want to instance. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C9ADA50A-287E-45E2-A5A0-B7C9C4B9657B"></a></span>Click the <span class="MenuCascade" id="GUID-471191B9-C44E-43FD-BD23-795F45C81DF2">Remove</span> button to remove that group of objects from being used. 
+                        </p> <span class="anchor_wrapper"><a name="TABLE_6C4AF5E0CF474975A3AB4538D095BF43"></a></span><div class="table_NotRuled">
+                           <table cellpadding="0" cellspacing="0" class="not-ruled">
+                              <colgroup>
+                                 <col>
+                                 <col>
+                              </colgroup>
+                              <tr class="not-ruledOddRow">
+                                 <td class="table-body">&nbsp; <img src="../images/GUID-BF53AC5B-F40A-4959-AC0F-5A328EA5D381-low.png"> 
+                                 </td>
+                              </tr>
+                              <tr class="not-ruledEvenRow">
+                                 <td class="table-body" valign="middle">&nbsp; <img src="../images/GUID-27E7BA03-469D-4A9E-A85C-7383855E1F36-low.png"> 
+                                 </td>
+                              </tr>
+                           </table>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-96C38644-427E-4A19-94EE-0A72E668E018"></a></span>Draw a render region around the hair or render the scene to see the instanced object
+                           geometry on the hair. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F3B10D80-8D69-4416-936F-CC179058BDCA"></a></span>By default, the instances are applied to the render hairs. However, if you select
+                           the <span class="MenuCascade" id="GUID-9B858A37-7582-4649-BD11-C897BDEECAF8">Instances on Guide Hairs</span> option, the instances are applied only to the guide hairs. This is an easy way of
+                           having the instances appear only at the hair emitter's vertices. 
+                        </p> <span class="anchor_wrapper"><a name="TABLE_EAE941DFB7ED4298801EA074AB7B5818"></a></span><div class="table_NotRuled">
+                           <table cellpadding="0" cellspacing="0" class="not-ruled">
+                              <colgroup>
+                                 <col>
+                                 <col>
+                              </colgroup>
+                              <tr class="not-ruledOddRow">
+                                 <td class="table-body">&nbsp; <img src="../images/GUID-DC68E971-D8F1-4E52-9CDE-0CE392A821EC-low.png"> 
+                                 </td>
+                              </tr>
+                              <tr class="not-ruledEvenRow">
+                                 <td class="table-body" valign="middle">&nbsp; <img src="../images/GUID-9761DB0A-A044-406D-BA31-D90699BAF323-low.png"> 
+                                 </td>
+                              </tr>
+                           </table>
+                        </div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E355D620-9A75-4281-A362-E4C223ECBE04"></a></span>On the left, render hairs are replaced by the two source objects in the group. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-40E132AA-171A-4429-970C-B5A4BEABE3CD"></a></span>On the right, guide hairs only are replaced by the two source objects in the group.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-98751947-021C-41EB-A81E-169DD326E9BB"></a></span>Notice how the two objects in the group keep their own material and texture properties.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-343F60BE-5026-4F7D-B3E7-C5EDADAC852F"></a></span>If you make changes to an instanced object (such as changing its topology or material
+                           attributes), it is updated immediately on the hair. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-9805D9D6-CA61-4706-A466-8AB5263101EA"></a></span><div class="note-tip"><span class="label">TIP:</span>If you're replacing render hairs with instances, you may want to reduce the <span class="MenuCascade" id="GUID-24E11BEB-F7C1-4921-AAD0-32088AC0D096">Render Hairs %</span> value in the Render Settings part of the Hair property editor (see <span class="char_link"><a href="hairy_renderhairs_ConnectingMapstoRenderHairParameters.htm">Connecting Maps to Render Hair Parameters</a></span>) because the instanced geometry usually takes up more space than do regular render
+                              hairs. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F17621E9-3346-494A-AE3A-823C65614400"></a></span>Set how the instances are assigned — see <span class="char_link"><a href="hairy_renderhairs_ReplacingRenderHairswithObjectsInstances.htm#WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0073">Selecting How Instances are Assigned</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7C0BBAB0-6703-413D-A78A-ADF3969A5218"></a></span>Set how the instances are oriented — see <span class="char_link"><a href="hairy_renderhairs_ReplacingRenderHairswithObjectsInstances.htm#WS07FF3F5C1F4F2D4E8CBED7D77B97646A-007A">Setting the Instances' Orientation</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0072"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D540BA62-E3F3-4BBE-B4C0-EEBCA5304DD9"></a></span>To deactivate hair instancing
+                  </h3> <span class="anchor_wrapper"><a name="UL_62B5413430B74A458A0A835769C47B09"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0CBFD0F6-59E8-4585-8034-0DC918B28D1A"></a></span>Deselect the <span class="MenuCascade" id="GUID-F788B42E-F468-4774-A769-9555C404978F">Enabled</span> option on the Instancing page in the Hair property editor. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0073"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-34563D7D-D4A6-41E8-807F-CB03D2019431"></a></span>Selecting How Instances are Assigned
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-5A2AB469-E7FF-4F2D-AE9B-30C48E139EE6"></a></span>You can select the method by which the instanced objects are assigned to the hair:
+                  either randomly or by using the values on a weight map. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0074"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2B767EF3-8256-40D7-96B7-E7B2C0412612"></a></span>To assign instances randomly
+                  </h3> <span class="anchor_wrapper"><a name="UL_821C63DF5C8D4748A84DAABA781B8BC7"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9FFAE9BE-F4E4-49C0-87D6-484EB7452615"></a></span>On the Instancing page in the Hair property editor, select the <span class="MenuCascade" id="GUID-61440FE4-2D6D-4E7D-925A-4B253A6808C2">Object Assignment <img src="../images/ac.menuaro.gif"> Random</span> option. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-799F5583-CAED-42F7-A6B3-A1BD420BA2A5"></a></span> <span class="MenuCascade" id="GUID-255B6C89-3DE5-40A0-B282-14D80BF06A33">Random</span> distributes the objects in the instance group on the hair in a random manner, meaning
+                           that you can't control how which instance object is assigned to which hairs. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_EF4273F071F3495FB74588476AC9DC81"></a></span><div class="figure-anchor"><img src="../images/GUID-BCD57275-7CD4-4545-8C20-34B46F841C0E-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-87D0E0F7-1E4D-4683-9C8D-D7B3560D57D4"></a></span>Hairs are randomly replaced by the two instanced objects in the group. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0076"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5598F0A7-8F5D-4C7C-B48B-0A438B810299"></a></span>To assign instances according to a weight map
+                  </h3> <span class="anchor_wrapper"><a name="GUID-0F2FD4CE-9226-4C42-9131-0293435E0B50"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-45EBF393-CE95-4B76-81C5-174F182CDCAD"></a></span>Create a weight map for the hair emitter object and paint (press <span class="MenuCascade" id="GUID-CB2F298F-2169-4204-A9BA-87969460B80E">W</span>) the values you want. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FD2FD551-26B8-479B-AE3D-429375E19EE9"></a></span>For general information about weight maps on hair parameters, see <span class="char_link"><a href="hairy_renderhairs_ConnectingMapstoRenderHairParameters.htm">Connecting Maps to Render Hair Parameters</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F1A34B0E-3CE3-41CD-B589-E0615651B48F"></a></span>Select the hair object and click the <span class="MenuCascade" id="GUID-0A34D7C2-D8A1-44F8-B072-FEB07C4D2AA3">Transfer Map</span> button on the Hair toolbar to transfer this weight map from the hair emitter to the
+                           hair object. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9BC5BED8-A520-463C-B6AD-0D35F3AC8920"></a></span>In the explorer, pick the emitter object's weight map that you created: it is under
+                           the hair emitter object's geometry Clusters &gt; WeightMapCls node. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_CB53DF25DD6F4110BED2584F1B668688"></a></span><div class="figure-anchor"><img src="../images/GUID-45705FD6-F7AE-468C-B4D0-9EC916BBDF42-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5C43F180-08F9-4906-8422-C6BAAA1C5BDD"></a></span>On the Instancing page in the Hair property editor, select the <span class="MenuCascade" id="GUID-BE7DAC12-71D4-4234-B619-E33C7C2F418D">Object Assignment <img src="../images/ac.menuaro.gif"> Using Weight Map</span> option. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C82484B9-CEB5-414E-A47A-0856283EAB46"></a></span>This option uses the values on a weight map to assign the instances to the hair. Where
+                           the weight map's values are 0, the object listed at the bottom of the instance group
+                           (in the explorer) is used; where the values are 1, the object listed at the top of
+                           the instance group is used. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2DAC1125-DCB7-44CC-B897-848C113A0A59"></a></span>If you have more than two objects in the instance group, the objects listed in the
+                           middle of the group are mapped accordingly to values between 0 and 1. Make sure that
+                           your weight map has the appropriate range of values to see the effects of more than
+                           two instance objects. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C7C26730-D3A5-4DAE-869A-19BB6DBC1FC2"></a></span>Beside the <span class="MenuCascade" id="GUID-F6A8260B-F294-4666-B4D0-D5F5C898809F">Object Assignment Map</span> option that appears below when you select Using Weight Map, right-click the connect
+                           (little plug) icon and select <span class="MenuCascade" id="GUID-4E371081-6A40-4BCD-8A49-48D117018098">Connect</span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B76411AA-8B28-44EC-9B6F-50594F93747C"></a></span>In the pop-up explorer, select the weight map under the <span class="MenuCascade" id="GUID-FCD2F9DC-34C3-4117-A020-2D094C6D939F">Hair <img src="../images/ac.menuaro.gif"> Clusters <img src="../images/ac.menuaro.gif"> WeightMapCls</span> node. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-039D06E8-65A4-4CA4-A484-BC845A4F34A4"></a></span>The connection icon turns red to show that a map is connected. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_D16AC69B3D5C40DFA4A62FF89CB78C78"></a></span><div class="figure-anchor"><img src="../images/GUID-966A199D-E242-4A77-A4F6-5D42E0CE789A-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5AC90A1B-AFF0-4863-A638-1781B4DF0BFD"></a></span>After you connect the map, you can go back and adjust the weight map on the emitter
+                           object's original map, and see that the connected map (and the results on the hair)
+                           is updated. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_4BD19825A0A74CE8B8E0633D17841BAE"></a></span><div class="figure-anchor"><img src="../images/GUID-D4A97097-59FD-4331-ABD3-C3CA87676A0F-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-70E54580-E0EF-4ACE-971B-8FC81B04496E"></a></span>On the left, a weight map showing black areas at a value of 0 and turquoise areas
+                           at a value of 1. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-76E35226-6AEE-452B-B754-E746CD89FBEA"></a></span>On the right, Hairs are replaced by the two instanced objects in the group using the
+                           values on the weight map. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9EFBE483-E2D0-47CA-B449-5459A219B1DF"></a></span>The instance object at top (blue cone) of the group in the explorer is mapped to values
+                           of 1 on the weight map, whereas the bottom object (orange cylinder) is mapped to values
+                           of 0. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AD2CEB6E-41C8-4635-B2A4-7A7B3AEE3474"></a></span>You can also set the <span class="MenuCascade" id="GUID-F0FDAC0D-FA9E-41D9-B753-2C5BB8055F83">Fuzziness</span> (%) option, which uses a percentage value (0 to 100) to blend the values of the weight
+                           map so that the division between instanced objects is less distinct. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-007A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-606F3958-A7E9-4656-8223-D9FDA5526E2B"></a></span>Setting the Instances' Orientation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7A3C6C00-5A70-4685-BDB6-8C5409777CB9"></a></span>You can control the orientation of the instanced geometry in two ways: by using a
+                  <span class="MenuCascade" id="GUID-AB3380BB-AE27-4E96-9146-5365DBD50310">Tangent Map</span> or by having the instances <span class="MenuCascade" id="GUID-D0851FB9-9C1E-4486-B856-C782739D5A8C">Follow Object</span> (one or more objects). You can, of course, choose to not control the orientation
+                  at all by leaving the <span class="MenuCascade" id="GUID-E59DA2FA-383D-4538-80B0-867510E18F9C">Orientation <img src="../images/ac.menuaro.gif"> Type</span> option on the Instancing page set to <span class="MenuCascade" id="GUID-2B468F3A-4E0B-48A6-8FF6-9273E5C4BA4B">None</span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-47BEB3B6-6E1D-4638-A3DC-30C65C877792"></a></span>In addition to setting the type of orientation, you can set a <span class="MenuCascade" id="GUID-F953CBC8-2E8A-4E66-8256-4D5D839687BE">Spread</span> value in degrees (0 to 360) to locally rotate each instance. A distribution method
+                  is used to allow for some randomization of rotation values among the instances. 
+               </p> <span class="anchor_wrapper"><a name="UL_3EA363B1239B46DBADB82B4FC408A27F"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DB429214-2765-4386-B954-ADE319203CF3"></a></span>Select <span class="MenuCascade" id="GUID-9D61498F-1784-449F-9178-8C96E5F4DD53">Linear</span> for a simple, linear distribution of the Spread value among the instances. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B3D002C8-048F-4850-B130-A933607EEA70"></a></span>Select <span class="MenuCascade" id="GUID-2452F8E3-6E4F-480A-9CEF-559A81D37D06">Gaussian</span> for a normalized distribution of the Spread value among the instances based on a
+                        bell-shaped curve. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-007B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-36F7BD00-01B0-4789-9DB1-A3CD48F53052"></a></span>Instances Oriented According to a Tangent Map
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D8608431-F556-4CCC-8839-B50F0C0F7E6C"></a></span>When a hair emitter's surface is constantly deforming, you need to keep the hairs
+                     oriented in the same direction along the surface. To keep themselves in a fixed orientation
+                     relative to the emitter as it's being deformed, the hairs need a local coordinate
+                     system based on the emitter's surface. This local coordinate system does not exist
+                     by default and without it, the instances could rotate around the hair as the emitter
+                     surface deforms. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6749B325-282B-4367-BD2A-89258373FA31"></a></span>Happily, you can create a local coordinate system for the instances by means of a
+                     tangent map. A tangent map provides a direction, known as a tangent, along the surface
+                     that each instance can orient itself against. When you create a tangent map, the Tangent
+                     operator uses the RGB values that are stored in the polygon mesh's VertexColor property
+                     to give each hair instance a local XYZ coordinate system. The RGB values in the map
+                     correspond respectively to the XYZ axes of the instance. Tangent maps then orient
+                     each instance so that its X axis follows the U direction of the hair emitter. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3AAA72BF-A9CC-4FD4-AA7F-B1C8D5B5E060"></a></span>Because the RGB color values on the map correspond to the XYZ axes of the instances,
+                     you can edit the orientation of the instances by painting the vertex colors. You can
+                     also translate or rotate the texture support, or change the texture projection method
+                     or plane, to alter the RGB values of the vertex colors, which changes the orientation
+                     of the instances. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_5A6A7829372F45959DE1080A19593727"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-FEAAAC6C-0A36-45B7-BB33-14F261D623C7-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-99B45F15-C7F4-4A2A-87A0-8815825B29B9-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5F88DC8D-DC0A-40CA-A181-96E10946BB18"></a></span><p class="table-body">The hair emitter (a slightly deformed grid) has a tangent map created for it, which
+                                 is stored in the grid's VertexColor property. Here, the vertex colors are fairly random.
+                                 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DBFE5C5F-EAB1-4AA9-BFBC-A3417EE8D969"></a></span><p class="table-body">The instances are oriented according to the RGB values of the vertex colors. </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-28BD247D-15A3-46B1-ABBF-FF1DAD8DEC14-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-3D032726-9400-407B-AC6E-B37D65E944B5-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0456AE50-0C4A-46EC-96AB-FFE10B220559"></a></span><p class="table-body">Here, the difference between the vertex colors is more subtle. </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-37B7BDAB-FEF2-4077-B4DD-7C64869C3504"></a></span><p class="table-body">Notice how the orientation of the instances change as the vertex colors change. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0080"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-6FD2199D-248A-406C-A54C-1C534F3BF67E"></a></span>To have instances oriented according to a tangent map
+                     </h4> <span class="anchor_wrapper"><a name="GUID-D8D0E1DD-9E24-4894-A9C4-99899F80E8F6"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D9C8BC90-3CF7-4B83-8CEA-14E24BF50BCA"></a></span>Create a texture projection (choose <span class="MenuCascade" id="GUID-8C7B767C-8E13-40DB-8620-26A8B6D2563F">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Texture Projection</span> from any toolbar) and a tangent map (choose <span class="MenuCascade" id="GUID-0348C721-A069-4E29-A294-457056BEA3EA">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Tangent</span>) for the hair emitter object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-BE9A13F5-FED1-404C-A64D-073581D4980E"></a></span>Open an explorer to find the tangent map under the hair emitter's geometry &gt; Clusters
+                              &gt; Texture_Coordinates &gt; VertexColor node. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C981D099-D98A-4AC3-8D58-B82C20EDB5C9"></a></span>Click the TangentOp icon to open the <span class="MenuCascade" id="GUID-FC2C5316-FCA0-41C4-8E9D-280C59EBB157">Tangent</span> property editor, and make sure that the <span class="MenuCascade" id="GUID-C9E2AEC4-3E05-4F73-B627-090F94BDD3B6">State</span> is set to <span class="MenuCascade" id="GUID-A7AA7C1F-8953-454B-9881-775BFBB5B498">Active</span>. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CE772C43-D3D1-4407-A507-EB735609235E"></a></span>You can increase the <span class="MenuCascade" id="GUID-20B304E2-E74D-4183-AEE1-B4C0BB1F4F69">Smoothing</span> value to smooth out any sharp angles on the tangent map. Oversmoothing can also introduce
+                              artifacts, so you should increase the smoothing value in small increments. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F0804890-8B76-4EFA-A8D0-0942BBE937A4"></a></span>Now you must transfer the tangent map via the VertexColor property from the emitter
+                              to the hair object: select the hair object and click the <span class="MenuCascade" id="GUID-3E93D99B-2E4E-4133-9309-240EA2F01D70">Transfer Map</span> button on the Hair toolbar. In the explorer, pick the emitter object's VertexColor
+                              property. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-01793364-85F5-4F9F-9083-5126655908DD"></a></span>On the Instancing page in the Hair property editor, select the <span class="MenuCascade" id="GUID-555D2BBD-6ECF-4F9D-AE50-FE075FD90E36">Orientation <img src="../images/ac.menuaro.gif"> Type <img src="../images/ac.menuaro.gif"> Tangent Map</span> option. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CD918516-FACB-4EA9-9E6F-25A8B19FED79"></a></span>Beside the <span class="MenuCascade" id="GUID-18B7275F-A6C3-484D-BACA-3408D573799F">Tangent Map</span> option that appears when you select this option, right-click the connect (little
+                              plug) icon and select <span class="MenuCascade" id="GUID-34E2711C-2C89-4385-8BBB-31EA39120DDE">Connect</span>. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-EFDFAE69-7133-494C-9852-D3EE83EDF3BA"></a></span>In the pop-up explorer, select the <span class="MenuCascade" id="GUID-4AC4AF00-76DE-473C-B824-D4ECBD73A98F">VertexColor</span> property under the Hair &gt; Clusters &gt; Texture_Coordinates node. The connection icon
+                              turns red to show that a map is connected. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7CD41DE4-FB9E-46FB-975E-2ED1DE6618FD"></a></span>To control the orientation using a tangent map, you can edit the emitter's Vertex
+                              Color property. Press <span class="MenuCascade" id="GUID-225667ED-FEF5-4FBF-89E3-C83A90834EEB">W</span> to activate the brush tool, and press <span class="MenuCascade" id="GUID-2CC0A627-A63A-44C3-8ED4-4F963C271EF3">Ctrl+W</span> to open the brush properties, then click the Vertex Colors tab. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FF8ADEF7-CF85-4457-8FF3-ABB361D05D13"></a></span>The RGB color values on the map correspond respectively to the XYZ axes of the instances.
+                              
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0081"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CAD0644B-3EC4-467F-8A1F-70EE3D33872D"></a></span>Instances Following Target Objects
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6675E4E0-635B-4F7C-BB31-FF9B71ED8451"></a></span>When instances follow one or more objects, they are oriented according the direction
+                     of these objects. You can use multiple objects for which the instances will pick a
+                     direction which is a weighted average by distance to each target object; that is,
+                     the target object closest to the hair has more of a "pull" than a target object that
+                     is farther away. For a single object, the instances always point toward that target.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-261EED55-C49F-4FB5-A1CF-293F1EB2810A"></a></span>Note that the effect of the instances following the objects works best when the target
+                     objects are fairly close to the hair object. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0082"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-26E3FA78-6EC9-40E3-854F-D04A3D4903A1"></a></span>To have instances oriented toward objects
+                     </h4> <span class="anchor_wrapper"><a name="GUID-C41E46B0-568B-44AC-ABA0-C772EED6F2AA"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FB45E47D-A5E5-460B-8652-30141BD015F1"></a></span>Select one or more objects you want the hair to follow and create a group that includes
+                              them (press Ctrl+G or click the <span class="MenuCascade" id="GUID-967E2F42-0744-415D-A2C6-1F990A76B10F">Group</span> button on the Edit panel). 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4DA1099D-1D64-46FC-99C5-F02F821B8242"></a></span>On the Instancing page in the Hair property editor, select the <span class="MenuCascade" id="GUID-01D714DC-C133-4FCE-BBB6-6EDCC63332DF">Orientation <img src="../images/ac.menuaro.gif"> Type <img src="../images/ac.menuaro.gif"> Follow Object</span> option. Instances will be oriented according to the location of the target objects.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3FA6E869-D3E8-450F-A760-8FF5ED5B4EA3"></a></span>Click the <span class="MenuCascade" id="GUID-FF92AAFC-1115-4665-80C9-04D1B8CC0D31">Pick</span> button beside the <span class="MenuCascade" id="GUID-51AC9B57-AA6A-40B7-93DD-194FCD43B2F2">Target Group</span> option that appears. In the explorer, select the group of objects whose location
+                              the instances will follow. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D357967D-C76C-4CB9-939D-D87D1AC6B67A"></a></span>Click the <span class="MenuCascade" id="GUID-7C3B7516-1983-461E-8043-FF21FBC05002">Remove</span> button to remove the effect of the target group on the instances. 
+                           </p> <span class="anchor_wrapper"><a name="FIG_6367A424EAF843939F3037C308247665"></a></span><div class="figure-anchor"><img src="../images/GUID-298F0F77-CCF2-47C2-9B4E-C5C77226EEAF-low.png"></div> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

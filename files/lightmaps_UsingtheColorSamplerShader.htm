@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-55AFA7A0-8C7A-4959-B24C-E3BC25AE5EAA">
+      <meta name="indexterm" content="color sampler shader">
+      <meta name="indexterm" content="shaders: color sampler">
+      <meta name="indexterm" content="shaders: lightmap, color sampler">
+      <meta name="topic-type" content="concept">
+      <title>Baking Render Trees with the Color Sampler Shader</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-55AFA7A0-8C7A-4959-B24C-E3BC25AE5EAA"></a></span><div class="head">
+            <h1>Baking Render Trees with the Color Sampler Shader</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-7EFB3CC4-B687-4B44-8EA3-AD9886919BE8"></a></span>The <span class="char_link"><a href="shaderpresets4005.htm">Color Sampler</a></span> shader [<span class="char_link"><a href="shaderef_cover.htm">Shader Reference</a></span>] samples an object's surface and writes the result to a texture file. This is conceptually
+               similar to RenderMap's surface color map, but works in a different way. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3B1257AD-EA47-41E8-BC00-FC6C8767860A"></a></span>Rather than using a virtual camera to sample an object's surface from a specified
+               distance, the Color Sampler shader evaluates the object's render tree directly. Whatever
+               portion of the render tree is connected to the color sampler's Input port is computed
+               and written to a texture file. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8EDB0D2D-5CD5-438E-B55B-43B9C1200834"></a></span>The Color Sampler shader itself must be connected to the Material node's Lightmap
+               port in order to generate the texture. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D24A8713-4D30-48DC-8E4F-410DCB88BFDB"></a></span>Although Color Sampler is implemented as a lightmap shader, it is not a true lightmap
+               in the conventional sense. 
+            </p><span class="anchor_wrapper"><a name="TABLE_2541C5F2F6654CD08D74B4F0626CD3F9"></a></span><div class="table_NotRuled">
+               <table cellpadding="0" cellspacing="0" class="not-ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="not-ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-6D8553E3-11F4-4E98-BDB2-6B5B460A7B40-low.png"> 
+                     </td>
+                     <td class="table-body" align="left">&nbsp; <img src="../images/GUID-EAF09C78-E3A9-412C-8A45-47F721C8D9C8-low.png"> 
+                     </td>
+                  </tr>
+                  <tr class="not-ruledEvenRow">
+                     <td class="table-body" colspan="2" align="left"> <span class="anchor_wrapper"><a name="GUID-79EEE00B-717C-4357-9429-92CC5DA3676B"></a></span><p class="table-body">This unusual-looking fellow was textured using a procedural cell-shader. You can bake
+                           the procedural texture into an image using the Color Sampler shader. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div><span class="anchor_wrapper"><a name="FIG_4B59744227F843C6B9D6E375FCD0DEAC"></a></span><div class="figure-anchor"><img src="../images/GUID-FB84DBC1-0750-4055-9D99-F694935B144A-low.png"></div><span class="anchor_wrapper"><a name="TABLE_DD2A43638F0248299D27CE0117CF9A9A"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9E98A90C-B264-4D13-B172-58E202D35F25"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AC468BF9-5838-4417-A8A6-71AC98F5AD70">A</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B0E02F4E-49BE-4098-830F-45EFD586C967"></a></span><p class="table-body">The Color Sampler shader's output must be connected to the Material node's lightmap
+                           port for the lightmap to be generated. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E81E7093-DF6C-492C-8639-9004A6D47DAC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F585BCEF-24C8-49AB-AEED-1A6D36B813ED">B</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C4C44D02-BCCD-446B-A2F0-C255735A7B1D"></a></span><p class="table-body">The Phong shader's output is connected to the Color Sampler shader's Input port, so
+                           that everything leading into the Phong shader will be included in the Color Sampler
+                           shader's output image. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1FACC57D-C002-44EC-8851-071905F6B226"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D29A0980-096E-42F9-AE0B-8B420FFCEFD0">C</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-19AFBCC2-FC5B-4818-B1FB-D42DCFCDE43D"></a></span><p class="table-body">The color sampler shader produces this texture when you render the object. The image
+                           is written to disk so you can reuse it later. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div><span class="anchor_wrapper"><a name="TABLE_2C18F29017274B5CA71B00F32A2E6CB9"></a></span><div class="table_NotRuled">
+               <table cellpadding="0" cellspacing="0" class="not-ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="not-ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-468A5EF5-6B75-42B5-857D-744126CC1D36-low.png"> 
+                     </td>
+                     <td class="table-body" align="left">&nbsp; <img src="../images/GUID-CCFCF098-8F51-4DE8-926D-DAF32536AEC4-low.png"> 
+                     </td>
+                  </tr>
+                  <tr class="not-ruledEvenRow">
+                     <td class="table-body" colspan="2" align="left"> <span class="anchor_wrapper"><a name="GUID-E91481F0-8F78-4966-948D-C68AD18081D1"></a></span><p class="table-body">Applying the texture generated by the Color Sampler shader to the object's surface
+                           produces the result shown here. Because the illumination is baked into the texture,
+                           no surface shader is necessary and the scene's lights can be deleted. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-003D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9635DE9F-8AE1-41EE-9DF1-6ADD35BB5992"></a></span>To sample an object's surface using the color sampler shader
+               </h2> <span class="anchor_wrapper"><a name="GUID-A5AAC59D-8A09-488F-A17E-B40534EEB8FB"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C0E0D9CD-70C9-46A0-B70A-13B46758F0E0"></a></span>Select the object whose surface you wish to sample and press 7 to open the render
+                        tree. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-68B81ABF-6762-494C-A7EE-4FAE01BE7174"></a></span>From the preset manager, drag and drop a <span class="MenuCascade" id="GUID-A914676E-D8FD-4033-97C1-C30B50751F9D">Lightmaps <img src="../images/ac.menuaro.gif"> Color Sampler</span> node to the render tree workspace. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E3EA6735-FD3F-4059-AE5F-A8B445F68B3D"></a></span>Connect the Color Sampler node's output to the Material node's Lightmap port. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9CE062C8-2D37-429C-AE86-1317BF452D25"></a></span>Connect to the Color Sampler node's Input port the output of the node or branch of
+                        the render tree that you wish to sample. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BB1F0FC6-3D83-4D11-95BD-4462DA9F408A"></a></span>Double-click the Color Sampler node to open its property editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-63D2B5B1-95D6-44B7-B628-BD6D812E4229"></a></span>On the Color Sampler page, use the <span class="MenuCascade" id="GUID-0FDF590A-ED34-497B-AB0A-4651B572BDCE">Texture Space</span> options to choose a texture projection to use during sampling. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-287D4BA3-064D-44D9-8426-8AD928B4DAFA"></a></span>Ideally, you should choose the same projection that the object's textures use. However,
+                        in some cases, you may need to click New to create a <span class="MenuCascade" id="GUID-A068E7BB-E879-42D5-862D-AB711412D54B">new</span> texture projection. For example, if the object is textured using only surface shaders
+                        (Phong, Lambert, and so on), or using procedural textures that are applied using a
+                        spatial projection (the color sampler shader cannot use spatial projections for sampling).
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E998B047-0665-4120-BBBB-B7D7D5E8881F"></a></span>Choose <span class="MenuCascade" id="GUID-1413B952-CFE3-432C-912F-0BD6D8D61C63">User Tools <img src="../images/ac.menuaro.gif"> Create SSS Lightmap</span>. Connect the sss_lightmap_clip node's output to the Color Sampler's texture port,
+                        and set the output file options as desired. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4A214124-7928-438F-9D66-EE8037815707"></a></span>Note that the image's file name contains a hash mark (#) by default. This is used
+                        to specify the frame number when you render a sequence. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BACC8495-764C-4F61-BE9B-FF912FF1A39D"></a></span>Render the object to generate the Color Sampler's output texture. 
+                     </p> <span class="anchor_wrapper"><a name="UL_0966B0ADA72346B99DC0D945303A07D0"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5F5FBAF8-B4E8-4994-AE94-9D083F6A6614"></a></span>If you only want to output a single-frame texture, you can use the render region or
+                              render preview tools. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0E5AFC92-7786-4BC6-8985-A16D03139AB4"></a></span>If you need to render a texture sequence, you will need to render all of the required
+                              frames. 
+                           </p> 
+                        </li>
+                     </ul> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E07578C3-54B7-4EAE-8644-0A26E40925A1"></a></span>For more information about these rendering methods, see <span class="char_link"><a href="render_rendering.htm">Rendering Methods</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-003E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C4BB499B-CE1C-4CED-B408-2E6C4F6EE5D6"></a></span>Color Sampler Shader vs. RenderMap
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8436B7E4-080C-4FFC-A4CA-926D21405874"></a></span>The Color Sampler shader and the RenderMap tool do similar things. This section is
+                  intended to give you an idea of when it is preferable to use one instead of the other.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F1F3FFD2-D989-4D67-9E1C-DD658215AABA"></a></span>For more information about the RenderMap property, see <span class="char_link"><a href="tex_baking.htm"> Baking Surface Attribute Maps</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-003F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FE3E0239-E670-441A-9C3E-AF652B8E500F"></a></span>Advantages of using the Color Sampler shader:
+                  </h3> <span class="anchor_wrapper"><a name="UL_FEBF2C2FCA6546D7B58D43FAA2C3D70E"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DCC380EF-6BEA-474A-BB4C-222DFC16349D"></a></span>Because the color sampler shader evaluates the render tree directly, you don't have
+                           to worry about other objects getting in the way of a virtual camera. Nor do you have
+                           to worry about introducing distortion the way you might when setting RenderMap's camera-distance
+                           value too high. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0658A243-9679-4CB7-B318-F25809B4518D"></a></span>You can quickly generate a texture from any shader or branch in the render tree by
+                           simply changing what is connected to the color sampler's input. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-20FC6B74-743A-4D70-A794-235BDE685BCE"></a></span>The color sampler shader can easily be set to output texture sequences rather than
+                           still images. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-492F4D1B-F242-4D6E-88D4-A8299A24C625"></a></span>Using the color sample shader involves very little setup. You need only make a few
+                           render tree connections and set a few parameters. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-291F8950-716C-4834-870A-2A2D4BC0047E"></a></span>Depending on the material being evaluated, the color sampler shader can be faster
+                           than RenderMap. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-0040"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F2E30E92-F459-454B-AAB5-689092F3A52B"></a></span>Advantages of using RenderMap:
+                  </h3> <span class="anchor_wrapper"><a name="UL_3DC4BB1AF7444706A5C412790F403486"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1A4103F8-54E7-4F5E-B16E-5E07CB970CE3"></a></span>In many cases, it is desirable to include objects other than the sampled object in
+                           the output texture. For example, you can create a sprite by placing an object in front
+                           of a grid and then rendermapping the grid. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D259D0D5-7CA6-4DA6-BBB6-34ED32A2FB8C"></a></span>RenderMap is designed to create several specific types of maps, such as normal, binormal,
+                           and tangent maps, that are complicated to create using the render tree. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-05BBE4D2-B042-4807-8449-5545E4A70263"></a></span>RenderMap can generate several images in a single rendering. The color sampler shader
+                           can generate only one at a time. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7E1CC6C2-6E8D-4E46-8B97-AD48B4E5D8F5"></a></span>It is easier to capture bump mapping information using RenderMap because the color
+                           sampler shader cannot use the material node itself as an input. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

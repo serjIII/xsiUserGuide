@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-92360A5D-9245-479C-B406-2205656A8E37">
+      <meta name="indexterm" content="ICE simulations: caching a simulation environment cache">
+      <meta name="indexterm" content="caching: ICE simulations to a simulation environment cache">
+      <meta name="topic-type" content="concept">
+      <title>Creating ICE Simulation Environment Cache Files</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-92360A5D-9245-479C-B406-2205656A8E37"></a></span><div class="head">
+            <h1>Creating ICE Simulation Environment Cache Files</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-0425A12C-DF97-441D-82B4-8F36BAB24EFF"></a></span>You can cache ICE simulations into a point cache file and simulation environment cache,
+               and optionally to a cache file source and clip. You can then play it back as usual,
+               whether it's using the ICE tree or the animation mixer. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6D706558-B333-455B-8A9C-C0505FA3E9BD"></a></span>At the same time as you cache a point cache file, a simulation environment cache is
+               created. This cache allows you to scrub the simulation back and forth in the timeline
+               without needing to load a cache file. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2498C1D7-CB6A-41F1-A5F2-D089C57FE82C"></a></span>Once you have created a cache file, you can also create a cache file source and clip
+               based on it to use in the animation mixer — see <span class="char_link"><a href="rigidbody_CachingtheRigidBodySimulation.htm#WSBCC68D637F05FE469ECDBB479E3055EE-001E">Creating Cache File Sources and Clips</a></span> below. The sources are kept with the model, which lets you import and export models
+               with their cached simulation intact. 
+            </p><span class="anchor_wrapper"><a name="UL_BC4CE14E6F074FE6AF5D9A5A2022AFB1"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-42A0D6DE-66FC-4463-A7E2-59ED267128DC"></a></span>Only the simulated frames of an ICE tree are written to the cache, which doesn't include
+                     the first frame of the scene. This frame is considered to be the initial state and
+                     is therefore not simulated. For example, if your scene starts at frame 1 and ends
+                     at frame 100 frames, 99 simulated frames are written to the cache, beginning with
+                     frame 2. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-16CF3775-2DAC-437C-9A4D-1869B3F0EC50"></a></span>If you're caching instanced geometry for ICE particles, make sure to keep the master
+                     object in the scene when writing or reading a cache file: even if the particles are
+                     cached, they still depend on the instance master to be there. If you don't want the
+                     master objects to be displayed or rendered, you can simply move them out of the camera's
+                     view, or you can hide them by selecting the <span class="MenuCascade" id="GUID-FCC56530-25AE-4155-B939-FD82A6644B3D">Instance Master Hidden</span> option in each master object's Visibility property editor (Rendering tab). 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-881AB32D-812D-4299-AB63-4AE2B856E5FA"></a></span> To save the simulation to a cache file and create a simulation environment cache:
+               <span class="anchor_wrapper"><a name="GUID-B6A2D70E-F35E-415F-8A4B-1C2B4F7618A5"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CA543CC2-58B1-4C82-A897-FEE7DFC840AF"></a></span>Select one or more ICE-simulated objects whose simulation you want to cache. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-814C5328-EA2D-4AC3-8D2A-AD6A24770531"></a></span>Do either of the following: 
+                     </p> <span class="anchor_wrapper"><a name="UL_52A360D1DDB84E4F8598D481BDC8DEDF"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-02E765FB-DCDC-4A83-81A3-3B7D7E48DD15"></a></span>Open the Cache Manager (see <span class="char_link"><a href="sim_cache_CachingSimulations.htm#WSBCC68D637F05FE469ECDBB479E3055EE-0005">Opening the Cache Manager</a></span>), then click the <span class="MenuCascade" id="GUID-BD0C066B-8C8E-4B2F-8DE2-114506DD23D1">Simulation</span> tab at the top of its window. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-10C320B9-437E-483D-9830-0EB97645757E"></a></span>Open the Simulation Time Control property editor for the current simulation environment.
+                              (In the explorer, open the current Environment and click the Simulation Time Control
+                              icon). 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-B72A2061-8079-4C76-BB69-39F03F5A4479"></a></span><div class="note-note"><span class="label">NOTE:</span>You can select any of the <span class="MenuCascade" id="GUID-EF17767C-D7E8-4C41-A3EB-89B3CD421CA4">Play Mode</span> options (on the Simulation page) for caching — see <span class="char_link"><a href="property7050.htm">Simulation Time Control Property Editor</a></span>. However, if you're doing distributed rendering or using motion blur, it's recommended
+                                 that you use the Standard mode. 
+                              </div>
+                           </div> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C2E94587-FF59-4C55-B621-F968A8E2C93C"></a></span>Click the <span class="MenuCascade" id="GUID-DE39E171-1132-4E01-AB4B-BBDD89F6A6D7">Caching Files</span> tab. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-FDFD49E5-5092-4683-8FE9-5430CD911354-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0B4080FE-4DF2-48B5-870F-D19719E1AB25"></a></span>Select the <span class="MenuCascade" id="GUID-A5F83E48-C4E6-40A6-AACF-7F667EEAFCAC">Cache on Playback</span> option. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0572EA11-1744-4E1B-AC86-D1661505500F"></a></span>Select the <span class="MenuCascade" id="GUID-F3AD2CE4-3876-43B6-BE48-091CE09C55FF">Path</span>, <span class="MenuCascade" id="GUID-AB540574-CFE4-4159-B7DA-ABAA1B78342F">File Name</span>, <span class="MenuCascade" id="GUID-CF5A85AC-8D7A-4255-A242-A7E449CDE8FD">Version</span>, and <span class="MenuCascade" id="GUID-06A2E892-DC5D-4A47-9780-B0AA732BED8A">Format</span> you want to use for the point cache file — see <span class="char_link"><a href="property7050.htm#WS27C0BB100463114CA95C32C3B7D11633-0054">Caching Files</a></span> for more information. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3CB6E40C-342C-471E-9876-607CA27481AC"></a></span>You can see the current selection in gray in the <span class="MenuCascade" id="GUID-6CD2C16A-F405-4F5B-A184-1769436FE119">Resolved Path</span> text box. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-7C568197-F937-43B4-84C4-069E7E697729"></a></span><div class="note-tip"><span class="label">TIP:</span>If there is a cache file being read from a Cache on File node in any scene object's
+                           ICE tree, information about the object and its cache file appears in the Scene <span class="MenuCascade" id="GUID-ACD0E143-3AEF-4673-877F-A12581A53AAF">Simulation Cache on File Nodes</span> area. Select an object in the table, then click the <span class="MenuCascade" id="GUID-8350F5AF-9B69-4CB2-80E3-0DDF4A16DF15">Inspect Obj</span> button to open the object's <span class="char_link"><a href="iceref_Cache_on_File.htm">Cache on File</a></span> property editor. 
+                        </div>
+                     </div> 
+                     <div><span class="anchor_wrapper"><a name="GUID-CC7CB0D3-9B7E-4FEB-8234-8EAEB6FEFEF2"></a></span><div class="note-note"><span class="label">NOTE:</span>The <span class="MenuCascade" id="GUID-A057F355-816A-4420-80AC-E6524F0B67F9">Scene Simulation Cache on File Nodes</span> options appear only if you open the Simulation Time Control property editor via the
+                           Cache Manager. 
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DCD9771F-7309-4FFB-B8B6-4F086742D666"></a></span>Play the frames of the simulation that you want to cache. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EF3D0AB7-8478-4618-9341-853CF508A1D4"></a></span>You can also cache the frames by jumping to the last frame of the simulation that
+                        you want to cache: all the frames of the simulation up to that frame are cached. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-539EEDC3-F0EE-4215-8D35-69139DBBA02D"></a></span>When you play the simulation, you create a point cache file, as well as a simulation
+                        environment cache. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C6485192-1F4B-47A0-AC6D-3B376C438C2F"></a></span>If you want to keep making changes to the simulation and update the contents of the
+                        cache files every time you play it, keep the <span class="MenuCascade" id="GUID-60BDA7B9-2190-4FAC-8611-53571C3650F5">Cache on Playback</span> option on. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-800F9B35-F398-4CDD-BAD3-0D29986BDA8D"></a></span>If you don't want to do this, make sure to turn off the <span class="MenuCascade" id="GUID-8A8B4AF4-AADE-4698-99A1-E7AE70259E96">Cache on Playback</span> option when you're done playing back the simulation. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-BCCE8E01-8358-4750-AB2C-AE4826F80535"></a></span><div class="note-note"><span class="label">NOTE:</span>You can also keep the <span class="MenuCascade" id="GUID-DF806EE2-B58C-4D69-BE95-EA6B8BD48E1F">Cache on Playback</span> option on and select the <span class="MenuCascade" id="GUID-06424368-410F-4F69-B560-CBDA76832956">Lock Playback Cache</span> option. 
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C2994105-5EED-4256-9B48-D5FB0DD8A9AA"></a></span>You can now load the point cache files (see <span class="char_link"><a href="sim_cache_LoadingtheCacheFileintotheAnimationMixer.htm">Reading Cache Files</a></span>) on the same or different objects, or create a cache file source and clip (see below).
+                        
+                     </p> 
+                  </li>
+               </ol> 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-001E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-61206262-6545-4D33-AABD-3234926F5310"></a></span>Creating Cache File Sources and Clips
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CCB92AC3-537F-4BE3-85CD-CACF4F708F54"></a></span>After you have created a cache file of an ICE simulation, you can create a cache file
+                  source to keep with the model. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-02DFEA86-6F32-4723-8611-02DC9B0FDEF2"></a></span>You can also create a cache clip from this cache file source and apply it in the animation
+                  mixer. Note that applying the cache clip to the animation mixer removes the simulation
+                  from the object. If you want to keep the simulation intact, you can duplicate this
+                  object or copy your scene before applying the cache clip. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-01EB470B-AA36-4324-9D9F-717754E6D72C"></a></span> To save the ICE simulation in a cache source and optionally apply a cache clip: <span class="anchor_wrapper"><a name="GUID-C4B3CE86-D155-4D64-BB6A-ADC1056C21EA"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-050BB0E2-B036-4144-9A9B-96CA93EDABF5"></a></span>Select one or more ICE-simulated objects whose simulation you have already cached
+                           to a file. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9980E24C-869A-4F2C-A53C-E32C60D55AD1"></a></span>Click the <span class="MenuCascade" id="GUID-C7DACDDA-D88A-4DE1-A920-01463B0C52D4">Save Cache to Mixer</span> button on the Caching Files tab in the <span class="char_link"><a href="property7050.htm">Simulation Time Control Property Editor</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7C41D1EB-8E5F-49C4-A0A6-395074ACEA5C"></a></span>In the Store Environment Cache in Mixer dialog box, click OK and the cache file source
+                           is created in the model's Mixer folder. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B2E035FE-0C88-457B-A726-E400293E5E5D"></a></span>If you want to also apply the cache file source as a clip in the model's animation
+                           mixer, select the <span class="MenuCascade" id="GUID-A95C33A4-031B-4D4C-99DB-45740AC26916">Add Clip to Mixer</span> option in the Store Environment Cache in Mixer dialog box. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-58662076-C442-44A9-9A09-7FA402A0F502"></a></span>You will get this message when you click <span class="MenuCascade" id="GUID-92F4AB1D-ECB9-4117-82E7-824D2074B32E">OK</span> in the dialog box: 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8E45B033-8007-48B6-8959-2EEB08F6E91A"></a></span> <em class="mild">Warning: You are about to load a file cache onto a geometry, but the operator stack
+                              contains simulation. Do you want to remove the simulation?</em> 
+                        </p> <span class="anchor_wrapper"><a name="UL_586045A1C8AC4C09B9CEF9792C96AB0C"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CE86C1EB-6399-430A-A6FD-B3D0C3C2E1C2"></a></span>If you select <span class="MenuCascade" id="GUID-025069D3-2C01-4BAA-976C-59A7F06A2340">Yes</span>, the simulation on the object is deleted after caching, and the cache clip is added
+                                 to the mixer. The ICETree operator is deleted from the object's Simulation construction
+                                 region and is replaced by a MixerOp in its Modeling region. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-881E8D1F-2BF0-45A2-B521-74315F2767EA"></a></span>If you select <span class="MenuCascade" id="GUID-BA8E0D91-B14F-4B5A-B19A-EB1EB85E9847">No</span>, the simulation is not removed from the object, but the cache clip is not added to
+                                 the mixer. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

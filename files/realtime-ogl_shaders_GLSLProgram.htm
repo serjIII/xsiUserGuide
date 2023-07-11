@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-B8FE0E3E-68E5-4424-9ABF-35924266FAF7">
+      <meta name="indexterm" content="realtime shaders: blending modes (glsl program)">
+      <meta name="indexterm" content="OpenGL realtime shaders: register locations (glsl program)">
+      <meta name="topic-type" content="concept">
+      <title>GLSL Shader</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-B8FE0E3E-68E5-4424-9ABF-35924266FAF7"></a></span><div class="head">
+            <h1>GLSL Shader</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-A2E81496-D891-42A0-87BA-0746D406647C"></a></span>| <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm#WS349A1059FFC671449CEA65A315C2358D-0013">Program</a></span> | <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm#WS349A1059FFC671449CEA65A315C2358D-0017">Draw</a></span> | <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm#WS349A1059FFC671449CEA65A315C2358D-001B">Presets</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9D5F4B84-F0DE-4052-8078-0F526D94E2E9"></a></span> <em class="strong">Category:</em> Realtime &gt; OpenGL 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2B82D9DE-448D-4B98-B5B1-1CD195DA25D4"></a></span> <em class="strong">Shader Family:</em> Realtime 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-775D91CD-39BE-4B44-A050-1DDD08F0DFB0"></a></span> <em class="strong">Output:</em> Realtime 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8C181B77-E2D5-43BA-8698-B6B3BFD98206"></a></span>Builds a complete program using the high-level OpenGL Shading Language (GLSL). Vertex
+               and fragment shaders can be defined as one "entity" within a single GLSL Shader node.
+               For general information about working with this shader, see <span class="char_link"><a href="realtime_ogl_SettingUpaUnifiedGLSLProgram.htm">Setting Up a Unified GLSL Program</a></span> [<span class="char_link"><a href="rt_cover.htm">Realtime Shaders</a></span>]. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2E4D777D-B2CC-4BAC-882C-D0523EAFBC9B"></a></span>Program
+               </h2> <span class="anchor_wrapper"><a name="TABLE_00607D93FEE24AD5BF70EF15F406A878"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-586BECB6-CA33-493F-9F31-04013560BB40"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0CDB6CB6-AF80-4A46-A104-8132342696B6">Build</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BA70AE02-4F2B-470C-98DC-3EA27080D7F9"></a></span><p class="table-body">Sets the build options for your GLSL program: </p> <span class="anchor_wrapper"><a name="UL_1B6A7434F4B94D359C2F6FA4FEC5875E"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-831B7766-82B3-42E4-88EA-D74536411C64"></a></span> <span class="MenuCascade" id="GUID-1894ABFD-FD18-4E57-88D8-890799E61F31">Disable</span> the program. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-64F7BFB7-619D-4A44-B6E8-578CBA35CFEF"></a></span> <span class="MenuCascade" id="GUID-C3BD416A-F294-4917-B7D7-14F10D678078">Compile</span> the program without executing it. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-8CDDFF27-2EBD-44CA-8451-839C48E16AC6"></a></span> <span class="MenuCascade" id="GUID-8647CC68-9A87-4569-BE8D-E31AEA517063">Compile and execute</span> the program. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A3D41861-E404-46B9-B36D-FAC174847396"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6C17477E-9177-475D-8E31-F27362D1A398">Debug messages</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-65FE5AEB-B6EE-4AAA-BA06-1AB48C996358"></a></span><p class="table-body">Enables debug messages. Compilation results are logged and available from the script
+                              editor's log window. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-8F8C8D74-AB2D-493B-A595-44D1E3F6CAE5"></a></span><p class="table-body">To open the script editor, click the script icon at the bottom of the Softimage interface.
+                              
+                           </p> <img src="../images/GUID-F77E2711-B95F-4398-8BC8-C1B1BDE5D87B-low.png"> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0015"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-475BD3F9-5453-4482-9F32-0F2ADD74EFD4"></a></span>GLSL Vertex Program and Fragment Program
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C5DDB3D0-827B-4CD6-B71C-EC18616843CD"></a></span>Enter the code for your vertex shader and fragment shader in the appropriate text
+                     editor. You can also load one of the preset shaders available from the <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm#WS349A1059FFC671449CEA65A315C2358D-001B">Presets</a></span> tab. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_71053E3A3EC34B9A96A01A4F655D3CED"></a></span><div class="figure-anchor"><img src="../images/GUID-0C439EBF-28F0-4127-B887-2FAB4FD6DDFA-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EE404C06-5796-45E1-8EBF-5A3FF98A7C97"></a></span>The text editor supports text customization (font, color, size), syntax styling, folding
+                     (hiding blocks such as functions and subroutines), auto-completion and highlighting
+                     for keywords. You can also implement this text editor widget in your own plug-ins.
+                     For more information, see Text Editor Widget [SDK Guide]. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0017"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-03F6DBA6-FFCA-47EE-AB1B-6D6777FADD95"></a></span>Draw
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-1CE0967F-A1B8-4562-B482-6CEDB27E2CFD"></a></span>You do not need to connect the GLSL Program node to a Draw node in the render tree
+                  because the draw operations are handled directly within the GLSL Program shader. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0018"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-4A9EFD77-A0D1-48EC-8A45-3B404E85D127"></a></span>Blending
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A0D4386D-C73E-4D81-BBCC-37A998EC039D"></a></span>In RGBA mode, pixels can be drawn using a function (<em class="mild">glBlendFunc</em>) that blends the incoming (source) RGBA values with the RGBA values that are already
+                     in the frame buffer (the destination values). For more information, see <span class="char_link"><a href="realtime_conc_CreatingMultipassEffects.htm#WS349A1059FFC671449CEA65A315C2358D-0049">How Blending Works</a></span>. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_E576A13519E2478FAAC0A3CE9BEA4EF9"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F47CD496-C6B3-4C3C-A652-BAB1E0F56F0A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5EC64ED9-0F6E-42D6-ABA7-5E9A5A3815AE">Use Blending</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DF6EDCB1-4CE5-4117-A822-41E8FDBEB538"></a></span><p class="table-body">Enable or disable blending. When enabled, the blend function defines the operation
+                                 of blending. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E48908F8-9CE3-476D-82D7-503CF53B0FE5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-531508C4-9C6A-4712-B943-AE90E3963E8B">BlendScr</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A49181DD-82E5-4013-B9C9-3BB21F26A9F1"></a></span><p class="table-body">The blend source factor (<em class="mild">sfactor</em>) specifies which method is used to scale the source color components. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-54857054-D706-44FC-A8D7-8C9D3638DD21"></a></span><p class="table-body">Select one of the supported methods from the drop-down menu. Each method defines four
+                                 scale factors, one each for red, green, blue, and alpha. All scale factors have range
+                                 [0,1]. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5723F9D4-399A-4FC2-AEAE-8AC07E83312C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B5EADA85-1FB1-435B-B96F-639D0C0A03F6">BlendDest</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B92B57E6-AAF2-44DE-84C5-06A2236E9FC2"></a></span><p class="table-body">The blend destination factor (<em class="mild">dfactor</em>) specifies which method is used to scale the destination color components. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-C1EFD415-D215-41ED-A913-A49D99715793"></a></span><p class="table-body">Select one of the supported methods from the drop-down menu. Each method defines four
+                                 scale factors, one each for red, green, blue, and alpha. All scale factors have range
+                                 [0,1]. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0019"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9074CC58-E684-4AB2-B788-39548135E72E"></a></span>Alpha Testing
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BB5CBD50-CA8C-44E8-90B8-EB9381A14361"></a></span>Alpha testing (<em class="mild">glAlphaFunc</em>) discards fragments depending on the outcome of a comparison between an incoming
+                     fragment's alpha value and a constant reference value. The alpha test specifies the
+                     reference value and the comparison function. The comparison is performed only if alpha
+                     testing is enabled. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A85A2682-18AE-4101-9499-1DB3817C5DC9"></a></span>The alpha function and alpha reference specify the conditions under which the pixel
+                     is drawn. The incoming alpha value is compared to <span class="MenuCascade" id="GUID-4AED0CF1-37D2-4BE7-83EC-435503EDCBBB">AlphaRef</span> using the function specified by <span class="MenuCascade" id="GUID-88A20176-4CA9-4401-906E-05FA1F171EE2">AlphaFunc</span>. If the value passes the comparison, the incoming fragment is drawn if it also passes
+                     subsequent stencil and depth buffer tests. If the value fails the comparison, no change
+                     is made to the frame buffer at that pixel location. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-157D6C0E-9E07-44A3-959F-814199706300"></a></span>Alpha testing operates on all pixel write operations, including those resulting from
+                     the scan conversion of points, lines, polygons, and bitmaps, and from pixel draw and
+                     copy operations. It does not affect screen clear operations. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-4D176B6B-8660-45A4-A5CE-6382C023855B"></a></span><div class="note-note"><span class="label">NOTE:</span>Alpha testing is performed only in RGBA mode. 
+                     </div>
+                  </div> <span class="anchor_wrapper"><a name="TABLE_B2463C6811B14BB7ACA822F9141A58A2"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DC0C29FA-0C6B-4653-A014-94453F570F1D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C3914526-C96F-47F5-A1ED-2F2685D0A1E6">Perform Alpha Testing</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-972603E1-4107-48EA-95B1-0DA5F4B9E52D"></a></span><p class="table-body">Enable or disable alpha testing. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C99DAA4B-86B9-46D4-AFDA-DBB32ACD5FBE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3A3D72B1-D541-4ADD-9E45-B630015D1115">AlphaFunc</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3A6FFD4C-9E0A-4E76-B316-3F37415C0231"></a></span><p class="table-body">Specifies the alpha comparison function (<em class="mild">func</em>). 
+                              </p> <span class="anchor_wrapper"><a name="GUID-98B2FB04-98B7-4BE4-B0AF-445E35B6FBB2"></a></span><p class="table-body">Select one of the supported comparison functions from the drop-down menu. The functions
+                                 are defined as follows: 
+                              </p> <span class="anchor_wrapper"><a name="UL_72742547540D44F28D3D9447A8F261BD"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-368D3608-B898-4A7F-B252-FEA5FA674304"></a></span> <span class="code">¥GL_NEVER</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-695AFBFB-F790-45A3-99DF-BB12F33A62DB"></a></span>Never passes. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-046B5858-1A89-4657-9272-2412623451C1"></a></span> <span class="code">GL_LESS</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-CB5E0573-6CEE-421F-A134-710B163122F2"></a></span>Passes if the incoming alpha value is less than the reference value. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-F54C5C92-2CD7-4851-8DE7-F117F90FF97C"></a></span> <span class="code">GL_EQUAL</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-07BEC37F-ECC0-4FC4-8722-4F28B1B789B4"></a></span>Passes if the incoming alpha value is equal to the reference value. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-50574C22-C86F-4F97-86DC-25FB21C87C12"></a></span> <span class="code">GL_LEQUAL</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-F7BC6582-726E-4C92-A061-65026AA20C25"></a></span>Passes if the incoming alpha value is less than or equal to the reference value. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-56CB22D5-DA98-4624-85DF-AAAE670B36C7"></a></span> <span class="code">GL_GREATER</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-57027B5A-17C3-4E00-8623-38090D4CC6CA"></a></span>Passes if the incoming alpha value is greater than the reference value. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-5669595A-FE53-4952-85C7-0F8CB8EDB91F"></a></span> <span class="code">GL_NOTEQUAL</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-44549F83-3C39-4E21-9345-C804520239C0"></a></span>Passes if the incoming alpha value is not equal to the reference value. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-D2DD9298-8126-461B-94E3-82118D8D29F6"></a></span> <span class="code">GL_GEQUAL</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-D8270005-4EAD-448C-918E-650E20868F98"></a></span>Passes if the incoming alpha value is greater than or equal to the reference value.
+                                       
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-A0AD995F-1DBC-4B91-871C-5140B20CD356"></a></span> <span class="code">GL_ALWAYS</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-717C8135-38BF-4BE8-BE18-86F5C49CDE26"></a></span>Always passes. 
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3FE92187-6B50-495C-A4E4-A7319AC48A17"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-74852D76-9E8B-42DF-BB79-31C4B2EA90C0">AlphaRef</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6A3FEF1E-C725-48A1-A645-8778B123DE11"></a></span><p class="table-body">Specifies the reference value (<em class="mild">ref</em>) that incoming alpha values are compared to. This value is clamped to the range [0,1],
+                                 where 0 represents the lowest possible alpha value and 1 the highest possible value.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-001A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F5EB0C39-AA68-4353-9DE1-11C7F0322EF9"></a></span>Particle Cloud
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_D16C3190B0DB4FA9B4904A89131C4372"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8D3D578A-4890-458B-9E34-E42B5867F421"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E1D1A104-34E0-4E46-AB72-38D1A6D66399">Use Point Sprites</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BF432233-728D-4F65-8093-4D7A72E7AD5C"></a></span><p class="table-body">Enables the use of OpenGL point sprites. Draws an arbitrary shape at each point position
+                                 by means of a texture called a point sprite. If this shader is applied to a point
+                                 cloud, it will render sprites instead of points. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-001B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-765F46CD-CAF3-464A-BEEE-CEBDC93317BE"></a></span>Presets
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-001C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8A33ABA1-3C63-41C3-8EBF-2793D07A8657"></a></span>Particle Cloud
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_77BF4AE0A1E04DCF882FAC54295F1325"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DBE4EEBE-DC90-4B54-AA5C-328A13D1D483"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-78C736B6-BF1F-490A-8951-F4C4D16C5062">Default Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-68AACC34-DEA1-422C-B3DB-9A45C25BCB5F"></a></span><p class="table-body">A simple GLSL shader that transforms the incoming vertices by the current modelview
+                                 matrix using the ftransform() function. This is equivalent to transforming the point
+                                 using fixed-function. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2D178A1F-97AB-4DB8-8908-2204D8AA0543"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B3579F3B-6A9A-4789-941E-3FFA8FE82435">Color + Size Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-856DA2DF-9A6A-4A8D-BDFA-41616A3325C4"></a></span><p class="table-body">Renders a particle cloud as a set of colored points of varying sizes. Both Color and
+                                 Size must be initialized attributes in your ICE tree. See <span class="char_link"><a href="ICE_trees_GettingandSettingDatainICETrees.htm">Getting and Setting Data in ICE Trees</a></span> [<span class="char_link"><a href="ice_cover.htm">ICE Guide</a></span>]. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5C432BD6-7D69-49A7-B275-AF4409A560D3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-88A514C2-69ED-4FC8-ADC2-F56F91EE6A42">Age Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F4157891-083B-44FF-97C3-4C8624EB96ED"></a></span><p class="table-body">Renders a particle cloud as points of varying size and color depending on age. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-210AE39B-52F2-4F4F-87FA-30DC0D59DB54"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2C4C14E2-2E97-4078-B6B8-543FA030F644">Velocity Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-12737A5B-E283-4F07-9C37-5CD6CBD182FC"></a></span><p class="table-body">Renders a particle cloud as points of varying color dependant on each particle's velocity.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-F8A23D39-D525-478C-85BC-FF763B52596C"></a></span><p class="table-body">This shader takes the PointVelocity ICE attribute and puts it in the normal register.
+                                 Then, the vertex shader takes the length of the vector and puts it in a float value
+                                 called l_fAbsVel (absolute velocity). It then uses that value to drive the red component
+                                 of each particle. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-001D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2831B31D-D980-4AC5-A4AC-6E2D2E2F6E8D"></a></span>Triangle Mesh
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_EA71A4E6B01E41B1AA855F5393F07CF0"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2A36E3F6-ADC5-457D-B5AB-4B03A8806280"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-36DE088D-CD82-4FD7-B387-BB951B7DBEFA">Point Light Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8DD421D5-9587-4A13-84AC-FB1E50D4C63C"></a></span><p class="table-body">A vertex and fragment shader that implement a point light source. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-637F723E-505D-4214-8C8A-051C16236B29"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-06EC9E69-E215-450D-BDBD-BE1732D9D33F">Spot Light Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AE0307E0-92CF-4D02-8755-F069E24F6649"></a></span><p class="table-body">A vertex and fragment shader that implement a spotlight source. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E4A8592F-F14B-4971-AC53-497127B98050"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FDB56953-BDB7-4845-9909-A22B9A8BFD4A">Spherical Harmonics</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9D6BF1DD-5D65-4E6F-AC07-06104B3D1E54"></a></span><p class="table-body">A vertex and fragment shader that implement spherical harmonics lighting. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-001E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-65A56547-20CB-4760-A8CC-7C29D81DD351"></a></span>Advanced
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-3A0294A7-DBE5-4F37-B426-E09FEDE7859F"></a></span>Graphics hardware usually have a small number of fixed locations for passing standard
+                  and generic vertex attributes. Therefore, the OpenGL Shading Language defines each
+                  non-matrix attribute variable as having space for up to four floating-point values
+                  (a vec4). There is an implementation dependent limit on the number of attribute variables
+                  that can be used and if this is exceeded it will cause a link error. However, attribute
+                  variables that are declared but not used do not count against this limit. A float
+                  attribute counts the same amount against this limit as a vec4, so you may want to
+                  use attribute packing techniques such as grouping four unrelated float attributes
+                  together into a vec4 to better utilize the capabilities of the underlying hardware.
+                  Softimage's GLSL Program shader will ignore any matrix attributes that are mapped
+                  to a register. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-001F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0CFC443D-AAE3-40E4-AACF-FD01F66B1DA6"></a></span>Hardware Attribute Mapping
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_98AF60492F1A47758D23CF81D652FA2F"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-425A1289-526C-4D5D-9A88-0AB9D880F386-low.png"> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="UL_2C48EE64BB6E49139FE3658A0EC9F00F"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-F336EE60-9058-4FF2-B5FC-293D4A92FEA1"></a></span>Click and choose <span class="MenuCascade" id="GUID-C59E7B8B-C9A5-46B4-AF96-F7C2A482A5EF">Set Default <img src="../images/ac.menuaro.gif"> Polygon Mesh</span> or <span class="MenuCascade" id="GUID-0010AF1E-071B-47A8-AE67-82C1433451A0">Particle Cloud</span> to set the default attribute mappings for a polygon mesh or a point cloud. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-E2C9F667-A83D-416A-9D7C-952D0B1D4296"></a></span>Click and choose <span class="MenuCascade" id="GUID-99B7B376-2C7A-46AC-932B-C4F57BA833A5">Clear All</span> to empty the entire hardware attribute mapping table. You can then add your mapping
+                                       entries from scratch. 
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-C9707665-5ED0-4C01-8810-250DBA86E4B7-low.png"> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F7625E14-94F2-4CEF-A6B2-38CB62235C5A"></a></span><p class="table-body">Refreshes the attributes and registers available in each list. Refreshing is particularly
+                                 useful when you have made modifications to the polygon mesh or point cloud being read
+                                 by the shader. Any new (or recently initialized) attributes are displayed in the attributes
+                                 list. If a register is no longer assigned it will be added back to the registers list.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-DF2BC211-F4F0-4641-A4DF-B0E345743A5F-low.png"> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-83F93B9B-CFA6-46C5-86D3-EFC5AF1FAC0C"></a></span><p class="table-body">Adds an attribute and register mapping (row) to the hardware attribute mapping table.
+                                 To modify this mapping, first click the attribute entry and select an available attribute
+                                 from the attributes list. Then click the corresponding register entry and select an
+                                 available register from the registers list. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-9507B1CC-2033-4100-9334-C26EB9189BE7-low.png"> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-63B1DA7E-7488-4028-A701-93457DB06B2F"></a></span><p class="table-body">Deletes the selected attribute and register mapping (row) from the hardware attribute
+                                 mapping table. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C42516D7-6D25-4E93-8067-F0E721EEDAAB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-99C2396F-85FF-48B1-86BF-1E65528343EC">Attribute</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2BD6E84C-EFF7-4733-88CF-511C0B13975E"></a></span><p class="table-body">The Attribute column of the hardware attribute mapping table holds the attribute entries
+                                 that each represent one of the 0D components that exist or can be created on the polygon
+                                 mesh or point cloud. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4D746E58-970E-4480-B30C-7028907C4C1B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-70D530B8-D561-483D-81C4-039EE906329C">Hardware Register</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8009702C-E06B-42E8-955C-9E7F3BED1995"></a></span><p class="table-body">The Hardware Register column of the hardware attribute mapping table holds the register
+                                 entries that each represent one of the possible register locations available on most
+                                 OpenGL graphics accelerators. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0024"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-73D71A2A-3826-40E5-8792-46A2E1073848"></a></span>Register Mapping Information
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_C7130BF1349944BEB1D74425DBB09C57"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                           <col align="left">
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-3C2C50A3-5234-43BE-811B-90A00437C8FD"></a></span><p class="table-heading">Vertex Attributes Passed Using... </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-3AD798ED-EF32-437A-AA66-30521B21F7DA"></a></span><p class="table-heading">Type </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-CE992AAD-4DE7-440D-B03E-278FCA6E74A5"></a></span><p class="table-heading">Components </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-B72DC185-92DD-48BB-A13A-9B19E4C42538"></a></span><p class="table-heading">Hardware Register </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-77035932-AEFA-4284-86CB-8F206AF5F115"></a></span><p class="table-heading">Additional Information </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E2729D10-051A-42B4-B83A-7193518807CB"></a></span><p class="table-body">gl_Color </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-82B45EAD-1C16-4CA8-AB2A-D4AE824A1E4C"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BE29774D-7337-40A9-BE09-F4CEB73D6F4D"></a></span><p class="table-body">r, g, b, a </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0B6732CD-5CAA-40D7-BD42-73860E2A2589"></a></span><p class="table-body">color0 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F4708F4A-0E94-45F7-B642-E78D62D3595A"></a></span><p class="table-body">Typically used for vertex colors. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FA1584D3-96BA-40BA-B80B-CC2FC05CAB83"></a></span><p class="table-body">gl_SecondaryColor </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B9C6945F-6C59-4164-AD83-8552468D4B68"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-31FB651A-87A9-4E64-8F2D-F113D4091FD9"></a></span><p class="table-body">r, g, b, a </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BD07F9D6-B50F-4AAD-8628-B5F57623ED07"></a></span><p class="table-body">color1 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7428D725-9C66-4D7F-B358-A54AFDF9D113"></a></span><p class="table-body">Typically used for vertex colors. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-59B7FD47-9BF2-4A02-B60D-9321C8C37C23"></a></span><p class="table-body">gl_Normal </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0DE15126-21F1-4A57-B365-89456432A733"></a></span><p class="table-body">vec3 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6DC3B4A2-42E8-4440-9638-63A9E6CCA2FB"></a></span><p class="table-body">x, y, z </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-080D45BD-DEA7-4D73-BA3A-B388D0F015C8"></a></span><p class="table-body">normal </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-10F1274A-7E66-42A9-886A-B61AC1B2F300"></a></span><p class="table-body">Typically used for normal coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FEB63055-970A-404A-83C5-BC6011DA8869"></a></span><p class="table-body">gl_Vertex </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-15ADD0E3-22D8-4063-AD7D-BFE066426B2C"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D95682F4-CE23-4211-8288-F7606CA24AE1"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1592C232-BDE2-4613-990B-D0DFFC892877"></a></span><p class="table-body">position </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5D883F1E-E33C-42B9-ABAE-631A30244B83"></a></span><p class="table-body">Typically used for vertex coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A9651C7E-9C3A-4939-A1D6-95DA4F7A5867"></a></span><p class="table-body">gl_PointSize </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-748C3847-A102-4A1D-A32C-63E48B83A902"></a></span><p class="table-body">float </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-05B79680-F46B-4CE0-832E-2F9C2D27B551"></a></span><p class="table-body">x </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8ED9A88F-1F8B-4D27-B9B1-746864B942E1"></a></span><p class="table-body">psize </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5546534D-50CC-4AA4-AC51-95B025488ACA"></a></span><p class="table-body">Typically used for point size (pixels). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5BCCECC9-ACC5-473F-99B7-02439C044405"></a></span><p class="table-body">gl_MultiTexCoord0 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6EDB80A2-CA05-46F6-AFE2-3C87620B5ECB"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CCE16982-A6B3-4B52-B62B-E4D8E54CEAA6"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-96800E4E-5949-4A78-8B5C-B862E43CAF77"></a></span><p class="table-body">texcoord0 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D7CAEA8C-7C7E-4C0B-B482-8D233312B707"></a></span><p class="table-body">Typically used for texture coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6CE0DF3D-A60D-49E8-AFB1-8E4B4EA32DFB"></a></span><p class="table-body">gl_MultiTexCoord1 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2EE59FD2-0A11-4236-8228-7D876B8C6292"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9A0E87D7-7378-4543-BE6D-F2E81AFEEDD2"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EB7A697F-8E9C-4FD4-B3DD-22BCFD64949D"></a></span><p class="table-body">texcoord1 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E341A50A-F1C0-4353-AB58-790BB04C64F7"></a></span><p class="table-body">Typically used for texture coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6E59E495-13FB-479D-8D43-1A43BA126688"></a></span><p class="table-body">gl_MultiTexCoord2 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F739B0F9-36A8-4CE8-A55A-640AEA8DCB8D"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-23B78FA7-EEC7-4278-B26C-B9C66C350746"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5D529B3A-A8DC-4F95-A441-451AB80A7447"></a></span><p class="table-body">texcoord2 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F49BB1D1-412E-4E4D-A7DD-F79E20D36F43"></a></span><p class="table-body">Typically used for texture coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-30A851D1-9656-4B5C-8B31-1764E28F10ED"></a></span><p class="table-body">gl_MultiTexCoord3 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-857B3487-D8BE-44E4-978D-BE3837854588"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-217949AE-A32D-4DC4-8B2B-68C62808E99A"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4BD5FDEA-A981-47E5-8002-ACF63A8EB246"></a></span><p class="table-body">texcoord3 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F1FD7D55-E551-467A-A6E2-D3BF60B9BA19"></a></span><p class="table-body">Typically used for texture coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-06113482-6688-4DB2-9039-72FE9EBC9AA5"></a></span><p class="table-body">gl_MultiTexCoord4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4379FA58-70B1-4702-8EF6-0DEDF2E94122"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B4FD36E1-2366-4796-8BF3-195F885C7C41"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B56E2808-E00C-435A-B3CC-B27AD02496F7"></a></span><p class="table-body">texcoord4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-32DAF3DC-D19E-4987-80F3-6EC80ED22611"></a></span><p class="table-body">Typically used for texture coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A0E72343-1D5C-4C2D-9A78-9198F1B692F4"></a></span><p class="table-body">gl_MultiTexCoord5 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D39CED5F-2D96-4BB7-B361-F9786EC29B2E"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D792402E-8E83-4244-8323-3DD4D4CC4FC8"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-95876B7E-D015-4069-8476-6FD173EF0984"></a></span><p class="table-body">texcoord5 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-314BE399-0D19-4E22-81FB-0909E17EE6CB"></a></span><p class="table-body">Typically used for texture coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5AAE7001-2C63-4C56-9634-F42C29F23BEC"></a></span><p class="table-body">gl_MultiTexCoord6 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8BC49F13-30B3-4A65-81E1-4562866A0F3E"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FDDC934D-4AE6-45F0-A3C7-C629CAD4549D"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-03888BBC-64BE-4479-AE94-D2A8172DD1D5"></a></span><p class="table-body">texcoord6 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6A478CF0-7758-4850-AF42-14555A1A188E"></a></span><p class="table-body">Typically used for texture coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-76038755-3EE0-41F8-AAD9-82EB78BF1AE7"></a></span><p class="table-body">gl_MultiTexCoord7 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F988B34D-019D-4ABB-A5D1-9793F20A5445"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B9E8694F-D8F1-40B3-9392-B9147F43F32D"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D96C1DB3-C10C-41BC-BC58-AF5EADBE20F8"></a></span><p class="table-body">texcoord7 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B0D765B4-41B9-4E44-8587-0A74AE79961C"></a></span><p class="table-body">Typically used for texture coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1B4C0F62-6230-4E55-B798-BE35EB8A011D"></a></span><p class="table-body">gl_FogCoord </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CEF77E1A-964D-443E-BC21-03F88E3C2C78"></a></span><p class="table-body">float </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3ED232A9-8D04-4F39-A774-5B9BEE647AF5"></a></span><p class="table-body">x </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2DF9768F-AE1B-41F3-A5C4-9DBCF9284324"></a></span><p class="table-body">fogcoord </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EA6AD961-ECF8-4A16-A4A3-D5749BF1E420"></a></span><p class="table-body">Typically used for fog coordinates. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-71B6A10F-DC6D-403E-A8C0-B144C7230B42"></a></span><p class="table-body">glVertexAttrib </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-15BB6EE2-34C8-4D97-BED0-56F857949F3C"></a></span><p class="table-body">short, </p> <span class="anchor_wrapper"><a name="GUID-AD9A2A8D-D827-4007-BCE6-0AC4BA002CAC"></a></span><p class="table-body">float, </p> <span class="anchor_wrapper"><a name="GUID-91484B1B-D10F-475B-B929-C913D6AF2B79"></a></span><p class="table-body">int, </p> <span class="anchor_wrapper"><a name="GUID-739ADB8B-0D11-4C63-9DD7-5479DDC3A136"></a></span><p class="table-body">double, </p> <span class="anchor_wrapper"><a name="GUID-D5EA15E2-F49D-4C34-9820-29F545018193"></a></span><p class="table-body">unsigned byte, </p> <span class="anchor_wrapper"><a name="GUID-93EFDEBA-7521-460E-A5FA-1E76ED6B46B1"></a></span><p class="table-body">unsigned short, </p> <span class="anchor_wrapper"><a name="GUID-03C1BC1B-2087-4DAC-B708-C4D4E49EA5E6"></a></span><p class="table-body">unsigned int </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-239DFCF3-8F00-43BC-9FFA-A30C5E7C8609"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A6C7D40C-599A-4D85-B361-8DA86461384D"></a></span><p class="table-body">attr[0...15] </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-98440C94-BEE7-4B60-B490-4BEE79A73C40"></a></span><p class="table-body">Softimage's GLSL shader does not support the passing of generic vertex attribute values
+                                 to <span class="code">attr </span>hardware registers. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-0C992CED-17AF-48A8-9D17-09367BF03394"></a></span><p class="table-body">If you are using the glVertexAttrib family of entry points to pass generic vertex
+                                 attributes into numbered locations, you will have to write your own application code
+                                 (shader objects) to be able to take advantage of the <span class="code">attr</span> hardware resgisters. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-20B5BEE2-F5A5-4621-8D7D-9E26C2D91793"></a></span><p class="table-body">glMultiTexCoord[6] </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AC55185A-F482-4D50-A55F-D23B04B6705F"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6CEAE204-10D3-4A24-81EC-1277E789DAA5"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E5CF671C-AF55-4E6A-B14C-7AAC46E7F666"></a></span><p class="table-body">tangent </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0C8B2DC1-189A-492C-BB48-04EF4845EBA8"></a></span><p class="table-body">OpenGL does not have a defined vertex attribute for a tangent vector. </p> <span class="anchor_wrapper"><a name="GUID-FD9B554C-BF16-46D9-B84D-9C74484F97A2"></a></span><p class="table-body">You can assign it to the tangent register which is aliased to the texcoord6 register.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-79319534-3BCB-4BF1-8E2A-D4224D8D566A"></a></span><p class="table-body">Softimage encodes tangents into a 4-float rgba vertex color. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3C50D09B-E8DF-4D5C-9F34-0C15FD3EDB0C"></a></span><p class="table-body">glMultiTexCoord[7] </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DBD090F3-3418-4455-8FED-17D648D94A39"></a></span><p class="table-body">vec4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D4D9D60E-2496-4D58-B036-C333CAF54933"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8D3335BD-1D5F-4942-9D9C-03133E21024D"></a></span><p class="table-body">binormal </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C9E089D3-D7EA-44EE-A6FE-70B02B0EEBD6"></a></span><p class="table-body">OpenGL does not have a defined vertex attribute for a binormal vector. </p> <span class="anchor_wrapper"><a name="GUID-4457BD78-0DEF-4A2B-9F7E-8C81CDD8CEAD"></a></span><p class="table-body">You can assign it to the binormal register which is aliased to the texcoord7 register.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-6B29D7B3-6977-4B04-ACCA-C90FC56CFBFE"></a></span><p class="table-body">Softimage encodes binormals into a 4-float rgba vertex color. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5DBD979F-EDA7-4800-8AD6-83B34B31C57F"></a></span><p class="table-body">D3DDECLUSAGE_BLENDWEIGHT </p> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp;</td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F93704DC-DCB8-43F6-B307-EC8457028B92"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3E2BA6FA-B487-4F73-AEB4-A056FBC1F576"></a></span><p class="table-body">weight </p> 
+                           </td>
+                           <td class="table-body" rowspan="5" align="left"> <span class="anchor_wrapper"><a name="GUID-1F64A9DF-06A2-4D2F-85B0-78A9F654C3C1"></a></span><p class="table-body">Softimage's GLSL Program shader does not support the passing of values to these registers.
+                                 However, these registers are made available in anticipation that shader developers
+                                 will rewrite this shader implementation to take advantage of DirectX-based GPU skinning
+                                 features. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CD83C638-CA7D-476D-B545-90D863B6AFB7"></a></span><p class="table-body">D3DDECLUSAGE_BLENDINDICES </p> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp;</td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A916DFF8-890D-4C6D-9F6A-4CCF69BF6955"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-536F3F1A-13D1-4AAA-A08D-FFC4645F9FD6"></a></span><p class="table-body">indice </p> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp;</td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-84B49189-09C8-4A4A-94FC-796B23D342F9"></a></span><p class="table-body">D3DDECLUSAGE_SAMPLE </p> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp;</td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4E5F4D8A-CD68-47A0-A60E-4000B2721F1B"></a></span><p class="table-body">x, y, z, w </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FD9C9A95-1801-4A01-9711-65C0D1053192"></a></span><p class="table-body">sample </p> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp;</td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-77F5E553-5732-4178-B66F-FC495F9B0B82"></a></span><p class="table-body">D3DDECLUSAGE_TESSFACTOR </p> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp;</td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-80905AFD-BE54-4B23-98F6-9E287234B204"></a></span><p class="table-body">x </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6406BA1F-DB2C-4C33-A7FE-0BD451497605"></a></span><p class="table-body">tessfactor </p> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp;</td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-14CA63EF-A06F-499D-9428-8D1A41DEF5DE"></a></span><p class="table-body">D3DDECLUSAGE_DEPTH </p> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp;</td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3B132D2A-9979-4F3B-A96E-D75A99B5D71B"></a></span><p class="table-body">x </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9448195A-444E-4A83-B380-087C84365035"></a></span><p class="table-body">depth </p> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp;</td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

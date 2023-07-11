@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-964CD47E-88D9-4D44-9420-91B1CD3C3414">
+      <meta name="topic-type" content="concept">
+      <title>Understanding ICE Trees</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-964CD47E-88D9-4D44-9420-91B1CD3C3414"></a></span><div class="head">
+            <h1>Understanding ICE Trees</h1>
+         </div>
+         <div class="bodyProcess">
+            <p>This section provides some general concepts that should help when building ICE trees
+               using the basic Tool and other nodes.
+            </p>
+            <p>Each connection in a tree represents a set of data, with one value per element of
+               the set. For example, if you get Self.PointPosition, the set consists of one 3D vector
+               per point of the "Self" object (the object with the ICE tree).
+            </p>
+            <p>A data set is not an array, or at least, it's not exposed as an array in ICE. Traditional
+               programming concepts related to arrays do not apply. You do not need to use the nodes
+               in the Array category to work with data sets (unless your data set actually contains
+               arrays, for example Self.PointNeighbors — for more about that, see <span class="char_link"><a href="ICE_trees_WorkingwithArraysinICETrees.htm">Working with Arrays in ICE Trees</a></span>). You do not need to iterate on the members of the data set. Just plug the data into
+               another node, such as a Math node, to process the data.
+            </p>
+            <p>When tracing the logic and connections of an ICE tree, you can think of the nodes
+               as working on all members of the data set at once, or you can concentrate on what
+               happens to a single representative of that set.
+            </p>
+            <p>When you combine a single constant value (or something else in the singleton context)
+               with a data set, it gets combined with every member of the set. For example, you can
+               add the same value to all members of a set, or you can multiply them all by the same
+               number, and so on.
+            </p>
+            <p>When you combine two data sets, the corresponding members of the set are combined.
+               For example, if you add Self.PointPosition and Self.PointNormal as you might do in
+               a Push-type deformation, then each point's position vector is added to its own normal
+               vector. This is why component contexts must be the same when you combine them — there
+               must be the same number of elements and there must be a correspondence between the
+               members.
+            </p>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

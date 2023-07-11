@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-17093708-E65C-4EB7-9A9A-DD37C18FACC0">
+      <meta name="topic-type" content="concept">
+      <title>mib_color_spread</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-17093708-E65C-4EB7-9A9A-DD37C18FACC0"></a></span><div class="head">
+            <h1>mib_color_spread</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-6BABEFFA-AF33-4B7E-BA00-80B56104B3BB"></a></span> <em class="strong">Category:</em> mental ray &gt; Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-56520BE6-1E51-460D-B860-80D20266BFFA"></a></span> <em class="strong">Shader Family:</em> Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-FD75A61A-16B7-4660-8061-4D2A8172A6E0"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9A3EAE45-DF89-4963-9F6F-627F4047B8F7"></a></span>This shader fans out one color input to up to 8 color outputs (the exact number is
+               determined by the <span class="MenuCascade" id="GUID-28A95EF9-402D-4897-B06A-7DE8F9AC8A77">num</span> parameter). Each output is equal to the corresponding input, multiplied by a weight,
+               with a given conversion.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6BC78B3F-F90D-4528-9676-1204E460B362"></a></span>The equations are:
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledHeading">
+                     <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-513139E2-3384-463D-BD37-50E1F3F0F6F7"></a></span><p class="table-heading">Mode</p> 
+                     </th>
+                     <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-BB28128D-36ED-41B9-8611-F354D36AF96B"></a></span><p class="table-heading">Operation</p> 
+                     </th>
+                     <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-65CEAC54-6259-43B5-8FB3-FD5A42BE4B12"></a></span><p class="table-heading">Calculation</p> 
+                     </th>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-767B1303-991F-4311-A3A2-F6C946B0DD29"></a></span><p class="table-body">0</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A4718BBC-474C-474B-B95F-D58C619002D5"></a></span><p class="table-body">Weighted Color</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-88A18BD0-9CDD-4E5D-B562-48E2450B3F19"></a></span><p class="table-body">R = w . A</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B1B1BE64-9136-44F6-98DF-BB92F25A6FA9"></a></span><p class="table-body">1</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4990213E-564A-4318-9224-CE3467503625"></a></span><p class="table-body">Grayscale Color from Alpha</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-15622437-2EA0-4A3D-B38B-44789C951919"></a></span><p class="table-body">R<sub>rgba</sub> = w . A<sub>a</sub></p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-911101EF-9DB3-4D70-8DB2-9856DD900B84"></a></span><p class="table-body">2</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C28E5DB0-44E8-41DF-BD46-4977A0C34368"></a></span><p class="table-body">Grayscale Color from Average Intensity</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-05026433-03E3-4ACF-B09F-711B375D7DF7"></a></span><p class="table-body">R<sub>rgba</sub> = w . (A<sub>r</sub> + A<sub>g</sub> + A<sub>b</sub>) / 3
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AF918412-3224-47B1-B2DB-DD1F64ADDA70"></a></span><p class="table-body">3</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E75E6533-F01F-4054-A727-805432530350"></a></span><p class="table-body">Grayscale Color from Weighted Intensity</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C2286AA4-740D-4E5C-8EEC-B058222EE6E9"></a></span><p class="table-body">R<sub>rgba</sub> = w . (0.299 . A<sub>r</sub> + 0.587 . A<sub>g</sub> + 0.114 . A<sub>b</sub>)
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9030CA66-3FD6-4644-9CC4-4A85F67B1B4D"></a></span><p class="table-body">4</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E9C8A3A5-8A68-463E-9561-A92238D5E5D1"></a></span><p class="table-body">Grayscale Color from Red Component</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-21910EFE-E333-42C8-B43D-A813DB7B3EF6"></a></span><p class="table-body">R<sub>rgba</sub> = w . A<sub>r</sub></p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-0E404465-C9F0-4113-B1E8-6E6FCB510CD4"></a></span>Where:
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-AF9A57B3-C26D-4E44-9DF4-A2EC10670485"></a></span> <span class="MenuCascade" id="GUID-CB37A793-4D81-4B1C-B1BF-4369899E58EF">R</span> is the current (one of up to eight) result
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-17E14DD8-4904-494A-B164-A54EEA3E2DBC"></a></span> <span class="MenuCascade" id="GUID-F83E5BCD-5FE3-4268-86BF-F3A21F8EDC8F">w</span> is the current weight
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9C6AA5BE-2627-4E11-8885-6484AEFA16AE"></a></span> <span class="MenuCascade" id="GUID-6789A64A-8AEF-4FC0-97F8-EE7AE931E645">mode</span> is the current conversion
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-885F3A4C-CDF0-436E-96D8-D1747694015E"></a></span> <span class="MenuCascade" id="GUID-ED0CA7B8-6533-4575-84C0-10339C25ABC4">A</span> is the input color shared by all outputs
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-32A81263-AB19-47C5-A681-60B236D4221E"></a></span>Mode 4 is intended for converting a scalar to a grayscale color.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4D034FF0-E9FC-4945-93BF-A5AFBA64034A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4297AA8C-515C-469B-8AD6-ECA68FA70139">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7646E12D-2980-46A2-B999-33CC0ACD80AC"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-84421C0A-1A19-4E3F-80A3-050287BDE069"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7007D637-FEE1-4545-827C-27E2CC0960B2">input</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-12F6161E-EA83-4076-9522-3967B1846693"></a></span><p class="table-body">The color input.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B4E4C207-8591-4BDB-9E57-EE36F8161937"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7DBC01F5-4663-4A73-B600-3F3422969507">num</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1E82AEF3-0DBD-4791-B85A-390500F1A32E"></a></span><p class="table-body">The number of valid inputs to compute. The minimum is 1 and the maximum is 8.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-54FB6E54-B432-4D8E-9BC8-BC45CD5D3E5E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4BBB9375-D886-4892-985E-B2EE58486BC7">mode_*</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-22C933A8-2A41-4F81-B86C-7744EBE1FEB4"></a></span><p class="table-body">The modes as described in the table above.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D28C1572-0166-4C03-A1A6-5B8411D5C01B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DD51D18C-3967-4DDA-A6E6-79B47BFC5D33">weight_*</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D6B988E4-9F97-4EB4-BA07-855EFA353CFB"></a></span><p class="table-body">The weights w as described in the table above.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

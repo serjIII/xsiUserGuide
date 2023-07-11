@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-AFBEA97E-5BD2-41C0-AA05-0747B83DA7C0">
+      <meta name="indexterm" content="animation layers: setting keys in">
+      <meta name="indexterm" content="keyframes: setting in animation layers">
+      <meta name="indexterm" content="anchor (zero) keys in animation layer">
+      <meta name="indexterm" content="zero (anchor) keys in animation layers">
+      <meta name="indexterm" content="animation layers: setting zero (anchor) keys in">
+      <meta name="indexterm" content="rotations: keying in animation layers">
+      <meta name="indexterm" content="animation layers: keying rotations in">
+      <meta name="topic-type" content="concept">
+      <title>Animating in a Layer</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-AFBEA97E-5BD2-41C0-AA05-0747B83DA7C0"></a></span><div class="head">
+            <h1>Animating in a Layer</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-F8FC7804-0E9A-4376-92C5-EA4690A7FE10"></a></span>To add a layer of animation to an object, the object needs to already have animation
+               on it in the base layer. The base layer is the main animation layer on the object,
+               which can be either fcurves, expressions, linked parameters, or an action clip in
+               the mixer, such as a mocap clip. Only the parameters that are already animated in
+               the base layer can be animated in an animation layer; for example, if the object's
+               translation parameters are the only ones animated in the base layer, you can set keys
+               on only the translation parameters in the animation layer. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-7735B6DA-E92B-4188-BD6F-3C181DAC1DEE"></a></span>When you animate in a layer, you can set keys using the same workflow as you would
+               normally in Softimage. The keys that you set in the animation layers are added as
+               an offset to the animation that is in the base layer. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-65E2FEBB-324E-4155-8600-44A8BAE1F805"></a></span>For example, let's say you have a mocap clip in the mixer of a character running and
+               then jumping on a flat surface. Now the director wants the character to jump off an
+               elevated platform and land on a surface far below. With layering, you can simply set
+               keys for the character taking off with a big leap, being in the air for a longer time,
+               and then landing with a deeper crouch. This offset is added on top of the mocap clip
+               without ever touching its original data. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-80BE4763-D14B-4B52-BFF8-9DF9227885D8"></a></span>You can only set keys in an animation layer: no other type of animation is supported.
+               While you'll probably add keys in layers mostly on an object's scaling, rotation,
+               and translation (SRT) parameters, you can set keys in layers on any type of animatable
+               parameter (except for parameters in the animation mixer, such as a layer clip's weight)
+               
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEBEC45F8D8F55F4C8042AA5A99A5755B-001B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D9B6932F-27A1-4F75-8EF4-9D86A1BFEEA9"></a></span>Animation Layers and Expressions
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-93E6E18D-7FFF-4FCD-B838-E7F1E3AAD585"></a></span>You can't use expressions or linked parameters in an animation layer, but you can
+                  add a layer of keys on top of expressions or linked parameters that are in the base
+                  layer. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8FEF56FF-BF85-4BE9-B684-09C77DCAA670"></a></span>To do this, go to a frame where you want the layer key to be and set a zero key in
+                  the animation layer (see <span class="char_link"><a href="animlayers_AnimatinginaLayer.htm#WSEBEC45F8D8F55F4C8042AA5A99A5755B-0021">Setting Zero (Anchor) Keys for Blending the Animation</a></span>). You can now move the object to where you want because it is being driven by the
+                  layer instead of the expression, and continue to set keys in the animation layer as
+                  you like. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_4AD469A0FC294590A499D4CDDCB45A77"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-77FA9993-D1DB-425C-86E5-B94C219040B1"></a></span>Changing the Base Layer's Animation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-118BB112-4DA6-4C79-BF02-F952A7FF4482"></a></span> Because the animation layers contain only offsets from the base layer's animation,
+                  it's recommended that you don't change the base layer's animation after you have created
+                  animation layers. However, if you do change the base layer animation, the offset in
+                  the animation layer is kept because it always refers to the value of its corresponding
+                  animated parameter in the base layer. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-EFE8F283-04E3-4417-BB8E-95639D36AB40"></a></span>This concept is similar to creating an action clip in the mixer, adding an offset
+                  to it with a clip effect, then changing the action clip's source fcurves: the clip
+                  effect remains relative to the source's fcurves. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEBEC45F8D8F55F4C8042AA5A99A5755B-001C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-026F0553-BF78-478C-8738-D78C6564865C"></a></span>Setting Keys in an Animation Layer
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B4803C30-6352-4647-BCBC-2A5A4DD966F8"></a></span> <span class="anchor_wrapper"><a name="GUID-CB5A15C0-FD50-4B42-8E32-2370BF71DE20"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A4DAB66D-E6D6-47F9-8BAF-B36A150AAFC6"></a></span>Select an object that already has animation in the base layer. Remember that only
+                           the parameters that are already animated in the base layer can be animated in an animation
+                           layer. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E8609649-9D0E-4B1E-9246-0D9D707FB202"></a></span>Create a new layer or select an existing layer (see <span class="char_link"><a href="animlayers_CreatingAnimationLayers.htm">Creating Animation Layers</a></span>). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C31315FA-1521-4532-ABBE-8E815A4CA9E0"></a></span>When you do so, the timeline goes blank so you can add a new layer of animation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1B808154-645D-472F-9A44-D579423A7C88"></a></span>Transform the object or change the object's animated parameters, and set a key as
+                           you would normally. This creates an offset from the base layer's animation. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5D18E644-EF60-476D-960D-DDE5764A4CDD"></a></span>As soon as you set a key, a few things happen: 
+                        </p> <span class="anchor_wrapper"><a name="UL_C734068F8F7348C3B497EB56A4809F48"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-FC231C77-AA26-438F-A1F8-303E339CC312"></a></span>A blue key appears in the timeline. The keys are blue to remind you that you're animating
+                                 in a layer, and not the base layer where the keys are red. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E4E1208E-C7DA-438E-8902-E8E1BE7BC1FB"></a></span>A little yellow dot is added to the corner of the animation icon for the animated
+                                 parameter. 
+                              </p> 
+                           </li>
+                        </ul> <span class="anchor_wrapper"><a name="FIG_35780CF30BD0496DB45A70009EB17D58"></a></span><div class="figure-anchor"><img src="../images/GUID-241E198B-3EE0-406E-8284-A94C2D663B9D-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3E155D49-0202-4419-AA7C-CEF4E71A6239"></a></span>Keep on setting keys as you like in this layer, or select another layer and set keys
+                           there in the same way. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C3A524C6-9484-41A5-AE62-0FBF1BAB3B5F"></a></span>To edit the layer's fcurves, see <span class="char_link"><a href="animlayers_EditingtheLayerxd5sAnimation.htm">Editing the Layer's Animation</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </p> <span class="anchor_wrapper"><a name="TABLE_6B3F1CB27CB94DA3A398FD0CD99BB711"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-B5238430-4228-47CE-A659-5510D1122687-low.png"> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-CFC25FAC-2ACA-4EB3-B6FE-C252C0489CA1-low.png"> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-C2AA5BBF-B740-4BF0-B290-63925946E9AA"></a></span>On the left, the character is animated by an action clip that contains mocap data.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FA431944-FCF0-4305-B62C-4E465D6037BF"></a></span>On the right, the left hand bone is selected, rotated to the correct position, and
+                  keyed. The the head is also rotated and keyed to fit the action in the current scene.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEBEC45F8D8F55F4C8042AA5A99A5755B-0021"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0207ABB8-C602-4D21-8490-F81E2D141A5C"></a></span>Setting Zero (Anchor) Keys for Blending the Animation
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-8617B5C1-B999-4B77-834D-9E039A7FE3C9"></a></span>In addition to adding an offset to the base layer's animation, you can set zero keys
+                  (sometimes known as <em class="mild">anchor keys</em>) to blend in the offset in a layer over a range of frames. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-17D6E325-CA77-45CF-8247-DDFE625EEB50"></a></span>For example, let's say you have some animation on a character, but his arm passes
+                  through his body as he reaches for his laser gun. To correct the arm passing through
+                  the body, you place zero keys at frames on either side of the problem area, go to
+                  the frame between these keys where you need adjust the arm, and then key its correct
+                  position. <span class="anchor_wrapper"><a name="GUID-38ECB68F-48C3-4014-B0D6-FC95B0C88A8D"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-340C836E-AB64-40F8-B724-121B4834E9FC"></a></span>Select an object that already has animation in the base layer. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-72AC36B8-0718-47EE-B732-9711A11B1F3C"></a></span>Create a new layer or select an existing layer. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D131171C-2F77-4DB4-80AF-CC02D570E317"></a></span>Scrub through the timeline and click the <span class="MenuCascade" id="GUID-51F2666B-81EA-46DC-B657-E9D5D9292813">Save Zero Key</span> button in the Animation Layers panel to set a key at the beginning of the segment
+                           that you want to blend. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F56EAAFE-AB39-4E86-9C0C-9B49FAABF630"></a></span>This sets a keyframe with the value 0 so that the layer has no influence at the current
+                           frame. This key anchors the animation at the current parameter values. 
+                        </p> <img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"> <span class="anchor_wrapper"><a name="FIG_571AA5581D96473A8970A851D298E3BD"></a></span><div class="figure-anchor"><img src="../images/GUID-C8D6829A-41E3-4B85-933C-2921174FD3F8-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A4FF11AF-A831-48D5-B14F-4EB9AE6582C2"></a></span>Move to the frame at the end of the segment that you want to blend and set another
+                           zero key by clicking the Save Zero Key button again. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A7421C38-DEBF-45D2-AC42-9FCFE896B5DC"></a></span>On one or more frames between the two zero keys, transform the object and set a key
+                           as you would normally. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5D90A194-E42B-45E5-A1FA-FB6D67283295"></a></span>This creates an offset from the base layer's animation that is blended only between
+                           the two zero keys. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_D8B6662D056F480B866114825E687A6B"></a></span><div class="figure-anchor"><img src="../images/GUID-58493FAF-2B99-4A33-9738-0951912E78F5-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_72109424E2904B49B41A2AFF351A36CF"></a></span><div class="table_Ruled">
+                           <table cellpadding="0" cellspacing="0" class="ruled">
+                              <colgroup>
+                                 <col width="200px" align="left">
+                                 <col align="left">
+                              </colgroup>
+                              <tr class="ruledOddRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ECC65602-5498-4676-ABAB-37210B55F576"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-417976AA-FC30-4146-BA2F-2407517C52F7">A</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C3A1C18B-88E7-4E98-B6B6-3A0E0F92949C"></a></span><p class="table-body">At frame 80, a zero key is set at this pose. </p> 
+                                 </td>
+                              </tr>
+                              <tr class="ruledEvenRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-39AF012F-9807-45E1-A2D3-B605621F5A94"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8E47EB1B-DD31-4423-B2E8-404362EA8ED6">B</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D33F967D-622A-465D-8AC2-7C00745D7F0A"></a></span><p class="table-body">At frame 100, another zero key is set at this pose. </p> 
+                                 </td>
+                              </tr>
+                              <tr class="ruledOddRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D171FF8F-646A-47C5-92A0-47399AC997FF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1F5F10E3-A466-43E2-B2F5-6BEB55C918F6">C</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3736B2D0-71B3-4F66-A026-AEC07B1F6455"></a></span><p class="table-body">At frame 90, between the two zero keys, the head is rotated and a key is set. Now
+                                       the head gives a quick turn, blending between the two zero keys. 
+                                    </p> 
+                                 </td>
+                              </tr>
+                           </table>
+                        </div> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEBEC45F8D8F55F4C8042AA5A99A5755B-0025"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D590DBD8-01CF-4DB7-BE2C-09223A937DBE"></a></span>Keying Rotations in a Layer
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-64553ED9-DF29-46E7-8E2E-BADEDDF913E3"></a></span>Keying rotations in an animation layer is a little different from keying other types
+                  of parameters. You can choose to calculate the rotations in a layer using either Euler
+                  or quaternion type rotations. 
+               </p> <span class="anchor_wrapper"><a name="GUID-DE0B1946-6E85-44CA-B9FD-D6C828806B0B"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9CCA4230-3D79-4DE6-9B8E-608153B2CDA1"></a></span>Select an animated object and create or select an animation layer. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-168D8044-427B-4EE3-85A7-7090A1BBEE46"></a></span>Rotate the object and set a key as you would normally, such as by pressing K or clicking
+                        the keyframe icon. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C5FB0D04-E845-4695-889F-CB23634CEF23"></a></span>You need to set keys on all three (XYZ) rotation axes' parameters for quaternion interpolation
+                        to work. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-413F7DAA-41B5-4E2E-9B76-AF00EAAFB744"></a></span>Open the model's animation mixer. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D7ACEE8B-A6F8-42E7-8CDE-5ED59FBA67DA"></a></span>Choose <span class="MenuCascade" id="GUID-D16A4AA0-1D7E-4143-B816-CFD1DAA4E137">Mix <img src="../images/ac.menuaro.gif"> Animation Mixer Properties</span> from the mixer's command bar to open the Mixer property editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8AAE86ED-3219-4BF3-A091-B5288B3B77BD"></a></span>Select either of the options for <span class="MenuCascade" id="GUID-DD728393-1BE2-4FBC-87A6-7DF10D5E18E6">Animation Layer Options <img src="../images/ac.menuaro.gif"> Interpolate Rotations Using</span>: 
+                     </p> <span class="anchor_wrapper"><a name="UL_18BAA68ECC0641709F8029E604B8B830"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9E58F7FE-E645-4204-9B23-C973B6BFF464"></a></span> <span class="MenuCascade" id="GUID-3FA0A2F4-624D-474A-9FD2-CBE53E42B550">Euler</span> calculates each of the rotation's XYZ axes independently. It computes the layer rotation
+                              values in between keys using the same interpolation as you do when normally keying
+                              rotations on an object. The results may not be as smooth an interpolation as quaternion,
+                              but you can have more control over the layer's resulting fcurves. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0F261165-893A-4720-AAE9-3EC04825209A"></a></span> <span class="MenuCascade" id="GUID-22D84519-B50B-4F73-A767-317A78BE55FD">Quaternion</span> calculates all three rotation axes as a single unit. The keys from the rotation fcurves
+                              are extracted and interpolated smoothly using quaternion interpolation. The fcurves'
+                              keys are used for calculating in-between values, but not the rotation fcurves themselves.
+                              Because the quaternion fcurve has a key inserted for every key in the original rotation
+                              fcurves, it helps if the XYZ keys in the original fcurves are aligned on the same
+                              frames. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A82ADD31-3783-4A68-9FB0-6A75EF69E122"></a></span>If you're primarily adjusting an existing animation with layers, this option is useful
+                              if you want to offset the rotation in an arbitrary way (for example, not just around
+                              one of the existing axes). Quaternion interpolation usually gives smoother results
+                              than Euler when you add a rotation offset in the middle of multiple rotation layers.
+                              
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-18C9C9CC-B77A-470D-959F-6CD861C3AB3E"></a></span>For more information in general about Euler and quaternion rotations, see <span class="char_link"><a href="ani_xform_AnimatingRotations.htm">Animating Rotations</a></span>. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

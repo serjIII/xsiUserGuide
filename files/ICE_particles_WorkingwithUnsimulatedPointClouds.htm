@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-97BF7630-BE9A-4042-93C8-3A8C0E23876E">
+      <meta name="topic-type" content="concept">
+      <title>Working with Unsimulated Point Clouds</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-97BF7630-BE9A-4042-93C8-3A8C0E23876E"></a></span><div class="head">
+            <h1>Working with Unsimulated Point Clouds</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-CC93B830-3DCC-4C83-BC2E-712A9056C16D"></a></span>Although particles are usually simulated, you can also work with them as unsimulated
+               point clouds. You can affect a point cloud in different ways depending on the region
+               of the construction stack in which the ICETree and other operators reside: Simulation
+               or Post-simulation (see <span class="char_link"><a href="ICE_simulation_TheSimulationRegionsandNodes.htm">ICE Simulation Regions and Nodes</a></span>), Modeling, and Animation. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-18561469-639C-463B-B3E2-E53045FCADE9"></a></span>The Animation and Modeling regions are below the Simulation region which means that
+               operators in these regions are not re-evaluated while the simulation environment is
+               active. You must move to the first frame of the simulation (its default initial state)
+               to see the effect of MoveComponent and other operators that are in these regions.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-061DD906-7512-4435-A0AE-E56EED93CA30"></a></span>If the ICETree operator is in the Modeling or Animation region, it is unsimulated
+               and you can use the point cloud as you can any other object: select, move, rotate,
+               scale, or deform it. You can emit points to create a point cloud, or you could add
+               points to the cloud, delete points from it, or create clusters of points. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-BDB97209-3FA1-44A1-8702-DB8BBC502C14"></a></span>If you're moving points and using proportional modelling, be aware that the Consider
+               Neighborhood option is on by default. This option only works when points are connected,
+               which they aren't when they're in a point cloud. Make sure to turn this option off
+               to be able to use proportional modelling correctly. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8295349B-234F-49E9-A986-FC013309AA90"></a></span>You can also animate the unsimulated points in different ways. For example, you could
+               emit particles in the Modeling or Animation region (see below), then use the Animated
+               options in any of the Turbulize and Randomize compounds to animate the points. This
+               can be useful if you want to animate unsimulated particle strands using the Strand
+               Sine Wave and Turbulize Strand compounds. You can also apply dynamics on unsimulated
+               strands to create movement. See <span class="char_link"><a href="ipart_strands.htm">ICE Particle Strands</a></span> for more information. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-01BA"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3C765327-D54A-46BA-B845-4843AD1BC4D1"></a></span>Freezing the Point Cloud
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6054AC0C-5593-4DE2-BDD4-8AA8FA3E4063"></a></span>If you create simulated particles, you can freeze the point cloud, then add a new
+                  ICE tree to control its movement, such as by deforming it. To freeze the point cloud,
+                  select it and click the <span class="MenuCascade" id="GUID-53E82E34-F9FD-4AB8-BDCF-DD180F1B827B">Freeze</span> button at the bottom of the MCP panel. This gets rid of all operators in all construction
+                  regions. The particles are no longer simulated and you can use them as regular points.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7C817FD0-2A93-4B07-913D-A9EC43FE10E9"></a></span>You could also freeze only the Modeling region or from an operator downward. See <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0037">Freezing the Operator Stack</a></span> for more information on freezing. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-01BB"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-17CF3896-111E-4957-B4A2-0DDBB9A7FF6F"></a></span>Emitting Points
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BC5DE0AB-CED8-4561-83FE-080BB6843803"></a></span>You can emit particles outside of the Simulation region. For example, you can emit
+                  a number of particles in the Modeling region and then freeze the point cloud. The
+                  particles are simply emitted, but they don't move because their positions are not
+                  being changed and updated at each frame (not simulated). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0D7DB8F1-91D5-43D0-8EA8-5B5D4BDED6F1"></a></span>If you're doing this, you can emit particles as <span class="MenuCascade" id="GUID-5D327A71-A9BC-4956-973F-56601947662C">Total Number of Particles</span> so that the number of particles you want are emitted at once at the first frame of
+                  emission instead of a certain amount emitted per second as is often done in a simulation
+                  (see <span class="char_link"><a href="ICE_particles_ICEParticleRateAmount.htm">ICE Particle Rate (Amount)</a></span>). 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-01BC"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FB061E45-B61B-43CA-A3E0-90A73BDF7DAB"></a></span>Deforming Point Clouds
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-94FCF5E8-69FF-4F15-8A1F-5F657B617C8E"></a></span>You apply deformations to point clouds just like any other geometry, meaning that
+                  you can apply standard object-based deformations to them. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D38A400B-CEED-4806-B966-725AFC8AD166"></a></span>You can apply any of the standard deformation tools (such as lattices, cages, Push,
+                  Twist, or Taper) to point clouds. This is a powerful way of making complex particle
+                  systems, especially when combined with forces. For example, you could make a whirling
+                  tornado by containing a particle system within a twisted and tapered lattice and then
+                  applying a vortex force; or have a school of fish deform along a curve. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-13353096-CF58-47FA-B9AA-A1E58339D7AD"></a></span>For information on deformations in general, refer to <span class="char_link"><a href="modef_deforms.htm">Deformations</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1D873124-2794-402C-B7D8-8E0FC4C5B7DA"></a></span>Depending on the construction region in the point cloud's operation stack, there are
+                  different types of deformations you can use: 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-01BD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-98EBDA0F-0792-4697-BCDA-A058CD14153D"></a></span>If you're using the Post Simulation region
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5134715C-12F9-4F18-8C3A-839580DE2379"></a></span>You can apply deformations such as lattices on top of particles while keeping the
+                     simulation active. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-01BE"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-80847103-1633-4F8A-9CE2-9D907AE18921"></a></span>If you're using the Modeling region
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9D7376D0-0FDE-4F28-9BD2-CD121DB9FEBC"></a></span>You can emit particles, then set the particle's initial state at a frame you want
+                     and freeze the point cloud. This way, all the particles needed for the deformation
+                     are available in the state you want by frame 1, and the number of particles in the
+                     cloud remains constant because there's no emission. You can then apply deformations
+                     to the point cloud to sculpt it, including shapes and envelopes. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-01BF"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F8425AA0-0FBE-44F7-A2CD-77298B47F8F7"></a></span>If you want to create clusters of points
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-43CC033F-5392-4DBF-B4C2-5A16B80A96C9"></a></span>As long as the point cloud doesn't have particles being added to it or removed from
+                     it, you can create clusters. If you create clusters, you can constrain objects to
+                     them and you can use deformations to modify them, as well as envelopes or shape animation.
+                     You can also animate the clusters individually by constraining them to an animated
+                     object, such as a null. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

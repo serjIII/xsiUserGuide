@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-0C4B4CA9-C690-476D-A145-EA86D154ACDA">
+      <meta name="indexterm" content="sample points: reprojecting">
+      <meta name="indexterm" content="texture editor: creating subprojections">
+      <meta name="indexterm" content="subprojections: creating">
+      <meta name="indexterm" content="subprojections: applying">
+      <meta name="indexterm" content="texture editor: applying subprojections">
+      <meta name="indexterm" content="texture editor: transforming subprojections">
+      <meta name="indexterm" content="subprojections: transforming in texture editor">
+      <meta name="indexterm" content="viewports: transforming subprojections in">
+      <meta name="indexterm" content="subprojections: transforming in viewports">
+      <meta name="indexterm" content="subprojections: support objects for">
+      <meta name="indexterm" content="texture editor: contour stretch type subprojections">
+      <meta name="indexterm" content="texture editor: subprojections, contour stretch">
+      <meta name="indexterm" content="subprojections: contour stretch">
+      <meta name="indexterm" content="subprojections: contour stretch, selection guidelines">
+      <meta name="indexterm" content="texture projections: contour stretch UVs, stretching methods">
+      <meta name="topic-type" content="concept">
+      <title>Creating Subprojections</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-0C4B4CA9-C690-476D-A145-EA86D154ACDA"></a></span><div class="head">
+            <h1>Creating Subprojections</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-577308DC-B1E6-4C2F-87A6-A21E9028A73D"></a></span>Subprojections allow you to reproject a texture onto selected polygons of an already-textured
+               object in a way that better conforms to that selection's shape. For example, you could
+               cylindrically reproject a texture on the cylindrical band at a sphere's equator. This
+               simplifies the texturing process by allowing you to project a texture onto an object
+               in several different ways, while only having single set of UV coordinates to manage.
+               
+            </p><span class="anchor_wrapper"><a name="TABLE_B6454FAA91BD4A758863E5E3DD4004E9"></a></span><div class="table_NotRuled">
+               <table cellpadding="0" cellspacing="0" class="not-ruled">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <tr class="not-ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-1CEF6501-985E-4ECC-A669-F035617D364F-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-12A2C749-6C26-496B-AB72-CEAFFCCE0E9D-low.png"> 
+                     </td>
+                  </tr>
+                  <tr class="not-ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BFD8F80E-3CD1-4F8B-BD7B-420AE520173B"></a></span><p class="table-body">Planar projection applied to hand </p> 
+                     </td>
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E41811D0-9297-4883-9C15-6A731CD2AC71"></a></span><p class="table-body">Original UV coordinates in texture editor </p> 
+                     </td>
+                  </tr>
+                  <tr class="not-ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-018D39BB-8D8C-43B1-8785-EDEB27DDBCD0-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-D6530C48-9EEB-4134-9D8F-742391BEEE5C-low.png"> 
+                     </td>
+                  </tr>
+                  <tr class="not-ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2099CFF8-0A92-4F54-BADC-7B57B779E4AA"></a></span><p class="table-body">Polygons on side of hand selected </p> 
+                     </td>
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-35600AB6-2C1A-49BA-9A73-8F4904A45505"></a></span><p class="table-body">Selected polygons' UV coordinates texture editor </p> 
+                     </td>
+                  </tr>
+                  <tr class="not-ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-8C675EA6-42AE-4262-935E-0030BC4DC753-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-C4EB7A3A-9F78-4E67-99F3-72DEF1CA40C8-low.png"> 
+                     </td>
+                  </tr>
+                  <tr class="not-ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7F53FF74-67E2-4928-8117-486683D53CE7"></a></span><p class="table-body">Planar subprojection applied </p> 
+                     </td>
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-60C0F2CC-12F0-466A-B525-CC257DDCA448"></a></span><p class="table-body">Selected polygons' UV coordinates after subprojection </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-13D542C8-902A-44EB-AEC3-92D58FEFEA79"></a></span>While the subprojections behave like any other group of points in the texture editor,
+               they have their own manipulators in the 3D views so you can transform them independently
+               of their parent projections. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4AC4CB80-0BD0-4E36-9587-88B14BDAFE8D"></a></span>You cannot, however, adjust a subprojection on the surface of the object using the
+               texture projection manipulator (which you activate by pressing <span class="MenuCascade" id="GUID-CE991766-F965-45B8-B640-4462EB520766">J</span>). 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSD7310B9F6BF91E409654D86936886C8C-00C9"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C0C0C3FB-7C77-4DE8-8087-EC121D20C7FA"></a></span>To apply a planar, cylindrical, spherical, or cubic subprojection
+               </h2>   <span class="anchor_wrapper"><a name="GUID-B23EDA80-A175-4C54-A1EC-4C6DBCD10FBB"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-792BE7A5-D063-4B88-A000-627B524FE325"></a></span>Select any number of points or polygons on your object or model. You can select them
+                        from the texture editor work area or from any 3D view. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1788BA65-BAE2-43B8-906E-4BAAF81E34A7"></a></span>Click the planar <img src="../images/GUID-60BAC127-4595-413C-86A2-8837985DFAA7-low.png">, cylindrical <img src="../images/GUID-804DB023-8B0D-4B68-A6AF-58C3A6880365-low.png">, spherical <img src="../images/GUID-34B70729-680E-4C49-9D63-DC74EA19C38E-low.png">, or cubic subprojection<img src="../images/GUID-8E20F7CC-EE69-42A3-92C6-E702E38DB5B1-low.png"> button on the Texture editor command bar, or select a subprojection from the <span class="MenuCascade" id="GUID-9C938E89-363A-4823-ADD6-D773C7B760F2">Tools</span> menu to open the subprojection menu. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-F455E94A-E7A1-497E-8C79-C6C9D2D83363"></a></span><div class="note-tip"><span class="label">TIP:</span>You can also middle-click the planar, cylindrical, spherical, or cubic subprojection
+                           button on the texture editor command bar to apply the subprojection using the last
+                           selected plane of projection. 
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FA86F612-1972-4E43-9AA7-F07671AA4F4A"></a></span>From the subprojection menu, click one or more of the following options to activate
+                        or deactivate them: 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-596F607E-5C44-48CF-89B3-AC63CEAFE9D5"></a></span><div class="note-note"><span class="label">NOTE:</span>The subprojection menu remains open while you activate and deactivate the options
+                           listed below. It closes when you select a plane for the subprojection. 
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="UL_91439CB2D36C4F7386A0CCF957BEBF92"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C30D58AC-B3E2-4E3D-AECF-4F5A9DBC75AC"></a></span> <span class="MenuCascade" id="GUID-32D47893-5282-4EAC-9DC9-BD75CE0433DE">Position Relative to Object</span> positions the subprojection's manipulator relative to the entire textured object
+                              rather than the selected points or polygons. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-CD9C6F42-DAA2-4E71-8193-EBA9B2011BE7"></a></span><div class="note-note"><span class="label">NOTE:</span> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-F0E8207E-D9DF-46F0-936D-C9A170D984F9"></a></span>If you select a Best Fit projection, the <span class="MenuCascade" id="GUID-18645756-F120-4F0A-9079-78D7A729C0D7">Position Relative to Object</span> setting is ignored. 
+                                 </p> <img src="../images/GUID-BB52FEF4-2674-480C-97E9-2BE2E8DD515D-low.png"> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-6D3F6CBC-9634-4FA1-9E6A-BB99C621C371"></a></span>Both hands have a YZ planar subprojection applied to the selected polygons. The subprojection
+                                    manipulator is marked (A). 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-02D87312-126E-456F-AF52-AAA98A953048"></a></span>When the Position Relative to Object option is inactive, the subprojection's manipulator
+                                    is positioned relative to the selected polygons (B). 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-0404A12D-3106-47AA-9FA7-1B4E521F8EEE"></a></span>When the Position Relative to Object option is active, the subprojection's manipulator
+                                    is positioned relative to the entire object (C). 
+                                 </p> 
+                              </div>
+                           </div> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3754E466-56E9-48BC-8E39-14C76EFE30EC"></a></span> <span class="MenuCascade" id="GUID-8E454245-8277-461C-A85F-075F44A00812">Maintain Aspect Ratio</span> matches the subprojection's aspect ratio in the texture editor to that of the selected
+                              points or polygons on the object as closely as possible. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-35302F97-123B-44C4-83FE-869604290CC9"></a></span>If the Fit to Image option is active, the subprojection is scaled to the largest size
+                              possible without distorting the aspect ratio. See the following illustration of how
+                              aspect ratio and fitting work together. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5571ED9D-4CD7-4341-88EB-4777BD4B6FD0"></a></span> <span class="MenuCascade" id="GUID-42539AFA-DCEE-4025-B757-48DC7F02FA51">Fit to Image</span> fits the subprojection to the entire texture image in the texture editor. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-00F2624D-54A2-4691-8A6D-ACABA4C87684"></a></span>If the Maintain Aspect Ratio option is active, the subprojection is scaled to the
+                              largest size possible without distorting the aspect ratio. See below for an illustration
+                              of how aspect ratio and fitting work together. 
+                           </p> <span class="anchor_wrapper"><a name="TABLE_5BA318B9DEAA4A9CBD0A557F1BC36F21"></a></span><div class="table_NotRuled">
+                              <table cellpadding="0" cellspacing="0" class="not-ruled">
+                                 <colgroup>
+                                    <col>
+                                    <col>
+                                    <col>
+                                 </colgroup>
+                                 <tr class="not-ruledOddRow">
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-7C53B03D-C252-4ABD-959B-ACE7AB3BA51A-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-7F9E4287-DBDB-48D7-9B3E-DB72E6035F55-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-A25E15FF-7D19-445D-95F9-7DCCAABCB05B-low.png"> 
+                                    </td>
+                                 </tr>
+                                 <tr class="not-ruledEvenRow">
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-83D1C864-A07B-47C2-B242-F887D76294CF"></a></span><p class="table-body">This hand has a Best Fit planar subprojection applied to the selected polygons. </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-08636A65-BF71-4F15-9562-00B9A221FEEA"></a></span><p class="table-body">Maintain Aspect Ratio and Fit to Image are both active. </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8A6415B7-7CEF-4140-93B0-DF8717F1E8D9"></a></span><p class="table-body">Maintain Aspect Ratio: Active Fit to Image: Inactive </p> 
+                                    </td>
+                                 </tr>
+                                 <tr class="not-ruledOddRow">
+                                    <td class="table-body">&nbsp;</td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-E1B7996F-6C04-45CF-88EC-5E38726D817B-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-856ECBE0-EB0E-4F79-89BD-047F8CB0E284-low.png"> 
+                                    </td>
+                                 </tr>
+                                 <tr class="not-ruledEvenRow">
+                                    <td class="table-body">&nbsp;</td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AA9DE642-20E8-4607-8E62-A34036861B23"></a></span><p class="table-body">Maintain Aspect Ratio: Inactive Fit to Image: Active </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-36F0688D-5321-4EAE-96D7-7B50122FA59F"></a></span><p class="table-body">Maintain Aspect Ratio: Inactive Fit to Image: Inactive </p> 
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2A6C3DF1-7AFF-4786-B7F7-E9248C981579"></a></span>Choose a plane of projection (<span class="MenuCascade" id="GUID-AB204EC4-CBFA-4968-A9B2-54E67EA86944">Best Fit, XY Object Aligned, YZ World Aligned</span>, and so on) from the menu to complete the subprojection operation. The last plane
+                        of projection used appears in the menu in bold type. The subprojection is applied
+                        to the object and its manipulator appears in the 3D view. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSD7310B9F6BF91E409654D86936886C8C-00D4"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D3EC395A-E735-42EE-878A-DBC49E2503C2"></a></span>Transforming Subprojections in the Texture Editor
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-11035D40-CB44-448D-ABA1-73D49482E09B"></a></span>Since subprojections are groups of points that have been reprojected, you can scale,
+                  rotate, or translate them as you would any other group of points in the texture editor.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSD7310B9F6BF91E409654D86936886C8C-00D5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D7C60C1B-4F72-436A-B782-BD93C97D14C8"></a></span>Transforming Subprojections in a 3D view
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-39BB99BF-16D0-4906-BCFF-0DD2446C1C83"></a></span>In the 3D views, subprojections are graphically represented by their own texture support
+                  objects. You can scale, rotate, or translate them as you would any other texture support
+                  object. When you transform the subprojection in a 3D view, the corresponding points
+                  are moved accordingly in the Texture Editor. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSD7310B9F6BF91E409654D86936886C8C-00D6"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B007A683-21C1-47B1-851A-FB56B7658856"></a></span>Editing Subprojection Support Properties
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CD832B9F-D6F3-487C-AADA-1F76BEA3E02D"></a></span>You can also the properties of subprojection supports as you would any other texture
+                  support object. This is especially convenient for cubic subprojections because it
+                  allows you to apply cubic projection presets, set a face projection method, and transform
+                  the faces of the cube individually. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSD7310B9F6BF91E409654D86936886C8C-00D7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-73DEAF41-2F77-4AF1-9A0F-EDDCAEB25392"></a></span>To edit a subprojection support's properties
+                  </h3> <span class="anchor_wrapper"><a name="UL_C375244B3A954C07BF555BC20E97564D"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E7B46D10-0B84-4A40-8BDD-95B43E6E73D8"></a></span>Select the support object in any 3D view and press Enter to open its property editor.
+                           
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSD7310B9F6BF91E409654D86936886C8C-00D8"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A0C3FEF7-9DD2-4939-A626-EBFA2D1416A2"></a></span>Contour Stretch type Subprojections
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-E6F717F8-4F4E-4303-88DC-AF0DA747D9A9"></a></span>Like planar, cylindrical, and spherical subprojections, contour stretch subprojections
+                  allow you to reproject a texture image onto a selection of an object's polygons. Rather
+                  than reprojecting according to a specific form, however, a contour stretch subprojection
+                  analyzes a four-cornered selection to determine how best to stretch the polygons'
+                  UV coordinates over the image. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_34CCC012114842FDAB25FC9086A71929"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-0C4C8944-5074-4A10-8193-1547AF615DD5-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-327A2389-75BD-4D14-B9C6-278FAC73FB4D-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-707491DD-B67D-4377-B4D8-28A82F6BABF0"></a></span><p class="table-body">A curvy, road-like polygon mesh with a line texture applied to it using an XZ projection.
+                              The results are less than desirable. 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F2E71EEE-81AF-43D8-A410-788C7D08E996"></a></span><p class="table-body">And here are the mesh's UV coordinates as they appear in the texture editor. They've
+                              been rotated so that the lines move more or less lengthwise down the road. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-E6B8928C-29B7-4AF5-BDEA-9D0D93D412E8-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-5C8CC00B-A5C0-4B4A-AAB0-C3841E7678B2-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BC7323EB-DE47-43F8-BEDF-95CBDB2EF81D"></a></span><p class="table-body">To place the texture accurately, select the polygons on top of the mesh — the road's
+                              surface. It's important that the selection have four corners (A). 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C1138711-346F-4962-8B31-86E65FD5AD88"></a></span><p class="table-body">In the texture editor, choose a contour stretch subprojection. In this case, you don't
+                              want to preserve the aspect ratio because the selection's UV coordinates should cover
+                              the whole image. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-6EAFD6E5-D9C0-40CD-8427-69C0EFC9359F-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-88050097-5DF9-4351-96FA-C41E6E872CEE-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D9E80C9C-49B5-41B8-A4A0-06F073D363FB"></a></span><p class="table-body">Et Voilà! The lines are now following the road. Now is a good time to scale the subprojection
+                              and repeat the texture to make the lines more accurate. 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3E1BF8E8-F41E-4A78-B0FE-D6569425C0B4"></a></span><p class="table-body">In the texture editor, the object's UV coordinates are properly stretched over the
+                              texture. In this case, the start corner was rotated in order to orient the subprojection
+                              correctly. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-5787EC82-A9C4-4645-B677-E1D222AB5BC2"></a></span>Contour stretch subprojections do not have the same alignment and positioning options
+                  as other subprojections. Instead, you select a stretching method that is appropriate
+                  to the selection's topology and complexity. Also, contour stretch subprojections do
+                  not have a manipulator in 3D views. You can adjust them only from the texture editor.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5609CDA8-D1EE-4CC5-8123-E2CC2F76CBAB"></a></span>Contour stretch subprojections are useful for a number of different texturing tasks,
+                  particularly for applying textures to tracks, and irregular, terrain-like meshes.
+                  They are also useful for fitting regular-shaped textures onto curved meshes. For example,
+                  they would be useful to place a label texture on a beer bottle, right at the junction
+                  of the bottle's neck and body. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-D7878445-86ED-457B-9FA9-8F6B115931B3"></a></span><div class="note-note"><span class="label">NOTE:</span>Contour stretching can also be done using the Contour Stretch UVs texture projection.
+                     Although the results are the same, the workflow is different. Contour Stretch UVs
+                     projections are described <span class="char_link"><a href="tex_basicproc_TypesofTextureProjection.htm#WSF3670244173DE845B36001FAA69DB62C-0069">Applying a Contour Stretch UVs Projection</a></span>. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSD7310B9F6BF91E409654D86936886C8C-00DF"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FD2F48B6-3D39-4ADA-8EC7-7077F6FFB27E"></a></span>Polygon Selection Guidelines
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-B459E3EB-F3C0-4353-94B2-42360780580A"></a></span>Although the easiest selection for a contour stretch is a perfect quad, it's more
+                     likely that you'll want to use contour stretch subprojections on less regular shapes.
+                     This is not a problem so long as you keep a few simple guidelines in mind when you
+                     make your selection. 
+                  </p> <span class="anchor_wrapper"><a name="UL_ECA91792C32D40D498C9AB32E3ABEFF8"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-471092F3-6EEB-474D-91FF-36068134EF0F"></a></span>The selection cannot be a whole object, it must be a selection of polygons with an
+                           identifiable contour. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-542F04FE-F402-4BB5-87FE-F0B45D5F153B"></a></span>Although the selection doesn't have to be perfectly rectangular, the contour stretch
+                           projection must be able to derive four corners from its contour. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4564B521-797A-42FF-9B7F-BCB883C3FECE"></a></span>If the selection has holes in it, it is more likely to produce undesirable results.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-29978546-9B9B-459F-B0F3-65D3C3D48945"></a></span>If the selection consists of two or more discontiguous "islands," their UV coordinates
+                           do not remain separated in the texture editor once the projection is applied. Instead,
+                           they are treated as a single "one-piece" selection. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSD7310B9F6BF91E409654D86936886C8C-00E0"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-DC3A89E9-3D01-4445-BDBE-1712110A0F2F"></a></span>To apply a contour stretch subprojection to a selection of components
+                     </h4> <span class="anchor_wrapper"><a name="GUID-E9CFD050-BEBC-408F-86CC-5ED548F2020B"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4ADF2502-33E3-4E9A-8026-1C14B09C87E3"></a></span>Select any number of points or polygons on your object or model. You can select them
+                              from the texture Editor work area or from any 3D view. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B896291B-DE4B-4E2D-8E2F-21C569532B0A"></a></span>Remember that the selection <em class="mild">must</em> have four discernible corners (even if it isn't perfectly rectangular) and a clear
+                              contour. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C388DA76-7C4D-421A-8C98-8C3A715D1C27"></a></span>Click the contour stretch subprojection button<img src="../images/GUID-7EDA1F93-808E-4D56-9046-06974DEC5CAD-low.png"> on the Texture editor command bar, or choose Contour Stretch Subprojection from the
+                              <span class="MenuCascade" id="GUID-CC2EDD71-DD6C-4508-B8AB-DBA124B8C39B">Tools</span> menu to open the subprojection menu. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-744AC78F-BFEF-4E84-8A1A-CCAF170EAA8A"></a></span><div class="note-tip"><span class="label">TIP:</span>You can also middle-click the Contour Stretch subprojection button on the Texture
+                                 editor command bar to apply the subprojection using the last selected method. 
+                              </div>
+                           </div> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-97FE3C18-E809-48E9-AF42-5D891EEE1BF4"></a></span>From the subprojection menu, activate or deactivate the <span class="MenuCascade" id="GUID-1C924472-0257-4688-A159-9DE06E940644">Maintain Aspect Ratio</span> option as needed. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5E104AEB-E340-4E08-A098-B73831CF8825"></a></span>Activating this option matches the subprojection's aspect ratio in the texture editor
+                              to that of the selected points or polygons on the object as closely as possible. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4BC19BA3-B02D-4CAB-9C02-14E782077617"></a></span>Choose a stretching method to complete the subprojection operation (the last method
+                              used appears in bold type in the menu). The following methods are available: 
+                           </p> <span class="anchor_wrapper"><a name="UL_0C37326636D247089C2AA25A995C6D12"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-82A8356B-8AEB-42EF-90CB-504556C76987"></a></span> <span class="MenuCascade" id="GUID-4C040F19-CF7F-4D0E-BCC5-0BD334F03DC8">Walk</span> <span class="MenuCascade" id="GUID-4B7695CA-4450-4296-B00D-3BBFD753AE12">ing on the Mesh from Contours</span> calculates the UV coordinates by following the mesh as closely as possible from contour
+                                    to contour, in both the U and V directions, and accumulating edge distances from the
+                                    selection's borders. This option usually gives the best results, particularly on complex
+                                    meshes. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-AA4AEC70-1009-463A-88AD-7D9D85482AB9"></a></span> <span class="MenuCascade" id="GUID-02DF47C1-7A92-4B2C-BD9F-FB10D2090417">Spatial Distance from Contours</span> calculates the UV coordinates by travelling from border to border without trying
+                                    to follow the mesh. This method works well on meshes that are relatively flat, and
+                                    whose contours are more or less parallel. It also tends to be faster to calculate
+                                    than other methods, especially on simple meshes. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-BF6DD939-E26B-444C-AFCC-91747F8E0D3D"></a></span> <span class="MenuCascade" id="GUID-5FE3FDFA-6819-4D6B-BC07-FA1C3A9BCFF5">Walking NxM Regular Quads from Contours</span> calculates the UV coordinates by walking from border to border and trying to build
+                                    parallel border lines to produce a grid-like structure. This is most effective for
+                                    uniform-density meshes of NxM rectangular quads. It may produce undesirable results
+                                    when the mesh is irregularly shaped. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-F689F5D5-FBDE-4ECB-84F2-652E2DED53A8"></a></span> <span class="MenuCascade" id="GUID-B002966C-BDD5-44AA-B686-4287E39594F9">Projection on Surface Built from Contours</span> creates an internal parametric surface using the contours and borders of the polygon
+                                    selection and then projects the polygon selection onto that surface to calculate its
+                                    texture coordinates. This method is especially useful for bumpy, terrain-like surfaces.
+                                    
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6E53C47A-1746-4064-B59D-1309BF839D1A"></a></span>Once you select a method, the object's points are displayed in 3D views and a pick
+                              session begins. Do one of the following: 
+                           </p> <span class="anchor_wrapper"><a name="UL_04609732742A4E5D925EE2AE7DB1674B"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-598616DA-79E7-4F64-B086-643A76B9148B"></a></span>If necessary, pick new corners for the polygon selection to which you are applying
+                                    the projection. The new corners must lie on the boundary of the initial polygon selection.
+                                    Right-click to end the pick session. 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-FD524445-1F80-4C7F-9BEB-2BE697DD9C7A"></a></span> <em class="mild">or</em> 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-AAA62AD0-6979-44E2-833A-D33426888C98"></a></span>Right-click to end the pick session and use the automatically detected corners. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4A2A4F24-5076-4F5C-A4A5-72F49E9A8351"></a></span>The subprojection is applied and the PolyUVContourStretching property editor opens.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-67FBE9CC-0B4C-43D0-8B46-F49DD9C79ED6"></a></span>Adjust the options in the property editor as needed. This is often useful if you weren't
+                              sure which stretching method to use. See <span class="char_link"><a href="property9008.htm">Poly UV Contour Stretching Property Editor</a></span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2E8441DC-8FD5-496B-9078-63BF2C3E0909"></a></span>You can now continue to adjust the subprojection's position and dimensions in the
+                              texture editor as you would any other group of sample points. 
+                           </p> 
+                        </li>
+                     </ol> 
+                     <div><span class="anchor_wrapper"><a name="GUID-E311B239-FDBA-4953-A11E-C7C4EB5E6BDE"></a></span><div class="note-important"><span class="label">IMPORTANT:</span>Once you've applied a contour stretch subprojection, modifying any of the topology
+                           changes that you made before applying it will have dramatic and usually undesirable
+                           results. This is because the topology change affects the contour that the subprojection
+                           uses to stretch the polygon selection. 
+                        </div>
+                     </div> 
+                     <div><span class="anchor_wrapper"><a name="GUID-80B708C6-67E6-4481-9D79-D158D4A5CF64"></a></span><div class="note-tip"><span class="label">TIP:</span>Contour stretch subprojections often benefit from a Relax operation (see <span class="char_link"><a href="tex_editonobj_RelaxingPolygons.htm">Relaxing Polygons: The Legacy Way</a></span>), especially if you've used the Projection on Surface method on a more rounded shape.
+                           Relaxing the subprojection's polygons tends to give the subprojection a more natural
+                           shape. 
+                        </div>
+                     </div> 
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

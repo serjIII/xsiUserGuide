@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-541AF47C-5802-47AE-AD2F-88C6DD785C95">
+      <meta name="indexterm" content="poses: default for skeletons">
+      <meta name="indexterm" content="skeletons: storing default poses">
+      <meta name="indexterm" content="skeletons: reference poses stored in an action">
+      <meta name="indexterm" content="action sources: skeleton poses">
+      <meta name="indexterm" content="neutral poses: skeletons">
+      <meta name="indexterm" content="zeroing out joints (neutral poses)">
+      <meta name="indexterm" content="base pose \\ neutral poses">
+      <meta name="indexterm" content="reference poses: \\ also neutral poses">
+      <meta name="topic-type" content="concept">
+      <title>Creating Neutral Poses for Skeletons</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-541AF47C-5802-47AE-AD2F-88C6DD785C95"></a></span><div class="head">
+            <h1>Creating Neutral Poses for Skeletons</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-7BC7A26D-E2CE-4DC8-8D55-6D1D2DA56A20"></a></span>When you're creating a skeleton, it's a good idea to save it in a default position
+               (pose) before it's animated or enveloped. This way you have a solid reference point
+               to revert to when enveloping and animating the skeleton. This pose is known as the
+               neutral pose, reference pose, or base pose, and is often the character with outstretched
+               arms and legs, making it easy to weight the envelope and adjust its textures.
+            </p>
+            <div class="figure-anchor"><img src="../images/GUID-8069FE96-49A4-4F3D-8C46-17EE77113DF2-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-653C629A-E09A-4680-AE86-2A0E9F06B96C"></a></span>Character with rig in his default T-pose.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3D01930D-60AB-4B6F-9CB8-243D21C9066D"></a></span>A neutral pose that's useful for envelope weighting and texturing doesn't always give
+               the best values for animating the skeleton's position and rotation. To set the neutral
+               pose for optimum animation, see the section below, <span class="char_link"><a href="skel_CreatingNeutralPosesforSkeletons.htm#WSF4D645293765AE498C69174E3D6620E4-0095">Creating a Neutral Pose for Animation</a></span>.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0F49C662-B302-4C87-BB3F-8E2954424BA9"></a></span>As well, you can store the skeleton's neutral pose in an action source (<span class="MenuCascade" id="GUID-FB1C846B-A945-4628-B616-FF78005C6AF2">Store Skeleton Pose</span>) so that you can easily reapply it to your character any time you want — see <span class="char_link"><a href="skel_StoringaSkeletonPoseinanActionSource.htm">Storing a Skeleton Pose in an Action Source</a></span> for information.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0095"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1F54D16D-9B83-443E-8BD3-728D6AE49DA8"></a></span>Creating a Neutral Pose for Animation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-68594492-CBA9-4342-8E55-BE9B111B3353"></a></span>When you're animating the character, this default pose does not always give you local
+                  transformation values that are easy to key. For example, let's say that you load the
+                  default skeleton and want to rotate the finger bones from their outstretched position
+                  into a clenched fist. If you look at their local rotation values, you'll see that
+                  they are difficult numbers to use.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-45D7C3D1-D301-4789-BD40-921403864EFA"></a></span>To overcome this problem, you can create a neutral pose which uses zero for its local
+                  transformation values (0 for rotation and translation, 1 for scaling). When you set
+                  a neutral pose, the object's actual local transformation values are not changed: the
+                  neutral pose simply adds a transformation layer that lets you specify certain conditions
+                  for keying. Basically, the neutral pose acts as an offset for the object's local transformation
+                  values, as if there was an intermediate null between the object and its parent in
+                  the hierarchy.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F1791848-B764-4969-8692-FFE28904A07D"></a></span>When you key the character's values, they reflect the relative difference from zero,
+                  and not a value that's difficult to use. For example, when you key a hand bone at
+                  coordinates (0, 3, 0), you know that it's 3 units in the Y axis above the neutral
+                  pose, so that pose becomes a local reference point for the fcurve values of the bone.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-A908F3C3-FC91-4FA9-ADCD-FFB45C257A30-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-48A8BB97-F13B-420B-9004-1EE638C557F8"></a></span>Branch-selected hand bone in neutral pose.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-43536CED-7DC8-4AB0-9EA8-4D3788B2B06E"></a></span>On the top are the original local rotation values of the hand bone before setting
+                  a neutral pose. Notice that they're difficult values to use.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F0A227A8-04B9-4205-86C0-1073D94EBFC4"></a></span>On the bottom, setting a neutral pose sets the local rotation values to 0,0,0, which
+                  makes for an easier base for keying.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-38C45A3A-CBA4-4D35-849C-94E6EB4EC3B6"></a></span>With a neutral pose set, you can select a chain element and enter zero for its local
+                  rotation, for example (often referred to as "zeroing out"), and it returns to this
+                  neutral pose.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4EACAC66-B151-4F89-9AE5-D2695BBB29AA"></a></span>Not only do neutral poses make keying easier, you can also reduce the number of extra
+                  nodes in a rig because you don't need any "spacer" or "parent" nodes that helped you
+                  set zero as the value for the bones' neutral pose.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-206D8A7B-62F1-40C7-9A33-1A2B61ECCFE4"></a></span>You can create neutral poses for any type of object, not just chain elements in a
+                  skeleton. This means that you can zero out control objects in a rig.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-A5CE9BF5-43D6-4065-B60C-B0CE96351A79-low.png"></div> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-00A0ACC4-3089-43B2-A0EA-EC3E8A6BEC13"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C9D522DF-8873-407C-888C-62A602DF985B">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-20F767F7-16CB-4E20-BB2C-0B3B66E3B084"></a></span><p class="table-body">Branch-selected hand bone in neutral pose.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-547C09E6-A122-4B97-9130-C2BCA1EE881A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-080159C0-9159-499E-9676-B68517855226">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-272659E4-FC27-468E-B9E1-17DE7C57EB08"></a></span><p class="table-body">The hand bone is rotated and keyed. Notice how the rotation values are easy to understand
+                              because they're using 0 as a base.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8932B4F1-9C22-4B41-9533-8992F8310367"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E38CC624-F3F2-487A-9E8F-16BD85ADAF45">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-257740DF-9DB1-4912-A6BF-03BF2D726D22"></a></span><p class="table-body">The hand bone is rotated and keyed again with new values.</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-5E1D5C8A-3295-4D1C-AE81-0560784B0CC2"></a></span>When you remove the neutral pose, the object's transformation values return to what
+                  they were before creating the neutral pose. The neutral pose values are added to the
+                  local transformation before being reset to the defaults. As a result, the object does
+                  not move in global space.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-EBD72AF6-10A0-4810-A3A0-764634DD98DE"></a></span>For information on how to set and remove neutral poses, see <span class="char_link"><a href="transforms_SettingNeutralPoses.htm">Setting Neutral Poses</a></span> [<span class="char_link"><a href="xfo_cover.htm">Working in 3D Space</a></span>].
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

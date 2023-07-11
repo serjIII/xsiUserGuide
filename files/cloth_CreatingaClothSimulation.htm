@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-4B1C3D9C-28D4-4843-8FFF-5F0C73123FCE">
+      <meta name="indexterm" content="cloth simulation: creating">
+      <meta name="indexterm" content="cloth simulation: speed of">
+      <meta name="indexterm" content="cloth simulation: precision of (iterations per frame)">
+      <meta name="indexterm" content="cloth: caching or plotting deformations">
+      <meta name="indexterm" content="plotting: cloth deformations">
+      <meta name="indexterm" content="cloth simulation: muting">
+      <meta name="indexterm" content="muting: cloth simulation">
+      <meta name="indexterm" content="cloth simulation: removing">
+      <meta name="topic-type" content="concept">
+      <title>Creating a Cloth Simulation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-4B1C3D9C-28D4-4843-8FFF-5F0C73123FCE"></a></span><div class="head">
+            <h1>Creating a Cloth Simulation</h1>
+         </div>
+         <div class="bodyProcess"><span class="anchor_wrapper"><a name="GUID-AFC4FFFB-CDE7-46C5-940F-2788AB1E6124"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-351D89D2-924C-4AA7-B2D0-D0408C0C56A4"></a></span>Select <span class="MenuCascade" id="GUID-C3B55D73-9117-4CC6-8549-6A1670377C7D">Animation</span> from the <span class="MenuCascade" id="GUID-3A5C5029-666D-4CDC-B4BC-92294B1300F4">Construction Mode</span> list on the main menu bar at the top of the interface. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_8F68687EEF824117AD368941D2931EC7"></a></span><div class="figure-anchor"><img src="../images/GUID-AECE2A54-3CB0-4E87-B520-E3492E54E87D-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-13798DBD-D738-4DBB-9F7A-3C524F8B7583"></a></span>This keeps the ClothOp operator in the object's Animation region in its construction
+                     history so that Softimage knows you want to use the cloth as an animated deformation.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3DB2DFC9-7432-44A9-A01C-7EE800057BB5"></a></span>For general information on construction modes and the viewing options related to these
+                     modes, see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0016">Construction Modes and Regions</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9BC57C1F-B84E-48DB-A146-BA16F854821F"></a></span>Select the NURBS surface or polygon object to be used as the cloth. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2CB5B99B-5326-43B7-BFFA-8017BB3B58AE"></a></span>Choose <span class="MenuCascade" id="GUID-B2125222-D659-4B75-B74F-B1DD4FF6A163">Create <img src="../images/ac.menuaro.gif"> Cloth <img src="../images/ac.menuaro.gif"> From Selection</span> from the Simulate toolbar. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7124C50D-2D0B-4E85-8F9D-522304021F62"></a></span>In the ClothOp property editor that opens, set the parameters as you like. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-89931934-9C18-4960-A792-4A30E372C3D6"></a></span><div class="note-tip"><span class="label">TIP:</span>Like any other simulation, you can use weight and texture maps on any parameter that
+                        is mappable (has a connection icon beside it). For more information on this, see <span class="char_link"><a href="scel_parametermaps.htm">Parameter Maps</a></span>. 
+                     </div>
+                  </div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4E765D92-2F0B-4DC0-9E3D-24B549AB19B7"></a></span>Set the <span class="MenuCascade" id="GUID-BD43D472-220D-485A-AF9E-FAE0CF0B4302">Start</span> and <span class="MenuCascade" id="GUID-7C969368-D19C-4215-AA6D-328708C578C3">End Frame</span> of the cloth simulation itself. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-17A926F3-90C1-4483-B809-6B06F3651163"></a></span><div class="note-tip"><span class="label">TIP:</span> <span class="anchor_wrapper"><a name="UL_5B5F440549D542A2B33AE6C8DA8DE019"></a></span><ul>
+                           <li>Use the smallest possible range of simulation as possible to optimize performance.
+                              For example, if objects won't start colliding until frame 107, don't start the simulation
+                              until around then, and stop it as soon as you can (such as if the objects go out of
+                              view). 
+                           </li>
+                           <li>As well, don't use the full scene time range unless absolutely necessary. This will
+                              save some memory to cache the results of the simulation. 
+                           </li>
+                        </ul> 
+                     </div>
+                  </div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FF0258EC-FF81-4F03-A0E2-0C4E37E5661B"></a></span>If you want to use the start and end frames set for the scene's timeline, click <span class="MenuCascade" id="GUID-E0CC6437-55B9-463E-83D3-0204AF4947FC">Copy from Scene</span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CD382D8D-DB97-45E5-989E-C30113728FEA"></a></span>Likewise, you can copy the values that you set for the <span class="MenuCascade" id="GUID-0A936412-C5E3-468F-A2C8-9B8C7512FD4A">Start</span> and <span class="MenuCascade" id="GUID-DC42B5AC-FAFD-4D86-9041-1F200F5AC4BA">End Frame</span> here to the scene's timeline by clicking <span class="MenuCascade" id="GUID-E1AB076C-6FE5-46FC-8BD6-04FCB2875F06">Copy to Scene</span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0F04222C-7E7C-42FC-B302-3628DAA20CC2"></a></span>Apply natural forces as described in <span class="char_link"><a href="cloth_SettingUpForcesforCloth.htm">Setting Up Forces for Cloth</a></span>. If the cloth object is not already animated, you need to apply a force (gravity,
+                     wind, fan, or eddy) to it to make it move. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-415C0C9D-2957-4986-9709-0E161B06D8B0"></a></span>Set up the cloth object to collide with obstacles or with itself, as described in
+                     <span class="char_link"><a href="cloth_SettingUpClothCollisions.htm">Setting Up Cloth Collisions</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-491F984D-27C7-4C61-B485-BF1396654AE8"></a></span>If you have applied cloth to a cluster, you must select the object on which the cluster
+                     exists to create the collision — collisions with obstacles can be only with objects,
+                     not clusters. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_925E53E714384302BE667E08076F0939"></a></span><div class="figure-anchor"><img src="../images/GUID-CEDE35BD-B112-4010-B8A7-749086C61560-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-672234AE-CED6-4C4B-93A0-331882951767"></a></span>To play the cloth simulation, see <span class="char_link"><a href="cloth_PlayingtheClothSimulation.htm">Playing the Cloth Simulation</a></span>. 
+                  </p> 
+               </li>
+            </ol>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-001A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D37F2A2F-C713-46AA-88F3-CEBDDA697296"></a></span>Changing the Speed of the Simulation
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-BC68F8AB-A0CD-4A25-834A-323368499E70"></a></span>You can change the overall speed of the cloth simulation by changing the <span class="MenuCascade" id="GUID-D44A3B25-D470-4300-98EC-62A6A9DFF0DA">Time Warp</span> value. This defines a scaling factor for the dynamic of the cloth simulation. For
+                  example, to make the cloth simulation take twice as long, enter a value of 2; to make
+                  it half as long, enter 0.5. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BE2D37E2-7BF2-4034-9993-FFAFE7279517"></a></span>Changing this value changes the cloth dynamics but it doesn't change the obstacle
+                  dynamics. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-001B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-273202D4-E5F6-4E5E-9241-9514E7E4A5F2"></a></span>Setting the Precision of the Cloth Simulation
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-001C"></a></span> To set the precision of the cloth simulation, set the value for <span class="MenuCascade" id="GUID-4494F65D-3ABE-48BE-834B-E22E0355C6E0">Iterations Per Frames</span>. Values higher than 1 create a more precise simulation but take longer to calculate.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C9C4FA50-79D6-49D4-8936-1AED0BEB644A"></a></span>To optimize cloth performance, you should keep the <span class="MenuCascade" id="GUID-7A20C619-EF65-45F2-BA60-FF21889B3779">Iterations per Frame</span> value as low as possible while preserving the look you want (this requires some tweaking).
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CB844B90-A8A0-4EB2-A231-6790BBD6C916"></a></span>Try out a scenario from your scene with only one or two objects being simulated, and
+                  start with low interframe iterations, and bring it up until you get the realistic
+                  simulation look you want. In some cases, you can get away with low settings like 2.
+                  This is highly dependent on the properties you've set, like mass and friction. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1419C8AA-E6E8-47E0-B208-4DC29B1111C2"></a></span>If the cloth seems to have artifacts, raise the value and play the simulation again.
+                  Also, when the simulator cannot find a solution at a certain frame, a message appears
+                  prompting you to modify the settings and play the simulation again. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-001D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5A7421A3-2E46-4D10-8DB2-7B42CEF3FB66"></a></span>Naming the Cloth
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E57F14CC-5131-4C2E-939E-FA58AF527C3F"></a></span>Defines the name of the cloth property associated with the object. To make it easier
+                  to tell apart different cloth objects at a glance, you can rename them, such as Silk_cloth
+                  and Satin_cloth. <span class="anchor_wrapper"><a name="UL_BAE1CD03BC724BEA8EBCA9949835ED8F"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-284C66D6-3F61-49D9-B88A-080EF8D36C11"></a></span>Enter a descriptive name in the <span class="MenuCascade" id="GUID-6F0EAC77-0B96-413A-BEE1-9303B22D8E94">Name</span> text box in the cloth object's Cloth property editor. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C90AA20B-E113-44FA-B2AE-05892AFC596E"></a></span>If you modify the name of the cloth object after this point, the Cloth property is
+                           not renamed. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-001F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DE11C88B-4EB4-4F3D-B7C4-51C18D2EF685"></a></span>Caching or Plotting the Cloth Simulation
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-B4286778-EA54-4F83-804E-F4BFF3069827"></a></span>You can cache or plot a cloth simulation by selecting a cloth object and choosing
+                  either of these commands from the Animate toolbar: 
+               </p> <span class="anchor_wrapper"><a name="UL_78594796C71F440786E7DE7A32B170B8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-11BC39E1-3A8A-4FAC-900B-14D714B41E9B"></a></span>Choose <span class="MenuCascade" id="GUID-ACB32212-F463-4D7C-93FE-C9062C2C23FF">Tools <img src="../images/ac.menuaro.gif"> Plot <img src="../images/ac.menuaro.gif"> Cache Manager</span> to create a point cache file — see <span class="char_link"><a href="sim_cache_PlottingSimulationorAnimationDataintoCacheFiles.htm">Writing Cache Files</a></span> [<span class="char_link"><a href="">
+                              NO LABEL
+                              </a></span>] for more information. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E6709D1C-1B8E-4A35-B9DE-FFB446AE91BB"></a></span> <em class="mild">or</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FDC69545-A349-4DD8-AA8C-B99FD715DE42"></a></span>Choose <span class="MenuCascade" id="GUID-20E4B2FF-749C-48CA-9DC3-04BA0C31CFA5">Tools <img src="../images/ac.menuaro.gif"> Plot <img src="../images/ac.menuaro.gif"> Shape</span> to create a shape source — see <span class="char_link"><a href="shape_anim_SharingShapeAnimationbetweenObjectsModelsandScenes.htm">Sharing Shape Animation between Objects, Models, and Scenes</a></span> [<span class="char_link"><a href="shape_cover.htm">Shape Animation</a></span>] for more information. Make sure to remove the ClothOp operator after the plotting
+                        is finished. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0020"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4ADB5C35-6699-42B3-8CF6-D93C6BD961A5"></a></span>Muting the Cloth Simulation
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-94F19D7D-A6F0-45E6-8424-80F037C2DE7C"></a></span>You can temporarily disable the cloth simulation by muting the cloth operator. When
+                  you do this, the cloth object returns to its original undeformed position. This is
+                  useful if you want to temporarily change frames without running the simulation, such
+                  as for inserting keyframes. <span class="anchor_wrapper"><a name="UL_6036ACEF96644F75AB90DE66C9E20F22"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-75C2E1DC-B37C-4BAA-BA81-D170C30BE529"></a></span>To mute the cloth operator, select the <span class="MenuCascade" id="GUID-C20AA7D9-3598-4509-AC9B-F772E3827372">Mute</span> option in the ClothOp property editor. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0022"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AA3B0DCE-43E3-40D3-89EA-B3E41DC47036"></a></span>Removing the Cloth Simulation
+               </h2>  <span class="anchor_wrapper"><a name="GUID-A7439790-B776-4537-A7FA-AB62D9645501"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-85B6521B-33EA-47FD-8B93-DFDDF04A8279"></a></span>Select the ClothOp operator beneath the cloth object in the explorer, such as the
+                        grid shown on the left. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-93E83634-98A9-4BED-817F-226BC5755768"></a></span>Press Delete or right-click and choose <span class="MenuCascade" id="GUID-D290846B-F0A5-4F9D-BD22-0719FB058A62">Delete</span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-068F3378-692C-40A6-800B-D4308DF43AB2"></a></span>The calculated animation is also removed. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_628FC614870B463182FB26A42E7DD5DA"></a></span><div class="figure-anchor"><img src="../images/GUID-DF0ADBBA-FADE-4716-A732-346F5B6BADE9-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-E48EFD74-9B9D-40F4-93FE-4204FD4BD000">
+      <meta name="indexterm" content="deformations: smooth">
+      <meta name="indexterm" content="deformations: relax">
+      <meta name="indexterm" content="smoothing: geometric components">
+      <meta name="indexterm" content="relaxing: geometric components">
+      <meta name="indexterm" content="aligning: geometric components">
+      <meta name="indexterm" content="filters, custom: for smoothing geometry">
+      <meta name="indexterm" content="custom filters: for smoothing geometry">
+      <meta name="topic-type" content="concept">
+      <title>Smoothing and Relaxing</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-E48EFD74-9B9D-40F4-93FE-4204FD4BD000"></a></span><div class="head">
+            <h1>Smoothing and Relaxing</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-40CF92C3-491E-466B-924C-1591C3321902"></a></span>The Smooth operator is a general purpose deformation that removes spikiness and other
+               high-frequency detail. This is very useful in many situations, for example: 
+            </p><span class="anchor_wrapper"><a name="UL_E851BFF51762424EBDA7CFCE9588A596"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CF8BD55C-56A1-46DA-A32C-8A42961D5E90"></a></span>Smoothing out discontinuities in the general shape of an organic object after you
+                     have tweaked it by manually moving points. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C4966B9B-2AFE-4B2B-AD48-AF628655E009"></a></span>Rounding out seams where polygons were extruded, or between parts that were modeled
+                     separately and then merged into a single object. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3EF92407-5E91-4193-9260-B93F3375958C"></a></span>Straightening edge loops or aligning quads so that objects deform and shade better.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DC717A2A-5443-48D3-B84E-20DAFEE23BF3"></a></span>Flattening terrain around buildings and roads. 
+                  </p> 
+               </li>
+            </ul><span class="anchor_wrapper"><a name="FIG_F5E1E8792941480098D3B7102E993066"></a></span><div class="figure-anchor"><img src="../images/GUID-AA822669-DF30-4E46-86D5-036A4E5B292C-low.png"></div><span class="anchor_wrapper"><a name="FIG_9A74DDB2A65640F68A570793C749CBD6"></a></span><div class="figure-anchor"><img src="../images/GUID-AA71F697-E61A-4ACC-BC9C-459C1BFF6C37-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-B10162D5-5BB1-450C-BBC7-50B12F8447CA"></a></span>There are two commands that apply different presets of the Smooth operator: <span class="MenuCascade" id="GUID-47B967E9-CD4E-40B5-A7BF-6605379148B5">Smooth</span> affects the entire shape while <span class="MenuCascade" id="GUID-14D93F71-2C87-4914-8AF9-154004757EA5">Relax</span> aligns components along the surface. In either case, you can adjust the effect further
+               by modifying parameters as described in the sections that follow. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D2841EB7-28C7-46F4-8FC0-5F81F252C4AC"></a></span>Smooth works by averaging the positions of points. As a result, quads tend to become
+               squarer, triangles tend to become more equilateral, and edge loops tend to become
+               straighter. However, you can define a custom filter with different characteristics
+               as described in <span class="char_link"><a href="deforms_SmoothingandRelaxing.htm#WS3CD0299C9A553C42AA0D9499D69A994D-006A">Smoothing with Custom Filters</a></span>. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-670AAB59-7C8A-4D4B-B1B4-5B0E6522F88C"></a></span>As an alternative to using the Smooth operator, you can use the ICE-based Smooth deformation
+               — see <span class="char_link"><a href="idef_deforms_ApplyingPredefinedICEDeformations.htm#WS5BEF7ED4F5DCEA44ABA9080671F0A970-0019">Smooth</a></span>. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0054"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9411A641-20E5-43C6-BD19-C9B308CB9C54"></a></span>Applying Smooth and Relax
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0055"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BD9EFBEE-CABF-4BD6-9124-E9C056847296"></a></span>To apply smooth and relax
+                  </h3> <span class="anchor_wrapper"><a name="GUID-E88ED559-1008-4671-A1B6-9D0FF4C11F09"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D8A1AB42-1495-47DB-8E40-596EE4FAB42C"></a></span>Select the elements to be smoothed: points, edges, polygons, clusters, objects, branches,
+                           groups, or models. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D9F8F1C6-5485-4DF0-82D6-ADED4EB10B4E"></a></span>Smoothing works with any geometry type: polygon meshes, NURBS surfaces, NURBS curves,
+                           lattices, hair, and particles. However, note that: 
+                        </p> <span class="anchor_wrapper"><a name="UL_07B97A90CDCE4BDDB96614EEECE0575A"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9FBD6CEB-B9F0-4003-9744-F517255279D8"></a></span>With particles, you must define a custom filter with a <span class="MenuCascade" id="GUID-B4781B9F-EF7C-4680-BEE1-D737C7713C5A">Distance type of Spatial (ignore neighborhood)</span>. For more information, see <span class="char_link"><a href="deforms_SmoothingandRelaxing.htm#WS3CD0299C9A553C42AA0D9499D69A994D-006A">Smoothing with Custom Filters</a></span>. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DA8246C9-14BD-464B-86AC-1609D3927C28"></a></span>With NURBS surfaces, closed boundaries are treated as if they were connected. However,
+                                 boundaries between subsurfaces in assembled surface meshes are not considered connected.
+                                 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9F52EF1A-55F2-4132-8947-3078B90FC5B5"></a></span>Choose one of the following commands from the Model, Animate, or Simulate toolbars:
+                           
+                        </p> <span class="anchor_wrapper"><a name="UL_D424B38DD4A14AEF8A55452DFCA74260"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E04FC253-120A-4CF6-B4C1-CBD703A9C844"></a></span> <span class="MenuCascade" id="GUID-915A3969-7B4E-4F70-8F43-B4884231606B">Modify <img src="../images/ac.menuaro.gif"> Deform <img src="../images/ac.menuaro.gif"> Smooth</span>. This preset is a good starting point if you want to smooth the overall shape. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-F5C10903-4F6D-4988-A445-E97B029F6323"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-78ACF906-2C48-44A1-9115-AC9D63AE605C"></a></span> <span class="MenuCascade" id="GUID-DB803897-2138-4DB8-BFA4-E75E25759D63">Modify <img src="../images/ac.menuaro.gif"> Deform <img src="../images/ac.menuaro.gif"> Relax</span>. This preset is a good starting point if you want to align components without affecting
+                                 the silhouette as much. 
+                              </p> 
+                           </li>
+                        </ul> 
+                        <p><span class="anchor_wrapper"><a name="GUID-85309108-E5F2-40E6-A13E-E7348D75EB6D"></a></span>The <span class="char_link"><a href="property8060.htm">Smooth Property Editor</a></span> opens. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-128A6A76-B0B4-4478-A9FD-F5B02118BC23"></a></span>Adjust the parameters as described in the sections that follow. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-8769E443-636C-447D-B573-2C06B0FA0B58"></a></span><div class="note-tip"><span class="label">TIP:</span>Denser areas smooth more slowly than lighter areas. In some situations, this can create
+                              protrusions when you smooth an object. If your object has a highly variable density,
+                              try using a custom filter with a <span class="MenuCascade" id="GUID-1DF4AF1C-4F2C-40A0-A15E-1F4DDB0D8414">Distance type of Edge Path Length</span>. For more information, see <span class="char_link"><a href="deforms_SmoothingandRelaxing.htm#WS3CD0299C9A553C42AA0D9499D69A994D-006A">Smoothing with Custom Filters</a></span>. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0056"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4C44C6E0-09E0-48E2-9039-491033804A5D"></a></span>Controlling the Amount of Smoothing
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-21AA674F-A669-47C8-ABEA-B6DC0557C269"></a></span>You can set the strength of the smoothing effect directly, as well as extrapolate
+                  the displacement of points, as described next. In addition, you can control the strength
+                  near unsmoothed areas using a falloff (see <span class="char_link"><a href="deforms_SmoothingandRelaxing.htm#WS3CD0299C9A553C42AA0D9499D69A994D-005C">Creating a Falloff Between Smoothed and Unsmoothed Areas</a></span>) and set a minimal displacement (see <span class="char_link"><a href="deforms_SmoothingandRelaxing.htm#WS3CD0299C9A553C42AA0D9499D69A994D-0068">Setting a Minimal Displacement</a></span>). 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0057"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9E599921-EAAE-4474-A986-627F487A05BD"></a></span>Controlling the Strength Directly
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-98F55E0B-3C59-4E56-B854-879CB4D58943"></a></span> <span class="MenuCascade" id="GUID-F9983854-6DB5-4559-AFE3-8114AC18909B">Strength</span> on the General tab of the Smooth property editor controls the amount of smoothing.
+                     It represents the number of iterations that each point's position is averaged with
+                     its neighbors' positions. Decimal values interpolate between whole iterations. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DDB8A991-B960-4122-8269-069D38849AE9"></a></span>You can also use a parameter map by right-clicking on the connection icon. For example,
+                     you can use a weight map and paint weights to differentiate between areas where you
+                     want more or less smoothing to occur. For more information about using parameter maps
+                     to control values in general, see <span class="char_link"><a href="scel_parametermaps.htm">Parameter Maps</a></span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0058"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-59295F4D-0190-4F82-B50A-BAE3A7CBA522"></a></span>Extrapolating the Displacement
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7955D771-11B1-4967-95F6-81A42A31107C"></a></span> <span class="MenuCascade" id="GUID-8CF4D1AB-6198-4A8F-8535-C12087FAB662">Extrapolation</span> on the Advanced Settings tab of the Smooth property editor exaggerates the displacement
+                     of each point. Positive values move the points in the same direction as the smoothing,
+                     and negative values move points in the opposite direction. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-704E1D3E-B9DB-434C-AE57-D9DA74101522"></a></span>While you can achieve some interesting effects with this parameter, it is particularly
+                     valuable as a diagnostic tool: you can temporarily adjust it to see what areas are
+                     being most affected by smoothing, and then set it back to 0. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0059"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7D3323DE-464F-4305-9778-3F728C8450D3"></a></span>Preserving Features While Smoothing
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-47830D31-4F57-4905-80F8-58FF11EF3A4E"></a></span>You can protect vertices that meet specific criteria from being smoothed. You can
+                  also control whether unselected vertices are considered when calculating average positions,
+                  as well as create a falloff between unsmoothed and smoothed areas. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-005A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B253C46A-6023-4046-8573-B2E517DE2124"></a></span>Protecting Vertices that Meet Specific Criteria
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-807773D6-137E-4653-ABA4-EF0B9C09376A"></a></span>The options under <span class="MenuCascade" id="GUID-A0D42B4B-9C91-4A9D-9190-8DACF9583E0E">Feature Preservation</span> on the General tab of the Smooth property editor protect vertices that meet the corresponding
+                     criteria: 
+                  </p> <span class="anchor_wrapper"><a name="UL_1AA463C9A3B34B1589F3DEE08F78E26C"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1D5DEBEA-9EA3-4901-A57F-32DE0309D17C"></a></span> <span class="MenuCascade" id="GUID-2B1F9989-FB9F-4C32-9475-31135329C260">Boundary vertices</span> prevents points on boundary edges from being smoothed. Because boundary edges have
+                           neighbors on only one side, they are often pulled strongly in that direction when
+                           positions are averaged. This option prevents things like mouths and eyes from becoming
+                           distorted by smoothing. It can also help when smoothing assembled surface meshes,
+                           because the boundaries of the subsurfaces are not considered connected. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6BEB8F4E-E8C0-4200-B3E0-F606E52EBCE8"></a></span> <span class="MenuCascade" id="GUID-01351E41-9758-4322-B0E8-EC10CDE6C290">Hard edges/vertices</span> prevents points and edges that have been marked as hard (using <span class="MenuCascade" id="GUID-8853796A-712E-48F4-BDBB-1FA2ADDC2C63">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Mark Hard Edge</span>/<span class="MenuCascade" id="GUID-337CF3FF-E940-4563-BD85-1961B1FB4A2E">Vertex</span>) from being smoothed. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-25625D48-F2C2-4EC7-B0B7-C133B90AA7C6"></a></span> <span class="MenuCascade" id="GUID-6C2CEF9B-4690-47AB-A54E-643CC875F919">Crease edges/vertices</span> prevents points and edges with crease values set (using <span class="MenuCascade" id="GUID-5DAFDC9B-C160-490D-BE9B-83CE8952EA56">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set Edge</span>/<span class="MenuCascade" id="GUID-AF1DF2EC-7120-4BCC-AD5A-C6F1DA3EC80D">Vertex Crease Value</span>) from being smoothed. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F9CC0237-1F73-4AA7-BFA9-DFCCE190E792"></a></span>When any of these options are on, you can create a falloff from the protected vertices
+                     as described in <span class="char_link"><a href="deforms_SmoothingandRelaxing.htm#WS3CD0299C9A553C42AA0D9499D69A994D-005C">Creating a Falloff Between Smoothed and Unsmoothed Areas</a></span> below. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-005B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D64E709E-DEB1-4D67-B800-F5A0C8D49875"></a></span>Controlling Whether Unselected Vertices Are Considered
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0253CF1E-AB9F-41C9-9683-31C05D621DE5"></a></span>When you smooth a selected portion of an object, <span class="MenuCascade" id="GUID-2096AD0D-238F-45F9-A99C-6D6CD3630348">Consider unselected vertices</span> on the General tab of the Smooth property editor controls whether the vertices in
+                     the unselected (unsmoothed) area are considered when average positions are calculated.
+                     
+                  </p> <span class="anchor_wrapper"><a name="UL_A606F017241F40CB98F93C71D1BAE961"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0B7A5874-29B8-47BE-82D0-4C62E7EC37A4"></a></span>When this option is on, all of a point's neighbors are considered when the average
+                           position is calculated. This allows for a transition at the borders of the smoothed
+                           region. You can refine this transition further by creating a falloff as described
+                           in the next section, <span class="char_link"><a href="deforms_SmoothingandRelaxing.htm#WS3CD0299C9A553C42AA0D9499D69A994D-005C">Creating a Falloff Between Smoothed and Unsmoothed Areas</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-63C01CD8-1E28-4AAB-9CFC-3E98F3035B1B"></a></span>When this option is off, only other selected vertices are considered when calculating
+                           average positions. As a result, the selected area is smoothed as if it was disconnected
+                           from the rest of the geometry. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-005C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-69267CC4-D585-4A43-AF53-991CB52FC5F6"></a></span>Creating a Falloff Between Smoothed and Unsmoothed Areas
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-82978ABD-14AF-4E35-A50B-046F081FABD0"></a></span>If you applied the smooth operator to specific components or clusters, the options
+                     under <span class="MenuCascade" id="GUID-4F876744-DE53-40DD-A112-DEBB08DB2ED2">Falloff</span> on the General tab of the Smooth property editor allow you to create a gradual transition
+                     between the smoothed and unsmoothed areas. 
+                  </p> <span class="anchor_wrapper"><a name="UL_A4B47DC4B8DD4AEE8B9E9C89DA1CE87C"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-482D32EE-F6D5-405C-A012-C9D977B130D7"></a></span> <span class="MenuCascade" id="GUID-2E8A18FE-EEF0-4DC2-AF99-A58681C47BF8">Radius</span> represents how far the falloff area extends into the smoothed region from its borders.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9A98F560-EDA1-4614-80AF-2621866B6FD7"></a></span>By default, values are in terms of the neighborhood, where 1 represents points that
+                           are immediately adjacent to the border of the unsmoothed area, 2 represents points
+                           that are one point away from the border, and so on. Values between whole numbers are
+                           interpolated. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EDDBE870-56A2-435D-B964-8C71B0A42080"></a></span>If you are using a custom filter, values are in terms of the distance type you set.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CFCC3FB1-A1A6-4A06-96C0-ED2890E485D1"></a></span> <span class="MenuCascade" id="GUID-D8C01553-3042-4E17-842E-79A369E8C4C9">Sharpness</span> controls the shape of the transition in the falloff region. Low values produce an
+                           abrupt transition at the beginning of the falloff region (near the unsmoothed areas)
+                           and high values produce an abrupt transition near the end of the falloff region. Moderate
+                           values produce a smooth transition spread out over the whole falloff region. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-09B240C9-56FF-49D6-AF73-17C8833F923B"></a></span>Adjust both sliders to achieve the desired falloff profile. If either slider is 0,
+                     there is no falloff at all. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9FB83C31-07F3-413B-A28C-4FB44EC0AAAC"></a></span>The falloff options are unavailable unless at least one of the options above them
+                     (<span class="MenuCascade" id="GUID-1DE585FD-CDE7-4CB7-9659-D0B1279ADB4B">Boundary vertices, Hard edges/vertices, Crease edges/vertices</span>, or <span class="MenuCascade" id="GUID-9BDEEE7F-AAA2-4503-A480-0F3B2A9175CD">Consider unselected points</span>) is active. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-005D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1699B858-D3E4-4DEE-913A-BE0215425763"></a></span>Aligning Components, or Preserving the Shape While Smoothing
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CCBAE131-E0F4-4D83-BCCD-B08A91A693A9"></a></span>Because smoothing works by averaging the positions of vertices, objects tend to shrink.
+                  There are a couple of ways to minimize the shrinkage. Both of these methods tend to
+                  align components along the surface rather than smooth sharp details. 
+               </p> <span class="anchor_wrapper"><a name="UL_262A3E501A6D407285374AC1E6F84AD4"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-16663634-504D-4C8C-8C80-440FEE55FE77"></a></span> <span class="MenuCascade" id="GUID-29A9C135-A27D-4EE4-B908-817C45BDDF9A">Reproject</span> on the Advanced Settings tab of the Smooth property editor projects each point back
+                        onto the surface of the unsmoothed geometry. As a result, the components become aligned
+                        in surface space but the object does not shrink as much. However, the reprojection
+                        may miss some spiky details, so the object's shape may still be smoothed down somewhat
+                        even when this option is on. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A091150A-8328-4517-A52F-7300F07085E4"></a></span>Setting <span class="MenuCascade" id="GUID-A7AD74E7-8F86-4FEA-8942-7417D1006C04">Restrict to normal direction</span> to <span class="MenuCascade" id="GUID-E632A978-5769-4AA6-901D-CAC95A5B0664">Perpendicular</span> on the Advanced Settings tab of the Smooth property editor prevents each point from
+                        being displaced along its normal (local Y) and restricts the movement to its local
+                        X and Z. This option is better than <span class="MenuCascade" id="GUID-B2DD2BD2-97E7-410F-93B3-C46E858FEC31">Reproject</span> at keeping sharp details, but is less good at aligning components in surface space.
+                        
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-005E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-38FE5E53-1E47-45B5-877B-4887A40C4C6E"></a></span>Restricting the Smoothing Effect
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CEB2BB39-E38E-41D7-BF11-F10986DB7DB3"></a></span>Several options on the Advanced Settings tab of the Smooth property editor allow you
+                  to restrict the smoothing effect. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-005F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B496694D-5E0C-4A64-B1ED-05F320897D0A"></a></span>Restricting the Effect by Curvature
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A4219836-8A83-4EC3-8BB2-E3BC6CE5DFF1"></a></span> <span class="MenuCascade" id="GUID-6DAF7950-FBF0-4A9C-B26B-184CE7FE225A">Restrict to curvature type</span> on the Advanced Settings tab of the Smooth property editor lets you restrict the
+                     smoothing effect based on the local curvature: concave or convex, as determined by
+                     the geometric normals (user-defined normals are not considered). 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_ADF8FEE1D6904811B64A90D5D5D07B21"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-78FEB71D-483F-45D8-9FD1-4BFC1B49D76D-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-0AFCDBCA-D70C-4D59-B612-C9EE5AC619AC-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-0343AF48-EB89-49FB-AA50-0C94D4C9F2BD-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-E5F1815D-05F4-4B50-B087-CB5603FFF92A-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-69EEA2FE-D91D-47C7-BA8E-6A557AB3257F"></a></span><p class="table-body">Original unsmoothed geometry. </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1FFBAF5F-0A10-4F9E-8464-28EA27049741"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0944553D-A4D7-4A2C-8167-4D9128D4E9E4">Restrict to curvature type</span> set to <span class="MenuCascade" id="GUID-E7F6D9EB-4A77-4DB4-99B7-7C6CDB359970">None</span> smooths the entire geometry. 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-354B3410-B908-40FF-A53D-BB27CEB5FDDE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F75075BF-E100-4F17-9ADA-819E0F6FCBDC">Restrict to curvature type</span> set to <span class="MenuCascade" id="GUID-4486168D-DF23-4FC6-8982-1DD7D95A7B87">Concave</span> smooths concavities only. 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-35F305DE-0780-4E67-97D7-BE6F5DB81E63"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F0FBB995-D090-4F82-B29C-A90643A4AA76">Restrict to curvature type</span> set to <span class="MenuCascade" id="GUID-971CE8B1-11A9-4733-9A31-FDC709F44D84">Convex</span> smooths convexities only. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-31CB6188-DA06-4889-AC5D-84372CC7C7F9"></a></span>For example, you can smooth concavities to eliminate pinching that may occur in elbows
+                     and other regions: 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_2AA1A275639E454D8E17DA43F7E75660"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-DD7DEB39-E31A-4081-A5A9-E4A1D5C7F5F8-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-00EEE07B-2B61-4D80-BF58-F18F67EE1158-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-9808EE81-F3A6-412E-B288-4A36281BCDDB-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-560AB038-EA4A-49DF-8D90-3CB5B13D61F1"></a></span><p class="table-body">Unsmoothed arm shows pinching in the elbow. </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E402C29D-E8A2-4BA1-8FFE-F429C13E3D08"></a></span><p class="table-body">Smoothing selected vertices in the elbow area with no restrictions on curvature produces
+                                 an undesirable effect. 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3CD229B4-B192-40A6-996E-EDE0504F17F2"></a></span><p class="table-body">Restricting the smoothing effect to <span class="MenuCascade" id="GUID-2FC9D0AB-22C5-4789-9B57-74252E954689">Concave</span> produces a much better result. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0067"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9B56D6B0-1216-48EF-9BD6-B2EE396563E5"></a></span>Restricting According to Normals
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-572F1C0C-546C-4C60-81AB-56EBFF247F02"></a></span> <span class="MenuCascade" id="GUID-82DAF66C-9A97-47DA-BE6E-096343B9E836">Restrict to normal direction</span> on the Advanced Settings tab of the Smooth property editor controls the direction
+                     in which points are displaced: 
+                  </p> <span class="anchor_wrapper"><a name="UL_F34020987E334B80849AD4A6E85B723E"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6E9B7E5B-FC3F-4F72-B4D6-92FDEA0431F5"></a></span> <span class="MenuCascade" id="GUID-4A0ED964-3426-48B3-B9EB-224401774CEA">None</span> allows points to be displaced in any direction without restriction. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F310E02B-B162-4DC3-9250-2A0B47446318"></a></span> <span class="MenuCascade" id="GUID-97F855F3-9EAF-4986-BD2A-10B5B32C932C">Parallel</span> allows points to move only in the direction of their normals (local Y axis). This
+                           can be useful, for example, if you want to smooth the height of terrain without affecting
+                           the alignment of the map grid or roads. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7F2F5AA0-F684-417F-98C7-F8BC97FDF66A"></a></span> <span class="MenuCascade" id="GUID-4D5E6ACF-FBB2-4756-8D98-F125B5263811">Perpendicular</span> allows points to move only in the direction of their local X and Z axes. This can
+                           be useful for aligning components along the surface without smoothing protuberances
+                           and indentations. See <span class="char_link"><a href="deforms_SmoothingandRelaxing.htm#WS3CD0299C9A553C42AA0D9499D69A994D-005D">Aligning Components, or Preserving the Shape While Smoothing</a></span>. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0068"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-41DF28A2-FE00-45DC-95F0-530049B917B7"></a></span>Setting a Minimal Displacement
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1E79B19B-6AC2-4B43-A262-5F8DC28AD51D"></a></span> <span class="MenuCascade" id="GUID-AC565353-CA01-40A5-8668-57D8622C4C87">Minimum displacement</span> on the Advanced Settings tab of the Smooth property editor is a clamp that sets the
+                     minimum distance that a point will be moved. If the difference between a point's current
+                     position and the average position of its neighbors is less than this amount, the point
+                     is not moved. This allows you to smooth noisy areas of an object without affecting
+                     areas that are already smooth enough. Values are in Softimage units. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0069"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CF4B65F8-9BCF-40C3-BCEA-5E297F8ED2AA"></a></span>Specifying the Smooth Direction
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7D99CE2F-6DBC-4650-8CA2-43C65D049C05"></a></span>The <span class="MenuCascade" id="GUID-2F4BF973-B02F-4102-B692-B279EF130131">Restrict Direction</span> options allow you to specify a particular direction for the smoothing effect. Activate
+                     <span class="MenuCascade" id="GUID-EB19CDE5-FA3C-4617-8778-F83909DB0161">Enable</span>, and then specify a vector using <span class="MenuCascade" id="GUID-A3CEFD1E-288D-42E8-A4BB-2A72903CC0CE">X</span>, <span class="MenuCascade" id="GUID-CE9D1FFB-B904-4285-B6D8-96596AE55001">Y</span>, and <span class="MenuCascade" id="GUID-381BB409-9E94-4D33-B202-D1E0E65F96E0">Z</span>. The displacement is calculated according to the other options, and then projected
+                     onto the direction specified. The X, Y, and Z values are automatically normalized
+                     so the displacement is not scaled; use Extrapolation if you want to scale the displacement.
+                     
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-006A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-68F18B83-3EF1-4F07-A1B1-229CF22CEB2A"></a></span>Smoothing with Custom Filters
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-34BD1357-C0C3-4F40-BD10-AE11B12D3AB0"></a></span>The Custom Filter tab of the Smooth property editor allows you to specify a different
+                  algorithm than the default smoothing. With a custom filter, each point's position
+                  is still being averaged with the positions of nearby points. However, you can control:
+                  
+               </p> <span class="anchor_wrapper"><a name="UL_F10BF0BFAA7347EC81A10BD41CAC2D3E"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B75A7E6A-FB9A-4778-AE93-E766D1B17AF9"></a></span>The criterion, or distance type, used to measure the distance between points. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3CDA2074-D328-4B91-8AAA-C4D61FAD5262"></a></span>The maximum distance with respect to that criterion for a point to be considered "nearby".
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C68858F6-1D12-46F2-A866-88300FFABC2D"></a></span>A profile curve that weights the average over the distance used. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-1E1FD969-DFC0-4DE9-B14C-1AF91B551E1B"></a></span>All the other options on the General and Advanced Settings tabs of the Smooth property
+                  editor work in conjunction with custom filters. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-006B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-95C5815C-BF92-46A3-9588-851040FA4F03"></a></span>To use a custom filter for smoothing
+                  </h3> <span class="anchor_wrapper"><a name="GUID-D9582C0D-7E1F-46DD-8DA0-A6B933A35B88"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-51903245-7A7F-4C17-9B83-D26C70ED2CFA"></a></span>On the Custom Filter tab of the Smooth property editor, activate <span class="MenuCascade" id="GUID-77762CDC-27AE-4E89-9940-8EEA445A440D">Use custom filter</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-96AB2852-8688-4ABE-9DFF-3E29D4886D2E"></a></span>Set the other options as described in the sections that follow. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-006C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-30C1ED70-BA44-4084-A6F5-B67A42BFF7F7"></a></span>Setting the Distance Type, Distance, and Computation Limits
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-62D66C53-C15C-431E-92C3-1050DF0E55C9"></a></span> <span class="MenuCascade" id="GUID-1B1472D5-6993-4920-AFB6-A6EE7F43DF37">Distance type</span> on the Custom Filter tab of the Smooth property editor determines the criterion used
+                     to measure the distance between points, and Distance determines how far away "nearby"
+                     points can be. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8C9D0500-092E-4960-8552-8482F4B3FF49"></a></span>No matter which distance type you choose, large distance values can cause long computation
+                     times because the operator evaluates many nearby points. The <span class="MenuCascade" id="GUID-1E657974-EC04-4378-9A00-195368CC344F">Computation limit</span> options are a "safety valve" that prevent excessively long calculations that may
+                     occur if you set values that result in enormous numbers of points being considered
+                     "nearby" to each other. If the computation limit is too high, it may result in long
+                     computation times when Distance is also high, but if the computation limit is too
+                     low, it may prevent the Smooth operator from evaluating all nearby points. 
+                  </p> <span class="anchor_wrapper"><a name="UL_C7C5E8936F914DF28C425A4D371B1337"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F63C90DF-A28D-478B-BD26-A5221A67C433"></a></span> <span class="MenuCascade" id="GUID-5976AC37-5803-447F-9BC9-5386BA2D8D1A">A Distance type</span> of <span class="MenuCascade" id="GUID-7DAD2F33-57E3-4A83-B01C-2E5DADCC8482">Neighborhood</span> uses connectivity as a measure of distance. This is the same distance type used by
+                           the default smoothing algorithm, but the custom settings give you greater control
+                           over the distance and profile. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CADDE7B0-293E-48E9-B224-27988583B317"></a></span>The <span class="MenuCascade" id="GUID-BB0BC616-2E5F-4EEB-A8EB-99C82EF6DCB9">Distance</span> between two points is the least number of edges in any path between them. Thus, adjacent
+                           points have a distance of 1, points that are separated by two edges have a distance
+                           of 2, and so on. Even though points are always separated by a whole number of edges,
+                           you can still use decimal values for the distance; values between whole numbers are
+                           interpolated, so a distance of 1.5 yields a displacement halfway between the displacements
+                           achieved by distances of 1 and 2. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BA4A6097-94C2-4D3D-9085-E7BFF0DE2645"></a></span>A characteristic of this distance type is that edge lengths tend to become equal at
+                           high <span class="MenuCascade" id="GUID-5768CE61-AE63-444D-A8B9-9B7442BBB5AD">Strength</span> values. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A4EE462F-E5F6-43F4-9317-D9B379DC4C3E"></a></span> <span class="MenuCascade" id="GUID-76A727EC-0097-4134-BEFE-D8898FD102A6">A Distance type of Edge Path Length</span> uses the sum of the edge lengths in the shortest path between two points as the measure
+                           of distance. <span class="MenuCascade" id="GUID-EEE96606-571E-43A6-92C8-4C317B83383A">Distance</span> values are in Softimage units. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8DCAD23C-DA38-438C-9F20-0061E40E61DD"></a></span>A useful characteristic of this distance type is that the ratio of edge lengths is
+                           maintained, even at high <span class="MenuCascade" id="GUID-C8AE3745-6F5E-48EE-A8C0-245595663829">Strength</span> values. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B14BB78F-A6F4-483A-8570-A69A564E4A58"></a></span>Use <span class="MenuCascade" id="GUID-62C08515-3608-426E-B61A-251670847621">Max neighborhood depth</span> to prevent excessive calculations. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-71AFB568-4768-4135-ADEF-A77F93EAEA38"></a></span> <span class="MenuCascade" id="GUID-1C945D8D-A418-417F-BF2D-F2489C807FF3">A Distance type</span> of <span class="MenuCascade" id="GUID-4F5AD5D9-F0CD-4181-9B2C-38261D50AE22">Spatial</span> (<span class="MenuCascade" id="GUID-B766366F-8BD5-401D-B9F8-AC434C758EBB">consider neighborhood</span>) uses the distance between points in 3D space, as long as the points are connected
+                           by edge paths. <span class="MenuCascade" id="GUID-D428999F-9609-4CDC-80D9-00C3CD4F3355">Distance</span> values are in Softimage units. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-34805125-FB76-422B-AC8D-021792EC50DA"></a></span>Use <span class="MenuCascade" id="GUID-CADE2DB3-6A70-48EB-B58C-B1513D8B24FA">Max neighborhood depth</span> to prevent excessive calculations. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B74C03FB-5089-463B-9137-D8506B060BDB"></a></span> <span class="MenuCascade" id="GUID-38683D96-5320-4815-804E-9F52F882A2F8">A Distance type</span> of <span class="MenuCascade" id="GUID-AD6134C4-705F-4C14-9690-0CD82CD9D4CD">Spatial</span> (<span class="MenuCascade" id="GUID-0A08F26B-1737-4A04-9C29-CB942B6A8583">ignore neighborhood</span>) uses the distance between points in 3D space, whether or not the points are connected.
+                           The <span class="MenuCascade" id="GUID-3DAF5F71-CE0C-454E-AAE7-9ADBE72A172A">Distance</span> values are in Softimage units. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F83A20F8-3C32-4F0F-A96B-ABCC080F8F87"></a></span>This is the only distance type that can be used with particles, since the points in
+                           a particle cloud are not connected. This distance type is also useful for hair because
+                           only points on the same guide hair are connected. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-488BB5E4-5F46-44AA-A72E-8EE8213ADE7A"></a></span>Use <span class="MenuCascade" id="GUID-7557F4AD-B23B-46A6-8EBE-7553B7C75FFB">Max visited vertices</span> to prevent excessive calculations. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-006D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-03E10D90-DABA-47AB-964A-1FDA91C6980F"></a></span>Setting the Smooth Profile
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8A895017-4947-465F-B41D-A4CA8AAB5074"></a></span>The <span class="MenuCascade" id="GUID-B27EBC1A-A1E9-4C10-BFF6-4727031F2E27">Smooth profile</span> is a graph that controls how the positions of nearby points are weighted as a function
+                     of distance. The horizontal axis represents the distance of a nearby point, where
+                     100 is the maximum distance set by the Distance slider. The vertical axis represents
+                     how strongly points at the corresponding distance are weighted when calculating the
+                     average position. Positive values pull a point towards its neighbors, and negative
+                     values repel it. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-47958A25-ED42-47C7-838D-54369B61C795"></a></span>You can select the profile curve and edit it using the mouse and the same keyboard
+                     commands as the fcurve editor, or right-click to display a menu. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-42313E26-BFFC-47C6-ADF3-09CCFB595985"></a></span>For more information about editing curves in general, see <span class="char_link"><a href="ani_fcurves.htm">Editing Function Curves</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

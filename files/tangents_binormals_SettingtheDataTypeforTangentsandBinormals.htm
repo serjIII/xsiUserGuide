@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-8FA93D9A-8C89-4199-B2AD-58D4A40CF730">
+      <meta name="topic-type" content="concept">
+      <title>Setting the Data Type for Tangents and Binormals</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-8FA93D9A-8C89-4199-B2AD-58D4A40CF730"></a></span><div class="head">
+            <h1>Setting the Data Type for Tangents and Binormals</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-2BED8F01-34BB-45D3-ABA5-1B778C7B7A07"></a></span>When you create a Tangent or Binormal property from the <span class="MenuCascade" id="GUID-A1291881-3897-4E27-AD96-121E30517A34">Get <img src="../images/ac.menuaro.gif"> Property</span> menu, data is written as unclamped floating-point color values. This means that true
+               (unbiased) tangent and binormal data is being encoded in the color at vertices property.
+               However, you can change the data type to use a short integer to store the color values.
+               This is useful, for example, if your shader is expecting "shorts" and is already applying
+               an inverse-offset to reconstruct the tangents and binormals. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5C016917CC249840B12CD5FD1B55D72C-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ED8B0031-BB7B-4850-9322-C9E5F56E2F44"></a></span>To set the data type
+               </h2> <span class="anchor_wrapper"><a name="GUID-A630D019-D67A-4189-BEF2-649DC196BDF1"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3543A870-BD98-4167-8BB2-401606D0EAB3"></a></span>In an explorer, click the icon for the Tangents or Binormals CAV property to open
+                        its property editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BAF901BC-379F-4FD8-B3A9-1A05EAA0BE1C"></a></span>Click the <span class="MenuCascade" id="GUID-95924899-8C6F-4F8E-BBA9-767517B2EE26">Change</span> button next to the DataType parameter, and specify how tangents or binormals are
+                        to be written to the color at vertices property. You can choose <span class="MenuCascade" id="GUID-6EDAAF6D-3901-41E2-9BE7-CAF80A96EA58">Float (4 bytes)</span> or <span class="MenuCascade" id="GUID-7042C670-D895-43EB-A7DA-4E6755D0EF04">Short (2 bytes)</span>. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-2B09A74E-93A2-4AD7-BEE6-6A3CBDB1DE22"></a></span><div class="note-note"><span class="label">NOTE:</span> 
+                           <p><span class="anchor_wrapper"><a name="GUID-619B9C8F-BAE3-4FF0-86CB-B8E424126222"></a></span>Short (2 bytes) stores data in biased form. Colors values usually range from 0 to
+                              1, but normal, tangent, and binormal vectors range from -1 to 1. To solve this issue,
+                              when these vector values are written as a texture or stored in a CAV property, 1 is
+                              added to the values (to get them in the range 0 to 2) and then the values are divided
+                              by 2 (to get them in the range 0 to 1). 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-50251346-E856-4866-9B8C-522A8A171334"></a></span>Tangent (x), binormal (y) and normal (z) values are stored as: 
+                           </p> 
+                           <div class="codeBlock"><pre>
+(x+1)/2,(y+1)/2,(z+1)/2</pre></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2D9C2551-2382-43E9-9EE0-A956A97CE4C1"></a></span>Therefore, when you read out the pixel values, you will need to multiply them by 2
+                              (to get them back in the range 0 to 2) and then subtract 1 from them (to get them
+                              back in the range -1 to 1). 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-99D80DA6-AC9C-4724-B747-2724091B7B8A"></a></span>To get the original values, use: 
+                           </p> 
+                           <div class="codeBlock"><pre>
+r*2-1,g*2-1,b*2-1</pre></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B5369D6D-406B-4222-B582-5FAD9FFD8229"></a></span>Tangents and binormals stored as Float (4 bytes) are not biased and represent the
+                              value directly. 
+                           </p> 
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4E82B6C2-771F-41E5-B3A2-25FCCE8A3C3B"></a></span>A Vertex Color Change Datatype parameter is added to the property editor and it displays
+                        your new data type setting (DesiredDatatype). 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-21A1C604-40D8-48FC-8447-33A38A4175AF"></a></span><img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"> An operator of the same name is also added under the TangentOp3 operator in the Tangents
+                        or Binormals operator stack. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D23225E8-921D-4A47-BE8A-705C4DF6F271"></a></span>If you want to modify the data type again, do so directly in the <span class="MenuCascade" id="GUID-C1C837DA-A7AE-44D4-BAFB-B496BB795A7E">Vertex Color Change Datatype</span> parameter. Clicking the Change button again will add the modified value as another
+                        Vertex Color Change Datatype parameter in the property editor and also in the operator
+                        stack. The top-most operator in the stack holds the data type that will be used, but
+                        now the operator stack is storing unnecessary data that could reduce performance when
+                        tangents and binormals need to be recalculated. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_4C934D5AC871433FBA7919F158634E84"></a></span><div class="figure-anchor"><img src="../images/GUID-200AB2F8-527C-4DBA-93CC-3C439F1DE12E-low.png"></div> 
+                     <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-5C56E8FE-058A-41DC-BFC9-AEEEE839B2C7"></a></span><div class="note-note"><span class="label">NOTE:</span><img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"> For backward compatibility with realtime shaders used in existing scenes, a check
+                           is done for the data type being used in the color at vertices property on which TangentOp3
+                           operates. If the data type is using "shorts" then TangentOp3 will write biased values.
+                           However, if the color at vertices property is using "floats", then TangentOp3 will
+                           not bias the values. At any point you can set the Vertex Color Change Datatype parameter
+                           to get the behavior you need. 
+                        </div>
+                     </div> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

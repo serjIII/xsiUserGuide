@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-91801D53-88D8-4B97-971B-27EAFF0A3CF9">
+      <meta name="indexterm" content="rendering: scalability options for large scenes">
+      <meta name="indexterm" content="scenes: large, rendering">
+      <meta name="indexterm" content="rendering: large scenes, options for">
+      <meta name="topic-type" content="concept">
+      <title>Optimizing Large Scenes for Scalability</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-91801D53-88D8-4B97-971B-27EAFF0A3CF9"></a></span><div class="head">
+            <h1>Optimizing Large Scenes for Scalability</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-362BC9C6-F7D4-4C59-9DCC-5F67EE4A7E99"></a></span> <span class="MenuCascade" id="GUID-8D854032-5F68-4191-81E7-819D13B4F0C0">Location:</span> 
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DAC7220F-49BB-4820-901B-7A85B21581C6"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; mental ray (Global Renderer)
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-071159AB-5027-477B-B63C-883A07519516"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; (expand a pass) &gt; mental ray
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BAF3E594-18E3-416A-B780-960E7E65E0FE"></a></span>Set the current pass and choose Render &gt; Render &gt; Renderer Options from the Render
+                     toolbar.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-37C6C4AA-7186-4430-B753-B5169115D8E1"></a></span>Tab: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-004B">Render Type</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A784F940-B3BB-4FB7-BA81-EA61B6467EC1"></a></span>Options: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-004E">Memory Limit (mental ray)</a></span></p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-2C645256-FA32-4906-855D-7AB541D95497"></a></span>If you are having trouble getting a very large scene to render, there are a number
+               of parameters that you can adjust to increase scalability and ensure that mental ray
+               does not run out of memory.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-40D60946-F1F5-4FA0-9684-6DE7E0F57541"></a></span>The general approach to adjusting these parameters, is not to increase rendering speed,
+               but to ensure that extremely demanding scenes do in fact render. This is more art
+               than science, and you'll likely need to do a fair amount of tweaking to get a satisfactory
+               result.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3AD8CB3118B018428EECABE18AC72826-0016"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BD5F8C9C-1F10-4B26-9E63-13A80EC711F0"></a></span>To optimize a large scene for scalability
+               </h2> <span class="anchor_wrapper"><a name="GUID-46E0BB9E-C9FA-4BFA-AEBA-F74FE5098A21"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-439C5EEC-DCFE-4214-B235-1CF8D36D1BCD"></a></span>Reduce the <span class="MenuCascade" id="GUID-9D56A605-78B9-42CE-B9C9-4EB5C264D066">Mesh Splitting Factor</span> value. This breaks large objects into smaller pieces that mental ray can more easily
+                        load in memory. For more information about the mesh splitting factor, see <span class="char_link"><a href="renderoptions_mr_MeshSplitting.htm">Mesh Splitting</a></span>.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8C2437A6-9AC7-4FD9-B8A5-7EBFD5F0A461"></a></span>Change the <span class="MenuCascade" id="GUID-2A34EC30-6B23-41BF-B85B-A3035AE30929">Tile Order</span> to <span class="MenuCascade" id="GUID-371268B1-1C93-4080-9F64-44900E17182F">Hilbert</span>. Hilbert tiling order is more efficient than the Spiral tiling order, particularly
+                        in cases where a large mesh's triangle density is unevenly distributed.
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-68C846F6-8D26-40EF-A25A-34AF825F8947"></a></span><div class="note-note"><span class="label">NOTE:</span>Changing the tiling order does not have enough of an effect to get a problem scene
+                           to render, but if you've managed to get the scene to render, using other optimizations,
+                           changing the tiling order may help to marginally reduce render times.
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7F5B2F47-9D64-4085-B5B3-CD625C90FD4E"></a></span>Reduce the <span class="MenuCascade" id="GUID-A41D8C92-9149-4719-B1A5-ED77E30859B5">Tile Size</span>. A smaller tile size means that less of the scene needs to be loaded into memory
+                        to render a given tile. This is another optimization that won't make or break the
+                        render, but may help to slightly reduce render times.
+                     </p> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-52A53FC0-73CD-40C5-A653-08584652C8B1"></a></span>You can make all of the above changes simultaneously by clicking the <span class="MenuCascade" id="GUID-F7F0F0B4-4526-4B3E-87C1-6869FB521E73">Optimize</span> button in the <span class="MenuCascade" id="GUID-021B342D-DB7E-4FEE-BF77-DECBE8703765">For Heavy Scenes</span> section. This is often a good starting point, after which you can continue to tweak
+                  individual parameters until you can get the scene to render.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

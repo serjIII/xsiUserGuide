@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-08BB2251-A696-41F4-93FC-23845DD29A77">
+      <meta name="indexterm" content="toon shaders: trace depth">
+      <meta name="indexterm" content="toon shaders: reflection depth">
+      <meta name="indexterm" content="toon shaders: refraction depth">
+      <meta name="indexterm" content="raytracing depth: and toon trace depth">
+      <meta name="indexterm" content="toon shaders: trace depth and raytracing depth">
+      <meta name="indexterm" content="toon shaders: transparency, creating">
+      <meta name="indexterm" content="toon shaders: reflections, creating">
+      <meta name="indexterm" content="toon shaders: trace depth, tapering">
+      <meta name="indexterm" content="toon shaders: ink lines, tapering transmitted and reflected">
+      <meta name="topic-type" content="concept">
+      <title>Creating Transparency and Reflections</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-08BB2251-A696-41F4-93FC-23845DD29A77"></a></span><div class="head">
+            <h1>Creating Transparency and Reflections</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-437DAF33-4910-4FCD-AC20-113E7F8F027B"></a></span>Toon Host shaded objects can be both transparent and reflective. Rendering an object's
+               transparency and reflection properly depends on the object's transparency and reflection
+               properties, the Toon Ink Lens shader's trace depth, and the render pass or render
+               region's raytracing depth settings. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D9981E77-E1BF-4E6A-8F15-4F6033206601"></a></span>The former defines how transparent and/or reflective the object is, as well as how
+               surfaces and ink lines appear when seen though transparent objects or reflected in
+               reflective objects. The latter two specify how many levels of transparency and/or
+               reflection are calculated. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0068"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0B059E35-8739-43C1-B979-DF048D930FE7"></a></span>Setting the Trace Depth
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-05AD74E9-D08A-4673-A574-90AE6BEE7704"></a></span>The trace depth determines how many levels of contour detection are computed when
+                  rendering ink lines. For example, to render a transparent object's front and back-face
+                  ink lines requires a trace depth value of 2 (for two levels of contour detection).
+                  Rendering the front-face ink lines of an object behind that transparent object requires
+                  an additional level, and so on. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E31A5142-30A4-4DC1-90E8-7A193B678E52"></a></span>Keep in mind that increasing the trace depth can significantly increase render time.
+                  
+               </p> <span class="anchor_wrapper"><a name="UL_F049183EE9A344D6982EA1673022A928"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E028018B-4588-45EF-84A0-4B9B1E1BA755"></a></span>The trace depth value must be higher than 1 for transparency or reflection to be visible.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2D295C50-9B1E-4500-9958-E9A81D5EDDBC"></a></span>No matter how high you set Trace Depth, you won't get any more levels of reflection
+                        or transmission than are permitted by the Raytracing Depth settings that you set in
+                        the Render Options or View Render Options (render region) property editor. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6EFDC355-016C-440D-9D84-055141E58E53"></a></span>For example, you can have Trace Depth set higher than 1, but you won't get any reflected
+                        contours at all if your rendering properties' <span class="MenuCascade" id="GUID-E6C5D571-887D-400C-8322-2EF5D83E4315">Reflection</span> or <span class="MenuCascade" id="GUID-645C3E68-1C84-4FD0-8843-CBAAC28F9072">Maximum Ray Depth</span> are set to 0. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0069"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D0B61A67-1636-4B81-97A7-0F1DD7CA7B6F"></a></span>To set trace depth
+                  </h3> <span class="anchor_wrapper"><a name="GUID-A11E8F17-4C9D-4369-823E-75B4E18A5088"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A470DDDD-65E9-4880-A281-B294C63C7F55"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-7D897D30-3333-40D5-B480-4D6554D5AE6B">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-22A63379-63B0-4227-B91E-3938CEADF049"></a></span>On the <span class="MenuCascade" id="GUID-139BABFD-A785-4EBF-9966-53B70D19B911">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-DF8BD954-8A09-454A-A238-14470B1548ED">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-33DB1BD1-3808-4152-9344-CAB234687A7E"></a></span>From the property editor's Sampling tab, adjust the <span class="MenuCascade" id="GUID-0F5C1146-64F4-4AEA-9B94-CE0283BFB878">Trace Depth</span> value. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-006A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0E697910-F4ED-4440-AA38-A0606C756598"></a></span>Creating Transparency
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-BC43AFB9-4F86-46BB-9F6F-51F131CDE68F"></a></span>Controlling the transparency of toon-shaded objects is similar to controlling the
+                  transparency of objects with other types of surface shading. Transmission and refraction
+                  are calculated to a specified depth and objects behind the transparent objects show
+                  through with appropriate distortion. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0AA714DA-3B2A-4FCB-803B-8718104A1665"></a></span>However, the toon shaders allow you to control how object colors and ink lines appear
+                  when seen through transparent objects. 
+               </p> <span class="anchor_wrapper"><a name="FIG_990E1B9AE68A4E3789C4D787E1162BBB"></a></span><div class="figure-anchor"><img src="../images/GUID-DEE13E1B-6436-4E60-A06B-101816F64D2E-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-B95BFA2B-59F3-4A04-95D7-97F0BC3E5920"></a></span>Original rendered image. No transparency has been added. 
+               </p> <span class="anchor_wrapper"><a name="FIG_09AFE726987A41FFA045F50846183CB0"></a></span><div class="figure-anchor"><img src="../images/GUID-92BC9A0F-4A80-434C-ADA2-E895C006E336-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-387FFF15-B846-4D15-8B33-C0A43E2BA74D"></a></span>The objects' transparency RGB values are set to 0.5, 0.5, 0.5 in this image, making
+                  the objects semi-transparent. The objects' index of refraction is set to the default
+                  value of 1 so background surfaces are not distorted when seen through transparent
+                  foreground surfaces. 
+               </p> <span class="anchor_wrapper"><a name="FIG_2041B38808644A07BED58B02FD8E382C"></a></span><div class="figure-anchor"><img src="../images/GUID-2688AF9A-4FBC-4A2C-9F13-A3E7E0A59345-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-ED3AA4C8-4234-4C3A-8DB6-7004030A0079"></a></span>Setting the index of refraction to 1.1 creates some refractive distortion of the background
+                  surfaces wherever they are seen through the foreground surfaces. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-006E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-387C742D-90B5-47D6-8B64-3437E57E51C1"></a></span>To make a toon-shaded object transparent
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CB1C5118-79DD-4CDC-B25E-EB3CF187D00E"></a></span>Although the following procedure assumes that the object has a Toon Paint and Host
+                     material shader applied to it, the same controls exist in the Toon Host shader. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-BDC589AC-6724-401D-A345-1CC5E23E7EA2"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CA38E446-C562-4FE6-842C-FF08AFF978C0"></a></span>Select the toon-shaded object that you want to make transparent. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A4328D3C-EE8F-4301-A810-5B30C4A02975"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-C7DE3AFB-4D73-42BA-B18C-9B9749660455">Modify <img src="../images/ac.menuaro.gif"> Shader</span> to edit the object's Toon material shader. The Toon Paint and Host shader's property
+                           editor opens. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-72D16AC1-3A55-4306-A291-44B671B37F63"></a></span>From the Transparency tab, activate transparency. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-20CC752F-08C9-4416-BE9F-AFA1981EB9A4"></a></span>Set the following parameters, as necessary: 
+                        </p> <span class="anchor_wrapper"><a name="UL_1C0B410FA52E4674976D2765AF3AA161"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CFC341FB-D564-4220-893A-58433E21BE29"></a></span>Select one of the following methods for combining object surface colors with transmitted
+                                 colors (those seen through transparent objects). 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-586A5633-117A-4849-8F64-10433483EEE6"></a></span> <span class="MenuCascade" id="GUID-DAD63525-097B-4D22-B610-412A8CFB2714">Standard Blend:</span> Combines the surface color with the transmitted color by mixing the two colors according
+                                 to the degree of transparency. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-41EFDD90-EE23-4C3D-BE22-1722E531B3DF"></a></span> <span class="MenuCascade" id="GUID-7AEE4975-931E-472E-93B7-967DA807E946">Preserve Colors:</span> When selected, the transmitted color is composited onto the surface according to
+                                 the opacity of the occluded surface. This has the effect of leaving a surface color
+                                 unchanged where nothing is transmitted through it. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DE7567DC-F801-4923-8254-67A1D2AA170C"></a></span> <span class="MenuCascade" id="GUID-23B8EF29-C383-4671-B548-C5ACA84FCA02">Color:</span> Specifies the transparency of the red, green, and blue channels. This color modifies
+                                 transmitted colors, like a filter: if it is set to red, for example, objects seen
+                                 through the surface will be tinted red. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-02155F75-9595-4AB0-9DA2-87D6593CA171"></a></span> <span class="MenuCascade" id="GUID-E7BE161A-8185-4B64-BF94-7DE5AC8A106C">Index of Refraction:</span> Specifies the transparent object's index of refraction. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-F5E1BBCD-F4FC-4C11-B4AE-EBA32CD79239"></a></span> <span class="MenuCascade" id="GUID-C55097BC-18D9-426D-9715-57776286D57F">Detection Threshold:</span> Sets the threshold above which a surface is considered transparent (and below which
+                                 it's opaque) by comparing the greatest of the transparency RGB channels to the threshold.
+                                 The surface is considered to be transparent if it is found to be greater than the
+                                 threshold value. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-0CE750A7-7106-4BB7-A972-7A22B5761F01"></a></span> <span class="MenuCascade" id="GUID-27198DD2-AFDD-49E0-B5E1-C7DA4E50E127">Modify Surface Ink:</span> When these options are enabled, a surface's transparency affects the color and/or
+                                 alpha of the ink lines rendered on that surface. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2AA50DA2-C6CB-429B-B2C5-779587D1B3E4"></a></span> <span class="MenuCascade" id="GUID-0A769C1A-A03C-44AA-B289-F91CCD9A0AB1">Color:</span> The degree to which the ink color is affected by the surface's transparency. A setting
+                                 of 0 leaves the ink color unchanged, while a setting of 1 results in 100% of the weight
+                                 given to the transparency color. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-699E30D2-B92B-49F3-98C1-D36911D66204"></a></span> <span class="MenuCascade" id="GUID-E44FEF92-8882-4451-928A-E63EC83AEA7A">Compositing:</span> Specifies how the transparency color and ink color are combined. Choose from the
+                                 available compositing modes described <span class="char_link"><a href="toon_npr_PaintingObjectSurfaces.htm#WS6772E968E0A3E94385DFF0672B73BD73-0053"> Compositing (Transfer) Modes</a></span>. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-AB3789E4-3CB5-488E-89EE-A5D4437E9465"></a></span> <span class="MenuCascade" id="GUID-65961DB4-CD78-489B-98FC-9BD93FF7843B">Alpha:</span> Specifies the degree to which the ink alpha is affected by the surface's transparency.
+                                 A setting of 0 leaves the ink alpha unchanged, while a setting of 1 results in 100%
+                                 of the weight given to the transparency color. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A3BBD9BB-3216-4D07-A0F0-9EBD8B08EA29"></a></span> <span class="MenuCascade" id="GUID-7F5C8D5D-416B-4E53-80A8-B5C866A63292">Modify Refracted Ink:</span> A surface's transparency affects the color and/or alpha of the ink lines that are
+                                 seen through that surface. The options are the same as the Modify Surface Ink options.
+                                 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-006F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FCEF644A-3361-4E3F-8CC2-1C6C0383533F"></a></span>Creating Reflections
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-9E2B738E-6E23-4A1F-9B2B-703E95058FC2"></a></span>Controlling the reflectivity of toon-shaded objects is similar to controlling the
+                  reflectivity of objects with other types of surface shading. Reflections are calculated
+                  to a specified level and objects around the reflective objects appear in their reflections
+                  with appropriate distortion. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3873E091-60B7-4DFE-A005-7529226A348E"></a></span>However, the toon shaders allow you to control how object colors and ink lines appear
+                  when seen reflected in reflective objects. 
+               </p> <span class="anchor_wrapper"><a name="FIG_ECF4E17C7EEA4ED89862166A671E38AC"></a></span><div class="figure-anchor"><img src="../images/GUID-DEE13E1B-6436-4E60-A06B-101816F64D2E-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-0B5C6F41-7324-437E-B2F8-513083726EB9"></a></span>Original rendered image. No transparency has been added. 
+               </p> <span class="anchor_wrapper"><a name="FIG_05EB72059031410480C20003163E664D"></a></span><div class="figure-anchor"><img src="../images/GUID-A851129F-7C8F-4FAE-B659-93063F362437-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-939E2C12-AD9A-414E-98BC-B850F6EC4851"></a></span>The objects' reflection RGB values are set to 0.5, 0.5, 0.5 in this image, making
+                  the objects semi-reflective. Reflections are calculated to the extent permitted by
+                  the Trace Depth Setting. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0072"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C2865CBF-08E2-41B2-B771-7EE2C1FDC0C8"></a></span>To make a toon-shaded object reflective
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7CE95EAF-EB4D-46CF-9856-787F5B10A3D8"></a></span>Although the following procedure assumes that the object has a Toon Paint and Host
+                     material shader applied to it, the same controls exist in the Toon Host shader. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-11B17ACF-0A2B-4631-BDAB-1E7E95EB14B6"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7AA26193-4ADA-4B03-9634-46EA5F628156"></a></span>Select the toon-shaded object that you want to make transparent. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AD728541-396C-4879-A089-B9188909EC8D"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-88402AD8-A7C4-4DE9-83A5-12786CBC18F8">Modify <img src="../images/ac.menuaro.gif"> Shader</span> to edit the object's Toon material shader. The Toon Paint and Host shader's property
+                           editor opens. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E28B2F87-614A-4CAB-BF4F-EB2B0E331873"></a></span>From the Reflection tab, activate reflections. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-59EEE97D-F191-4EB0-B960-5B2407CDB4E4"></a></span>Set the following parameters, as necessary: 
+                        </p> <span class="anchor_wrapper"><a name="UL_4CEBF01DB3224B188DEC5D579608F55A"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-93F5080B-D0DA-41DC-9452-9159B79AE265"></a></span>Select one of the following methods for combining object surface colors with reflected
+                                 colors (those seen in reflective objects). 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-35252549-0FCF-47DA-BB82-9C367C2180A8"></a></span> <span class="MenuCascade" id="GUID-ADDCC6B6-7122-4F45-AC27-FF39D1CE9437">Standard Blend:</span> Combines the surface color with the reflected color by mixing the two colors according
+                                 to the degree of reflectivity. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A08FB067-4D6C-4F20-A6C3-45A33C1C6B96"></a></span> <span class="MenuCascade" id="GUID-E86D93E9-A571-4A81-8660-B10714C24145">Preserve Colors:</span> The reflected color is composited onto the surface according to the opacity of the
+                                 reflected surface. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-02710F14-E435-4FAC-9D0D-245BF63A0201"></a></span>This has the effect of leaving a surface color unchanged where nothing is reflected
+                                 off it. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-FBD26199-BEA9-4DB5-9A7A-35B34C028652"></a></span> <span class="MenuCascade" id="GUID-4C5316D5-7205-4AB5-8F95-588D6BCB1096">Color:</span> Specifies the reflectivity of the red, green, and blue channels. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7F1959FF-2BD1-44D9-AF16-7A242E1A9877"></a></span>This color modifies reflected colors, like a filter: if it is set to red, for example,
+                                 objects reflected on the surface will be tinted red. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-07AD2926-CA8B-48AC-B763-14689D3738A9"></a></span> <span class="MenuCascade" id="GUID-669A01CC-7C8C-436E-BDB1-E193D169D756">Modify Surface Ink:</span> When these options are active, a surface's reflectivity affects the color and/or
+                                 alpha of the ink lines rendered on that surface. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A066B432-E4F4-4FEA-8C23-EC9938A32EB7"></a></span> <span class="MenuCascade" id="GUID-2106A78D-6537-4E01-AF08-65BE0F1C5DEF">Color:</span> The degree to which the ink color is affected by the surface's reflectivity. A setting
+                                 of 0 leaves the ink color unchanged, while a setting of 1 results in 100% of the weight
+                                 given to the reflective color. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A73C2D1D-5F4A-40B9-BD0E-4D8979D7EF8A"></a></span> <span class="MenuCascade" id="GUID-BF0C83CF-425C-412F-B13E-1D765F3F5FD6">Compositing:</span> Specifies how the reflectivity color and ink color are combined. Choose from the
+                                 available compositing modes described <span class="char_link"><a href="toon_npr_PaintingObjectSurfaces.htm#WS6772E968E0A3E94385DFF0672B73BD73-0053"> Compositing (Transfer) Modes</a></span>. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CA8FBA64-81DE-493A-83F4-0D80D0E9B0D1"></a></span> <span class="MenuCascade" id="GUID-6CEDA024-7941-460A-91E7-D7C87124B4B4">Alpha:</span> Specifies the degree to which the ink alpha is affected by the surface's reflectivity.
+                                 A setting of 0 leaves the ink alpha unchanged, while a setting of 1 results in 100%
+                                 of the weight given to the reflectivity color. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B9EBD0AD-DDD8-40BA-9D0E-429897122DF8"></a></span> <span class="MenuCascade" id="GUID-0C426FD4-EF4E-44CE-B0A9-D5223D131230">Modify Refracted Ink:</span> A surface's reflectivity affects the color and/or alpha of the ink lines that are
+                                 reflected on that surface. The options are the same as the Modify Surface Ink options.
+                                 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0073"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-744A4280-D08C-4584-865F-9A44DB318989"></a></span>Setting Trace Depth Tapering
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-D0A7E996-3549-4FAB-8F24-98DC546EB4D7"></a></span>Trace depth tapering allows you to taper ink lines as a function of raytraced depth.
+                  Primary rays have a trace depth of 0 and are not affected by the taper. Reflections
+                  and transmissions, on the other hand, have trace depths of 1 or greater and are rendered
+                  progressively thinner as their depth increases. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0074"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-74A54F69-8D0B-4133-9D6C-2F5970500558"></a></span>To set the trace depth tapering
+                  </h3> <span class="anchor_wrapper"><a name="GUID-4F8C08B4-400D-4117-B7E1-3F0E4EA73F0B"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-293DD649-1C2A-456C-ADEC-F1FCF8D8D292"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-22BA60A1-5E00-4F5A-93B9-5BBDEF13EE39">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FC15015E-8CE3-439D-8393-047D82308F85"></a></span>On the <span class="MenuCascade" id="GUID-0A6BC644-E65D-4E6C-8EE6-1CB001D2A474">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-27517D38-2A7A-405F-B929-3E065E8B7749">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1ECEAC8E-C150-4E27-A76E-BFD126E44B8B"></a></span>From the Taper tab, activate <span class="MenuCascade" id="GUID-E3605E5B-B0A4-497B-B846-2993EB603482">Trace Depth</span> tapering by setting the a non-zero value. 
+                        </p> <span class="anchor_wrapper"><a name="UL_91C9029189D14D73A03FCAF0D59E25EB"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-5E979A6E-B70C-4A95-B3A0-B91952110CA9"></a></span>A setting of 1 reduces the contour spread by 100% on the first reflection or transmission.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4D132D91-6218-4C0E-AEC6-DB10A7C2538F"></a></span>A setting of 0 has no effect. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-07D4F409-20CA-4D25-99F4-E4334251396D"></a></span>Negative settings create thicker contours in reflective surfaces or through transparent
+                                 surfaces. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

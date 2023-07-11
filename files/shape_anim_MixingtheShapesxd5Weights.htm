@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-BD0F40A5-B3AA-4372-A9B2-7A7969397D8F">
+      <meta name="indexterm" content="shape animation: mixing weights">
+      <meta name="indexterm" content="shape clips: mixing weights">
+      <meta name="indexterm" content="shape clips: normalized weighting">
+      <meta name="indexterm" content="shape clips: additive weighting">
+      <meta name="indexterm" content="additive: mixing for shapes">
+      <meta name="indexterm" content="normalized: mixing for shapes">
+      <meta name="indexterm" content="shape animation: averaged and additive weighting">
+      <meta name="indexterm" content="shape animation: mixing weights">
+      <meta name="indexterm" content="weights: mixing shapes in animation mixer">
+      <meta name="indexterm" content="custom slider panels: for shape weights">
+      <meta name="indexterm" content="shape clips: custom sliders for setting weights">
+      <meta name="indexterm" content="weights: custom slider panel for shape clips">
+      <meta name="indexterm" content="shape clips: compound clips">
+      <meta name="indexterm" content="compound clips: shapes in">
+      <meta name="indexterm" content="compound clips: mixing shapes">
+      <meta name="indexterm" content="cluster shape combiner">
+      <meta name="indexterm" content="clusters: weighting in shapes">
+      <meta name="indexterm" content="shape animation: weighting between clusters">
+      <meta name="indexterm" content="shape animation: cluster shape combiner">
+      <meta name="indexterm" content="shape animation: averaged (normalized) weighting">
+      <meta name="indexterm" content="shape animation: additive weighting">
+      <meta name="topic-type" content="concept">
+      <title>Mixing the Shapes' Weights</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-BD0F40A5-B3AA-4372-A9B2-7A7969397D8F"></a></span><div class="head">
+            <h1>Mixing the Shapes' Weights</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-1521EBF4-54D2-4868-A5AD-940200636DA2"></a></span>Shape clips don't contain any animation — they are simply static poses. As a result,
+               the way to create animation with shapes is to animate the weight of each shape. Weighting
+               is always done in relation to another shape key. This means that shape keys have to
+               be overlapping in time with at least one other shape key to be weighted. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C628B852-CAA0-468B-BB6D-2777351335DF"></a></span>The higher the weight value, the more strongly a clip contributes to the combined
+               animation. For example, if you set the weight's value to 1, the clip's contribution
+               to the animation is 100% of its weight. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4A83477F-2535-4CF9-ABC5-691D08377EE5"></a></span>Once a cluster has shape animation, you can control its weight in two ways: 
+            </p><span class="anchor_wrapper"><a name="UL_EC43B45EE98744289F35C341685A7029"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5E4C77B5-C84F-4B24-A3ED-078DDA88B1D8"></a></span>If you want to weight shapes against each other, you can use the shape manager (see
+                     <span class="char_link"><a href="shape_manager_AnimatingtheShapes.htm">Animating the Shapes</a></span>) or the animation mixer (see <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-0080">Animating the Shape Weights Against Each Other</a></span>). This also includes using the power of compound clips, as described in <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-008B">Weighting with Compound Clips</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BB4E7298-B04B-42CF-9476-A2E3444D5A47"></a></span>If you want to weight clusters individually, including overlapping clusters, you can
+                     use the Cluster Shape Combiner. It controls how strongly deformations and transformations
+                     applied to the different clusters "pull" the points in the cluster. See <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-008D">Mixing between Clusters</a></span> for more information. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-43CEF713-92C7-435D-BDDE-B26FEBB25F18"></a></span>This section describes weighting issues that are specific to shape animation, but
+               for an overall description of mixing weights in the animation mixer, see <span class="char_link"><a href="animmixer_MixingandWeightingClips.htm">Mixing and Weighting Clips</a></span> [<span class="char_link"><a href="nla_cover.htm">Nonlinear Animation in the Animation Mixer</a></span>]. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-007C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1E9A02E4-EE84-4E14-A561-91AEDB9AE314"></a></span>Normalized or Additive Weighting
+               </h2>     
+               <p><span class="anchor_wrapper"><a name="GUID-40B345FB-6EB8-4E8C-B8F1-3B6F8BDE5464"></a></span>One of the most important things to understand about weighting is to know whether
+                  weights are normalized (averaged) or additive. You'll know that shapes are normalized
+                  if they seem to average or "smooth" each other out, or different clusters on the same
+                  object affect each other when they shouldn't (such as an eyebrow affecting the mouth
+                  shape). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-057724DC-EC90-4E16-B7B7-C2C7F8822BE0"></a></span>When shape weights are normalized, the weight is divided by the sum of the weights
+                  of all clips at the current frame (weighted average) so that the sum is always equal
+                  to 1. This averaging results in a shape that is between the sources of the clips that
+                  affect the object at the current frame. 
+               </p> <span class="anchor_wrapper"><a name="FIG_76C3AF1F6AD449CBA78043AA414E3291"></a></span><div class="figure-anchor"><img src="../images/GUID-F4C52876-B2C8-4366-A132-7623295FE7DA-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-2132D151-1CA0-457B-9847-B8ED14F69B8A"></a></span>The (A) shape is an <span class="MenuCascade" id="GUID-07F696CE-97EA-4280-B79C-CCC23409645E">Additive</span> mix of Shapes 1 and 2. The shapes are literally added together to create a composite
+                  result. You can also exaggerate shapes by setting weight values higher than 1. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-46736E6D-01FE-4E01-82D3-685F29A677E3"></a></span>The (B) shape is a <span class="MenuCascade" id="GUID-DD585148-37BE-4150-AF57-5822B4A0DBBA">Normalized</span> mix of Shapes 1 and 2. The shapes are averaged resulting in a combination of the
+                  shapes. The total weight value of the two shapes equals 1. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-292881BC-EFA9-46C0-A9AE-0104D2518965"></a></span>In many cases, you probably want the weight to be additive instead of normalized,
+                  such as if you're mixing different clusters on a face over the same frames. With additive
+                  mixing, the shapes are literally added together to create a composite result. With
+                  additive mixing, you can exaggerate shapes by setting values higher than 1. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-07663F2F-DF49-4AC5-A849-42EA9E3CF484"></a></span>In Softimage, you can easily create different sets of shape animation (each set in
+                  a compound clip) and use different types of weighting. You could have the shapes within
+                  each set be normalized, and then use additive weighting between the sets. For example,
+                  if you're lip-syncing a character, you can create one compound of normalized phoneme
+                  shapes and another compound of normalized facial expression shapes. Then using additive
+                  weighting between these two compounds, you can have the character speak with the facial
+                  expressions added "on top" of the lip-syncing. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D7464943-0307-448B-A7B0-2E9199C47973"></a></span>You can set additive or normalized at two different levels: for the whole mixer using
+                  the Shape Mixer property editor, or for a compound clip using the Cluster Shape Combiner
+                  property editor (see <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-008D">Mixing between Clusters</a></span>). 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-007E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DFFF80A4-DA78-470E-AE52-5FE04E89A7E0"></a></span>To set the type of weighting for the mixer or a compound clip
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6ED95D69-7185-419C-B2CE-13CF2C7CA1F1"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-83E590E4-3C7C-4339-AD0B-1D026DD1F0E2"></a></span>Right-click anywhere in the track area of the animation mixer and choose <span class="MenuCascade" id="GUID-AA17517C-CB60-4A61-988E-EFF93BD6E968">Shape Mixer Properties</span> or choose it from the <span class="MenuCascade" id="GUID-AEE74444-AA64-476D-8B69-BB050269EE65">Mix</span> menu. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_F1C82179D8574EBDAACD069D8395CA10"></a></span><div class="figure-anchor"><img src="../images/GUID-EE4E3266-E937-4783-A283-FED495E9AC03-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BD347F67-04BD-4C2C-82C7-C4BB68258BD4"></a></span>Select the <span class="MenuCascade" id="GUID-BB91B971-9E26-465E-AA61-4921C560C971">Normalize</span> option to have averaged weighting or deselect it to have additive weighting. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-0080"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E10AD5E4-2257-4E76-885B-510A37D23A1A"></a></span>Animating the Shape Weights Against Each Other
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F44E9D5A-BEBA-4244-8D25-40135730D873"></a></span>Unlike action clips, shape clips are static; that is, rather than actually containing
+                  animation, they simply contain a static pose. To prevent blocky, jerky movements,
+                  you need to blend the animation between different shapes with weighting. Weighting
+                  is always done in relation to another shape clip. This means that if you want to weight
+                  a shape, it has to be overlapping in time with another shape. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D938A859-D144-48F7-8057-B7D75188CECD"></a></span>Weighting is usually easiest using the default range of 0 to 1, where 0 is no weight
+                  and 1 is full weight (this makes it easier to figure out percentages). However, you
+                  can also set mix weights outside this range: use negative values to move points in
+                  the opposite direction, or use a value above 1 for more extreme movements. If you
+                  deselect the <span class="MenuCascade" id="GUID-2993BD66-192E-410A-8EC3-CD3F73A93AA1">Normalize</span> option in the mixer's property editor, as shown above, you can "overshoot" the data
+                  in the clip. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-75C016D3-3FA7-454D-906F-D76F5037FFDC"></a></span>By default, mix weights are normalized using a weighted average: for example, if Clip
+                  A has a weight of 1 and Clip B has a weight of 1.5 at a given frame, then A's influence
+                  is 40% (1 Ö (1 + 1.5)) and B's influence is 60%. See the previous section, <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm">Mixing the Shapes' Weights</a></span>, for more information. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-0081"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-904C5F26-47F6-40B3-A6C5-F3902CF4E286"></a></span>Overview of the Shape Weighting Tools and Process
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9521E9F9-62D2-4858-8FC3-C6484A6C5964"></a></span>You can mix shape key weights in different ways, depending on how you created the
+                     shape keys and how you like to work. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AEB6FBD8-B0CE-4E4C-B48C-FA6588EEC381"></a></span>You can mix shape key weights by: 
+                  </p> <span class="anchor_wrapper"><a name="UL_40D343613BCD4F81883415631F637650"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-32C21079-5E28-4696-9C58-D8697D21A5F0"></a></span>Using the animation mixer (see <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-0084">Mixing Shape Weights in the Animation Mixer</a></span>). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1EFBB6F8-1C02-4630-9A5A-B67644A86B02"></a></span>Using the shape manager (see <span class="char_link"><a href="shape_manager_AnimatingtheShapes.htm">Animating the Shapes</a></span>). The advantage of having the shape sliders in the shape manager is that you can
+                           key all the sliders' values at once by clicking the keyframe icon in the shape manager.
+                           As well, when you change the sliders' values, you can immediately see the results
+                           on the shape-animated object in the shape viewer. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-24F30C90-71C9-4CE6-97FE-F4634074CCAA"></a></span>Using a custom parameter set, either the Shape Weights one that is automatically created
+                           for you, or a custom parameter set that you create yourself (see <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-0087">Mixing Shape Weights in a Custom Parameter Set</a></span>). The advantage of having a custom control panel is that you can key all the sliders'
+                           values at once by clicking the property set's keyframe icon. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-018BCA2E-0476-4DDA-8C36-98C1720838A5"></a></span>No matter which tool you use, the basic process is the same, as shown here: 
+                  </p> <span class="anchor_wrapper"><a name="FIG_F08E24DFA3BC444187CCDD03341D3FF8"></a></span><div class="figure-anchor"><img src="../images/GUID-71BFBE9B-0D82-4FDF-84BC-06A3157E4C29-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_2EDBFCD2871B4A6399137D8A272EAC7C"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="23.076923076923077%" align="left">
+                           <col width="76.92307692307692%" align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7909CEDF-7B7C-4493-BEE3-1954392F06FE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-128D6B1E-6827-4139-8ABD-CF6608C609A2">1</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-123B0F0D-7AE2-4F29-8BCC-1F5A548329F7"></a></span><p class="table-body">Put shape clips on different tracks and overlap them where you want to mix them. In
+                                 many cases, this is for the whole duration of the scene. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9F7B9315-26E2-4D39-A79F-E72634A81EA0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4C39AAA6-686A-42EF-91EF-34A1867B3436">2</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-143509C6-8460-4BA5-83A0-21DBD5A4D8AF"></a></span><p class="table-body">Move to the frame at which you want to set a key. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3D0B6F58-1E06-46FC-A5F8-7A67B04C5116"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3690D13D-4B15-4342-A54A-D03769A4CE6D">3</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F8118E1C-1223-403F-8282-B2511075D56B"></a></span><p class="table-body">Set a weight value for each clip at this frame. </p> <span class="anchor_wrapper"><a name="GUID-EADD2745-1219-44AC-92DE-1DEC59E878A6"></a></span><p class="table-body">The slider's range is [0, 1] but you can set values higher than 1 or lower than 0
+                                 (negative weights) by right-clicking on the slider and entering them in the box. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-5E8A1E5A-1410-4D93-9295-32C8CDB65289"></a></span><p class="table-body">The higher the mix weight, the more strongly a clip contributes to the combined animation.
+                                 For example, if you set the value to 4, the clip's contribution is 4 times greater
+                                 than its original weight. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9300761A-88EB-41A5-8754-7CE406C76154"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7CFFB8FB-D5C9-41C1-9006-78B8BF5F744C">4</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-ECB8CA65-FC86-4680-B2B9-7E27FE213AAC"></a></span><p class="table-body">Click each weight's animation icon to set a key for this value at this frame. </p> <span class="anchor_wrapper"><a name="GUID-E830BF2D-CDEE-477E-84AD-E75FAF405C21"></a></span><p class="table-body">Go to the next frame, change the value, and click the animation icon again. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-34BE2A17-F8A3-48F1-BD56-B1E2054A4C97"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-45D113C6-4DB0-4E05-9A93-4307BD53AEA0">5</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B07D06FB-E2AB-4C36-A016-5400B43BCC07"></a></span><p class="table-body">Right-click the animation icon and choose Animation Editor to edit the resulting weight
+                                 function curve in the animation editor as you would any other fcurve — see <span class="char_link"><a href="animmixer_MixingandWeightingClips.htm#WS051802B44FE12145ACD9E000FD9E83E7-0101">Editing Weight Fcurves</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D9F653C6-A7B2-4D3E-913C-0947F5B80560"></a></span>Setting and keying the shape's weight in the shape manager or a custom parameter set
+                     is the same thing as setting and keying the shape's weight in the animation mixer.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6F71F0D0-27F1-40C2-B749-0E47B73BA954"></a></span>In the mixer, you use the weight slider at the end of each shape clip's track. The
+                     shape sliders in the shape manager and the custom parameter set are simply proxy parameters
+                     for the shape weights in the animation mixer. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_D748465A08A94B09AE857B1914D22102"></a></span><div class="figure-anchor"><img src="../images/GUID-8511D666-17CD-4599-89E9-8ADBE7D69473-low.png"></div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-0084"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5F7181E7-7CAF-4B0B-8D02-3DDE1B5F5944"></a></span>Mixing Shape Weights in the Animation Mixer
+                  </h3> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-0085"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-CED803BE-9C94-4177-BB09-9CA577C21EF6"></a></span>To animate the weights of shape clips in the animation mixer
+                     </h4> <span class="anchor_wrapper"><a name="GUID-B80E2B53-C232-4ACF-950E-9230D993D47C"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-34E32CC8-6007-4AC1-A23E-AE68B38D4AC6"></a></span>Select the shape-animated object and open the animation mixer. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-25FDB285-261D-45C9-8BBC-A86850B4168F"></a></span>Place the shape clips on different tracks so that they overlap each other at some
+                              point. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-586952F3-554C-4D0F-8AD2-130F609C9CDF"></a></span>Make sure that <span class="MenuCascade" id="GUID-3D88B0DE-2672-4177-9C0A-9618269E020C">View <img src="../images/ac.menuaro.gif"> Weight Mixer Panel</span> is on (press W). A Weight Mixer Panel is displayed at the right end of each track,
+                              showing a weight slider and an animation icon for keying the weight. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CCCD9369-8CF9-4A17-BC2A-2B965F2CB642"></a></span>The Weight Mixer Panel affects the clip at the current frame. If the playback cursor
+                              is not on a clip, the weight mixer for the corresponding track is unavailable. 
+                           </p> <span class="anchor_wrapper"><a name="FIG_F80C0300C73D4AFAAD730E97E0C1E815"></a></span><div class="figure-anchor"><img src="../images/GUID-3FA1F871-ACBF-42EB-A6E7-816FC69B79AB-low.png"></div> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-53560BAA-6657-42ED-8D2E-215ABB8C0F21"></a></span>Make sure that <span class="MenuCascade" id="GUID-3899E299-8BBA-4A44-9E6F-FF28F8238CB2">View <img src="../images/ac.menuaro.gif"> Weight Curves</span> is selected. This displays the weight curve as a red line running across a clip.
+                              
+                           </p> <span class="anchor_wrapper"><a name="UL_EBF0D05EB7414D84B9A49C3D85D32314"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-3430D3FE-6620-41B5-8974-5991AD5FE7EB"></a></span>If the weight is 1 (default), the red line is at the top. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-75628CB9-A29B-4935-B3AE-BB2FDA918DFA"></a></span>If the weight is 0, the red line is at the bottom, etc. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                           <div><span class="anchor_wrapper"><a name="GUID-1F991BC2-ED5E-4811-9221-1F95B8AA9423"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_0B11092C826E4E5497973EC357ABE6AA"></a></span><ul>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-6C05EC2B-8046-45A7-93DB-A0D17ADB066F"></a></span>If a clip's weight is 0, it does not contribute to the animation. 
+                                       </p> 
+                                    </li>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-5A096C48-93B0-4FC3-8B6E-E828DCBB8F0E"></a></span>If there is a transition between clips that are part of the mix, the transition is
+                                          calculated first, then mixed with the other clips. 
+                                       </p> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-1D1AFA4E-5220-4E84-A0DE-0AD3581DF38A"></a></span>If there is a non-overlapping transition, the contribution for each clip is also governed
+                                          by the weight of the two clips (the end weight of the "from" clip and the start weight
+                                          of the "to" clip). 
+                                       </p> 
+                                    </li>
+                                 </ul> 
+                              </div>
+                           </div> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-258C0E89-110C-41CA-A59F-57C554D7E967"></a></span>To set and key the clip's weight, see the process in <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-0081">Overview of the Shape Weighting Tools and Process</a></span>. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-4F82E7F2-14F0-4878-BD41-742F0856161C"></a></span><div class="note-tip"><span class="label">TIP:</span> <span class="anchor_wrapper"><a name="UL_EAAC67A32BD04407A008AECA593BE570"></a></span><ul>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-2ABB5328-D3E3-4A63-B949-F88DD36C30C7"></a></span>Right-click a clip and choose <span class="MenuCascade" id="GUID-2D3552D7-8C2E-4B8F-821A-98B2679C83D9">Preset Weights</span> to use a number of ready-made weights, such as ease-in, ease-out, Gaussian, or oscillation.
+                                          
+                                       </p> 
+                                    </li>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-D66B9644-2212-4953-9987-DC699F6DA6DA"></a></span>If you want to control the shape's weight by a parameter, move the playback cursor
+                                          over the shape clip you want to use and right-click its weight slider animation icon.
+                                          Choose one of the <span class="MenuCascade" id="GUID-6432BEB5-29CA-47E7-8ED2-18434758CAD8">Link With</span> commands and use the parameter connection editor to find the parameters you want
+                                          to control the weight, such as any of the <span class="MenuCascade" id="GUID-0CA48BB1-0C00-4520-9581-5A7B4CBD427B">Kinematics <img src="../images/ac.menuaro.gif"> Local Transform <img src="../images/ac.menuaro.gif"> Pos</span> parameters of the object. 
+                                       </p> 
+                                    </li>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-BA6AF578-DE9A-4494-8EC1-94159CA86D74"></a></span>To view the shape weight keys in the dopesheet, see <span class="char_link"><a href="shape_anim_DisplayingPhonemeShapeWeightKeysintheDopesheet.htm">Displaying Phoneme Shape Weight Keys in the Dopesheet</a></span> 
+                                       </p> 
+                                    </li>
+                                 </ul> 
+                              </div>
+                           </div> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-0087"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C57FD114-A427-4C90-A658-36283E4DA63A"></a></span>Mixing Shape Weights in a Custom Parameter Set
+                  </h3>    
+                  <p><span class="anchor_wrapper"><a name="GUID-EE6E5820-B7A4-4208-BA3F-2159A3A6AE5C"></a></span>When you store and apply shape keys in mixed weight mode or select shape keys with
+                     <span class="MenuCascade" id="GUID-F0B9EC6C-FED7-4D39-AAAB-BA8C553EF036">Apply Selected Shape Keys</span> active in mixed weight mode, a custom parameter set, called Shape Weights, is created
+                     for the shape-animated object. This set contains proxies of each shape clip's weight
+                     parameters that are in the mixer. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2C980C5D-51AA-4C70-9E37-D7AB74E25A7C"></a></span>The advantage of having a custom control panel is that you can have all the sliders
+                     in one property editor that you can easily move around in the Softimage workspace.
+                     As well, you can key all the sliders' values at once by clicking the property set's
+                     keyframe icon. Because these sliders are proxy parameters, you can add and delete
+                     them as you would any other proxy parameter. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E97F68EE-D156-42A3-909C-76EEEBBB77A4"></a></span>See <span class="char_link"><a href="custom_params.htm">Custom and Proxy Parameters</a></span> [<span class="char_link"><a href="custom_cover.htm">Customizing Softimage</a></span>] for more information. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-0088"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-397B4B24-32A7-4BA3-9212-433E36AD1211"></a></span>To edit the shape weights from its custom parameter set
+                     </h4> <span class="anchor_wrapper"><a name="GUID-99F4F4A9-BE2C-473C-BB51-A2B5214A1ABF"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5EAE9C61-E021-42BF-AFBE-CD3DD928361E"></a></span>Click the icon for the Shape Weights custom parameter set in the explorer. 
+                           </p> <span class="anchor_wrapper"><a name="FIG_41B3DA223F7B4512BEE67D22CF638165"></a></span><div class="figure-anchor"><img src="../images/GUID-418037E5-29E4-4751-8CA1-296762A31150-low.png"></div> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9E86BFAB-583B-45E9-B735-936CC3A28CB5"></a></span>Go to a frame where you want to key the weights. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5BF313FB-9416-442C-80DF-AEC5DC52502F"></a></span>In the custom parameter set, use the sliders to set and key the clip's weight, as
+                              shown in <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-0081">Overview of the Shape Weighting Tools and Process</a></span>. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-008A"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-0A94789E-8186-4C44-85DC-52C56E323693"></a></span>To create your own custom parameter set
+                     </h4> <span class="anchor_wrapper"><a name="GUID-D3C6066A-8A40-4538-ADE1-1488630ACDF5"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5817E562-B5AC-49AE-9071-10BA6D7814A3"></a></span>Create a custom parameter set by choosing <span class="MenuCascade" id="GUID-D601DFF9-15C0-41B3-AD4C-AD2D2DFCDA93">Create <img src="../images/ac.menuaro.gif"> Parameter <img src="../images/ac.menuaro.gif"> New Custom Parameter Set</span> from the Animate toolbar. Give it a name. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-AFED2047-7CF1-441C-87E2-B831661120EA"></a></span>In the explorer, click the custom parameter set's icon to open it. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F5C71217-9C18-4B7D-BC7C-E8605D0D8878"></a></span>Drag the animation icon for each shape weight slider from the animation mixer into
+                              the custom parameter set (just below the light gray bar) to make a proxy of it. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-753C2FF9-CC59-4B31-8742-52111490BF25"></a></span>In the custom parameter set, use the sliders to set and key the clip's weight, as
+                              shown in <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-0081">Overview of the Shape Weighting Tools and Process</a></span>. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-138CB87C-6316-4A41-B2F2-940CB0F7770A"></a></span>Because the slider in the custom parameter set is a proxy of the original slider in
+                              the mixer, anything you do to it (change value and key) acts as if you did it to the
+                              original slider. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-C6A07FC1-D0B6-46AF-AE5B-163C4002697A"></a></span><div class="note-tip"><span class="label">TIP:</span>You can also drag and drop the shape weight's animation icon to a parameter's expression
+                                 editor to easily create an "equal to" expression (see <span class="char_link"><a href="expressions_CreatingExpressions.htm">Creating Expressions</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]). 
+                              </div>
+                           </div> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-008B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D4F4CFE4-31E0-4581-8741-C4DE24A0F46B"></a></span>Weighting with Compound Clips
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-7D420975-6DDE-48B4-8FB6-F05F7386D368"></a></span>Compound clips allow you to put all of a cluster's shape clips into one container.
+                  This lets you have multiple clusters on the same object and then weight the clusters
+                  against each other. To use facial animation as an example, you can mix between upper
+                  and lower lip clusters to create a myriad of shape combinations, or mix between the
+                  whole face and the eyebrows. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3192D560-B999-48F9-AA94-DC715A512981"></a></span>For information in general about compounds, see <span class="char_link"><a href="animmixer_CombiningClipsintoCompoundClips.htm">Combining Clips into Compound Clips</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-100D4DC9-3FBE-4570-BA8E-62334BE289E7"></a></span>At any point, you can open the compound clip and adjust each of its individual shape
+                  clips to tweak the animation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0F40EEA3-C891-4D31-B1A6-41E29832A975"></a></span>Another handy thing about having a cluster's animation in a compound is that you can
+                  mute the track (click its <span class="MenuCascade" id="GUID-B3CE0EDA-5FF0-4C5C-8B45-51DF492DA2F1">m</span> button on the left) for each compound clip so that you can work with selected clusters
+                  at a time. For example, if you want to check just the animation of the cheeks, you
+                  can mute the lower and upper lip compound clips so that their clusters aren't used
+                  in the shape animation. 
+               </p> <span class="anchor_wrapper"><a name="FIG_319F37876A9347F5976853C5C53C29AA"></a></span><div class="figure-anchor"><img src="../images/GUID-4FE7C2F9-A81F-48B3-8473-E71F5EB8F07A-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-276DDECB-FDF9-4AE8-941E-2F704B2FECAA"></a></span>Each compound clip contains all the shape keys for each cluster. When the track is
+                  muted, the clips appear gray. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AEC129F2-CE38-4B2E-9094-6A8D1D476A4E"></a></span>On the right in the weight panel, you can see that each compound clip here is weighted
+                  differently over time. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4D8D06C4-1492-4ECF-A3B0-2D428DAEFFC5"></a></span>Compound clips also let you easily manipulate the entire shape animation of a cluster
+                  at once; for example, you can scale it or offset it using the compound clip. You can
+                  even copy a compound shape from one model to another (see <span class="char_link"><a href="shape_anim_SharingShapeAnimationbetweenObjectsModelsandScenes.htm#WS5D22904DD940DF4B81E23C96D0B1457F-00C2">Copying Shape Presets between Models or Scenes</a></span>). 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-008D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7CF748A5-58D2-4114-9A68-EBFBF2A7E5CE"></a></span>Mixing between Clusters
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B20D82CC-8526-4951-B6F7-52A2E244D3E6"></a></span>The way to mix between clusters, overlapping (the same points belonging to two or
+                  more clusters) or not, is by using the Cluster Shape Combiner operator, which is created
+                  as soon as one shape clip is created in the mixer. This operator provides you with
+                  two weights you can control for each cluster on an object that has shape animation.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3C129F71-5090-4C23-A9EC-042CBBBCE8ED"></a></span>The weight determines how strongly the different shapes "pull" the points in the cluster.
+                  You can modify the weight so that the points are pulled only half as strongly by the
+                  target shape or even produce exaggerated shapes that overshoot the target. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-B6702EF8-4393-4CA8-9008-F4845A572331"></a></span><div class="note-note"><span class="label">NOTE:</span>If you delete a shape key that you no longer want, the Cluster Shape Combiner is not
+                     deleted with the shape key — you must explicitly delete it. While this is not normally
+                     a problem, it may cause problems if you're setting shape keys on envelopes (see <span class="char_link"><a href="shape_anim_CreatingShapesintheShapeModelingConstructionModes.htm#WS5D22904DD940DF4B81E23C96D0B1457F-0039">Creating Shape Keys in Shape Modeling Mode</a></span>). 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5D22904DD940DF4B81E23C96D0B1457F-008E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F79E1C79-0840-4E03-AC4A-999D4B6C669B"></a></span>To set a cluster's weights using the Cluster Shape Combiner
+                  </h3> <span class="anchor_wrapper"><a name="GUID-A814185B-0563-443E-94AC-0AD4D9433DC8"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7B4750F5-EB10-4718-8875-FEDC1EC78E2D"></a></span>Create an object with shape animation. You can apply shape keys or load shape keys
+                           in the animation mixer. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D7C329A9-4712-4A5D-8824-9A163C386532"></a></span>With the object selected, click <span class="MenuCascade" id="GUID-BADCB393-CEE9-432E-947C-A2D9599F6BE8">Selection</span> on the Select panel. Expand the object's operator stack and display the Cluster Shape
+                           Combiner property editor by clicking on its icon. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_61DECAD32F5F45A6B8C07A9C5267410F"></a></span><div class="figure-anchor"><img src="../images/GUID-79341075-A57E-4036-8213-318CD0B5DFFA-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-318FDCD1-8BDD-457A-85A7-1A496779D8A9"></a></span>The Cluster Shape Combiner property editor contains an option for using either normalized
+                           (averaged) or additive mixing (see <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm">Mixing the Shapes' Weights</a></span>), as well as Weight and Overlap Weight parameters for each animated cluster. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_A4239101E08545D5B5A2C72FBC028468"></a></span><div class="figure-anchor"><img src="../images/GUID-DEF1FDF8-9920-469A-9B32-AD5E45226E56-low.png"></div> <span class="anchor_wrapper"><a name="UL_F6340A6F21284699868A33A0EC4B8DBC"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2591FF06-FAC5-426A-8D14-743EE29F8AB0"></a></span> <span class="MenuCascade" id="GUID-0C9B6451-9BE8-496D-83C1-E903EC8A1195">Normalize Cluster Weights</span> controls how the Weight values are combined (it has no effect on Overlap Weights).
+                                 When this option is off, clusters are mixed in additive mode. You can exaggerate shapes
+                                 by setting Weight values higher than 1. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-FAAF5B8A-A3B8-4EEB-92DD-38635BD26B37"></a></span>When this option is on, the weights are averaged (normalized). The weight is divided
+                                 by the sum of the weights of all clips at the current frame (averaged) so that the
+                                 sum is always equal to 1. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-C17AA122-1636-4F29-95E0-DC4BE105C087"></a></span> <span class="MenuCascade" id="GUID-D6570A82-8A70-47E1-AC30-DFEB3A4DDCB2">Weight</span> controls how strongly the corresponding cluster is pulled by its shape keys. The
+                                 default is 1, meaning that the actual shape of the current shape key is used. 
+                              </p> <span class="anchor_wrapper"><a name="FIG_DA0B9848D8264256AE6AED157F81F9F3"></a></span><div class="figure-anchor"><img src="../images/GUID-D67E5A60-D246-42F8-A804-DA21735F7E67-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_FE296115AB694765A71F5239AD438A96"></a></span><div class="table_Ruled">
+                                 <table cellpadding="0" cellspacing="0" class="ruled">
+                                    <colgroup>
+                                       <col width="16.666666666666668%" align="left">
+                                       <col width="83.33333333333334%" align="left">
+                                    </colgroup>
+                                    <tr class="ruledOddRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3D4E4DFF-7719-4B02-9AFB-8AA8A30FC33C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6C6EDB6B-CCA7-483E-A5B9-C7BFA1A78C4C">A</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5C783051-93A5-4795-844F-C297846DA3FF"></a></span><p class="table-body">Weight = 1: Actual shape key </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledEvenRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CE3CC38A-087C-4045-9B88-E711136BCF0F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-18DED646-A243-412F-97D6-978D8E74B559">B</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A0B19FA9-36FE-4248-844C-293330AD79D3"></a></span><p class="table-body">Weight = 0: Reference </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledOddRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-838C8830-4AAA-45B1-8586-DFDF26FDE2B3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FBE27C69-4AA1-4B0F-8589-099EA96A02B6">C</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2AEA420A-34A8-443E-8610-DF4C00CEA33C"></a></span><p class="table-body">Weight = 2: Overshoots shape key </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledEvenRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-61FED537-C68D-4D9B-B7E9-38DA5F450806"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B4A13548-7C2E-4BE3-A471-EADF4C77DA04">D</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3597AF4B-4A64-444E-9D02-268E75A3D93E"></a></span><p class="table-body">Weight = –0.5: Inverts cluster shape </p> 
+                                       </td>
+                                    </tr>
+                                 </table>
+                              </div> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9A5FC7B9-3E60-4178-8552-6040F4BEB15E"></a></span> <span class="MenuCascade" id="GUID-AB03C3F9-566E-4C27-93AB-B35AB31F9C17">Overlap Weight</span> controls how strongly the corresponding cluster affects points that are shared with
+                                 other animated clusters. These values are always normalized. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-F2D3E2CB-FB08-469F-BA4B-F5B2D8476B63"></a></span>For example, if you set the overlap weight of the complete head cluster to 0 and the
+                                 overlap weight of the eyebrow cluster to 1, the shape animation of the eyebrow cluster
+                                 has full control over the points it shares with the head cluster. If the weights are
+                                 set to head=1 and eyebrow=4, the eyebrow cluster has 4 times more influence than the
+                                 head. 
+                              </p> <span class="anchor_wrapper"><a name="FIG_5861BB48CCAE4449A8A6520BC7E3AF2F"></a></span><div class="figure-anchor"><img src="../images/GUID-887D1D8B-551B-4D46-A210-E3327F02401A-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_66B7896F5BEA482FB0F51BCB528A70FA"></a></span><div class="table_Ruled">
+                                 <table cellpadding="0" cellspacing="0" class="ruled">
+                                    <colgroup>
+                                       <col width="16.666666666666668%" align="left">
+                                       <col width="83.33333333333334%" align="left">
+                                    </colgroup>
+                                    <tr class="ruledOddRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F7E4740C-D3E0-4157-B47C-84C73B329FDF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-220586F1-E809-467F-B2F8-0E1DDDFFF0F8">A</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-055B8A83-C934-4CC1-A8E1-8811B2DC7D70"></a></span><p class="table-body">Point is shared by Top and Right clusters. </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledEvenRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C4F46528-B8E4-48B2-A37F-4E00A2F40C16"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DA887877-1CA9-4947-8F6A-E097ADAD55CA">B</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6B8C8357-F818-4B77-8E8B-979434019661"></a></span><p class="table-body">Top_OvrlpWt is equal to Right_OvrlpWt. </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledOddRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-77A3CC90-F408-42D8-A284-965D5BCA8117"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-76B39B7A-1CE9-41A0-A884-45634872EF86">C</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2B04CC17-69D2-449D-8EE4-C41EBB4CF3FC"></a></span><p class="table-body">Top_OvrlpWt is greater than Right_OvrlpWt. </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledEvenRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-09FD3100-29B8-4629-9FAE-85A84DAB13E8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-92FFE2A7-B940-49D4-BED9-A06A0398366A">D</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-33828BE2-60BA-45D4-802D-0CAB333217F4"></a></span><p class="table-body">Top_OvrlpWt is less than Right_OvrlpWt. </p> 
+                                       </td>
+                                    </tr>
+                                 </table>
+                              </div> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

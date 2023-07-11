@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-CAF385EC-A834-42E0-B0F4-886616DC8442">
+      <meta name="topic-type" content="concept">
+      <title>Fractal Scalar</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-CAF385EC-A834-42E0-B0F4-886616DC8442"></a></span><div class="head">
+            <h1>Fractal Scalar</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-799ED1C2-43E3-4DC9-BA47-8A9D47AFC928"></a></span> <span class="char_link"><a href="particles_shaders_Fractal4DICE.htm#ID-67864_05-SHADEREF_TEXTURES">Color</a></span> | <span class="char_link"><a href="particles_shaders_Fractal4DICE.htm#ID-16208_05-SHADEREF_TEXTURES">Noise</a></span> | <span class="char_link"><a href="particles_shaders_ParticleCellICE.htm#ID-99345_05-SHADEREF_TEXTURES">Texture Support</a></span> | <span class="char_link"><a href="particles_shaders_Fractal4DICE.htm#ID-26128_05-SHADEREF_TEXTURES">Render Tree Usage</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-21C25828-F88B-459A-A7F7-3DC783A54276"></a></span> <em class="strong">Category:</em> Texture 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DE4F8BA2-DF33-4217-BEAF-CE74D7C0EDA0"></a></span> <em class="strong">Shader Family:</em> Texture 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6A26DCE8-0FCF-4F49-AE6C-723DEA70A9E4"></a></span> <em class="strong">Output:</em> Scalar 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-269A5DEC-F6AA-4440-89EC-F62AE9800087"></a></span>The Fractal Scalar shader, based on Perlin noise, adds noise to a particle volume
+               to help define its density's shape. This is especially useful for creating certain
+               volumic effects, such as smoke and clouds. You can also animate the fractal pattern
+               of the noise. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0EA8A9B7-E894-4F0F-9D27-C82775C4AAD3"></a></span>You usually use the Fractal Scalar shader in conjunction with the Particle Density
+               and Particle Volume Cloud shaders. The fractal pattern is added to the shape of each
+               particle, with the effect usually most visible at their edges. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2D28077C-0327-4BC0-981C-221AB24DCA7D"></a></span>Using this shader, you may need to emit fewer particles to create an effect because
+               you can create a certain level of detail and complexity using the shader itself. For
+               example, instead of adding thousands of particles for creating a billowing smoke effect,
+               you can use fewer and larger particles, then add the smoke detail with the fractal
+               noise from this shader. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-87376877-E5F5-449F-AABC-8C8DFB9CF4F5"></a></span>For general information about ICE particle shaders, see <span class="char_link"><a href="ipart_shaders.htm">ICE Particle Shading</a></span>. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-8FE8EB3C-8270-4012-A846-883B5A0D1392"></a></span><div class="note-tip"><span class="label">TIP:</span>To save time previewing the results of the fractal pattern, click the little V above
+                  the Fractal Scalar shader's node in the render tree to display its shaderball view.
+                  This way, you can turn off the render region to save time while tweaking only the
+                  fractal pattern. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="ID-67864_05-SHADEREF_TEXTURES"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EDD354A2-BD8D-4FF2-BD44-9A7E5653DD8F"></a></span>Color
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="GUID-8E120A51-E05D-4144-A9BA-5ABE5EAC31BC"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-67452CB1-9599-4C8D-8D38-19A5C7AE07D9"></a></span>Color
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_A25DE0DD862544178489272439B4B3AC"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3D8C1004-7991-4B28-A85E-7D2CD0F67672"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E3A53C8E-8D91-4E19-A65C-77227B76CEFE">Color 1, Color 2</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2CADDD0D-2F5B-4473-A93C-2B579664F5D6"></a></span><p class="table-body">Sets the minimum and maximum contrast values for the noise pattern. </p> <span class="anchor_wrapper"><a name="GUID-D22758F5-5C0C-47A8-A4DA-6A6B8C830C7A"></a></span><p class="table-body">For example, if you set Color 1 to 0 and Color 2 to 1, there will be a full black/white
+                                 contrast in the noise pattern. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DE6EDC1D-D843-4C7A-9E5C-09F965837038"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-18CFD14D-1C34-4BDF-8D15-8A4DDD523A6C">Invert Colors</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9048B300-357E-4638-A58E-A2D794FB3DF5"></a></span><p class="table-body">Switches the values of Color 1 for Color 2, and vice versa. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="GUID-CFA3AA15-31B7-42D1-A60B-3DEF2746B3A6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-ACC6D53B-CBAB-4903-AC30-E19E3EBEF6F9"></a></span>Contrast
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_7EEE548CE0C1428EBE86F03D2E703CE4"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A3D45E82-CA6B-40CB-898A-AA8CDC8A5911"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-32EBD5D7-BFE8-4E05-AEAE-5B1716C13C58">Clamp Min/Max</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-769936D8-91E8-49F4-8A01-4C347F080295"></a></span><p class="table-body">Clamps the Color 1 and 2 minimum and maximum values to change the contrast of the
+                                 pattern. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-037644C5-333A-41C3-97A0-35E44F9208A1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1EE95BFB-6DC5-4C5B-81A7-BFCCAF88AEB6">Bias (Gamma)</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-969ADB2E-582B-46EC-93EC-EB5ACD1E1A03"></a></span><p class="table-body">Overall amount of white and black used for the contrast. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="ID-16208_05-SHADEREF_TEXTURES"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8D0558FE-E147-47CF-B255-41BC83767F4C"></a></span>Noise
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="GUID-B8769847-495C-4D9A-9ACA-D2153EFC507E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C1899322-5A37-4AA0-8284-185F3F201179"></a></span>Type of Noise
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_367066B3D745403EA2DF126A65B3069D"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CAC14EA8-FADA-41CB-B11E-32A86C891BFC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A234F231-A19F-422C-9079-F81048E9FCA5">Noise Type</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5E5C4640-1D6E-4710-9A09-A0DF0420E0DB"></a></span><p class="table-body">Use either of these noise calculations: </p> <span class="anchor_wrapper"><a name="UL_1A816736334A43108227E07277CEFA16"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-3BB7F605-9AB7-4CCA-9F2B-2E237F840619"></a></span>Fractalsum - Noise gets repeated at smaller scales with smaller amplitudes for getting
+                                       a fine level of detail. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-BA5E1697-9959-4038-88C1-0551BE00D343"></a></span>Turbulence - Noise with areas of more pronounced contrast. White areas of the pattern
+                                       render as volume (peaks), while black areas render as cracks or fissures (valleys).
+                                       
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> <span class="anchor_wrapper"><a name="TABLE_7EF504B04CBE452E9A11139A100E455A"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7A8B75E4-223B-4CD5-BDB2-4D77C713B28C"></a></span><p class="table-body">Fractalsum </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B36BD924-B8E4-441F-9259-D6F5754C892E"></a></span><p class="table-body">Turbulence </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-F75A28C7-1433-48F7-841C-5ED4CCE87814-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-11EA8482-B269-4FCA-852D-7C131117D95D-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="GUID-9BC20DD4-9F51-481F-A7C3-9A789B513D4F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DB9336D6-C267-4115-99D0-81E32640AFC0"></a></span>Recursion
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_8F9F3EDDF31E43C39E9E11679EEE7251"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8D72CBE1-3D59-4BCC-8AFC-986EEADDC39C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FED3265F-C0F0-4628-8008-FF3A4304769B">Level</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8D139E21-3926-48EF-B8E9-5D64BF99239E"></a></span><p class="table-body">Number of iterations of the noise function you've selected (Fractalsum or Turbulence).
+                                 The higher this value, the more finely detailed the noise pattern. See example images
+                                 below for value usage. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-55C29D37-A78B-4FC0-8148-4B4D27C9C056"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7CB03374-CB5B-47C5-A4D4-CBB8FB619B7D">Next Recursion Level</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="UL_6C31EAC6717C4B59B64A33D35D1D9EBA"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-0DA0405A-D5EB-4289-9D8F-1B52B8DB05B9"></a></span>Scale down: Reduces the scale for the noise for the next recursion level. See example
+                                       images below for value usage. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-428A38F2-6690-49DB-91DB-E6F8770EEC15"></a></span>Gain/Smooth: Reduces the intensity for the recursion levels. With a value of 1, each
+                                       recursion level gets the same amount of intensity, which leads to a small high contrast
+                                       noise. With a value of 2, each level gets half of the previous layer, so the pattern
+                                       gets softer in the small details. See example images below for value usage. 
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-69CA396D-4D33-434D-8D00-2F425030B473"></a></span>Recursion Level
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_E74BE320459444F6AFD28B27E9E96C09"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-849C04CF-7E2C-4D43-9FE7-46C55F932364"></a></span><p class="table-body">1 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EC872CF5-156E-4E7F-95B9-43A4C416233E"></a></span><p class="table-body">2 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E38982EB-5AF7-4919-BE2F-9C4EBFA33980"></a></span><p class="table-body">3 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3541F4EB-3002-443E-8673-4465BCE25D7D"></a></span><p class="table-body">4 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-139E976F-F740-48E9-AE2A-E796FAF87951"></a></span><p class="table-body">5 </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-D192FAE6-8BFF-4547-B9BA-54EE189E46B8-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-B6A53644-AAE8-4030-8908-B706098C473A-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-085DBDD0-FFF1-41C2-9B1A-8B556AAB58C1-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-DA7CAD17-233A-4B63-99AD-40ADA30E291D-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-BAFCD9EC-CA7D-4026-AAB3-420ED12CBB19-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-22E2F847-521B-4D39-A30E-3E71AF712E47"></a></span>Scaledown
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_E515C52BB48A40F99C65A15E8C677100"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-137366F6-69E6-4D44-A4C0-DEBED28FD70A"></a></span><p class="table-body">1.5 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-753DB167-54D7-4B7B-9CC4-61D4C55D2F27"></a></span><p class="table-body">2.0 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-11C35D1E-EBD1-4916-A23E-67A3550F0118"></a></span><p class="table-body">3.0 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8E0775B0-612E-4B3D-B68B-03D11076EC0F"></a></span><p class="table-body">4.0 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-06ADF3BB-39CF-4A8C-B055-7C79054B9F9A"></a></span><p class="table-body">5.0 </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-C75CC9CC-D5CF-4CDE-AE89-C9712B0B1DE0-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-2D10778C-FE4E-4A7E-9878-A0FAFE6DF3F6-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-61B2CDD9-182C-4CC4-8548-90DA2CBB852E-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-B8AB9C1C-3D43-4451-A75D-DF0442F1D916-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-BE22348E-A7B1-4BA6-A0F7-6F81BBEF7AE1-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-AD547E63-94EA-46B5-A651-A3312B8B23CA"></a></span>Gain/Smooth
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_9F664CA1A4DF403BA36693C9A1B95434"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E4E88849-6601-45CE-A07C-255CC0B5A55A"></a></span><p class="table-body">0.5 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E9C8F771-4DB8-42C7-A66E-39C0A2586CBA"></a></span><p class="table-body">1.0 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5C11B8D5-46DD-4F21-B517-2711A5AAD4E0"></a></span><p class="table-body">2.0 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D91E34BE-281B-4350-A5C2-8FF48294B0FE"></a></span><p class="table-body">3.0 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C7C18B0A-BD72-404C-9C68-82724ABB2389"></a></span><p class="table-body">5.0 </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-CD638C29-BE08-42FD-8D13-56AA6873F0C7-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-D7F7EBD7-03D0-4F18-A392-280069D35AD7-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-B2A713B7-C6D9-4C1C-816C-D05BC0EBFC45-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-0FFF23D7-D335-430C-A508-A5DFFD79D990-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-DAB5071F-8516-4AD3-9C38-F4471B4BDDBD-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="GUID-2FFB90E3-059D-4693-ACB5-5425F4C7DDC6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E7AD4E52-55C4-4FDE-B518-7F5BB72A60D8"></a></span>Distortion
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_A105CE52BB49410DB2F413DBD3F9EB10"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-57560370-3620-4E79-A226-214EC5812D11"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1A4C590B-4544-48AA-978F-F34E1C2AE3DB">Distort</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6099C9DB-92E9-43AC-9846-8767AC89F0ED"></a></span><p class="table-body">Distorts the noise with a Perlin noise, making for more psychaedelic effects! See
+                                 example images below for value usage. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-97C90D8F-917D-4D85-AF6D-4D4DCF516C29"></a></span><p class="table-body">Note that distortion can increase the render time by up to 5 times! </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2951EF41-4E83-41D0-A7E1-A3EE89B81EEC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5F976650-758C-404D-8B43-1B19CE78B678">Distort Scale</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-43799C1D-59C8-4275-91B0-9B211AB3F0F5"></a></span><p class="table-body">Scale of the distortion pattern. Higher values create a more finely detailed pattern.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1A53C42C-C782-4B61-9A5F-1346045FF40E"></a></span>Distort
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_9BF949B999AA4E49B2C607EF7937F513"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-313BB52A-C682-45E4-8359-97C451C4349F"></a></span><p class="table-body">0 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F01B56BE-ACAF-4F90-93B6-B2C66D02BB82"></a></span><p class="table-body">20 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-41B8C1F0-EBC1-4C26-ACBD-78F327B8B555"></a></span><p class="table-body">40 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3D21BFEA-B345-473B-84F8-612093517ABC"></a></span><p class="table-body">60 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2028D9B6-4B45-4C6B-965B-5EC8E01B9D6B"></a></span><p class="table-body">100 </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-17FAE306-0BDA-49DC-9A6D-4D7C9A343BF4-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-E5BAB029-1DCA-45D7-9DD1-D955573FEA37-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-86CDF242-CC08-475B-BCAF-3D35E0674D9C-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-6C0B4231-418D-4C06-B582-8B9742A5F8EF-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-5CA958FB-728E-4387-B19B-1B72D0C63E54-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EF98C9A0-F2C8-48D8-B9C0-28B7D299FB78"></a></span>Distort Scale
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_8105D64753624447A1BA172949800BA8"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BE95AC04-5A83-4814-8D6E-D04E3452C5C9"></a></span><p class="table-body">2 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2ACFCC96-59B8-442E-A6CF-5BE1D98693DD"></a></span><p class="table-body">3 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8FC9842E-DA14-4BBE-B874-2190EEE77A6C"></a></span><p class="table-body">4 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-99190967-2DB0-4CAB-8EBD-F1CE6505627C"></a></span><p class="table-body">5 </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2CDABA5D-0777-444E-9190-8ABF940CB79E"></a></span><p class="table-body">10 </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-DDEF95A2-21BF-4ABF-A713-81D27483AE18-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-1B32A62C-ED40-49DC-9EE2-73B158525015-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-F596C311-A4A0-4E4F-A301-14B9E79227B2-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-88899BEE-ED68-4C5D-B9C8-0FF45817877E-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-57486EAF-7361-4F60-AA5C-35CFCC6C1F80-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="GUID-5B30B6E5-A1F9-485E-899A-F88D8FFE9000"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F60694CF-AC6D-4B77-819B-56B9F67BFEDC"></a></span>Time
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_1512B78EF1AC4662B42B17E2ADC90F68"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-60F9EBD0-B357-45C5-9A18-CE3EFC174A03"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E984E20D-0FE2-4EE2-9AF6-E4B4172758AB">Time</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-96BE12CF-3F5B-4D11-A6FF-1EC677A300B7"></a></span><p class="table-body">Changes the fractal pattern over time. </p> <span class="anchor_wrapper"><a name="UL_B49F8E222C8442738D2DED42DE6A4FD1"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-EB329C4D-1FDB-4E59-A53B-8CDD93C86E9D"></a></span> <span class="MenuCascade" id="GUID-5244BD82-A824-485F-A898-FC6F3A6EEA9C">No change over time:</span> The fractal pattern doesn't change. If you select this option, the additional 4th
+                                       dimension of time for the noise is not calculated, which means less render time. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-1868D662-3EB7-4A69-A4EE-E7E074E4D633"></a></span> <span class="MenuCascade" id="GUID-0384029C-1054-4FC5-B2F1-DA2AF5D40EEC">Constant:</span> The animation is done in a linear fashion. You can set the Speed value, but not the
+                                       Time value; that is, you cannot animate this value. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-0AB3B604-ECE8-4862-B3B0-52C238D700B6"></a></span> <span class="MenuCascade" id="GUID-05CE5A61-AD9A-43B6-B552-4C2BCF540654">User Animated:</span> You can animate the Time value to make the fractal pattern change as you like. 
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D368872D-9A01-46EA-A119-A18163517F97"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A6270919-D7D4-4DE7-A61F-3768E36CF20C">Speed</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-80B7A0C4-2A19-4559-920C-88E0DD48CB28"></a></span><p class="table-body">Determines how quickly the fractal pattern changes. This is the rate without any acceleration.
+                                 You can set this only if you select Constant. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4390D6F6-915B-4DD8-A093-3622F5A9DF42"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B7EFF26D-0C75-4AD1-9669-B76346807313">Time</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D4A6F0D2-6754-4964-97F5-F60B3301C185"></a></span><p class="table-body">Set keys on this parameter to animate the time, which changes the acceleration of
+                                 the fractal pattern. You can set this only if you select User Animated. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="ID-46570_05-SHADEREF_TEXTURES"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D9A545CA-118D-4D74-B764-F1112FFB3FCD"></a></span>Texture Support
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="GUID-062516B9-0398-48ED-A497-ED9980F5CF09"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2B4F15DC-572C-44EE-A323-9A17479BFB33"></a></span>Coordinates
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_28E8FD250E1B40699396BDB0FD8DBC40"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F51E285C-0899-48CA-9EBE-D727FE634B5C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8A4F338F-4088-46DA-AE9E-31816BCBE240">Input for Texture Coordinates</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1598CFE4-FD14-4AEB-8E77-C6D22A46EE6D"></a></span><p class="table-body">Select your texture space in XYZ. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D21C49CE-6720-4E2C-A9F0-6FF2DCD1C8B9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-292182D8-1979-4255-9E0B-C7129F8E9964">External Coordinates or Auto Spatial (if no input)</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D8B2F996-74B3-4717-B159-ECF715F656B3"></a></span><p class="table-body">If this option is on, the shader uses the input shader's texture coordinates. </p> <span class="anchor_wrapper"><a name="GUID-45E32352-9CD2-4C60-8BCD-297608CEE942"></a></span><p class="table-body">If no input shader is used, basic object texture coordinates are automatically created.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="GUID-127FABC5-CDB5-46A7-9A15-1494D2421BB8"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0209DA35-D9E7-4E77-9862-1208B8B8E8E0"></a></span>Coordinate Scale
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_50661A3B6D374E399A6C242B6859B0E4"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D216E24E-A126-4FCB-8360-F022669DD8AE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-33237B5A-C897-4AE2-8A7A-C68E2C240E43">Pre-Scale</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-94FC1FB9-B2DC-4ACD-8050-DAE6778ADE84"></a></span><p class="table-body">Sets the general scale of the texture coordinates: Big Noise, Default, Small Noise.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3FD8F3CF-AC87-449A-8D8D-525F9A9A72FD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B0156D55-2A20-4CC6-B1D1-3816D8FC5B81">Scale</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-65C0CE2B-FF32-435E-A895-4B5514715EE5"></a></span><p class="table-body">Once you have set the Pre-Scale size, you can fine-tune the scale of the texture coordinates.
+                                 This slider scales the texture coordinates uniformly on all axes. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C15115E8-212B-444C-990A-C6C2B3B86BAA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-428808D0-0415-4993-94B2-4A67CAA47043">Scale per Axis</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8AE6A64B-A094-4E1E-8897-2DE4EFE6C67E"></a></span><p class="table-body">Sets the scale separately on each XYZ axis. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="ID-26128_05-SHADEREF_TEXTURES"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D7B6351A-D404-4004-9A32-49D261E4A9FD"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C8D4B708-68AF-48AF-998C-732DD0874635"></a></span>Plug this shader into the density_shape and/or density_texture ports of the Particle
+                  Density shader, which is plugged into the density port of the Particle Volume Cloud
+                  shader. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0998F189-3913-42DB-90ED-BBD21A6B27D3"></a></span>For more realistic or complicated smoke effects, you may want to use two Fractal Scalar
+                  shaders, one for each density port, or add a Cell Scalar shader to create fractals
+                  on a larger scale. 
+               </p> <span class="anchor_wrapper"><a name="FIG_7E699492C60F4BF4AF8A68ED67C95B53"></a></span><div class="figure-anchor"><img src="../images/GUID-0443D649-12B9-4E65-82B9-699EF1BBA488-low.png"></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

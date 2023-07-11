@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-66040958-9E67-45DB-9EC9-153B0F5AE792">
+      <meta name="indexterm" content="properties: overriding">
+      <meta name="indexterm" content="overrides: about">
+      <meta name="indexterm" content="parameters: overrides">
+      <meta name="indexterm" content="overrides: on properties">
+      <meta name="indexterm" content="overrides: on parameters">
+      <meta name="indexterm" content="overrides: creating">
+      <meta name="indexterm" content="overrides: adding parameters and properties to">
+      <meta name="indexterm" content="overrides: creating">
+      <meta name="indexterm" content="overrides: creating">
+      <meta name="indexterm" content="overrides: deleting">
+      <meta name="indexterm" content="overrides: deleting">
+      <meta name="topic-type" content="concept">
+      <title>Overriding Properties</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-66040958-9E67-45DB-9EC9-153B0F5AE792"></a></span><div class="head">
+            <h1>Overriding Properties</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-3023A426-6DE3-4AB1-92A5-E16744B784DC"></a></span>Overrides are used to temporarily replace the current values of parameters. They are
+               useful for controlling one or more specific parameters of a group, layer, or partition,
+               without losing each object's individual parameter values. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9CCE3852-EFD9-4697-8C82-FEB833806B7E"></a></span>For example, suppose you have a group of polygon mesh objects, each of which has different
+               subdivision levels applied in its Geometry Approximation property. Suppose you want
+               to control all their OGL Level parameters together, but leave their individual Render
+               Level parameters unchanged. If you apply a Geometry Approximation parameter to the
+               group, it will affect all Geometry Approximation parameters through propagation. However,
+               by using an override you can pick out just the parameter you want and modify it alone.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-CF61D293-A37A-4D32-8840-B37EF8300CD4"></a></span>Overrides can be applied to individual objects, hierarchies (in branch mode), models,
+               groups, and layers. However, they are especially useful for rendering passes because
+               you can control specific properties (for example, transparency, shadow settings, or
+               even the entire material) of all objects in a partition at once. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-345A7EC5-A93E-4797-A8AC-4AD212863F08"></a></span>Overrides can contain individual parameters or entire property sets and materials.
+               
+            </p><span class="anchor_wrapper"><a name="UL_83D42FA438664A3586BDD547D7886671"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5E76827B-C5E8-45DC-B4E0-2F24D2CADC8F"></a></span> Parameter overrides can be applied to objects, branches, groups, layers, and partitions,
+                     as well as with models. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4C33EEEF-4DA7-4DCC-8AB7-F96A6CA4E614"></a></span> Property set and material overrides can be applied to models — for example, you can
+                     transfer changes you made on one model to another version of the same model. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ABA1FE1C-2CF1-4C8D-A7C5-1C6BD22A40F1"></a></span>Property set and material overrides rely on object names within the model to determine
+                     which property on which object to override. For example, if you create an override
+                     for <span class="filePath">body.geomapprox</span> on Model and transfer it to Model1, it will override the geometry approximation property
+                     of the object named <span class="MenuCascade" id="GUID-E81F5927-9A9F-46AC-90DA-136D94A1EE94">body</span> in Model1. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-C6C8258A-A78A-414B-8DFD-28BDFB9B93B7"></a></span>For information about using overrides on partitions in render passes, see <span class="char_link"><a href="passes_DefiningPartitions.htm#WSBDF3789326DBBD4FB2A3C80D3F0ED961-004D">Applying and Overriding Properties on Partitions</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9088EBC0-11D3-4C7B-90A1-70B8BACD077E"></a></span>Overrides follow the same propagation rules as properties. For example, a local property
+               on an object will take precedence over an override of a branch property. For more
+               information about propagation, see <span class="char_link"><a href="properties_HowPropertiesArePropagated.htm">How Properties Are Propagated</a></span>. 
+            </p><span class="anchor_wrapper"><a name="FIG_F81D63E9BF684E6295F8ADE06FE5CCF6"></a></span><div class="figure-anchor"><img src="../images/GUID-AA9FF5BC-5A9B-4C62-A53A-E992A6E0936C-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-75E10304-2991-4035-B5F5-E865C73A8D5C"></a></span>Override nodes appear in the explorer as an O on a green background. The superimposed
+               B indicates that the override was applied in branch. 
+            </p><span class="anchor_wrapper"><a name="FIG_48DF9E76D3FE4E5C95BE0385F5059C40"></a></span><div class="figure-anchor"><img src="../images/GUID-FD9AE037-5BE8-4D04-9F4B-548FA20ED771-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-FAEE6398-0D64-4801-9040-DAD7D6BE76FD"></a></span>In property editors, the animation icon of parameters that are controlled by overrides
+               show a black triangle on a cyan background. Right-click the icon and choose Inspect
+               Override to open the override's property editor. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-BA5F0E5A-CE68-4094-BA34-26384D6CB552"></a></span><div class="note-important"><span class="label">IMPORTANT:</span> <span class="anchor_wrapper"><a name="UL_C5D25E13C2284238BE7AF54658F8FB23"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C90F6CD6-F2D5-4458-8351-741ED19A1FE5"></a></span>You can still set the value of the object's parameter but it has no effect as long
+                           as the parameter is overridden. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D4C3F5A8-AD76-4AE1-A17E-318C8F9F437D"></a></span>Using overrides can bypass the maximum and minimum values allowed for parameters.
+                           Setting a value outside the allowable range can cause unpredictable results. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9241A0F6C7089B45B1A5F88F169B3E4C-003E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-44842081-28B4-43EB-B14D-E50E93C5BC0D"></a></span>To create an override
+               </h2>  <span class="anchor_wrapper"><a name="GUID-7C8D9F6E-3D22-4D57-80A1-40383F536A5C"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1A013BFA-0B10-46B0-AEBB-3CC87BA6FCFF"></a></span>Select the element on which you want to apply the override. You can select an object,
+                        branch, model, group, layer, partition, or even the scene root. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2564C9FC-90CD-4D04-82B2-4899B1546866"></a></span>Choose <span class="MenuCascade" id="GUID-BB0A4964-08FC-4F42-8AF7-3A240BF9D37C">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Override</span> from any toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FED0B0A8-A119-42BB-B0B4-46D71514A535"></a></span>An override is created, but has no parameters at this point. You need to add parameters
+                        or properties to the override to control them. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9241A0F6C7089B45B1A5F88F169B3E4C-003F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-50009B9A-CB41-4078-BF87-E88F66BA571B"></a></span>To add parameters or properties to an override
+               </h2>  <span class="anchor_wrapper"><a name="GUID-7A63D4F6-647C-44AD-923F-13B07FEF80CC"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-41992F8C-4D1D-4400-96EA-32DB09AA8849"></a></span>Open the override's property editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-948D7D57-DDF6-4812-99DF-B26D831D5381"></a></span>Click Add Parameters. A pop-up explorer opens. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1E5565CD-9D94-4A72-9B64-2400B6AB66AC"></a></span>Do any of the following: 
+                     </p> <span class="anchor_wrapper"><a name="UL_F052D88B2E2045B2AB53489E6D5A2199"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-972958E6-ACA7-45A6-AECB-A15DB0DDFB52"></a></span>Click to select a single parameter or property set and deselect any others. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9CD1E1A2-1940-4189-A29B-6FEA805B06B0"></a></span>Shift+click to add a parameter or property set to your selection. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E3BDA4B8-E13F-4FAE-8AF1-1A3A4FB39245"></a></span>Ctrl+click to toggle a parameter or property set. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4BF1FA4C-3154-4751-A7FB-3EC4DB265CE5"></a></span>Ctrl+Shift+click to deselect a parameter or property set. 
+                           </p> 
+                        </li>
+                     </ul> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E0BADF3B-6019-4099-A879-5BB2D54B9C3E"></a></span>Selected parameters and property sets are highlighted in a light purplish blue. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5A06867A-171A-494D-9FE0-9F3BAA67677A"></a></span>When you have finished picking, click outside of the pop-up explorer. The selected
+                        parameters or property sets are added to the override. 
+                     </p> <span class="anchor_wrapper"><a name="UL_567973F564884B93B900B190D45C6A04"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CD2E1AF6-7A56-4C73-B74F-5853D1D78C85"></a></span> <span class="MenuCascade" id="GUID-D864DF8B-E226-45A9-9DB0-12CAF86C7621">For parameters</span>, you can use the sliders in the override property editor to control the values of
+                              the parameters in the scene. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-DF0AD08E-1D9C-4401-B848-F66080210433"></a></span> <span class="MenuCascade" id="GUID-22EEC48A-E219-44E0-B5A9-DD55F00AF5F3">For property sets</span>, you must open the property under the override in the explorer to control the values
+                              in the scene. 
+                           </p> <span class="anchor_wrapper"><a name="FIG_C53CBFC5F3B54997BA3E608C64A54F5B"></a></span><div class="figure-anchor"><img src="../images/GUID-3913BF3D-2C47-458A-9FF6-D42B284B219F-low.png"></div> 
+                        </li>
+                     </ul> 
+                     <div><span class="anchor_wrapper"><a name="GUID-DD283CE5-58D7-4BDF-8659-3016201332DA"></a></span><div class="note-note"><span class="label">NOTE:</span>Property set overrides have an effect only when the override is applied on a model
+                           or the scene root. You can transfer the override by dragging and dropping in an explorer.
+                           
+                        </div>
+                     </div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9241A0F6C7089B45B1A5F88F169B3E4C-0041"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C04FB31A-6CB7-4DA3-8AB3-BA29E80DB587"></a></span>To remove parameters and property sets from an override
+               </h2> <span class="anchor_wrapper"><a name="GUID-A374705D-90D3-4815-B050-91DDBFE04147"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-962B3B7F-5DE6-48F1-81A5-B6AB30FA62AF"></a></span>Open the override's property editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3480F982-0C5B-431F-A9F5-A3FB4CB329B5"></a></span>Mark the parameter or property set to remove (click its name in the property editor).
+                        Shift+click to mark additional items. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-29C3DFE0-374D-48F0-9B98-EA0742360539"></a></span>Click <span class="MenuCascade" id="GUID-8FB0A4D7-DC4A-40D4-83F1-60F62F622DEF">Remove Marked Parameters</span>. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9241A0F6C7089B45B1A5F88F169B3E4C-0042"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-34141DB1-0BC4-427E-8F18-A674224C1D52"></a></span>To create an override for specific property sets
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-8F7D88F3-7F5F-430F-B53A-623866C71FC6"></a></span>Certain property sets are commonly used in overrides, and there are special commands
+                  for creating overrides that contains exactly these properties. 
+               </p> <span class="anchor_wrapper"><a name="GUID-53B0B246-D1BF-41FC-B2A3-DF2CA96D2016"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-948AF0A4-4CD5-464B-915F-98F876D677DC"></a></span>Select or branch select a model. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4E48956E-520A-488C-80A3-691243C0082A"></a></span>Choose one of the following commands from the <span class="MenuCascade" id="GUID-7BF547B1-CA3F-4F83-8F2D-234C0BFE853C">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Store in Override</span> submenu of any toolbar: 
+                     </p> <span class="anchor_wrapper"><a name="UL_4DFB8358D1084941A6141A8691639084"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-53F4042A-FB26-445C-B569-38C6ECE8A8E0"></a></span> <span class="MenuCascade" id="GUID-8C8184C1-99EF-4D96-9971-DC3342D1EBF6">Materials</span>. Creates an override containing the model's materials. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CC82292E-5E5C-4149-862E-856EA89270AC"></a></span> <span class="MenuCascade" id="GUID-0A4211D8-88B2-4D57-81BC-7C5F7DF50430">Visibility</span>. Creates an override containing the model's Visibility property. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0753B65D-3D28-404A-A5A2-D875244D31BE"></a></span> <span class="MenuCascade" id="GUID-EB361975-28F7-4D53-8485-A6533E9C2FA5">Geometry Approximation</span>. Creates an override containing the object's Geometry Approximation property. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9241A0F6C7089B45B1A5F88F169B3E4C-0043"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CAD8CBF2-0734-4FEA-B2D4-C6BC8ECB495D"></a></span>To create an override for selected property sets
+               </h2>  <span class="anchor_wrapper"><a name="GUID-4B16B375-3BB5-4219-AE6F-93EF5A28D9E2"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7C3FB375-A083-4E46-8E62-462C8EC43500"></a></span>Create an override on a model. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F99F0967-D36D-42CD-9807-2D02EA2F9162"></a></span>Multi-select the override and the property sets you want to add. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-49597897-D8F8-40AA-B187-24F7266847A3"></a></span>Choose <span class="MenuCascade" id="GUID-FCD9C039-A385-4D68-8BF9-513C90218CF9">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Store in Override <img src="../images/ac.menuaro.gif"> Selected Properties</span> from any toolbar. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9241A0F6C7089B45B1A5F88F169B3E4C-0044"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-36A46F6A-B145-4B76-B2C6-F8DF3FB11A00"></a></span>To delete an override
+               </h2>  <span class="anchor_wrapper"><a name="UL_5AF2E49F07BC4E898AEAC32BD352D812"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-203C2B0D-F210-4FCC-ABE7-5DABDE1BFDF8"></a></span>Select the override property and press Delete. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9241A0F6C7089B45B1A5F88F169B3E4C-0045"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-703665FF-C447-4AA3-9106-EA2373F3BAA1"></a></span>To delete all overrides on an element
+               </h2>  <span class="anchor_wrapper"><a name="UL_BC977B63133641278308D97229809CEE"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4112E759-9A3E-459A-835F-63365F232C0E"></a></span>Select the element and choose <span class="MenuCascade" id="GUID-D46B734F-1BEF-459D-B3CB-98D9F689E561">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Delete Override</span> from any toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4D62CCF9-AE19-40B6-BA89-4D38C03C30ED"></a></span>If you select a child node, this will also remove any overrides applied in branch
+                        mode on its parents. Similarly, if you select a member of a group, layer, or partition,
+                        this will remove any overrides on all groups, layers, and partitions to which the
+                        object belongs. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

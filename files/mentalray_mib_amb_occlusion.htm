@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-358211E6-464A-4B8A-B5A4-76CAB1AB59C4">
+      <meta name="topic-type" content="concept">
+      <title>mib_amb_occlusion</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-358211E6-464A-4B8A-B5A4-76CAB1AB59C4"></a></span><div class="head">
+            <h1>mib_amb_occlusion</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-56F35F1C-671E-48C8-9331-2D9325E1F3CE"></a></span> <em class="strong">Category:</em> mental ray &gt; Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2017A6A3-F6E0-4475-8DAF-48EBD8173B28"></a></span> <em class="strong">Shader Family:</em> Light
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-177C796B-F2D1-4321-B58C-95EDA40AE6E0"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-176BE360-7F1D-4DE1-923F-ECA3B5608C44"></a></span>Occlusion is a fast and simple method to simulate the effects of global illumination.
+               Occlusion is the extent to which the area above a point is covered by other geometry.
+               This is achieved by tracing a number of probe rays inside the hemispherical area above
+               the point and testing to what extent this region is blocked.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-1E7EF68B-A8DF-4D7A-BF80-58DC3A27EEAC"></a></span>Typical use of this shader is ambient occlusion, where the shader is used to scale
+               the contribution of ambient lighting (which, in turn, may come from a diffuse environment
+               map shader). For this use, the shader should be assigned to the ambient parameters
+               of materials like <span class="char_link"><a href="mentalray_mib_illum_phong.htm">mib_illum_phong</a></span>.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-12A651AE-6D7A-4911-BCDF-49A0FC1E447C"></a></span>Another use of occlusion is reflective occlusion, where the shader is used to scale
+               the contribution from a reflection map. For this use, the shader is generally plugged
+               into an environment or reflection shader port of a material, and the actual environment
+               map image is plugged into the bright parameter. An alternative is to allow the return
+               value of the occlusion shader to modulate the strength attribute of a reflection map
+               shader.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6E87C43B-9C53-414F-9BF1-12C1C4313462"></a></span>A third use is to create files for external compositing, where the occlusion shader
+               is assigned as the primary material shader on every object in the scene. The output
+               can be used to modulate other render passes to achieve proper compositing in post-production.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4C975150-D5A6-4852-985D-60A60773C816"></a></span>This shader may also be used as a light shader. The light source must be an area light
+               of the user type. This generates an "ambient" light source with built-in occlusion.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-56023AE7-B899-4FA5-8C65-60D97ED23915"></a></span>This shader only depends on base raytracing features provided by mental ray, and does
+               neither use nor benefit from advanced computations like final gathering or global
+               illumination.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7FD66B19-EF6B-4F85-959F-FB8FFB57F225"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A280C508-EB0A-4A72-8F20-9F61F829CBF0">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BB5AAD63-7809-4B3C-AE0E-EB7FF506FA62"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C7CCC8EB-E17A-4FAA-B190-A5E8866BD410"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4794C724-7D6C-4EE7-A579-E28492CC48BB">samples</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2A3AF37F-0BE8-4C2F-B8E4-EFE161B4EF15"></a></span><p class="table-body">The number of probe rays that will be sent. More rays yield a smoother image. Occlusion
+                           mapping is never as smooth as well-tuned final gathering or photons, but is computationally
+                           inexpensive.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D1FF2C8C-522C-4BC7-94FF-4E82D7F16D52"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6A07C113-C35A-4EF1-ADC9-9625B38D0D5F">bright</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F3D1F070-7C83-4058-A260-3135E812841C"></a></span><p class="table-body">The color used when no occluding objects are found.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A07662DE-F66E-483B-8420-081FC6E38FD2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FFEAC122-CDD7-4C97-978B-9AB5D2DF56C2">dark</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4EB99807-28A5-45CA-8BAB-CFD9919ADCDC"></a></span><p class="table-body">The color used when total occlusion occurs. In most practical cases, it is set to
+                           black. For partial occlusion, a gradual mix between the <span class="MenuCascade" id="GUID-E8D56739-0F9D-4D09-98EC-51FCAD400AD1">bright</span> and <span class="MenuCascade" id="GUID-ABF1460C-3B17-4E94-B35A-1E5B19ACC3F6">dark</span> colors is returned.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0DE2F889-0499-42ED-8BD9-3DF34A848211"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-86CE44BE-AD8A-4AC0-A17D-80B89CD19848">spread</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3C334233-7DF0-4A4D-B2FD-1DEC4454D975"></a></span><p class="table-body">Defines how large an area of the hemisphere above the point is sampled. The value
+                           defines a cone around the sampling direction which is narrower for small values and
+                           wider for large values. It ranges from 0.0 for a cone that is a single direction,
+                           to 1.0 for a cone that covers the entire hemisphere.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-85B92BF9-711D-407D-A2F9-179F6C2D1D80"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5D7D50D9-FA2D-447D-A673-55FF04C3C867">max_distance</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B67E3BC7-C134-4204-B90F-BD2CB8BBB98A"></a></span><p class="table-body">The range within which geometry is probed. If it is zero, the entire scene is sampled.
+                           If it is a non-zero value, only objects within this distance are considered (which
+                           makes sampling much faster). Objects outside this range do not occlude at all and
+                           objects that are closer occlude more strongly as the distance approaches zero.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-670551A9-BF2F-4647-81E4-C440A2B8CCB4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9D4F988E-BDB9-4C5B-AD5F-E94BE891CA03">reflective</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-83CFEDA7-7D91-4A50-86E9-C65F0287C59D"></a></span><p class="table-body">If this option is off, sampling is performed in a cone area based around the surface
+                           normal.
+                        </p> <span class="anchor_wrapper"><a name="GUID-0EC52AFF-0FAA-4B29-813B-F69F204EB7D1"></a></span><p class="table-body">If this option is on, the samples are instead distributed around the reflection direction.
+                           This generates reflective occlusion which can greatly enhance the realism of reflection
+                           mapping.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1CB580CF-D161-43EA-8DAA-2334767202C7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-01D60617-C82E-457B-8417-7BB83F616127">output_mode</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-11480E1A-392B-4C17-BD7C-149DF642722C"></a></span><p class="table-body">Defines what the returned color is:</p> 
+                        <ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3451BC77-426A-46F3-B82F-861CE8883839"></a></span>Mode 0 enables standard occlusion behaviour.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DE56F9C4-5506-48E8-8006-10C286A1A45A"></a></span>Mode 1 enables environment sampling. This changes the behavior of the shader slightly.
+                                 As directions are probed for occlusion, the current environment is also sampled and
+                                 weighted based on how occluded that particular direction is. With Mode 1, the output
+                                 of the function is the gathered weighted environment colors multiplied by the <span class="MenuCascade" id="GUID-4389046B-EC43-403A-A95D-F95327195506">bright</span> color, with the <span class="MenuCascade" id="GUID-6B13DB21-11E3-4C8E-B404-BE2EF9877DC2">dark</span> color added for convenience.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DEC99C37-5FF5-456B-995C-B23A97748B89"></a></span>Mode 2 enables bent normals (see <span class="char_link"><a href="mentalray_mib_bent_normal_env.htm">mib_bent_normal_env</a></span>). The average unoccluded world space normal direction is calculated and returned,
+                                 encoded as a color where red is X, green is Y, and blue is Z.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B41D9516-2C0E-4B16-9F29-9184C2C2F015"></a></span>Mode 3 is the same as 2, except that the normals are encoded in the camera coordinate
+                                 space.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CD1426DB-F65D-4F2F-ACD1-743EA0F302EB"></a></span>Mode 4 is the same as 2 except that the normals are in object space.
+                              </p> 
+                           </li>
+                        </ul> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A956AEDD-F5DC-44EF-8E27-B16752DA4D41"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BB39A4B9-8F32-48FF-B4B9-244D5AD8D01D">occlusion_in_alpha</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-40113115-EF07-450E-B57C-EC385A6DECA8"></a></span><p class="table-body">Puts the scalar occlusion value in the returned color's alpha component, regardless
+                           of the <span class="MenuCascade" id="GUID-ABDD9769-0860-4A16-A337-BDD860BA4CC4">output_mode</span> value. The other color components remain as before.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9A24C95E-1612-488F-B130-7A4CE7E255C4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C03C15C7-6A77-4AE8-9606-3829E78A9486">falloff</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-16829885-B471-4D73-9957-5C402B27E6E7"></a></span><p class="table-body">Only matters when <span class="MenuCascade" id="GUID-E008286E-68F7-4308-8397-8BACA4F84EC9">max_distance</span> is a non-zero value. This defines the speed at which the occlusion is attenuated
+                           by distance.
+                        </p> <span class="anchor_wrapper"><a name="GUID-36C0CB69-1E67-414B-86CA-8AF6121D2F71"></a></span><p class="table-body">Technically, it is a power function applied to the normalized distance from 0 to the
+                           <span class="MenuCascade" id="GUID-5F78B4AE-6107-4A0E-80AC-EE19E1A0181C">max_distance</span> value. The default value of 1.0 is a linear falloff. Values below 1.0 makes the falloff
+                           happen more rapidly. Practically, this means that for lower values, occlusion is stronger
+                           for short distances (in small corners and crevices) and softer over larger distances.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DCA8A9AD-516E-4E45-BE6C-B4766BDEB7B7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-16A28E87-F5A7-40D0-ACFC-EECB14BB16B7">id_inclexcl</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-36479DEE-CD9E-4191-A573-EF6619E7E42F"></a></span><p class="table-body">Defines an instance label number for objects as to whether they are considered (included)
+                           or not (excluded) as an occluding object by the shader.
+                        </p> <span class="anchor_wrapper"><a name="GUID-A52F1607-DD0B-4A02-8DEF-40A4AA1B5532"></a></span><p class="table-body">A value of 0 means that this parameter has no effect. A positive integer means that
+                           only object instances with a label that matches this number will cause occlusion.
+                           A negative integer reverses the condition and includes all object instances except
+                           those with a matching label.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C0634880-32B9-43C9-83C1-71134337BEEF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CF4D6BC6-46D0-4ED1-AC48-468D8DE72C6D">id_nonself</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8A10BC07-CF37-4ADA-9D4B-3AAEC10A9B06"></a></span><p class="table-body">Works similar to <span class="MenuCascade" id="GUID-0D7D2B26-2C89-47BD-8850-30F3A9DEAB70">id_inclexcl</span> in that it is an object instance label, but this parameter determines which objects
+                           do not self-occlude.
+                        </p> <span class="anchor_wrapper"><a name="GUID-9AAAAAC6-CD37-4C95-945E-FC4D3223BC03"></a></span><p class="table-body">A value of 0 means that this parameter has no effect. A positive integer prevents
+                           any object with that label from occluding other objects with the same label.
+                        </p> <span class="anchor_wrapper"><a name="GUID-1342F405-4547-4852-9B7E-4030CDC37592"></a></span><p class="table-body">This is useful for "matte" or "stand-in" objects that represent existing geometry
+                           in a photographic background because any inter-occlusion between such objects is already
+                           present in the background photo. Simple exclusion by <span class="MenuCascade" id="GUID-8DA33BC1-BDB5-45AA-ACA5-7094DE6E51AA">id_inclexcl</span> cannot be used in this case because you want the occlusion cast by "stand-in" background
+                           geometry onto foreground geometry, as well as vice versa: only background-to-background
+                           occlusion needs to be prohibited.
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

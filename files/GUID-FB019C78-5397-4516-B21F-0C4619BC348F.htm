@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-FB019C78-5397-4516-B21F-0C4619BC348F">
+      <meta name="indexterm" content="ICE modeling: cloning topology">
+      <meta name="indexterm" content="ICE modeling: repeating topology">
+      <meta name="topic-type" content="concept">
+      <title>Cloning and Copying Topology in ICE</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-FB019C78-5397-4516-B21F-0C4619BC348F"></a></span><div class="head">
+            <h1>Cloning and Copying Topology in ICE</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-3D9ACDA0-0521-4318-9BD5-E24BA0A1FB8E"></a></span>You can copy an existing polygon mesh topology into another mesh once using Clone
+            Polygon Mesh, or repeatedly using Create Copies from Polygon Mesh. After that, you
+            can transfer attributes from the source mesh to the new one. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_E0D2CEE65D2F4EE28C64AF360F4939C2"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-069DB25A-A462-4081-9D24-A37990F3C0E9"></a></span>Cloning Polygon Meshes in ICE
+            </h2> <span class="anchor_wrapper"><a name="OL_8CC0B18C31014E82AF2874A3AAF2C086"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BB074FD0-E53A-4389-B74C-200FBC07AA48"></a></span>If the source mesh has local materials on polygons, make sure that they are applied
+                     as Materials and MaterialID attributes. See <span class="char_link"><a href="GUID-01F2C304-487D-4557-9522-B66CBD33E396.htm">Applying Materials in ICE</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5FC8C84D-D1CB-4F73-903A-8D827B4568A2"></a></span>If necessary, you can convert cluster-based materials to ICE-based materials. See
+                     <span class="char_link"><a href="GUID-FB019C78-5397-4516-B21F-0C4619BC348F.htm#SECTION_BBB6536CBB744B94AFD2C9A1CE835649">Converting Cluster-based Materials to ICE</a></span>. 
+                  </p> 
+               </li>
+               <li>Get an empty polygon mesh, and apply a base material for the object. Typically, you
+                  would use the same material as the source. 
+               </li>
+               <li>Create a non-simulated ICE tree on the empty mesh. </li>
+               <li>Connect a <span class="char_link"><a href="iceref_Clone_Polygon_Mesh.htm">Clone Polygon Mesh</a></span> compound to the ICETree root, and specify the source mesh to copy. 
+               </li>
+               <li>If you are copying the texture projection from the source, make sure that <span class="MenuCascade" id="GUID-A028D43C-28D7-472D-A21B-366A3D08FB67">Source Texture Projection Name</span> refers to the correct attribute. The default value is ".cls.Texture_Coordinates_AUTO.Texture_Projection.UVWs"
+                  which is the default name for most projections, but some projections like Unfold have
+                  a different name by default and it is also possible to change the name of a projection.
+                  
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6C8457E1-2E29-47CC-A70B-C960CE5A0D12"></a></span>If necessary, make sure that all materials are set to use the <span class="MenuCascade" id="GUID-F7388174-796B-4C51-BA09-2D36488C4131">New Texture Projection Attribute Name</span>. See <span class="char_link"><a href="GUID-FB019C78-5397-4516-B21F-0C4619BC348F.htm#SECTION_A4F0C1BE306C4AF0A9898CEB9640EFE6">Specifying Projections for Materials</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9AC1D369-6958-4C27-A977-92DBDE4B8046"></a></span>Use the various "Copy [Component] Data from Source" to copy additional attributes,
+                     such as weight maps, vertex colors, and additional projections. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-422EC04D-D25E-470F-9725-D861E6899784"></a></span> <img src="../images/GUID-ADA18A1F-2401-45F8-8931-753C3239F3D6-low.png"> 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_277D6FDBE3434A938FEE5CAC4A5B0A54"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-BB29B81D-9FBB-4ED6-93EF-BD51BC391660"></a></span>Repeating Polygon Mesh Topology
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-1F0826B2-E1F3-4130-99D6-1BC05A644345"></a></span>You can create a single polygon mesh object that consists of repeated copies of another
+               mesh's topology. You can specify the offsets of the copies using a transform, a group,
+               or a particle cloud. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-09E31987-8962-4B82-B62B-CCD37E4B2752"></a></span> <img src="../images/GUID-8D71020E-72D4-4A30-9EB8-7DE459024113-low.png"> 
+            </p> <span class="anchor_wrapper"><a name="OL_09F8E39773A74FDEA3690B201AA0CF15"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A1E4202E-5D74-4D40-9D28-92708AE99009"></a></span>If the source mesh has local materials on polygons, make sure that they are applied
+                     as Materials and MaterialID attributes. See <span class="char_link"><a href="GUID-01F2C304-487D-4557-9522-B66CBD33E396.htm">Applying Materials in ICE</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2E1A3F57-9006-4AF7-91B3-DC6889041340"></a></span>If necessary, you can convert cluster-based materials to ICE-based materials. See
+                     <span class="char_link"><a href="GUID-FB019C78-5397-4516-B21F-0C4619BC348F.htm#SECTION_BBB6536CBB744B94AFD2C9A1CE835649">Converting Cluster-based Materials to ICE</a></span> 
+                  </p> 
+               </li>
+               <li>Get an empty polygon mesh, and apply a base material for the object. Typically, you
+                  would use the same material as the source. 
+               </li>
+               <li>Create a non-simulated ICE tree on the empty mesh. </li>
+               <li>Connect a <span class="char_link"><a href="iceref_Create_Copies_from_Polygon_Mesh.htm">Create Copies from Polygon Mesh</a></span> compound to the ICETree root, and specify the source mesh to copy. 
+               </li>
+               <li>Do one of the following: <span class="anchor_wrapper"><a name="UL_94A863774ACD47D699D8F971771B0863"></a></span><ul>
+                     <li>Set <span class="MenuCascade" id="GUID-23087047-24BA-4181-AF3A-E8DDF53A719B">Nb of Copies</span> and specify the <span class="MenuCascade" id="GUID-0543BAC0-8FDF-4B6F-921E-5D0B4ACB9A4C">Transform</span> options. 
+                     </li>
+                     <li>To base the copies on a group of nulls or other objects, connect the <span class="MenuCascade" id="GUID-742D3CCD-D703-4195-A1B6-8352520EF3B7">Group Name</span> port. 
+                     </li>
+                     <li>To base the copies on particles, specify a <span class="MenuCascade" id="GUID-88D6A175-60E2-4BF9-9E75-E9E309D40AB9">Point Cloud Template</span>. 
+                     </li>
+                  </ul> 
+               </li>
+               <li>If you are copying the texture projection from the source, make sure that <span class="MenuCascade" id="GUID-933BC34C-584C-4099-8BEF-AF4B897F63A6">Source Texture Projection Name</span> refers to the correct attribute. The default value is ".cls.Texture_Coordinates_AUTO.Texture_Projection.UVWs"
+                  but, for example, if you used an Unfold projection then you should change it to ".cls.Texture_Coordinates_AUTO.Unfold.UVWs".
+                  
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ABF0D9EB-B3B8-4A10-9B8D-44D5BEB2D57F"></a></span>If necessary, make sure that all materials are set to use the <span class="MenuCascade" id="GUID-66C79005-2D7F-4276-B4AE-39946E2104A5">New Texture Projection Attribute Name</span>. See <span class="char_link"><a href="GUID-FB019C78-5397-4516-B21F-0C4619BC348F.htm#SECTION_A4F0C1BE306C4AF0A9898CEB9640EFE6">Specifying Projections for Materials</a></span> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E18662F2-E116-4F63-81C1-47328073BD41"></a></span>Use the various "Copy [Component] Data from Source" to copy additional attributes,
+                     such as weight maps, vertex colors, and additional projections. Set <span class="MenuCascade" id="GUID-E79256F5-EF61-4AA7-B115-39D786B269C8">Source Name</span> to the data to copy, and <span class="MenuCascade" id="GUID-FF2662E9-B3E5-40DB-A12D-1E450E72BAB6">Target Name</span> to the attribute you want to create to hold the copied data. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F04344DC-D0E7-4057-8A78-DC3DCA1977E5"></a></span> <img src="../images/GUID-55AFF9D0-4450-4B63-A112-303856796A40-low.png"> 
+                  </p> 
+               </li>
+            </ol> 
+            <div><span class="anchor_wrapper"><a name="GUID-6AAC30D2-0355-4F2B-BF3E-06C5346F4CCA"></a></span><div class="note-tip"><span class="label">TIP:</span>The <span class="char_link"><a href="GUID-B2E9574B-3707-4922-9F08-CC63D16CE740.htm">CopyID</a></span> attribute is useful for identifying and distinguishing between different copies for
+                  further processing in your tree. 
+               </div>
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_BBB6536CBB744B94AFD2C9A1CE835649"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-34B5136D-FC87-4669-9B76-F6FBEA802F03"></a></span>Converting Cluster-based Materials to ICE
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-2B96F561-C3E2-42BF-953C-13BA1E8282E6"></a></span>To convert local materials applied on clusters so that they can be manipulated and
+               transferred using ICE: <span class="anchor_wrapper"><a name="OL_0E3B7CBBC4F3434E8C22ED4C386B6FA8"></a></span><ol type="1" start="1">
+                  <li>Add the string name of each material used to the object's Materials array attribute.
+                     
+                  </li>
+                  <li>Set each polygon's MaterialID attribute to the index of the material it should use,
+                     based on the cluster that it's a member of. The value 0 is for polygons that use the
+                     object's material. 
+                  </li>
+               </ol>The tree below shows one way to do this. For more information, see <span class="char_link"><a href="GUID-01F2C304-487D-4557-9522-B66CBD33E396.htm">Applying Materials in ICE</a></span>. 
+            </p> <img src="../images/GUID-9137C2E8-92AE-4A64-9EB8-5ACDE787E6DA-low.png"> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_A4F0C1BE306C4AF0A9898CEB9640EFE6"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-CE961AEA-64B6-456C-9FDB-863D2C090511"></a></span>Specifying Projections for Materials
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-EAC89C6D-6515-4D38-B6D7-0826335C197C"></a></span>To specify the correct attribute to use for a projection, first select the cloned
+               or copied mesh, open or refresh the render tree, and then do the following: <span class="anchor_wrapper"><a name="OL_FCC68AE88E574A9D9233884285880D40"></a></span><ol type="1" start="1">
+                  <li>Select the desired material. </li>
+                  <li>Select a texture shader. </li>
+                  <li>Select the attribute to use as a projection. </li>
+               </ol>Repeat for all texture shaders in all materials. 
+            </p> <img src="../images/GUID-ADA7442F-840F-4DB5-BF55-74D955AD8972-low.png"> 
+            <p><span class="anchor_wrapper"><a name="GUID-FFBF304E-689E-4E76-B7CF-4CB6D625DCE2"></a></span></p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

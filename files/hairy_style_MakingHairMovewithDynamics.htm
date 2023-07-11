@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-2EAE1EB1-68C8-448B-A8C7-A504EFA17A66">
+      <meta name="indexterm" content="dynamic behavior: on hair">
+      <meta name="indexterm" content="hair: dynamics">
+      <meta name="indexterm" content="hair: playing simulation">
+      <meta name="indexterm" content="caching: hair files for playback">
+      <meta name="indexterm" content="playing: hair simulations">
+      <meta name="indexterm" content="dynamic behavior: reaction of hair to">
+      <meta name="indexterm" content="hair: resistance to dynamics">
+      <meta name="indexterm" content="guide hairs: resistance to dynamics">
+      <meta name="indexterm" content="guide hairs: stiffness">
+      <meta name="indexterm" content="stiffness: of hair with dynamics">
+      <meta name="indexterm" content="guide hairs: dampening effect of dynamics">
+      <meta name="indexterm" content="dampening: effect of dynamics on hair">
+      <meta name="indexterm" content="guide hairs: wiggling with dynamics">
+      <meta name="indexterm" content="wiggling: of hair with dynamics">
+      <meta name="indexterm" content="dynamic behavior: muting operator for hair">
+      <meta name="indexterm" content="dynamic behavior: and styling on hair">
+      <meta name="indexterm" content="muting: dynamics operator for hair">
+      <meta name="topic-type" content="concept">
+      <title>Making Hair Move with Dynamics</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-2EAE1EB1-68C8-448B-A8C7-A504EFA17A66"></a></span><div class="head">
+            <h1>Making Hair Move with Dynamics</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-6F14B838-ABFB-425C-B8E1-F0D6568F3DC4"></a></span>By applying dynamics to hair, you can have it respond to the movement of the hair
+               emitter object, as well as any natural forces or obstacles you set up for it. You
+               can play back the dynamics live while you're tweaking to get just the right motion,
+               or write the simulation to cache files and then read them for faster playback and
+               consistent rendering, even when skipping frames. 
+            </p><span class="anchor_wrapper"><a name="FIG_2C7B7E3FA97A4BAF91D7E8F32538F150"></a></span><div class="figure-anchor"><img src="../images/GUID-75F34848-F745-4CA7-AA30-B06AB0E52944-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-AF68196E-33E8-4CA8-84CF-AD89C45286CA"></a></span>Hair with dynamics applied and a wind force from behind. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E9CF9086-99F2-44C2-A5F4-28273BA12D41"></a></span>When you apply dynamics to hair, you make it possible for the hair to move according
+               to the velocity of the hair emitter object, like long hair whipping around as a character
+               turns her head quickly. The dynamics calculations also take into account any natural
+               forces applied to hair such as gravity or wind (see <span class="char_link"><a href="sim_forces.htm">Forces</a></span>), as well as any collisions of the hair with obstacles. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-5C353C4D-33F0-4827-BAD6-7678E5A670B7"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_4A5FCB99DE2A4F79B0E037B469C473AC"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6D135558-26A2-4C2A-BEB7-1737D15A9E04"></a></span>You need to apply dynamics to hair before you can apply a natural force to it. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EF53E671-BEE1-4DE1-91B3-D6B6F5F6CC46"></a></span>When the dynamics operator is active, you cannot do any styling on the hair. To get
+                           back into styling mode, see <span class="char_link"><a href="hairy_style_MakingHairMovewithDynamics.htm#WSEE033441ABFE7B44B10ECC543AAB91FE-0083">Muting the Dynamics Operator for Styling</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0D0E467A-997F-4EDD-89B1-E3B170BFBA9A"></a></span>If you have animated the parameters of certain style operators (Clump, Comb, Puff,
+                           Rotate, or Scale) or have animated deformations on the hair, you cannot also use dynamics.
+                           
+                        </p> 
+                     </li>
+                  </ul> 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-0074"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-56733E11-ED38-4F8D-8A4A-EB3EEDB38429"></a></span>Applying Dynamics to Hair
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-0075"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-67637AF2-96F6-425C-A577-74D47E344D64"></a></span>To apply dynamics to hair
+                  </h3> <span class="anchor_wrapper"><a name="GUID-26319955-9A2F-4375-B0B0-C5D3034B6836"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6BA6ED15-CAF8-4390-B611-6AA5D2210C0E"></a></span>Select the hair object. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A3EB276F-F7DC-48C3-9D08-2775E4AA0F31"></a></span>If you're applying dynamics to hair created from curves, make sure to select the "hair
+                           curves," not the source curves from which you generated the hair. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A671CC65-0FFA-4CA5-B09A-316B7BD0310B"></a></span>Choose <span class="MenuCascade" id="GUID-2CA4DFE2-F7E8-45F2-BDFF-7DF2AC8794AB">Create <img src="../images/ac.menuaro.gif"> Dynamics</span> on the Hair toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-68517BFC-4087-404E-AB2E-848A64649990"></a></span>When you choose this command, a hair dynamics operator is added to the hair object's
+                           stack (above the hair generator operator), and the Dynamics Operator property editor
+                           appears in which you can cache files for faster playback (see the next section). 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-11382990-7D63-4286-8D37-2F902D05FAD4-low.png"></div> 
+                        <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-E746A068-8430-44CE-B331-229365CCD449"></a></span><div class="note-note"><span class="label">NOTE:</span>For information on the Sensitivity to Forces parameters in this property editor, see
+                              <span class="char_link"><a href="hairy_style_SettingUpForcesforHair.htm">Setting Up Forces for Hair</a></span>. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4190D17D-F3D5-4AE1-A58F-0BFF72F3A3CD"></a></span>On the timeline, select the Loop icon and click Play. By default, the dynamics are
+                           played back in live mode. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-973C1C0C-B215-4AEA-8962-3B2029D7D278"></a></span>Move the hair emitter object around or animate its transformations, apply a natural
+                           force to the hair, or have hair collide with obstacles. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0B24FCA8-15D1-4B6C-A5F4-B4E17F12211C"></a></span>You can also adjust the Dynamics parameters to determine how the guide hairs react
+                           to the effect of dynamics. See <span class="char_link"><a href="hairy_style_MakingHairMovewithDynamics.htm#WSEE033441ABFE7B44B10ECC543AAB91FE-007B">Adjusting the Hair's Reaction to Dynamics</a></span> for information. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-0077"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-948CAF1C-77B4-402B-9A7C-32D163C786BE"></a></span>Caching Files for Playback
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-2D933A70-E437-47D0-A762-F5DC2CBB59EE"></a></span>You can cache dynamic simulation files for faster playback using the options in the
+                  Hair Dynamics Operator property editor. Caching the simulation to file (using either
+                  the <span class="MenuCascade" id="GUID-400D3078-38B9-4ED4-9346-4FF1CE004FDB">Read&amp;Write</span> or <span class="MenuCascade" id="GUID-7FBF8079-5123-49E0-942D-952814D81BB6">Read</span> Only options) means you can move to any frame and get an update, as well as play
+                  the simulation backward. It also provides for consistent rendering results and motion
+                  blur calculations. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-676E66A1-8679-4B0C-9335-D9CA033A41F3"></a></span>By default, the <span class="MenuCascade" id="GUID-272293B6-6B43-4A67-8DCB-3353DFD94976">Cache Mode</span> is set to <span class="MenuCascade" id="GUID-916AC122-4CBE-4658-98CC-BB565A919ED2">Live</span> (no caching) so that you can work with the time looped and have the hair update constantly
+                  based on any changes you make to the hair parameters. This mode is best for testing
+                  out different options as you're working; however when you're ready to render and/or
+                  calculate motion blur, switch the Cache Mode to <span class="MenuCascade" id="GUID-B91698ED-157F-4B3C-933F-3D7CBD2DFC25">Read&amp;Write</span> or <span class="MenuCascade" id="GUID-8292CA11-BFE5-42DD-BE98-F37D6CE0B6FA">Read Only</span> (the latter for the final render that you don't want to change). 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-0078"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-49FBB3FB-E6D4-43C0-97E3-B939EDCCE7E5"></a></span>To write to and read from cache files
+                  </h3> <span class="anchor_wrapper"><a name="GUID-8CE57735-8C28-4299-B32E-C6AA6549CE10"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1D5A37B0-874B-4C13-A4BB-B329EB34EC2C"></a></span>Select <span class="MenuCascade" id="GUID-2B37F869-E823-4588-877D-894B1A8F2ABB">Read &amp; Write</span> as the <span class="MenuCascade" id="GUID-DC5AEDFC-10B3-4486-852B-CA870712A0FD">Cache Mode</span>. When you change a hair parameter, the simulation is reset and the cache is cleaned,
+                           but nothing is recomputed until you change frames. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-A173F128-D984-4620-9FD2-EE6C92447752-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9667DB82-A814-4160-B710-CB93033C59AF"></a></span>Enter a location and name for the cache file. By default, it writes to the Simulation
+                           folder of the current project. If you select <span class="MenuCascade" id="GUID-725B7D1F-EF38-4668-93BE-A6E22F68CF9C">Usr</span>, the path is displayed as you entered it; if you select <span class="MenuCascade" id="GUID-390BAAB7-1372-4004-814D-B0E6EC20D028">Res</span>, the resolved path is displayed. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-229D21EA-8A74-473E-8421-CEF938F2DD3C"></a></span>Play the simulation to cache the files. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1C4EB108-762A-40EC-926D-F51C4B9CD46F"></a></span>Click <span class="MenuCascade" id="GUID-7C25D654-F327-4621-AEDF-28739E68E4CC">Clear Cache</span> to delete the current cache files in the folder; that is, it won't clear cache files
+                           with names different from what is currently set for the <span class="MenuCascade" id="GUID-75FCB36E-E4E5-479B-91EB-C1C664939A47">Filename</span>. The dynamics are not reset when you delete the cache. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A705CFDD-6EDA-481B-B686-59A29DDD53CB"></a></span>Click <span class="MenuCascade" id="GUID-0C9EA89D-0A08-4C9C-BA27-19CD6635CB0B">Reset Dynamics</span> to reset the hair to its state at the time that dynamics was applied to the style.
+                           
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-E3D6D3B6-D9B0-44F2-816F-65A04FC9B4BD"></a></span><div class="note-tip"><span class="label">TIP:</span> <span class="anchor_wrapper"><a name="UL_12779B3E90F4478EA88C15C869B85BDC"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-AECCDB58-9DB4-49C0-827E-AF2EC25E3BAE"></a></span>To increase the speed of the playback, mute any viewport that you're not using by
+                                       middle-clicking its letter (A, B, C, or D). 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-ADA11090-39C8-497D-9FB5-621464EDA22F"></a></span>Make sure to name the cache file with a different name for each iteration of the simulation
+                                       you want to keep; otherwise, the cache will be overwritten each time you save the
+                                       file. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-8C211CD4-1215-4C08-B27A-E4945D71EB40"></a></span>If you keep the cache files, make sure to check the storage folder you have defined
+                                       for them and delete any unused files. These can build up and take up lots of space
+                                       if you don't occasionally do some housecleaning! 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-C9246B4B-61CA-4123-AF01-C261D6498385"></a></span>The cache file is not automatically copied with the scene if you save it in a new
+                                       project. Make sure to copy the cache files to the Simulation folder (or wherever you
+                                       want them) in the new project so that you don't lose valuable data! 
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-007A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B437E1B1-DA19-4C4C-94BE-99F754ED6B9F"></a></span>To read the dynamics from cache files
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-39DCFDDF-5139-42FF-87E0-87279F84C773"></a></span>When you're ready to render the final simulation, select <span class="MenuCascade" id="GUID-6E88FFB5-E331-4F02-9B39-FFC33E4700E6">Read only</span> as the Cache Mode. The dynamics data is read from the current cache file, but does
+                     not write new cache files, even when you make a change to the hair. This prevents
+                     any changes from being made. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-605D09C7-1F1C-45AF-A4DF-175941DB7073"></a></span>To get ready for the final render, follow these steps: 
+                  </p> <span class="anchor_wrapper"><a name="GUID-01E6CDCF-D2E1-4EE8-A644-DCE976329F51"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E69F040D-2C8F-4C46-83D6-A5D9C5518DFC"></a></span>Go to the beginning of the simulation that you want to cache. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-272DCF99-0E6E-42FD-BA56-B8C52DFE748C"></a></span>Select <span class="MenuCascade" id="GUID-8F86C2E5-D874-48EE-B4FD-85A86470EC3B">Read only</span> as the <span class="MenuCascade" id="GUID-2CD8662A-E14D-4F8C-BBDB-5DE7B5C0996A">Cache Mode</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-32F50AF2-9044-483D-A779-392C83334A70"></a></span>Enter a location and name for the cache file. By default, it writes to the Simulation
+                           folder of the current project. If you select <span class="MenuCascade" id="GUID-487110BB-69A1-4A11-B588-FCAF4587450A">Usr</span>, the path is displayed as you entered it; if you select <span class="MenuCascade" id="GUID-05079A38-E506-418D-8429-32CB081F0B0C">Res</span>, the resolved path is displayed. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C530BE78-5DB0-41A7-B5A1-BB4E8DE3168D"></a></span>Click <span class="MenuCascade" id="GUID-B3FA0D3A-B082-4191-AD5E-1C1F8BBE0283">Clear Cache</span> to delete the current cache files in the folder. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-40833867-6007-457A-8B23-4497E6C31346"></a></span>Click <span class="MenuCascade" id="GUID-6447EC4F-058E-4A2E-BBD2-18CA9C9E4EFB">Reset Dynamics</span> to reset the hair to its state at the time that dynamics was applied to the style.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D4004426-0AAC-4E02-8FFD-40C5748327EA"></a></span>Go to the end frame to calculate the entire cache to file. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-007B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B4980409-F549-4DB7-AB85-F45922C451CC"></a></span>Adjusting the Hair's Reaction to Dynamics
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-5BC092B9-51FF-4F85-8E30-C123526A930A"></a></span>Once you have dynamics applied to the hair, you can set the parameters on the Dynamics
+                  page in the Hair property editor to determine how the hair reacts to the dynamics.
+                  These parameters are applied to the guide hairs. 
+               </p> <span class="anchor_wrapper"><a name="FIG_B4B32356C42A49029135FCF2266800DA"></a></span><div class="figure-anchor"><img src="../images/GUID-0ED9B9B4-C0F4-495A-AF00-962CDB844BE4-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-149500B6-C83D-4D6D-83A8-86C8070BD70E"></a></span>The Dynamics parameters (except Wiggle) can have weight and texture maps connected
+                  to them, as identified by a little connection icon <img src="../images/GUID-A5A9FC42-70BC-4936-90B3-105697874893-low.png"> beside them. This allows you to create either specific patterns or random values
+                  for the hair, depending on the effect you want. For example, you can use a weight
+                  map on the <span class="MenuCascade" id="GUID-D901D01E-8ADF-4625-815D-D254E6718D31">Stiffness</span> parameter so that the hair is stiffer in specific areas, such as where the hair is
+                  shorter. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-744C7D04-BEB7-4D99-A1E5-8CA47FCE9093"></a></span>Because these parameters only affect guide hairs, subtle value variations in the maps
+                  be lost, so you may find weight maps to be generally more effective than texture maps.
+                  
+               </p> <span class="anchor_wrapper"><a name="UL_473B55410A884685AA07592588B69634"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-08DE92F4-814F-4B8C-889D-5B2566C77EF4"></a></span>For general information about mappable parameters, see <span class="char_link"><a href="hairy_renderhairs_ConnectingMapstoRenderHairParameters.htm">Connecting Maps to Render Hair Parameters</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5546EB53-F770-4BAB-8A07-64BC80EA8AFB"></a></span>For an example on how to connect a weight map to a hair parameter, see <span class="char_link"><a href="hairy_renderhairs_ChangingtheLengthofRenderHairs.htm#WS28AD7E2228734448B60EAF5055979E18-003B">Cutting the Render Hairs</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-007E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-4AC274B8-B69B-4FFB-9BD9-5A56734690E5"></a></span>Stiffness
+                  </h3>    
+                  <p><span class="anchor_wrapper"><a name="GUID-0673A4CD-00BB-45E7-9F7A-783AF3C4A6C3"></a></span> <span class="MenuCascade" id="GUID-03728A4E-32BD-46E9-82E7-F9EFC4070D06">Stiffness</span> is the tendency of the hair to hold its rest shape and resist the dynamics that are
+                     affecting it, rather like a good hair spray! This is the stiffness of the guide hair
+                     starting from the tip and going down to the root. A value of 1 means that hair will
+                     always keep its styled shape and resist the effect of dynamics on it, while a value
+                     of 0 means no resistance to dynamics. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CDFFE697-F958-499A-BC62-6065F2F51E99"></a></span> <span class="MenuCascade" id="GUID-BE62802F-3B78-4660-94DC-D083AA21CD5A">Root Stiffness</span> is the same as Stiffness except that it determines the stiffness at the root of each
+                     guide hair. The values are the same as for Stiffness, with the default value of 1
+                     meaning that the root always keeps itself aligned in the direction of the style. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2D065023-9166-4A81-A29C-5FCB163F7251"></a></span>You can use Stiffness and Root Stiffness together to have varying levels of stiffness
+                     along the length of the guide hair. For example, with a low Stiffness value and high
+                     Root Stiffness value, you can have the hair affected by dynamics only toward the tips.
+                     
+                  </p> <span class="anchor_wrapper"><a name="TABLE_B11CD718D9B9412CACF1106433A656EE"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-58AD642F-A5CD-418A-9919-D1AF3032621D-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-7D7E3B8D-6ACE-4548-8B79-3A335126801D-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AF80C3FC-F117-421A-B7DD-E7477A6EEA23"></a></span><p class="table-body">Sphere moving through grass that has a Stiffness value of 0.1, showing little resistance
+                                 to the dynamics. 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3A8853CE-7047-431E-95A3-45037ED1D9BC"></a></span><p class="table-body">Sphere moving through grass that has a Stiffness value of 0.5. Notice that the grass
+                                 is quite a bit stiffer, resisting the dynamics more and keeping its shape. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-0081"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-23540CD9-9475-4C69-833F-0FAFD9BAFFED"></a></span>Dampening
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-CCFE0D9B-8C9E-4E63-A681-2DD203D2D469"></a></span> <span class="MenuCascade" id="GUID-74025307-6215-4B2E-8597-54B5E10A80CF">Dampening</span> determines how quickly the hair recovers from the effect of dynamics. With a value
+                     is 0, the hair does not return to its position; with higher values (maximum value
+                     is 1), the hair bounces back into its styled position more quickly. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-0082"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8543499C-936B-4835-AFA9-6A7021F7A9BC"></a></span>Wiggle (Random Displacement)
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-1365511A-16EA-4FCB-96F1-C8878ECBECAD"></a></span> <span class="MenuCascade" id="GUID-E94B30FA-E21D-4FC4-BDCD-967030655392">Wiggle</span> simulates the effect of a light breeze, moving randomly about the points of the guide
+                     hairs. Its <span class="MenuCascade" id="GUID-4B7A8B99-1F13-4D66-BB01-F28B6324D1AA">Amplitude</span> controls the strength or amount of the point displacement, and its <span class="MenuCascade" id="GUID-C990C763-5DAB-47B0-805B-2371578D77D1">Speed</span> controls how quickly or slowly the displacement occurs, like wheat stubble on a field
+                     quickly quivering in the wind or seaweed slowly swaying with the waves. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-37AA8964-6B43-4DBE-8923-E7E19645C3BF"></a></span><div class="note-tip"><span class="label">TIP:</span>You can also animate the Frizz settings (also on the Effects page), which can give
+                        similar results as the Wiggle parameters except that it affects only the render hairs.
+                        Generally, this is more desirable because you don't see any interpolation between
+                        the guide hairs. See <span class="char_link"><a href="hairy_renderhairs_AddingFrizzandWavesKinks.htm#WS28AD7E2228734448B60EAF5055979E18-0045">Frizzing Out</a></span> for more information. 
+                     </div>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-0083"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A8A4115F-40B9-45C8-B187-DAFB2CB8281A"></a></span>Muting the Dynamics Operator for Styling
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-AD557875-3877-4599-A112-9A7A5561DCF5"></a></span>Once you've applied dynamics on the hair object, you cannot do any hair styling using
+                  the style operators on the Hair toolbar unless you mute the dynamics operator. This
+                  is because dynamics need to be calculated on a specific styling "state" that cannot
+                  change during playback. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0A137FC8-66FF-4B9F-BB74-647EE98A7B2D"></a></span>If you style the hair with dynamics active, nothing will happen because no styling
+                  operator is added to the stack (and you'll see an error logged in the script editor).
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-0084"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-73A4F1D2-3B57-4643-9511-4F66CE2009D8"></a></span>To mute the dynamics operator
+                  </h3> <span class="anchor_wrapper"><a name="GUID-C1FBE847-6C80-4A01-A1F2-50F6CD440A6B"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0D443E64-5EBE-41FB-A6B9-618E196149E0"></a></span>Do one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_79D2CBBF75CD47D095EE55AD8453EA0A"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-6A8CE762-D0B2-4481-9804-51E607F07CF1"></a></span>Click the <span class="MenuCascade" id="GUID-41C9BD66-E498-4DA9-8818-B025EC98F76C">Style</span> button at the bottom of the Hair toolbar. 
+                              </p> 
+                              <div class="figure-anchor"><img src="../images/GUID-EE2CB833-5C95-4610-B948-096E5443B7A4-low.png"></div> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9735DBE2-AEAF-4C09-87E7-3A185FD2146C"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-6686DE58-0515-4080-9CDF-BC8ED00E090A"></a></span>Select the <span class="MenuCascade" id="GUID-3D5E46A2-0C29-46D3-A1F8-EE84FE49C34F">Mute</span> option in the Hair Dynamics Operator property editor. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-91788E13-E7C0-45E3-905C-0B381517B5B3"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-ED86F84C-73FF-4FC1-9EE1-A8B984DB2547"></a></span>Right-click on the Hair Dynamics Operator in the explorer and choose <span class="MenuCascade" id="GUID-DEF1BE2B-1C0A-43F8-9F4D-EFD01616DE3E">Mute</span>. 
+                              </p> 
+                           </li>
+                        </ul> 
+                        <div class="figure-anchor"><img src="../images/GUID-F4D6ADFF-A4B8-4B95-977A-BD00EB97AF91-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D5B40FAE-CB3D-41BC-A38B-2EE50019330D"></a></span>Style the hair into a new state. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C2F3E0BF-E3F6-49AA-BCB5-877B8705F067"></a></span>Unmute the dynamics operator. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B055F0E9-7BAF-4D36-95A9-0528794981C6"></a></span>Now when you play back the simulation, the dynamics operator uses this new "rest state"
+                           to update the dynamics. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-ACAF8B4C-BD99-4D18-A616-B397EC7F39AB"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_47CDEA896A004750AEE27E4AD708CB80"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-EDA14B03-60B1-4977-B812-E7BAF8FE26DF"></a></span>If you freeze the hair operating stack (see <span class="char_link"><a href="hairy_style_ProgressiveStylingbyFreezingtheStack.htm">Progressive Styling by Freezing the Stack</a></span>) with the dynamics operator is muted, the dynamics operator is not removed. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-E680B99C-72A2-4A18-B5CA-850FC7F9CDA7"></a></span>When you reapply styling after dynamics, the hairs may have shifted a little. To get
+                                       back to the "real" current hair state, click the Style button, click Reset Dynamics
+                                       in the Dynamics Operator property editor, or move the hair emitter object. 
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

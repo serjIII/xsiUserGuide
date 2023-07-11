@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C4C36A80-E827-4207-B838-87731010D44C">
+      <meta name="indexterm" content="satellite rendering: RenderMap and">
+      <meta name="indexterm" content="RenderMap: satellite rendering and">
+      <meta name="indexterm" content="RenderMap: clusters, applying to">
+      <meta name="indexterm" content="clusters: rendermapping">
+      <meta name="topic-type" content="concept">
+      <title>RenderMap and RenderVertex Tips</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C4C36A80-E827-4207-B838-87731010D44C"></a></span><div class="head">
+            <h1>RenderMap and RenderVertex Tips</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-002D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-85619412-BFAA-48E0-A9F8-FFC26F77CB40"></a></span>RenderMap and Satellite Rendering
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2A7255EA-280F-4658-8009-B8A82DCC3126"></a></span>RenderMap takes advantage of satellite rendering, if it's available. The default tile
+                  size is 32. You can change this value using the TileSize parameter of the RegenerateMaps()
+                  command. Changing the tile size can affect the rendering speed, depending on the complexity
+                  of the objects and the size of the maps. For more information about this command,
+                  see RegenerateMaps [SDK Guide]. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-002E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3693D52E-F1EC-4AA2-9321-86F2F3DCF53B"></a></span>RenderMap and Spatial Projections
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B6008D94-8636-4DB1-88DF-891FE9044BF8"></a></span>If you rendermap an object using a spatial texture projection, the output images will
+                  look as though they were generated using a planar projection. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-62A2A283-49C5-49BE-A3EE-D3C7FDEE6535"></a></span>To correctly bake a spatial projection's surface attributes into a rendermap, apply
+                  an appropriate projection to the object. The texture will still be projected by the
+                  spatial projection, but the RenderMap will sample the object using the UV projection.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-002F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5A8098BF-79A1-4387-BC63-44EB879D91AE"></a></span>Rendermapping Symmetric UV Coordinates
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-BF6D8113-D181-4BD9-9C24-2970288D522B"></a></span>When working with symmetrical texture maps and overlapping UV coordinates, it's useful
+                  to rendermap clusters instead of the whole object. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-91004AAE-074A-4FC3-A333-EE0339CB3F5A"></a></span>Suppose you have a model of a head. Each half of the head uses the same UV coordinates,
+                  but is lit differently. If you rendermap the entire head, the same part of the texture
+                  is used for each half, with no indication of which half's results come out on top.
+                  As a result, the two halves' results are blended together in the resulting surface
+                  color map (for example), which is probably not what you want. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-67BB170A-FAB5-432C-A7AE-72D57913F2C9"></a></span>To generate a surface color map that includes the correct lighting for each half of
+                  the head, you can create a cluster on each half and then rendermap each cluster. When
+                  you apply the surface color maps to their respective clusters, each side of the head
+                  is textured correctly, with the correct lighting "baked" in. Alternatively, you can
+                  combine both surface color maps into a single texture image, apply the image to the
+                  head, and adjust the head's UV coordinates accordingly. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_F2AE5A84E93140ED935F38A4B50911BC"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-A9D004A7-6A14-4CFA-82D6-8167FCDB84EF-low.png"> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-D59FBA39-4F37-4712-B345-FF55A7580A17-low.png"> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-3A69163D-B349-425D-940D-2E6397C173B5"></a></span>Each side of the head shown above was lit with a different colored light, giving the
+                  result shown below. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_963C16666E0B469D9993125460E10427"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-F295924F-E5FA-43C8-BB0F-953C3A03DEC3-low.png"> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-6601EF25-A1D2-4760-8907-5EF6483F6BBC-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body" colspan="2" align="left"> <span class="anchor_wrapper"><a name="GUID-BA1BC248-AB82-40F1-8072-67447B9C3612"></a></span><p class="table-body">Since both sides of the head occupy the same UV coordinates, a surface color map of
+                              the entire head blends the lighting from both sides into a single image. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-08EFC8AD-AE7D-4C23-A77D-A657D5FF08FA-low.png"> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-89D7DA27-F9D5-4E74-A779-F358B1020357-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body" colspan="2" align="left"> <span class="anchor_wrapper"><a name="GUID-33DF1D15-9127-4C25-A4DF-E32EEF19BAB8"></a></span><p class="table-body">Creating a cluster for half of the head and generating a surface color map for it
+                              correctly captures the lighting on that half of the head. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

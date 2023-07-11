@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-05B44452-B412-45C8-BF39-4BA86F6FB5D2">
+      <meta name="indexterm" content="sprites: rendering for ICE particles">
+      <meta name="indexterm" content="ICE particles: rendering sprites">
+      <meta name="topic-type" content="concept">
+      <title>Sprites on ICE Particles</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-05B44452-B412-45C8-BF39-4BA86F6FB5D2"></a></span><div class="head">
+            <h1>Sprites on ICE Particles</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-B765CE8C-3FCA-48A4-9198-BDE1A3B1B548"></a></span>Sprites are images or image sequences that you attach to an object to change its appearance.
+               To create sprites on ICE particles, you can use any textured image file or animated
+               image sequence and apply it to the point cloud. When you apply a texture on a point
+               cloud, the projection is applied on each of the particles based on its default UV
+               coordinates. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-EEB93E1C-3FE9-42F0-8D52-8D40616FAE7D"></a></span>To see the sprites on the particles, you must create a render region because the lookup
+               is done at render time. Viewing the particles in the Textured display mode won't show
+               the correct sprite images. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-44E861B3-8F9A-4E77-88A1-07E9FB5D9FBC"></a></span>There are two ways in which you can render sprites for particles in the render tree:
+               
+            </p><span class="anchor_wrapper"><a name="UL_492ECA2C99E347E089ED3CDD2C8A5761"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3AC667D6-0286-418D-813E-6DC80B1E3DB8"></a></span>Use the ICE Sprite shader compound. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-389E872C-E28D-4E54-BA58-304FA7BDE524"></a></span>Use the Image shader and define the image to use as the sprite. 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-004F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C7B0F217-07A9-40F7-8AA0-2866BE2DC6A0"></a></span>Using the ICE Sprite Shader Compound
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7016B797-F42F-409D-A273-397E0B9C1ECF"></a></span>The ICE Sprite compound uses the particle's Age attribute to control which image in
+                  the animated sequence is displayed based on the percentage of the particle's life
+                  span that you've set in the point cloud's ICE tree using the AgeLimit attribute .
+                  
+               </p> <span class="anchor_wrapper"><a name="GUID-101C5BC6-2899-45C2-BB38-DA7E736AA7F7"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F92E3448-0C02-4001-A648-0F974E9DDB17"></a></span>Create an ICE particle emission. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-ABA69193-2E85-4DAD-89F4-A6C3D8369628"></a></span>In the ICE tree view, open the Emit compound (or Particle Display property editor)
+                        and set the <span class="MenuCascade" id="GUID-90DF5D6C-C3C7-4D65-8018-C3B547841D0F">Shape</span> of the particles to <span class="MenuCascade" id="GUID-72E486EE-97C3-4A13-84FD-585DE174186F">Rectangles</span> (like a billboard). You can use any shape other than Point, but this gives the best
+                        flat background for the image. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AEBE003F-D7C6-4D20-9F00-C45135CCE850"></a></span>Set the particle's AgeLimit attribute in the ICE tree - see <span class="char_link"><a href="ICE_particles_ICEParticleLifeSpan.htm#GUID-D42C5476-2DE0-4883-B56B-5744400493A0">Limiting the Particle's Age</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5B5CFE5A-3201-42A2-BA8C-71969FF4F263"></a></span>Open a render tree in a viewport and click the Update icon or press F6 to display
+                        the render tree for the selected point cloud. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-6AB21B08-904D-48CF-A01E-9036BE0A2EDB-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8BE03E47-3D1D-450C-90DD-407D0800C7CE"></a></span>In the render tree, drag the <span class="MenuCascade" id="GUID-E8EDF7DB-EB47-4DA5-BC03-309A25481133">ICE Sprite</span> shader compound from the Particle group in the preset manager on the left, or choose
+                        <span class="MenuCascade" id="GUID-85B49623-D721-4605-A629-59D48EED95ED">Nodes <img src="../images/ac.menuaro.gif"> Particle <img src="../images/ac.menuaro.gif"> ICE Sprite</span> from the toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A62A7728-8456-4891-8939-568B5F8F6310"></a></span>Plug the ICE Sprite shader's Surface output into the Surface port of the Material
+                        node. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3BED3A6C-3560-4FFE-835B-12E8FC418269"></a></span>Do either of the following to attach an Image shader and select the image to use as
+                        the sprite: 
+                     </p> <span class="anchor_wrapper"><a name="UL_6C6A4CA1B15E4C6AB699F6FF53BA55C4"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-597369EF-FCE2-47B1-941E-3B1B439090C2"></a></span>Open the <span class="char_link"><a href="xsirtcompound_ice_sprite.htm">ICE Sprite Compound</a></span> property editor and click one of the <span class="MenuCascade" id="GUID-11C87556-0D6C-44CE-AF01-8D233B7B2299">Texture</span> preset buttons to quickly plug an Image shader and a Texture node into this shader.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-53697ED5-A7CE-443B-8C37-138BAB2A0F93"></a></span> Get an <span class="MenuCascade" id="GUID-3DD6DB66-0B84-410C-B3D0-2F93433CAE19">Image</span> shader from the preset manager or toolbar and plug its output into the <em class="strong">input</em> port of the ICE Sprite node. Then open the Image shader's property editor and select
+                              an image in it. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-46DB4807-3086-48F2-AC5A-A1FC26FE0D32"></a></span>Set other options in the <span class="char_link"><a href="xsirtcompound_ice_sprite.htm">ICE Sprite Compound</a></span> property editor as you like. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-B4B91548-D88A-4085-A167-7536932E2013-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_61E30AC4C9214212BB8A5FFDAA47A8F0"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-115B2C58-81EA-44A2-B363-65F210E5CE17"></a></span>Using the Image Shader
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D214B570-297F-4030-923B-92C9772ACA9C"></a></span> <span class="anchor_wrapper"><a name="OL_3EDE627CAE7342239F4B32F8B91A3F00"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F034C071-9D57-4730-BA95-01E4CB3AD204"></a></span>Follow steps 1 - 4 as above (step 3 is optional, depending on your setup). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6633EDC9-3FBE-48A8-AD4E-FCCBCCC10E12"></a></span>In the render tree, drag the <span class="MenuCascade" id="GUID-46C1E812-2095-438D-A4D2-DE8CF34DF39F">Image</span> shader from the Texture group in the preset manager on the left, or choose <span class="MenuCascade" id="GUID-6BD4DA55-E3A1-443F-B4F5-04AE19FD7AB7">Nodes <img src="../images/ac.menuaro.gif"> Texture <img src="../images/ac.menuaro.gif"> Image</span> from the toolbar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E42DB1F3-208A-481D-BE10-D5736749BE8F"></a></span>Plug the Image shader's output into the Surface port of the Material node. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-36952C1C-FF28-4214-923E-D4349FE85508"></a></span>Open the Image shader's property editor and select the image you want to use as the
+                           sprite. This creates an Image Clip shader that is automatically plugged into the Tex(ture)
+                           port of the Image shader. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-409D938B-DD8A-4D04-B86B-2B26CB15984C-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C293475E-01BC-43CA-9D72-C82F8A5E320D"></a></span>If you're using an animated image sequence, open the Image Clip's property editor
+                           and set the <span class="MenuCascade" id="GUID-81492E1D-D439-4982-905D-61D0158892CD">Time Source</span> option to what you want to use to control the animation of the image sequence. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4D75FF8E-3CB3-430A-8016-D909740E30B1"></a></span>By default this is set to the scene's time, but you can change it to the particle's
+                           ICE attribute that you want to use control which image in the sequence is displayed.
+                           The list includes ICE attributes only from objects used by this image clip (either
+                           directly on a particle or indirectly if it's used via shape instancing). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AC7C615B-6E11-45E8-8348-90F9195E0C39"></a></span>For example, you may want to use the particle AgeLimit attribute to use the images
+                           in the sequence based on the particle's life span that you've set. In the example
+                           below, an image sequence with the numbers 1 - 9 shows how the images are chosen based
+                           on the particle's age limit. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-1B3AEBD0-B93F-4988-9B18-DC3B331C9B98-low.png"></div> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

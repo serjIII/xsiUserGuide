@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6B068071-CBB8-42C8-8F0F-E280CAF3306B">
+      <meta name="indexterm" content="ICE trees: geometry queries">
+      <meta name="topic-type" content="concept">
+      <title>Using Geometry Queries</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6B068071-CBB8-42C8-8F0F-E280CAF3306B"></a></span><div class="head">
+            <h1>Using Geometry Queries</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-FC318493-D3CF-460C-96E9-745E75F598E3"></a></span>The nodes in the Geometry Queries category can be used to find and test locations
+               on geometric objects. Locations are "glued" to the surface of a geometry so that they
+               stay in the same relative position even as the geometry transforms and deforms, unless
+               you recompute and reset the locations' values at different frames, for example, setting
+               a new GoalLocation. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8C4BA2EA-6FCA-4E0D-9570-42DAEB22332D"></a></span>After you get locations, you can get other data at those locations as described in
+               <span class="char_link"><a href="ICE_trees_GettingandSettingDatainICETrees.htm#WSB74EE070EB80114199F4C921243896F3-0011">Getting Data at Locations</a></span>. Alternatively, you can use those locations for other purposes, such as emitting
+               points or setting goals. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-AFCB7664-977D-49C8-9FD7-07B68B58EB4F"></a></span>Note that the geometry queries ignore the subdivision level, and always work with
+               the unsubdivided surfaces of polygon meshes. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-005A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4B359B6C-0B4C-45DB-99B9-CEB6DEFDA109"></a></span>Generating Random Locations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8C6A8823-BF16-465C-AAC4-1B58CB38F6B3"></a></span>The Get Geometry Sample and Generate Sample Set nodes can be used to generate random
+                  locations on geometric objects. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-005B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9FB6007E-6309-4F7F-A1FF-845F551FFEE3"></a></span>Get Geometry Sample
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-05D52E41-8A79-46CE-9EDB-DBEF462CC6C3"></a></span>The Get Geometry Sample node generates a single random location on a geometry for
+                     each member of a data set. For example, it can be used to create a GoalLocation per
+                     particle. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-005C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9580483A-BE98-449D-8809-9EA21C13A873"></a></span>Generate Sample Set
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AD914EB9-9B09-4D81-B4AC-DBBC86D01044"></a></span>The Generate Sample Set node generates a set of random locations on a geometry. The
+                     number of locations is controlled by the rate. This node is typically used to generate
+                     locations for emitting particles. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-005D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CC79A8F9-AC7B-4A43-9F67-4C6E64347D4F"></a></span>Filtering Samples
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5F226944-B152-4E7A-93EE-E731A7466203"></a></span>Both the Get Geometry Sample and Generate Sample Set nodes allow you to filter the
+                     results. You can filter by any Boolean, integer, or scalar attribute available at
+                     the locations. For example, to filter based on cluster membership, use the IsElement
+                     attribute of the corresponding cluster. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A6FB235D-9683-41AC-A81C-595211001AD6"></a></span>You must use an existing attribute to filter — you cannot evaluate a tree. If necessary,
+                     you can store an attribute to read — you might want to use another tree on the geometry
+                     that you are reading from for this. Use the Invert check box to invert the condition
+                     used to filter. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F49DB18E-9137-4E93-8E8B-401ED79B9CD9"></a></span>In the case of scalars and integers, samples are generated where the attribute is
+                     non-zero. Attributes stored on points and nodes are averaged at locations according
+                     to the values of the corresponding triangle's points or nodes (integers are averaged
+                     and then rounded). If the value for a polygon or triangle value is between 0 and 1,
+                     then that value is the proportion of locations that will be kept (compared to the
+                     number that would be generated without filtering). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-08E08B4B-A8F8-4558-87A3-6B36D639D668"></a></span>For the Generate Sample Set node, you can select either Exact Rate or Proportional
+                     to Filtered Area. For Exact Rate, the number of samples specified by the Rate value
+                     will be generated from the area where the filtering condition is satisfied. In the
+                     case of Proportional to Filtered Area, the number of locations specified by Rate will
+                     be generated across the entire surface or on all points, and then culled by the filtering
+                     condition. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-005E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CE21AD70-7C45-4487-8EB8-351D97392491"></a></span>Getting Specific Locations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-83C8AFD9-A21A-48BC-AB4F-BBCBF27F0280"></a></span>The following nodes let you get locations according to specific criteria: 
+               </p> <span class="anchor_wrapper"><a name="UL_1883D73B12CF485CBBD07332966AD4CC"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-820B5027-4B77-4728-A88F-ABC093383BE0"></a></span> <span class="char_link"><a href="iceref_Get_Closest_Location.htm">Get Closest Location</a></span> returns the closest location on the surface of a geometric object. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AEEB871E-AE78-40F7-BB7F-0CD5DB200DBA"></a></span> <span class="char_link"><a href="iceref_Raycast.htm">Raycast</a></span> returns the intersection of a line with a geometric object. You specify the direction
+                        and start position of the line. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5486DE08-418C-4B7C-8BFE-BE1A1BAF3E8F"></a></span> <span class="char_link"><a href="iceref_Get_Closest_Points.htm">Get Closest Points</a></span> returns the locations of the closest vertices on a polygon mesh, or the closest knots
+                        on a curve or surface. The result is an array of locations for each member of the
+                        data set. Even if Max Number Points is 1, the result is still a set of arrays with
+                        one element per member and you must pop the location from the array before using it
+                        as a location, for example, setting it as GoalLocation. See <span class="char_link"><a href="ICE_trees_WorkingwithArraysinICETrees.htm">Working with Arrays in ICE Trees</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-1AA085FD-1EC0-40D9-BA55-E1BAF1EFAE28"></a></span>These nodes can incur high processing costs. If possible, you should enable cutoff
+                  distances to reduce processing costs as much as possible. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C2B0C6D8-54C4-4B23-833E-645F52D225D8"></a></span>You cannot set attributes at the locations returned by these nodes. If you want to,
+                  for example, set attributes on a mesh's points based on proximity to particles, you
+                  should get the mesh's point positions and test for distance to particles instead of
+                  the other way around. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-005F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E47B2F4B-7535-4647-820E-C3F839060C6C"></a></span>Looking Up Locations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D5A416AB-0C99-4993-9099-4C2535D88E1E"></a></span>There are a couple of nodes that can return a location based on other data: 
+               </p> <span class="anchor_wrapper"><a name="UL_2F0FECC3A20B4F41AD143A2DCD129475"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CC2D7546-5C68-4344-966F-0274EA4F7934"></a></span>ID to Location returns a location given a point ID. The ID attribute must have been
+                        initialized — see <span class="char_link"><a href="ICE_trees_WorkingwithIDsandIndices.htm">Working with IDs and Indices</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-19083E7B-511A-40C3-A471-918B31E40364"></a></span>UV to Location returns a location given a 2D vector specifying the NURBS UV parameters.
+                        It works with surfaces as well as curves, in which case the V value is ignored. To
+                        work with texture UV coordinates rather than NURBS UV parameters, see <span class="char_link"><a href="ICE_trees_WorkingwithMapsinICETrees.htm#WSB74EE070EB80114199F4C921243896F3-007D">Texture Maps in ICE</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0060"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-34403A3D-09C4-4204-82B6-D893D4B6BD15"></a></span>Testing Locations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-41DB0307-13AF-4B1C-9F72-87E3D96DEEBD"></a></span>There are several nodes that you can use to test locations: 
+               </p> <span class="anchor_wrapper"><a name="UL_EA9BB28A5E86452186C38A2CEA167211"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BEEB1F95-F40C-4F8F-B1FB-7C088BA3FE45"></a></span>Is on Surface tests whether a location is a valid location on a given surface. When
+                        a geometric object is connected to the Geometry port, a Geometry Location value of
+                        Undefined Location returns false. When no geometric object is connected, Undefined
+                        Location returns true and other locations return false. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AE8B79BE-03E5-4A32-84BC-DACC5B631AFB"></a></span>Is Valid Location is a compound based on Is on Surface. It returns true if a location
+                        is valid on any geometric object in the scene. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F94C8E5D-C8C1-422E-BDC7-9D8FFFC9DDE5"></a></span>Point in Volume tests whether a position is inside or outside the volume of a geometric
+                        object. When working with a location, you must get PointPosition at the location first.
+                        
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0061"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C948B493-B39F-4BE8-B213-7159D329F24D"></a></span>Grouping Geometry
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F3C5974F-C86B-4153-B36B-0354E20251BE"></a></span>The Group Geometry node combines several geometric objects. It is especially useful
+                  when building compounds because you can use it to create multi-instance ports, for
+                  example, for emitting from multiple surfaces. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C41176A2-BAA5-4983-BEAC-D2F61ABB7982"></a></span>To work with scene groups, see <span class="char_link"><a href="ICE_trees_GettingandSettingDatainICETrees.htm#WSB74EE070EB80114199F4C921243896F3-0019">Getting Data on Scene Groups</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0062"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-40DD0C8E-9D70-48AE-B187-28B14EDEC6BD"></a></span>PointNeighbors
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8A66F96A-83CA-468B-8D72-16B2F9E6D122"></a></span>The PointNeighbors attribute returns an array with the locations of the points that
+                  are connected to the points in the data set. This allows you to get any attribute
+                  at those locations. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8250B6E7-8B50-4AE5-A3C8-60CF44D201BA"></a></span>You cannot get other component types, such as a point's connected edges, polygons,
+                  or nodes. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0063"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-35AAAA6E-3A7B-4A49-BE06-D6A674F8EDB6"></a></span>Working with Clusters
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-252B6D53-A8E4-4BEF-8F71-FB440188236A"></a></span>To test whether a location is in a cluster, get the IsElement attribute of the cluster
+                  at that location. You can then filter values or perform other actions based on the
+                  result. 
+               </p> <span class="anchor_wrapper"><a name="FIG_CDF7B3E6CD404141B12B16748209144A"></a></span><div class="figure-anchor"><img src="../images/GUID-8247FE72-B120-41AD-BD57-9AE99BD6EFAF-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-05364D8D-6067-4FF9-8B27-1475AD4FD6DB"></a></span>The subtree above returns the point positions where the closest location on a geometry
+                  is in the Polygon cluster. Because the input to the Get Closest Location node is in
+                  the point context, any point data could be connected to the Filter node's Value input.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0065"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B2D2511E-30B1-47BB-A67C-195D240FABD5"></a></span>Working with Normals
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7760F7B4-CA04-44E7-A971-298A82E7EDC9"></a></span>ICE trees cannot access the viewing normals used for shading. The PointNormal attribute
+                  represents the smoothed normal, and the NodeNormal attribute represents the unsmoothed
+                  normal. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0066"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-86DE80A2-C614-446D-9C2E-7D098D902267"></a></span>Undefined Location
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BCF7102C-E572-47D8-86BE-EC9E8D83E23A"></a></span>The Undefined Location node returns a location that is undefined. For example, if
+                  you are setting locations based on a condition, you can use it to "fill in" values
+                  for members of the data set that don't meet the condition, and then elsewhere in the
+                  tree you can test for valid locations before using those locations. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0851F0B3-E549-4D8E-A3D6-2E17D800E972"></a></span>Ports of type location that are not connected use a default value of Undefined Location.
+                  
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

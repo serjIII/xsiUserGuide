@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-ADD63ECE-4D93-4D92-9F3E-82986D8F35E6">
+      <meta name="indexterm" content="ICE rigid bodies: passive rigid body particles">
+      <meta name="indexterm" content="IsPassiveRigidBody attribute, ICE rigid bodies">
+      <meta name="indexterm" content="ICE rigid bodies: IsPassiveRigidBody attribute">
+      <meta name="topic-type" content="concept">
+      <title>Making ICE Rigid Body Particles Passive</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-ADD63ECE-4D93-4D92-9F3E-82986D8F35E6"></a></span><div class="head">
+            <h1>Making ICE Rigid Body Particles Passive</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-A596484F-5239-459F-8BD9-6D613A49FF72"></a></span>By default, rigid body particles are active, meaning that they change position and
+               orientation when affected by forces and collisions with other rigid body particles
+               in the same point cloud, as well as with objects that you have defined as obstacles
+               (see <span class="char_link"><a href="ICE_rigidbody_ICEParticleCollisionswithObstacles.htm">ICE Particle Collisions with Obstacles</a></span>). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-BC108A30-47D5-4876-BE2D-5EFE9CD9AFC2"></a></span>Using the <span class="char_link"><a href="iceref_attributes_IsPassiveRigidBody.htm">IsPassiveRigidBody</a></span> attribute, however, you can make rigid body particles passive so that they act as
+               obstacles when active rigid body particles collide with them. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-372230B4-E25B-4E78-A628-830188EC83E6"></a></span>The position of a passive rigid body particle does not change in a collision; that
+               is, the particle's position, orientation, velocity, and angular velocity are not changed).
+               When an active particle collides with a passive one, the linear momentum is conserved
+               by considering the passive particle as an infinite mass with zero speed. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-19F92F9C-1F70-484E-8627-A50056D80791"></a></span>The dynamic friction and elasticity of both the active and passive rigid body particles
+               are taken into account during a collision so that there is accurate bouncing and sliding
+               among the rigid bodies. 
+            </p><span class="anchor_wrapper"><a name="FIG_93E43E22185548AB9102E49B0CFD04CA"></a></span><div class="figure-anchor"><img src="../images/GUID-614DA431-819D-4F82-8B71-BE80929E07F7-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-C7E6B813-ACBB-47FB-AC55-8FEBC8401E6E"></a></span>This character, who is made up of rigid body particle cubes, is heading for a rigid
+               body particle wall. Depending on which of these "objects" is set as passive, there
+               are two possible but very different outcomes! 
+            </p><span class="anchor_wrapper"><a name="FIG_ABA4967733DE42F6B94A87FF91F99201"></a></span><div class="figure-anchor"><img src="../images/GUID-5361D7B9-B43D-4FDB-931B-6726E204286D-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-C39DCF35-887D-4563-8D44-09B8A4FE47D4"></a></span>Luckily for the character, he's set as passive in this situation, meaning that he's
+               not affected by the collision with the wall. 
+            </p><span class="anchor_wrapper"><a name="FIG_9458DAD5B48F46B9BB06C04FD3511048"></a></span><div class="figure-anchor"><img src="../images/GUID-403DAED2-29D8-4168-96E4-2E440906105D-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-D3580043-615C-4D5F-BF21-FE03F110D7C3"></a></span>Not so lucky this time! In this situation, the wall is set as passive, but the character
+               isn't. Ouch. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0021"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2C9B543A-7363-4E2A-93D1-4AB4B7864A20"></a></span>To make rigid body particles passive
+               </h2> <span class="anchor_wrapper"><a name="GUID-5882C201-CB7D-40C1-AC42-13D1E35AF853"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-26A509F4-7BC1-43CA-AD70-5AF742E07D6C"></a></span>Create a rigid body particle emission — see <span class="char_link"><a href="ICE_rigidbody_MakingICEParticlesintoRigidBodies.htm">Creating an ICE Rigid Body Particle Emission</a></span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-03B2E1C3-5E81-4F65-B4F2-D1EA36E54F6F"></a></span>Remember that only particles within the same point cloud can collide with each other.
+                        See <span class="char_link"><a href="ICE_rigidbody_MakingICEParticlesintoRigidBodies.htm#WSE8B2E643337E5445B9AAF683EB9608B2-000A">Collisions with Multiple Particle Emissions</a></span> to make it appear as if particles from more than one point cloud are colliding. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6D52D9A0-EEE7-4084-8F59-EC99CB33A508"></a></span>In the <span class="char_link"><a href="iceref_Set_Particle_RBD.htm">Set Particle RBD</a></span> property editor, select the <span class="MenuCascade" id="GUID-49E65DCA-27B4-456A-8E2E-2421C67F1DD0">IsPassiveRigidBody</span> option to make the particles passive. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C972FDB4-7E18-41DC-8ED5-F1D14B9DC10D"></a></span>You can animate the IsPassiveRigidBody option to toggle the passive state of a rigid
+                        body particle to achieve various effects. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0022"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-046BEDF7-9333-46E7-9DBD-BEC54054D988"></a></span>Making Forces Affect Passive Rigid Body Particles
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F39E6879-02B6-4B91-9061-961F2FCDEB2F"></a></span>Passive rigid bodies do not move as a result of forces, but there are times in the
+                  simulation when you may want this to happen. To work around this, you can set a condition
+                  in which the passive rigid bodies are filtered and a new velocity is calculated for
+                  them based on F = ma. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C843C3FD-6B66-4271-B03E-AAD63463FBE6"></a></span>Here's a tree that shows you one way in which you can do this: 
+               </p> <span class="anchor_wrapper"><a name="FIG_C2C8574FDD864169ACBE8DDA4D4CE40B"></a></span><div class="figure-anchor"><img src="../images/GUID-B18425AA-C219-4360-8D6B-A01D5EC0B738-low.png"></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

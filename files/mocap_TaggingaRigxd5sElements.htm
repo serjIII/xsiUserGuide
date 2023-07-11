@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-24CF5A52-20A7-437B-9402-21799E2FCAC3">
+      <meta name="indexterm" content="character mapping, see retargeting animation, tagging">
+      <meta name="indexterm" content="tagging: character parts for retargeting animation">
+      <meta name="indexterm" content="retargeting animation: tagging rig elements">
+      <meta name="indexterm" content="motion capture data: tagging rig elements for retargeting animation">
+      <meta name="indexterm" content="retargeting animation: loading tag templates">
+      <meta name="topic-type" content="concept">
+      <title>Tagging a Rig's Elements</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-24CF5A52-20A7-437B-9402-21799E2FCAC3"></a></span><div class="head">
+            <h1>Tagging a Rig's Elements</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-EB8E0834-8D11-466F-9AD8-ECECA02787FF"></a></span>When you tag a rig's elements, you're telling Softimage which part is which on your
+               character, such as its hips, chest, legs, root, and so on. You tag the rig controls
+               or skeleton parts that you normally use to animate the character. These tags are used
+               to create a map (template) for that character. Then when you transfer the animation
+               from the source to the target rig, Softimage uses this tag information to map the
+               animation correctly between their matching rig elements. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E15050B1-763D-4C55-B905-43230FD11D41"></a></span>The tags you create are referred to internally in a structure file. A structure file
+               is a simplified version of a rig that describes the hierarchy type (biped or quadruped,
+               for example) and basic spatial proportions. It contains the template of each skeleton
+               or rig element with its tag name and type (function) in order to define the components
+               of a skeleton or rig hierarchy. Softimage uses components internally to describe the
+               hierarchies. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-38C7A2CE-A9AE-4759-B094-78D4CB7D2F32"></a></span>In addition to the tag names, the tag template also keeps the rig's spatial geometric
+               mapping in order to map the animation. For this reason, it's good practice to always
+               position your biped rig in the classic "T" pose with arms outstretched when you tag
+               it. This is because both source and target rigs need to be in relatively the same
+               pose (when tagging) so that the animation can be mapped properly when you transfer
+               it. 
+            </p><span class="anchor_wrapper"><a name="FIG_79A86C43036E44D28AE2D4CAD1E97D1E"></a></span><div class="figure-anchor"><img src="../images/GUID-6F1D1D88-5F7A-4785-A283-02C0F5D94E5F-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-B17AB05A-C472-42DD-A75E-219D731EF064"></a></span>Before you tag a rig, you must position it in the classic T-pose. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0D049657-B5EC-426F-B49C-86E9CAA11AF3"></a></span>This is because the tagging template includes the rig's spatial geometric data, as
+               well as a tag name, to map the animation data to the rig. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9E4CF545-422E-44C2-AE28-BA6BBC7A0465"></a></span>Tags are properties of the rig object that is tagged. The tag property contains the
+               name of the tag and its function type (anchor, root, effector, etc.). Because the
+               tag is the property of an object, you only need to tag a rig element once to identify
+               it. Then if you duplicate a tagged rig or skeleton model, the tag information is also
+               copied so you don't have to do it again for each new character. Bonus! 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-FBE5B641-E357-48F1-884C-CE9FF9019314"></a></span><div class="note-tip"><span class="label">TIP:</span> <span class="anchor_wrapper"><a name="UL_254C818B6A1148E593D4E533FE44B2CC"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0CE5D197-2B34-474F-8CF0-FC80EF2B3973"></a></span>Before you start tagging, it's important to know your rig well. Make sure that you
+                           know which control is the best one to use for receiving and extracting motion information
+                           when retargeting the animation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F3CA9318-E2AB-4623-972A-3666A5BB5539"></a></span>To get started with tagging, there are sample tag templates in your Softimage installation's
+                           \Addons\MotionTransformation\Data\TagTemplates folder that you can load. For example,
+                           you can use the <span class="MenuCascade" id="GUID-C9539B31-7E4B-43FC-9D6D-6555B9F353FB">biped_biped.tagt</span> file with the default Softimage biped characters. See <span class="char_link"><a href="mocap_TaggingaRigxd5sElements.htm#WSF771846490AA034681026F9546B3894A-000E">Loading an Existing Tag Template</a></span> for more information on how to load them. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF771846490AA034681026F9546B3894A-0008"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BD2B8A25-EB37-4CCD-BB0A-3E3E1BBAF617"></a></span>Overview of Tagging a Rig
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3A58F018-C61A-437D-A2EC-E22C29530F59"></a></span>This image and the following steps give you a basic overview of the tagging process
+                  for a MOTOR rig: 
+               </p> <span class="anchor_wrapper"><a name="FIG_91EEDB1CAD8A457EB4D14909706BE573"></a></span><div class="figure-anchor"><img src="../images/GUID-ED6EAA70-E881-4538-A31A-BCD5BB5B3023-low.png"></div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF771846490AA034681026F9546B3894A-000A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A908C57D-502D-425F-97BB-D76CA74FB05C"></a></span>To tag a rig
+                  </h3> <span class="anchor_wrapper"><a name="GUID-BF941E27-FFD8-460A-B4E7-1D4594379D2B"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0B02DF1F-A647-41F3-B45F-F0B2E8FF698D"></a></span>Make sure that the skeleton or rig that you want to tag is in a model. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3788A637-576F-4F82-A884-9C9268D52530"></a></span>Pose the skeleton or rig into the default T-pose for best tagging results. This is
+                           because Softimage uses spatial geometric data as well as a rig's tag names to create
+                           the tag template. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0BA669DF-F107-493F-9089-979D9A26D19C"></a></span>With the skeleton or rig selected, choose <span class="MenuCascade" id="GUID-DF39557A-950D-44CE-A68B-35011288B671">Tools <img src="../images/ac.menuaro.gif"> MOTOR <img src="../images/ac.menuaro.gif"> Tag Rig</span> from the Animate toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-47337D33-C422-4786-AF68-7EA6E19C21EA"></a></span>The Tag property editor opens up, containing a list of buttons that correspond to
+                           the elements that you need to tag on your rig. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-016EE554-8320-4291-AE36-96429A7BD895"></a></span>In the Tag property editor, select the <span class="MenuCascade" id="GUID-4574A703-9CA8-4413-A64A-729F14727F7C">Structure File</span> type for your character, such as Biped or Quadruped. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DC968F76-9CF8-4A9C-B931-54BE55DD82FB"></a></span>To edit the structure file, click the <span class="MenuCascade" id="GUID-FB95EA23-19D0-4BFD-BAA4-8A8C198F528C">Edit</span> button beside this text box. See <span class="char_link"><a href="motor_CreatingandEditingStructureFiles.htm">Creating and Editing Structure Files</a></span> for information. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-95A6EDAC-5D44-4849-B499-B39B1A771D14"></a></span>Click a tag button, then pick the corresponding element on your rig or skeleton in
+                           a viewport or the explorer. These elements are the ones onto which the animation will
+                           be mapped. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1A49F46B-A659-4C81-A3B6-3B78D08DF6D4"></a></span>When the element is tagged, its name appears beside the tag button. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B841637A-CE6F-4617-B2DB-E32E9584CC16"></a></span>If you picked the wrong element to tag, simply click the button again and pick another
+                           element. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-14AFAC0A-2959-4F15-AC8C-58BF9635F9BC"></a></span>When you're finished tagging, click the <span class="MenuCascade" id="GUID-3A47152C-3B98-4657-B329-444F74ACAA1F">Apply</span> button to apply the current tag data to the rig elements. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-080C0E55-38EF-4C41-AC4D-0C8FEFCE0237"></a></span>You can also click the <span class="MenuCascade" id="GUID-0C6D036C-FC33-43BC-AA91-409123189C72">Save</span> button to open a browser in which you can save this tag information in a template
+                           file (<span class="MenuCascade" id="GUID-22C5579C-3D43-4120-9925-9C1ED23891B8">.tagt</span> format). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ACA4748B-EB9E-42F0-BBB4-EEE654B0BC20"></a></span>You can then load the tag template for another character, modify the tags as you need
+                           to, then save it to a new name (see <span class="char_link"><a href="mocap_TaggingaRigxd5sElements.htm#WSF771846490AA034681026F9546B3894A-000E">Loading an Existing Tag Template</a></span>). 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-72F2C6F4-893C-4AB7-B3B9-54CF4E48558D"></a></span><div class="note-tip"><span class="label">TIP:</span>You can tell that a rig has been tagged properly if there is a CDKMap node beneath
+                              its model node in the explorer. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF771846490AA034681026F9546B3894A-000B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E350A547-7D14-4BB6-B6D1-C02751C4E091"></a></span>Tips for Tagging
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-059A15F3-202E-4704-BC89-05160E9EA207"></a></span>Here are some tips to help you tag: 
+               </p> <span class="anchor_wrapper"><a name="UL_BB86270E322B444185DABF2FBDF58FEC"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6881ECA7-8AF7-4465-9673-0569C5786391"></a></span>If your rig or skeleton doesn't have all these elements listed, just tag the elements
+                        that correspond. However, the more elements that are tagged, the better the subsequent
+                        animation mapping will be because the retargeting operator will have more information.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C2EBAB70-FA3C-4C7B-80DC-7316D62BBA7F"></a></span>For the <span class="MenuCascade" id="GUID-CA5D0F82-FD42-464A-940F-214F1FC51405">COG</span> element, make sure to tag the parent object of the skeleton or rig structure. This
+                        is often the rig control that determines the torso or core body movement, such as
+                        the hips or upper body control. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CF462F28-3BCE-456A-BF57-7FB77E7244CB"></a></span>Click the <span class="MenuCascade" id="GUID-ECF43C17-8412-45B5-8FD5-AC0794BD9835">S</span> button beside an element's name to select it on the skeleton or rig. This makes it
+                        easy to check which elements are already tagged as what. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-414417F5-F75C-45CC-8A1E-17DD88CE2939"></a></span>If you accidentally pick the wrong element to tag, simply click the button again and
+                        pick another element, or delete the element name in the text box beside the button
+                        so that it returns to "undefined". 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A414D276-89AA-47AB-A03B-D46684E70345"></a></span>If you know the names of the rig elements to be tagged, can type their names in the
+                        text box beside the appropriate button. This is useful for editing element names when
+                        you load a tag template from another rig. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6053E86C-7324-446A-B5B2-479461F30E42"></a></span>Click the <span class="MenuCascade" id="GUID-1F198F48-6802-4A97-99EF-9250226CB876">Clean</span> button to remove all rig element tag definitions in this property editor so that
+                        you can start over. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E5646BC7-A91F-4A8B-8AB2-ECDC6BA8506D"></a></span>The picking session uses symmetry so that you only have to select the element on one
+                        side of the body for elements that have a left and right equivalent. The symmetry
+                        is based on elements being named in a similar manner, such as RThigh/LThigh or RightToe/LeftToe.
+                        The beginning of each element's name matters for symmetry; for example, symmetry works
+                        if the element names start with an R or L, or Right and Left, but not if they have
+                        these terms elsewhere in the name, such as ArmLeft. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF771846490AA034681026F9546B3894A-000C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9BB057A5-E21C-4B19-95E2-6F1A132C57ED"></a></span>Adding More Animation Information to a Tag
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-43DCD8B7-11F2-40E9-8FAE-90B5F061EBDC"></a></span>If a rig has controls that are often moved away from the body in order to achieve
+                  a position, such as with the feet or upper body controls, these controls aren't always
+                  the best ones to use for extracting motion information because they don't always stay
+                  in position. However, you need to tag those controls to help create a proper tag map
+                  because they're the ones that you animate. So what do you do? 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-325DED7B-CC8B-4179-BE5D-2831A8773D7E"></a></span>To make sure that you're getting the best control for the motion, you can add another
+                  element to a tag. You click a defined tag button, then middle-click on the element
+                  from which you want to extract the motion information. The secondary element is added
+                  to the tag's definition. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A053DD08-37FE-434B-B113-F13FF8E95A8F"></a></span>For example, let's say the Chest control is already defined for the chest tag, but
+                  you want the motion information to come from the bone in the center of the spine because
+                  the Chest control has been offset from the rig. To do this, click the chest tag button,
+                  then middle-click the spine bone in the chest area to add that element to the chest
+                  tag's definition. 
+               </p> <span class="anchor_wrapper"><a name="FIG_68E2929E73AB4603982535A3977880D0"></a></span><div class="figure-anchor"><img src="../images/GUID-8F6541CD-182D-4203-93A5-ED06103540E2-low.png"></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF771846490AA034681026F9546B3894A-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7DC71AA0-2B11-4032-878C-B0D3CC818D41"></a></span>Loading an Existing Tag Template
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-0C6267A0-DAA7-494F-BF73-27D33B522FF0"></a></span>If you have saved the tag information for a rig or skeleton in a template file, you
+                  can easily load it for the same rig, such as for editing it, or load it onto a different
+                  rig. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-87706463-109D-455E-BFBA-05B3E01C44AB"></a></span><div class="note-tip"><span class="label">TIP:</span>There are sample tag templates in your Softimage installation's \Addons\MotionTransformation\Data\TagTemplates
+                     folder that you can load. For example, you can load the <span class="MenuCascade" id="GUID-C6A1C984-CBAA-4CF8-8161-B31663D54DDF">biped_biped.tagt</span> file with the default Softimage biped characters. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF771846490AA034681026F9546B3894A-000F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EBADEF45-3886-407D-8A75-E6DE9760D0CD"></a></span>To load a tag template for a rig
+                  </h3> <span class="anchor_wrapper"><a name="GUID-11EEBD40-A0CB-438D-B6D9-AEC5A3D13D6D"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E9DECFC8-D527-47E1-B134-604779F0745B"></a></span>Select the skeleton or rig for which you want to load a tag template. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-947B0781-B1FF-457C-8401-7E72DF951DD2"></a></span>Choose <span class="MenuCascade" id="GUID-E85F7B40-A052-4162-BE1C-68B76BFDBE31">Tools <img src="../images/ac.menuaro.gif"> MOTOR <img src="../images/ac.menuaro.gif"> Tag Rig</span> from the Animate toolbar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-234A99C5-CDCA-4F3C-BE66-85E42BFD86B5"></a></span>In the Tag property page that opens, click the <span class="MenuCascade" id="GUID-B9A64B94-D01E-4B5C-AC92-AD04D8BA8796">Load</span> button to open a browser and load the tag template file you want. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8D4470C3-7200-4DAC-9E23-E24C313E4114"></a></span>If the names on your rig elements match the names of the rig elements from which the
+                           template was created, the text boxes beside the element buttons are filled in; if
+                           not, the elements are set as "undefined". 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D97879F3-790F-49CB-BECE-065F23EFBB04"></a></span>If you need to select rig elements for the undefined ones, or if you want to change
+                           an element, click an element button in the property page, then pick the corresponding
+                           element on your rig or skeleton in a viewport or the explorer. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-503D2DAF-5F29-4A41-8C2C-00390485ECF3"></a></span>When you're finished tagging, click the <span class="MenuCascade" id="GUID-FC57D735-098F-40CF-9530-2A03F67A1238">Apply</span> button to apply the new tag definitions to the rig. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A004C018-546D-4857-B347-C0C8C0577B43"></a></span>You can also click the <span class="MenuCascade" id="GUID-3881FCD5-AB52-463F-8DE5-B0D21923928F">Save</span> button to open a browser in which you can save this new tag information in a template
+                           file (<span class="MenuCascade" id="GUID-1ABEB323-EC74-4A56-B3B8-97B10767FE55">.tagt</span> format) with a different name. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

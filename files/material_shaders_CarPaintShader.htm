@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-EA6C5CD0-6C7C-4DED-9501-33EEE960F7D2">
+      <meta name="topic-type" content="concept">
+      <title>Car Paint</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-EA6C5CD0-6C7C-4DED-9501-33EEE960F7D2"></a></span><div class="head">
+            <h1>Car Paint</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-79A80D4D-FD34-4F48-88B9-35B94D92E90B"></a></span>| <span class="char_link"><a href="material_shaders_CarPaintShader.htm#WS6EE05AA23AA85A43B64451BE2934084F-00F4">Surface</a></span> | <span class="char_link"><a href="material_shaders_CarPaintShader.htm#WS6EE05AA23AA85A43B64451BE2934084F-00F8">Specular</a></span> | <span class="char_link"><a href="material_shaders_CarPaintShader.htm#WS6EE05AA23AA85A43B64451BE2934084F-00FB">Reflection</a></span> | <span class="char_link"><a href="material_shaders_CarPaintShader.htm#WS6EE05AA23AA85A43B64451BE2934084F-0100">Flakes</a></span> | <span class="char_link"><a href="material_shaders_CarPaintShader.htm#WS6EE05AA23AA85A43B64451BE2934084F-0101">Dirt</a></span> | <span class="char_link"><a href="material_shaders_CarPaintShader.htm#WS6EE05AA23AA85A43B64451BE2934084F-0102">Advanced</a></span> | <span class="char_link"><a href="material_shaders_CarPaintShader.htm#WS6EE05AA23AA85A43B64451BE2934084F-0105">Render Tree Usage</a></span></p>
+            <p><span class="anchor_wrapper"><a name="GUID-DA074D9C-B07A-4DF5-B4A2-DCD6B04AA36D"></a></span> <em class="strong">Category:</em> Illumination
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A9243CC0-7230-42E0-B325-5E44960C0417"></a></span> <em class="strong">Shader Family:</em> Surface Material
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C197D2EE-C12D-42B4-BEB1-C71628B5A74A"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0426FD34-AA07-44A9-9D56-360BD6207D37"></a></span> <span class="MenuCascade" id="GUID-9488AA98-135C-4F75-BC33-2BAF3E9073C1">Related mental ray shader:</span> <span class="char_link"><a href="mentalray_mi_car_paint_phen.htm">mi_car_paint_phen</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6EC4C539-679B-40D3-AE7D-771A5E0469AD"></a></span>The Car Paint shader simulates the unique characteristics of car paint:
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D8BAAE79-F1DC-48A2-9B50-22DD3F001068"></a></span>Diffuse reflection in the pigmentation layer producing color shifts at edges due to
+                     viewing angle and incident light angle.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5A4BA362-8AB7-4613-864B-66E2484AEB45"></a></span>Specular highlights from metallic flakes suspended in the pigmentation layer. Including
+                     optional ray traced reflections in the metallic flakes.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-694DB255-1897-4569-A65E-F440B50C0312"></a></span>Clearcoat layer with mirror or glossy reflections and specular highlights with an
+                     optional glazing mode.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C7236642-8B52-45C1-A8D2-55A7A48A1EDB"></a></span>All topped with a Lambertian dirt layer, if needed.
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00F4"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4C552C4A-41F0-4E53-BB7C-A39EEC2CDC64"></a></span>Surface
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B5157BA6-3C31-4D81-92D4-DD21DF0B3D8E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-365A3CF2-F13F-494F-A893-970C762A9B85">Ambient Color</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D9FD4384-57D1-4ABC-9FC3-C9E61937C4A5"></a></span><p class="table-body">The ambient light color component. This parameter is treated differently to the ambient/ambience
+                              parameter pair of many other base shaders in that it is influenced by the other diffuse
+                              color parameters on this property page. It represents incoming light, rather than
+                              the object's ambient color.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4C0A99A0-6752-4DE8-9421-3C352DE2EF29"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1FA3B022-870D-4BC5-A4FF-1B7E46FA5AFA">Base Color</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-26DFD49E-0450-479B-A0FD-C4226FCBD804"></a></span><p class="table-body">The base diffuse color of the material.</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00F5"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-15C3ED8C-C1F2-4424-BED4-C3E181130F54"></a></span>Edge Color Controls
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B93594E3-3792-42C4-B78B-D79787349427"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-345490BB-7199-4F3E-A92D-AE5C711B7E1B">Color</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-433B66A2-E524-4E15-9F00-0514B7D279B4"></a></span><p class="table-body">Represents the color shift between the base color and the edge color. The color seen
+                                 at the edges usually appears much darker. For really deep metallic paints as seen
+                                 on sports cars, the edge color tends to be almost black.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F5B403F8-6D35-4FC8-A3C5-AA7CBB15E1EE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A3EDD072-7E48-4C13-B4EF-ABFBFEF404D9">Falloff</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-98EA7E8A-E149-40DF-829A-75694798172E"></a></span><p class="table-body">Defines the falloff rate of the color towards the edge. The useful range is 0.0 to
+                                 10.0, where the value 0.0 turns the effect off. Higher values make the edge region
+                                 narrower and lower values make it wider.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00F6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3273CE21-D10C-4233-8893-C10E5D7DFF01"></a></span>Lit Region Color Controls
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-542A62C2-8FE5-4CB6-BC76-13F2B3E408E3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-33372DA5-CE0D-47B1-B4E8-34F74AA0BDD8">Region Color</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6D0C356C-B740-4896-B019-E384FF7AD3EF"></a></span><p class="table-body">Defines the color seen in the illuminated area of the object's surface.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-41E23B39-BCD2-4B86-A2CA-E60BB331C1AE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C9B06E27-E305-46BF-89E5-8B9FB05F6054">Falloff</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A573D017-41DD-4AEA-A2EB-A136B8524122"></a></span><p class="table-body">Defines the falloff rate of the color towards the light. The useful range is 0.0 to
+                                 10.0, where the value 0.0 turns the effect off. Higher values make the colored region
+                                 facing the light smaller/narrower, while lower values makes it larger/wider.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00F7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9C454094-EFDF-4E59-9988-BD725E08F238"></a></span>Diffuse Controls
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-22D2522E-1CB9-4CD8-9D7C-217FD2D029FB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-26745F0D-0C54-40C5-80FE-43D5EEAD947C">Weight</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9462B597-E4DD-43BD-A2F3-D79C8A4C1C05"></a></span><p class="table-body">Modifies the overall level of the diffuse color parameters.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4B8266EA-17FB-4603-9BAE-F1C6C757BD26"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3F8C0264-1778-409F-B480-BD90AF2A3761">Falloff</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F6ADFE13-2D11-4245-BFD7-2459BF59C491"></a></span><p class="table-body">Defines the falloff of the diffuse shading. The useful range is 0.5 to 2.0, where
+                                 1.0 represents standard Lambertian shading. Higher values push the diffuse peak towards
+                                 the light source, and lower values flatten the diffuse peak.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00F8"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7D40CF90-07F7-4F85-98D3-C14BA6590F7C"></a></span>Specular
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00F9"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A164AD67-E7E5-42F2-809D-FBF453F7668C"></a></span>Primary Highlight
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7673EE27-AEE0-4276-A050-FECF2979B031"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EA68A450-1C91-4DDF-A574-DC6697ED6AE7">Color</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4A5A2E7D-C6C2-40AC-B3D1-141C85E93B2B"></a></span><p class="table-body">The color of the primary specular highlight.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CDCA44F8-1BD5-4C01-86A7-7F8A3858C6DD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4451BAC7-5B46-43C8-86B1-097EB7D2A14F">Weight</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DF9FC87B-8631-4BD0-B84C-D466470584C4"></a></span><p class="table-body">Specifies the blend weight for the primary specular color.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D1DB73C3-CD52-4210-8DC4-8FEE1D5565F6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-376C7596-673E-4E27-840E-BADB4281DEFA">Specular Decay</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-69CD6EF6-9164-4789-99C8-79C4C20379B5"></a></span><p class="table-body">Defines the rate at which primary specularity decays outward.</p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00FA"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C53FC282-8F92-4F90-8BE9-456EA4C44D4B"></a></span>Secondary Highlight
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E6FC78E6-0346-4B5C-891A-34DF02015E3A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8976FC8D-720D-4607-8AAF-7C301B2BC495">Color</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0E772884-D1D1-41EF-8D2A-B906182621D7"></a></span><p class="table-body">The color of the secondary specular highlight.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E7A89BB9-2581-4422-BF87-4F573FC68CC4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7E570295-70FF-41FC-8C9A-4761272E96EB">Weight</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2CFF1333-3116-4246-AABE-C9AB78E4E75F"></a></span><p class="table-body">Specifies the blend weight for the secondary specular color.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EC5F3A0D-38CE-48C8-88CE-D7E352EBE59C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BCA1A86E-B123-4B72-928A-0B4A9F4540A4">Specular Decay</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B00E926B-FF4D-46D2-ADB1-1F7381E6CEB6"></a></span><p class="table-body">Defines the rate at which secondary specularity decays outward.</p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7ECBA53D-625E-42D0-938B-0CC453752A17"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A6E71DB4-F5AC-495B-ACAD-17CA56E3F7BF">Glazing</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0F59D958-6A67-492B-AEEC-9FE687D5BC59"></a></span><p class="table-body">Enables a glazed surface effect by setting a threshold on the primary specular highlight.
+                                 This option makes the surface appear more polished and shiny. To create the effect
+                                 of a new sportscar with a highly waxed finish, turn Glazing on. For the look of an
+                                 old, beat-up car, turn Glazing off.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00FB"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2A8EED19-FB25-4E20-932B-94292910AA00"></a></span>Reflection
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00FC"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-86501999-9E83-4A5A-838E-71358F92FF0A"></a></span>Surface Reflection
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-21A7F08A-3C2D-4C48-86AB-473B38CF7A91"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BFF77695-1544-4A28-B884-CE6C5E73D603">Color</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-99B8813E-DA70-443A-AB0D-05DB1C842868"></a></span><p class="table-body">The color of the reflections in the clearcoat layer of the car paint (generally white).</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8C24C22D-66F5-47A5-8892-4025738C0A46"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F6E853C6-73E5-4993-86EB-004BA35DE995">Facing Angle Weight</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E5DEC8A7-D477-4912-B343-4CB94C6309E0"></a></span><p class="table-body">A multiplier defining the strength of the reflection at surfaces facing the camera.
+                                 Set to low values between 0.1 and 0.3.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00FD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-24D8AB4E-0E96-484B-9984-B151973EE09E"></a></span>Edge Reflection
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F4E95C94-8B65-4964-AC84-868D0453FC6D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-095BEA3A-3EF9-49F6-9921-1235C832A38E">Factor</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-09741D58-13C2-4D00-B6E3-A74F8D76D954"></a></span><p class="table-body">Defines the narrowness of the reflective edge.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-010E5D99-A749-480C-9B4E-FBA98F79981E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E5329B18-7092-452D-AB5D-C09B62123BA3">Weight</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4468F63D-F4A1-4036-8D42-11A1C67DD677"></a></span><p class="table-body">A multiplier defining the strength of the reflection at surfaces perpendicular to
+                                 the camera (edges). Clearcoat tends to reflect more at edges than on facing surfaces,
+                                 this is known as a fresnel effect.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00FE"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CAA1DA7E-8604-4253-8A8A-8C5E1F53FC4C"></a></span>Glossy Reflection
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0A418DC2-1806-4F3C-B6DF-9A1A686F9E4D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1F309EEC-19F6-42CB-A996-5ECEAB004D42">Glossy Rays</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-93594FD8-63E9-4F56-ADFD-E9A783020F77"></a></span><p class="table-body">Sets the number of glossy reflection rays to be traced. The value of 0 disables glossiness.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B6332CF9-1CC3-4612-A697-7281930D0209"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-82D28C45-03BF-425C-91B9-F904649F7C79">Glossiness</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1A326D08-063B-4F54-BCAC-D7DAC4AD49F5"></a></span><p class="table-body">Sets the amount of glossiness. Car surfaces are generally almost like mirrors so this
+                                 value should be kept small.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00FF"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5AE40A6F-0C8C-45B5-94B5-3FD0AE991720"></a></span>Optimization Settings
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A588D9CA-A784-4721-B304-49A7FD9B3ACD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-215A2577-39AD-4580-A409-A96E1F50F14A">Max Ray Distance</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-ABADE531-F974-4CE8-8553-6CABE278B1F7"></a></span><p class="table-body">Limits the reach of reflective rays.</p> <span class="anchor_wrapper"><a name="GUID-A54EEB86-CA6A-49F8-83F5-B9707579B3B6"></a></span><p class="table-body">If the max ray distance is set to 0.0, the reach of the reflection rays is infinite.
+                                 For values greater than 0.0, the reach of the reflection rays is limited to this distance,
+                                 and the color of the reflection is faded toward the environment color as the length
+                                 of the ray approaches this distance. Use Max Ray Distance to improve performance and
+                                 reduce excessive noise caused by high-contrast objects in the distance.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-767519D0-302E-4DF2-A2E4-05062AF7D581"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-24588F56-DB94-4740-8A28-E7C1A800F158">Optimize Environment Sampling</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-529D246D-D474-4472-B219-F0B8CFCDF784"></a></span><p class="table-body">When off, an environment sample is made for each reflection ray that misses an object
+                                 or needs to be mixed with the environment when using the Max Ray Distance option.
+                                 When on, the environment is sampled only once for these reflection rays.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-0100"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-704CC12F-2F1A-43AF-BCB5-94CE5C97688C"></a></span>Flakes
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ADD73788-DC43-4C74-B6C0-84E23A9B2421"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CFDAC8F5-CD97-4A82-A46C-D7CD70A9EAA9">Reflectivity</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-24E3D84C-D7D5-428A-BC29-6D75ADF7C20A"></a></span><p class="table-body">The color of the reflective flakes, which is generally white.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3F297558-986E-4BF5-B3BD-E8628FFAA0A7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F7E6A159-49D0-47C1-83EA-691DE5953B04">Color Weight</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1A8D7CED-B864-4EDB-B5A6-6F97BFC8AA0A"></a></span><p class="table-body">A multiplier for the above color.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2F850F25-C3CD-4686-AC2C-668AD9F88185"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-148F2979-C5B1-460E-B1EB-E7D08861283D">Raytraced Reflection</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C19E4302-E8FA-4B6C-A445-F5177ABE3334"></a></span><p class="table-body">Defines the amount of ray traced reflection in the flakes, which allows glittery reflections
+                              of an HDRI environment, for example. The value of 0.0 turns the effect off. The effect
+                              should generally be very subtle and a value of 0.1 is often enough. The final intensity
+                              of the reflections also depends on the reflectivity color and the color weight.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4FF56733-99D5-43C5-A7E1-7E2A5CAFBE55"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5EDE014D-EE0B-4074-A0B6-A0DB92F1FDAC">Specularity</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-55226EB1-003C-486E-A753-356FBBCCC91D"></a></span><p class="table-body">Sets the specular exponent for the flakes.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3BF8FD7F-2E06-4831-AB12-2EFC75A2D57A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A010DE57-DBD8-4EAF-AACF-28D05C59D62B">Density</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0402BC01-AFF3-4046-B9C7-4EBBEBEABA98"></a></span><p class="table-body">Sets the density of the flakes. The useful range is from 0.1 to 10.0, where lower
+                              values indicate less dense flakes (more flakes are given low color values near black)
+                              and higher values indicates denser flakes.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-75135D3A-BF8A-46C5-89DC-BEC0AB1F77D0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CDBA0547-9EB9-46A0-BC45-6AB56FED8580">Decay Distance</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7DD6860D-2C7A-41A2-8F28-0E10FAFDCC99"></a></span><p class="table-body">Since flakes are inherently small, they can easily introduce rendering artifacts if
+                              their visual density becomes significantly smaller than a pixel. The flakes furthest
+                              from the camera may cause flicker in animation, or trigger unnecessary oversampling
+                              and long render times. To avoid this potential problem, set a distance at which the
+                              influence of reflective flakes fades out. Positive values reduce the Color Weight
+                              so that it reaches 0.0 at Decay Distance. A value of 0.0 disables any decay.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E97809AE-62C2-4D24-B49E-384161FE54F2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6AE81171-17BD-450C-B0BC-9FEB4F69D7C4">Strength</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D465BEB6-132B-4FD5-BF72-4E79F94CE1D4"></a></span><p class="table-body">Sets the difference between the orientation of the flakes. The useful range is between
+                              0.0 and 1.0, where 0.0 means that all flakes are parallel to the surface (which disables
+                              the effect) and higher values mean that the difference between each flake's orientation
+                              becomes larger and more varied.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-603562DE-E242-4F13-B108-34B8612F0157"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-155E2F7E-54C3-4456-9E56-23B29A03BC27">Scale</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A228AF18-1F41-47AD-8995-7BC8FF3E0A06"></a></span><p class="table-body">Sets the size of the flakes. The procedural texture is calculated in object space,
+                              and will follow the object. Keep in mind that the scale is therefore influenced by
+                              any scale transformation on the object instance.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-0101"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3AA9FA34-F0E6-4ACE-BCF9-BC449AFB1473"></a></span>Dirt
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5D38EA1F-2474-4F2D-8E74-CF940163AA74"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9AC57C89-926E-471B-8F0C-570C129CF4F1">Dirt Color</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AF6EA16C-DCE1-4900-A596-40218BE0A29C"></a></span><p class="table-body">The color of the dirt.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-416F3D37-AC52-4CC9-A4BC-6E04BC6CDB94"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BB035558-7DCD-4015-A890-C7FFF4D718EC">Weight</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0E4ADF59-61AC-4CAD-9AEE-7AE552F2E931"></a></span><p class="table-body">The amount of dirt. This parameter would ideally be connected to a texture shader
+                              to get variations in the dirt across the surface. If Dirt Weight is set to 0.0 no
+                              dirt is added.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-0102"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-36EABE8C-1B06-4DB6-973C-8A2536A15094"></a></span>Advanced
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-0103"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-82FC1BA5-6B71-431F-A5D8-86B6DF2B4907"></a></span>Overall Shader Effect
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-23021629-09E0-459D-8DBE-EECEF9B8405E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-992E744C-EB04-4FCF-86EF-24E7340017C2">Global Effect</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2D97F700-B6E0-4BF7-AC5E-5093966D8BB9"></a></span><p class="table-body">Allows you to globally tune the entire diffuse, metallic flakes, and specular subsystems.
+                                 It does not affect reflections or dirt.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-0104"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0BFF88D9-7771-40C0-9BB2-DDBE1F5F5DFB"></a></span>Indirect Lighting
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-289D0D36-37ED-4A89-9EC1-95164996FF45"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C22B7054-E199-42B7-87BE-141EC3438FBD">Global Weight</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3B0B215A-FE5E-4A9C-9A20-B3BCF9C4C1AC"></a></span><p class="table-body">Modifies the influence of indirect light (photons and final gathering) on the object's
+                                 surface. It is internally divided by PI. For example, a value of 1.0 means the standard
+                                 1.0/PI weight.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-0105"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D6E87BEC-CFF6-44A2-84BC-BF7532FAEB9F"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-703B44F7-FA9E-4AA1-AF00-92DC763B0426"></a></span>This surface shader can be used almost anywhere in a render tree. Although it is most
+                  commonly connected directly to a Material node's Surface input (as well as Shadow
+                  and Photon), you can use any number or combination of surface shaders to control various
+                  parts of your effect. Surface shaders are often mixed (as the Base Color using a mixer
+                  shader) with textures to add realism to them. Also, you can use textures to control
+                  color inputs (such as Diffuse or Ambient) or scalar output nodes (such as gradients
+                  or fractals) to control refraction or translucency.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

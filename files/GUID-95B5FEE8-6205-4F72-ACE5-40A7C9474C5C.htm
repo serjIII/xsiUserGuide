@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-95B5FEE8-6205-4F72-ACE5-40A7C9474C5C">
+      <meta name="indexterm" content="CrowdFX: particle emission properties">
+      <meta name="indexterm" content="CrowdFX: number of particles (actors)">
+      <meta name="indexterm" content="CrowdFX: size and scale of particles (actors)">
+      <meta name="indexterm" content="CrowdFX: orientation of particles (actors) at emission">
+      <meta name="indexterm" content="CrowdFX: weight maps on particle emitter">
+      <meta name="indexterm" content="weight maps: on particle emitters for CrowdFX">
+      <meta name="indexterm" content="CrowdFX: emitting particles (actors) per point">
+      <meta name="topic-type" content="concept">
+      <title>Setting Up the Crowd Particle Emission</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-95B5FEE8-6205-4F72-ACE5-40A7C9474C5C"></a></span><div class="head">
+            <h1>Setting Up the Crowd Particle Emission</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-B5097921-8819-4DA1-BC53-79A01D3F3185"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-8ED4A2B0-F2DE-4AA0-B9D0-911248E0E081"></a></span>In crowd simulations, particles are emitted with an instance of an actor proxy attached
+            to each particle. As with typical ICE particle emissions, there are a number of parameters
+            you can use to set up the particles to be the way you want. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-CB996EAC-B0B5-49E9-9088-144631B168D5"></a></span>You can set up the particle emission for the crowd simulation in the appropriate Emit
+            compound that is created by default in the crowd simulation point cloud's Emit ICE
+            tree: 
+         </p><span class="anchor_wrapper"><a name="UL_2BB0E2FC76EC4BB0BB32174408183E59"></a></span><ul>
+            <li>The <span class="char_link"><a href="iceref_Emit_Evenly_from_Geometry.htm">Emit Evenly from Geometry</a></span> compound for pedestrian simulations. 
+            </li>
+         </ul>
+         <p><span class="anchor_wrapper"><a name="GUID-0E78733F-0DA5-4CA2-9483-9C34C311214C"></a></span>To open the property editor for the Emit compound of the current crowd, choose the
+            <span class="MenuCascade" id="GUID-9B899E42-16F4-44BF-BE96-FF71BFF763B8">CrowdFX <img src="../images/ac.menuaro.gif"> Simulation <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> Inspect Emitter</span> command from the ICE toolbar. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-671EB7B1-38A8-4409-AD88-29414D264D5D"></a></span>Thee Emit compound can also be used for emitting standard ICE particles, but some
+            of the parameters are designed only for crowd simulations. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_8175C777B9F34FF3ADBC5C2D5F9E0AD0"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-ADCF0680-407D-4B80-A695-B8ECE92CA958"></a></span>Setting the Number of Particles
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-400F77A6-7D3B-426A-B341-832D509EBF3A"></a></span>The number of particles is set differently depending on the type of emission you're
+               creating. For example, pedestrian or basic crowd emission. 
+            </p> <span class="anchor_wrapper"><a name="UL_4BC8B67446D94895BFEE54B07E1D3128"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7E985699-0E05-4483-970B-8CF893A11184"></a></span>For a pedestrian simulation, you can set the <span class="MenuCascade" id="GUID-1031EE05-3F79-424F-991E-D3A10F8E8001">Number of Actors</span> in the <span class="char_link"><a href="iceref_Emit_Evenly_from_Geometry.htm">Emit Evenly from Geometry</a></span> compound. This is the total number of particles emitted for the crowd simulation,
+                     regardless of the number of emitters or the number of different actor models you're
+                     using. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0821B63C-FEAC-4B74-9E7D-DB587F31D105"></a></span> <img src="../images/GUID-0E8C28B4-300A-4E0C-AF67-84615910E748-low.png"> 
+                  </p> 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_8C73BD52ABCC4CFB9F07BB60E072A75F"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-7362FC98-03CA-475C-A668-4BDB6E394C16"></a></span>Defining a Pedestrian Actor's "Personal Space" at Emission
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-5364D3C1-EE70-428A-8051-3A4FB2D9CA5E"></a></span>The following are parameters in the <span class="char_link"><a href="iceref_Emit_Evenly_from_Geometry.htm">Emit Evenly from Geometry</a></span> compound that prevent actors from colliding with each other immediately upon emission.
+               After the particles are emitted, you can add a buffer around each actor to help prevent
+               collisions when moving - see <span class="char_link"><a href="GUID-D36B006B-501F-45C8-8655-B1C6535B74E8.htm#GUID-6983E317-2DDA-4E72-8984-651C0497D743">Creating a Buffer Around the Actors</a></span>. 
+            </p> <span class="anchor_wrapper"><a name="UL_E58446F787E34B7BA0A63193A60FF781"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FDA5C968-B2F3-4635-B8BA-9068AA80E848"></a></span>The <span class="MenuCascade" id="GUID-88E77968-A6B8-4506-9CD5-D072DF6BE437">Search Radius</span> determines how many units of space are set around each particle upon emission. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-74CFA36A-27FE-4079-A2D6-F297AAF37A60"></a></span> <img src="../images/GUID-C7CA23E5-BE8D-4176-A764-58988D25032B-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F1041188-7990-4FDE-9AC1-70A2ABC5EE37"></a></span>The <span class="MenuCascade" id="GUID-52BD5DB9-BEC5-44C7-943F-DBD121A49377">Repulsion Factor</span> is how much the particles are repelled from each other at emission based on their
+                     size and distance. This creates a more natural-looking and randomized amount of space
+                     around the particles than the absolute unit values defined with <span class="MenuCascade" id="GUID-E86A07A4-7470-4E17-83E3-DBC59FA0392E">Search Radius</span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-63C430A7-0DDC-4322-A2D9-93F60DF2DC09"></a></span>The <span class="MenuCascade" id="GUID-238E4BFA-D121-41E1-B400-EDEB17BAB42B">Max Iterations</span> creates particle clumps (use a low value) or prevents clumps (use a high value).
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-414F06DF-C805-4355-91E5-BBF682A26D1B"></a></span>To prevent actors from being emitted at the same location or close to where there
+                     is a wall object (see <span class="char_link"><a href="GUID-69D22EF7-7F50-4BBD-9D26-07C29FEBA219.htm">Avoiding Collisions with Obstacles (Walls)</a></span>), set the <span class="MenuCascade" id="GUID-84B9BF51-7690-49F5-BE43-1C264409F294">Wall Push Factor</span>. 
+                  </p> 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_79767E9107DD4691997A696F697F386F"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-11CD4C0B-FE49-46D9-8A10-8007F005023C"></a></span>Setting the Particle's (and Actor's) Size and Scale at Emission
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-CBF76CFC-36BA-499F-8188-EB47D2E407B2"></a></span>As with regular particle instances, when you set the particle's <span class="MenuCascade" id="GUID-DCED0D7C-39B4-4F9D-9929-8FA457FA73B5">Size</span> and <span class="MenuCascade" id="GUID-9528B8F4-F3A5-4868-B169-0B8F5054340F">Scale</span> (the size along each axis) in the appropriate Emit compound, the instanced object
+               (actor) inherits that size and scale. A value of 1 is the same size and scale as the
+               original model from which the actor was duplicated. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-4CC99912-B1AA-495F-801B-1ADDF5DF6474"></a></span>In the image below, a simple Randomize node has been plugged into the Size port on
+               the Emit compound to vary the size of each particle and its actor. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-7E6C9B24-1EA3-4462-B8A2-9C0B70D21F80"></a></span> <img src="../images/GUID-6A02ABF7-B3F9-424A-A9D3-23CC0EAE3768-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-99136BDB-AE85-4726-BE84-5EF4932FABDC"></a></span>You can also use a scaling constraint compound (or pose constraint) to constrain the
+               scaling of certain deformers in the actor's rig proxy - see <span class="char_link"><a href="GUID-8953C9D2-53CD-4443-B388-5E60156B57DD.htm">Constraining the Orientation or Scale</a></span>. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_CAA0555E0DBB4D5A882E28F80564091E"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-624EE710-82D9-4ACE-AF35-6182DA904A80"></a></span>Setting the Actor's Orientation at Emission
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-8F559AA6-9CB4-4E3D-BA6D-1BECF2075749"></a></span>When particles are emitted, they are oriented in the direction as defined by the emitter
+               object's <span class="char_link"><a href="GUID-45351F50-F1F9-443F-9C86-47F5D0546313.htm">CrowdFX_Emitter_Forward</a></span> attribute with their Y axes defined as their up vector. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-9DC45D02-1017-46EE-9C53-24540502FBF8"></a></span> With a directional emitter, the actors are automatically oriented in the direction
+               of the arrow on the emitter (see <span class="char_link"><a href="GUID-44632D31-DABE-4CAF-B335-18EE455EB9C9.htm#GUID-30ACDC58-4984-4CE9-B18A-EBA3D48D9E64">Using Directional Emitters</a></span>). However, you can set a different forward vector for the actors using the<span class="MenuCascade" id="GUID-C8731C0A-345C-4D13-BF50-CE6547A1C73C"> Actor Direction</span> options in the <span class="char_link"><a href="iceref_Initialize_Collision_Avoidance.htm">Initialize Collision Avoidance</a></span> compound. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C7ACC51F-E47A-4CFE-8B40-6327779A39D0"></a></span>Only rotations about the actor's Y axis are valid. 
+            </p> <span class="anchor_wrapper"><a name="UL_63B791142D9F44F2981212CDA2C57DC5"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-66A60EBB-073A-437C-A6DA-CA4182626EF4"></a></span>For pedestrian simulations, you can change the <span class="MenuCascade" id="GUID-93C47160-28F8-4EA2-ACB2-98EE3705B3E9">Orientation Y</span> value in the <span class="char_link"><a href="iceref_Emit_Evenly_from_Geometry.htm">Emit Evenly from Geometry</a></span> compound. 
+                  </p> 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_BEFE242FBD534DE2A0892B53717C086E"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-546E47AA-1DFD-49D8-A48B-41DEB63E1DF8"></a></span>How Particles Are Distributed on the Emitters
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-A3AFBAA8-9AE5-4453-8F4F-0C325A72E8A1"></a></span> There are several different parameters in both Emit compounds that affect how many
+               particles are emitted and how they're placed when emitted. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-5E4885CA-8BAA-4E8D-9026-B115F4EC9F53"></a></span>In either Emit compound, you can set the <span class="MenuCascade" id="GUID-2E924DAE-EDDF-4842-95B0-57640469E368">Seed</span> value to get a different distribution of particles on the emitters. 
+            </p> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_1C1F915FC6E94F54825C1627231B3ADE"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-15303146-F88B-4499-9755-C267E4B26A24"></a></span>For Pedestrian Simulations
+               </h3> 
+               <p><span class="anchor_wrapper"><a name="GUID-6E617E92-8FDB-412F-AC5B-A8985C39FDA4"></a></span> <span class="anchor_wrapper"><a name="UL_B40D62E633AC4BD09A7F322FF3C2C7B9"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EE71FE9A-911D-4846-B4EB-A58962B74E3A"></a></span> Select <span class="MenuCascade" id="GUID-DF128F67-6FC1-43CD-A391-415AAD1F3516">Delete Outside Boundary</span> to delete any particles that are outside of the boundary of the emitter. Note that
+                           this changes the number of particles that are emitted. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E87CE4A2-1D3B-4F7D-85F4-C7E821F3802B"></a></span>Select <span class="MenuCascade" id="GUID-0935097C-B4C8-485F-ADB9-04AC77368DC2">Boundary Constraint</span> in the <span class="char_link"><a href="iceref_Emit_Evenly_from_Geometry.htm">Emit Evenly from Geometry</a></span> compound to keep all particles within the boundary of the emitter object. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D40F284D-AC78-43C6-B753-286A657F4DE0"></a></span> <img src="../images/GUID-7C7958DB-3036-46A0-9C4C-40FC7E25EF16-low.png"> 
+                        </p> 
+                     </li>
+                  </ul> 
+               </p> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_A3ACF54F873848BF94F56480C855B38E"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-C8C11F59-207E-432A-B6B8-ED87FE05390C"></a></span>Using Weight Maps to Define an Emission Area
+            </h2>   
+            <p><span class="anchor_wrapper"><a name="GUID-7D258B0C-6612-427D-9759-EABE0CBC9AC6"></a></span>You can use weight maps, or other attributes, on the emitter objects to define areas
+               of emission. 
+            </p> <span class="anchor_wrapper"><a name="OL_5AD628D29C564CE4883DFF02E2124ED8"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9F1098D5-22B8-4E5B-B88F-60745F9D8D3A"></a></span>Make sure that the emitter object has an appropriate resolution level. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FCC3C3BB-DE0B-4F74-BBE8-7025DB0DAA06"></a></span>If you're using a directional emitter object, select the <span class="MenuCascade" id="GUID-3753FD8E-0838-4D62-8593-B58F7E553B5C">Create Grid</span> option and increase the <span class="MenuCascade" id="GUID-F5B06DB1-C10F-48D2-8182-41D4B30F040C">U/V Subdiv</span> values in the <span class="char_link"><a href="iceref_Set_Emitter_Data.htm">Set Emitter Data</a></span> compound to be high enough resolution for a weight map. 
+                  </p> 
+               </li>
+               <li>Create a weight map one or more emitter objects - see <span class="char_link"><a href="weightmaps_WeightMaps.htm">Weight Maps</a></span>. 
+               </li>
+               <li>Open the Emit ICE tree for the crowd simulation point cloud. </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F8246252-CCED-4753-987F-AE6EADD32F1F"></a></span>Disconnect the Get Emitter Group node from the Emit Evenly from Geometry compound,
+                     then get a separate Get Data for the emitter. This is because the reference to the
+                     weight map can only be to an individual emitter object. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8953A5CA-B956-43BB-9494-E45AF9C1B891"></a></span> If you are using multiple emitters, each one needs to have its own Get Data node
+                     plugged into its own Emit node. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1F50ED30-3370-4DCE-856E-11226E025AFA"></a></span> <img src="../images/GUID-1E0D13B2-174F-497A-B5B9-F756BFC41F79-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2DC0E7E7-2027-4BF0-8D7C-FDF6FA3CD663"></a></span>In each Emit Evenly from Geometry compound, specify the emitter object's <em class="strong">Weights</em> attribute for the appropriate weight map in the <span class="MenuCascade" id="GUID-99D0F3A9-468A-46E8-BD3E-384527CFF6E3">Filter &gt; Reference</span> text box. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-78B8EEF1-4896-4DE1-AF71-CEE9BF65936B"></a></span>The syntax should be something like this: <em class="strong">cls.WeightMapCls.Weight_Map.Weights</em> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-96967395-C0E8-4F16-9EAC-5F111B4241AB"></a></span>Set the <span class="MenuCascade" id="GUID-1D90DF1D-73D9-4D23-9C19-248720F2FECB">Rate Control</span> to <span class="MenuCascade" id="GUID-CBDCE9B6-87B7-47EA-84F7-1751652DF23C">Proportional to Filtered Area</span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3718D68D-9063-44BA-AB0B-9568EEB70FD8"></a></span>The particles are emitted only where the weight map values are not 0. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2E2EC657-D1FB-41D4-B0D5-5C887A45ED36"></a></span>Click the <span class="MenuCascade" id="GUID-E028881A-971E-4A1C-B522-36E3C41D41C7">Invert</span> option to emit particles where the values are not 1. 
+                  </p> 
+               </li>
+            </ol> 
+            <p><span class="anchor_wrapper"><a name="GUID-A436BFEA-7828-42CB-B9BB-FBA16582C8FC"></a></span> <img src="../images/GUID-9728FFE7-D32B-43E9-A856-491577873C24-low.png"> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_DB8AE1027E494D62B7084709F4441FF6"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-87DFDB1E-F0E9-4539-9C24-895AEB0F63B4"></a></span>Emitting Actors from Points on the Emitter
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-58937BC4-B753-48EF-A47F-7ECB08FEA996"></a></span>As with regular ICE particles, you can emit one particle per point with the Emit Evenly
+               from Geometry compound. You may want to do this for crowd simulations that involve
+               marching armies or parade formations. 
+            </p> <span class="anchor_wrapper"><a name="OL_62A2741049744C56A6FFA972BCE45D98"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F839DA31-FF1E-4B6A-A6F4-F8A0AD136619"></a></span>Make sure that the emitter object has an appropriate resolution level. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-746158B8-A2D2-46C7-8EED-80310447E81E"></a></span>If you're using a directional emitter object, select the <span class="MenuCascade" id="GUID-57B7FACF-8244-46AE-A020-CEF27FB8A37A">Create Grid</span> option and make sure that the <span class="MenuCascade" id="GUID-4D009DAD-732F-4367-B3A0-6803CAB33DDB">U/V Subdiv</span> values in the <span class="char_link"><a href="iceref_Set_Emitter_Data.htm">Set Emitter Data</a></span> compound are at an appropriate level. 
+                  </p> 
+               </li>
+               <li>Open the Emit ICE tree for the crowd simulation point cloud. </li>
+               <li>Open the Emit Evenly from Geometry compound for editing, and then open the <span class="char_link"><a href="iceref_Generate_Sample_Set.htm">Generate Sample Set</a></span> node. 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-790062E9-010F-4B7F-85F4-33918395B01B"></a></span>In this node, change the <span class="MenuCascade" id="GUID-EC088B1E-F697-49C4-ADBE-06C345D77A36">Emission Type</span> to <span class="MenuCascade" id="GUID-0E0C474A-AE7D-4534-8C7A-8DC8AC65E2CD">Point</span> and the <span class="MenuCascade" id="GUID-F75B927B-6A10-4B39-A59E-67BE25B66DFC">Rate Type</span> to <span class="MenuCascade" id="GUID-82DBE098-FED5-47BA-80FF-CD806112486B">All Points</span>. 
+                  </p> 
+               </li>
+            </ol> 
+            <p><span class="anchor_wrapper"><a name="GUID-969DCEF0-3CF1-42C5-A2EE-6DE156C3538F"></a></span>This affects all emitters in the Emitters group, unless you plug each emitter geometry
+               separately into their own Emit compounds (as shown in the ICE tree image above). 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-45E1D6EE-870F-4036-8741-B22451EBC81F"></a></span> <img src="../images/GUID-7BB5125C-906C-46E1-BC2E-6E2436EB70FA-low.png"> 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

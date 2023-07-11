@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-9D38E0C5-F503-4BF5-A129-A4E6A0019524">
+      <meta name="topic-type" content="concept">
+      <title>mib_color_mix</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-9D38E0C5-F503-4BF5-A129-A4E6A0019524"></a></span><div class="head">
+            <h1>mib_color_mix</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-92453336-77A5-4692-880B-4517D3117F29"></a></span> <em class="strong">Category:</em> mental ray &gt; Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B2F70EE8-2B70-4237-9568-570C61E2440B"></a></span> <em class="strong">Shader Family:</em> Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D4B4C469-A96C-4DCA-849B-19BA4B38AE15"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B7D5CD96-183A-444E-9979-37E29CE92133"></a></span>This shader accepts a base color and up to 8 inputs (the exact number is determined
+               by the <span class="MenuCascade" id="GUID-C4B8F928-0267-47FE-AF36-B51F1CA8A916">num</span> parameter), each of which consists of an input color, a weight scalar, and a mode.
+               The inputs are evaluated in sequence, each operating on the result of the previous
+               one (the first begins with the base color, which defaults to transparent black).
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-CC9AB5E3-5E60-4441-AD1B-0F737ABC13B8"></a></span>The following modes are supported:
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledHeading">
+                     <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-103180A1-EE19-4AE7-B836-59E00F93E6EC"></a></span><p class="table-heading">Mode</p> 
+                     </th>
+                     <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-BE9B239D-9EF9-43B6-A3A1-7861CDBD2E2B"></a></span><p class="table-heading">Operation</p> 
+                     </th>
+                     <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-E1A232F4-B341-4A0C-A51D-0EC8B979EA10"></a></span><p class="table-heading">Calculation</p> 
+                     </th>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EEAAFE74-D78A-4DD5-8DA5-B9E7FCEC8000"></a></span><p class="table-body">0</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D5071AC1-512D-4C44-BF22-268DBD56A832"></a></span><p class="table-body">Blend</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AFD071A5-AA76-4DE1-9E4F-9D85AE27541B"></a></span><p class="table-body">R = A . (1 - Ba) . w + B . w</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7BB8B28D-810D-4461-A1FA-A49B3371378B"></a></span><p class="table-body">1</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7139C9EB-9B46-4624-B4C9-8B04FA99E6B4"></a></span><p class="table-body">Mix</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-02A10ECC-FED5-45A0-B7AD-F159FD1B08AC"></a></span><p class="table-body">R = A . (1 - w) + B . w</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5B851290-C058-4FCF-B4FF-BB295D831ECC"></a></span><p class="table-body">2</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-804B94CC-D05E-42A3-8DB0-7A289BB94968"></a></span><p class="table-body">Add</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-46135882-34C4-4E43-820C-ACE59884C9B0"></a></span><p class="table-body">R = A + B . w</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D40C3645-5806-4485-A7DA-D6582EDB0DCF"></a></span><p class="table-body">3</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E0727B70-147D-4218-8FDA-67BEE9393E9D"></a></span><p class="table-body">Bounded Add</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-56E3AD6C-AF6C-4266-9475-62F118F9A14E"></a></span><p class="table-body">R = bound (A + B . w, 0, 1)</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-090C939D-73B4-47E0-A773-67DDBD8273D5"></a></span><p class="table-body">4</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-52D19A0E-5B2E-4AD8-8EA0-8547C12F2B93"></a></span><p class="table-body">Multiply</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C5E860FC-FBF5-4292-91D4-6E35A0F01EE5"></a></span><p class="table-body">R = A . B . w</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-51D0393E-B04C-4FD0-9436-6BDA58E93770"></a></span><p class="table-body">5</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7FEA8C6C-7B4E-44B6-98B5-665E0D168C5F"></a></span><p class="table-body">Bounded Multiply</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4045CEF2-0018-4ABB-8CE1-D35F6F18A07E"></a></span><p class="table-body">R = bound (A . B . w, 0, 1)</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-92CE952D-3BDA-4865-9E62-1A3D4521D1F9"></a></span><p class="table-body">6</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2DE35AEB-1865-469C-AC10-8C77D2C0EF8F"></a></span><p class="table-body">Replace Alpha</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-99962F8F-73FA-4BF9-80BD-E17A9166EEB6"></a></span><p class="table-body">R<sub>rgb</sub> = A<sub>rgb</sub>; R<sub>a</sub> = B<sub>a</sub></p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-D81A5F28-17A1-44E9-8C28-5E49DF6C8645"></a></span>Where:
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-49CC85B4-1215-4E4C-9076-A2159280F517"></a></span> <span class="MenuCascade" id="GUID-D7802F22-6A46-430A-9361-FD6A88CFB797">R</span> is the next result
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9A4FB048-1E3C-4889-BBE0-3702EB34B08B"></a></span> <span class="MenuCascade" id="GUID-13CB6937-16B0-4BC7-8A62-CDEC14441D7D">A</span> is the previous result
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-50C73B51-C78A-4069-A8C1-FA610DF8E03E"></a></span> <span class="MenuCascade" id="GUID-0FADC58E-D8BB-42E1-951B-438773B39F4F">B</span> is the current color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-86928234-8483-4525-9BEE-7F751C58CBC0"></a></span> <span class="MenuCascade" id="GUID-36E7535A-A11F-4F79-866E-246A7A6CFB06">w</span> is the current weight
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9D9BB2B3-B7D2-4CB0-A32E-CE310A86A891"></a></span>Subscripts <sub>r, g, b,</sub> and <sub>a</sub> are the red, green, blue, and alpha components.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4BBDDCE6-AAF9-49D7-846C-E758C969FDD5"></a></span>Note that mode 6 does not ensure that the resulting alpha value is valid; that is,
+               not less than red, green, or blue. mental ray corrects the alpha when storing the
+               color in the frame buffer unless premultiplication is turned off.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-87486800-842F-4012-86CF-1FB2C21A1891"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A284C6A2-9A02-45CC-9C05-40D7BA50AE14">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4351B742-A66B-42E7-BF6F-5FA4C8D4C502"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-47BE383D-4E40-4F0F-824F-1ED7732FA5E5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-698BBE83-A3E7-4DEF-8201-AB8F8687F522">num</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-235AD3C5-79DC-4B69-AC34-A6B7DB5780AC"></a></span><p class="table-body">The number of valid inputs. The minimum is 1 and the maximum is 8.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-40A9E11C-7686-4BFE-A780-4549BFD12215"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C226D35B-3866-4619-BF18-7252B2BC3F4B">mode_*</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2CA68057-4335-4889-B495-DA98BD781676"></a></span><p class="table-body">The compositing modes as described in the table above.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-47F76AAD-820A-4822-B1A7-E4A755F9258C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0CD5DACC-DCCE-47DD-B766-F58D7D5C6E34">weight_*</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BC2F097F-9B8B-4A68-951F-4C99663EB637"></a></span><p class="table-body">The compositing weights <span class="MenuCascade" id="GUID-41C730EB-46ED-4FC3-95CA-783C38859ADB">w</span> as described in the table above.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2257C6EE-B82E-431F-80D3-0D26A8113154"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4D767421-36CE-4CE5-9763-D1E125265590">color_*</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-907C8DFD-817F-47F5-8622-4A7D82C7ACF7"></a></span><p class="table-body">The composited colors <span class="MenuCascade" id="GUID-C4EFA54E-4C58-45A5-BDAC-7AAD45E1579E">B</span> as described in the table above.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-833EDE0E-C094-44F6-88FE-FCD1B4AF3204"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FC5AEEA5-6DC4-48E8-A3CB-44322865D7CC">color_base</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E1F9F078-20CF-46E3-8629-2B4C1BD68B64"></a></span><p class="table-body">The base color.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

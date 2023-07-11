@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-9D645354-5957-4F63-B67E-DCE9F300FEA1">
+      <meta name="topic-type" content="concept">
+      <title>mia_ciesky</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-9D645354-5957-4F63-B67E-DCE9F300FEA1"></a></span><div class="head">
+            <h1>mia_ciesky</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-F113B375-4B25-4F24-8E6F-60C9BE25B8B1"></a></span> <em class="strong">Category:</em> mental ray &gt; Environment
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B0547A42-7CCB-4BC0-89D9-42CCA8C3430B"></a></span> <em class="strong">Shader Family:</em> Environment
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D7DE95EE-FF9F-48DF-9E07-87EE8EC098E6"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-803D0D92-D99C-4625-8F4B-4AE44BAD1AC5"></a></span>This shader provides the standard CIE sky model (both clear and overcast) that is
+               used for lighting analysis. It is a colorless (grayscale) model, so it is intended
+               for analysis purposes rather than generating visually pleasing images. It has the
+               advantage of following a standardized (known) luminance distribution.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3D697C97-69D8-4BD1-A516-C970C45DAF5C"></a></span>This shader shares many parameters with the <span class="char_link"><a href="mentalray_mia_physicalsky.htm">mia_physicalsky</a></span> shader and works in the same way. It is designed to be used together with the <span class="char_link"><a href="mentalray_mia_physicalsky.htm">mia_physicalsky</a></span> and <span class="char_link"><a href="mentalray_mia_physicalsun.htm">mia_physicalsun</a></span> shaders.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E7286545-D939-44BB-BA6B-8E20A00328AF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DC2F898D-853E-4470-9E80-72EFAD79ACA7">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CDC0F4BE-772D-4F35-88C5-1FE257BED0C7"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B39E6F2B-BAF0-4496-8357-0FD1512292C8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-978E7D1E-2B9F-41DA-A898-51C9CBC40BA7">on</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-35A0D46A-6A39-4B38-9975-51F4E2ADA2E5"></a></span><p class="table-body">Activates this shader.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0743D85C-EC4A-48F1-9239-ED6D4FAA492C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F9BF4D57-247A-4CD9-ABF3-3D9851B0B6FD">rgb_unit_conversion</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FA0DB7B0-1464-4F69-8E7D-1F137985C62E"></a></span><p class="table-body">Converts the output to something other than true photometric units. If this value
+                           is 1 1 1, both the values returned by the mental ray shader API functions <span class="MenuCascade" id="GUID-DAD37D94-76BB-4AEE-ACD8-75153D450F36">mi_sample_light</span> (for the sunlight) and <span class="MenuCascade" id="GUID-CE248FE6-6094-4582-8B6E-C84478B71A94">mi_compute_avg_radiance</span> (for the skylight), when sent through the <span class="MenuCascade" id="GUID-F169D1D4-3A5A-44F9-8362-1D5889F03465">mi_luminance</span> function, will numerically match photometric values in lux.
+                        </p> <span class="anchor_wrapper"><a name="GUID-8543C161-DB5B-4BCE-ADB1-C47D47CE28A0"></a></span><p class="table-body">Since the intensity of the sun outside the atmosphere is calibrated to 127500 lux,
+                           this is very bright when seen compared to a more classic rendering, where light intensities
+                           generally range from 0 to 1. The RGB Unit Conversion parameter is applied as a multiplier
+                           and should be set to a value below 1 (such as 0.001 0.001 0.001) to convert the raw
+                           lux value to something more manageable.
+                        </p> <span class="anchor_wrapper"><a name="GUID-E4B027C2-07C3-454B-B73D-75A8FB3C1CCC"></a></span><p class="table-body">For convenience, the value of 0 0 0 is internally set so that 80000 lux (approximately
+                           the amount of light on a sunny day) equals the classic light level of 1.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-123C2BA7-2B13-4EC0-9D2F-BE84ECDD41E5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B256D0A5-A538-425F-BF9E-AB8C59AB53FB">auto_luminance</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3D4693E6-C6C1-4F34-99BA-0438A76AFE27"></a></span><p class="table-body">The luminance of the sky can be defined by setting either the <span class="MenuCascade" id="GUID-653F3FAB-439F-4D52-B0BF-1E194B59EB8A">zenith_luminance</span> parameter or a known <span class="MenuCascade" id="GUID-BAA81174-C574-4744-98B0-DA52097084D5">diffuse_horizontal_illuminance</span> value, but not both.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-954EBC45-C90A-4302-8CC5-85E8A2D05496"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AA37CC8E-DA1C-4BFB-969F-EF46D9A45A44">zenith_luminance</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9B7E0CCD-6B91-4AE0-8C45-E9DA59AD0327"></a></span><p class="table-body">Defines the luminance of the sky using a candela per square meter measurement.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EC8AC4CC-55DA-476F-BF9B-7FC533FF1800"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5568382A-CCDE-4D55-B7A1-1E11B3A677F6">diffuse_horizontal_illuminance</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1D8572D6-ABF7-428F-BD19-3133FBB07EF0"></a></span><p class="table-body">Defines the luminance of the sky using a specific lux value.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-056703E5-AA4A-4FB6-89A3-217287468B40"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-97122E8C-9195-4517-986A-35B1472E2E07">overcast</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9DCB69E4-30F1-4704-A399-47504CB091B2"></a></span><p class="table-body">When overcast is zero, the CIE Clear Sky model is used. When overcast is 1.0, the
+                           CIE Overcast model is used. In-between values is a linear interpolation of the two
+                           models.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body" colspan="2"> <span class="anchor_wrapper"><a name="GUID-E46CE3A4-EFAE-42A0-A767-659E60DE1EE5"></a></span><p class="table-body">The following Sun parameters affect the visible result (what the camera sees and what
+                           is seen in reflections and refractions), but not the final gathering result. This
+                           is because this shader treats rays differently. Direct rays from the camera, as well
+                           as reflection and refraction rays, see the "entire" sky effect, including the Sun
+                           parameters. However, since the lighting already has a direct light that represents
+                           the sun (using the <span class="char_link"><a href="mentalray_mia_physicalsun.htm">mia_physicalsun</a></span> shader), the sun disk is not visible to the final gathering rays.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8B76A34D-82AD-4A48-9E45-D28F35ECF0D0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2D486F8F-1F47-445D-BCAD-68D1F255E1AD">sun_direction</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-93E4F6BF-5FFD-4B13-923F-EE527F58B9F1"></a></span><p class="table-body">The direction of the sun disk.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FDCED54B-8815-4001-A539-A5430D13647C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2D40E09B-DF11-4EBB-8E5C-F76EA8EC5F2E">sun</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-86C5CA78-3A7C-48F3-85FA-C3C0BADDE6A3"></a></span><p class="table-body">Pick a light (the sun) from the pop-up explorer. The light you choose becomes the
+                           controller for the direction of the shader. It should be the directional light that
+                           represents the sun, such as the same light that has the mia_physicalsun shader. This
+                           makes the visible sun disk automatically follow the direction of the actual sunlight.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-07ED3E91-DCA9-4D74-9E13-94F09A6A041A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-66F42BE8-63C1-4826-91F9-0B10DF0280F5">y_is_up</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-125221B1-FABD-42D3-BF65-4ACDE85E9C9F"></a></span><p class="table-body">Defines what constitutes "up". In Softimage, the Y axis is up and this parameter should
+                           be on.
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

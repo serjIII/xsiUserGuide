@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-3ED04D1F-8D2C-4081-927E-5DAD5B9E19F1">
+      <meta name="indexterm" content="velocity, see also speed">
+      <meta name="indexterm" content="ICE particles: speed">
+      <meta name="indexterm" content="speed: ICE particles">
+      <meta name="indexterm" content="Inherit Emitter Velocity compound">
+      <meta name="indexterm" content="ICE particles: inheriting emitter velocity">
+      <meta name="indexterm" content="ICE particles: turbulence on speed">
+      <meta name="indexterm" content="turbulence: on ICE particles speed">
+      <meta name="indexterm" content="Turbulize Particle Velocity compound">
+      <meta name="indexterm" content="ICE particles: acceleration and deceleration">
+      <meta name="indexterm" content="Modulate Velocity Over Time compound">
+      <meta name="topic-type" content="concept">
+      <title>ICE Particle Speed</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-3ED04D1F-8D2C-4081-927E-5DAD5B9E19F1"></a></span><div class="head">
+            <h1>ICE Particle Speed</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-4C6CB750-3290-4886-B1A0-1FB3536B27E5"></a></span>Velocity is the rate of change of a point's position in a direction (vector). If the
+               velocity does not change in the span of one second, the point travels along the length
+               of that vector in one second. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8A34034E-6A45-4453-BB9E-F26A52B93D11"></a></span>Speed is simply the amplitude of the velocity (the length of the velocity vector)
+               without the direction. You can set the particle direction using other parameters —
+               see <span class="char_link"><a href="ICE_particles_ICEParticleDirection.htm">ICE Particle Direction</a></span>. Particle speed is measured as the distance that the particles travel per second.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9B9EDF8F-8AAA-4B2B-B2D6-4AEB5735AFBB"></a></span>You can set a particle's speed when it's emitted, as well as have the particles inherit
+               the velocity of an animated emitter. Different speeds help you to create different
+               effects, from explosive flying debris to gently swirling snowflakes. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-660208C1-945E-4883-ADDD-8D8A5DA92DE7"></a></span>To modify the speed, you can change the speed over the particle's lifetime. You can
+               also randomize or turbulize the initial speed value to have particles randomly emitted
+               at different speeds. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-51A34FB1-FC06-4F65-B896-F13741FEB814"></a></span>Adding a force to a particle simulation is another way in which you can alter a particle's
+               speed — see <span class="char_link"><a href="ice_simulation_ICEForces.htm">ICE Forces</a></span> [<span class="char_link"><a href="ice_cover.htm">ICE Guide</a></span>] for more information. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00AE"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-981494DF-64CE-4AB0-BFBB-AEFE56C2F569"></a></span>Particle Velocity Attributes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6760B699-FBA0-45A4-96C4-8E296B63C03E"></a></span>There are two particle attributes that are used to define particle velocity: <span class="char_link"><a href="iceref_attributes_Init_PointVelocity.htm">Init_PointVelocity</a></span> and <span class="char_link"><a href="iceref_attributes_PointVelocity.htm">PointVelocity</a></span>. These attributes are used in several particle compounds that are described in this
+                  section, but you can also use them on their own in an ICE tree by specifying them
+                  in the Get Data or Set Data nodes, as described in <span class="char_link"><a href="ICE_particles_UsingICEParticleAttributes.htm">Using ICE Particle Attributes</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9A26B239-478E-4959-A54B-B3E1EC29AA21"></a></span>For more information on attributes in general, see <span class="char_link"><a href="iceref_attributes_a.htm">ICE Attributes</a></span> [<span class="char_link"><a href="iceref_cover.htm">ICE Reference</a></span>]. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00AF"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A74B1A87-C140-45EC-9A0C-0E4617E47328"></a></span>Setting the Particle's Initial Speed
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-95B8C985-6950-4A40-8C8A-DB6F37FFE4E3"></a></span>You can determine the speed of the particles at emission time. The particle's speed
+                  stays the same over its lifetime until some force changes it. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00B0"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D436A0F0-D540-4DF0-93E2-5984D3B2BC36"></a></span>To set the particle's initial speed
+                  </h3> <span class="anchor_wrapper"><a name="GUID-99EE060A-F767-45D1-9D4F-E192A75CDBD5"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9F039415-45A9-496C-9A81-A72B7DED356F"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0A6249C1-BE95-4E29-A312-58408E123919"></a></span>In the Emit compound's property editor, set the <span class="MenuCascade" id="GUID-F2FC7BB4-CFC0-4C78-B518-0191820B4C7B">Speed</span> of the particle. This value is the number of Softimage units that the particles travel
+                           per second. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-11A72541-B9EF-4C59-8505-A0F3F9C02856"></a></span>If this value is set to 0, the particles are emitted, but simply remain on the emitting
+                           object. This is an easy way to make particles accumulate on the emitter. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FE13FCC9-98D3-453C-BE78-85E5E90DE774"></a></span>The Rate of particles can also affect the speed: emitting 20,000 particles per second
+                           slows is slower than emitting only 100 particles per second. 
+                        </p> <span class="anchor_wrapper"><a name="TABLE_115A3FA660D1444C8367A9965B786640"></a></span><div class="table_Ruled">
+                           <table cellpadding="0" cellspacing="0" class="ruled">
+                              <colgroup>
+                                 <col align="left">
+                                 <col align="left">
+                              </colgroup>
+                              <tr class="ruledOddRow">
+                                 <td class="table-body">&nbsp; <img src="../images/GUID-2E285887-DAD0-4587-A74F-7E15BC232397-low.png"> 
+                                 </td>
+                                 <td class="table-body" align="left">&nbsp; <img src="../images/GUID-86969C7F-D2C2-4FD7-ADF6-36BB39AE0AE6-low.png"> 
+                                 </td>
+                              </tr>
+                           </table>
+                        </div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-98D20D3E-2613-4209-B57F-52F3D95B54C8"></a></span>On the left, particles emitted at a Speed of 10 Softimage units per second with 2000
+                           as the Rate: at frame 60. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BF6807CA-4338-4AB9-9B51-E8B8FB252169"></a></span>On the right, particles emitted at a Speed of 3 Softimage units per second with 2000
+                           as the Rate: at frame 60. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00B3"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-05243007-912B-497A-9796-CABED76B4EEB"></a></span>Displaying the Particle Velocity
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-92114FAC-4B58-4DA6-AD21-294DCB357096"></a></span>To help you visualize the velocity of each particle, you can create a display attribute
+                  using PointVelocity, then choose to display this as vectors, vector trails, numeric
+                  values, vectors+length, etc. For information, see <span class="char_link"><a href="ICE_particles_DisplayingICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0162">Creating Particle Display Attributes</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="FIG_29EAE63B57C84F5D9B1F46FEF1E36914"></a></span><div class="figure-anchor"><img src="../images/GUID-1339BAA8-8C5A-4236-B235-8FE76AC988A2-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-F0724679-70D3-4ACD-8F8F-820FF6B6DDC9"></a></span>Particles with a display attribute showing their velocity vectors as blue trails.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00B5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C07F1467-F55C-42BA-AED3-05053CFDB167"></a></span>Inheriting the Particle Emitter's Velocity
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-4346BAED-A87E-43F4-979A-951B9C87A165"></a></span>Particles can inherit the velocity of an animated emitter object at emission time
+                  by using the <span class="MenuCascade" id="GUID-E9E581D9-563A-4BB6-A64D-13502080A6AB">Inherit Emitter Velocity</span> compound. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00B6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9E64D30E-3CFD-4E9E-822F-861AB7EC8A91"></a></span>To use the particle emitter's velocity
+                  </h3> <span class="anchor_wrapper"><a name="GUID-2515B98E-01BF-4A70-8D24-86D8ACBB5C49"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-87E74CBA-20BD-4596-975C-EDEABA393BBA"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BA05CBB7-4A62-4EE6-9DDB-D6734B93BA82"></a></span>In the ICE tree's preset manager, click the Task tab and select Particles. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DD1FEA80-7112-4DFB-988C-02EBF7DFE058"></a></span>Select the <span class="MenuCascade" id="GUID-6854B7F4-674B-4804-ADEB-38FC91826058">Inherit Emitter Velocity</span> compound from the Emission Control group, and drag it into the graph area. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6CB0AD77-E832-4967-88C7-6A06828F86F1"></a></span>Plug this compound's Execute on Emit output into the Emit compound's Execute on Emit
+                           port. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4B85100E-D64B-4771-A2A2-7EB653636288"></a></span>In the Inherit Emitter Velocity property editor, set the percentage of the emitter's
+                           velocity that the particles will use at emission time. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00B7"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-83B8B361-91FA-4E54-B13E-CF902904FF16"></a></span>Randomizing the Particle Speed
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-DD61178C-9E9A-4E01-87E4-0336FCD71960"></a></span>You add randomness to the Speed value so that the particles are not all emitted at
+                  the same speed. Adding randomness or noise helps the particles look more natural for
+                  certain types of effects. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00B8"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5BAF7FA7-5917-4881-B54F-B6E041E1BAA8"></a></span>To add randomness to the particle speed
+                  </h3> <span class="anchor_wrapper"><a name="GUID-4FA73635-C209-4F7C-9650-6762C5A21121"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BB94B333-0062-4B74-82D8-047813459645"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B442C7A5-727D-4733-A77D-809571796694"></a></span>Choose the <span class="MenuCascade" id="GUID-34F65DEE-BEF6-4CA4-A827-3C9B9342AD36">Particles <img src="../images/ac.menuaro.gif"> On Emission <img src="../images/ac.menuaro.gif"> Randomize Speed</span> command from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BB57C17E-3719-47AD-A32A-3C9B51D9AAF2"></a></span>This command adds the Randomize Around Value compound to the ICE tree, plugging it
+                           into the Speed port of the Emit compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7ADFB856-96DD-40DF-965A-CC0D9D31DCEC"></a></span>In the <span class="char_link"><a href="iceref_Randomize_Around_Value.htm">Randomize Around Value</a></span> property editor, set the mean (base) value around which the random values are generated
+                           according to the variance. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A596A391-DFBF-4A32-B8BF-29E26346BA9A"></a></span>There are also several other compounds on the Task &gt; Particle tab that let you add
+                     randomness or turbulence (noise) to the Speed value. See <span class="char_link"><a href="ICE_particles_RandomizingParticleValues.htm">Randomizing Particle Values</a></span> for information. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00B9"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E63D4509-46BA-49AF-A730-42B3CAFE16D4"></a></span>Turbulizing the Particle Velocity
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-62C2DBE3-8439-4EDB-A542-27CA3FDA567B"></a></span>The <span class="MenuCascade" id="GUID-E4A9495E-C4A9-4C81-92C4-2B689F658E22">Turbulize Particle</span> Velocity compound applies Simplex noise to add turbulence to the particle speed during
+                  the simulation. Adding noise to the Speed value of the particles helps the particles
+                  look more natural for certain types of effects. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F2FA86B4-BC2D-4868-AB90-474CE99F4963"></a></span>See <span class="char_link"><a href="ICE_particles_TurbulizingParticleValues.htm">Turbulizing Particle Values</a></span> [<span class="char_link"><a href="ipart_cover.htm">ICE Particle Simulations</a></span>] for general information on turbulence. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00BA"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B911BC51-87C4-4B8F-8FCE-CB0BD03ECDFA"></a></span>To add turbulence to the particle's speed
+                  </h3> <span class="anchor_wrapper"><a name="GUID-52C2C8F4-586A-45A6-B80C-DBE7D61A63CA"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-30744ACB-EF6C-43CB-8429-077BEC43BAE0"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7098EB8F-2DFD-45C0-9A8C-18E8C18D56EE"></a></span>Choose the <span class="MenuCascade" id="GUID-958752F4-5C3F-4176-A05B-34507172108E">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Turbulize Velocity</span> command from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-96A98163-11F6-4CDD-AB8D-CA1C9C0AD0A0"></a></span>This command adds the Turbulize Particle Velocity compound to the ICE tree, plugging
+                           it into the Execute port of the Simulation Root compound. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4D3AEE18-D3EA-4689-9082-C15A6EADCC93"></a></span>You can also plug this compound into any Execute port of other compounds such as Slide
+                           on Surface, Bounce on Surface, or Stick to Surface, such as to make the particle speed
+                           turbulize when the particles collide and bounce off an obstacle. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3163F897-E59F-49D3-912A-4BFAD63A3AC7"></a></span>In the <span class="char_link"><a href="iceref_Turbulize_Particle_Velocity.htm">Turbulize Particle Velocity</a></span> property editor, you can set the turbulence properties including its scale, strength
+                           on each of the XYZ axes, complexity (fractal-like detail), and its animation speed.
+                           
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-F038FF2A-04F9-48BE-906E-9A5E99A7D376-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-33EABE9A-4C17-4A65-A130-F336CA9E8022"></a></span>Particle Speed at 3 is turbulized with Turbulize Particle Velocity: Turbulence Scale
+                           of 0.35; Strength of 0.4; Complexity of 1. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00BC"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1EABED08-6099-440F-B8F3-EEF6365D8FD2"></a></span>Modifying the Particle Velocity Over Time
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-593C49FF-61B7-4FC9-A7C5-CA9821CBEC6C"></a></span>The <span class="MenuCascade" id="GUID-E7885F75-FEDC-4937-B9B0-79307A0CEB76">Modulate Velocity Over Time</span> compound changes the particle velocity over its lifetime using a profile curve. This
+                  lets you easily make the particles accelerate or decelerate exactly how you want them
+                  to. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F9EA4836-3C14-4884-9470-034FE4643F23"></a></span>Forces also change the velocity of particles over time, such as gravity, wind, or
+                  drag. However, if you want to create non-physically accurate results, this compound
+                  gives you the control over how the particle velocity changes. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00BD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-78451F81-A5D8-47C0-BF10-37759891E06E"></a></span>To vary the speed over time
+                  </h3> <span class="anchor_wrapper"><a name="GUID-EDC5FD2F-6EB2-4E59-8232-44D67F52C2A5"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DE6E1266-0883-4491-87E6-A2DDBDED8AB3"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AE73B6C2-018F-4822-ABCC-4EE3559C50E5"></a></span>In the ICE tree's preset manager, click the Task tab and select Particles. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-06CAED7C-F242-4B69-97B9-1303196F58BA"></a></span>Select the <span class="MenuCascade" id="GUID-E4720DAA-3D1A-4D48-9268-538524D4255F">Modulate Velocity Over Time</span> compound from the Modifiers group, and drag it into the graph area. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B01340F0-56B6-411B-8565-674DB00C559C"></a></span>Plug this compound's Execute output into a port on the ICETree node, or into any Execute
+                           port of other compounds such as Slide on Surface, Bounce on Surface, or Stick to Surface.
+                           
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-CA728311-1B93-4BC6-9285-57E59906F7C5-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D73309AD-B7E3-4A98-83B1-A6A7CAE9A8B3"></a></span>In the Modulate Velocity Over Time property editor, set the profile curve of how the
+                           particle's speed changes over time. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

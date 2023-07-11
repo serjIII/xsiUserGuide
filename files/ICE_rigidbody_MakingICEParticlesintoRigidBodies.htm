@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-4A04C191-CDEA-474E-9F1C-B217DAFC44ED">
+      <meta name="indexterm" content="ICE rigid bodies: making particles into">
+      <meta name="topic-type" content="concept">
+      <title>Creating an ICE Rigid Body Particle Emission</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-4A04C191-CDEA-474E-9F1C-B217DAFC44ED"></a></span><div class="head">
+            <h1>Creating an ICE Rigid Body Particle Emission</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-F63295FD-D6FB-4E36-8B97-F3AE6B0D2484"></a></span>When you create a rigid body particle emission, the particles from the same point
+               cloud can collide among themselves. All particles are considered as active rigid bodies,
+               meaning that they are all affected by forces and by collisions with each other and
+               with any objects you have set as collision objects. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4BC5638B-16AA-4B84-833F-99A088CA35CE"></a></span>You can also make the particles passive, which means that they are not affected by
+               forces and collisions — see <span class="char_link"><a href="ipart_rigidbody_MakingICERigidBodyParticlesPassive.htm">Making ICE Rigid Body Particles Passive</a></span>. 
+            </p><span class="anchor_wrapper"><a name="FIG_F5AE647E01554A248D3CED8A714EDD7A"></a></span><div class="figure-anchor"><img src="../images/GUID-AE74A45E-4D1E-4171-8912-F5C70A0E3622-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-09CD39DF-663A-4858-BC3F-0F7847B0FB6E"></a></span>Rigid body particle boxes hit and bounce off a rigid body particle brick wall. 
+            </p><span class="anchor_wrapper"><a name="FIG_F2B58571613747F08E399F4792AAD26C"></a></span><div class="figure-anchor"><img src="../images/GUID-AE74A45E-4D1E-4171-8912-F5C70A0E3622-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-FFDCBD4C-B823-4599-AE45-3B9CBDE602F8"></a></span>After the impact, the wall starts to crumble. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-2F893163-182D-4790-903F-3F72BDCD22B5"></a></span><div class="note-tip"><span class="label">TIP:</span> <span class="anchor_wrapper"><a name="UL_E4A6B53C199D40819F99FE4B1810D9A8"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4E846539-2CBE-47D6-A49D-D86F51D1AAB0"></a></span>If you create collisions with particles using any of the Surface Interaction compounds
+                           (such as Bounce Off Surface), you cannot also make those particles into rigid bodies
+                           in the same ICE tree. This is because the Surface Interaction compounds use the Simulate
+                           Particle node, while particle rigid bodies use the Simulate Bullet Rigid Bodies or
+                           Simulate Rigid Bodies node. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C9712B32-DAF1-4D40-AEC7-C8C56392F377"></a></span>For information on creating other types of collisions with particles, such as bouncing,
+                           sticking, or sliding, see <span class="char_link"><a href="ICE_behavior_MotionControlandSurfaceInteractionBehaviorforICEParticles.htm#WS023556C5E04D53409E7E875671E8B309-0004">About ICE Particle Collisions</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2C3E0D62-DA7B-4A6C-83CD-6DE5E40F2CD6"></a></span>To use rigid body particles with states, you can use the <span class="char_link"><a href="iceref_Simple_State.htm">Simple State</a></span> compound (which doesn't contain the Simulate Particles node) instead of the State
+                           compound — see <span class="char_link"><a href="ICE_states_CreatingaStateSystem.htm">Setting Up States</a></span> for more information. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0009"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FF2A4B66-8646-4E2A-81B4-7024060DE580"></a></span>Emitting Rigid Body Particles
+               </h2> <span class="anchor_wrapper"><a name="GUID-B6F2EA32-8EB0-4E5E-B485-032E5F030035"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7493B4AC-59A9-4793-AFEA-DCE2211EAE32"></a></span>Select one or more objects to be particle emitters. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6C3D24AC-DE8A-4247-9FB9-C964E9F02BA3"></a></span>An emitter can be any type of object that has geometry: a polygon mesh, NURBS surface,
+                        a curve, or a combination of these object types. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A4D45B94-A96E-43D2-8204-F0727513EFD6"></a></span>Choose the <span class="MenuCascade" id="GUID-DC9A4D68-83E4-4B8F-BC27-62F5DA3B1C86">Particles <img src="../images/ac.menuaro.gif"> Create <img src="../images/ac.menuaro.gif"> Rigid Bodies</span> command from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1A87DBC2-24E2-472B-87E1-5E76DB34368C"></a></span>When you do this, the following things happen: 
+                     </p> <span class="anchor_wrapper"><a name="UL_4529F4C1479B436E9968EF0EDBE3E57F"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-18B752FA-2DD8-450D-9245-99E280FBD970"></a></span>A point cloud is created. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5AFF7C69-FB5E-4069-AA75-BA1163F18CF1"></a></span>An ICE tree for that point cloud is created in the ICE Tree view. The necessary nodes
+                              that are used to emit particles from the selected emitter object are already connected
+                              in the ICE tree - see below. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-40D42C02-14E1-41DB-BBF5-7F211491E92A"></a></span>In the <span class="char_link"><a href="iceref_Emit_from_Geometry.htm">Emit from Geometry</a></span> property editor that opens, you can edit the standard particle attributes. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-98C94F1C-9DE5-407B-9F7A-48EA554FF0F8"></a></span>In the <span class="char_link"><a href="iceref_Set_Particle_RBD.htm">Set Particle RBD</a></span> property editor that opens, you can edit the particle's rigid body attributes. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A564ACA1-54AD-4C96-8BDC-74109AF07B63"></a></span>With the point cloud selected, open the ICE tree by pressing Alt+9. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1E43A3F3-CCCC-491F-BEAB-9E914E5837ED"></a></span>You may need to click the Refresh icon on the toolbar to update the ICE tree view.
+                        
+                     </p> <span class="anchor_wrapper"><a name="FIG_6FC02B9967D5416EADB4CB77898853E7"></a></span><div class="figure-anchor"><img src="../images/GUID-779D88ED-B821-477F-B5AA-56D8F1E2E25D-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C0C2D5AF-E6D4-43C9-A87B-B4E0360ACBC3"></a></span>The ICE tree created is the same as the one that is created in <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>, except for these two nodes: 
+                     </p> <span class="anchor_wrapper"><a name="UL_AC80C927B51646599AEB0684195C7B81"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-074C6C47-145D-4E8C-94E2-8A18B67B78BC"></a></span>The <span class="char_link"><a href="iceref_Set_Particle_RBD.htm">Set Particle RBD</a></span> node contains the particle's rigid body attributes that you can edit. This node is
+                              plugged into the Emit compound so that the attributes are set only upon emission of
+                              the particles. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-97102765-F490-4EBB-938F-B7389768CB5C"></a></span>The <span class="char_link"><a href="iceref_Simulate_Bullet_Rigid_Bodies.htm">Simulate Bullet Rigid Bodies</a></span> node makes particles into rigid bodies that use the Bullet physics engine. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6FA65993-07E3-4479-AC73-B74E3A3F8F73"></a></span>You can add objects as obstacles with which the particles can collide — see <span class="char_link"><a href="ICE_rigidbody_ICEParticleCollisionswithObstacles.htm">ICE Particle Collisions with Obstacles</a></span> for information 
+                     </p> 
+                  </li>
+               </ol> 
+               <div><span class="anchor_wrapper"><a name="GUID-8A800234-20AA-4557-BCB2-AB50D3753817"></a></span><div class="note-note"><span class="label">NOTE:</span>If you want to use the <span class="char_link"><a href="iceref_Simulate_Rigid_Bodies.htm">Simulate Rigid Bodies</a></span> (PhysX-based) node instead of the Simulate Bullet Rigid Bodies node, you can follow
+                     the steps above, but then replace the Simulate Bullet Rigid Bodies node with the Simulate
+                     Rigid Bodies node and reconnect it in a similar way. 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-000A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A04DAB1B-096C-48C0-972F-28FCE9817DE6"></a></span>Collisions with Multiple Particle Emissions
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BBD68221-0922-49A1-979F-23B97B4445B9"></a></span>Although only particles that are in the same point cloud can collide with each other,
+                  you can create the illusion of particles from several point clouds colliding. One
+                  of the easiest ways to do this is to use several emitters/emissions in the ICE tree
+                  of a single point cloud. Then set up the emission properties for each of the particle
+                  emissions so that they look like different particles. 
+               </p> <span class="anchor_wrapper"><a name="FIG_0386E8727AF447CC95306DA83AF8785A"></a></span><div class="figure-anchor"><img src="../images/GUID-D21ABDDA-63AA-488D-91D9-E8A27D3B71C2-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-E2EBB3B9-9164-4563-BFFE-83C4A2115BD7"></a></span>You can also create a state system to set up a condition for different particles within
+                  the same point cloud to look or act differently, or use If or Not nodes to set up
+                  a condition in the same way. See <span class="char_link"><a href="ipart_states.htm">ICE Particle States</a></span> for more information. 
+               </p> <span class="anchor_wrapper"><a name="FIG_2A8B38EF5FE64279B47F5967746688C4"></a></span><div class="figure-anchor"><img src="../images/GUID-5B5BC7C1-15DD-4B00-88A3-B01B3605FD2B-low.png"><p><span class="anchor_wrapper"><a name="GUID-08275B80-A3A2-4660-93C5-245941F4E23E"></a></span>In this image, two emitter objects emit the same point cloud: one particle emission
+                     is set as orange cubes, and the other is set as blue cones. 
+                  </p>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

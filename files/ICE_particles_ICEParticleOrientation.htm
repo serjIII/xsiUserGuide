@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-4223741A-3C66-456E-BC3E-8D4A4F541DF3">
+      <meta name="indexterm" content="rotation: ICE particles">
+      <meta name="indexterm" content="ICE particles: orientation">
+      <meta name="indexterm" content="orientation: ICE particles">
+      <meta name="indexterm" content="Randomize Rotation by Cone compound">
+      <meta name="indexterm" content="ICE particles: rolling">
+      <meta name="indexterm" content="Roll Particles compound">
+      <meta name="indexterm" content="rolling: ICE particles">
+      <meta name="indexterm" content="Spin Particles compounds">
+      <meta name="indexterm" content="ICE particles: spinning">
+      <meta name="indexterm" content="spinning: ICE particles">
+      <meta name="indexterm" content="vector: aligning ICE particles along">
+      <meta name="indexterm" content="Align on Velocity compound">
+      <meta name="indexterm" content="ICE particles: aligning along velocity vector">
+      <meta name="indexterm" content="Align Particle to Position compound">
+      <meta name="indexterm" content="ICE particles: aligning to a camera or position (billboarding)">
+      <meta name="indexterm" content="billboards: ICE particles">
+      <meta name="indexterm" content="Align Particle to Camera compound">
+      <meta name="indexterm" content="cameras: aligning particles to face (billboarding)">
+      <meta name="indexterm" content="Align Particles to Surface compound">
+      <meta name="indexterm" content="ICE particles: aligning to surface normals">
+      <meta name="topic-type" content="concept">
+      <title>ICE Particle Orientation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-4223741A-3C66-456E-BC3E-8D4A4F541DF3"></a></span><div class="head">
+            <h1>ICE Particle Orientation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-DA01DAD3-8EE0-4E6B-87AE-CF39D8E1176F"></a></span>You can rotate individual particles to create many different effects, such as billowy
+               smoke, flying debris, and swirling snowflakes. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-ED371DAC-14A6-4636-9D22-FB433D5D9746"></a></span>You can set a particle's rotation (orientation) when it's emitted, which the particle
+               keeps throughout its lifetime, unless some type of force makes it change. To add some
+               variation to each particle's orientation, you can use a randomizing compound. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E7EAD52F-2F02-4111-B41C-639FB7845827"></a></span>You can rotate the particles in different ways as they're emitted: align them to a
+               surface, along their velocity, along a curve, or to a point to create billboard effects.
+               You can also spin or roll them for different effects. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E3B65097-3EBD-4E90-8F11-7FE14E91E3AA"></a></span>You can also find many rotation converters in the Rotation group on the Tool panel
+               in the ICE Tree's preset manager. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0CAB09E6-F6EE-4B74-8104-6DF326908D1E"></a></span>One thing you may notice when particles collide with objects is that their rotation
+               doesn't change after a collision. That is, if a rotated particle collides with an
+               object, it doesn't change its rotation as might happen in real life (such as with
+               faster rotation or changed rotational direction upon impact). 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00ED"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-09FFF21B-7354-416D-818A-C616475E69D7"></a></span>Particle Orientation Attributes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-95CD0646-81DD-4E8E-BE9F-0188EB44CE3A"></a></span>There are two particle attributes that are used to define particle orientation: <span class="char_link"><a href="iceref_attributes_Init_Orientation.htm">Init_Orientation</a></span> and <span class="char_link"><a href="iceref_attributes_Orientation.htm">Orientation</a></span>. These attributes are used in several compounds, but you can also use them on their
+                  own in an ICE tree by specifying them in the Get Data and Set Data nodes, as described
+                  in <span class="char_link"><a href="ICE_particles_UsingICEParticleAttributes.htm">Using ICE Particle Attributes</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-038C7107-C1DD-40FE-BCAE-2A223A04BEC7"></a></span>For more information on attributes in general and a list of all available ICE attributes,
+                  see <span class="char_link"><a href="iceref_attributes_a.htm">ICE Attributes</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00EE"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ABC4AFF1-FAA5-4CA4-A2B5-FF88FA777443"></a></span>Setting the Particle's Initial Orientation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-AEDAB20B-03F0-4C16-830D-DAB957CB7739"></a></span>You can determine the orientation in which the particles are emitted from the emitter
+                  object. Their orientation stays the same over their lifetime. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_E8B5E9752885473C86CBE1AE7A2FE960"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-5B45FF42-45EC-4520-B269-5E75AA34FF26-low.png"> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-C3A5807E-56A1-4F70-BD6C-B8896A81E122-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body" colspan="2"> <span class="anchor_wrapper"><a name="GUID-368F1EA5-B1ED-48D2-A25E-1EDCFAEEF22F"></a></span><p class="table-body">On the left, particles are rotated at emission so that their Y axes point along the
+                              surface normals of the emitter object. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-E0517E4B-409F-407E-9ABA-730C56DA005B"></a></span><p class="table-body">On the right, particles are rotated 45 degrees around their Z axes upon emission.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00F1"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8CD49B84-478A-4809-A5BB-AC90AD7757FF"></a></span>To set the particle's initial orientation
+                  </h3> <span class="anchor_wrapper"><a name="GUID-245F43E6-7C49-4D1C-BB1B-67CF90870E1D"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-759E41C6-2CBA-409A-B109-4A71E0DE79E9"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-44FF1745-D7D0-48BE-9958-76A8DA36D721"></a></span>In the Emit compound's property editor, set either of these: 
+                        </p> <span class="anchor_wrapper"><a name="UL_E364208062F546CA87CFB8FDD5549270"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4D03E262-73CD-42B1-8FFB-81F57250851B"></a></span>Select the <span class="MenuCascade" id="GUID-80BDD391-C40B-41E2-99B8-04EE3CE21B42">Align to Surface Normal</span> option to align the particle's Y axis along the normal of the emitter object. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-29A2D1AF-BA95-4D9C-A3FC-AF66023DF237"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-F20BE0F0-8C76-426A-BADC-87A5FCB8913D"></a></span>Set the <span class="MenuCascade" id="GUID-784D4C0F-1DDE-4F4E-A906-53F2384A8C00">Orientation</span> of the particle on its local X, Y, and/or Z axes. You can choose which of its axes
+                                 any combination of them) around which the particle rotates. Like the classic airplane
+                                 analogy: 
+                              </p> <span class="anchor_wrapper"><a name="FIG_BDE33BB82032490AB7AE42C3DD010304"></a></span><div class="figure-anchor"><img src="../images/GUID-2539B1D4-7E11-4B3A-9230-85B4D0EEAF48-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_CC3CC3E77CDC458DA8959BE27576D396"></a></span><div class="table_Ruled">
+                                 <table cellpadding="0" cellspacing="0" class="ruled">
+                                    <colgroup>
+                                       <col width="16.666666666666668%" align="left">
+                                       <col width="83.33333333333334%" align="left">
+                                    </colgroup>
+                                    <tr class="ruledOddRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D5E6F2C7-517D-4E43-B7E7-73DC9B73DE3F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-164B6F38-BECE-4739-8441-AF19224718F6">A</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2E40E47C-67CD-47FD-A92C-E9479113D94D"></a></span><p class="table-body">Particle rotates around its Y axis (Yaw). </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledEvenRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9BF61262-97CD-4622-A9E5-B406DDB7E6A5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-42CB83B4-8120-44A1-B181-C13AAAEB2212">B</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B8BAB28E-34F5-43A6-89C0-F6E37ABEDC86"></a></span><p class="table-body">Particle rotates around its X axis (Pitch). </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledOddRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-20EFE314-399E-431C-96E8-3E3FE916B8FF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-97989974-DF3B-41DC-881C-47FB6628266E">C</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-215375FB-B927-4450-893D-D4F15B050226"></a></span><p class="table-body">Particle rotates around its Z axis (Roll). </p> 
+                                       </td>
+                                    </tr>
+                                 </table>
+                              </div> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-55AE14D9-A34F-40B8-AD4A-7172FB248E99"></a></span>Then enter a specific <span class="MenuCascade" id="GUID-B8AF6B67-8E7A-4446-A645-CAB73EDD2C8D">Angle</span> value, which is the amount of rotation in degrees around that axis. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-282296E8-932B-41A1-8729-D6ECD7CFBDCE"></a></span>For example, if the axis is (X=0, Y=0, Z=1) and the angle is 45, this means that the
+                                 particle is rotated around its Z axis by 45 degrees. The angle specifies the amount
+                                 of rotation, while the vector is the particle's axis around which it is rotated. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00F3"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-124F8AAB-61AA-4B38-A224-F90874887D00"></a></span>Displaying the Particle Orientation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E4276150-363D-4236-A102-9DA525781675"></a></span>To help you visualize the orientation of each particle, change the display shape for
+                  the particles to a Cone in the Particle Display property editor. With a cone, you
+                  can see in which direction the particles are pointing, which is especially when you're
+                  modifying their orientation with compounds. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D712E87C-727D-4797-A6CF-2C38780177F5"></a></span>You can also create a display attribute using the particle's Orientation, then choose
+                  to display this as axes, angle numbers, angles, or a numeric value. This is especially
+                  useful if you're working with wireframes or bounding boxes of particles, such as for
+                  instanced geometry. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-293F4AB3-F3F6-4A6E-974F-F0599CFCC6F5"></a></span>For information, see <span class="char_link"><a href="ICE_particles_DisplayingICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0162">Creating Particle Display Attributes</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="FIG_D7BAE50B5BF0485B92BE3BFFD1B83F8A"></a></span><div class="figure-anchor"><img src="../images/GUID-29F18945-A131-465A-B166-ED5CC1320333-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-E82E8BAA-C612-4D7E-9039-9522BB5E8CBD"></a></span>Particles with their orientation displayed as axes. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00F5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4E8FD6AA-DF17-43CA-9939-A960B3F77C42"></a></span>Randomizing the Orientation
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-DBB296AA-56A0-4438-900F-933E956FA4C7"></a></span>You can randomize the initial orientation in which the particles are emitted using
+                  the <span class="MenuCascade" id="GUID-C81FC50A-0F2E-4968-AEE2-58FA59943737">Randomize Rotation</span> by Cone compound. This compound lets you define the range of angle values that are
+                  randomly applied to the particles so that they are emitted using different rotation
+                  values. The particles' orientation stays the same over their lifetime. 
+               </p> <span class="anchor_wrapper"><a name="FIG_802A6B5534B143388652835752425EAF"></a></span><div class="figure-anchor"><img src="../images/GUID-5C963A18-DD3C-4230-A568-C64B183C0A04-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D5918ACB-8751-4378-A454-D261A59D38B2"></a></span>Particles are randomly rotated around their Y axes upon emission using values between
+                  0 - 45 degrees and a twist. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00F7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C0B72E41-DEE3-458B-9E42-8315D6F90E1E"></a></span>To randomize the particle's orientation
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6A7BF561-A8DA-451E-B469-D591F61188AB"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9C8184F2-4DAC-4405-8827-6AFD819FFCD6"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-35D87880-4E25-4C96-ABDC-F1E39681304E"></a></span>In the ICE tree's preset manager, click the Task tab and select Particles. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B939BC6E-2062-4619-8014-9C021EDDBEA7"></a></span>Drag the <span class="MenuCascade" id="GUID-CEF875A9-4E1F-4CAF-9C4F-ED2BE4650890">Randomize Rotation by Cone</span> compound from the Modifiers group into the ICE view. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AB9AB304-F1B8-4F8A-8812-FF3468918CC8"></a></span>Plug this compound's Result output into any Orientation port, such as the one in the
+                           Emit compound. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_D967CA94BFA843B49D69BD11C18CF193"></a></span><div class="figure-anchor"><img src="../images/GUID-6E5B18DF-B7C7-4D48-BE77-4B9EAC853A0B-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A77E9746-7F56-478D-9967-4B810AD79094"></a></span>In the Randomize Rotation by Cone property editor, set the Cone Axis, which is particles's
+                           local axis along which the randomization of the rotation occurs. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-619287F5-B223-4050-A293-8FDB77B0B025"></a></span>Then set the Start and End angle values, which creates the angle range in which the
+                           particle rotation can vary (0 - 360 is full rotation range). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BBBA0F71-7C23-4F9E-B67F-947F5F62A317"></a></span>You can also set a Twist value range, which is how much the particles rotate around
+                           their Y axis. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00F9"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6E8C1EDF-CD8C-4686-8941-DD9EB0E555A9"></a></span>Rolling Particles
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-07EF4273-F101-45B3-BB42-25BA7D0F11B9"></a></span>The Roll Particles compound rotates (rolls) particles at a rate relative to their
+                  size. You can set the particle's up vector value to define an axis along which it
+                  rolls, which is useful for creating effects such as rolling marbles or tumbling rocks.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BC061B47-5BDB-488A-BB8C-2A5D21BBC4F4"></a></span>If you want define a surface upon which the particles can roll, you can use the Slide
+                  on Surface compound, which contains the Roll Particles compound (see <span class="char_link"><a href="ICE_behavior_ICEParticlesSlidingonObstacles.htm">ICE Particles Sliding on Obstacles</a></span>). 
+               </p> <span class="anchor_wrapper"><a name="FIG_E768B2313F6F490797773579ADB5B452"></a></span><div class="figure-anchor"><img src="../images/GUID-58E837C4-0EDE-42F8-9B29-5372C20124A8-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D39B054D-A10E-4DE6-BDDD-60AF517A782C"></a></span>Particles rolling on the XZ plane. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00FB"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-95D13634-4A77-4BEB-8408-5F1744143149"></a></span>To roll particles
+                  </h3> <span class="anchor_wrapper"><a name="GUID-AD68D111-B44C-46F2-A3CF-4A9E4B51C276"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FE542DC7-06AE-43FB-A8D6-04E26EF59019"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F29EB1F2-B476-493A-8B20-A73501270615"></a></span>Choose the <span class="MenuCascade" id="GUID-909A23A1-A190-43BD-BAA6-54E9EF121BC2">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Roll Particles</span> command from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C23CF3C5-FE35-4884-934D-3F2D31E2EFBC"></a></span>This command adds the Roll Particle compound to the ICE tree, plugging it into the
+                           Execute port of the Simulation Root compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FD3A2154-92AE-4DE8-A6CF-2898DDBB9399"></a></span>In the <span class="char_link"><a href="iceref_Roll_Particle.htm">Roll Particle</a></span> property editor, set the values. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00FC"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8983B463-7E86-4C70-B97D-13902477C2BF"></a></span>Spinning Particles
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-2826CF84-220E-480F-BC4A-20866D268D5A"></a></span>The Spin Particle compound appropriately spins particles around an axis at a certain
+                  number of revolutions per second. This is useful for creating effects such as billowing
+                  smoke and explosions. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B3005965-F12E-452D-ACE9-29594D6D2808"></a></span>You can use this compound in conjunction with other orientation compounds. For example,
+                  use the Align on Velocity compound to set the forward direction to X=1, then you can
+                  spin the particle using that axis as well to create a bullet spiralling effect. 
+               </p> <span class="anchor_wrapper"><a name="FIG_FF8B97DFF6CD4B53838F8D39802638B5"></a></span><div class="figure-anchor"><img src="../images/GUID-179D00E8-C1D1-4DED-8388-A9AEB921FE82-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-2DB51385-B7F0-472F-94ED-30044F8E07EE"></a></span>Particles spinning around their Y axes at a rate of 1 revolution per second as they're
+                  emitted. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00FE"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-501F88B0-C046-4F9C-ABDA-506AA0B1EB92"></a></span>To spin particles in a direction
+                  </h3> <span class="anchor_wrapper"><a name="GUID-DCD26EEB-D78D-4E9B-8A7E-2FCF73C8637F"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-911CB61A-F0C4-4DE4-A1E8-41A880B8BC59"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-97D0C865-13BE-4034-ACDD-A86CD33110AB"></a></span>Choose the <span class="MenuCascade" id="GUID-2ABFA556-501A-4038-BA23-77D048736041">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Spin Particles</span> command from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C325E922-37CC-49EF-9ADF-15F441409E87"></a></span>This command adds the Spin Particle compound to the ICE tree, plugging it into the
+                           Execute port of the Simulation Root compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BC9F1200-E3AF-47BE-9864-4FE7243DC2D1"></a></span>In the <span class="char_link"><a href="iceref_Spin_Particle.htm">Spin Particle</a></span> property editor, set the Spin Axis, which is the axis around which the particle spins,
+                           and the Spin Rate, which is the number of times the particle revolves per second.
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-00FF"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-891C5A08-764E-4866-9B41-D2380812CBB0"></a></span>Aligning Particles along a Velocity Vector
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-5A4D15E0-056A-4BB9-972A-06D989E58228"></a></span>The Align on Velocity compound orients a particle to point along its direction of
+                  movement (vector). This is useful for creating effects such as flocks of birds, arrows,
+                  crowds, trajectories, bullets, or anything that needs a specific orientation relative
+                  to its movement. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-82B6CA3A-CB26-4AAE-8D7F-DD4FB5E01799"></a></span>If you're using the Flow Along Curve compound, this compound is built in as an option
+                  — see <span class="char_link"><a href="ICE_behavior_ICEParticlesFlowingAlongaCurve.htm">ICE Particles Flowing Along a Curve</a></span> for more information. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0100"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5F6F1C14-2B48-4437-A535-DC63EBE1112C"></a></span>To align particles along a velocity vector
+                  </h3> <span class="anchor_wrapper"><a name="GUID-3EB1398B-1E77-4DA4-84D5-7E739D00B2BC"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-19E98A8E-4B42-4B0E-8D95-2AB65A85567A"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D447396E-B079-4947-9B33-2F29D16FF039"></a></span>Choose the <span class="MenuCascade" id="GUID-41AE6760-970B-4F11-999C-54BDCE80EB0E">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Align on Velocity</span> command from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BBB9433E-183C-439D-A5D1-711D45A395C7"></a></span>This command adds the Align on Velocity compound to the ICE tree, plugging it into
+                           the Execute port of the Simulation Root compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-30195C20-A036-4246-AD7F-D0AC3BC8058A"></a></span>In the <span class="char_link"><a href="iceref_Align_on_Velocity.htm">Align on Velocity</a></span> property editor, set the Local Vector, which is the axis that is used to align the
+                           particle, and the Weight, which defines how much the particle is rotated each frame.
+                           You can also set a maximum value to limit the amount of rotation. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0101"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7BA2E4E6-31E3-49DB-BEB9-336000BE61E6"></a></span>Aligning Particles to a Camera or a Position (Billboarding)
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-1D08E70F-ED59-413F-9976-1437CF1EC6F5"></a></span>There are three compounds that let you do billboarding effects: <span class="MenuCascade" id="GUID-0F4CC114-57C2-43B2-BBAD-EFBC5686BF53">Align Particle to Camera</span>, <span class="char_link"><a href="iceref_Billboard_Orientation.htm">Billboard Orientation</a></span>, and <span class="MenuCascade" id="GUID-9F797354-83F7-4FDF-833F-A70164E468D7">Align Particle to Position</span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0102"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3167BE38-F957-4881-A362-51EDA7DCD79D"></a></span>Aligning Particles to Face the Camera
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-FEE76F45-5E10-4724-BE4E-C276C8060F21"></a></span>The <span class="MenuCascade" id="GUID-4BC6D1E0-484A-43BF-9957-B9E51BF1B0DB">Align Particle to Camera</span> compound aligns particles to the global position of a camera root so that particles'
+                     Y axes are pointing toward the camera, allowing you to do "billboard" effects. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_9BE9D6CC57834956AC4EC2E5009B2028"></a></span><div class="figure-anchor"><img src="../images/GUID-DDC10B9D-0971-4FFF-AE28-B615DF55D7E5-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-319CB11A-0C95-4D01-990A-C8715469FBFF"></a></span>On the left, particle billboards change their orientation so that their Y axes are
+                     always pointing toward the camera root. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-09BC744E-371C-4E47-8F71-1C0DFF061AFE"></a></span>On the right, the Camera's viewpoint of the textured particle billboards that are
+                     facing it. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0104"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-04BEC408-DECC-4C45-AD5E-B4FC2A8088EC"></a></span>To align particles to a camera root position
+                     </h4> <span class="anchor_wrapper"><a name="GUID-6920144C-45B9-456F-9D4B-105FDF39F069"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-923F6837-A256-4DBB-981E-AAEAF484EE2A"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D693B23B-A40B-4DA8-888A-A1507DC5CD74"></a></span>Choose the <span class="MenuCascade" id="GUID-72163156-C26A-4BB4-82D1-49F9535D1040">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Align to Camera</span> command from the ICE toolbar. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4261B31B-1E16-4E25-A5C4-194E37953156"></a></span>This command adds the Align Particle to Camera compound to the ICE tree, plugging
+                              it into the Execute port of the Simulation Root compound. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1F3DC56E-4934-4F48-B194-3ED8E19F0C22"></a></span>In the <span class="char_link"><a href="iceref_Align_Particle_to_Camera.htm">Align Particle to Camera</a></span> property editor, specify the name of the camera's root: either click the <span class="MenuCascade" id="GUID-2A6D5C59-8FD4-43CA-8EF8-27A729C5D3C9">Pick</span> button and pick a camera root in the scene, or click the <span class="MenuCascade" id="GUID-DFE6A4FB-2BA1-4C9A-B0B1-7559779D10EC">Explorer</span> button and select a camera root name from the list, or enter a camera root's name
+                              in the text box. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-BF4ED17C-BB61-4F79-9194-DB8DAE3DEACC"></a></span>In the same property editor, select the Alignment Method for the particles. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0105"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3922176C-56FD-4167-A092-5CE5F8DE53AF"></a></span>Aligning to Point to Any Global Position or Object
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-56A17779-86A2-4365-B4C5-3B1EB790D60F"></a></span>You can also use the <span class="char_link"><a href="iceref_Align_Particle_to_Position.htm">Align Particle to Position</a></span> compound aligns particles to any position in global space, including any object's
+                     global position. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_BE38240BB3924CA8ADA4B42C8C714396"></a></span><div class="figure-anchor"><img src="../images/GUID-E7D4B7FA-4C89-4471-9B4F-F33099736C94-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2C0F40A0-D888-4F32-9774-3225CC01B694"></a></span>Particles change their orientation so that their Y axes are always pointing at a position
+                     in global space. You can also use an object's global position to have particles always
+                     face that object. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0107"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AA297D3D-CA1A-48EB-84E2-D9752CA13BCC"></a></span>Aligning Particles to a Vector
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-860F7B90-B070-4206-9852-86FEB0B9AEF2"></a></span>The Align Particles to Vector assigns a particle vector to point along a different
+                  vector. For example, you can assign the particle's Y axis to point along the X vector
+                  or along a specific vector from an object or one that you've defined. 
+               </p> <span class="anchor_wrapper"><a name="FIG_E52AF3AE03C7499DABFC6CF11AA91C23"></a></span><div class="figure-anchor"><img src="../images/GUID-20E1DF2D-2713-4DDB-9732-1C482284AC00-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-2F711295-57E0-4E38-9706-AEC2469103EF"></a></span>Particles have their Y axis assigned aligned to point along the X vector. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0109"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1542399D-2125-4761-8478-889182D7D4A2"></a></span>To align a particle vector to a different one
+                  </h3> <span class="anchor_wrapper"><a name="GUID-4966E882-0B8A-4222-9504-7635796ACDB0"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-06FFDAB3-16F7-4AEF-B99F-05E3861E9FD2"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6BFBEFF1-0ACB-402D-BD2B-EB9859630014"></a></span>In the ICE tree's preset manager, click the Task tab and select Particles. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6C378A14-56AE-452F-A617-C37435F61F0F"></a></span>Drag the <span class="MenuCascade" id="GUID-2CBD0A20-5B8C-4C7B-AA52-DF67EC987D0E">Align Particle to Vector</span> compound from the Orientation group into the ICE view. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-930C12D5-634C-420B-9E4E-D3D7294272A8"></a></span>Plug this compound's Execute output into a Port on the ICETree node. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6616095A-2567-482E-B96E-56185184469A"></a></span>Open the property editor for Align Particles to Vector and select the Local Vector
+                           that is used to align the particles. The Y axis is typically the vector that points
+                           along the length of a particle. If you change your particle shape to a cone, you can
+                           see that the Y axis is the direction of the cone point. The X and Y axes are the sideways
+                           axes. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EF86C556-9D87-4A7C-95A4-8A38AFCC22DE"></a></span>If you want to use an object or a specific vector, plug its Vector output into the
+                           To Vector port of the Align Particles to Vector compound. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1E7637F9-5B54-40D8-9F14-24B29D25C3D2"></a></span>If you're not using an input object, select the To Vector value which is the vector
+                           along which you want the Local Vector to point. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A47541C0-B4DA-4F90-965C-F0EA0974976F"></a></span>Set the Weight, which defines how much the particle is rotated each frame. The value
+                           is a ratio, so if you set it to 1.0, the particle is immediately aligned. If you set
+                           this value to 0.1, the particle rotates by 10% each frame. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-010A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B1FFD0D4-1EE7-4268-8127-5D35C2391519"></a></span>Aligning Particles to a Surface
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-4A774827-2C94-4EC3-8094-9FD23CC38BDD"></a></span>The Align Particles to Surface compound makes particles point along the direction
+                  of the normals of a surface object. This is useful for setting up anything that needs
+                  a specific orientation along an object, such as bugs crawling on a rock or something
+                  sliding over a surface. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C17D4FBD-1A3A-4556-8165-F7626DEF6363"></a></span>If you're using the Flow Around Surface compound, this compound is built in as an
+                  option — see <span class="char_link"><a href="ICE_behavior_ICEParticlesFlowingAroundanObject.htm">ICE Particles Flowing Around an Object</a></span> for more information. 
+               </p> <span class="anchor_wrapper"><a name="FIG_1B206BCFDA40433ABC01666F47E9B9DB"></a></span><div class="figure-anchor"><img src="../images/GUID-2BEB918B-D0BC-4AE8-B0EC-2F0C3B47E3DE-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-A28B7A92-925D-460B-9C6F-C615D48EA8C3"></a></span>Particles change their orientation so that their Y axes are in the direction of an
+                  input object's (sphere's) surface normals when they're within a certain distance of
+                  it. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-010C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C4D58C9D-697C-4C58-84CA-95D8A284BEB2"></a></span>To align particles to an object's normals
+                  </h3> <span class="anchor_wrapper"><a name="GUID-C63A96AF-E965-4357-A437-9CCFE7625B4F"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-421FCB57-A160-44D9-89D0-8276463D3874"></a></span>Create one or more polygon mesh objects to which you want to align the particles.
+                           For example, you can have the particles move between objects and align with each one
+                           when they are within a certain distance. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DC8E424B-93B4-4891-9E09-F56F5F288457"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6130711F-779C-48C0-8A82-C9FD80761131"></a></span>Choose the <span class="MenuCascade" id="GUID-32506DCC-D6CC-495C-B134-F0966D75180D">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Align to Surface</span> command from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EE5C2AB6-568F-4BFC-A85B-BF5E9828DC7A"></a></span>This command adds the Align Particle to Surface compound to the ICE tree, plugging
+                           it into the Execute port of the Simulation Root compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-900111F0-5AF4-432B-BD5A-F290F9A4B39E"></a></span>Pick one or more objects to use for the particle alignment. Each object's Get data
+                           node is then plugged into the Surface port of the Align Particle to Surface compound.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-677ED8E3-0187-4970-B5E0-ED61C6140411"></a></span>You can also add more objects to the ICE tree later — drag each obstacle's name into
+                           the ICE Tree view to create a Get Data node for it, then plug it in as the other objects.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9257F034-1A9C-4C51-ABB2-4785BBE65AFA"></a></span>In the <span class="char_link"><a href="iceref_Align_Particle_to_Surface.htm">Align Particle to Surface</a></span> property editor, set the parameters as you like for the alignment. This affects the
+                           interaction of the particles with all objects that are plugged into this compound.
+                           
+                        </p> <span class="anchor_wrapper"><a name="FIG_794755DA1A664C9F823E4CA8915EF6DF"></a></span><div class="figure-anchor"><img src="../images/GUID-86EE7729-1B2B-493F-9B81-90D35950C3C0-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

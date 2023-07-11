@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-DEEDC6CB-D6DB-40DE-B170-FD7A3E3005AE">
+      <meta name="indexterm" content="ICE attribute shaders">
+      <meta name="indexterm" content="attribute shaders (ICE)">
+      <meta name="indexterm" content="ICE particle shaders: Attribute">
+      <meta name="indexterm" content="ICE attributes: using in the render tree">
+      <meta name="topic-type" content="concept">
+      <title>Bringing ICE Data into the Render Tree with Attribute Shaders</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-DEEDC6CB-D6DB-40DE-B170-FD7A3E3005AE"></a></span><div class="head">
+            <h1>Bringing ICE Data into the Render Tree with Attribute Shaders</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-63AFE0F2-ABAF-4964-B010-F58CA690B0FA"></a></span>The ICE attribute shaders allow you to access ICE attributes that are driven by ICE
+               trees. You can also apply the Attribute shaders to geometry that is used as shape
+               instances on ICE particles. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-181A2643-40CD-45F5-B714-00B4496AAF9C"></a></span>These shaders allow you to control your shading based on calculations done by an ICE
+               tree, thus creating a link between data in the ICE tree and data in the render tree.
+               To use the attribute shaders, you must first make sure that the object or its components
+               have the appropriate attribute created for it in an ICE tree. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-BF97F02E-827F-4E17-99EF-51AE0957C6CE"></a></span>For example, you can control the particle's transparency based on the distance to
+               a surface by writing an ICE tree that sets a DistancetoSurface attribute and then
+               accessing that attribute in the render tree via an attribute shader. Or make smoke
+               dissipate or a color change with a gradient depending on the velocity of the particle.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B95BD90C-9DE9-4759-9A07-FEED607ADCEE"></a></span>If the shaders are applied to an object with an ICE tree, only ICE attributes from
+               that object will be shown in the shader's Attribute drop down list. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DC60B71D-6E10-4293-A82C-A167EF561905"></a></span>If they are applied to an object that does not have an ICE tree, then all attributes
+               from all ICE trees in the scene are displayed in the Attribute list for that shader.
+               This is so that instances can choose attributes even if there is no bi-directional
+               link between the Instance Shape node (or the Set Instance Geometry compound) in the
+               ICE tree and the instance object itself. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-11CC9788-E522-4CE1-8B1D-74D90ECDB197"></a></span>There is one attribute shader per data type: 
+            </p><span class="anchor_wrapper"><a name="UL_4FB3F068D5044885B0C36B1448E33816"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-89821AD0-0792-4467-B973-C5379D5767FC"></a></span>Boolean data — use the Boolean Attribute shader. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-43068ED9-89A6-45E1-864B-59D7E40C715C"></a></span>Color and 4D vector data — use the Color Attribute shader. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-B703AACE-B27E-4A1D-B2F2-3347BD124BB4"></a></span>For an example of using this shader, see <span class="char_link"><a href="ipart_particles_UsingtheICEParticleColorintheRenderTree.htm">Using the ICE Particle Color in the Render Tree</a></span>. 
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C62BBA5D-3AEC-41C7-9B98-7CDFCA787721"></a></span>Integer data — use the Integer Attribute shader. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2F65E41C-02D2-41E3-8B4B-8067FBD19881"></a></span>Scalar data — use the Scalar Attribute shader. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-82686903-A794-4608-91C0-F39F981F4768"></a></span>Quaternion (as rotation), Matrix 3x3, Matrix 4x4, and Rotation data — use the Transform
+                     Attribute shader. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D2990B42-4E11-4689-BCF6-422A30B31D8A"></a></span>2D vector, 3D vector, and Rotation data — use the Vector Attribute shader. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-EFB6C3DA-509D-4DFC-B05B-DCFD8E7639A8"></a></span>For information on each of the Attribute shader parameters, see <span class="char_link"><a href="shaderef_attributes.htm">Data &gt; Attribute</a></span>. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-9B89465E-C115-410F-AFFF-C2EBD19C7340"></a></span><div class="note-tip"><span class="label">TIP:</span>The Switch shaders (Color, Scalar, and Vector Multi Switch) can be used in conjunction
+                  with state systems that you've set up in the point cloud's ICE tree. Attribute shaders
+                  are used with these switch shaders to bring the ICE tree data into the render tree
+                  so that you can use the state data. See <span class="char_link"><a href="shaderef_switch_ICEParticlesChangeColororShapeBasedonState.htm">ICE Particles Change Color or Shape Based on State</a></span> for more information. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS588672263DFA3942B5069CAE429C002E-0043"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2899CB40-B056-4CE5-9444-09FF0D9C638F"></a></span>Connecting an Attribute Shader
+               </h2> <span class="anchor_wrapper"><a name="GUID-282F9772-837A-45B9-9D0B-17FD808EF84D"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-41614927-CDC6-4050-A35C-A7C4A7E1F802"></a></span>Select an object with ICE attributes. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-06AAB9FA-826F-4A20-865A-EC515AB6E5FB"></a></span>Open a render tree and click the Update icon or press F6 to display the render tree
+                        for the selected object. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_A64D87CC3FEF4A27A5637E4BE69D588C"></a></span><div class="figure-anchor"><img src="../images/GUID-6AB21B08-904D-48CF-A01E-9036BE0A2EDB-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-581908A5-04C6-4A6D-9002-0BEC5A948F8E"></a></span>In the render tree, drag an appropriate <span class="MenuCascade" id="GUID-09803EAA-8679-4C1E-BD5A-387222C509C4">Attribute</span> shader from the Data &gt; Attribute group in the preset manager on the left, or choose
+                        a shader from <span class="MenuCascade" id="GUID-544DA934-91CC-4629-9F7F-C4C116ABFEA7">Nodes <img src="../images/ac.menuaro.gif"> Data <img src="../images/ac.menuaro.gif"> Attribute</span> on the toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5C99617F-2E85-4922-97AD-8906A3751920"></a></span>Plug it into any input port on a shader that supports that data type. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F3371CDC-5C22-4A75-8584-1BC756B3638E"></a></span>For example, you can plug many of the Attribute shaders as inputs into the Particle
+                        Gradient shader to drive the color gradient based on almost any ICE attribute for
+                        the particles, such as their velocity, size, orientation, mass, point position, etc.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-50B60AF5-96D8-4FBD-ACEF-0C02017A38F1"></a></span> <img src="../images/GUID-7A736BAC-68BE-4C1B-AA73-9FD7ED110283-low.png"> 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

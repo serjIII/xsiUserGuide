@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6148BD4A-4B7F-40CC-9E85-BD601F56DB01">
+      <meta name="topic-type" content="concept">
+      <title>mib_ray_marcher</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6148BD4A-4B7F-40CC-9E85-BD601F56DB01"></a></span><div class="head">
+            <h1>mib_ray_marcher</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-6194D598-CA16-4BA6-8ECC-770085D6D894"></a></span> <em class="strong">Category:</em> mental ray &gt; Materials
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0A7B2803-A030-4588-A457-6DB5359512EA"></a></span> <em class="strong">Shader Family:</em> Surface Material
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-61D137DA-DECA-4AE3-BCED-E5616D93B00D"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B756BE7F-A6AE-428C-BBEA-144D68C8036F"></a></span>The ray marcher shader casts light rays from points on a given ray, and approximates
+               the volumetric contribution from light sources sending light through the volume. Instead
+               of using shader interface functions like mi_sample_light does, it calls a shader given
+               as an input parameter of type <span class="MenuCascade" id="GUID-E7B3258D-94B0-45F3-91F3-58D90C0E619D">shader</span>.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8DBBEF86-5CC9-42DE-B71C-8922E0691BFB"></a></span>The process of ray marching consists of calling the shader for regular points between
+               the start point and end point of the ray, then adaptively subdividing each of these
+               intervals until a given subdivision limit is reached if the color returned by two
+               adjacent shader calls is smaller than a given contrast threshold. The total weighted
+               sum is returned.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-87BBB653-053B-42CD-B62A-37AEF813BD7D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C75905A4-24EE-48CF-905A-A3817F89E52D">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6340C637-1EE9-4847-AD3D-A351F79A4B00"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-37598E84-913D-4AD5-A9A7-30E8880C17A4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AF050E3A-C929-4316-BEA8-2DE2B1A82F65">shader</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E580E4E6-DA30-479A-B37D-B1BC192A59C4"></a></span><p class="table-body">The shader to call at every sampling point. Its returned color is added to the returned
+                           total unless the shader fails (returns false).
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-16EC766C-96F4-48C7-862D-AAC655A256EC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C084C3EE-A2AD-47A6-8F65-5DCF47FF1756">distance</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DB954435-4954-4B03-BF8A-31FD2DEE5CC3"></a></span><p class="table-body">The maximum internal space distance between two initial sample points. If the distance
+                           is 0, no maximum distance is enforced.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-615F0B00-1C05-41AD-BC19-4DA05C84FECD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CCD5CFD5-13EB-474D-B810-89064594176E">num</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A36E0AEF-8440-425A-84A7-6D1CCC060926"></a></span><p class="table-body">The initial number of samples in the given distance. If this number is 0, no initial
+                           number is given, and the ray marcher relies on the minimum distance instead.
+                        </p> <span class="anchor_wrapper"><a name="GUID-EC97E1BB-9EB7-41D8-945A-3F8E8806BD0D"></a></span><p class="table-body">If both this number and the minimum distance are 0, the default number is 4.</p> <span class="anchor_wrapper"><a name="GUID-7F390012-F39B-4A95-8A63-B2C210CEA7EE"></a></span><p class="table-body">If this number is not 0, it must be at least 2 (one at either ray end point).</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9021F913-C57D-4059-8F72-C17F9059905A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C1D47994-A6BB-4084-8723-27536F88AD3A">subdiv</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-17AAEB2E-CE51-47B8-822A-5F1A90F01C22"></a></span><p class="table-body">Specifies the number of recursive subdivisions of the initial sample density.</p> <span class="anchor_wrapper"><a name="GUID-104DC54E-AD73-4A2F-8E02-894A59EABB39"></a></span><p class="table-body">A value of 0 (the default) does not subdivide, so the ray marcher is restricted to
+                           the initial sample points. Values of 1 or larger make the sampling adaptive; each
+                           level of subdivision divides a distance by 2. The maximum is 16.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2D6F6453-3B97-4B2A-879D-66FAB75EA1D2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3350B132-98BA-4070-ADA4-57FEEF86D1DB">contrast</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-81808745-203B-4EE8-BACB-8EF964333FF0"></a></span><p class="table-body">If exceeded by the absolute difference between two adjacent samples, this parameter
+                           causes another sample to be taken in the middle. The process then repeats recursively
+                           for both sub-segments until the contrast is low enough or the subdivision limit is
+                           reached.
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

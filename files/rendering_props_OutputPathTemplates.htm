@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-BA0642FB-F3C5-4AF9-A7C1-BB8B4868B4F9">
+      <meta name="indexterm" content="templates: output path templates">
+      <meta name="indexterm" content="files: file names and templates">
+      <meta name="indexterm" content="output path templates">
+      <meta name="indexterm" content="paths (file): templates for building">
+      <meta name="indexterm" content="tokens">
+      <meta name="indexterm" content="frames: frame token and padding">
+      <meta name="topic-type" content="concept">
+      <title>Tokens and Templates</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-BA0642FB-F3C5-4AF9-A7C1-BB8B4868B4F9"></a></span><div class="head">
+            <h1>Tokens and Templates</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-7831FF62-D663-4478-8E6C-FEC6C26CAE18"></a></span>| <span class="char_link"><a href="rendering_props_OutputPathTemplates.htm#WSEB654515FC281841B50DFC965558D60F-0007">Universal Tokens</a></span> | <span class="char_link"><a href="rendering_props_OutputPathTemplates.htm#WSEB654515FC281841B50DFC965558D60F-0008">Rendering Tokens</a></span> | <span class="char_link"><a href="rendering_props_OutputPathTemplates.htm#WSEB654515FC281841B50DFC965558D60F-0009">Viewport Slate Tokens</a></span> | <span class="char_link"><a href="rendering_props_OutputPathTemplates.htm#WSEB654515FC281841B50DFC965558D60F-000A">Render Slate Tokens</a></span> | <span class="char_link"><a href="rendering_props_OutputPathTemplates.htm#WSEB654515FC281841B50DFC965558D60F-000B">Caching Tokens</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0EEDD488-4D66-42CB-B0A7-99A78F6F9AF9"></a></span>You can specify a string which acts as a template for building output paths and filenames,
+               as well as for displaying on-screen information (viewport slate), and generating render
+               slates when outputting image sequences. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B762CA69-AA7C-45DD-A85B-40B04A308CD7"></a></span>A template can be made up of any number of preset tokens as well as non-parsed strings
+               which are then assembled into the final format. The template string is a simple string,
+               where any string values delimited by square brackets [ ] are interpreted as tokens
+               and processed. String values that appear outside of the square brackets are copied
+               as-is. For example, on a machine called mtl-p9999, the string "My Computer is [Host]"
+               gets parsed to "My Computer is mtl-p9999". 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E6C8BDC4-8D69-4E2E-AAA7-77E806A1B326"></a></span>Some tokens can take optional parameters which must be separated from the token by
+               an empty space. For example, the [date] token and its optional parameters MM_DD_YY
+               are specified as [Date MM_DD_YY] which gives the date as "11_29_06". 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-98C7E762-767C-4074-8204-AD159D87EF23"></a></span>The template parser recognizes many preset tokens. If a token is not known, the parsing
+               stops. There's a core set of universal tokens that work everywhere that tokens and
+               templates are supported in Softimage. All other tokens are context-specific (although
+               some tokens can be used in multiple contexts). 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEB654515FC281841B50DFC965558D60F-0007"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-51204CFD-7C93-418E-9C49-A9A39A22A415"></a></span>Universal Tokens
+               </h2> <span class="anchor_wrapper"><a name="TABLE_8106758D1C3C4A1998B594DA0BACAC7F"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledHeading">
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-5E382BF0-5082-4A98-867A-F5D381705A58"></a></span><p class="table-heading">Token </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-4640928E-D231-420B-8B77-9A74C01D8483"></a></span><p class="table-heading">Option </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-CC1D412A-4A36-4CF7-9ADE-0BFB04D44CA3"></a></span><p class="table-heading">Description </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-35451246-B268-45C5-AFA3-2C596E9D0DAC"></a></span><p class="table-heading">Context </p> 
+                        </th>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EB238C6D-D644-4771-9BEA-12B1D4A1950F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-31E12322-24F5-4F54-B0E6-264F922905F2">[date]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <span class="anchor_wrapper"><a name="GUID-6F23FB3F-3CFD-4EFB-9896-B75CFD7673C1"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E5C1A31A-A919-473A-B0F8-E63027849611"></a></span><p class="table-body">Returns the system date, with formatting. By default it uses the format YYMMDD. The
+                              formatting options are the same as with the windows time/date settings. Any spacings
+                              can be added between the formatting, such as "DD/MM/YY", "dd_mmm_yyyy", etc. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FB3645E4-3DEA-4B0B-BB3A-1AC06BDFD42E"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-F5F23D81-5AF0-4DC6-B5FE-7C35A6241C81"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F9C8A354-1884-428A-8D0E-0A1908DD6B69"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-40DC1E47-E58A-4302-9C43-F317FBDD6847">d</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-81B16D57-5163-4581-8623-F50A4F2FD9BF"></a></span><p class="table-body">Day of the month. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9AFF13A2-FEDA-434D-823E-84145029AD30"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-AEFCF20B-3CB3-404E-B9C6-FEEC2F9B0538"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7801B1DE-B6CE-43A9-B1B3-403E31BEA51C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-00960BC5-4FC1-47B4-81FA-738FB78F24F8">w</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9321305F-4A8B-417D-8CEF-B67D7F1D6BA0"></a></span><p class="table-body">The week of the year (1 - 52). </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5A523825-2219-4CB0-A5FC-B1A119973EEF"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-28215C70-7C5E-484D-902C-C8D2A3F8CCA7"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-76E11CE4-C272-4942-BCEC-DB1FDFBEDAB8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-76FA1861-54AE-430C-A15F-1479E35C9395">m</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F9BF9E27-F3FB-4008-9225-2003D6FBF17D"></a></span><p class="table-body">Month of the year. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4F9E8E1F-7B56-4016-AD49-CC0186273A1F"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-3D218CA2-79D5-4C8E-9ACA-0349AB3AA55A"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A6C27189-51E8-4D1E-A4AB-45617CBE9923"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-65124764-CEAA-445E-8BCA-B860AE7217FB">y</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EF527C11-6B93-475A-AD71-BF21921F46B0"></a></span><p class="table-body">Last two digits of the year with no leading zero. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F51E8766-846E-4F4B-B23F-C8AD1DB8DF3A"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-342950A9-3FD2-46B0-8F8F-CB46BAC954DF"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-993CBD3C-AC01-4D74-8469-3FF703C495C3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BCA2ACD1-F266-4F0C-A725-53F3F8F9C146">dd</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B8CC674B-09CF-443A-9D0C-3C6D039DA54B"></a></span><p class="table-body">Two digit day of the month with a leading zero. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F341928B-AB57-467A-ACFD-039A3D4DD5FE"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-5000E61A-D6D6-43CF-B7F4-C160E5FD1669"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9BF53468-3E45-4423-AA67-B6140971D9C1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-84801CA0-4136-4F75-9446-8C80E0987189">ww</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D5D417B2-094E-48A3-90B1-7E8A678A3357"></a></span><p class="table-body">Two digit week number with a leading zero. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B8036576-029D-4FCF-89D4-6E1F9FC231BE"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-65E4687E-FC22-4902-B631-40FCD7D70484"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6973BB53-78E3-4E9E-87B5-523324082049"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BF43413E-6EAD-44B7-ABFB-73FD85441EAD">mm</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0C4F87BC-274D-406F-93ED-CF231041CF4B"></a></span><p class="table-body">Two digit month of the year with a leading zero. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C91FFF4A-5F71-4CB3-8068-551D5D83444D"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-FE7F01CC-CBE0-425D-88D1-D79469933FE8"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0D5B3A26-0112-496C-A8C7-C76BA2A4DD1A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6F5AC043-8921-4F2B-98EA-3F6468124BB5">yy</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F744DA4F-8D62-47EB-AF5C-7BD37D0BD733"></a></span><p class="table-body">Last two digits of the year with a leading zero. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3FF82FEF-BA64-4B52-A542-CDD21500F1BD"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-879F010C-954A-4711-8FDA-ED1379F47D33"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C9070756-F3C5-4351-8C47-BAA579EE3FF6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-075270EC-DBD7-4771-86DD-5825BE97A409">ddd</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D15834C6-1DFF-4963-BB16-4277E81B16FD"></a></span><p class="table-body">Abbreviated day of the week (Mon, Tue, Wed, etc). </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-37153AE0-1222-45D2-A157-F7600815AB74"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-88E4D571-835F-42C0-9D60-2E4DC011150B"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-740EC1C6-C5AB-416B-98E8-F814A1D90769"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-84912CE7-5236-41F3-B302-C6950C0CA75D">mmm</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EAAEC1C0-C5B0-41D5-AC76-65EBCC4ABC45"></a></span><p class="table-body">Abbreviated month name (Jun, Jul, Aug, etc). </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1447D745-A048-4D80-B977-7D6A134F3AAA"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-F6D19F8F-44E7-45CC-A050-8C5937161AAF"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D1D35DC8-73BB-4EDD-BE3F-87EDF0CB36C9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-79E7B883-929B-409B-8E43-FF8597FCAC38">dddd</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6A7CA950-B43D-4B74-A85A-8D8E0DBB4EF8"></a></span><p class="table-body">Full day of the week (Thursday, Friday, etc). </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-25BDC95E-D8EF-4A00-979D-F9D3C179D78F"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-FADDB64A-94BE-417F-B092-9A4BF7A97F7B"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-68AD2D29-FD92-40DC-A804-DE73168E83B7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CDF63947-453D-49B3-A26E-E380217DA8C8">mmmm</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6DDDA575-691C-4F86-85C1-07319D4086B5"></a></span><p class="table-body">Full month name (January, February, etc). </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E7FFFE4C-2E25-4C3B-B813-DBB302671853"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-45667699-3192-4108-BAB4-8E3F2BFF401D"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1F3BE36C-C6CB-4334-9988-14EA67867FA8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2122EA0F-2B61-4B0E-B12C-C4D033AD815D">yyyy</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-45D4AAED-E424-4D4B-AA52-9D5CC57ECC16"></a></span><p class="table-body">Full four-digit year. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1BFB0CAD-797F-4EC6-A0BB-A94C5D532B22"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5E858975-0350-4A32-B2AF-6713EC568F28"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3E60CF62-5B23-4456-B11E-B5CD607C9340">[Time]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp;</td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C5E13065-C5A6-440C-8085-B8A47F8CD3FA"></a></span><p class="table-body">The system time with optional formatting. By default it returns the format of [HHmm],
+                              which is 24-hour time and minutes. The formatting is similar to the [Date] token.
+                              
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-55A99BA2-5B79-4DB6-A362-192D6D17D193"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-FE1014A9-C0D7-490F-852D-C2C1FECB6EA0"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B08AD225-3895-4C67-8A58-D5E50854D5A5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-25358C8C-24A4-401B-A455-AB521B398007">s</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A892A6CE-8909-435E-AB90-9A7B4C717B61"></a></span><p class="table-body">Seconds part of the time. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2CA251F1-8C93-40D7-9448-DBD85F753EFA"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-BC056DF3-A389-490B-B339-5B9051003EBA"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-29A75450-D906-4030-9CB5-A5B105E03652"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C2D6A823-06C0-4A8B-B55E-38EB956DA78B">m</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E707C1B6-0B9E-4049-B476-3B9E074CCE12"></a></span><p class="table-body">Minutes part of the time. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FB413175-AAC4-417C-98C5-4858B899EBCA"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-9D8F3A08-CEA7-4264-921B-9D44B163D120"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0AC23B0E-B372-4908-9BC1-DDA8693BBF9B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2D8ABD5F-9D8F-4E56-B8F9-F282BFF5010D">h</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-994FF2DD-F5A3-4F16-AB9F-C01FC81F1CA5"></a></span><p class="table-body">Hours part of the time in 12-hour format. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6DE6EDF7-D0B0-491C-8DBE-011625FFEDF3"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-12B081EA-6052-4F02-A22B-4A72C335F0FC"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1A520401-AAB5-4991-B140-A76DE47A668A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7E83C2F2-2389-4379-B02A-3B04A4F484F0">H</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E7BE4EAB-C421-482E-89F8-46F1F3627646"></a></span><p class="table-body">Hours part of the time in 24-hour format. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9FAF21A8-D4DA-40A5-8BAF-9B2E7C46ED6E"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-2847DB55-291F-4E2F-BE92-203692B9BC23"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-82C4DDB2-BA41-43BD-AF99-8164DA9CD130"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-25E30351-7E16-4DC4-888E-280175D8310E">t</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5413C6D2-4120-4D45-91B3-19F7C974FEB4"></a></span><p class="table-body">Single lower case letter indicator of AM / PM ('a' and 'p') </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BC4842C7-7BAE-42F4-821B-597ABD3FF29D"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-2D41EB2C-BE10-4D99-AD8E-57742D71C7DA"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-66BCBF36-CBEE-421A-B203-13552FBE4506"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-17D6363D-9BC2-44C6-A571-293E9D4BCDFD">T</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FD6026B0-EBDC-4630-97BA-F49135211A9D"></a></span><p class="table-body">Single upper case letter indicator of AM / PM ('A' and 'P') </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C84E3ABC-B90E-4F33-A706-CD5297EDCE91"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-DEE03F80-9D68-49F2-9296-AE0848E534C9"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F6DB207B-1C6C-4F6C-ACAE-B21F2282CE46"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D41B6E8E-D27E-44AB-B36A-F02C62647EA9">ss</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1D05F1F5-3AA1-48A6-B50F-D146A2B33E62"></a></span><p class="table-body">This and the next three options are the same as above but with a leading zero. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FC11223B-5E8A-4E2C-A83B-D6F4F4AD4A45"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-8290396C-9B18-4879-A533-901056961F9C"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-598FEABA-E531-49A7-A744-451A3C280F49"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-40793599-4691-444F-A594-A0DE50F7B3A8">mm</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-178941A0-D4A8-4BF5-B92C-89318E70018A"></a></span><p class="table-body">-- </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-728544B2-F0CE-4487-999D-6A57E1D52A15"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-FC61D25B-1657-4774-91A5-64608FB54901"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-789EAAFA-2D2E-4350-ABB1-7CAEE0A9B960"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BCC9A754-E7CA-4A6C-A813-FD45B42FED36">hh</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AB23199A-D86F-45E3-B43B-DDFBE037D762"></a></span><p class="table-body">-- </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D75AF059-EB61-4431-9B95-0BC27D9F59CD"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-EE04852A-1B68-4B29-AB8B-6AB238D77155"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7599B7F6-8AC5-4E45-85C7-A54B2904C535"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FD121CA1-D3CF-48A0-A917-966A5AE7A30C">HH</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3A74CAAF-8E8E-42B0-98F1-00AEE41A72E8"></a></span><p class="table-body">-- </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-94132ACA-5181-4CB6-A8D2-DB4DBE168472"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-8FFA1F26-264C-4F3D-878C-614C4112D57F"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FB6A880C-05A6-48D9-9A1D-43972E71766E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DB99B93D-BC18-47BC-A94E-87EDEE93BD5E">tt</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3998F55C-F61F-4723-A15E-940F10ABE5CB"></a></span><p class="table-body">Two digit lower case indicator of AM / PM. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5E2C09DD-626B-4546-A3E9-24F1E6F56C84"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-4650B2D4-3F08-40D7-BC00-23C5A9D27175"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-68C05407-0898-41A5-BD46-9400A3626378"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-09B2E644-262B-477F-816B-8B2DC785821E">tt</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0D474492-60F8-44B6-81BE-D0727013ED47"></a></span><p class="table-body">Two digit upper case indicator of AM / PM. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BD6D5087-C5A5-4EF8-8FE5-3B740E38C0C2"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-86095134-8511-4419-B588-79A59398D94D"></a></span><p class="table-body">  <span class="MenuCascade" id="GUID-794D9531-EA05-45BB-AABB-EF9E4787DF68">[Frame]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <span class="anchor_wrapper"><a name="GUID-59D12DE1-68A2-4B35-B2D6-6A3D19F351EE"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3B83D481-0716-4C8F-9F09-4DBBD48DE6B8"></a></span><p class="table-body">The frame given. Optional arguments are '#&lt;number&gt;', '+&lt;number&gt;', and '-&lt;number&gt;'.
+                              
+                           </p> <span class="anchor_wrapper"><a name="GUID-12976FA2-301E-4EBF-9207-FE07F7197978"></a></span><p class="table-body">The '#&lt;number&gt;' argument sets the leading zero fill to use for the resulting frame
+                              number. The '+&lt;number&gt;' and '-&lt;number&gt;' arguments specify a positive or a negative
+                              offset to the current frame, respectively. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-BA625BE5-1CD5-4C4B-BD6E-EEB72DCB2AE5"></a></span><p class="table-body">For example, if the current frame is frame 5, and the template "Bob.[Frame #4 +2].pic"
+                              is used then the parsed result will be "Bob.0007.pic". This allows you to render sequences
+                              at a different offset from the scene timeline. The maximum padding value is 8, any
+                              value above is clamped to that. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-B80F0CF9-81A6-4447-AF3D-A34CA6BD61F9"></a></span><div class="note-note"><span class="label">NOTE:</span>If you use the [Frame] token and do not specify any padding, then padding will be
+                                 set based on the value given in the scene render options (as long as it is not set
+                                 to None). Frame tokens using the '#&lt;number&gt;' argument are not affected. See <span class="char_link"><a href="renderoptions_scene_SettingtheFramePadding.htm">Setting the Frame Padding</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+                              </div>
+                           </div> <span class="anchor_wrapper"><a name="GUID-B3972CFA-B597-49EB-81E7-6BD79849388D"></a></span><p class="table-body">In the context of caching, if you use the [Frame] token and do not specify any padding,
+                              then no padding will be set. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-8515A4F6-73FC-408A-912A-768C7332D26B"></a></span><p class="table-body">Note that not all cache file formats support the [Frame] token — see <span class="char_link"><a href="data_cache_CacheFileFormats.htm">Cache File Formats</a></span> for more information. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9455A053-51EF-40C7-BFC9-48CD39D41A44"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F92CA916-5EF1-419C-914D-1ED9DFA0DCE0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-65599F8E-4A76-4E5C-A911-9D105A9C9D9C">[Field]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <span class="anchor_wrapper"><a name="GUID-6DB6B876-2DA7-4E1A-8908-3BC8A4CBD134"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DD3984E9-1CE3-46F7-AC75-74EF2DA8BF97"></a></span><p class="table-body">The field number currently being rendered. The token has two optional arguments, both
+                              of which would have to be provided, if needed. The arguments specify which character
+                              string to use for the first and second field, respectively. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1848FF50-3104-4A3B-804D-D4E0E66B4A26"></a></span><p class="table-body">For example, the template "[Field Odd Even]Bob.[Frame].pic" will resolve to the string
+                              "EvenBob.1.pic" when rendered at frame 1.5. The default is ".1 .2". 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-522F7119-C1D5-4696-842C-F68B2F5ED7EB"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7EBDB0CE-71A1-4577-944E-DF3B571FC26C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3E9A6CE6-942C-41DB-80C7-3F620FABBB5F">[User]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <span class="anchor_wrapper"><a name="GUID-2FE611D2-A327-42FF-93E4-205A5D058E34"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9DFBCE25-9DEF-479F-AA87-E99F51671842"></a></span><p class="table-body">The current login name of the user. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0188141B-1CB6-441C-A8D7-002234527685"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3B38DB32-3C06-4D58-9C57-42B3B502D42C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-892023F6-F793-4D33-8333-83DFFEE00883">[Host]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <span class="anchor_wrapper"><a name="GUID-9EC7D483-8358-4412-BFA6-B456745DF6D3"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D7C2889A-CF98-47CE-AB50-50BC7098421A"></a></span><p class="table-body">The name of the computer that Softimage is running on. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E050D66C-15B3-4C40-A81E-A670FE0CF12F"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AA65E39A-9F3A-4F31-9E43-F6744FF60F61"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4C03B2FA-A79B-4086-AE04-617E50C4EA1E">[Env]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <span class="anchor_wrapper"><a name="GUID-5144E78F-4821-4715-B40B-FED76A4013A3"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-978F58D4-217D-4B65-B0D0-20D32398BAC1"></a></span><p class="table-body">Parses to the value of a given environment variable. The optional token parameter
+                              is the name of the environment variable to resolve and is required. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-9FD0E23F-5D02-4035-A5B0-2CC4331073D6"></a></span><p class="table-body">For your convenience, the following methods of accessing environment variables are
+                              also supported. These methods are identical to the [Env VARIABLE] mechanism: 
+                           </p> <span class="anchor_wrapper"><a name="GUID-DCD5E3E8-44C6-489E-86F9-FA17DC4E1D07"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2848CA71-2D47-4995-83A8-11ED3F00D771">$(VARIABLE)</span> 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1E60F09B-EAA1-4F17-8699-027481D1A5BE"></a></span><p class="table-body">Where VARIABLE is any set of characters to be matched, except brackets. For example,
+                              "$(bob(joe))" would look up the variable bob(joe), while "$(bob()" would be a syntax
+                              error. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-B4FD86BA-8F7F-4B6D-BDB6-C36840D5F1EC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D358D728-6CFB-4FA0-9972-689E96EDDABD">%VARIABLE%</span> 
+                           </p> <span class="anchor_wrapper"><a name="GUID-A69657DD-3F20-4D1E-9975-232B8F81DA1D"></a></span><p class="table-body">Where VARIABLE is any set of characters, except %. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F369085C-A449-469C-BE5B-F662C56B4545"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-62A78292-F97D-4D35-B2D6-61FE6ECC602A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-695142DC-2193-4C0D-9492-B13CA12F9D0C">[Project]</span> 
+                           </p> <span class="anchor_wrapper"><a name="GUID-0FA18EDB-23B6-42EA-8E00-16A12C7CC64C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4DCCBD52-1095-4DF1-9F11-23A55B953798">[Project Path]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <span class="anchor_wrapper"><a name="GUID-37B8844F-9190-4060-AB1F-99524EC90865"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FE2CDB8A-2ADC-44A5-AB29-B31FA3D4E716"></a></span><p class="table-body">Returns the project name. Include the Path option to return the project name and its
+                              full path. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-129209D0-C16E-4705-B0D8-27B2A6C3166D"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F76502D8-717A-459C-B752-5A58F07CE245"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-880BE6AD-191B-4A48-BC9C-549823D40324">[Scene]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <span class="anchor_wrapper"><a name="GUID-9B6701C8-C284-4710-AEED-6E4D952449CA"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CCFE35DF-A464-4DDF-B4B4-06FF889B92CF"></a></span><p class="table-body">Returns the scene name. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3C61FCFE-A20A-4FBD-B281-41FC0538C76D"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A95CFC31-1925-441A-A68E-6277CA26927E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0B9FC0F7-2C20-49B8-9BFE-D4621A34B49A">[Value]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <span class="anchor_wrapper"><a name="GUID-E24E9E80-B283-475C-A4F6-395A6C774A6C"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-652E00B1-BEFE-446C-9280-BAF30F50C7BE"></a></span><p class="table-body">The value of any Softimage property. </p> <span class="anchor_wrapper"><a name="GUID-5B3690EA-A08E-4050-84BB-FA138610A66B"></a></span><p class="table-body">For example, [Value sphere.kine.local.posx]. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8779A9DC-FDCC-4D8A-A473-FD20D40658D8"></a></span><p class="table-body">All </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEB654515FC281841B50DFC965558D60F-0008"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C902EBA0-E1CC-45F3-A4C9-74A48FEF56E2"></a></span>Rendering Tokens
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-EBF8059F-3C8D-4DC0-9A95-843EC9D7A747"></a></span>You can use the rendering tokens to build output paths and filenames for render passes
+                  and their render channels (framebuffers), movies, and mi render archives. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-43FE2E2A-27AA-4C17-B058-DD14B5E0D855"></a></span>You can also define default templates for common output paths and file names in your
+                  <span class="char_link"><a href="userprefs514.htm">Rendering Preferences</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_53A4D481CEA14F3CBA79B6B66DEEDE61"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledHeading">
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-C12C75C2-F189-4512-85BB-B3392E1846C9"></a></span><p class="table-heading">Token </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-1251A967-5B93-4EB2-B7B0-D4B07890C716"></a></span><p class="table-heading">Description </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-0057F9E4-0406-42ED-BB99-DF2017A0B1EF"></a></span><p class="table-heading">Context </p> 
+                        </th>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DB9D67A8-8389-4931-BB6B-338651FDE75D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-63E16C29-06C7-41FC-9F4E-805ABCCB9441">[BitDepth]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-79455EA7-0BA2-4724-8C41-38C54DBFB8C4"></a></span><p class="table-body">The bit depth of the framebuffer's file format setting. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0A73956F-7383-4E38-B275-31022B73E8C4"></a></span><p class="table-body">Rendering </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-45824F5F-3543-48B6-BE94-86E4C68B68CE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E52ED715-483C-4AB5-B193-294868C9BB33">[Camera]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DCE8C8BD-1795-4929-ADF1-A7EDE21A2810"></a></span><p class="table-body">The name of the camera. </p> <span class="anchor_wrapper"><a name="GUID-5E068149-AF13-455B-BE56-2E62D16FD3A6"></a></span><p class="table-body">In a multi-camera output pass, this token indicates the name of the camera being used
+                              to render. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6FF99FF2-4D1F-431E-BAF6-FB710D896C73"></a></span><p class="table-body">Rendering </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B02B62A4-F98E-42EC-BBE2-81765550E94D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C254A23E-D3F4-4217-B47B-28907E5962EC">[Channel]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-649DF261-6D7F-4958-A3D2-32A76F771D25"></a></span><p class="table-body">The name of the render channel associated with the framebuffer. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8D7D1928-D080-4163-A52D-731357035D18"></a></span><p class="table-body">Rendering </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D07ECC10-12F8-4C67-B3E7-88BBE174F550"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-441156BA-220E-4690-B2B7-8A0BB1A7B442">[DataType]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B13FB1CF-5641-4239-8E1D-9C1748041EA8"></a></span><p class="table-body">The data type of the framebuffer's file format setting. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FDE58946-F998-4EB8-BF31-58E790D26CDB"></a></span><p class="table-body">Rendering </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D8D13D46-88ED-4A61-B7F7-A4512D4840B1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0958A81F-3E78-45FC-B161-CD6DF1C11DE0">[Format]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-69E20988-B9D2-45B3-A067-3E8D733CF145"></a></span><p class="table-body">The framebuffer's file format setting. </p> <span class="anchor_wrapper"><a name="GUID-2C93025E-F81F-48B0-90B3-97C579E96967"></a></span><p class="table-body">When using the [Format] token, you must make sure to specify a fully formed output
+                              path. In some cases, such as when you have a framebuffer for which you are rendering
+                              more than one frame, you must also include the [Frame] token as in ".[Frame].[Format]".
+                              
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-30F4C635-334B-44C2-A9F5-75C4DC435E1E"></a></span><div class="note-note"><span class="label">NOTE:</span>Softimage will automatically append the ".[Frame].[Format]" string to all frame-dependent
+                                 output paths that do not explicitly include these tokens. Likewise, for non frame-dependent
+                                 output paths, such as a multi-frame archive (which writes all frames into a single
+                                 mi archive), only the ".[Format]" part of the string is added if missing. 
+                              </div>
+                           </div> <span class="anchor_wrapper"><a name="GUID-460240F2-0096-4F12-A107-65FEF59CB4F6"></a></span><p class="table-body">This is done to simplify the process of building templates, so that you don't have
+                              to specify these tokens every time you build an output path. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7F537828-EFC7-48D8-9083-A1C2A323C13D"></a></span><p class="table-body">Rendering </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0C875344-F340-4ACF-958F-9ED51DE8937E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-20ED2D68-C599-424B-BC50-F2877BE97553">[Framebuffer]/[FB]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C1C34097-79F9-46D3-B279-BAAEE08AE6FE"></a></span><p class="table-body">The name of the framebuffer. </p> <span class="anchor_wrapper"><a name="GUID-4D7B3FB9-6802-4CB7-8668-10EE317A0BCB"></a></span><p class="table-body">For more information about framebuffers, see <span class="char_link"><a href="renderchannels_RenderingBuiltInandPresetChannels.htm#WSC3E5E55625BD5A41A60AC47CADE8610F-0009">Defining a Framebuffer for the Render Channel</a></span>. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-88C563AF-DA88-478A-9B45-60799DB195AD"></a></span><p class="table-body">Rendering </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3CBD57A1-8A4A-4E1F-861E-C8B71285B4CB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FB1CD77A-D30E-4A62-872A-E9F450A854CB">[Object]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4E0FFA3D-92B2-4E8F-968C-943A3B6C1B8B"></a></span><p class="table-body">The name of the object being exported as an object render archive. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-42E7705E-03E2-4005-A889-103115F3C56A"></a></span><p class="table-body">Object Render Archives Only </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A86E81E7-5E84-457B-8071-CA192767546A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-49A5DB50-464E-444C-8EDB-DC0D851DCB0F">[Pass]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0AFFDF15-FAF0-419A-A039-469841424A06"></a></span><p class="table-body">The name of the pass associated with the framebuffer. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-425CA064-6FCB-4822-9061-D8D9C185BDBD"></a></span><p class="table-body">Rendering </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B7E850E6-B76B-4D72-A61B-708B6509EFEA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DD6EE62B-3159-450F-B10E-59452ABFA9E0">[PartialFrame]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0CFDEF5D-2D3E-4A47-899E-D1426047A118"></a></span><p class="table-body">The frame number and frame fraction, for example, 7.2. If you are rendering partial
+                              frames, you should use this token in the file name template because the [Frame] token
+                              gets rounded to the nearest integer. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-37F291F6-C9BF-46E0-A689-C65A5451323F"></a></span><p class="table-body">You can also specify the total number of digits for the fractional part, for example,
+                              [PartialFrame 5]. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7DC21C23-A3F7-44A1-A7D4-F681EECDCFD7"></a></span><p class="table-body">Rendering </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEB654515FC281841B50DFC965558D60F-0009"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-469D86ED-B3A8-439B-80A2-9C4D4BDFFFC8"></a></span>Viewport Slate Tokens
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-847EE649-10AB-4BF8-8C44-81DB3FD84FB6"></a></span>The viewport slate recognizes all universal tokens and their optional parameters,
+                  as well as a set of context-specific tokens (see the table below). Text entered outside
+                  of the token parentheses is considered a non-parsable string and is displayed as is.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-85292A3D-5272-47FF-A36A-CD6C6D175C30"></a></span>A viewport slate can support tokens and text strings entered on a single line or on
+                  multiple lines (each line is considered a separate template). For information on how
+                  to create a viewport slate, see the <span class="char_link"><a href="property1505.htm#WSE2E206156EB0874D80A10DF8CA70FBBB-0062">Viewport Slate</a></span> options on the Stats tab of the <span class="char_link"><a href="property1505.htm#WSE2E206156EB0874D80A10DF8CA70FBBB-0051">Objects</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_2D40A60D00924613986D9A1123F6F06C"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledHeading">
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-E1E664CC-7A3B-40D2-8AF6-E26EC146A42E"></a></span><p class="table-heading">Token </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-C83B8C44-124C-4760-AAEA-4240B2DFD52B"></a></span><p class="table-heading">Description </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-4721D776-84B7-4830-9551-DD1CE25AD1E7"></a></span><p class="table-heading">Context </p> 
+                        </th>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-06C8681D-5524-4EB0-845C-7FFD446730E0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B39CC38E-0E3D-4CC9-9240-A35C486C0950">[Camera]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-90CF2212-3579-4396-AF76-321D3739C674"></a></span><p class="table-body">Returns the name of the camera. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EBB1A761-AF53-435A-A5F2-4A10A7D8AF9E"></a></span><p class="table-body">Camera Visibility </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C62D62ED-AA77-42D3-942F-411D3B9D03B4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-58D2F7A1-AB0F-41FF-87D5-71A5DBD964F4">[CameraAspect]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FED58933-4372-4209-BC63-C63BF80633C9"></a></span><p class="table-body">Returns the aspect ratio of the camera. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-396A7F4E-A7B8-4BE4-ABB8-2E1F09EB581F"></a></span><p class="table-body">Camera Visibility </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D5EFC753-C725-44EE-B54A-87426C8CD731"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3DE6AA0C-7B56-49AF-A4F8-D6645E081AF6">[CameraFormat]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D4AFD11D-B32B-46F1-9099-D8A51940CCBD"></a></span><p class="table-body">Returns the output format and resolution of the camera. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-86D2CC20-201B-41EF-8F99-774955EF6FB7"></a></span><p class="table-body">Camera Visibility </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-75F2EBB7-3D09-43D6-BFA2-442F33B96D7F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9554C9C8-9D3B-4CA3-96BF-E43DFF4B5F8F">[CameraProjection]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-72DAC713-A4C4-4B54-A9FB-5B294251BE61"></a></span><p class="table-body">Returns the camera projection as either "Perspective" or "Orthographic". </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4EFF123F-E32B-4D06-9F7E-9AF164B3347E"></a></span><p class="table-body">Camera Visibility </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A486FA0B-FB83-4BB8-9B32-DF672E166FC2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C50BD6A9-59F0-4ECE-8340-9051E48C7B86">[CameraType]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D8A3FC24-0987-4196-A751-1B8DFDB7AA05"></a></span><p class="table-body">Returns the camera interest constraint as either "Constrained" or "Free". </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-920BC379-B858-40C9-B98C-B2FB1D2941AF"></a></span><p class="table-body">Camera Visibility </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEB654515FC281841B50DFC965558D60F-000A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-122025F1-2790-420B-9A50-2CAAE4C06C75"></a></span>Render Slate Tokens
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-98E5B61A-04C1-40B8-9707-44FB7ED68A2D"></a></span>The render slate recognizes all universal tokens and their optional parameters, as
+                  well as a set of context-specific tokens (see the table below). Text entered outside
+                  of the token parentheses is considered a non-parsable string and is displayed as is.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-557BE8C3-C23E-4347-A46C-2EBED3D37F67"></a></span>A render slate can support tokens and text strings entered on a single line or on
+                  multiple lines (each line is considered a separate template). For information on how
+                  to create a render slate, see the <span class="char_link"><a href="property4501.htm#WS3006BE1388530344A0CBB5EC50AB924E-00AE">Slate</a></span> tab of the <span class="char_link"><a href="property4501.htm">Render Pass Property Editor</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_469AE0F9D3FA43B09A0E3F83E8EB7306"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledHeading">
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-157BDCAA-2F96-43A4-949A-8EC81F65E4EA"></a></span><p class="table-heading">Token </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-5F27027E-E7C7-4363-A0B3-445C12AC9DC7"></a></span><p class="table-heading">Description </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-0D573F84-8053-42CC-B025-69D989AA199A"></a></span><p class="table-heading">Context </p> 
+                        </th>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F5C46E24-F703-41D1-815C-3587CB8A5F2C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7B5C4E5F-4FA2-44E4-9639-8FC654675699">[Camera]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4732DA2C-86BA-4681-9C59-6201B9335D91"></a></span><p class="table-body">Returns the name of the camera. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EFA329AD-D2CE-4C2A-AA08-EC1EEBD21DAE"></a></span><p class="table-body">Render Pass </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-586FAA99-B23B-4B7C-AA0D-B0043FD5A36F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C8B4DC91-DC9C-41CC-9439-649C31B4BBE1">[CameraAspect]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-34FD6D71-BDB0-426F-8CB4-8970A77F7258"></a></span><p class="table-body">Returns the aspect ratio of the camera. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A1B93ECC-DB70-4D78-B183-0B585901B270"></a></span><p class="table-body">Render Pass </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-81F7CCC0-D0EB-447E-BC8C-78CA75CD3602"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8CBAB424-855B-4102-A532-BB27D6B6C7AD">[CameraDisplayInfo]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F8F3B032-0E30-4966-86F6-A05AD86B7A4C"></a></span><p class="table-body">Pulls all tokens and templates defined in the viewport slate and uses it as-is in
+                              the render slate output. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-27B2EFEB-85AE-4725-A608-09B54CF14748"></a></span><p class="table-body">Render Pass </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0539B316-1C53-4106-BAA2-BD99541E5FA9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D4F2FC5D-FB22-400F-A80A-06979A36F136">[CameraFormat]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9A557F6F-2D37-4713-B547-9B27781E3D2D"></a></span><p class="table-body">Returns the output format and resolution of the camera. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AFA88796-ACE6-4EBE-A6C1-DE7866F83205"></a></span><p class="table-body">Render Pass </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3E10728B-3352-4A0B-A128-D375F90E1DE8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9899A8BA-2470-4018-A570-1DCC5A7658E6">[CameraProjection]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-703C832A-07FE-43BA-AFF4-75447F09827F"></a></span><p class="table-body">Returns the camera projection as either "Perspective" or "Orthographic". </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EEFBAFE1-BF12-42A5-8C63-5560B5D786B6"></a></span><p class="table-body">Render Pass </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0CC64864-BB99-4B1D-8478-0E4A34A42FE9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DEC616A5-1F47-4B5F-90B8-BAD943B18EC1">[CameraType]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-83768027-DE2E-4E7F-A348-A364AC483903"></a></span><p class="table-body">Returns the camera interest constraint as either "Constrained" or "Free". </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-151468BC-2126-477B-82AE-FBCC2455555C"></a></span><p class="table-body">Render Pass </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEB654515FC281841B50DFC965558D60F-000B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E3634BF3-F98E-4474-9048-A6CC89C59284"></a></span>Caching Tokens
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-274EC038-FB69-482B-BDB5-6C2950CC5A0A"></a></span>For more information, see <span class="char_link"><a href="data_cache.htm">Caching Animated Deformations and Simulations</a></span> [<span class="char_link"><a href="data_cover.htm">Managing Scenes, Files, and Projects</a></span>]. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_6C63AC22D40144968829A4420E372385"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledHeading">
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-D21499D2-E83C-487C-A29A-AC83AE5A8FAF"></a></span><p class="table-heading">Token </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-D8E59365-EC3D-4399-8A9B-870ED6EAD7A1"></a></span><p class="table-heading">Description </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-0E3DDEAA-F724-49FA-BBEC-492DF1EA07EA"></a></span><p class="table-heading">Context </p> 
+                        </th>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A89D76FF-BAF7-434D-ACDE-86E796117ED7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1B2C470F-3135-41C9-B60C-A1D54FE11DEC">[Model]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-326A6AC0-79C7-4E3B-9A9A-950E96B73A33"></a></span><p class="table-body">Returns the name of the model in which the object selected for caching exists. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-409EBE61-FE79-45E8-8BB4-3C5E814EDEBA"></a></span><p class="table-body">Caching </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-533F03B7-34E8-4A64-A164-2598FFAC2A2C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C71BC173-410B-415C-A7BA-C6930294B679">[Object]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CBC5F0F7-B438-4450-AF28-DD4DEC18F96D"></a></span><p class="table-body">Returns the name of the object that is selected for caching. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EEC7C6B7-DEA3-45E4-9493-EE4978F8E720"></a></span><p class="table-body">Caching </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D949C22D-C2EF-483B-A6AA-D42AA2AD40F3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B76ADA55-6C6F-41F8-9052-E59DDD9B34CD">[Version]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BD5FCF64-544D-4FB0-819E-9D97C2D9C440"></a></span><p class="table-body">Any text string used to identify this version of the cache file, such as A, B, C,
+                              Take1, Take2, etc. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1569F962-7880-4DA6-A5A9-83F20D834B51"></a></span><p class="table-body">Caching </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_A93A087FA417450DB0EC23B7125DD6D8"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E29A228B-FCF6-473B-8EC8-1A0744668793"></a></span>Camera Sequencer Tokens
+               </h2> <span class="anchor_wrapper"><a name="TABLE_57AA50FFEE464930BAAD1E5528AC5595"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="ruledHeading">
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-65A6068F-4B71-4DE1-BDC9-E3A2EB16000B"></a></span><p class="table-heading">Token </p> 
+                        </th>
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-F28663E7-3E61-4568-B845-68CB1A01AEF5"></a></span><p class="table-heading">Description </p> 
+                        </th>
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-E536BCEB-737D-4DF2-BD37-183148B631A3"></a></span><p class="table-heading">Context </p> 
+                        </th>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AA1E1F29-D2AF-431A-86CF-CFB18474CDCD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A64E25BC-3C83-4328-8D5D-7AAF355E41C2">[ActiveSequenceCamera]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EEF64CAD-9A4D-411E-9167-EE182717AF54"></a></span><p class="table-body">Contains the currently active camera in the camera sequencer. </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B00EC456-1B7C-4BE2-81A4-B02475E249A6"></a></span><p class="table-body">Rendering the Sequencer Camera </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B58E5AD0-A394-4EFF-AAB1-89397EDCD19C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AFCD6357-CB4B-4DE7-BEFC-4C2133E946A7">[SequenceFrame]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-380E7487-50EF-47C4-A044-58B5DC1347D9"></a></span><p class="table-body"> Contains the current sequence time. </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-62A6A28D-6860-4CB6-A7F5-B52E3D7404B6"></a></span><p class="table-body">Rendering the Sequencer Camera </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-1E6598BE-8739-4684-AEBF-D179EE4C93A5">
+      <meta name="topic-type" content="concept">
+      <title>mia_envblur</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-1E6598BE-8739-4684-AEBF-D179EE4C93A5"></a></span><div class="head">
+            <h1>mia_envblur</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-32EDCFC8-6144-467E-A121-E0A6A8875F95"></a></span> <em class="strong">Category:</em> mental ray &gt; Environment
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-986C7AE4-2435-4DAB-B421-9CA8FD5BA388"></a></span> <em class="strong">Shader Family:</em> Environment
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3E9F9396-70FC-4F8F-9BB3-C16A980EA2D4"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-752F93A2-98A1-440C-9767-9BE2872B7E35"></a></span> <span class="MenuCascade" id="GUID-19C7C1A9-6E9C-44C6-BFE4-331A7D46FF95">Related Softimage shader:</span> <span class="char_link"><a href="environment_shaders_EnvironmentBlur.htm"> Environment Blur (mia)</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A6AD278B-5FA3-48A1-B9D4-68F2CEC2FFFF"></a></span>The Environment Blur shader works by accepting some other environment shader as input,
+               which would usually be a shader that performs an environment lookup in an HDRI environment
+               map. This shader is intended to increase quality and performance of rendered objects
+               that are largely reflecting the mental ray environment (that is, objects that do not
+               primarily reflect other objects).
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E339AF3F-1426-4C54-94C9-E83C6AAC6F03"></a></span>The Environment Blur shader is particularly useful in product visualization renderings
+               that are surrounded by an HDRI environment map for reflections, and also for visual
+               effects work where you want to integrate CG objects in a real world scene using HDRI
+               reflections with smooth yet fast lookup.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-671E8568-5213-477A-AF1C-A8BAA525DC21"></a></span>The Environment Blur shader is not as useful for interior architectural renderings,
+               since in those (enclosed) scenes, most reflection rays are bound to hit other objects
+               and the purpose of this shader is to help reflection rays that do not hit other objects.
+               Therefore, you will get the largest benefit in an "open" scene.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-914F28EA-E128-43BD-ADE8-786C49C813F2"></a></span>When the rendering starts, the Environment Blur shader performs a one-time setup and
+               rasterizes the result of the environment shader into a special internal mipmap format.
+               Then, as rendering proceeds, the shader can perform an extremely efficient blurring
+               operation in the environment map in a way that provides a "look" very similar to shooting
+               an extremely large number of glossy reflection rays, yielding a perfectly smooth result
+               very quickly.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-17F94C9E-913D-4762-94D2-DB3F9E7C2F08"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9316E761-A1D3-4AD5-B908-7F821AA8C687">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F3A3B7BE-5D14-4009-8150-42B91F0F9A14"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-24700503-A956-43EE-A667-074E8A390934"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0102D8F0-30F6-4041-90C5-9D091CC4F511">environment</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-572EE4CE-FDC8-4E6F-A4C5-6F13F71E30B0"></a></span><p class="table-body">Pick the actual environment shader looked up by this shader. If an environment is
+                           not specified, the global camera environment is used.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-400C7152-8CA1-4029-98C5-6587DE7317FE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2C409A37-4792-47EE-A4FD-30E701A2F401">blur</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-91FC0F15-DA8F-46A4-A066-84EB7C199827"></a></span><p class="table-body">The amount of blur (range 0.0 to 1.0) applied on the image. When set to 0.0, the internal
+                           mipmap is by-passed and the environment shader is looked up directly, as if the Environment
+                           Blur shader was not there.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9A160600-0229-4121-A860-E938114AC0EF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FC887516-7074-4203-9742-21643610CD62">mia_material_blur</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-22964FB0-0BD7-4101-A0AD-8C7F3FECFFF4"></a></span><p class="table-body">When on, the blur amount is automatically calculated. Any reflective environment lookup
+                           performed by mia_material will cause the appropriate blur in mia_envblur (leave <span class="MenuCascade" id="GUID-F9CEF33F-EB81-44A7-BB3E-88160FEDC32D">blur</span> at 0.0 in this case).
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-01BC338A-8F00-445E-BFFC-7074E21E8790"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2AD396B2-3705-4973-9D3C-28DB49BD2FD4">resolution</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D43A2C15-B416-47D4-BEBF-5D5FB2760A0A"></a></span><p class="table-body">The resolution of the internal pyramidal data structure used for the filtering. The
+                           default value of 200 means that a map of 200 x 200 samples are taken and stored, for
+                           subsequent filtering. This should be set high enough to resolve the smallest features
+                           in the environment map. A value of 200 is generally enough for any still image, but
+                           animations need higher resolutions such as 1000.
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

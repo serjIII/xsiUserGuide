@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-09C25A83-27BE-44B2-9864-D0D34BB3F4CC">
+      <meta name="indexterm" content="proxies: image image proxies">
+      <meta name="indexterm" content="image proxies: about">
+      <meta name="indexterm" content="image proxies: locating">
+      <meta name="indexterm" content="image proxies: activating">
+      <meta name="indexterm" content="image proxies: generating automatically">
+      <meta name="indexterm" content="image proxies: generating manually">
+      <meta name="indexterm" content="image proxies: directory structure for">
+      <meta name="topic-type" content="concept">
+      <title>Using Image Proxies</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-09C25A83-27BE-44B2-9864-D0D34BB3F4CC"></a></span><div class="head">
+            <h1>Using Image Proxies</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-399559B9-D638-43ED-BDF3-B7E34AA39B4B"></a></span>Image proxies are scaled-down copies of the images that you use in your scenes. Although
+               they do not affect the rendered scene, they can speed up the display considerably
+               by using lower-resolution version of texture images within the Softimage interface.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-75D5E15F-46C2-4760-9A9C-59644666BB0E"></a></span>For example, suppose that you have textured an object with a very large image (say
+               4K x 4K) image. Each time the image is displayed, in the texture editor or Image shader
+               property editor for instance, it must be loaded and scaled down first. The larger
+               the image, the longer this takes, and the more memory it consumes. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F1BA8341-EB1B-4374-9FDF-14565E0F6058"></a></span>Using image proxies solves this problem by displaying scaled-down copies of the image
+               instead. Whenever a given view needs to display the texture, it requests a proxy of
+               the appropriate size, takes the closest match and scales it to fit the display. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-29DD2238-AFDC-45F8-A5D5-8C5F7726C95B"></a></span>So in the case of a 4K image, the Image shader property editor might use the 16:1
+               scale proxy, which is 250 x 250, and scale it to fit the display. This requires far
+               less memory and time that using the original image. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-0050"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-19B13E66-FADD-4F54-BAF1-CCF6D7889790"></a></span>Where Do Image Proxies Live?
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-007A9A76-DFBB-47C4-886F-7B9BE868D682"></a></span>Once they are generated, image proxies are stored in subdirectories of the directory
+                  where the original image is stored. Each directory corresponds to a scale (2:1, 4:1,
+                  and so on). You can also generate thumbnails along with proxies. They are stored in
+                  their own subdirectory alongside the proxies' directories. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-0051"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-45EF708E-BC86-4777-9A52-F6A182087EA4"></a></span>Activating Image Proxies
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-05E7CBDF-FFF3-46E1-9AE9-923318E5ABF4"></a></span>If a proxy exists for a given image, Softimage uses it automatically. Thus activating
+                  proxies is a matter of simply generating them.You can have Softimage generate proxies
+                  automatically, or you can create them yourself. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-0052"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-85AA677A-BD68-4773-BB3C-2F097AF6BB89"></a></span>Generating Image Proxies Automatically
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-12A9231F-4291-4372-853D-D228BFB84A1A"></a></span>Generating image proxies automatically is the easier way of working with proxies.
+                  Because they are generated for every image that you use, you don't have to keep track
+                  of which images have proxies and which ones don't, nor do you have to worry about
+                  naming the proxy images properly or creating the proper directory structure. Automatic
+                  generation also guarantees that all proxies are up to date, meaning they reflect changes
+                  made to the original image. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-0053"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E265C691-7C62-447B-85EB-68732F44A862"></a></span>To generate proxies automatically
+                  </h3> <span class="anchor_wrapper"><a name="GUID-B11FDB43-5356-417F-A4D4-A32B3CFCA889"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-47E34155-3055-437E-B98A-0DEEEF74CBE3"></a></span>Open the Preferences view (choose <span class="MenuCascade" id="GUID-24A62D9C-6B76-4151-9B9B-CE2BCB93F8D8">File <img src="../images/ac.menuaro.gif"> Preferences</span> from the main menu) and click Rendering in the explorer pane. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B70A9C47-4901-42D2-886F-66A83E4E8C9E"></a></span>The Rendering Preferences property editor opens in the right pane. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-77976DA8-CA4D-4E07-BF53-C38D950DB02D"></a></span>Activate the <span class="MenuCascade" id="GUID-567FA242-6987-4762-9B78-3E77F0A0D1C1">Generate Automatically</span> option. Proxies will now be generated as they are needed for all of your scene's
+                           image clips. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-70195351-08F2-407A-A457-135D9F795EC3"></a></span>You can now set the remaining options, described in the following steps, to control
+                           how the proxies are generated. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0DA7BB81-52E3-4463-9A21-5015D6CF7804"></a></span>Specify a <span class="MenuCascade" id="GUID-26B4B42B-DD23-4EA9-BBCA-B3B5EE77EDB8">Generation Behavior:</span> 
+                        </p> <span class="anchor_wrapper"><a name="UL_B807C96981634062A176F550360603D1"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-55C1EC8C-857B-4FE6-8167-808FCDF6F4B2"></a></span> <span class="MenuCascade" id="GUID-9A20A523-5893-4E48-A8DA-89BED62BCF2F">Always generate proxies</span> generates image proxies and their directories for all images used in the scene, regardless
+                                 of their location. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-324297AC-5C47-40C2-AB34-8672B9AB678B"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-0CF7E82D-FD34-49DB-AD13-A6659DDDA04E"></a></span> <span class="MenuCascade" id="GUID-CA38DBCB-E076-4FBB-800F-92ED9F317303">Generate only locally</span> generates proxies only for images stored on the local machine. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8452A663-D00A-428A-859B-C1EE5A306965"></a></span>Set the <span class="MenuCascade" id="GUID-D2218411-B841-4B5F-9BB9-31D68CDBC4FE">Max Proxy Level</span>. Image proxies are generated at every scaling level up to and including this one.
+                           Thus a setting of 4:1 produces 2:1 and 4:1 scale proxies, but not 8:1 or 16:1 scale
+                           proxies. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-06F83D1A-A1FA-407E-8D30-3860E26B3C92"></a></span>Set the <span class="MenuCascade" id="GUID-27597290-DA83-42E4-857A-4CC5A336CFE3">Min Proxy Size</span>. Proxy images below this size are not created, even if the <span class="MenuCascade" id="GUID-C54516E5-ED34-4135-9547-6950497C8C60">Max Proxy Level</span> setting specifies that they should be. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B19F0BDD-98D6-4D96-B291-F0E68128C4DC"></a></span>For example, in the case of a 256x256 image, where the <span class="MenuCascade" id="GUID-EAA8FA20-4EBE-4275-9A8F-68B43BF70AC1">Max Proxy Level</span> is set to 16:1, but the <span class="MenuCascade" id="GUID-34065676-0FF5-4E0B-83D4-C6807B931408">Min Proxy Size</span> is set to 128 pixels, Only the 2:1 scale proxy (128x128) is generated. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C8FCFBA8-03CA-4D9C-911D-524F55E33BAE"></a></span>If desired, activate the <span class="MenuCascade" id="GUID-3C798441-F3E5-4242-91E3-9963F2B3F0AD">Generate Thumbnail</span> option to generate thumbnail versions of all images for which proxies are created.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6DFC08C2-6DDC-4B35-A204-6688DA13A9D6"></a></span>If desired, activate the <span class="MenuCascade" id="GUID-57D90B17-BBF2-4CBF-B63A-14D5F0B1840A">Verbose</span> option to log all operations affecting image proxy use and generation to the command
+                           history. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-0054"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E37B730C-499E-4677-8BE0-B760E0C1D2C1"></a></span>Generating Image Proxies Manually
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-3A234C7B-8E5C-4847-9901-70ED44B7D65B"></a></span>Although generating your image proxies manually is more time-consuming than generating
+                  them automatically, it is also a more flexible approach. For example, you may want
+                  to render extra information (like the image resolution, copyright information, a watermark,
+                  and so on) into the proxy images. You might also want to change other attributes such
+                  as the bit depth (proxies generated automatically are always 8-bit). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-19786D66-7982-446C-B34A-DB426C67352B"></a></span>You can create proxies using any image editing software. Just remember to follow a
+                  few simple guidelines to ensure that your proxies are detected and used by Softimage:
+                  
+               </p> <span class="anchor_wrapper"><a name="UL_4CA8C40C93C843638DF50C2344A3CA55"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1803AA86-C502-4C34-A8F6-99DCB55AC151"></a></span>Each proxy image must have the same name and file extension as the original image.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-07670C91-8003-472C-8F66-807A65BB836F"></a></span> Proxy images should be stored in subdirectories of the directory in which the original
+                        image is stored. The subdirectories should be named according to the scale of the
+                        proxies they contain, as shown in the following image: 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-CF61E745-C84F-4CFF-9C94-87CC7AC83FA7-low.png"></div> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F93561B1-2241-40A3-9A05-4F13F957AEAC">
+      <meta name="indexterm" content="elasticity: ICE rigid body">
+      <meta name="indexterm" content="ICE rigid bodies: elasticity">
+      <meta name="indexterm" content="friction: ICE rigid body">
+      <meta name="indexterm" content="ICE rigid bodies: friction (static and dynamic)">
+      <meta name="topic-type" content="concept">
+      <title>Setting the Elasticity and Friction</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F93561B1-2241-40A3-9A05-4F13F957AEAC"></a></span><div class="head">
+            <h1>Setting the Elasticity and Friction</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-3C9A29F1-C7D2-4D55-9816-7E4F400C0A00"></a></span>After you've created particle and obstacle rigid bodies, you need to set up their
+               rigid body properties that include elasticity and friction. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F7DBFAC5-D8E9-4DA8-8767-FBE268B9360F"></a></span>Remember that it's the combination of all rigid bodies (particles <em class="mild">and</em> obstacles) involved in the collision that determines the results. Any rigid body
+               attribute values you set per particle in a point cloud are multiplied with the obstacle's
+               rigid body properties set in the Simulate Bullet Rigid Bodies or Simulate Rigid Bodies
+               property editor. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-41D57D71-FFDD-4A69-B48C-6FAF476C7141"></a></span>Although they aren't direct rigid body properties, velocity and mass also play a large
+               role in how much a rigid body rebounds in a collision: 
+            </p><span class="anchor_wrapper"><a name="UL_236A9CF22B18421B8535DF8E9D192E74"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-16E785CD-85EB-49C9-B357-625D3C796446"></a></span>A rigid body moving at a high velocity is going to bounce more than one moving at
+                     a low velocity. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CC428366-1F95-4CF9-A064-7595F9EC5B19"></a></span>A rigid body with a high mass value is going to bounce less than one with a low mass
+                     value, but it will have greater momentum. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-4CA5AB0D-54F1-4E5C-A87C-9318AAB6C5AA"></a></span><div class="note-note"><span class="label">NOTE:</span>Energy and momentum cannot be transferred from particles to an obstacle or vice versa:
+                        they can only be transferred between two colliding particles. 
+                     </div>
+                  </div> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0027"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-51F69C20-C4D5-481D-A5AE-AE61368C990A"></a></span>Setting Elasticity for Obstacles
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-BDAF82E6-9E1D-4946-A33D-47E9A93F4127"></a></span>Elasticity is the kinetic energy that is retained that moves rigid bodies in the opposite
+                  direction (bounce) during a collision. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0BEC1328-4AB7-4CE6-B60F-F68EF79ED246"></a></span>In the Simulate Bullet Rigid Bodies or Simulate Rigid Bodies property editor, you
+                  can set the <span class="MenuCascade" id="GUID-218EA2C9-D931-41A4-9822-AE517B51F4B8">Elasticity</span> slider's value for each obstacle that is plugged into that node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-43944BE4-1AD4-48FC-94CF-A6336BACF1E8"></a></span>The obstacle's Elasticity value is combined with the particle's <span class="char_link"><a href="iceref_attributes_Elasticity.htm">Elasticity</a></span> attribute to determine how much the particles bounce off the obstacle. 
+               </p> <span class="anchor_wrapper"><a name="FIG_F5AE647E01554A248D3CED8A714EDD7A"></a></span><div class="figure-anchor"><img src="../images/GUID-1B864522-31E0-4FA6-9328-353152FE950D-low.png"><p><span class="anchor_wrapper"><a name="GUID-96F4AB7B-8158-45CE-B648-6D2FB5166385"></a></span>In this image, both the table obstacle and the particles have high elasticity values
+                     so that the particles bounce off the table easily. 
+                  </p>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-71122903-E4AE-4E4D-8617-F8D0EA8CA815"></a></span>The Elasticity values are from 0 (no elasticity) to 1 (objects return the same velocity
+                  as before the collision). With the Simulate Bullet Rigid Bodies node, you can enter
+                  values higher than 1, but you cannot enter negative values. Using values above 1 makes
+                  the object actually increase its energy at each collision, which can make a simulation
+                  less stable. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7566F442-24CE-4381-9338-94DE2B949D8F"></a></span>You should also keep the Elasticity value of objects low if they are going to be bouncing
+                  around inside an enclosed space such as a box or room. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-D592FF67-0FCF-4B50-8AA0-423AB4F24F7C"></a></span><div class="note-note"><span class="label">NOTE:</span>With the Simulate Rigid Bodies node, the Elasticity values are clamped at 0, 1, even
+                     though you can enter values higher than 1. 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0028"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3F494AA4-ABBB-4199-9E0B-DB67F3FAC7E1"></a></span>Setting Friction for Obstacles
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-94CD1DBE-4E7D-4E78-909C-6E3B4C10A1B1"></a></span>Friction is the resistive force acting between rigid bodies that tends to oppose and
+                  dampen motion. 
+               </p> <span class="anchor_wrapper"><a name="UL_112AE9FBA52C4427BDFEF939DA401599"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C7E9520C-D5D2-43BA-9D51-4B82CCCB7A54"></a></span>The obstacle's <span class="MenuCascade" id="GUID-C407E957-6D34-4DEE-8492-2AF8FDF81D6E">Static Friction</span> value is combined with the particle's <span class="char_link"><a href="iceref_attributes_StaticFriction.htm">StaticFriction</a></span> attribute to determine how each particle starts sliding on the obstacle when it is
+                        at rest. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7A580A5F-1EA8-4DF9-85EB-2AEE8FB1F51C"></a></span>Static friction is the force that opposes a rigid body from changing its state from
+                        resting to motion. For instance, if you place a cube on a sloped plane, the static
+                        friction determines how easily the cube begins its initial slide or tumble down the
+                        plane. Static friction has little or no effect after an object is moving. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2DBFCDD3-D678-4556-A652-18BE7A56E651"></a></span>The obstacle's <span class="MenuCascade" id="GUID-51368FC9-50AF-4F40-A018-BC9446C0F2CF">Dynamic Friction</span> value is combined with the particle's <span class="char_link"><a href="iceref_attributes_DynamicFriction.htm">DynamicFriction</a></span> attribute to determine how each particle slides on the obstacle when in motion. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CBF5194B-1627-4791-AE72-89D94F4F21FF"></a></span>Dynamic (also known as <em class="mild">kinetic</em>) friction is how much a moving rigid body resists movement against another rigid
+                        body's surface. This is the force that tends to slow down a rigid body in motion.
+                        For example, a billiard ball rolling on a carpet would encounter more friction than
+                        if it was rolling on a marble floor. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_A22BBC006F234CA6A881693B48BA5EE2"></a></span><div class="figure-anchor"><img src="../images/GUID-E53EECB5-61A1-4EF7-8F42-69C0C8A18F0C-low.png"></div> 
+                  </li>
+               </ul>
+               <p><span class="anchor_wrapper"><a name="GUID-F716BBD0-F40C-45CA-89D9-FD3F89E4F611"></a></span>In this image, both the table obstacle and the particles have high friction values
+                  so that the particles pile up on the table. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0BCCAB16-C7B9-4AF4-9DD6-DC99512BD4CF"></a></span>In the Simulate Rigid Bodies property editor, you can set the <span class="MenuCascade" id="GUID-FA147DDA-2C3F-406B-BB92-5B35BCFA0A9E">Static Friction</span> and <span class="MenuCascade" id="GUID-1705EC59-9EF6-41F5-BCA9-C4A2C566D4AB">Dynamic Friction</span> sliders' values for each obstacle that is plugged into the Simulate Rigid Bodies
+                  node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E752A469-8A50-458C-8DFC-E614011DD95B"></a></span>In the Simulate Bullet Rigid Bodies property editor, you can set only the <span class="MenuCascade" id="GUID-A23C7D16-5AAB-44B1-B439-543D343CBAC4">Static Friction</span> sliders' values for each obstacle that is plugged into the Simulate Bullet Rigid
+                  Bodies node. The Bullet physics engine does not distinguish between static and dynamic
+                  friction: it combines the two to support just one friction value. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9FD7842A-312E-4962-8D19-AD1E1C96C9E8"></a></span>The value range for either the Static Friction or Dynamic Friction sliders is between
+                  0 and 1, with 0 being no friction (free movement) and 1 being full friction (no movement).
+                  You cannot enter negative values or values over 1. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0029"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-63D25B48-9194-44AD-A4AB-FFD7631DA2BC"></a></span>Setting Elasticity and Friction for Rigid Body Particles
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7BB8E68B-10B1-4100-9C4D-C318CCB39C6D"></a></span>In the <span class="char_link"><a href="iceref_Set_Particle_RBD.htm">Set Particle RBD</a></span> property editor, you can set the <span class="char_link"><a href="iceref_attributes_Elasticity.htm">Elasticity</a></span>, <span class="char_link"><a href="iceref_attributes_StaticFriction.htm">StaticFriction</a></span>, and <span class="char_link"><a href="iceref_attributes_DynamicFriction.htm">DynamicFriction</a></span> attributes for each rigid body particle in a point cloud. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F09139E4-5A36-4AD0-9816-04E4AE2082EA"></a></span>Any rigid body attribute values you set per particle are multiplied with the obstacle's
+                  same properties set in the Simulate Bullet Rigid Bodies or Simulate Rigid Bodies property
+                  editor. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-037B23E4-9006-4471-B686-094316130DA0"></a></span>If you want to set these attributes separately, you can create a Set Data node and
+                  expose each attribute in it — see <span class="char_link"><a href="ICE_particles_UsingICEParticleAttributes.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0174">Getting and Setting ICE Particle Attributes</a></span> for more information on how to do this. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

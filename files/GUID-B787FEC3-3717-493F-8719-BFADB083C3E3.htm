@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-B787FEC3-3717-493F-8719-BFADB083C3E3">
+      <meta name="indexterm" content="CrowdFX: constraining deformers to &#34;look at&#34; objects or positions">
+      <meta name="indexterm" content="CrowdFX: directional constraint">
+      <meta name="indexterm" content="CrowdFX: constraining deformers to point to goal">
+      <meta name="indexterm" content="CrowdFX: goal constraint">
+      <meta name="topic-type" content="concept">
+      <title>Looking at Positions, Objects, or Goals</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-B787FEC3-3717-493F-8719-BFADB083C3E3"></a></span><div class="head">
+            <h1>Looking at Positions, Objects, or Goals</h1>
+         </div><span class="anchor_wrapper"><a name="FIG_70921D4481E2470689347A50B1603126"></a></span><div class="figure-anchor"><img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-055124B4-0877-4E39-AC83-77DAF6B9E4F9"></a></span> You can constrain an axis of a deformer to always point in a certain direction as
+            defined by a global position, an object, or an actor's goal. This axis of the constrained
+            deformer always faces the defined target, thus affecting the deformer's orientation,
+            the same as a typical direction constraint. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-8BB91C83-9DE7-4F7E-8F31-D90E1FECE011"></a></span>For example, you can constrain the actors' heads so that they all keep their eye on
+            the ball at a tennis match, or have their arms constrained to point toward some object.
+            
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-A0B52384-9A53-4A3B-A17F-3A2DDC33F853"></a></span>The hierarchy of the rig proxy matters when you want to constrain multiple deformers
+            in a branch, such as an arm, leg, or the upper body. Make sure that the deformers
+            are parented correctly in the rig proxy, then you can constrain the parent deformer
+            to affect that branch. See <span class="char_link"><a href="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4.htm">Modifying the Actor's Rig</a></span> for more information. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_B6D9C11325AD4160A23B6351164943CC"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-9102EBA9-0E2E-4603-A8DD-59F9EC919EC1"></a></span>Looking at Objects or Positions
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-59E9A359-76BA-404D-8ED9-CBFDD60867B6"></a></span>   
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C43B5278-CE88-438D-BC74-496C7811D8D1"></a></span>Using the Crowd Look At Constraint compound, you can constrain the orientation of
+               a deformer in an actor's rig proxy to point at a position: this can be an object or
+               simply a position in global space. 
+            </p> <span class="anchor_wrapper"><a name="OL_BF95161359AA4212A09BEC1930B9B6C8"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4E93197E-54C8-4A1C-9762-1DFFDA9C3289"></a></span>In the simulation point cloud's Animation Definition node in the Animation_Blending
+                     ICE tree, get a <span class="char_link"><a href="iceref_Crowd_Look_At_Constraint.htm">Crowd Look At Constraint</a></span> compound. <span class="anchor_wrapper"><a name="FIG_2AB81D4433284587A1A825E6BA71AEF0"></a></span><div class="figure-anchor"><img src="../images/GUID-E228EAE3-A53A-4D0A-B3CF-7423A5111E69-low.png"></div> 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-B1965B8E-EC67-48FF-A712-2051254FB6B1"></a></span><div class="note-tip"><span class="label">TIP:</span>You can also create a new ICE Tree on top of Animation_Blending and connect the Crowd
+                        Look At Constraint compound to it. This means that the constraint will be applied
+                        after the animation blending has been done based on the different Animation States
+                        and is not only applied to a single Animation State. <span class="anchor_wrapper"><a name="FIG_63895F91A4254066BF8B2E9F2F748D5D"></a></span><div class="figure-anchor"><img src="../images/GUID-7A4EAA1F-08A6-4BFD-A25F-140670699D7A-low.png"></div> 
+                     </div>
+                  </div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2FFA2F9B-8C21-49C7-84EB-4FA9E33FBFFF"></a></span>In a <span class="MenuCascade" id="GUID-ACA18472-C3B6-42D3-9945-4C089CAE85A9">Get Data</span> node, set the reference to the deformer you want to constrain. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EEB44D91-BAE4-4BD9-9855-D1A74DD4BA92"></a></span>This is usually the head bone, but you can use any other deformer (including a parent
+                     deformer) such as the spine deformer to rotate the actor's torso. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1A59DFD4-D03C-44EF-80FE-B12200DC4D28"></a></span> You can display the rig proxy as described in <span class="char_link"><a href="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4.htm">Modifying the Actor's Rig</a></span> to help you find the correct deformer. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FA88E0F4-55FA-407D-92A4-73071561F166"></a></span>Plug the Get Data node's Out Name output into the <em class="strong">Proxy Deformer Name</em> port of the <span class="MenuCascade" id="GUID-C5E1CBBC-2783-448A-A181-15A5A8CA678A">Crowd Look At Constraint</span> compound. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-16EB9007-A688-4967-9E73-97F80502D0D0"></a></span>If you are constraining a parent deformer, make sure that the <span class="MenuCascade" id="GUID-A79BA33E-231E-4993-A40D-BF0BF753705F">Child Transform Compensation</span> option is off in the <span class="MenuCascade" id="GUID-AB22D7ED-A7AB-4168-9248-B6AE9020952C">Crowd Look At Constraint</span> compound's property editor so that the child deformers are also affected by the constraint.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E16C6146-A366-4E13-9E13-D762920AAF11"></a></span>In another Get Data node, specify the position that you want to use as the constrainer
+                     for the deformer. For example, you could set the global position for an object (for
+                     example, <em class="strong">ball.kine.global.pos</em>). 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D015CFD2-3ED7-4CAE-9743-0C06E1C625BE"></a></span> Plug this node's Value output into the <span class="MenuCascade" id="GUID-D144D907-193B-4F1C-9794-5B0E9D27922C">Target Position</span> port of the <span class="MenuCascade" id="GUID-FF3DF6A9-31ED-4CA5-871D-59827BF59EA4">Crowd Look At Constraint</span> compound. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FFBCF233-4A76-4D7D-85AF-D2ABD40AF075"></a></span>If you want to simply use a global position with no object, enter the XYZ values as
+                     the <span class="MenuCascade" id="GUID-4B873CA8-2D35-4E88-8C75-8C88926DB4C3">Target Position</span> in the constraint compound's property editor. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-314699FF-DDC4-43A9-9A54-D79AC109ACD0"></a></span>Set the XYZ value for the <span class="MenuCascade" id="GUID-E7FB4FE4-9719-467A-BD2F-1F6EEEBC55C3">Local Vector</span> to the deformer's axis that you want to point to the target position. 
+                  </p> 
+               </li>
+               <li>Connect the Execute output to the <span class="MenuCascade" id="GUID-F7AC1803-7C14-4959-96CB-1640F134FBCD">Pose Modifier</span> port in the <span class="MenuCascade" id="GUID-E6E66807-33B2-4CB4-926B-30FBC95EEDC4">Define Animation State</span> node. 
+                  <p><span class="anchor_wrapper"><a name="GUID-797E552F-3EF4-4C61-B85F-66ABCA8985D6"></a></span>The <span class="MenuCascade" id="GUID-EEB4565E-87C2-4D50-B29F-AF48C8C4CE51">Pose Modifier</span> changes the prerecorded animation by changing the transformation values for single
+                     deformers. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5D36C140-06D8-4336-AC87-D90BEFBBD115"></a></span>You can check to see which vector is axis forward this by selecting the deformer in
+                     the rig proxy in a 3D view and activating the Translate tool in Local mode. In the
+                     image below, the Z axis is used as the local vector. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_BC0CAF6D2F2B4D5A9F315CD46976E107"></a></span><div class="figure-anchor"><img src="../images/GUID-9B11D215-D888-4890-B00E-9A31BBD3C09F-low.png"></div> 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_BFA1EBA452C54D7DA1671F780CF4C1BA"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-4D4B321C-AE9C-4624-9A3E-CB56B3573A49"></a></span>Looking at a Goal
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-4CCD0D66-EB19-4818-9CD1-6F6B4734AA96"></a></span>   
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-EAFAAEEB-F266-41F2-8705-DE7F223EFFED"></a></span>Using the Crowd Look At Goal compound, you can constrain the orientation of a deformer
+               in an actor's rig proxy to point at the actor's current goal. This is usually a goal
+               object, but it may also be an interim goal, such as a wall exit point. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-91EB3CBC-B6E3-4871-BBBC-8FAFEAB53B33"></a></span>In the image below, the actors initially turn their heads toward the first goal. After
+               they pass within the goal's radius, they turn their heads toward the next goal. 
+            </p> <span class="anchor_wrapper"><a name="FIG_7F82A233A4474BB9A7E5823A7234A1B7"></a></span><div class="figure-anchor"><img src="../images/GUID-E274A162-11D5-4D40-B4CC-F7B8433775DC-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-6F939BF8-D1EA-4C27-905F-F0B70AB619AF"></a></span>The procedure for constraining a deformer to a goal is almost the same as for constraining
+               to an object or position (see above), except that the actor's current goal is automatically
+               used - there's no need to define it. 
+            </p> <span class="anchor_wrapper"><a name="OL_1E5497B2A63B49639CB599A813885C03"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-580CD3BF-99EF-43B4-B5C5-75DC1EEF9C68"></a></span>In the simulation point cloud's Animation Definition node in the Animation_Blending
+                     ICE tree, get a <span class="char_link"><a href="iceref_Crowd_Look_At_Goal.htm">Crowd Look At Goal</a></span> compound. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EC5F07B4-1279-4D34-87DA-FDC51FE9426B"></a></span>In a <span class="MenuCascade" id="GUID-54D1A28F-5C2A-4C13-9ADA-1E70BDB367A7">Get Data</span> node, set the reference to the deformer you want to constrain. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3F1877EE-9C91-4ACB-9DF7-4D478415B227"></a></span>This is usually the head bone, but you can use any other deformer, including a parent
+                     deformer. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-64581352-EF13-46D3-953D-276852201F68"></a></span>Plug the Get Data node's Out Name output into the <em class="strong">In Proxy Deformer Name</em> port of the <span class="MenuCascade" id="GUID-4965866D-123B-4E11-83B6-E48E66D59823">Crowd Look At Goal</span> compound. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_9BA5CE60AD6C41388F5CB075C8A5A6D2"></a></span><div class="figure-anchor"><img src="../images/GUID-6E891CC0-551C-4C38-9805-BA56D01F9D38-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C3280B7D-45DD-447F-90C9-C9CC3CAB19E2"></a></span>If you are constraining a parent deformer, make sure that the <span class="MenuCascade" id="GUID-DC76CC4D-96E9-4456-8A5D-24DF46DD9183">Child Transform Compensation</span> option is off in the <span class="MenuCascade" id="GUID-0857EB08-EB25-4114-BBB4-F2308EFEDB70">Crowd Look At Goal</span> compound's property editor so that the child deformers are also affected by the constraint.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4F18286C-FD03-4743-84B3-2B637E87EB97"></a></span>Set the XYZ value for the <span class="MenuCascade" id="GUID-3677BDBF-2DCE-4BEB-8F26-0DD91D11DAF8">Local Vector</span> to the deformer's axis that you want to point to the goal. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9E1A7CD2-59B6-4A42-87A5-4AC23FBF9649"></a></span>You can also set a rotation limit for the deformer with the <span class="MenuCascade" id="GUID-E4E8C23C-6071-4816-B277-4F4F9146F7BE">Max Angle</span>, such as to prevent actors' heads from spinning completely around, unless this is
+                     something you want to do! 
+                  </p> 
+               </li>
+               <li>Connect the Execute output to the <span class="MenuCascade" id="GUID-8BB9A8FD-203B-42EE-B8D3-F43686DBE141">Pose Modifier</span> port in the <span class="MenuCascade" id="GUID-9C90C245-D7EA-4A01-86B6-540402A08C1B">Define Animation State</span> node. 
+               </li>
+            </ol> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

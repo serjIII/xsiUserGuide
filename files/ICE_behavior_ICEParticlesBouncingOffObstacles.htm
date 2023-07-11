@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-16BD7397-1D54-4347-95CC-78E8B5AA687E">
+      <meta name="indexterm" content="ICE particles: bouncing off obstacles">
+      <meta name="indexterm" content="collisions: ICE particles">
+      <meta name="indexterm" content="Bounce Off Surface compound">
+      <meta name="indexterm" content="bouncing: ICE particles">
+      <meta name="topic-type" content="concept">
+      <title>ICE Particles Bouncing Off Obstacles</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-16BD7397-1D54-4347-95CC-78E8B5AA687E"></a></span><div class="head">
+            <h1>ICE Particles Bouncing Off Obstacles</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-0E5BF696-6F6D-46E2-8DE3-4FDCA4D38487"></a></span>Using the Bounce Off Surface compound, you can make particles bounce off any number
+               of obstacles upon collision. This is useful for creating ballistics, fragments, rain,
+               or other debris bouncing off surfaces. The collision geometry that is used is the
+               actual shape of the particles and the obstacle; however, for particles with instanced
+               shapes, the collision geometry is a bounding sphere. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-1C0BBFFD-D3FD-4937-ADC7-76920EDDC680"></a></span>You can choose to use the Bounce Off Surface compound on its own or as part of a more
+               extensive effect via a State system. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-AA67B9FC-E02F-4B31-907A-3F8AD90D8A86"></a></span><div class="note-tip"><span class="label">TIP:</span>If you create collisions with particles using any of the Surface Interaction compounds
+                  (such as the Bounce Off Surface compound), you cannot also make those particles into
+                  rigid bodies in the same ICE tree. This is because the Surface Interaction compounds
+                  use the Simulate Particles node, while particle rigid bodies use the Simulate Bullet
+                  Rigid Bodies or Simulate Rigid Bodies node. 
+                  <p><span class="anchor_wrapper"><a name="GUID-F8814EA3-C4E5-40F4-8ADE-C6AC1849A793"></a></span>For information on particle rigid bodies, see <span class="char_link"><a href="ipart_rigidbody.htm">ICE Rigid Bodies</a></span>. 
+                  </p> 
+               </div>
+            </div><span class="anchor_wrapper"><a name="FIG_0F4052145F18494FB1DD1629C84EA65C"></a></span><div class="figure-anchor"><img src="../images/GUID-11F12585-6031-4D15-824F-1AD1A4F0781E-low.png"><p><span class="anchor_wrapper"><a name="GUID-B19ED3CF-8369-4023-BE84-900FCCB46BCB"></a></span>Particles are emitted toward the grid and bounce off of it. The large surface below
+                  is also set as an obstacle, so the particles bounce off that too. 
+               </p>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-0009"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3C0FDBAB-DC85-4542-9EC4-FEBA02AE98FD"></a></span>To make particles bounce off an obstacle
+               </h2> <span class="anchor_wrapper"><a name="GUID-02F4FF8E-08CB-48CF-A103-4586BD346B18"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3FEFC7BE-61EB-4130-869B-D9113E90846A"></a></span>Create one or more objects that you want to use as obstacles for the particles. These
+                        objects need to have geometric surfaces, such as polygon meshes or NURBS surface objects.
+                        Make sure that the particles will reach these obstacles at some point in the simulation.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6403B983-7F40-4382-8DDE-62BA2CF72B1A"></a></span>Create a particle emission — see Creating a Basic Particle Emission. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-467AE71A-650D-4DCE-8A7A-576CBF31F2A9"></a></span>Choose <span class="MenuCascade" id="GUID-F2A38134-451F-48CE-B8B7-E47EB2084A41">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Bounce Off Surface</span> from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2581DBA9-FDC4-4405-9816-9538EEBB0602"></a></span>This command adds the Bounce Off Surface compound to the ICE tree, plugging it into
+                        the Execute port of the Simulation Root compound. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B7C748D7-D725-4201-8E29-DA0223651905"></a></span>Pick one or more objects to use as the obstacles for collision. Each object's Get
+                        data node is then plugged into the Surface port of the Bounce Off Surface compound.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-15F549E1-CDC5-4AF1-99E5-551408B86B0C"></a></span>You can also add more obstacles objects to the ICE tree later — drag each obstacle's
+                        name into the ICE Tree view to create a Get Data node for it, then plug it in as the
+                        other obstacles. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BE031D09-153E-47AD-A59C-727B2AA6B11D"></a></span>In the Bounce Off Surface property editor, set the parameters as you like for the
+                        collision. This affects the interaction of the particles with all obstacles that are
+                        plugged into this compound. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D35D16E9-52C4-4E1E-B3C0-E855518DE080"></a></span>For obstacles that are enveloped or have animated deformations, make sure that the
+                        <span class="MenuCascade" id="GUID-327C679F-9E62-4130-A3B1-845114E7C7E1">Collision Method</span> is set to Continuous Animated Collisions so that the change in its shape is accounted
+                        for during the collision. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_080B7F91BE6A409981D4F0469187DA5D"></a></span><div class="figure-anchor"><img src="../images/GUID-F725BEFB-6680-4724-91C0-8FF1476B2102-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-000B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2993597A-5386-42AE-BF51-0A77219519F8"></a></span>To use this compound with a state system
+               </h2> <span class="anchor_wrapper"><a name="GUID-8CFDB43A-293B-4D06-AFF9-21374A651C87"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C6D2F79B-5EE3-41CA-AED8-5B3B40BC7FD3"></a></span>Create a particle emission as described above. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3031894D-2207-4946-9F30-96A73C7C8502"></a></span>In the ICE Tree, set up State compounds as you like, as described in <span class="char_link"><a href="ipart_states_CreatingaParticleStateSetup.htm">Overview of Creating a Particle State Setup</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4625F454-ADD1-4139-839D-73EB3751A022"></a></span>Plug the <span class="MenuCascade" id="GUID-52122C86-EBF2-4C5E-9C28-8C9B2382D07D">Bounce Off Surface</span> compound's Execute output into an Execute Every Frame port of a State compound. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8E8D7866-6298-40D0-A360-032416069ACC"></a></span>Continue with creating the effect you want with the State compound. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-000C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6B0D3D6F-95DB-42AE-A622-AA81EE0E182A"></a></span>Deleting Particles Upon Collision
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BF63CF69-FF19-46A9-9B76-37E6ABE97FC9"></a></span>You can create a particle collision setup where the particles are deleted as they
+                  bounce off an obstacle. <span class="anchor_wrapper"><a name="GUID-34F191CD-3E28-444F-9560-1A15A02B7B7F"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D254F403-8CB1-49A6-B7AF-3E6DDB589F14"></a></span>Create one or more objects that you want to use as obstacles for the particles. These
+                           objects need to have geometric surfaces, such as polygon meshes or NURBS surface objects.
+                           Make sure that the particles will reach these obstacles at some point in the simulation.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3794EE50-E110-4430-9695-4AABE6F13517"></a></span>Create a particle emission — see Creating a Basic Particle Emission. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CB1728D2-CD20-4CC8-8A07-C1523F65B5D5"></a></span>Choose <span class="MenuCascade" id="GUID-C77B06B5-1131-4D34-8B7E-A5BC420580F4">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Delete on Collision</span> from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4512B382-5543-4D56-B14C-3E934B533F4B"></a></span>This command does two things: 
+                        </p> <span class="anchor_wrapper"><a name="UL_27B9CB280E274AF79462E566667E42CD"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-F4C7571F-3C1F-4AB2-87BD-222CABFF1EE7"></a></span>It adds the Bounce Off Surface compound to the ICE tree, plugging it into the Execute
+                                 port of the Simulation Root compound. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-83A83955-1D5D-48CE-B793-38D020542EF6"></a></span>It adds the Delete Particle compound to the ICE tree, plugging it into the Execute
+                                 on Collide port of the Bounce Off Surface compound. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-45A0483C-082A-44B9-921C-4D290F75BDF5"></a></span>Pick one or more objects to use as the obstacles for collision. Each object's Get
+                           data node is then plugged into the Surface port of the Bounce Off Surface compound.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D1DB04D9-339F-4D80-AFB1-D2720145A6E7"></a></span>You can also add more obstacles objects to the ICE tree later — drag each obstacle's
+                           name into the ICE Tree view to create a Get Data node for it, then plug it in as the
+                           other obstacles. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-61331078-7FAB-4C1E-9B26-D4C6AA408B7C"></a></span>In the Bounce Off Surface property editor, set the parameters as you like for the
+                           collision. This affects the interaction of the particles with all obstacles that are
+                           plugged into this compound. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_7124AFCBF75544A3ADCF795CD74E342D"></a></span><div class="figure-anchor"><img src="../images/GUID-40242F8D-4948-40DF-9ECF-A4CE55FD37B8-low.png"></div> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

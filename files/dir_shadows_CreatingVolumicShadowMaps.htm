@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-42E42CE6-5D42-40DC-83A3-96D275AAF1F6">
+      <meta name="indexterm" content="shadow maps: volumic shadow maps">
+      <meta name="indexterm" content="shadow maps: accuracy (step size) for volumic">
+      <meta name="topic-type" content="concept">
+      <title>Creating Volumic Shadow Maps</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-42E42CE6-5D42-40DC-83A3-96D275AAF1F6"></a></span><div class="head">
+            <h1> Creating Volumic Shadow Maps</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-FC347A04-0C5C-49BD-9275-432B050D4A19"></a></span>Volumic shadow maps, are similar to regular shadow maps, but store more detail. Instead
+               of simply storing the distance from the light to the first object hit, the volumic
+               shadow map algorithm raymarches through the scene from the light's origin until it
+               hits a fully opaque object. Along the way it stores changes in light color or intensity
+               along with the depth at which the change occurred. Volumic shadow maps are typically
+               used when rendering shadows for geometry hair.
+            </p>
+            <div class="figure-anchor"><img src="../images/GUID-50CE569D-DE0A-4B8F-9143-6A905BCD65CD-low.png"></div>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2B783E4F-D9FA-4916-BA79-DACAA1EB8A1C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-07CD3217-7977-4F7D-AFBB-6378EAB8BBA1">A</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EB29B292-0A3C-4730-975B-6CE52144CB48"></a></span><p class="table-body">Regular shadow-mapped shadow of hair.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-35B714D9-763D-49E4-997C-8F07965B3A1A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-00F26FC2-1DB5-427A-A8AA-7CC1E67A611E">B</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-95CC2D8B-3723-45D2-86DB-6C8AE5D3C7B5"></a></span><p class="table-body">Volumic shadow-mapped shadow of hair.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS263B05D40863684384BE4CD05BD2BD6B-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1245AED8-7782-43FD-A8BB-C9AB6548A803"></a></span>To activate volumic shadow maps
+               </h2> <span class="anchor_wrapper"><a name="GUID-39593734-AC71-4E51-AA34-5E1079DBF1AC"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9F47D1B9-82CE-4DB4-9837-11A01E7CDAEF"></a></span>Follow steps 1 to 7 of the previous procedure, <span class="char_link"><a href="dir_shadows_CreatingShadowMappedShadows.htm#WS263B05D40863684384BE4CD05BD2BD6B-000E">To create shadow-mapped shadows</a></span>.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-826DFBC2-C87D-4B33-8679-E10AF89631A4"></a></span>Activate the <span class="MenuCascade" id="GUID-C96EEC86-8DAE-4B34-959C-A56592EEF561">Use Volumic Shadow Maps</span> option.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F022395D-0575-4C56-8899-5EAE97D25462"></a></span>Adjust the Sub-Samples value to controls the oversampling of each pixel of the shadow
+                        map.
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9ABE7583-5848-4A39-822A-E874B33CAEF6"></a></span>The value specifies the size of the oversampling rectangle in N x N sub-pixels. For
+                        example, if Samples is set to 3, nine samples are taken, per shadow map pixel.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A94778F9-6773-4BA7-AB8B-BAFE9DB1AA01"></a></span> Adjust the <span class="MenuCascade" id="GUID-4F4DF808-922D-46DE-ABE8-2139E2CEDD86">Step Size</span> to set the accuracy of the volumic shadow map. The Step Size determines how far apart
+                        along the same shadow "ray", samples are taken to test for the nearest shadow-casting
+                        object. Step Size is a distance measure that is expressed in scene units.
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-451390ED-B19F-4A23-89DA-CE4C2B65D303"></a></span>When Step Size is 0 (default), mental ray calculates the volumic shadow map using
+                        a step size of 1/1000th of the scene's bounding volume. If your scene has a very large
+                        bounding volume in relation to the object or character for which you want to generate
+                        a shadow map, then the default value of 0 may not be sufficient to produce an accurate
+                        shadow.
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AD3F7592-63D4-4C63-9061-F438CC9F728B"></a></span>If this is the case, set the Step Size to something more realistic for the scale of
+                        the shadow-casting objects in your scene. Play around with different values until
+                        you get the shadow effect that you need. Keep in mind that if the Step Size is too
+                        large the calculations may "jump" over parts of your character that require a shadow.
+                        If the Step Size is too small, you will see no visible difference in the shadow effect
+                        but the additional samples taken will unnecessarily increase processing time.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BE807B2E-C250-4ACE-8295-B459E5C0A0CD"></a></span>Choose one of the following <span class="MenuCascade" id="GUID-4A670582-1869-4666-A02C-35787AD92F36">Shadow Type</span> settings:
+                     </p> 
+                     <ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6CB5B73B-69A7-4171-861E-1CADEF4B7B10"></a></span> <span class="MenuCascade" id="GUID-83E1AD01-7D39-4D01-A638-2D5FE9B42B2B">Intensity Only:</span> Only changes in intensity are stored in the shadow map, resulting in just grayscale
+                              shadows.
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FD7DF7A4-99E5-4AA2-9906-53CF1C615781"></a></span> <span class="MenuCascade" id="GUID-AFAE8DA0-98CF-4488-A641-F3E75CB60FCB">Full Color:</span> Changes in color are stored in the shadow map. Color sampling has a higher memory
+                              overhead than just intensity sampling, but allows for full-color shadows.
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AB804C39-DD69-46FB-BD18-BAB0BD5CDB77"></a></span>Continue with steps 8 to 12 of the previous procedure, <span class="char_link"><a href="dir_shadows_CreatingShadowMappedShadows.htm#WS263B05D40863684384BE4CD05BD2BD6B-000E">To create shadow-mapped shadows</a></span>.
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

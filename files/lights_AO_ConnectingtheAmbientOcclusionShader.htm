@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-FDB951D7-6A1B-4313-A127-BD9A0C883824">
+      <meta name="indexterm" content="ambient occlusion: ambient occlusion shader, connecting">
+      <meta name="indexterm" content="shaders: ambient occlusion">
+      <meta name="indexterm" content="ambient occlusion: render pass">
+      <meta name="topic-type" content="concept">
+      <title>Connecting the Ambient Occlusion Shader</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-FDB951D7-6A1B-4313-A127-BD9A0C883824"></a></span><div class="head">
+            <h1>Connecting the Ambient Occlusion Shader</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-1FB51296-68D0-4353-918A-A065DA1D3E83"></a></span>You create an ambient occlusion effect by connecting the Ambient Occlusion shader
+               in the render tree. This is most commonly done as an ambient occlusion pass for all
+               objects in your scene which can then either be baked in as a texture, or composited
+               in during post production. You can also use the shader on individual objects to limit
+               the occlusion calculation or to drive specific parameter inputs. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-453BB822-18A8-479B-977B-BB64B516DF2C"></a></span>There are a number of ways to connect the Ambient Occlusion shader in the render tree.
+               Some of the more commonly used ones are illustrated below. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS26D671275BFF8445B9D89309308439A7-0008"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9A4C0753-9C03-478B-B537-1B35CD506B54"></a></span>Connected Directly to the Material Node's Surface Port
+               </h2> <span class="anchor_wrapper"><a name="UL_79419DDC80EB4D198DB2DCD1CEA06F21"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7CA593E7-02C0-4DC3-B185-C44D42A3E040"></a></span>You can plug the shader into the material node's Surface port for many objects at
+                        the same time. This is often done at the partition level to create an ambient occlusion
+                        pass for all the objects in your scene. See <span class="char_link"><a href="lights_AO_ConnectingtheAmbientOcclusionShader.htm#WS26D671275BFF8445B9D89309308439A7-0014">Creating an Ambient Occlusion Pass</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6007D4EA-D767-48EE-87E1-EB191CA900EB"></a></span>You can also plug the shader into the Surface port of an individual object's material
+                        node, or into the Surface port of many objects (applied all at once on a group). Objects
+                        that share the same material will automatically inherit the ambient occlusion effect,
+                        regardless of whether they are in a group, or whether the shader was applied directly
+                        to only one of the objects. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-09DCEE5C-41E2-46E0-A3E9-79510E8C3566-low.png"></div> 
+                     <div class="figure-anchor"><img src="../images/GUID-930FA6D0-7472-46F6-B711-42685455B052-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8F159E92-53A3-455B-B465-010C43947DC9"></a></span>In this example, the Ambient Occlusion shader has been connected directly to the Material
+                        node's surface port (the same material is assigned to all of the objects shown). The
+                        result is an occlusion-only rendering. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B99A5E45-54BB-42CF-8DFE-9EE2FE11E0B3"></a></span>You can use the rest of an object's render tree to drive the Ambient Occlusion shader's
+                        bright color. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-BB5EA22A-8EC2-487A-8714-13208C2E2335-low.png"></div> 
+                     <div class="figure-anchor"><img src="../images/GUID-191E5624-935B-4412-9DCE-380A58A9D1D3-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AAAF525A-03C6-4909-8F9C-E041833B822A"></a></span>In this example, a Phong shader is used to drive the Ambient Occlusion shader's bright
+                        color. The dark color (set to red in this case) appears in occluded areas. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS26D671275BFF8445B9D89309308439A7-000D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-28B1B89B-FC15-4CEA-8F0C-D9205D1060AD"></a></span>Connected to a Surface Shader's Ambient Port
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B9DFBA15-B318-4D1B-94CE-0CB9B9A83DAC"></a></span>This allows you to scale the ambient lighting contribution to an object's surface
+                  based on where the object is occluded. 
+               </p> <span class="anchor_wrapper"><a name="FIG_B8F2B4D0FD1444BCA98F740E5B0B965B"></a></span><div class="figure-anchor"><img src="../images/GUID-420126A6-A2A4-4F8F-B0CD-44A39D6030C2-low.png"></div> <span class="anchor_wrapper"><a name="FIG_67045FFF4A654D108BE11E6B21FC8536"></a></span><div class="figure-anchor"><img src="../images/GUID-59D9FFBC-DD37-4641-B0A6-B74F28FB6A45-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-28CC5E9F-7117-4B9E-A077-55A9D715661E"></a></span>In this example, the Ambient Occlusion shader is used to drive a Phong shader's ambient
+                  color. This allows you to scale the ambient lighting contribution based on the amount
+                  of occlusion. Once again, the Ambient Occlusion shader's dark color has been set to
+                  red to make it more visible. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS26D671275BFF8445B9D89309308439A7-0010"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-274EDE99-47A1-41A9-B0E5-526935D12C4E"></a></span>Mixed with Texture and/or Surface Shaders Using a Mixer Shader or Texture Layers
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-DA4263AF-D9C2-4627-8D41-AB43FFF12716"></a></span>This allows you to blend the occlusion effect with an object's surface. 
+               </p> <span class="anchor_wrapper"><a name="FIG_2C7BC939B07F427C959C6F672EE78934"></a></span><div class="figure-anchor"><img src="../images/GUID-10474018-B119-430E-B068-B128B4C2CC3C-low.png"></div> <span class="anchor_wrapper"><a name="FIG_9DC251543E37461997FCACFFA7FDB4FB"></a></span><div class="figure-anchor"><img src="../images/GUID-128701E2-84BD-4766-8651-CB583B289883-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-A58221CF-7B9F-4187-A3D7-54E6816F300A"></a></span>In this example, the Ambient Occlusion shader is blended with a Phong shader using
+                  a texture layer that affects only the Phong's ambient and diffuse ports. This allows
+                  you to blend the occlusion with the Phong's surface shading, giving you fine control
+                  over how visible the occlusion is. Once again, the Ambient Occlusion shader's dark
+                  color has been set to red to make it more visible. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS26D671275BFF8445B9D89309308439A7-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-078E9B9B-31B4-42F1-879A-35EB2D161D0E"></a></span>Connected to the Material Node's Environment Port
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CA4FB12D-8519-4533-97A8-AB3C5DBFF8F9"></a></span>This is used when you want a reflective, rather than ambient occlusion effect. You
+                  can then drive the bright color with an environment map. See <span class="char_link"><a href="lights_AO_ReflectiveOcclusion.htm">Reflective Occlusion</a></span> for details. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS26D671275BFF8445B9D89309308439A7-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1BA847F2-7E1F-4D96-B992-758FFCF67376"></a></span>Creating an Ambient Occlusion Pass
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-1B7FD789-851E-49E4-98D7-6F52074925E3"></a></span>A common method used when working with ambient occlusion is to create an occlusion
+                  pass for all objects in your scene which can then either be baked in as a texture,
+                  or composited in during post production. For example, you could output and combine
+                  an ambient occlusion pass, a diffuse pass, and an ambient color pass. Shadows might
+                  be included with the diffuse pass or in a separate pass on their own. See <span class="char_link"><a href="render_passes_UsingPresetRenderPasses.htm">Using Preset Render Passes</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0ABE0D18-97B9-4D07-91DC-3E445C432D62"></a></span>You can also use render channels which allow you to isolate preset scene attributes
+                  that are commonly rendered in separate passes. Essentially, all you need is your default
+                  pass and you can quickly output the ambient and diffuse render channels. See <span class="char_link"><a href="renderchannels_RenderingBuiltInandPresetChannels.htm">Working With Built-In and Preset Channels</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A847C6D6-AFBF-429D-B7C6-5B48D4816CF6"></a></span>Here's a quick overview of how to create an ambient occlusion pass. 
+               </p> <span class="anchor_wrapper"><a name="GUID-425C69E1-4116-4E2F-B761-31C80BC84DD3"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7756E6E4-B189-4E99-A707-45756236C20B"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-55F4F274-142F-4FDC-A96E-E65C62312FE5">Pass <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> New Pass <img src="../images/ac.menuaro.gif"> Empty</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-45765537-6B2F-44E7-99AC-105EF80CEC8D"></a></span>Make the new pass current. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2868FF97-9840-4F20-819D-43879306F815"></a></span>Select all the geometric objects that you want to include in the ambient occlusion
+                        effect. Make sure that you branch select the models and hierarchies so that nothing
+                        is omitted. You can do this in the explorer by Ctrl+middle-clicking each object. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-705FF8D0-B17C-4F19-9B20-02335DDE35EE"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-245556D7-3E2B-4652-805F-E7DF5DE8D189">Pass <img src="../images/ac.menuaro.gif"> Partition <img src="../images/ac.menuaro.gif"> New Partition</span> to create a partition that includes all the objects that you previously selected.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-807189BC-8C0C-474E-832C-CAAEFB4C1B4B"></a></span>In the explorer, set its scope to Passes and select the partition you created (it's
+                        nested under the ambient occlusion pass). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F351E9F7-93F8-4EEC-AA68-2EB8F2BA6755"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-724D9261-9DAD-4FBB-BE0B-D83F42EA1703">Get <img src="../images/ac.menuaro.gif"> Material <img src="../images/ac.menuaro.gif"> Ambient Occlusion</span> to apply it to the new partition displayed in the explorer. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8D96E614-9FB0-4505-8647-E684C52C0445"></a></span>The XSIAmbientOcclusion shader's property editor opens. Pin the property editor open
+                        and set the options as needed. See <span class="char_link"><a href="lights_AO_SettingtheAmbientOcclusionShaderOptions.htm">Setting the Ambient Occlusion Shader Options</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F11CF521-E40F-4A10-B0A4-44708C9C3996"></a></span>Draw a render region to preview the effect. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C99C1CF4-7F1C-4078-B7CA-CA8DE97D7111"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-E02852F3-C9D4-414B-9474-85DFCEEA864F">Render <img src="../images/ac.menuaro.gif"> Regions <img src="../images/ac.menuaro.gif"> Active Viewport Options</span> and set the mental ray ambient occlusion options for the region. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-ACB42813-715A-422C-993A-8C098164D70D"></a></span>When you are happy with the settings, you can copy them from the render region to
+                        the current pass in order to render the effect as previewed. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-97125F37-C4AC-49E9-9ABF-010640101361"></a></span>Make sure that the ambient occlusion pass is still current and choose <span class="MenuCascade" id="GUID-F84943C9-47FD-48C5-A0C8-8A9DC5D1AC5E">Render <img src="../images/ac.menuaro.gif"> Regions <img src="../images/ac.menuaro.gif"> Region Copy <img src="../images/ac.menuaro.gif"> Active Viewport To Current Pass</span> from the Render toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9A61F117-8C8B-473B-A8A8-9661C1FE9B12"></a></span>Choose <span class="MenuCascade" id="GUID-78240957-A9D3-4E8F-BE4F-8141DFEA9069">Pass <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> Edit Current Pass</span> and set the output options for the render pass. See <span class="char_link"><a href="renderoptions_pass_PassRenderingOptionsOverview.htm">Pass Rendering Options Overview</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4669F6B8-7C78-4073-A7E2-9893BF2A1D3F"></a></span>Choose <span class="MenuCascade" id="GUID-365D8E97-CA59-4A89-8C7E-03BB52AB221B">Render <img src="../images/ac.menuaro.gif"> Render <img src="../images/ac.menuaro.gif"> Current Pass</span> to render the ambient occclusion pass. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

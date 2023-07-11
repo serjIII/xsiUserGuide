@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-1C2937BB-1249-4DE6-B6BB-94A06BB1BA53">
+      <meta name="indexterm" content="chains: subchains">
+      <meta name="indexterm" content="subchains: creating">
+      <meta name="indexterm" content="breaking chains">
+      <meta name="indexterm" content="chains: breaking">
+      <meta name="indexterm" content="subchains: removing">
+      <meta name="indexterm" content="chains: pseudo-roots (pinning joints)">
+      <meta name="indexterm" content="pseudo-roots for pinning subchains">
+      <meta name="indexterm" content="joints: pinning with pseudo-roots">
+      <meta name="indexterm" content="subchains: pinning joints with pseudo-roots">
+      <meta name="topic-type" content="concept">
+      <title>Creating Subchains for Independent Movement</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-1C2937BB-1249-4DE6-B6BB-94A06BB1BA53"></a></span><div class="head">
+            <h1> Creating Subchains for Independent Movement</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-639CEF0D-3F8A-454A-A5A0-8C681DAB4F1F"></a></span>You can create independent movement within a chain by creating subchains. Subchains
+               allow you to "break" the chain so that you can move only the subchains. When you move
+               a subchain, it acts like an effector for its parent and like a root for its children.
+               When you move a chain's effector, IK only works up to the subchain's root. 
+            </p><span class="anchor_wrapper"><a name="FIG_A3F0FCAE25A44F3AAF8662BF4B65C57E"></a></span><div class="figure-anchor"><img src="../images/GUID-41028DDC-6E29-45B7-AE12-C6201C2504EC-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-BBFD0298-3D6D-4613-A4BA-CEA9E833A5E4"></a></span>This chain has a 2D subchain that starts at the second joint after the root. When
+               the effector is translated, the first two bones don't move because IK works only up
+               to the subchain root. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-CEA45521-740A-42BB-9F74-B3EAC38E0F61"></a></span>You can have several subchains on a chain, each of which can be 2D or 3D, regardless
+               of what the existing chain is. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C91FACA8-50C0-4339-91A7-D802362E2F6F"></a></span>You can create a subchain by either defining it explicitly in a joint's behavior or
+               by using a pseudo-root. Pseudo-roots have the added feature of remaining fixed in
+               local space when IK or FK are invoked. Only rotating the root can affect a pseudo-root's
+               position. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0087"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9938FE87-B387-4DA5-81AB-8F50D2919402"></a></span>Defining a Joint's Behavior
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0B4F10C8-6F62-4352-8502-DF4FF22DB6BE"></a></span>You can create a subchain by explicitly defining a joint's chain behavior. By default,
+                  every joint is implicitly defined as 2D or 3D, based on the previous joint's behavior.
+                  
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-A3A74A1B-D6B4-4DA2-81F4-E4DE29CBA3A0"></a></span><div class="note-note"><span class="label">NOTE:</span>The first joint of each subchain is always a 3D joint, regardless of the subchain's
+                     behavior. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0088"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BD410D95-CF8D-4BBD-B789-9CC349B0DF8A"></a></span>To create a subchain
+                  </h3> <span class="anchor_wrapper"><a name="GUID-BFC38480-4073-4C02-A4A7-9D129F5A0C1F"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-72A5E8F5-294B-49C6-86E4-360396727676"></a></span>Select the bone that you want to be the first bone in the subchain. Its joint will
+                           be used as the root of the subchain. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-880ADEB9-B224-4E37-9346-3D66F69905B5"></a></span>Open the Kinematic Joint property editor for the selected bone. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-31A8FC16-8B19-4C13-A835-D505544C7F52"></a></span>Change the <span class="MenuCascade" id="GUID-18397FB2-4B3A-4A7D-B719-A35927C7E04F">Chain or Subchain Behavior</span> setting to <span class="MenuCascade" id="GUID-E872700D-A70C-401C-82A1-1B98C3213457">2D</span> or <span class="MenuCascade" id="GUID-1314D6EC-FBB4-4381-A754-841A0E164E3C">3D</span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B6C47C26-459E-4E12-A2CA-EA9F5E718FBC"></a></span>The new subchain is defined from the selected bone to the effector or to the next
+                           defined subchain, if any. Each subchain has its own plane of resolution. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0089"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F1F33BB2-B1BC-4AEE-9557-175B7A39B6AA"></a></span> To remove a subchain
+                  </h3>  <span class="anchor_wrapper"><a name="GUID-47B592C2-CB55-48ED-8317-3FD3BDB9338D"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A6CE2BFE-3F8C-4C00-8BE4-AA3244EB8F86"></a></span>Select the first bone in the subchain. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BD803605-9FC7-4ABC-A8E8-02DFF91C2974"></a></span>In the Kinematic Joint property editor for the selected bone, change the <span class="MenuCascade" id="GUID-52869D3C-854A-4F20-B898-81397CAE8D46">Chain/Subchain Behavior</span> setting to <span class="MenuCascade" id="GUID-C47AC712-5DB2-44C8-99D8-C3A1AE008D66">Default</span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-16146C4A-4DA7-4696-8E9D-42B96D1C0295"></a></span>The joints in the subchain become part of the previous subchain. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-008A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-008B"></a></span> Making a Joint into a Pseudo-root
+               </h2>     
+               <p><span class="anchor_wrapper"><a name="GUID-30CAAFE6-0C71-4A7A-9BF5-838A8C6405ED"></a></span>You can also create a subchain by making the joint of the selected bone or effector
+                  a pseudo-root (behaving as a root does). The pseudo-root is not a real object: it
+                  only appears that the chain is broken at this point. Because of this, it cannot be
+                  animated. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A9CA6551-FC35-46A9-A61F-9CDFEFE8F78F"></a></span>Pseudo-roots remain fixed in local space when IK or FK are invoked. You can affect
+                  the pseudo-root's position by either rotating the root or by position-constraining
+                  its bone to another object and translating that object. For more information, see
+                  <span class="char_link"><a href="constraints_PositionConstraints.htm"> Position Constraints</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+               </p> <span class="anchor_wrapper"><a name="FIG_90C85AECFDC945CF8AC3C1113B683498"></a></span><div class="figure-anchor"><img src="../images/GUID-71503DB4-37CD-46CF-BBDE-2A06AA67A007-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-8F529C8F-047B-47A7-BF40-42E548CA4928"></a></span>The effector's joint has been set as a pseudo-root, so it remains pinned to its location.
+                  As the second bone in the chain is rotated, the joints after it are automatically
+                  recalculated. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-008D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0898B48C-7264-48FC-AE74-BA3943DAC01F"></a></span>To create a pseudo-root using a command
+                  </h3> <span class="anchor_wrapper"><a name="GUID-99BE3DA4-6B18-4B64-84B7-DA92B59B6F99"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B97A4BC4-4D63-43F6-BAB6-5648F1747D32"></a></span>Select the bone you want to be as the first bone in the subchain. Its joint is used
+                           as the pseudo-root. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-18BCB9F7-FD82-4C6C-B580-8CC76A9FCA54"></a></span>Choose <span class="MenuCascade" id="GUID-FAEE16FB-26EB-4ED6-88D5-3CE682F323FA">Create <img src="../images/ac.menuaro.gif"> Skeleton <img src="../images/ac.menuaro.gif"> Break Chain at Bone</span>. This creates a subchain with a pseudo-root at the joint of the selected bone. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-008E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3F8E5F26-CB45-404A-9B8E-5E7C1940AED6"></a></span>To create a pseudo-root using the Kinematic Joint property editor
+                  </h3> <span class="anchor_wrapper"><a name="GUID-0DF43615-1E07-4172-8540-8CBFCC22DBBF"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1B0381C6-B85C-4753-9007-77F9CCF026CE"></a></span>Open the Kinematic Joint property editor and select the <span class="MenuCascade" id="GUID-293FDFC0-5F1A-449C-A99A-FEE9D2DDE978">Joint is Pseudo-Root</span> option. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C87DAB55-4E20-4AAC-8066-8EAB8A76308E"></a></span>If desired, change the <span class="MenuCascade" id="GUID-1A4915E6-DEB1-4413-ABF4-C57CF8E9CF8E">Chain or Subchain Behavior</span> setting to <span class="MenuCascade" id="GUID-5BA26B1D-4178-4DBA-BC78-EC2772E1334E">2D</span> or <span class="MenuCascade" id="GUID-440FA550-3D59-40F1-975B-ED9F4964A799">3D</span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-008F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5BA79927-A421-47BE-BAB7-7C8AA23DA46E"></a></span>To remove a pseudo-root
+                  </h3> <span class="anchor_wrapper"><a name="UL_4560EBD8279C4497B8985F9F3D8EC3FC"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4E3534D1-24E1-4EAA-8092-216FA9D15F81"></a></span>Select the affected joint and deselect <span class="MenuCascade" id="GUID-38D742D3-7209-4622-88CC-58FF7E5CFDBF">Joint is Pseudo-Root</span> in the Kinematic Joint property editor. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0090"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5EA096E8-54A2-49C3-AD50-DF0DD311B726"></a></span>Moving Joints between Pseudo-roots
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4242361A-7330-449A-9946-2C08CF5E7869"></a></span>You can manipulate a joint between two pseudo-roots by translating it or applying
+                     a position constraint to it. A common goal is calculated and applied for the two subchains
+                     ending at this "pseudo-effector" or "joint." 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D744987D-9897-4C0A-B54E-B501AEEB5463"></a></span>A pseudo-root behaves as a root for the subchain at its right and as a pin (nail)
+                     for the subchain at its left. Activating the pseudo-root for a joint places a ball
+                     joint at this joint and changes the torsion to a 2D subchain if the chain was 2D,
+                     or vice-versa. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_2580ADD1A54C4A3FB8B955181F9BBEAA"></a></span><div class="figure-anchor"><img src="../images/GUID-207241A0-D6B2-4CFE-A350-D7791F182198-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_A445D99B1B9141FBA294EE314E64979C"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BE8F7D95-FF51-413C-B7DA-955AEBC27DD5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-14180C27-F239-45EC-80B2-A0A222FED5AD">A</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3C0CE705-1FCE-4087-899E-4652C1EC65C5"></a></span><p class="table-body">Pseudo-roots </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B381ED56-FBC9-4944-BECF-D1C484D69D37"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D52950A9-A90F-4EF8-8E56-B50C2E1183E2">B</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-80AD65B7-7A68-42F5-ADB6-FCE78BB2B1DE"></a></span><p class="table-body">Bone between the two pseudo-roots is translated. The pseudo-roots both stay pinned
+                                 in place while the bones between them move. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F27421BF-A963-4DA6-92DE-D9EF88CFF2A1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B249EC83-4EFD-4FF1-882B-F648B462FEC0">C</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7B9C5E30-379B-458B-8D7A-05522D0ED5C6"></a></span><p class="table-body">The bones below the second pseudo-root are also affected by the bone's translation.
+                                 This is because the bone's rotation has changed and the bones to the left are keeping
+                                 their local rotation angles. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

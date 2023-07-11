@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-3B75FCFE-6C63-4CAE-B9BF-6A9BA5639E5D">
+      <meta name="indexterm" content="ICE kinematics: using geometry queries">
+      <meta name="topic-type" content="concept">
+      <title>Tips and Notes for Using ICE Kinematics</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-3B75FCFE-6C63-4CAE-B9BF-6A9BA5639E5D"></a></span><div class="head">
+            <h1>Tips and Notes for Using ICE Kinematics</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-001E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BDAF0F55-D61C-4F6B-AF34-8DE5794A8462"></a></span>Using Geometry Queries
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-04C9E771-6676-487C-955B-47544F698FD9"></a></span>Remember that when you get data at a location, such as the locations returned by geometry
+                  queries, the data is in the local reference frame of the "self" object, that is, the
+                  object with the ICE tree. Similarly, the input values for geometry queries should
+                  also be in the local reference frame of the self object. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B35F2CA1-1D0F-4C35-A576-CD0AD9CC939F"></a></span>If all the evaluations are performed in an ICE tree on a null at the center of the
+                  scene, then the local reference frame is the same as the global reference frame. However
+                  if this is not the case and, for example, you want to find a global position by raycasting
+                  from the self object, then you need to use (0, 0, 0) as the input position for the
+                  Raycast node, get PointPosition at the returned location, and multiply the value by
+                  the self's global transformation matrix. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-001F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D52B9744-EF01-4D35-8602-83C15790952E"></a></span>Applying Static KineState Properties
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8E65ADFD-C92B-452F-9A2B-D63D61C96C12"></a></span>Static KineState properties provide a snapshot of an object's global transformations
+                  at a specific moment. They are automatically applied to geometric objects and deformers
+                  when applying envelopes, as well as cage and spine deformations, but you can also
+                  apply them manually. This is useful with ICE kinematics because it allows you to store
+                  initial transformations and calculate initial offsets. See also <span class="char_link"><a href="ikine_kinematics2_ICERigs.htm#WS8F6B3156C107E34084E5D0ABDF9AD1BF-0015">Initializing Rig Data</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D2E75919-2FE0-442A-B024-C6EDDDAD47C6"></a></span>Static KineState properties are not propagated by branches, groups, layers, and partitions.
+                  You can apply multiple Static KineState properties, but only the last one applied
+                  can be updated automatically using Set Reference Poses. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-0020"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-48B711D9-2FE0-4B7D-BC0F-546D071A7A2E"></a></span>To apply a Static KineState property
+                  </h3> <span class="anchor_wrapper"><a name="GUID-066E2D9D-9F59-4E15-9D96-D0FB07322623"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CC6CFC04-8E12-4573-8974-030B7F9246C7"></a></span>Select one or more objects. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8C46AF2F-8F00-4E9C-BA8E-EB9A95D2A5D4"></a></span>Choose <span class="MenuCascade" id="GUID-5E38D3D6-7EFE-4935-A52A-9F97935D1CD5">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Static KineState</span> from any toolbar (except Hair or FaceRobot). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B14B2120-CF82-44EB-9C6C-679C87163543"></a></span>The default property is a 4x4 identity matrix representing no transformation, so you
+                           must set its value in the next step. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-936D608A-66C8-4A2C-B8F7-D2B26C2A1D48"></a></span>Choose <span class="MenuCascade" id="GUID-6A3746F6-FED7-449C-9E59-40C498159AC1">Deform <img src="../images/ac.menuaro.gif"> Envelope <img src="../images/ac.menuaro.gif"> Set Reference Poses</span> from the Animate toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-599FAFEC-73B8-441A-92B5-3C9B5740990D"></a></span>The Static KineState property is updated with the objects' current global transformations.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-607C2D79-377D-4A7D-B699-5596E46AD5A7"></a></span>You can apply this command again to update the objects' Static KineState at any time.
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

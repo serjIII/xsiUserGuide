@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6D3D904F-58A9-4991-9354-F5BC8028814F">
+      <meta name="indexterm" content="timewarps: in animation mixer">
+      <meta name="indexterm" content="warps: time in clips">
+      <meta name="indexterm" content="animation mixer: timewarps">
+      <meta name="indexterm" content="action clips: timewarps">
+      <meta name="indexterm" content="shape clips: timewarps">
+      <meta name="indexterm" content="compound clips: timewarps">
+      <meta name="indexterm" content="animation: reversing">
+      <meta name="indexterm" content="reversing animation: timewarps">
+      <meta name="indexterm" content="timewarps: for cycled and bounced clips">
+      <meta name="indexterm" content="action clips: timewarps for cycled and bounced clips">
+      <meta name="indexterm" content="animation mixer: timewarps for cycled and bounced clips">
+      <meta name="indexterm" content="timewarps: removing">
+      <meta name="indexterm" content="timewarps: applying to source">
+      <meta name="topic-type" content="concept">
+      <title>Changing Time Relationships (Timewarps)</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6D3D904F-58A9-4991-9354-F5BC8028814F"></a></span><div class="head">
+            <h1>Changing Time Relationships (Timewarps)</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-300C95E8-89AE-434D-AC25-737EEB679EE9"></a></span>A timewarp basically defines the speed of the animation in a clip. Timewarps change
+               the relationship between the local time of the clip and the time of its parent (either
+               a compound action or the entire scene) while taking into account other things like
+               scales, cycles etc. You can make a clip speed up, slow down, and reverse itself in
+               a nonlinear way (such as making a character run or walk backwards). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3C964033-B2E2-41E5-ABAE-AA060E23BF68"></a></span>When you apply timewarps to a compound clip, it creates an overall effect that encompasses
+               all clips that are contained within the compound clip. 
+            </p><span class="anchor_wrapper"><a name="TABLE_2DEAF2D225B447EDB77D28465E32EB48"></a></span><div class="table_NotRuled">
+               <table cellpadding="0" cellspacing="0" class="not-ruled">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <tr class="not-ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-2A5927C0-8081-4D5E-9475-30F4EEF24EE6-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-8D7CD596-8601-4334-943B-3B74E50FD251-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-6E8AE029-59CF-434E-B768-70FDEFA79291-low.png"> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-A6A451B9-1CC6-411C-B254-82F8C312760C"></a></span>A timewarp is an fcurve which is associated with the time control property of a clip,
+               which handles timing changes on action clips. When you create a timewarp, its curve
+               becomes an additional intermediate time transformation between container (global)
+               time and the time taken from the action source that is used for a clip. It applies
+               the timewarp to all items inside the clip. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E900212B-274A-48CF-B1EE-C844DFEB5D7E"></a></span>If your clip is cycled or bounced, the timewarp can either be repeated on each extrapolation
+               or encompass the duration of the whole extrapolated clip (the warp is not repeated
+               with each cycle or bounce). This means, for example, that the overall animation on
+               a clip could increase in speed with each cycle (see <span class="char_link"><a href="animmixer_ChangingTimeRelationshipsTimewarps.htm#WSA3B2924969ED704E813291282A376B72-0109">Applying a Timewarp Over Cycles and Bounces</a></span>). 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-E8F9B721-F1A0-4ADC-9732-5E041CDFCB29"></a></span><div class="note-tip"><span class="label">TIP:</span>If you want to apply timewarps to individual animation items within an action clip,
+                  you can also use the "warp" or "iwarp" variables in the clip's value map expression
+                  (see <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-00A0">Using Warps in Clip Effects</a></span> for more information). 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0103"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2167D13B-863D-4F6D-BE23-7410A0998D31"></a></span>Applying a Time Warp
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C9C89177-1A90-46E7-A8F6-D84F628FABD0"></a></span>To apply a timewarp to a clip or a compound clip: 
+               </p> <span class="anchor_wrapper"><a name="GUID-E26D2805-7C92-48DE-9117-E2D659BCCCFF"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A606BFA7-6DA2-488C-8533-A1AB081CBF6A"></a></span>Choose <span class="MenuCascade" id="GUID-48417901-DBC4-4909-ABE5-123EA05220BF">View <img src="../images/ac.menuaro.gif"> Time Warps</span> on the mixer's command bar so that you can see the orange timewarp curves on the
+                        clips. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6D3DFCD1-4952-44A5-AC5E-2414D6E747E2"></a></span>Right-click a clip or a compound clip and choose <span class="MenuCascade" id="GUID-694D3AF6-23A2-410E-A147-0B51142CB528">Time Properties</span>, or select a clip and press Ctrl+T. The clip's Time Control property editor opens.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AE085112-94DA-4060-8CB3-DC6DF538E6FB"></a></span>On the <span class="MenuCascade" id="GUID-5F765FE1-33A8-445E-9529-A85104519372">Warp</span> page, select the <span class="MenuCascade" id="GUID-317E1DD9-9594-478C-90BB-200968421DBC">Do Warp</span> option to make the fcurve available for editing. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-68F9F54F-1B5E-4685-A726-B1FD39C2B106"></a></span>Select the function curve to edit it. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-813337DF-65C1-4D79-80DF-B36CAECEFCAC"></a></span>The first and last keys are locked to prevent accidental editing of the clip in/out
+                        values. Keys locked in time (X) are green, keys locked in value (Y) are blue, and
+                        keys locked in both are light turquoise. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-20E957D4-65C3-4A4F-9B64-911D8ED90AE2"></a></span>You need to unlock the keys to edit the curve. To do this, right-click the selected
+                        curve or an empty area in the graph and choose <span class="MenuCascade" id="GUID-E4429B99-E9E1-475A-A866-8475E32C2FEC">Keys <img src="../images/ac.menuaro.gif"> Unlock All Keys</span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-310AA283-17ED-404B-B996-06C7C177D6DD"></a></span>The graph is a miniature version of the animation editor: you can use any of the keyboard
+                        commands here that are defined for the animation editor. You can also right-click
+                        the curve to open an editing menu (change the curve's X or Y value, edit the keys,
+                        etc.). When you edit the curve, a ghosted copy of the original curve is kept as a
+                        reference. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-05A89B69-20D9-4D29-BE33-4120194026C8"></a></span>See <span class="char_link"><a href="ani_fcurves.htm">Editing Function Curves</a></span> for more information on editing function curves in general. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_F683734930384FE8ACCD58D7084257C3"></a></span><div class="figure-anchor"><img src="../images/GUID-78E3DB84-8565-4F21-B25F-B01B4160BE21-low.png"></div> 
+                  </li>
+               </ol> <span class="anchor_wrapper"><a name="TABLE_F84BE7BFFF8C433EACF68FE402948142"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A162C2FD-3E35-4077-A3E0-A42367FD542E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1ACA31F0-F840-4E5B-8BE5-AC4423A5FEB3">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E5A099BE-F159-404B-B53A-4190BC7B9832"></a></span><p class="table-body">Y axis shows the clip's source time. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F4C7B96D-3E0A-47B0-81FB-92790E42FAE2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0764CC5E-BC1A-439A-91F2-92BBF98CD205">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-22C16B8A-7C4E-4C20-8117-7192F02C0ADB"></a></span><p class="table-body">X axis shows the clip's frames in the mixer. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-49D8219D-21F6-45B4-9AD4-9B7A8F498D19"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8B4A620B-401B-4321-9427-053BD5D7D50D">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2EDAE7BE-DBF8-48D3-A392-894EAEF317CF"></a></span><p class="table-body">Right-click the selected fcurve or an empty area in the graph to get a menu for editing
+                              the fcurve. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F1C3AD75-8536-42FD-953E-20A6B895823D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2EC348AA-ECEC-4A6F-BD5E-CEB65458B579">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2D0361EB-BF84-4B20-AA55-86B012EE8D1E"></a></span><p class="table-body">Red playback cursor position coincides with the one in the mixer. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-48CB29CA-C3CC-4F5C-B431-2BC25EF9BE67"></a></span>The horizontal axis represents the time of the object containing the clip, whereas
+                  the vertical axis represents the time of the source. Thus the keys on the curve span
+                  from point (X = offset, Y = clip in) to point (X = offset + duration, Y = clip out).
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3BBAD606-8EDB-4DB9-9BAC-14F97D61418A"></a></span>If you change the clip's offset, scaling, or clip in/out value, you will notice a
+                  change in the first and last keys' X values on the curve. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6CCCA34F-7B91-4D52-8890-618BA5637E67"></a></span>If you change the clip in/out value, you will notice a change in the first and last
+                  keys' Y values on the curve. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0106"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7582EE4D-2365-44FB-9E94-3B2699B99D95"></a></span>Example: Reversing an Animation
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-A2E2A797-170A-4837-979F-5A1A27942D43"></a></span>In this example, there is an action clip of a character who is walking. By using the
+                  <span class="MenuCascade" id="GUID-420521DB-1AD7-461F-8060-BAEBE6C067EE">Do Warp</span> option and inverting the curve, the animation is reversed so that he walks backwards.
+                  
+               </p> <span class="anchor_wrapper"><a name="GUID-FA9C96D6-14DF-4558-A4E0-F7395568CDAF"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-130A8B73-C5F7-4CB9-B1A7-9A3762C9B06D"></a></span>Right-click the action clip and choose <span class="MenuCascade" id="GUID-D90CA0FC-0288-42D5-BCAB-6390E6A43A6A">Time Properties</span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B572ACD7-097B-4A86-9E65-13306EEFC8DA"></a></span>The clip's Time Control property editor opens. The <span class="MenuCascade" id="GUID-188E5BC6-347F-4924-A161-BF720CB25B5C">Warp</span> page shows a graph with a straight line plotted on it from bottom-left to top-right.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7ECDBC96-E0DE-481A-8CCB-8A4BE5FF28D9"></a></span>Select the <span class="MenuCascade" id="GUID-E86258E0-354F-4DAA-891C-1A33DF240213">Do Warp</span> option to make the fcurve available for editing. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-67E59C8D-F284-4F54-A2B3-E98D59B0EEB1"></a></span>Select the fcurve and unlock the keys on it so that you can edit it: right-click the
+                        curve or graph and choose <span class="MenuCascade" id="GUID-D43EEF74-ED23-4466-AE64-D8C582C9B112">Keys <img src="../images/ac.menuaro.gif"> Unlock All Keys</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B0243B04-835F-4FA2-82C6-9EE4E487DCE8"></a></span>Right-click the curve or graph and choose either <span class="MenuCascade" id="GUID-EEDAD95F-2537-4AA2-A0A2-011DB3181BC5">Curves <img src="../images/ac.menuaro.gif"> Flip X (Time)</span> or <span class="MenuCascade" id="GUID-5491A705-620B-443B-B006-E6F002D52726">Curves <img src="../images/ac.menuaro.gif"> Flip Y (Value)</span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0193E5CD-C92E-4828-A9CF-F7CB47582CCF"></a></span>This flips the curve, thus reversing the animation. You can also drag the points on
+                        the line to reverse the direction so that it goes from top-left to bottom-right. 
+                     </p> <span class="anchor_wrapper"><a name="TABLE_DF8F2950223E4238BF189BB6F10C547E"></a></span><div class="table_NotRuled">
+                        <table cellpadding="0" cellspacing="0" class="not-ruled">
+                           <colgroup>
+                              <col>
+                              <col>
+                           </colgroup>
+                           <tr class="not-ruledOddRow">
+                              <td class="table-body">&nbsp; <img src="../images/GUID-F423978A-3F66-4CDC-B697-68C5DD61FFD0-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-1EA8D3F7-5882-4A55-9E68-6FA332FBF812-low.png"> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-B01AE180-4022-4700-A585-77533D29FEA3"></a></span>On the left, the Warp curve before flipping. Unlock the keys by right-clicking the
+                  fcurve or in the graph and choosing Keys &gt; Unlock All Keys. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4CE0CEAB-2D08-4A67-A6E3-E0BCA27F46BB"></a></span>On the right, the Warp curve after flipping. Notice the ghosted curve that shows its
+                  previous state. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0109"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A6D25E80-10A5-4E74-8CEC-81E1702F80F1"></a></span>Applying a Timewarp Over Cycles and Bounces
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-ECBB45C7-8EDF-43F4-A514-C327EE031018"></a></span>The <span class="MenuCascade" id="GUID-975899C1-C24B-4741-90E2-C4CB91B413A2">Clip Warp</span> option on the Warp page allows you to set a warp on an extrapolated clip. The effect
+                  of the warp repeats over the duration of the whole clip, encompassing the cycles or
+                  bounces. The timewarp is applied on the extrapolated clip time ("global") as opposed
+                  to the local time of the clip if you do not select <span class="MenuCascade" id="GUID-A5F49C66-41A3-4303-9D44-FBFB5BE93E11">Clip Warp</span>. 
+               </p> <span class="anchor_wrapper"><a name="FIG_186313F23F2D4C59B0D3EB9011A89C61"></a></span><div class="figure-anchor"><img src="../images/GUID-189CB3DD-9842-44F0-AA96-B121E2FC41EF-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D1D5E0E5-1C56-44E7-91B5-CBBFDD1DC4EE"></a></span>On the top, a regular Warp repeats on each extrapolation of the clip (warp curve shown
+                  only on original clip). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-07B4A036-2842-477A-A2B2-84D474515E0B"></a></span>On the bottom, a Clip Warp encompasses the duration of clip and its extrapolations.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2BDA87A5-A86A-4483-9F75-AB15572FD060"></a></span>When you select the Clip Warp option, the selected clip in the mixer turns yellow
+                  indicating that it's in global time. When the curve is yellow, it means you can't
+                  convert local time back to a global time. 
+               </p> <span class="anchor_wrapper"><a name="FIG_C9C4B5CD3CC04E8A9B2DFA7D70658420"></a></span><div class="figure-anchor"><img src="../images/GUID-E82B0253-77D2-48E2-993B-47655B267443-low.png"></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-010C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-694B575B-125D-40CE-BFF9-BE0CD264CCB3"></a></span>Deactivating Timewarps
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-491E2D42-A84F-49CA-AC6C-FC104DE1FB84"></a></span>Open the clip's Time Control property editor and deselect <span class="MenuCascade" id="GUID-285A79AD-AC64-4C65-8ED9-1CC3FBF9B06A">Do Warp</span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E14474F3-1731-4CBB-BBB0-6EC5A942F2FD"></a></span>The mapping from the clip's local time to its parent's time becomes linear again.
+                  However, the warp profile curve is not affected and you can turn <span class="MenuCascade" id="GUID-5913A298-0AAE-44C4-974C-2F28D8B23FC4">Do Warp</span> back on to reactivate it without re-editing the curve. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-010E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4A6CAD4E-2B14-441E-AE59-69B5EF85D91D"></a></span>Applying a Timewarped Action Back to the Source
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-B58EC817-A22E-4FFD-8261-162AA1D00E27"></a></span>If you want to apply the effects of a timewarped clip back to the animation source
+                  of the model, you can freeze the clip to a new source and then apply it to the object.
+                  The reason you have to create a source is because timewarps are applied at a clip
+                  level, but the <span class="MenuCascade" id="GUID-76D4AF13-1D95-4109-B1AA-3BF2249A9534">Apply <img src="../images/ac.menuaro.gif"> Action</span> command only works on sources. 
+               </p> <span class="anchor_wrapper"><a name="GUID-B3B88D7C-9C2B-4B60-AC18-49164C42044D"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-07C3D30C-250E-4729-81C4-C0F1606107BD"></a></span>Select the clip that has the timewarp and choose <span class="MenuCascade" id="GUID-822A3B56-24C9-443E-B8B1-E7D63CC21C9E">Clip <img src="../images/ac.menuaro.gif"> Freeze to New Source</span> or <span class="MenuCascade" id="GUID-E36117C3-B065-4C8F-AE89-8544CC55887E">Freeze and Replace</span>. Freezing works out which parameters the given clips drive and plots them to new
+                        curves that are placed in a new source. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-35CB22E9-CB25-4BA3-A7D5-9E43B74EF8F7"></a></span>In the explorer, select the new frozen action source to which you want to restore
+                        animation. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8EC7331E-C795-4BCD-806A-D711B9E6CC16"></a></span>Choose <span class="MenuCascade" id="GUID-6DD5F4DF-3813-439A-94B8-88B3CCEA3A37">Actions <img src="../images/ac.menuaro.gif"> Apply <img src="../images/ac.menuaro.gif"> Action</span> from the Animate toolbar. The animation is restored to the original objects. 
+                     </p> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-B74CD540-26E2-4A1F-8224-C950340244F1"></a></span>For more information on this command, see <span class="char_link"><a href="actions_RestoringApplyingAnimationfromActionSourcesBacktoanObject.htm">Restoring (Applying) the Animation in Action Sources to an Object</a></span>. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

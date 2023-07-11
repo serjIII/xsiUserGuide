@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C8FE6705-FB6D-494B-85A4-FD76366C5C85">
+      <meta name="topic-type" content="concept">
+      <title>Setting Up Effects Shaders in the Render Tree</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C8FE6705-FB6D-494B-85A4-FD76366C5C85"></a></span><div class="head">
+            <h1>Setting Up Effects Shaders in the Render Tree</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-9EE9847C-B773-4A5C-A91C-92EBE7C7E648"></a></span>These are the basic steps for setting up realtime CgFX or HLSL shader effects in the
+               render tree. 
+            </p><span class="anchor_wrapper"><a name="GUID-24EF0868-1E54-4E8E-8D6B-214952D6A473"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A9001066-FE3F-48BF-8AF6-21B43FB9D1BB"></a></span>Set any viewport to the <span class="MenuCascade" id="GUID-8EE6CD58-1F51-40A5-8D55-2AD5A030E1BF">Realtime Shaders <img src="../images/ac.menuaro.gif"> OpenGL</span> or the <span class="MenuCascade" id="GUID-66664169-A01A-467C-955E-578D137EF264">Realtime Shaders <img src="../images/ac.menuaro.gif"> DirectX9</span> display mode. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F512F1D4-401F-401C-82F4-2DA1FF9C557E"></a></span>Select the object to which you want to apply the effect. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-502F9967-F280-4CF6-A7F8-4C20528186F9"></a></span>If your effect requires: 
+                  </p> <span class="anchor_wrapper"><a name="UL_6D5EAED4935C497B8F00CE77928AF3E0"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-592A7FD4-E47E-4558-ABAA-19C1D5D56155"></a></span> <span class="MenuCascade" id="GUID-D41DD283-EDB8-4B13-8B77-8B330254DB03">Texture coordinates:</span> Create texture coordinates by choosing <span class="MenuCascade" id="GUID-516E63ED-EA04-406A-B30C-DD25801B0BF1">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Texture Projection <img src="../images/ac.menuaro.gif"> [type of projection]</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7C86292E-911A-4D9D-852E-7C0C93CB59C7"></a></span> <span class="MenuCascade" id="GUID-640A9F72-5B4A-42EA-92CB-F947AEA098C1">Normals:</span> Create normal maps which are special texture maps that encode the normal (surface
+                           direction) per pixel on a geometry. When generating a normal map for use with realtime
+                           shaders, you should create the normal map in tangent space (relative to UV basis).
+                           You can use RenderMap, RenderVertex, or Ultimapper to create normal maps in Softimage.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-68E6C5A0-81CD-45B6-A5AB-278308577972"></a></span> <span class="MenuCascade" id="GUID-032B60DB-D562-4E94-9FF1-EE244B0C05A0">Tangents and Binormals:</span> Tangents and binormals are necessary for accurate normal mapping and other effects.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BAB13804-E1C4-459F-A791-9EA95EE476E8"></a></span>You can generate tangents or binormals for the selected object by choosing <span class="MenuCascade" id="GUID-9CC97E08-DF48-43D2-A033-88FDDF02D996">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Tangent</span> or <span class="MenuCascade" id="GUID-C087A2CC-B9B2-49EE-ABC1-67AFE43912AA">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Binormal</span>. See <span class="char_link"><a href="tangents_binormals_ApplyingTangentandBinormalProperties.htm"> Applying Tangent and Binormal Properties</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C45A30E7-14A5-4179-AD60-8F16FB809994"></a></span>You can also have Softimage automatically create tangents and binormals on-the-fly.
+                           This can give faster playback and interaction in Realtime Shader display modes than
+                           using the operator-based Tangent and Binormal properties. To use the automatic tangents
+                           and binormals, just don't specify a Tangent or Binormal property as the vertex attribute
+                           input in the effects shader's property editor. See <span class="char_link"><a href="tex_tangents_binormals_AutomaticTangentsandBinormals.htm">Automatic Tangents and Binormals</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2D7D0D04-2906-4AF2-81F1-790A5F1422FA"></a></span>If you already have normal and tangent data, it is not optimal to have Softimage generate
+                           the binormals. Instead, you should calculate the binormals on-the-fly in the vertex
+                           shader. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-793E385D-2BD2-4902-95F1-07FC03F02311"></a></span>With the object still selected, open the render tree (press 7). 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-82EC0635-DC0F-4B31-AEB0-DBE0452E111D"></a></span>From the preset manager, drag an effects shader into the render tree workspace. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2F9622DF-02E3-4789-B699-E1020F3C5378"></a></span>Note that the CgFX and HLSL shaders provided with Softimage are displayed in the <span class="MenuCascade" id="GUID-397D612B-42A5-4880-8046-82BF5CC064B6">Realtime <img src="../images/ac.menuaro.gif"> CgFX</span> and <span class="MenuCascade" id="GUID-78109775-0082-4A8F-BC32-F8FF65DD22A8">Realtime <img src="../images/ac.menuaro.gif"> HLSL</span> categories. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1A3A3B41-AB6C-4EB0-8E14-712788EF0753"></a></span>Connect the realtime shader node's output to the Material node's RealTime input. 
+                  </p> 
+                  <div class="figure-anchor"><img src="../images/GUID-A72949DF-D694-4933-BE06-6C26A355CA83-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-63C60E27-CC4E-4044-A956-EC10D1A12B9B"></a></span>If the effects file is valid, the effect is now displayed in any 3D view set to an
+                     appropriate realtime display mode. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7231DAF4-23DA-4A49-A7BB-795D41CF353F"></a></span>Double-click the shader node to open its property editor. When a .cgfx or .fx file
+                     is parsed and successfully compiled, the following things happen: 
+                  </p> <span class="anchor_wrapper"><a name="UL_0955A13C02DF4443BC786CAA89FA09EA"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1C0F6500-5421-4E5B-A907-548CA8C3F0A9"></a></span>Effects parameters dynamically generate user interfaces that you can use to tune your
+                           tweakable effects parameters and select from the techniques defined within the code.
+                           See <span class="char_link"><a href="rt_cgfx_hlsl_CreatingUserInterfacesforEffectsParameters.htm">Creating User Interfaces for Effects Parameters</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-115F614D-87D1-4EAF-A93E-B1F5BE7C2293"></a></span>Vertex shader variables bound to specific input semantics dynamically generate a user
+                           interface. You can use the vertex attribute control to customize the per-vertex attributes
+                           that are passed to the effect. See <span class="char_link"><a href="rt_cgfx_hlsl_CreatingUserInterfacesforVertexShaderInputs.htm">Creating User Interfaces for Vertex Shader Inputs</a></span>. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </li>
+            </ol>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

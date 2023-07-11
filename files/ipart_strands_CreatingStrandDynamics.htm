@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-4456CA74-F7D2-4928-922C-31D62D6352D3">
+      <meta name="indexterm" content="ICE particle strands: dynamics on">
+      <meta name="indexterm" content="strand dynamics for ICE particles">
+      <meta name="indexterm" content="dynamics for ICE particle strands">
+      <meta name="indexterm" content="Emit Strands compound">
+      <meta name="indexterm" content="Emit Filler Strands compound">
+      <meta name="topic-type" content="concept">
+      <title>Creating Strand Dynamics</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-4456CA74-F7D2-4928-922C-31D62D6352D3"></a></span><div class="head">
+            <h1>Creating Strand Dynamics</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-684DD6A0-7BD7-4698-A865-82CB8118A791"></a></span>The Strand Dynamics compounds allow you to set up and control particle strand dynamics
+               simulations using a Verlet integration method. When strands have dynamics applied,
+               they can respond to collisions and other forces, as well as to the velocity and rotational
+               velocity of the particle emitter. Dynamics allows you to create hair-like movement
+               on strands, in addition to other effects. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-326712A9-A1BD-40C3-A245-9AF4B72F53BA"></a></span>There are several compounds that you need to use to set up strand dynamics, as described
+               in the following section. These compounds are provided as just one possible solution
+               to creating hair and similar effects using dynamics with ICE. You can use these compounds
+               as a starting point (as well as the compounds nested within them) to create your own
+               hair solutions. 
+            </p><span class="anchor_wrapper"><a name="FIG_59DDA95F745C4738A4563A1BB6448414"></a></span><div class="figure-anchor"><img src="../images/GUID-F713D3DB-032D-44BB-AD9A-E2003F57932F-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-6F6AE1DC-2102-4C76-B3ED-AA95ACD19DA3"></a></span>Model (without hair) Courtesy of Greg Punchatz 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-2F7421C7-8EEC-4DCF-B12B-A88C51F48F4F"></a></span><div class="note-tip"><span class="label">TIP:</span>Choose <span class="MenuCascade" id="GUID-6C82239C-9C22-48AF-9403-96F3BF24FB1B">Particles <img src="../images/ac.menuaro.gif"> Model Library <img src="../images/ac.menuaro.gif"> Strands <img src="../images/ac.menuaro.gif"> Dynamic Hair</span> from the ICE toolbar to load a model of a sphere with hair strands and an animated
+                  collision object. The Hair Shading shader is used on the strands to give it that salon
+                  styling! 
+               </div>
+            </div><img src="../images/GUID-C8A588D3-5409-4896-8F41-FE5997869DAB-low.png"><div class="section"><span class="anchor_wrapper"><a name="WSE54D8F0707D71042A8D6EBEB70C057F5-0042"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5C06851D-1EE8-4EB2-9C9C-D1E1681BC5E8"></a></span>Setting Up Strand Dynamics
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-FEC7DD32-4D30-4057-A426-1845A91037E1"></a></span>Creating dynamics on strands involves two basic steps: 
+               </p> <span class="anchor_wrapper"><a name="UL_6F3226DAD0FC4C128AA23A7751C4D0B8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DF3898EF-3CBA-42EF-86DD-BA09727B5E80"></a></span>Emit guide strands and create the simulated dynamics framework on one point cloud
+                        — see <span class="char_link"><a href="ipart_strands_CreatingStrandDynamics.htm#WSE54D8F0707D71042A8D6EBEB70C057F5-0043">Emitting the Guide Strands</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-44828045-30CD-4AF5-928F-E227D80582AA"></a></span>Emit filler strands on the same emitter but in another point cloud — see <span class="char_link"><a href="ipart_strands_CreatingStrandDynamics.htm#WSE54D8F0707D71042A8D6EBEB70C057F5-004A">Emitting the Filler Strands</a></span>. Filler strands are optional, but you may find them useful in many circumstances.
+                        
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-DAFE9E5A-119E-4C53-9E6A-524FC1A73AD4"></a></span>Guide and filler strands are similar in theory to how guide and render hairs in the
+                  hair system work: the guide hairs are used for styling, and the render hairs are generated
+                  from and interpolated between the guide hairs and are used for rendering (see <span class="char_link"><a href="hairy_basics.htm">Hair and Fur Basics</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F5B8D305-298C-428E-9954-FEEC31A58CCC"></a></span>The filler strands are interpolated between guide strands that are created on another
+                  point cloud, but on the same emitter. These filler strands are constrained to the
+                  main (guide) strands so that they follow both their shape and their movements. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E5E8E533-1A11-4992-9694-ABD4D61458BD"></a></span>You can emit a smaller set of guide strands to work with when you're testing the movement
+                  of strand dynamics and creating the strand shape. When you're ready to view and render
+                  the strands, increase the number of guide strands and add the filler strands. Unlike
+                  guide hairs, the guide strands are rendered unless you choose to not render them.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE54D8F0707D71042A8D6EBEB70C057F5-0043"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-53EDC024-A469-43D5-9F04-9FF4D3377A03"></a></span>Emitting the Guide Strands
+               </h2>  <span class="anchor_wrapper"><a name="GUID-309BCE74-3503-472F-8628-86FC7F78BD42"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A63B7B4D-29B2-4E0A-ADC6-9AD22429E84A"></a></span>Select an emitter object. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5F562870-B4BC-45A6-91A8-6056716DCD8E"></a></span>Choose <span class="MenuCascade" id="GUID-C04FFE61-37DB-4B89-93A6-B3D0C86EBE79">Particles <img src="../images/ac.menuaro.gif"> Create <img src="../images/ac.menuaro.gif"> Strands <img src="../images/ac.menuaro.gif"> Dynamic Strands</span> from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B210137D-8D00-4531-820D-16FC7579B348"></a></span>This creates a point cloud and sets up the following ICE tree that uses the <span class="MenuCascade" id="GUID-75D1A3CB-CEE2-4D2B-A2CC-DA4B37087B13">Emit Strands and Strand Dynamics Framework</span> compounds: 
+                     </p> <span class="anchor_wrapper"><a name="FIG_002D3D49AD3542D6903A28771E8F173F"></a></span><div class="figure-anchor"><img src="../images/GUID-212C72D8-E641-4E90-ADD3-D10188A3E0EF-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6514E086-C583-4937-A102-E3D67858FFC6"></a></span>The Get Particle Emit Location and Set Data (with the PointPosition attribute selected)
+                        nodes set the strand's point position to the particle emit location. If the particle
+                        emitter is animated, this makes the particle strands stay with it. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B6EBE806-BE02-4231-94B6-4903C70C8ABA"></a></span>In the <span class="char_link"><a href="iceref_Emit_Strands.htm">Emit Strands</a></span> property editor, you can set the strand properties. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A705305E-9A2F-43AC-84EB-9B6AB5513122"></a></span>If you want to change the default particle shape used for the strands, you need to
+                        open up the Emit Strands compound and then edit the Emit from Surface compound inside
+                        of it. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-55BB9B10-6D91-4E89-BEEB-94B895B1CAC0"></a></span>You can create a weight map for the emitter object and define this as a Length Weight
+                        Map in the guide strands' Emit Strands property editor. This works the same way as
+                        a cut map works on hair: the weight map values determine the length of the strands.
+                        Try smoothing out the edges of the weight map so the hairs become gradually shorter.
+                        
+                     </p> <span class="anchor_wrapper"><a name="FIG_588CA87C316F4FC4BDF4A9F7BE069860"></a></span><div class="figure-anchor"><img src="../images/GUID-D4A19929-58EB-4403-A9A3-5297734E64CA-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE54D8F0707D71042A8D6EBEB70C057F5-0047"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-05B47359-4ABB-4C50-AD76-BBC2690FAA3E"></a></span>Adding Forces to Strand Dynamics
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BA2FC2BB-EC94-4A06-9BF8-B8BB544514BF"></a></span>The <span class="char_link"><a href="iceref_Strand_Gravity_Force.htm">Strand Gravity Force</a></span> or <span class="char_link"><a href="iceref_Strand_Drag_Force.htm">Strand Drag Force</a></span> nodes are automatically added to the Strand Dynamics Framework compound in the ICE
+                  tree when you choose the Dynamic Strands command. You can also choose <span class="MenuCascade" id="GUID-FAA2763A-52FA-4ED8-9B8A-204F4F7FAE2B">Particles <img src="../images/ac.menuaro.gif"> Force <img src="../images/ac.menuaro.gif"> Strands <img src="../images/ac.menuaro.gif"> Gravity</span> or <span class="MenuCascade" id="GUID-CEAF7091-CA1A-43C8-AB8E-AED838F4A9DC">Drag</span> from the ICE toolbar to do this, or add them manually in the ICE tree. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-4F04DCE3-3B6A-461F-B386-7E2E5E410029"></a></span><div class="note-note"><span class="label">NOTE:</span>These commands work only with the Strand Dynamics Framework compound. 
+                  </div>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-A8A06C77-75DA-4B84-AEBF-1AFB1C0D8F6D"></a></span>These compounds are designed specifically for strand dynamics, but you can add any
+                  forces you want to the Strand Dynamics Framework node. See <span class="char_link"><a href="icecompound_ref_Forces.htm">Forces</a></span> for information. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE54D8F0707D71042A8D6EBEB70C057F5-0048"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AD71C978-5F95-4202-A30D-A7C8634256EE"></a></span>Adding Collision Objects
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-DC410D7F-6A44-40E9-89D7-0CF567315B3B"></a></span>Once you have created a strand particle emission, you can add collision objects to
+                  the simulation. 
+               </p> <span class="anchor_wrapper"><a name="GUID-1602B565-1C9F-4E36-B2BB-FCC12AC060AB"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B1F185E6-3922-468F-B8E4-516F231917DC"></a></span>Create a surface object to be the collision object. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-23574075-E024-4AC2-B073-ADDAD217FFA1"></a></span>If you want to use multiple collision objects, create a group that contains them.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A189C1F3-18B8-4432-B094-C2DC8450757F"></a></span>Select the strand point cloud to which you want to add a collision object. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C9072CA9-11EE-4982-BCE5-8BF91390D720"></a></span>Choose <span class="MenuCascade" id="GUID-1874E392-D002-4CCC-B63D-0E7D7DF336A9">Particles <img src="../images/ac.menuaro.gif"> Collisions <img src="../images/ac.menuaro.gif"> Strands <img src="../images/ac.menuaro.gif"> Add Geometry</span> from the ICE toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8F1A4729-CD17-47E1-B8A0-5BD6EA83955C"></a></span>Pick the collision object or group to add to the simulation. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4B538281-B0D8-4E33-833A-EC2B7DF7A75D"></a></span>After you have picked the object, the collision object's Get Data node is plugged
+                        into the Geometry port of the Strand Dynamics Framework compound. In this case, the
+                        monster (emitter) object has been added. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-C903EE7C-9EB6-490D-A7CC-FBDCAD7EC3DD"></a></span><div class="note-note"><span class="label">NOTE:</span>The Add Geometry command works only with the Strand Dynamics Framework compound. 
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="FIG_1C17FFB9DB0F40A3BA21A61989BEB5A0"></a></span><div class="figure-anchor"><img src="../images/GUID-DE80A59D-C1C9-482D-82B0-E12E98E1B4DD-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE54D8F0707D71042A8D6EBEB70C057F5-004A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7B2C7C08-EE7A-484B-9BF4-1772C9973859"></a></span>Emitting the Filler Strands
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-46D81CF3-A981-4119-874D-3AC3C299C16D"></a></span>The filler strands are interpolated between guide strands using the same emitter.
+                  Filler strands are constrained to the main (guide) strands so that they follow both
+                  their shape and their movements. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-85703963-2374-4AFA-9EC3-0CE10ADFA5E7"></a></span>The filler strands need to have the same number of segments (Num Segments) as the
+                  guide strands to which they are constrained. If not, their StrandPosition arrays will
+                  not match and the strand size, among other things, won't be considered. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7EFB7D18-581F-40F7-A834-44CBAABC1510"></a></span>You can create several point clouds as filler strands, each having a different shape,
+                  size, color, and shader setup, such as for creating varying types of animal fur or
+                  colored streaks in hair. 
+               </p> <span class="anchor_wrapper"><a name="GUID-37A2DDAB-8944-4ABB-BFA6-FCAB8D07BF41"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1CC3D726-1CF2-420A-9BE3-F3C0E694817A"></a></span>Create another point cloud to be used for the filler strands. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5E2D6C00-AF26-49C5-8F92-5EB69E037E03"></a></span>Create either an unsimulated ICE tree in the Modeling region or a simulated ICE tree
+                        (in the Simulation region) of this point cloud's construction stack, depending on
+                        your scene: 
+                     </p> <span class="anchor_wrapper"><a name="UL_F792677446F3468A88DE11F7CCF1A75E"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-64626E6B-F53F-49CB-B1A4-76AFAAD2A352"></a></span>If the emitter object is <span class="MenuCascade" id="GUID-D4AA2F39-1AAF-4CCD-B655-6C495EFEF963">not</span> animated by deformations or transformations, you can create an unsimulated ICE tree.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E5734B87-716F-4A27-838F-1924D296AC97"></a></span>If the emitter object is animated by deformations or transformations, you need to
+                              create a simulated ICE tree. This updates the position of the filler strands at every
+                              frame so that they match the guide strands to which they are constrained. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C3A729D3-1ED7-495C-A0B5-8D184C982CCC"></a></span>Using a simulated ICE tree for the filler strands should not slow down the simulation
+                              too much because the filler strands' stack needs to be re-evaluated anyway every time
+                              the guide strands move due to dynamics. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-DBE9718A-4B20-4395-80E9-90E44E307001"></a></span>You can also optimize the simulated ICE tree by editing the <span class="char_link"><a href="iceref_Emit_Filler_Strands.htm">Emit Filler Strands</a></span> compound and splitting it into two parts: put the actual particle emission nodes
+                              in an ICE tree in the Modeling region for faster playback and interaction, and put
+                              the Constrain to Guide Hairs compound in an ICE tree in the Simulation region. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0360C5C3-7410-47AE-9939-25569B947AA1"></a></span>Get the <span class="char_link"><a href="iceref_Emit_Filler_Strands.htm">Emit Filler Strands</a></span> compound and plug its output into a port on the ICETree node. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FFB4049F-666A-4EDF-9FE8-259551A0620C"></a></span>Add a Get Data node for the emitter object and plug it into the Emitter port on the
+                        Emit Filler Strands compound. The emitter object should be the same one that is used
+                        for the guide strands. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-121568AD-9E56-4ABA-B6E7-69A04CE0C2AF"></a></span>Add a Get Data node for the guide strands that you created earlier and plug it into
+                        the Guide Strands port on the Emit Filler Strands compound. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_5EB46CF92ED442FE811550A439BE41A9"></a></span><div class="figure-anchor"><img src="../images/GUID-C1AD3764-7D95-46F1-8CC0-3A834F981A8E-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-64E97E34-B1C1-40C0-9BA5-FBF0087CD222"></a></span>Watch the filler strands move in accordance with the guide strands as you play back
+                        the simulation. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-082C8E5E-4B99-4B38-873A-5A57DBABB3F9"></a></span>In the Emit Filler Strands compound's property editor, define the filler strands as
+                        you like, and remember to use the same Num Segments value as you have set for the
+                        guide strands. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_B44B4DDAAEAD4E2489B8478420E1EAB0"></a></span><div class="figure-anchor"><img src="../images/GUID-5957028B-B12E-429F-94DC-563B35925538-low.png"></div> <span class="anchor_wrapper"><a name="UL_77A9E8ED0AE34D59892030238C11D539"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3CDD6E8F-F0C0-4321-BC6C-178CC6D087BE"></a></span>If you want to change the default particle shape used for the strands, you need to
+                              open up the Emit Filler Strands compound for editing, and then change the attributes
+                              in the Emit from Surface compound inside of it. You probably want the filler strands
+                              to match their guide strands. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A26FC82D-AD9B-422F-A78F-5A5C66DDF22D"></a></span>To use the same weight map as you used for the guide strands, open up the Emit Filler
+                              Strand compound for editing. Inside this compound, plug a Filter by Weight Map compound
+                              into the Emit from Surface compound. Then specify the weight map to use in the Filter
+                              by Weight Map compound. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0832C2A3-F534-4C8D-8279-49473CF84614"></a></span>You could also create another weight map to have a different length of hairs, just
+                              in certain parts of the body, such as a bit of fuzz around the face, or a longer mane
+                              down the spine. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5726116B-3A57-4FB0-89DC-0A19E70EFCAD"></a></span>To keep the filler strands further away from the body, there are a few things you
+                              can tweak: 
+                           </p> <span class="anchor_wrapper"><a name="UL_0261DDE6B8D6499BA8DD00B635D05E4F"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-CDCACCCE-544F-48FE-8EDB-149602290AFB"></a></span>Increase the amount of drag or gravity from the forces. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-C7456202-C242-4E91-B780-3B030996282A"></a></span>Increase the Collision Offset, Stiffness, and Num Iterations values in the Strand
+                                    Dynamics Framework compound. Increase the Num Iterations carefully, as it can quickly
+                                    increase the playback time. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

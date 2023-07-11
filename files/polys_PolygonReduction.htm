@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-A3A681AD-9B9A-41DA-A73C-191B5D74B3FE">
+      <meta name="indexterm" content="polygons: reducing">
+      <meta name="indexterm" content="polygon meshes: reducing polygons">
+      <meta name="indexterm" content="reducing: polygons">
+      <meta name="indexterm" content="levels of detail, see LODs">
+      <meta name="indexterm" content="details, level of, see LODs">
+      <meta name="indexterm" content="LODs: polygon reduction">
+      <meta name="indexterm" content="LODs: polygon reduction">
+      <meta name="topic-type" content="concept">
+      <title>Polygon Reduction</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-A3A681AD-9B9A-41DA-A73C-191B5D74B3FE"></a></span><div class="head">
+            <h1>Polygon Reduction</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-490FEA48-C95A-4DA1-80DA-2D0E2700D6AD"></a></span>Polygon reduction lightens a heavy object by reducing the number of polygons, while
+               still retaining a useful fidelity to the shape of the original high-resolution version.
+               For example, you can use polygon reduction to meet maximum polygon counts for game
+               content, or to reduce file size and rendering times by simplifying background objects.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-7903D3D5-8599-4CA0-968C-BAED08CF0554"></a></span>Polygon reduction also allows you to generate several versions of an object at different
+               levels of detail (LODs). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-16732A40-D611-426C-AAF3-641365126C3D"></a></span>Polygon reduction works by collapsing edges into points. Edges are chosen according
+               to their "energy", which is a metric based on their length, orientation, and other
+               criteria. In addition, you have options to control the extent to which certain features,
+               such as quad polygons, are preserved by the process. 
+            </p><span class="anchor_wrapper"><a name="TABLE_78FC0F2F184B448F8C5B896D4B14078B"></a></span><div class="table_NotRuled">
+               <table cellpadding="0" cellspacing="0" class="not-ruled">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <tr class="not-ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-666D0788-87CE-40F2-A613-4B252D73710A-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-310BB1E3-AA4F-4817-BEBA-0773B4A70B0F-low.png"> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-014F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8D7CAD3A-696A-42B4-9F6A-2B4CBF7151B6"></a></span>To apply polygon reduction
+               </h2> <span class="anchor_wrapper"><a name="GUID-18628B07-6F9C-4B9C-BD25-B0459D0EBBD3"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-761C1AE3-3208-4D53-A406-CEA8347DF9B8"></a></span>Select one or more polygon mesh objects, polygon clusters, or polygons. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2CFF80AC-8F92-4067-AF0D-EA8537D6F0D3"></a></span>Choose <span class="MenuCascade" id="GUID-77D747E4-B570-4615-902D-5A85AA44836C">Modify <img src="../images/ac.menuaro.gif"> Poly. Mesh <img src="../images/ac.menuaro.gif"> Polygon Reduction</span> from the Model toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B6E63C6C-6954-4679-A325-976E6398B8E6"></a></span>The polygons are reduced using the default settings and the Polygon Reduction Op property
+                        editor opens. For information about adjusting the settings, see the sections that
+                        follow. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0150"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-81402A90-64CD-4AB9-A24A-64E3A013BA75"></a></span>Controlling the Amount of Reduction
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-FD639DDF-36EC-49D7-880B-12E45DA8D211"></a></span>The options in the <span class="MenuCascade" id="GUID-076D8B3D-64FD-48DB-915D-25BA26911479">Reduction Amount</span> box of the Polygon Reduction Op property editor specify the amount of reduction.
+                  You can specify either a percentage (ratio) or a final number of vertices or triangles.
+                  The reduction amount is animatable, so, for example, you can use an expression to
+                  control it based on the distance from the camera. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7AD67E2F-AE62-4E6B-9B60-52497A9B1506"></a></span>In all cases, these values are targets — the operator may not be able to achieve the
+                  exact amount of reduction for various reasons. For example, if the original object
+                  has an odd number of polygons, then it is impossible to achieve a reduction of exactly
+                  50%. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4C0ACDDA-3A74-4898-94CF-F9CA86651019"></a></span>In addition, you have the option of using a parameter map. For example, you can use
+                  a weight map and paint weights to differentiate between areas where you want more
+                  or less reduction to take place. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-AB748A61-5830-4FDC-A426-1EB54A096D63"></a></span><div class="note-note"><span class="label">NOTE:</span>Although you can animate the amount of reduction, you must be careful. As with any
+                     topology operator, you may experience problems if its parameters are animated and
+                     there are other operators above it in the construction history. 
+                     <p><span class="anchor_wrapper"><a name="GUID-E54200E0-E9C9-4DBC-8E68-BE223F4CE9A6"></a></span>For more information about animated topology operators, see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0029">Special Considerations for Topology Modifications</a></span>. 
+                     </p> 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0151"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A164DD81-7EBF-4958-917C-32AC2248D839"></a></span>To set the amount of reduction
+                  </h3> <span class="anchor_wrapper"><a name="GUID-A0A524E1-9E2A-4D22-A658-0CF6E6EF9FA3"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C43F2462-447E-4C27-AECA-8057534133D2"></a></span>On the General tab of the Polygon Reduction Op property editor, set Unit to the desired
+                           value: 
+                        </p> <span class="anchor_wrapper"><a name="UL_5BD08A4AF258431BBB53B4D60256F993"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-29E091B9-A4CC-4621-908F-52C6835385A5"></a></span> <span class="MenuCascade" id="GUID-650916DC-E369-4FA8-93BB-23EDDF87783C">Ratio</span> allows you to set the amount of reduction as a percentage of the original polygon
+                                 count using the <span class="MenuCascade" id="GUID-B93585E8-001E-4C86-9EA3-63E3D11B662D">Ratio</span> slider. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7AFD2335-CC64-4F1B-86AA-D3F91CD9D825"></a></span> <span class="MenuCascade" id="GUID-A69FA87A-0261-4763-B626-88FD5648F5AB">Final vertex count</span> lets you set the number of vertices in the result using the <span class="MenuCascade" id="GUID-8FC3DCAA-D0FA-408B-A91B-F0712A88825C">Vtx Count</span> slider. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CA526AD8-7000-4D9E-BE03-4E966549EAC7"></a></span> <span class="MenuCascade" id="GUID-7C6BB967-7085-46FD-9F92-AA7429C776DB">Final triangle count</span> lets you set the number of triangles (polygons after tessellation) in the result
+                                 using the <span class="MenuCascade" id="GUID-50DB5B0C-C8D4-41A0-A849-DA15F3BC04AF">Tri Count</span> slider. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CA209CC8-B69B-4A8D-9812-4605D30DC14A"></a></span>Use the corresponding slider to set a target for the amount of reduction. 
+                        </p> <span class="anchor_wrapper"><a name="TABLE_A2CF972626B0468CBF364488BE5B12EE"></a></span><div class="table_NotRuled">
+                           <table cellpadding="0" cellspacing="0" class="not-ruled">
+                              <colgroup>
+                                 <col>
+                                 <col>
+                                 <col>
+                              </colgroup>
+                              <tr class="not-ruledOddRow">
+                                 <td class="table-body">&nbsp; <img src="../images/GUID-7793BE8B-4541-4D0B-9A16-5968D4D3E17F-low.png"> 
+                                 </td>
+                                 <td class="table-body">&nbsp; <img src="../images/GUID-3BB5C0E0-46E3-4E99-B17F-D89C7BD5CA1F-low.png"> 
+                                 </td>
+                                 <td class="table-body">&nbsp; <img src="../images/GUID-B709B295-0B24-497A-9B18-610EBEED41CD-low.png"> 
+                                 </td>
+                              </tr>
+                              <tr class="not-ruledEvenRow">
+                                 <td class="table-body" colspan="3"> <span class="anchor_wrapper"><a name="GUID-1660DE13-1CF9-4735-B0D2-EF716D2388BE"></a></span><p class="table-body">As you increase the amount of reduction, the edge with the lowest energy is collapsed,
+                                       followed by the next lowest, and so on. 
+                                    </p> 
+                                 </td>
+                              </tr>
+                           </table>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0155"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9E15D33F-D679-49A1-BEB2-9EC9FABF4A7E"></a></span>To use a parameter map to control the reduction in specific areas
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6AF50BCC-B618-4F24-A9FD-D6C918BA4165"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5F33F081-D8FB-47BD-B141-25F5778CCBDA"></a></span>Before you apply polygon reduction, create a weight map or other type of parameter
+                           map as described in <span class="char_link"><a href="scel_parametermaps.htm">Parameter Maps</a></span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-15B6EACD-8CBC-48E0-9F55-7020C9821AD5"></a></span>The cluster that contains the map must exist before you apply the Polygon Reduction
+                           operator. If you have already applied polygon reduction, then you must disable the
+                           operator before creating the map. This ensures that the cluster containing the map
+                           is created at a lower position in the construction history than the reduction operator.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B0C5D162-741E-4E44-9D94-9CD75E7C4147"></a></span>Similarly if you want to add or remove points from the cluster or paint additional
+                           weight strokes, make sure you disable the Polygon Reduction operator first. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FCD31452-724A-4D41-BEB4-B84A6A7759C8"></a></span>For more information about disabling and re-enabling operators in the stack, see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0032">Disabling the Top of the Stack</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-60AE53F2-8094-45B9-A3BB-14E78BBDA49C"></a></span>Apply polygon reduction, or re-enable the Polygon Reduction operator if you disabled
+                           it. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-678A21D8-0B7C-4BF2-A906-D25799FEC666"></a></span>On the General tab of the Polygon Reduction Op property editor, right-click on the
+                           connection icon to right of the <span class="MenuCascade" id="GUID-541A9231-E024-4B57-9ABF-9890A7AF2BDF">Multiplier</span> slider and choose <span class="MenuCascade" id="GUID-96FA5028-0956-4FA1-8249-E74A895EED7D">Connect</span>. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_E66333AF3BF945DD9E9BC07DE756AB5A"></a></span><div class="figure-anchor"><img src="../images/GUID-9C12D767-5C8A-4DFD-BB9A-6805CC221B66-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FDB33809-9F29-4C27-BAF1-ABE1631E66C2"></a></span>In the pop-up explorer that appears, expand the appropriate cluster and then select
+                           the desired parameter map. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9178D586-3DEF-4C02-9954-7465CA59FCE0"></a></span>If <span class="MenuCascade" id="GUID-53CB3F64-64C9-4AF1-9B8C-3C5CBAB4A4BA">Invert</span> is on, areas in which the map has a low opacity are more likely to be reduced than
+                           areas with a high opacity. Areas with a weight of 1 are reduced last — they are essentially
+                           protected from reduction unless the reduction amount is so high that the other areas
+                           of the weight map cannot be reduced further. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B89D2B58-5743-4DF5-8B4A-ACB045DA2A96"></a></span>If you want to reverse the effect of the map so that areas of low opacity are protected
+                           and areas of high opacity are reduced, turn <span class="MenuCascade" id="GUID-D62A45F6-5F26-492D-9D6C-ABDC9B64A4E2">Invert</span> off. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-50F34AC6-BA79-493F-AE05-66661D86AB0F"></a></span>If you want to paint additional strokes on a weight map after it is connected, make
+                           sure you disable the Polygon Reduction operator first. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-11856EEF-185D-4B73-AC18-E14ECE416FEC"></a></span>See <span class="char_link"><a href="scel_parametermaps.htm">Parameter Maps</a></span> for information about working with parameter maps in general. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-120EC5B6-9DA4-4152-9610-73A806A674CA"></a></span>If desired, adjust the <span class="MenuCascade" id="GUID-D994FD6A-AB10-4827-9DE0-3DD11B0651D9">Multiplier</span> slider to modulate how strongly the values in the weight map affect the likelihood
+                           of edges collapsing. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0157"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5F84DE9D-96CB-4775-A7A9-80CF50EFE77F"></a></span>Using Smooth Transitions
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6B1DB84B-3420-44AD-94D6-5ED95DDFCB8D"></a></span>The <span class="MenuCascade" id="GUID-CE0E0C46-1362-446F-84F1-DC576A01132B">Smooth Transitions</span> option is available on both the General tab and the LOD Controls tab of the Polygon
+                  Reduction Op property editor. When it is on, edges shrink before they collapse as
+                  the reduction amount is increased. In addition, corresponding properties, such as
+                  texture UVs and vertex colors, are interpolated. This allows the object to gradually
+                  morph when the reduction amount is animated, and avoids sudden popping in the object's
+                  shape or textures as edges collapse. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B83E0146-E8C3-4926-B94D-7FF17D7B9DDD"></a></span>It is particularly useful when combined with <span class="MenuCascade" id="GUID-3AF35C24-9098-4A15-BED2-1AEE66BE8889">Reduce parallel edge loops</span> (see <span class="char_link"><a href="polys_PolygonReduction.htm#WSF64117A6A93C394BA4D767D8C01808E6-0162">Preserving Quads</a></span>) or LODs (see <span class="char_link"><a href="polys_PolygonReduction.htm#WSF64117A6A93C394BA4D767D8C01808E6-0171">Generating LODs</a></span>). 
+               </p> <span class="anchor_wrapper"><a name="TABLE_C50714998F7F417DA2BA9C91F690DFD4"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-7793BE8B-4541-4D0B-9A16-5968D4D3E17F-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-B602ED78-CF64-42BB-AD54-74B0DAAE6612-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-3BB5C0E0-46E3-4E99-B17F-D89C7BD5CA1F-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body" colspan="3"> <span class="anchor_wrapper"><a name="GUID-BE01E0D1-F3C2-414C-8167-BFFA980B3CF3"></a></span><p class="table-body">Smooth Transitions: Edges gradually shrink before they collapse. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-015B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-44B4922B-E24E-49B9-81E6-60336DA19650"></a></span>Adjusting the Shape
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-10BA7221-6AAC-4BAA-9BC6-F3C9747B9092"></a></span>A couple of options on the General tab of the Polygon Reduction Op property editor
+                  allow you to control how reduction affects the details and shape of an object: 
+               </p> <span class="anchor_wrapper"><a name="GUID-3180CD27-9404-494F-A085-44D7B40A177F"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-99B6BC5F-1C49-40F1-B0B8-F641B8440B64"></a></span> <span class="MenuCascade" id="GUID-463E1DF1-DB56-4D0E-BA72-02317B57B5D4">Sharpness</span> controls the balance between preserving small, sharp details versus larger shapes.
+                        At low values, details that are small relative to the general shape of the object
+                        are more likely to be collapsed. At high values, they are more likely to be kept.
+                        
+                     </p> <span class="anchor_wrapper"><a name="TABLE_0B31FA53209A4F40BA2466EC0D8FCA81"></a></span><div class="table_NotRuled">
+                        <table cellpadding="0" cellspacing="0" class="not-ruled">
+                           <colgroup>
+                              <col>
+                              <col>
+                              <col>
+                           </colgroup>
+                           <tr class="not-ruledOddRow">
+                              <td class="table-body">&nbsp; <img src="../images/GUID-B2887EA6-8063-4CAA-822D-854882C8B840-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-CBEA875C-E471-4280-BC98-8FF51494ABE3-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-5DF4D750-5DF3-4A33-B23B-5BAC10DE5791-low.png"> 
+                              </td>
+                           </tr>
+                           <tr class="not-ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8592FB00-83EE-4880-B11B-30AF78BA5874"></a></span><p class="table-body">Original object. </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-05D45BD7-B358-4216-B31B-5A7454723422"></a></span><p class="table-body">Low Sharpness tends to eliminate short edges first. </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1DC2430F-40F4-4E37-BC57-318597A92D1C"></a></span><p class="table-body">High Sharpness keeps more fine detail, as in the fingers and nails. </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-18655756-D5B1-4200-B15D-32755DCF5D1C"></a></span>When you reduce an object, it usually shrinks. <span class="MenuCascade" id="GUID-3C5CAEC4-61C2-4866-94C9-8A0B9B78DD58">Preserve volume</span> rearranges vertices to keep the object's volume unchanged. When an edge is collapsed
+                        into a point, the difference in the dihedral volume is calculated and the point is
+                        moved along its normal to compensate. In some cases, this can help maintain an object's
+                        silhouette and prevent protuberances like fingers and limbs from disappearing. However,
+                        it can also distort an object's shape, especially at high reduction amounts, so use
+                        the slider to achieve a good balance. 
+                     </p> <span class="anchor_wrapper"><a name="TABLE_1AD2CBCB35D642C5B251E977A9EFAD86"></a></span><div class="table_NotRuled">
+                        <table cellpadding="0" cellspacing="0" class="not-ruled">
+                           <colgroup>
+                              <col>
+                              <col>
+                              <col>
+                           </colgroup>
+                           <tr class="not-ruledOddRow">
+                              <td class="table-body">&nbsp; <img src="../images/GUID-603D77EA-F981-4E43-B9FF-9F5A436965D6-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-4FF7FF67-ABB8-4F21-8EF0-892F9A5586F7-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-085A8126-95BA-4264-BE14-56CA5685E66A-low.png"> 
+                              </td>
+                           </tr>
+                           <tr class="not-ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-587F5C69-F696-4584-929A-2AC949ACAB71"></a></span><p class="table-body">Without Preserve volume, reduced objects will shrink. </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D314A7BF-76CC-4DC5-9A4B-8678EDA0757C"></a></span><p class="table-body">A moderate value preserves the object's silhouette. </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-19CCF5AE-53E7-40D3-895C-10BF148E41CE"></a></span><p class="table-body">Setting the value too high introduces distortions. </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-42D9F357-7A78-4388-8EE3-3CCA3F44E9C5"></a></span>Because <span class="MenuCascade" id="GUID-8A9DFBC6-C982-403D-B59C-BC3ED070E005">Preserve volume</span> moves points, the lengths of edges are changed and this affects the order in which
+                        subsequent edges are collapsed. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0162"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D7CCCC9C-F912-44DB-A1A2-2FAB0E4D6224"></a></span>Preserving Quads
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-91B5AB1A-88A9-4B5E-88F0-1B512E79B393"></a></span>When edges are collapsed on quadrilateral polygons, triangles are created. A couple
+                  of mutually exclusive options on the General tab of the Polygon Reduction Op property
+                  editor give you two different ways to make sure that the final result still contains
+                  as many quads as possible. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-90B3B409-5375-41C3-A5D7-C2233036E139"></a></span> <span class="MenuCascade" id="GUID-30E32656-F801-493A-9CEF-4D896DD209B8">Reduce parallel edge loops</span> will never create new non-quads, but it might distort certain objects depending on
+                  their geometry. <span class="MenuCascade" id="GUID-3EFE711C-BEFA-4447-BC1A-3F91270F8CCE">Preserve quad lines</span> has a slider so you can adjust it to minimize distortions, but at the cost of more
+                  non-quads in the result. You should try different settings to see what combination
+                  gives the best results in specific cases. 
+               </p> <span class="anchor_wrapper"><a name="UL_A6575C6179B24A7D891D1A02AF3FCAE8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E16E019A-3649-43F9-9B53-8A0B49AB8493"></a></span> <span class="MenuCascade" id="GUID-346AC598-6E92-4680-8DF3-1409C4C5789F">Reduce parallel edge loops</span> collapses an entire loop of parallel edges together instead of collapsing individual
+                        edges one at a time. 
+                     </p> <span class="anchor_wrapper"><a name="TABLE_6FFA029A445544CB92447C8395FD18BF"></a></span><div class="table_NotRuled">
+                        <table cellpadding="0" cellspacing="0" class="not-ruled">
+                           <colgroup>
+                              <col>
+                              <col>
+                           </colgroup>
+                           <tr class="not-ruledOddRow">
+                              <td class="table-body">&nbsp; <img src="../images/GUID-7793BE8B-4541-4D0B-9A16-5968D4D3E17F-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-E54BB657-A8FA-41E1-94AF-E0B866400F5F-low.png"> 
+                              </td>
+                           </tr>
+                           <tr class="not-ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3192B8D6-C7AC-4B22-9E22-94A457F40237"></a></span><p class="table-body">Reduce parallel edge loops: </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-71A03E12-1269-4D71-B22D-9A9980F1F82E"></a></span><p class="table-body">The edge loop with the least average energy is collapsed first. </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FE7A055B-907A-49AE-AD4D-F3A7AFBF41F6"></a></span>Although <span class="MenuCascade" id="GUID-2F0D4E29-763C-4667-9FD4-A0AA141C9808">Reduce parallel edge loops</span> is incompatible with <span class="MenuCascade" id="GUID-BC7305B4-0253-40E9-8E4A-5C75B38FD6B8">Enforce symmetry</span>, it tends to preserve symmetry on truly symmetric objects anyway. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6CA944E3-6124-488F-AF3F-97BDC82630E8"></a></span> <span class="MenuCascade" id="GUID-AAB6A6ED-347C-4DB5-B52F-93D33104936B">Preserve quad lines</span> provides relative control over the amount of quads remaining in the result. After
+                        the edge with the lowest energy is collapsed, edges that were parallel to it become
+                        temporarily more likely to be collapsed next (as if their energy has been lowered).
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D51D339C-C8F5-4BDF-826B-077E38D755DB"></a></span>Use the slider to control the strength of the effect: the higher the value, the more
+                        quads in the final result. A value of 0 is equivalent to turning this option off.
+                        
+                     </p> <span class="anchor_wrapper"><a name="TABLE_C164468F088F4E0EA598C200148D3023"></a></span><div class="table_NotRuled">
+                        <table cellpadding="0" cellspacing="0" class="not-ruled">
+                           <colgroup>
+                              <col>
+                              <col>
+                           </colgroup>
+                           <tr class="not-ruledOddRow">
+                              <td class="table-body">&nbsp; <img src="../images/GUID-36FBC7C6-70E5-428F-98C1-A83AC069F195-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-4FF7FF67-ABB8-4F21-8EF0-892F9A5586F7-low.png"> 
+                              </td>
+                           </tr>
+                           <tr class="not-ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1DB8447D-1FD7-472E-BC9F-D4EA795286C5"></a></span><p class="table-body">Low values for Preserve Quad Lines produce many triangles. </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FA09D384-FF60-48DB-BCAD-C0FEACEB3BB3"></a></span><p class="table-body">High values for Preserve Quad Lines produce more quads. </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0167"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-33019C41-9F70-4B18-98BE-0BEDCDB0579F"></a></span>Enforcing Symmetry
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-49A929A4-ABB8-41D6-BC08-34E19300E304"></a></span>There are two ways to preserve symmetry during the polygon reduction process: using
+                  a symmetry map or not. 
+               </p> <span class="anchor_wrapper"><a name="UL_AACF19A7DB8043C6B8B2DFEC9BDBEB2B"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-37071E54-2A47-4920-BCAC-FB93838CF439"></a></span>If you don't use a symmetry map, the reduction operator uses its own internal method
+                        for determining which edges are symmetric. This allows it to find local symmetries,
+                        such as between the two sides of the same finger, in addition to global symmetries
+                        such as between the fingers of opposite hands. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FC75D4AC-87CF-497C-A4C5-C8EAAEF8DB65"></a></span>However, if an object has multiple planes of symmetry (like a sphere), the internal
+                        method will arbitrarily pick one pair out of many possible symmetric edges. In such
+                        cases, it may be preferable to use a symmetry map. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8B319F6B-1C02-4E42-9FDA-7251CBD27A98"></a></span>If you connect a symmetry map, the operator uses the map to determine which edges
+                        are symmetric. This is useful when the object is not in its base symmetric shape.
+                        It also resolves ambiguities when there are multiple planes of symmetry, and ensures
+                        that symmetrical edges are always found in spite of possible numerical imprecisions
+                        in calculations. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-61A9073A-8527-4963-9B7B-879A589E86B2"></a></span>The symmetry map must already exist before you apply polygon reduction. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-42F05C16-B2E8-44A6-B3CA-55F0789A6E1B"></a></span>In either case, after the operator collapses an edge, it automatically collapses the
+                  symmetric edges before proceeding to the edge with the next lowest energy. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0168"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8C09629E-776A-4268-923D-40E534F19B21"></a></span>To enforce symmetry without using a symmetry map
+                  </h3> <span class="anchor_wrapper"><a name="GUID-4A7DC3A2-E616-4819-8871-B759053E5403"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A07B40D8-C591-4498-981D-D7D8F85E567E"></a></span>On the General tab of the Polygon Reduction op property editor, make sure that <span class="MenuCascade" id="GUID-189DD62E-7F43-4505-8747-A4EEB0B13E4C">Enforce symmetry</span> is on. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5CC96C13-6493-4A65-AFCA-BFCFA5F69520"></a></span>As long as you don't connect a symmetry map, the reduction operator uses its own internal
+                           method for determining which edges are symmetric. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8028B733-EDB0-4E39-ABDE-FA8582EC3FD0"></a></span>If desired, you can adjust <span class="MenuCascade" id="GUID-D61B5863-6652-4A14-9284-5D6A11B68FD2">Tolerance level</span>. The tolerance is the maximum difference in energy between symmetric edges. If a
+                           symmetric edge has an energy difference greater than the tolerance, it is not collapsed
+                           automatically (although it may still be collapsed later in the process, depending
+                           on its own energy). 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0169"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C3272955-D27A-4BA5-8BD6-42A8E5693E12"></a></span>To connect a symmetry map
+                  </h3> <span class="anchor_wrapper"><a name="GUID-9EE61F00-B403-4405-80B7-9EED1EA09B8C"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-64F61CA8-4562-4F70-87FA-8AE628CC424C"></a></span>Before you apply polygon reduction, create a symmetry map by selecting the object
+                           and choosing <span class="MenuCascade" id="GUID-AECDDAC4-A82B-4EF8-9FF2-8D0A083B25D4">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Symmetry Map</span> from any toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-44EE83B3-3DFB-4574-BCCB-3F9B90C53DFF"></a></span>The symmetry map must exist before you apply the Polygon Reduction operator. If you
+                           have already applied polygon reduction, then you must disable the operator before
+                           creating the symmetry map. This ensures that the symmetry map is created at a lower
+                           position in the construction history than the reduction operator. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-95920DEA-EA02-438E-B82E-39203E72B95B"></a></span>For more information about disabling and re-enabling operators in the stack, see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0032">Disabling the Top of the Stack</a></span>. For more information about symmetry maps, see <span class="char_link"><a href="sculpting_ManipulatingComponentsSymmetrically.htm#WS58ABD0045DE2F44DA7E2BF76E1451085-0096">Applying Symmetry Maps</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-34478D4A-8833-4239-A3EE-5164D85A589D"></a></span>Apply polygon reduction. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-344137A4-4B25-4E15-97C4-BCE6E237751D"></a></span>Right-click on the <span class="MenuCascade" id="GUID-2938370A-5295-4CA3-A6C7-4A4DB60E658D">Use symmetry map</span> connection icon and choose <span class="MenuCascade" id="GUID-14F6E44A-58B7-4615-A1B8-5573594864C1">Connect</span>. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_7A84FD1C1EEB48148813FA9594A6254D"></a></span><div class="figure-anchor"><img src="../images/GUID-2F298713-F354-4237-88B4-B29925045323-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FC5B2CB0-2E17-4851-9184-9CB273BAD88C"></a></span>In the pop-up explorer that opens, expand the appropriate cluster and select the desired
+                           symmetry map. The connection icon appears red to show that a map is connected. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-760C057D-B2EC-4CB9-B423-B9117A9645E8"></a></span>If you change your mind and want to disconnect the symmetry map or connect a different
+                           one, right-click on the <span class="MenuCascade" id="GUID-5CAAEEFA-932F-4335-B217-2A9E37779FDD">Use symmetry map</span> connection icon again. The connection icon appears gray when no map is connected.
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+                  <div><span class="anchor_wrapper"><a name="GUID-73639D87-E504-4EFC-B74C-EC9B268B75D4"></a></span><div class="note-note"><span class="label">NOTE:</span>When you are using a symmetry map, you do not need to turn <span class="MenuCascade" id="GUID-A29BC565-E284-49D5-A39A-11FB0675ABF7">Enforce symmetry</span> on. As long as a symmetry map is connected, it will be used. 
+                     </div>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-016B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EF035D81-1167-4E18-B1BA-ACF516FB51CB"></a></span>Preserving Features
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-27A5090C-E946-487F-A9B7-71EDED444F81"></a></span>The Feature Preservation tab of the Polygon Reduction Op property editor includes
+                  several options that help to preserve specific features during the reduction process.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-016C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-29788F59-832D-4B6B-BF60-433F8850FF21"></a></span>To preserve edges according to certain criteria
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-50BB5350-F105-4D07-8272-A02B888A1A49"></a></span>Use the <span class="MenuCascade" id="GUID-B05E0AD9-2473-4C34-AE3B-840D1FE3DCC3">Preserve</span> sliders to control the priority given to preserving edges that meet the corresponding
+                     criteria: 
+                  </p> <span class="anchor_wrapper"><a name="UL_0F25DD59056F45DABB7B463DAB812C9E"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4A9614AC-C2E8-4639-8E8C-1D16F37A208E"></a></span> <span class="MenuCascade" id="GUID-028CE8D5-767A-41E4-AF77-126797A9819B">Boundaries</span> are edges that are shared by only one polygon. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DF0F08DA-56A8-41F7-B390-1162FDBF3EE7"></a></span> <span class="MenuCascade" id="GUID-A22113C1-7D5E-4AAC-84D5-BACC55C78532">Input cluster boundaries</span> are the boundaries of the polygons or polygon clusters on which you applied reduction
+                           (if you did not apply it on an entire object). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-210C4E51-7A80-4E66-881E-B151974C7F98"></a></span> <span class="MenuCascade" id="GUID-1B5835A9-4671-4901-847D-AD18A4EAA5EF">Hard edges</span> are edges that have been marked as hard using <span class="MenuCascade" id="GUID-8565E1DC-BC81-4BD2-B056-EC078904E503">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Mark Hard Edge/Vertex</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9D60A07B-2EF1-4E08-954D-B5B7F3DBAD7C"></a></span>Creases are edges that have had crease values set using <span class="MenuCascade" id="GUID-433AE460-2802-49B4-B158-B997C4E8D74C">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set Edge/Vertex Crease Value</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0D2CB4B4-7587-4CE6-AB49-E28C41DB536E"></a></span> <span class="MenuCascade" id="GUID-38D94B92-B366-4063-8580-080E6A1598CD">Material boundaries</span> are the boundaries of polygon clusters with local materials. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FF8D124A-FD02-4277-BFD2-207302CA33EA"></a></span> <span class="MenuCascade" id="GUID-A67C4DB6-5779-4723-BF91-A382B1FF4C4B">Property discontinuities</span> are breaks in the texture UVs, user normals, or vertex color (CAV) properties. User
+                           data is not considered. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9DD46DFD-EC12-485F-B3F1-30B56C258F5C"></a></span>Setting a slider to its maximum value preserves the corresponding edges completely,
+                     and may prevent the operator from reaching the amount of reduction set on the General
+                     tab. Setting a value of 0 means that the criterion is not considered at all when reducing
+                     polygons. Turning a checkbox off is equivalent to setting a value of 0. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-016D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BBE5A319-4EC5-469E-A629-8CA425A8EF8B"></a></span>To preserve specific vertices
+                  </h3> <span class="anchor_wrapper"><a name="GUID-CC3F003C-E11F-4FCD-8161-273B5F456AD2"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F50ECE63-0D83-4247-A119-DBAC1746525A"></a></span>Before you apply polygon reduction, create a cluster containing the points you want
+                           to preserve. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B4A7D95F-402D-415E-9E37-4ECCA37C2D20"></a></span>The cluster must exist before you apply the Polygon Reduction operator. If you have
+                           already applied polygon reduction, then you must disable the operator before creating
+                           the cluster. This ensures that the cluster is created at a lower position in the construction
+                           history than the reduction operator. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CBDB4409-3C8B-4617-9175-603B9647B691"></a></span>Similarly if you want to add or remove points from the cluster, make sure you disable
+                           the Polygon Reduction operator first. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FDB4237E-227A-4CE7-9D0B-287DA33E711E"></a></span>For more information about disabling and re-enabling operators in the stack, see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0032">Disabling the Top of the Stack</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-92644009-C5F4-4A76-A34C-83521F6F66D1"></a></span>Apply polygon reduction, or re-enable the Polygon Reduction operator if you disabled
+                           it. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F00F8CD6-CD1B-4744-B4BE-DDE3113FA0F0"></a></span>On the Feature Preservation tab of the Polygon Reduction Op property editor, right-click
+                           on the <span class="MenuCascade" id="GUID-1CF046CD-129C-4FA6-9993-999A272F674C">Connected vertex cluster</span> connection icon and choose <span class="MenuCascade" id="GUID-B648726E-B863-40C8-9213-0681597F7458">Connect</span>. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_C76B2B42DE284924BC4707F7260B4B4C"></a></span><div class="figure-anchor"><img src="../images/GUID-0299EEC0-8D09-43FE-BE69-F3D6BAC53A6B-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-88962195-D5A5-4767-82AA-E8CCBEDD67D4"></a></span>In the pop-up explorer that opens, select the desired cluster. The connection icon
+                           appears red to show that a cluster is connected. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ABDFA602-EAB7-41D9-AAD7-FE05ABBEF989"></a></span>Use the <span class="MenuCascade" id="GUID-E30600B4-8A00-4777-BD33-D8D695AD8BC2">Connected vertex cluster</span> slider to set the priority for preserving the vertices in the connected cluster.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-07A1B0E3-BCEB-4E56-A0D5-FD769C6205AD"></a></span>As with the other properties, setting the slider to its maximum value preserves the
+                           corresponding edges completely, and may prevent the operator from reaching the amount
+                           of reduction set on the General tab. Setting a value of 0 means that the connected
+                           vertices are not considered at all when reducing polygons. Turning the checkbox off
+                           is equivalent to setting a value of 0. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-441B4E7F-BCF3-4B3A-BF6F-7A3B662B7F47"></a></span>If you change your mind and want to disconnect the cluster or connect a different
+                           cluster, right-click on the <span class="MenuCascade" id="GUID-31AB67A8-822B-4173-B911-C00280ACD23A">Connected vertex cluster</span> connection icon again. The connection icon appears gray when no cluster is connected.
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-016F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-74301C48-E8E6-4DEB-A089-876D8A7B71FE"></a></span>To optimize the reduction process for certain attributes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-61F4F1D5-BD36-40F6-9501-B8990DCEDF06"></a></span>Use the <span class="MenuCascade" id="GUID-59F141AB-1BB8-47F2-8EEE-BBD767C6E0DC">Optimize for attributes</span> sliders to bias the reduction process by taking into account value differences in
+                     other properties such as texture UVs, vertex colors (CAVs), weight maps, and user
+                     normals. A value of 0 ignores the attribute when considering an edge for reduction,
+                     while non-zero values set a weighted priority which is considered together with the
+                     edge's geometric energy. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0170"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-187775B6-6C9F-44D0-970F-22BEA8828369"></a></span>To use existing vertex positions
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B93ED6DE-50EF-41C5-AC12-E62D870E9738"></a></span>Normally when an edge is collapsed, the new vertex is created at the midpoint of the
+                     edge. However, if <span class="MenuCascade" id="GUID-BDA85F74-1E3C-489E-833F-6C6653FAFE0B">Use existing vertex positions</span> (available on the Feature Preservation tab of the Smooth property editor) is active,
+                     then edges collapse to one of the two endpoints. This means that each point in the
+                     reduced object shares its position with a point in the unreduced object. This could
+                     be useful in some situations, for example, if you are exporting several versions of
+                     the geometry for use with an engine that does not interpolate attributes. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-47F92C63-BDB2-4D8D-9077-7DB23011C7E9"></a></span>If you are using this option, you probably also want to set <span class="MenuCascade" id="GUID-3C6A4E37-8A08-4D3A-AD7A-6E2285D2C975">Preserve volume</span> to 0 on the General tab of the Smooth property editor; otherwise, points will be
+                     moved after edges are collapsed and the positions will no longer correspond. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9DC10B30-542C-449A-8EB0-6E15730744FD"></a></span>You should also be aware that <span class="MenuCascade" id="GUID-D6C81195-0A59-499A-971B-1AE75DAD497B">Use existing vertex positions</span> may break symmetry if edges cross the plane of symmetry. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0171"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DEC06F4B-7618-41E5-A2BF-F58AFBA568D5"></a></span>Generating LODs
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-473829AC-64AC-46EB-BDAE-DE88F807558E"></a></span>The LOD Controls tab of the Polygon Reduction Op property editor allows you to generate
+                  several versions of an object at different levels of detail. The operator precalculates
+                  the geometry for each version and caches the results. This has several advantages:
+                  
+               </p> <span class="anchor_wrapper"><a name="UL_2C0F067BFDBC4CC88977B478B6FDE5CA"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-862037E9-A2E5-4592-B3E8-4B4F4289153F"></a></span>It avoids potentially expensive recomputations when the amount of reduction is animated.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-546E9EBA-32E3-4742-A8B0-C12061E2E8FE"></a></span>You can transition smoothly between discrete LODs, and avoid texture popping and other
+                        artifacts that might occur when edges are collapsed individually. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BDE5F9CC-69E1-46BE-8CB2-43B8BB599F34"></a></span>You can pregenerate several LODs of the same object for use as game content or for
+                        any other purpose. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0172"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C3E8FAC3-4D65-4D33-A1C6-B9FA59B9D390"></a></span>Activating LODs
+                  </h3> <span class="anchor_wrapper"><a name="GUID-42F828E8-92B9-426F-AF1D-EA20E03FE679"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7398D4B3-7DB7-4A28-896E-A87F7061584E"></a></span>On the LOD Controls tab of the Polygon Reduction Op property editor, turn <span class="MenuCascade" id="GUID-EE33891F-CF66-4DD9-B158-44B4CA2D22D7">Use LODs</span> on. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6E0341BD-BA3C-4364-8E21-66B26C9C667C"></a></span>Adjust the <span class="MenuCascade" id="GUID-9C597136-185B-4DD3-9035-0D4647AEF9F9">Settings</span> to control the amount of reduction: 
+                        </p> <span class="anchor_wrapper"><a name="UL_0F8731DFDA85482AB95F6D22BCBC4227"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A92602FB-C088-45B3-A4DB-8A819447FCAA"></a></span> <span class="MenuCascade" id="GUID-2258C68E-1380-4260-B70F-00B9A49FA271">Reduction ratio per LOD</span> is the percentage of reduction applied successively at each LOD. For example, if
+                                 this value is 50, the first LOD has a reduction of 50%, the second LOD has a total
+                                 reduction of 75% (half of the remaining polygons), the third LOD has a total reduction
+                                 of 87.5%, and so on. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-ADC80CDE-AF1D-46FD-BEA5-79732A94F7C1"></a></span> <span class="MenuCascade" id="GUID-0E8C232B-3EDF-4E9B-95FD-02806DB1B250">Max ratio</span> is a clamp that sets the maximum total amount of reduction. This overrides the amount
+                                 of reduction set on the General tab, and prevents the object from becoming too distorted
+                                 at high reduction amounts. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0173"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-66A7DC70-DD0E-4D15-BA43-F05F249BE3D8"></a></span>Controlling the LOD
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0138A34C-95CA-45B0-AF2D-61E67C4A39C4"></a></span>There are two ways to control which LOD is currently in use: 
+                  </p> <span class="anchor_wrapper"><a name="UL_67541E5BF51841B69B59AD866342A5E2"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-46E2E70B-5A7B-4A47-AF1B-E7F9AFE8F27B"></a></span>If <span class="MenuCascade" id="GUID-D8CDDFE1-2F8D-4139-9604-21D3FD8F61FE">Control by LOD Stage</span> - <span class="MenuCascade" id="GUID-A4387AB4-13F0-40CB-8983-C4354CB09732">Activate</span> is off, adjust the <span class="MenuCascade" id="GUID-0E437F7F-C7DC-4DA0-960A-5E289BF26D81">Reduction Amount</span> on the General tab of the Polygon Reduction Op node. The LOD which is closest to
+                           the amount of reduction is used. If <span class="MenuCascade" id="GUID-616726C8-C165-4D96-A5D0-0890F103E75E">Smooth transitions</span> is on, reduction amounts that fall between discrete LODs morph between the levels.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FCF37BBC-1CF7-43E7-98A9-E5D50E5569EC"></a></span>If <span class="MenuCascade" id="GUID-5E979ED7-D533-4D0E-B4C9-CA9B69E2B7CD">Control by LOD Stage</span> - <span class="MenuCascade" id="GUID-B7A7ACB1-7DEA-4989-9639-7EDFC98D210C">Activate</span> is on, specify the LOD directly using <span class="MenuCascade" id="GUID-1410254F-4ADA-43D5-8357-33230B1DF1E6">LOD Stage</span>. This is especially useful if you want to export LODs for game content or other purposes.
+                           
+                        </p> 
+                     </li>
+                  </ul> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0174"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-5B3FF0A9-FDCA-40C9-AB51-A1F226E1700E"></a></span>To control the LOD using the Reduction Amount
+                     </h4> <span class="anchor_wrapper"><a name="GUID-C2C11134-3B96-4AB8-A429-6EE5B3209A7E"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9306B3A2-BB6C-4581-970C-E377CE4D7B3F"></a></span>Activate LODs, and make sure that <span class="MenuCascade" id="GUID-972BAF4E-5A6C-4E4D-AE68-90E0214577F8">Control by LOD Stage - Activate</span> is off. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-EF390A80-2203-403A-ACC7-F7D06EC2D047"></a></span>If desired, turn on <span class="MenuCascade" id="GUID-1FB4208B-BC19-4231-B75F-36E5861F0D78">Smooth transitions</span> on either the General or LOD Controls tab of the Polygon Reduction Op property editor:
+                              
+                           </p> <span class="anchor_wrapper"><a name="UL_878145614DBF4C738BF1045B8FBD2E0D"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-FFAAE8D7-0709-43D9-A609-A355EC638124"></a></span>When it is on, the object morphs smoothly between LODs as the reduction amount varies
+                                    between levels. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-FDD75C2B-ACC7-485C-B416-BF2FF9F15097"></a></span>When it is off, the geometry abruptly snaps to the closest LOD as the reduction amount
+                                    changes. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4A887478-94EB-4064-96CF-391D42D3671D"></a></span>You can also restrict the interval during which the morphing occurs to a fraction
+                              of the interval between LODs using <span class="MenuCascade" id="GUID-90C9EC2A-5178-4C78-A8C0-0ADA6E538301">Transition size</span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-729CF384-7998-4E9A-95D9-58331CBC83AE"></a></span>Adjust the <span class="MenuCascade" id="GUID-37078C72-B5F4-428A-9DD3-C9A8BFBBD67C">Reduction Amount</span> on the General tab. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0175"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-70C11FA6-2A61-4114-84EB-C0A0C1647AD1"></a></span>To control the LOD directly
+                     </h4> <span class="anchor_wrapper"><a name="GUID-9B2F46A9-1098-4B74-BC12-904A551FB3CB"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6E2284A7-3DD3-409D-89AE-EC229DAA5C23"></a></span>Activate LODs, and make sure that <span class="MenuCascade" id="GUID-40598E15-CA9B-4AC6-9EAC-C3B9AAECD142">Control by LOD Stage - Activate</span> is on. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-80732AB7-DA4B-4F8B-B393-2B0E3B53B15D"></a></span>Adjust <span class="MenuCascade" id="GUID-B90232C8-3D87-44F2-AB3F-23C6E5A11B75">LOD Stage</span> to specify the LOD. The meaning of the stages depends on whether <span class="MenuCascade" id="GUID-E0BB6E0E-C1D6-42A6-B4D3-F9BA5C2B1B6F">Smooth transitions</span> is on or off. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C0EBD293-C2FA-4D3D-8B2A-D2A3A9A5A158"></a></span>If <span class="MenuCascade" id="GUID-C40AB9DF-029F-4B14-900A-A438629B6270">Smooth transitions</span> is off: 
+                           </p> <span class="anchor_wrapper"><a name="UL_7EA47B3D01314CF282B41E7B99505124"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-087B09F2-3C15-4C11-B2D7-4E35E0417B43"></a></span> <span class="MenuCascade" id="GUID-0D80C75A-B6D6-4D4C-B2EF-C798769DBBD1">0</span> is no reduction. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-E25DAD34-EFAF-4C75-8551-8FF869FBF9B0"></a></span> <span class="MenuCascade" id="GUID-19AEB340-E181-457C-982C-4884A104A783">1</span> is the first level of reduction. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-BB180ED2-CED6-4005-92DC-2CCD33B03FD3"></a></span> <span class="MenuCascade" id="GUID-8DDF6C79-14DB-4DDA-A448-C363012B5D1C">2</span> is the second level of reduction, and so on. 
+                                 </p> 
+                              </li>
+                           </ul> <span class="anchor_wrapper"><a name="TABLE_B530D6A20B414A4D9FD5BD7FB6E55073"></a></span><div class="table_NotRuled">
+                              <table cellpadding="0" cellspacing="0" class="not-ruled">
+                                 <colgroup>
+                                    <col>
+                                    <col>
+                                    <col>
+                                 </colgroup>
+                                 <tr class="not-ruledOddRow">
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BEDE5F51-7861-4A3D-8739-ABAED595BE15"></a></span><p class="table-body">Control by LOD Stage, with Smooth transitions = off </p> 
+                                    </td>
+                                    <td class="table-body">&nbsp;</td>
+                                    <td class="table-body">&nbsp;</td>
+                                 </tr>
+                                 <tr class="not-ruledEvenRow">
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-F87CD13F-6F11-40BC-AA6A-8B4CFC55FF88-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-5D52DA6C-7733-4370-B81A-2B92DE0BDAFC-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-EA00E6DE-124B-4418-A82F-EE0EDBB6AEB0-low.png"> 
+                                    </td>
+                                 </tr>
+                                 <tr class="not-ruledOddRow">
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F977107C-D330-4AD5-88E2-00713BF20AC9"></a></span><p class="table-body">Stage 0 Unreduced geometry. </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7027B41C-FED2-4884-B287-1FF79685ADDC"></a></span><p class="table-body">Stage 1 Reduced geometry. </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DC1880BD-E81D-487E-99D3-410FEAE5DFB3"></a></span><p class="table-body">Stage 2 Further reduced geometry. </p> 
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F3A4572E-EE07-4739-A551-2BBFEE46682A"></a></span>If <span class="MenuCascade" id="GUID-C1530884-393C-4A57-A139-AC4D45C456CD">Smooth transitions</span> is on: 
+                           </p> <span class="anchor_wrapper"><a name="UL_F8563C3A9D994669BDA42076D6B1DFC6"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-26FC8B86-2610-49E6-872B-C1F36C371393"></a></span> <span class="MenuCascade" id="GUID-BD597E44-35B5-43C0-A3DB-A2F59329F75E">0</span> is no reduction. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-B45C32D0-5017-40A6-96D7-F7615C40C74B"></a></span> <span class="MenuCascade" id="GUID-DEC1D740-6C60-41F1-B5D1-40B4B044A70A">1</span> is the unreduced object morphed to first level of reduction. Edges have been shrunk
+                                    to zero length but coincident points have not been merged. It has the same number
+                                    of vertices as level 0. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-4DAB9B22-16B1-43A9-B53A-13EC1124C55F"></a></span> <span class="MenuCascade" id="GUID-389D5659-011B-43FD-BB26-53AB4275251D">2</span> is the first level of reduction, after coincident points have been merged. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-9A20FC7C-9BB2-4B72-ABF1-B90E332A250F"></a></span> <span class="MenuCascade" id="GUID-3ACD0841-30C0-4881-BD3C-D58D940EE550">3</span> is the first level of reduction morphed to the second level of reduction, and so
+                                    on. 
+                                 </p> 
+                              </li>
+                           </ul> <span class="anchor_wrapper"><a name="TABLE_70C0B91A75EE449B9814C34E4E8E5C71"></a></span><div class="table_NotRuled">
+                              <table cellpadding="0" cellspacing="0" class="not-ruled">
+                                 <colgroup>
+                                    <col>
+                                    <col>
+                                    <col>
+                                 </colgroup>
+                                 <tr class="not-ruledOddRow">
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5012DEA4-53C5-4120-93A5-4D3F0F8D80E8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-74F81A13-0630-4C51-8860-14D2353E1EE2">Control by LOD Stage</span>, with <span class="MenuCascade" id="GUID-300303FF-CDA3-4396-9B66-FA839A73A3F2">Smooth transitions</span> = on 
+                                       </p> 
+                                    </td>
+                                    <td class="table-body">&nbsp;</td>
+                                    <td class="table-body">&nbsp;</td>
+                                 </tr>
+                                 <tr class="not-ruledEvenRow">
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-F87CD13F-6F11-40BC-AA6A-8B4CFC55FF88-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-C852264E-8C31-4491-AC3D-05A34E362707-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-5D52DA6C-7733-4370-B81A-2B92DE0BDAFC-low.png"> 
+                                    </td>
+                                 </tr>
+                                 <tr class="not-ruledOddRow">
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-33C92F1B-075C-4913-822E-7D256864561D"></a></span><p class="table-body">Stage 0 </p> <span class="anchor_wrapper"><a name="GUID-2F0BF383-8DF7-4CAA-8669-8323F6B4D90D"></a></span><p class="table-body">Unreduced geometry. </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6CC3A879-F2EA-4AE5-A24C-A3FC3FA41935"></a></span><p class="table-body">Stage 1 </p> <span class="anchor_wrapper"><a name="GUID-4380B116-C223-444A-ACF4-90734AE0FAFD"></a></span><p class="table-body">Same number of points as stage 0 but morphed to stage </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C9C6C370-200F-4584-9384-33BD42CBB537"></a></span><p class="table-body">Stage 2 </p> <span class="anchor_wrapper"><a name="GUID-AE876D0B-805B-4EA5-90B3-47542AEFA622"></a></span><p class="table-body">Reduced geometry. </p> 
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-480E6CE4-882F-4C19-B65D-09ED73892141">
+      <meta name="indexterm" content="caching: non-ICE rigid body simulations">
+      <meta name="indexterm" content="rigid body: caching simulations">
+      <meta name="indexterm" content="caching: locking cache files for render farms">
+      <meta name="topic-type" content="concept">
+      <title>Caching Non-ICE Rigid Body Simulations</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-480E6CE4-882F-4C19-B65D-09ED73892141"></a></span><div class="head">
+            <h1>Caching Non-ICE Rigid Body Simulations</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-FA2F5E90-783E-4F4C-93D9-0181FE665480"></a></span>   
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-2C549B4F-E700-4C3F-83F3-A580F3F5526D"></a></span>You can cache the simulation of the non-ICE rigid bodies current environment into
+            a simulation environment cache. The environment cache stores the simulation as global
+            transformation function curves that you can edit in the animation editor. The fcurves
+            are raw curves, meaning that there is a key at every frame. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-084DA9C9-0DD2-4626-A91B-ABA369966549"></a></span>You can use this cache to scrub the simulation back and forth in the timeline. It
+            also provides you with an easy way of testing variations to your simulation: every
+            time you change something in the simulation, you can simply play the simulation again
+            to update the cache with the changes. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-4B9460C3-09C8-4D88-AA92-1898CC7B7FF7"></a></span>You can also save the environment cache to an action source and optional clip to use
+            in the animation mixer — see the section below. You can cache one action source per
+            model, which lets you import and export models with their cached simulation intact.
+            
+         </p>
+         <div><span class="anchor_wrapper"><a name="GUID-11CCD81C-AE54-415C-9554-E49826E78F7E"></a></span><div class="note-note"><span class="label">NOTE:</span>Some deformation and topology edits can cause cycles with rigid body simulations,
+               and therefore unpredictable behavior. The cyclic dependency happens because some geometry
+               operators require the position of the rigid body to be computed, while the rigid body
+               simulation requires the geometry of the rigid body in order to calculate collisions.
+               The solution is to freeze the rigid body, or freeze its modeling. 
+            </div>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-23A486E2-C230-4369-9866-017AF3587689"></a></span>To cache the rigid body simulation environment : 
+         </p><span class="anchor_wrapper"><a name="GUID-8AC86705-1472-4EEB-9F62-B05568FC14D1"></a></span><ol type="1" start="1">
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-ECC64A7B-F93C-4B41-90D5-8177877135BA"></a></span>Select the environment you want to be current for the rigid bodies simulation cache,
+                  then right-click on it and choose <span class="MenuCascade" id="GUID-168D74DA-8BE0-43E2-A57E-4BBAE623F1BB">Set as Current Environment</span>. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-DBD34B23-7EF5-421E-8934-24FD9A9EE211"></a></span>Do either of the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_713B6EDFBAEC4B85ADE9229A0844F4F0"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7C378066-49AD-47EE-8BAD-E6D04C6904BE"></a></span>Open the Cache Manager (see <span class="char_link"><a href="sim_cache_CachingSimulations.htm#WSBCC68D637F05FE469ECDBB479E3055EE-0005">Opening the Cache Manager</a></span>), then click the <span class="MenuCascade" id="GUID-B1B6A10E-91E7-4489-9CC3-7E4323701367">Simulation</span> tab at the top of its window. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-510416CF-AB11-4E23-8CEB-EA7EF04B76E3"></a></span>Open the Simulation Time Control property editor for the current simulation environment.
+                        (In the explorer, open the current Environment and click the Simulation Time Control
+                        icon). 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-88DC37D8-A782-4BA6-A584-99954CC3673C"></a></span><div class="note-note"><span class="label">NOTE:</span>You can select any of the <span class="MenuCascade" id="GUID-D5C6C08F-1566-443F-92E5-50336D72B3F4">Play Mode</span> options (on the Simulation page) for caching — see <span class="char_link"><a href="property7050.htm">Simulation Time Control Property Editor</a></span>. However, if you're doing distributed rendering or using motion blur, it's recommended
+                           that you use the Standard mode. 
+                        </div>
+                     </div> 
+                  </li>
+               </ul> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-78FE0580-7596-4D43-A632-755FA1970411"></a></span>Click the <span class="MenuCascade" id="GUID-77314765-5A43-4A9D-81C2-ABAA1583F5DB">Caching Files</span> tab. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-7C36D135-C614-4CC3-939A-56347A83E2D1"></a></span>Select the <span class="MenuCascade" id="GUID-63EDA52A-3DC2-4343-B98F-286A36911345">Cache on Playback</span> option. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-3C403A45-6475-4B02-8C81-7382DEFE737F"></a></span>Play the frames of the simulation that you want to cache. This creates an environment
+                  cache file that you can find in the current environment's Caches node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A39DD318-C6C8-4E94-B7C2-3B9A623DC8A1"></a></span>You can also cache the frames by jumping to the last frame of the simulation that
+                  you want to cache: all the frames of the simulation up to that frame are cached. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-BE9D6CBB-A3CA-4B5F-A768-BF4762181142"></a></span>If you want to keep making changes to the simulation and update the contents of the
+                  environment cache every time you play it, keep the <span class="MenuCascade" id="GUID-E017B851-2800-42E6-A5BE-C7B979409539">Cache on Playback</span> option on. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5CDC9D41-9F95-454C-948D-72114D21EAA6"></a></span>If you don't want to do this, make sure to turn off the <span class="MenuCascade" id="GUID-61E46792-5A89-4344-9A75-439DF7CB10B3">Cache on Playback</span> option when you're done playing back the simulation. 
+               </p> 
+            </li>
+         </ol>
+         <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-0022"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-4921794B-EB43-418F-84B1-C3392734EE48"></a></span>Creating Action Sources and Clips from the Cache
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-68288739-49B5-4D8F-94FA-16D365AA11E1"></a></span>After you have created an environment cache of the rigid body simulation, you can
+               also create an action source to keep with the model. You can have one cache file source
+               per model, which lets you import and export models with their cached simulation intact.
+               
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-12419854-932F-4FBE-9890-45D857E099A7"></a></span>At the same time you create an action source, you can also create an action clip from
+               this source and apply it in the animation mixer. Note that creating a clip removes
+               the simulation from the rigid body objects. If you want to keep the simulation intact,
+               you can copy the objects or your scene before creating the clip. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-922BB3BB-E1D3-47A0-BA16-61C6185FFF48"></a></span>Once you have an action clip in the animation mixer, you can use it like any other
+               action clip. For example, you can load other simulation action sources on tracks in
+               the mixer, then play each one separately (solo), or mix the weights of two or more
+               simulations together. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-43E90369-F889-4A74-95D9-94D3D5A09937"></a></span>For information in general about action sources and clips in the animation mixer,
+               see <span class="char_link"><a href="nla_actions.htm">Actions</a></span>. 
+            </p> 
+            <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-0023"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-50426DC4-69CD-48F3-9C9A-C7114A45E443"></a></span>Saving the Rigid Body Simulation in an Action Source and Applying as a Clip
+               </h3> <span class="anchor_wrapper"><a name="GUID-B8B68871-F8AB-47BA-82DE-31A175FD1CCC"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-89444D11-F712-4318-98B5-44710524489E"></a></span>Click the <span class="MenuCascade" id="GUID-FB91D024-0187-4B06-AF59-2B4E39F6B22A">Save Cache to Mixer</span> button to open the Store Environment Cache in Mixer dialog box. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4F6F09D6-FCAB-4002-80CC-8951CCB48218"></a></span>In this dialog box, enter an <span class="MenuCascade" id="GUID-CC8BF9E9-EA66-43CE-B665-13F2D86DAEB9">Action Name</span> for the action source that contains the cached simulation. This source is kept in
+                        the model's Mixer &gt; Sources &gt; Animation node. Click OK in the dialog box to create
+                        the action source. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6B8D9A4C-57CE-474B-9C4F-46CE44323503"></a></span>You can optionally select the <span class="MenuCascade" id="GUID-B6C26C4E-1C92-451C-895B-673C8D784081">Add Clip to Mixer</span> option to create and apply the action source as an action clip in the model's animation
+                        mixer. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-707FDAF4-7F3B-4C91-8C66-A3DD35EBAA07"></a></span>The simulation is removed from the rigid body objects when you click OK in this dialog
+                        box. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div> 
+            <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-0024"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-B961676A-0B43-4CC1-95DF-4C21E74E37AD"></a></span>Selecting the Storage Type for the Action Source
+               </h3> 
+               <p><span class="anchor_wrapper"><a name="GUID-2AB7EC8B-F0D7-4B92-9D79-05DAB9C13EE1"></a></span>By default, the action source is stored as an Internal type of source. However, you
+                  can change it if you like: 
+               </p> <span class="anchor_wrapper"><a name="GUID-BEFAE996-B321-485F-9616-8C29894C0474"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9CFD29FC-9448-4558-9D2E-6851B288B49F"></a></span>In the explorer, click the action source's icon (in the model's Mixer &gt; Sources &gt;
+                        Animation folder) or click the current environment's Environment Cache icon to open
+                        its property editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8557F4DC-8795-4285-9295-9CA02B38AD9C"></a></span>In the Action Source or Environment Cache property editor, select the cache file's
+                        <span class="MenuCascade" id="GUID-C73CC73D-305C-4F8C-BDA8-83DC307B10F4">Storage</span> type as Internal (saved with the scene) or as External (saved to a file). 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-C2054473-CE1F-4B79-AAFD-55FD5EC731DB-low.png"></div> <span class="anchor_wrapper"><a name="UL_EBEB0A89A9FE49358127D26D5FB6724B"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9C533D8B-E254-484C-8F45-93FEF563A074"></a></span>If you select Internal as the storage type, the source is saved as any other action
+                              source in the current model's Mixer &gt; Sources &gt; Animation folder. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F0031A6F-0CA8-407D-ADA4-4A3FE52AE1C6"></a></span>If you select any of the External options as the storage type, select a location and
+                              <span class="MenuCascade" id="GUID-DC58AEA6-979C-4B6F-82C5-EF4EE56A5259">File</span> name for the simulation source. This allows you to export the cached simulation in
+                              a separate file. 
+                           </p> 
+                        </li>
+                     </ul> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EC501BCB-6807-45C0-861C-8994D6F5408E"></a></span>For information on external action sources, see <span class="char_link"><a href="actions_CreatingExternalActionSources.htm">Creating External Action Sources</a></span> [<span class="char_link"><a href="nla_cover.htm">Nonlinear Animation in the Animation Mixer</a></span>]. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-0026"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-F0A5D334-7FFE-40AA-BC87-B78D03A4AFFC"></a></span>Locking the Cache File
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-2A392CB1-D695-4251-B8B2-A34742D18702"></a></span>Once you have created a simulation environment cache file, you can lock it so that
+               its contents can't be resimulated once it is complete. This is particularly useful
+               when you're happy with the current state of the simulation and want to make sure that
+               it won't change. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-5835C787-FB53-45FA-BBAD-D4A08B511387"></a></span>You should lock a cache file before sending it to a render farm. <span class="anchor_wrapper"><a name="UL_82796B383063417ABA5649431C996877"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7A40CB09-8FFF-477E-B8B8-2B4571A9BB86"></a></span>Create a cache file, then select the <span class="MenuCascade" id="GUID-06424368-410F-4F69-B560-CBDA76832956">Lock Playback Cache</span> option in the Simulation Time Control property page. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0E4108CD-ED5F-4215-9513-076B40879716"></a></span>Softimage looks for the cache file that is specified, then locks the frames that have
+                        already been cached so that they can't be resimulated. 
+                     </p> 
+                  </li>
+               </ul> 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

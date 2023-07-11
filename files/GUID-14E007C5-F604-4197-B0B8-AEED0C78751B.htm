@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-14E007C5-F604-4197-B0B8-AEED0C78751B">
+      <meta name="indexterm" content="ICE modeling: shattering">
+      <meta name="indexterm" content="shattering polygon meshes with ICE">
+      <meta name="topic-type" content="concept">
+      <title>Simple Shattering in ICE</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-14E007C5-F604-4197-B0B8-AEED0C78751B"></a></span><div class="head">
+            <h1>Simple Shattering in ICE</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-52AA5FCC-6A6A-45B2-8889-F111302D62C5"></a></span> The <span class="char_link"><a href="iceref_Create_Basic_Shatter_from_Point_Cloud.htm">Create Basic Shatter from Point Cloud</a></span> compound illustrates one possible way to use ICE modeling to break up polygon meshes.
+            It works only with convex meshes, but you can use it as an example for building more
+            complex shattering effects. It involves three main elements: <span class="anchor_wrapper"><a name="UL_C37D10E231814C20AF3B35689E92FD1B"></a></span><ul>
+               <li>A polygon mesh to shatter. </li>
+               <li>An empty mesh to contain the shattered topology. </li>
+               <li>A point cloud to define the centers of the Voronoi cells. </li>
+               <li>Optionally, another mesh to use as an emitter for the point cloud, if you don't want
+                  to shatter evenly through the original mesh. 
+               </li>
+            </ul> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-C8D3AEB2-7BC7-4351-9F5B-4C4BB5A37902"></a></span> <img src="../images/GUID-096F871B-5D17-490A-94C1-DE1695E8165B-low.png"> 
+         </p><span class="anchor_wrapper"><a name="OL_0CF3A08A93E6443C82587FF93E9A61F6"></a></span><ol type="1" start="1">
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-D61DEC56-1CBC-49F9-8EEB-EB2A0C89A8F5"></a></span>Create a convex polygon mesh to shatter, and hide it. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-885C14E0-22B7-439D-A54F-D27EE6DB1E90"></a></span>Get an empty point cloud, and create a non-simulated ICE tree on it. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-9DCCB3E4-3E08-45DC-848D-18667F0A1E46"></a></span>Connect <span class="char_link"><a href="iceref_Build_Slice_Planes.htm">Build Slice Planes</a></span> to the ICETree root 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-4E7E0B84-B6B0-4B6C-85AF-D3A469A933EB"></a></span>Choose the mesh to use as the particle emitter mesh, and connect its name into the
+                  Polymesh Name port. <span class="anchor_wrapper"><a name="UL_BB8C7E2FBED14A8EBB70040E2BFBC7B5"></a></span><ul>
+                     <li>If you want to shatter evenly throughout the volume of the original mesh, use it.
+                        
+                     </li>
+                     <li>If you want to shatter a smaller, more localized region, you can create and use a
+                        different mesh to control it. 
+                     </li>
+                     <li>If you want to shatter just in one plane, you can use a grid or disk and deactivate
+                        <span class="MenuCascade" id="GUID-C04C2B66-F80A-43B0-A4B3-94A91DF95F0F">Emit From Volume</span>. 
+                     </li>
+                  </ul> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-B0911DA9-C296-4DFA-B455-E5EB4C37E13A"></a></span>Adjust the <span class="MenuCascade" id="GUID-DC1112F6-8234-4396-AFDD-EEB9B7D348FC">Particle Emitter Settings</span> as desired, and set a small non-zero value for <span class="MenuCascade" id="GUID-B9EA84D5-D72E-4F3D-968A-507381E2EAFA">Inset Factor</span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BB2AC6EC-B6A6-4C8B-9340-1FE64D80DBF0"></a></span> <img src="../images/GUID-526B3957-2D22-4571-8D09-0671FB070821-low.png"> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-C914E317-B799-4EED-A5C7-3299332DCF05"></a></span>Get an empty polygon mesh, and create a non-simulated ICE tree on it. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-20BF5CC5-1E7F-4D2B-892F-1EEF829BAFE8"></a></span>Connect <span class="char_link"><a href="iceref_Create_Basic_Shatter_from_Point_Cloud.htm">Create Basic Shatter from Point Cloud</a></span> to the ICETree root. Connect the mesh that you want to shatter into Polygon Mesh
+                  Name and connect the point cloud into Point Cloud Name. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C5227474-E0D1-4C61-A755-6F23BCFD1FCE"></a></span> <img src="../images/GUID-184F7CE2-3086-4AA4-AF4D-CB723F4BD3D5-low.png"> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-4B556BED-C8CC-4FFB-B007-F5A9EA3D4665"></a></span>If desired, you can also connect <span class="char_link"><a href="iceref_Set_Data_from_Chunk.htm">Set Data from Chunk</a></span>. It sets an integer per vertex that identifies which chunk each vertex belongs to,
+                  so that you can distinguish the chunks for further processing in your tree. It also
+                  sets a random color per chunk which you can use to distinguish the chunks in the viewports
+                  by using the color in the render tree. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DB1EFF82-9DD4-4431-80E2-30E6931419D7"></a></span> <img src="../images/GUID-4042832D-AEFE-42FA-B269-43D22CB7117A-low.png"> 
+               </p> 
+            </li>
+         </ol>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

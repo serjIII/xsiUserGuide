@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D0EE6503-69C0-4981-A338-D52540259DAC">
+      <meta name="indexterm" content="ICE trees: frames">
+      <meta name="indexterm" content="ICE trees: time">
+      <meta name="indexterm" content="time: ICE trees and">
+      <meta name="indexterm" content="frames: ICE trees and">
+      <meta name="topic-type" content="concept">
+      <title>Working with Frames and Times</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D0EE6503-69C0-4981-A338-D52540259DAC"></a></span><div class="head">
+            <h1>Working with Frames and Times</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0084"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-29AFE5A1-C690-4B7B-AE45-115113593663"></a></span>Getting Time Data
+               </h2> 
+               <p>There are some nodes in the Get Data category that return time data:</p> 
+               <ul>
+                  <li> 
+                     <p>Current Frame returns the local frame number, or the global frame if Global is true.</p> 
+                  </li>
+                  <li> 
+                     <p>Current Time returns the local time in seconds, or the global time if Global is true.</p> 
+                  </li>
+                  <li> 
+                     <p>Simulation Step returns the length of a frame in seconds. It is equivalent to getting
+                        PlayControl.Rate and doing the math yourself.
+                     </p> 
+                  </li>
+               </ul> 
+               <p>During a simulation, the local time is the time for which the simulation has been
+                  active. The first frame that the simulation is active is 0, and corresponds to the
+                  initial state.
+               </p> 
+               <p>The global frame is always the value of the current frame in the playback panel.</p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0085"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-48E18332-DE96-4DC9-AF2C-164912F571CC"></a></span>Age
+               </h2> 
+               <p>The Age attribute of particles is in seconds, and is automatically incremented every
+                  frame by the simulation environment. The Age of new points is automatically randomized
+                  to a fraction of a frame by the Emitter compounds.
+               </p> 
+               <p>The Clone Point node and compounds that include it (such as the Spawning compounds)
+                  copy the Age attribute. If you want newly cloned points to have a different age, you
+                  must set it using the On Creation or Execute on Spawn ports.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0086"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-033448DD-48C0-4351-9805-C23DD182E2FB"></a></span>Sub-frame Simulations
+               </h2> 
+               <p>Simulations are calculated on a per-frame basis. However, a frame can be a long time,
+                  especially when dealing with particle emissions and collisions. In many situations,
+                  it becomes necessary to consider slices of time smaller than a single frame.
+               </p> 
+               <p>The SimulatedFrameFraction stores the portion of a frame for which a point has already
+                  been simulated. The Simulate Particles node affects a particle for a length of time
+                  equal to (1 – SimulatedFrameFraction)*SimulationStep, and then set the attribute to
+                  1.0 so that the particle is unaffected by other Simulate Particles nodes for the rest
+                  of the frame. SimulatedFrameFraction is reset to zero at the beginning of each frame.
+               </p> 
+               <p>The Emitter compounds automatically initializes SimulatedFrameFraction and sets it
+                  to (1 – Age/SimulationStep) so that on its first frame of existence, a particle only
+                  moves for a distance proportional to its age. As a result, it appears as if particles
+                  have been emitted continuously throughout the frame instead of all at once.
+               </p> 
+               <p>You can set the SimulatedFrameFraction attribute directly. For example, suppose you
+                  use the Basic Collide node to test for collision with a geometry. If a point will
+                  collide, you can store the old value of SimulatedFrameFraction in a custom attribute,
+                  say OldSFF. You can then set SimulatedFrameFraction to the value of Hit Frame Fraction
+                  returned by the Basic Collide node and simulate up to the moment of collision. After
+                  that, set SimulatedFrameFraction to OldSFF + Hit Frame Fraction before changing states
+                  or doing something else for the rest of the frame.
+               </p> 
+               <p>The Get Remaining Frame Fraction and Get Remaining Seconds in Frame compounds can
+                  also be useful when working with sub-frame simulations.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

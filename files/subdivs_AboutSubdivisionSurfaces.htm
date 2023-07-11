@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C40AD23E-2941-4933-972B-521FDD8DBB62">
+      <meta name="indexterm" content="subdees or subdivision surfaces">
+      <meta name="indexterm" content="hulls: polymesh (subdivision surfaces)">
+      <meta name="indexterm" content="subdivision surfaces: generating objects">
+      <meta name="indexterm" content="geometry approximation: subdivision surfaces">
+      <meta name="indexterm" content="subdivision surfaces: geometry approximation">
+      <meta name="indexterm" content="approximation: geometry">
+      <meta name="indexterm" content="subdivisions: local">
+      <meta name="indexterm" content="local subdivision">
+      <meta name="indexterm" content="subdivision surfaces: local subdivision">
+      <meta name="indexterm" content="subdivision surfaces: combining methods">
+      <meta name="indexterm" content="subdivision surfaces: algorithms">
+      <meta name="indexterm" content="subdivision surfaces: Catmull-Clark">
+      <meta name="indexterm" content="Catmull-Clark subdivision">
+      <meta name="indexterm" content="Doo-Sabin subdivision">
+      <meta name="indexterm" content="subdivision surfaces: Doo-Sabin">
+      <meta name="indexterm" content="subdivision surfaces: linear">
+      <meta name="indexterm" content="linear subdivision">
+      <meta name="indexterm" content="subdivision surfaces: Loop">
+      <meta name="indexterm" content="Loop subdivision">
+      <meta name="indexterm" content="subdivision surfaces: levels of subdivision">
+      <meta name="indexterm" content="subdivision surfaces: creases">
+      <meta name="indexterm" content="creases on subdivision surfaces: about">
+      <meta name="indexterm" content="subdivision surfaces: viewing">
+      <meta name="indexterm" content="subdivision surfaces: hulls">
+      <meta name="indexterm" content="hulls: polymesh (subdivision surfaces)">
+      <meta name="indexterm" content="polymesh hulls">
+      <meta name="indexterm" content="wireframe: simplified subdivision">
+      <meta name="indexterm" content="subdivision surfaces: simplified wireframe">
+      <meta name="indexterm" content="selecting: components of subdivision surfaces">
+      <meta name="indexterm" content="subdivision surfaces: selecting components on">
+      <meta name="topic-type" content="concept">
+      <title>About Subdivision Surfaces</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C40AD23E-2941-4933-972B-521FDD8DBB62"></a></span><div class="head">
+            <h1>About Subdivision Surfaces</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-5CB803F1-6D39-42B3-8DE3-9A18F94B727F"></a></span>Subdivision surfaces (sometimes called " subdees") are a method of creating a high-resolution
+               polygonal mesh from a low-resolution one. You can use the low-resolution mesh as a
+               hull to control the high-resolution mesh. 
+            </p><span class="anchor_wrapper"><a name="FIG_C1300A6CDAD64042A67AAF15C28E5B93"></a></span><div class="figure-anchor"><img src="../images/GUID-D40260F1-5A9D-4AB0-8685-D1CA0B991229-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-0EC5D272-BE38-4300-A0C9-8422C83F820C"></a></span>A subdivision surface (A) with its polymesh hull (B). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0F0D0D82-7BFD-4AE1-8A4E-57992CA3820C"></a></span>Subdivision surfaces have numerous advantages. They provide the smoothness of NURBS
+               surfaces with the local detail and texturing capabilities of polygonal meshes. 
+            </p><span class="anchor_wrapper"><a name="UL_17B7C9E9E9834F3BB8D22830048C6741"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E2B5CFF6-AE25-4B6B-A8B1-D3A1A1C8B1D2"></a></span>You can work with the simpler and lighter hull rather than the heavy, denser, high-resolution
+                     version for faster interaction. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B8A7621A-8D1D-4A16-B325-F2AEA4D2F62A"></a></span>You can transform, deform, envelope, and shape-animate the control hull and the effect
+                     propagates automatically to the subdivision surface. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-079CF4DE-3056-4749-B24D-152C0AC4C202"></a></span>You can even add and remove points, edges, and polygons from the hull to update the
+                     surface. 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-485F49FE-6F52-4AE1-845B-5979C4C40ACA"></a></span>Methods for Subdividing Surfaces
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C7937F6F-BA7B-4B7E-8081-0240B10847B9"></a></span>There are three ways to subdivide polygon meshes: generating a new object, modifying
+                  the geometry approximation, and locally subdividing selected polygons. You can also
+                  combine these methods to obtain the results you want. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0007"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-150481A1-DB71-4568-8A7F-75D89F831A6F"></a></span>Generated Objects
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-B7DA6385-B2DB-4046-8563-F6021F6A7112"></a></span>You can create a new high-resolution polygon mesh object from a low-resolution one.
+                     As long as there is a modeling relation between the two objects, you can modify and
+                     animate the low-resolution object to drive the high-resolution one. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_618BB8652D00428EB41C2E5BA7DE2FB9"></a></span><div class="figure-anchor"><img src="../images/GUID-E4B70269-AA0F-4586-8D6A-0ECC9C3580CD-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E9BB47F7-AFCF-4CAE-A634-AFCCA391E3CB"></a></span>Generated subdivision surface: The low-res object (A) drives the overall shape of
+                     the high-res subdee (B). You can still move points on the subdee independently (C).
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DAA11E37-1EEE-4E7D-BC9F-680C28BBF599"></a></span>You can hide the high-resolution object while you animate and modify the low-resolution
+                     version. You can also turn off the <span class="MenuCascade" id="GUID-7188A397-5908-4003-9247-E93F71CF0DF9">Render Visibility</span> of the low-resolution model. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6B6462BE-601A-4E8F-89F0-11C1C991271B"></a></span>Alternatively, you could place the low-resolution object in a non-rendering layer
+                     and the high-resolution version in a non-viewable layer while you work. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BBC7CF40-0EB1-412B-8A31-3D77CB62E828"></a></span>In addition, you can apply a Display property so that the low-resolution version is
+                     always displayed in wireframe. These procedures are described in detail in <span class="char_link"><a href="view_viewing_ChoosingHowtoDisplaySpecificObjects.htm">Choosing How to Display Specific Objects</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B6B64E4C-95D2-4EE0-B75C-456E446147B1"></a></span>The advantages of this method is that you can move points and add detail to the generated
+                     object yet still drive it with its control hull. You can also create multiple high-resolution
+                     objects from the same low-resolution one. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0BF93E66-AFB2-40E3-8829-1E02ABF89F4B"></a></span>A disadvantage is that the high-resolution object's geometry can result in heavy scenes
+                     and large files. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0009"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-84D770A7-DB26-45B5-A2D0-089F9587F6FD"></a></span>Geometry Approximation
+                  </h3>    
+                  <p><span class="anchor_wrapper"><a name="GUID-7E6C322A-47C8-4C7B-8D1C-27F31128691C"></a></span>You can turn a polygon mesh object into a subdivision surface by applying a geometry
+                     approximation property. This method does not create a new object; instead, it creates
+                     an alternative geometry that is used for rendering. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_064EB2EDAA0B4B1886DE69AF30C19365"></a></span><div class="figure-anchor"><img src="../images/GUID-1750445A-FC3C-4295-93E7-57E2CD2FD8E8-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F7B3A186-2417-48C3-BD40-117FCA8B7157"></a></span>Geometry approximation: The low-res hull and the high-res subdee are part of the same
+                     object. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A42B005A-7BDB-4F93-8BF3-6F1BEEBDA621"></a></span>The original mesh becomes the control cage of the new geometry. The advantage of this
+                     method is that no new geometry is actually created, so scene files can still be quite
+                     small. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-72D47F1C-5ECB-43CA-ACC6-6EFB81F914BF"></a></span>The main disadvantage is that you cannot manipulate individual points, etc., on the
+                     high-resolution geometry; only the components that correspond to components on the
+                     control cage. However, you can create a duplicate based on geometry approximation
+                     that preserves materials, textures, and vertex colors — see <span class="char_link"><a href="subdivs_CreatingSubdivisionSurfaces.htm#WS4A8BA794D56CFB4DBDB00B4776CC881A-003A">Duplicating Using Geometry Approximation</a></span>. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-7C24A928-F556-4C9D-8854-782363AD8A81"></a></span><div class="note-tip"><span class="label">TIP:</span>You can apply the geometry approximation property as an override on a partition in
+                        a rendering pass. For more information about using overrides and partitions, see <span class="char_link"><a href="render_passes.htm">Passes &amp; Partitions</a></span>. 
+                     </div>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-000B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-077DC4CD-6B33-4813-8599-6818BA6CBF29"></a></span>Local Subdivision
+                  </h3>    
+                  <p><span class="anchor_wrapper"><a name="GUID-F1CA6D91-0B0E-49B6-AA18-E13F7B097CCA"></a></span>You can add subdivisions locally to selected polygons of a mesh. This method adds
+                     an operator to the polygon mesh's operator stack and modifies its topology. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6860692D-8972-4140-B157-F70A269CD06C"></a></span>It is useful for adding detail exactly where you want it. Although new geometry is
+                     created, you control the amount and the location. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_8FA9174D7EB8481590547E3073BEB4B1"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-A9DCB73F-3F66-4ECC-82A1-6FB9469FEEF4-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-BEEF674E-F60C-42EC-B2C7-4009B3AC00B5-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body" colspan="2"> <span class="anchor_wrapper"><a name="GUID-5FFA5B66-ACA3-4A0D-B698-1665AFC88357"></a></span><p class="table-body">Local subdivision: Only selected polygons are subdivided. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <div><span class="anchor_wrapper"><a name="GUID-891EEA07-400B-481B-948E-012550A03608"></a></span><div class="note-note"><span class="label">NOTE:</span>With local subdivision, you cannot set crease values. 
+                     </div>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-000E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9338C686-8995-4D3A-87E0-3A8CC98B7333"></a></span>Combinations
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-DA3D9AB8-E948-43EF-9236-8E7BD13B195E"></a></span>You can combine the methods of subdivision to achieve the control and effect you want.
+                     For example, you can start with a very rough polygon mesh as an animation cage. Because
+                     it has few points, it is very easy to envelope and manipulate. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7EF98A76-9F01-408A-B737-1E23330B74E0"></a></span>From this basic mesh, you can generate a new subdivision surface as a texturing cage.
+                     Because it is a new object rather than an alternative representation of the same geometry,
+                     you can move points and add local subdivisions where needed. It has more points than
+                     the animation cage, so you have more control over texture positioning, but not so
+                     many more points to make texturing too difficult. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FDA8BA52-E792-4F39-BA85-8F2EB2C1345F"></a></span>Finally, you can apply a geometry approximation property to this intermediate object
+                     so that you can render a very smooth, seamless object. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-000F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-89C4D15E-EFEF-41FC-9D8C-8029D44717BB"></a></span>Subdivision Rules
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-207D15F7-604C-4EDA-AB93-258BD4931065"></a></span>Many different algorithms have been devised for subdividing polygons and averaging
+                  vertex positions. Softimage gives you a choice of several of these algorithms: Catmull-Clark,
+                  XSI-Doo-Sabin, and linear. In addition, you have the option of using Loop for triangles
+                  when using Catmull-Clark or linear. The determining factor between choosing one method
+                  over another depends on your personal preference and what you are trying to accomplish,
+                  although not all rules are available with all operations. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0010"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8717F824-CBE6-4D00-8199-26B93AC38D8F"></a></span>Catmull-Clark
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-47F2D9DB-F368-4662-9973-FDEEE0C57BA1"></a></span>The Catmull-Clark subdivision algorithm produces rounder shapes. The generated polygons
+                     are all quadrilateral. The higher the subdivision level, the more this method approximates
+                     a bi-cubic standard B-spline surface. The geometry produced is compatible with the
+                     method described in "Recursively generated B-spline surfaces on arbitrary topological
+                     surfaces" by E. Catmull and J. Clark (<em class="mild">Computer-Aided Design</em> 10(6):350-355, November 1978). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3DE9F5E5-05E3-4F32-B055-ECC317B9E6DA"></a></span>In areas where the original mesh has quads, the surface has C2 (curvature) continuity;
+                     in areas where there are non-quad polygons or vertices without exactly four edges,
+                     the surface has C1 (tangential or parametric) continuity. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-76170A12-CC1B-417C-B79D-E54FDD31653E"></a></span>At level 1, each n-sided polygon yields n quads; at each additional level every quad
+                     yields four more quads. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_2FC4E4F39465448E8435943902C4FA74"></a></span><div class="figure-anchor"><img src="../images/GUID-DC94A817-715A-4080-8E21-3D6A270690BA-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BCD8C8EB-DD77-416A-AED6-FEC1CBA893CB"></a></span>Catmull-Clark Subdivision 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0012"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3F4A660B-F273-436D-BE63-C69141D31883"></a></span>XSI-Doo-Sabin
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-C52D55B6-B8B3-4A74-8E8A-54D85DF121AA"></a></span>The XSI-Doo-Sabin subdivision algorithm is a variation of the standard Doo-Sabin algorithm.
+                     It produces more geometry than Doo-Sabin, but it works better with cluster properties
+                     such as texture UVs, vertex colors, and weight maps, as well as with creases. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0F62430C-9C86-40E7-BCD7-AD84287C71CF"></a></span>The higher the subdivision level, the more this method approximates a bi-quadratic
+                     uniform B-spline surface. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A74805FB-09A4-4E24-893E-FDC14CC6CB14"></a></span>In areas where the original mesh has quads, the surface has C1 (tangential or parametric)
+                     continuity; in areas where there are non-quad polygons or vertices without exactly
+                     four edges, the surface has G1 continuity (that is, the tangents have the same direction
+                     but not necessarily the same length). 
+                  </p> <span class="anchor_wrapper"><a name="FIG_2DCF624C48614BD8BEEBA673C734D6C6"></a></span><div class="figure-anchor"><img src="../images/GUID-5D7E4F07-32BD-44D6-AC8E-01B7428A5B93-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CF13EA9A-5AB8-49C8-9F01-9D80C466C8A9"></a></span>XSI-Doo-Sabin Subdivision 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0014"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-AFE01B77-3B80-4DDF-8CDA-B9EE61FFEE12"></a></span>Linear Subdivision
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-4764C02B-4CF1-47B4-8B72-F2BE6E0358C4"></a></span>Linear subdivision does not perform any smoothing, so the object's shape is unchanged.
+                     It is useful when you want an object to deform smoothly without rounding its contours.
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_51409E5963644CF087BF4EF4C64799FB"></a></span><div class="figure-anchor"><img src="../images/GUID-6F5EB70C-B7C0-47AB-839D-B6E4E86CFFC1-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7AD91D6B-D1BA-42EA-88E7-E4A943D31172"></a></span>Linear Subdivision 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0016"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0B297B65-CEB0-4048-B3A3-2A9F31198418"></a></span>Loop Subdivision
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-27AAD488-F3E5-4115-B626-D45C4EE4F99C"></a></span>With the Catmull-Clark and linear subdivision methods, you have the option of using
+                     Loop subdivision for triangles. The Loop method subdivides triangles into smaller
+                     triangles instead of into quads, which gives better results when smoothing and shading.
+                     
+                  </p> <span class="anchor_wrapper"><a name="TABLE_008BFA5F6D75410992979D41BBCFD433"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-68D27010-F20F-40BF-8107-6BDACBD3B92F"></a></span><p class="table-body">Catmull-Clark </p> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-62E840A2-3B56-4688-A4FB-64C3634F8E09-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-D1B67708-C960-46E7-8A59-24B2D92A84A9-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6EC146ED-1D50-496A-80CD-AF5FED7C2C73"></a></span><p class="table-body">Catmull-Clark with Loop </p> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-12568CC4-A70F-4EFB-AA60-D3346EA671CC-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-84E4B5FE-7F68-4751-AE80-169F0561795E-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9C4E3BE2-16D5-4143-865B-D46E295A2CCC"></a></span>The Loop method avoids the bulging and pinching that can occur with triangles when
+                     using strictly quad-based methods such as Catmull-Clark. Catmull-Clark or linear is
+                     still used for non-triangles, and there is a smooth transitions between Loop and Catmull-Clark
+                     at boundaries between triangles and non-triangles. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_B49A16EAC9C640A5AD9930FED9E0AEFF"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-B79A92ED-7915-4F89-9C96-F2B7562F66F1-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-8125BB31-7855-44E4-91E1-62DAFE82A5CF-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-9EC51B57-2DFB-415E-AFB9-7E4350440F7D-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D071187D-0600-4516-B0A8-F7FA6E2206D8"></a></span><p class="table-body">Half of this head was triangulated to show the effect of Loop subdivision </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2E1332AD-807C-4422-B4D6-D586518C2295"></a></span><p class="table-body">Loop = off </p> <span class="anchor_wrapper"><a name="GUID-EF66D36A-9C2E-4ADD-859E-2F5A9359C8AE"></a></span><p class="table-body">There are various artifacts in the surfaces. </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-132789B7-FCF5-4FD1-AA9D-4337B698484D"></a></span><p class="table-body">Loop = on </p> <span class="anchor_wrapper"><a name="GUID-FA70E0E7-87D5-461E-9D8F-EA48F26EF7D3"></a></span><p class="table-body">The surface is smoother. Continuity is maintained with the quad half. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C4867E7A-4B11-43AF-821B-487C79EC9CDA"></a></span>There is an option in the Modeling preferences to activate Loop for triangles by default.
+                     
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-001E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-54B3914E-ECE4-4954-92C9-F43C1BAC361C"></a></span>Subdivision Levels
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-76121BF8-3765-43E4-849F-CFD48E7BABC1"></a></span>With any subdivision method, you can specify the number of levels. This controls how
+                  many times the subdivision process is iterated. Higher levels provide for greater
+                  detail and smoothness, but result in heavier geometries and longer processing. 
+               </p> <span class="anchor_wrapper"><a name="FIG_46F4A089CD1B4EA3A7B9E8A7EE9F9030"></a></span><div class="figure-anchor"><img src="../images/GUID-DF4B9C2D-1D03-465C-B3B3-A43010F34093-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-3AAE076E-CA1B-4E7C-B95E-04B4E9ABBDAA"></a></span>Different levels of subdivision 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B265CC57-A349-40A0-9671-4CA8AA9BF7F0"></a></span>The subdivision level is animatable, so for example, you can set an expression to
+                  control it based on the distance from the camera. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0020"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6DF9BA2C-2452-41C9-88D1-E259D41E5F46"></a></span>Creases
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-94D3FDB6-D79F-4F2E-BFC4-0D4A3EFE7724"></a></span>Subdivision surfaces typically produce a smooth result because the original vertex
+                  positions are averaged during the subdivision process. However, you can still create
+                  sharp spikes and creases in subdivision surfaces. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6AB8B691-10DF-4722-9AB6-F1C3EF04E102"></a></span>This is done by adjusting the hardness value of points or edges. The harder a component,
+                  the more strongly it "pulls" on the resulting subdivision surface. Values higher than
+                  the subdivision level have no further effect. For details, see <span class="char_link"><a href="subdivs_MakingCreasesandSpikes.htm">Making Creases and Spikes</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0021"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-535B503F-7ECA-47AF-9524-BB82BCF9C2EF"></a></span>Viewing Subdivision Surfaces
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-3D3DC631-B0DE-4E25-A388-1C29DEECC4E8"></a></span>There are several visibility options you can set when working with subdivision surfaces.
+                  These affect only subdivision surfaces created using the geometry approximation method.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0022"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B13C7FF8-2C2E-4BEE-B71E-943A482B0A6E"></a></span>Polymesh Hulls and Subdivision Surfaces
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DB2308DC-4DEE-43D0-BBC5-386F53FF7B31"></a></span>You can display the low-resolution hull and the high-resolution surface independently.
+                     
+                  </p> <span class="anchor_wrapper"><a name="UL_F7ED42C98C8F47ED865E0FD048529F5C"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-184ECE8E-5D4B-43B6-91EE-29B2E45BEA72"></a></span> <span class="MenuCascade" id="GUID-FC2CE519-C183-44D0-A8D4-61EDB87062C9">Polymesh Hulls</span> controls the display of the low-resolution hull. Turn this option off to simplify
+                           the view, for example, if the hulls make it difficult to see the final subdivision
+                           surface. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-02E3A5C1-EE43-4ADC-BE8D-D6C249ED62AE"></a></span> <span class="MenuCascade" id="GUID-6671B279-D179-4639-86A8-2F152F6409F8">Subdivision Surfaces</span> controls the display of the final, high-resolution surface itself. Turn this option
+                           off to speed up interaction when you do not need to see the end result. 
+                        </p> 
+                     </li>
+                  </ul>
+                  <p><span class="anchor_wrapper"><a name="GUID-FAB0E4A3-0E4F-44D7-B21E-B9F2A6F628C4"></a></span>Boundaries and hard edges are shown directly on the surface if the hull is not displayed
+                     and <span class="MenuCascade" id="GUID-ED6CF063-D438-4815-9A9A-9460DF5FFEBD">Boundaries and Hard Edges</span> are visible in the 3D view. 
+                  </p>
+                  <ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8E765AE8-DCCC-4026-AB80-F21326B47D36"></a></span>If both options are on, then the hull is always shown in wireframe, even in constant,
+                           shaded, and textured display modes. 
+                        </p> 
+                     </li>
+                  </ul> <span class="anchor_wrapper"><a name="TABLE_74DD907A194B4B7CB2F3FD28D639CBE4"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-BE265347-13B7-4436-9C92-49AA0FD02A4A-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-7F88842D-5CA9-4541-B5E1-65E8CC1BFDD5-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-3515A437-EDB8-4109-8BD6-CFFDD709525F-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-74F997FD-9BF1-470D-ADD7-FDF8731125A6"></a></span><p class="table-body">Subdivision Surface only </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-78814F35-E979-4301-8B97-76D8E4BE8311"></a></span><p class="table-body">Polymesh Hull only </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-37D84021-B04A-43B7-A25C-E2D821366252"></a></span><p class="table-body">Both </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0026"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-9F7D3D9A-0AC9-4B8E-9D5C-8C5AE3C15676"></a></span>To toggle display of polymesh hulls and subdivision surfaces
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DDBF0916-EDAA-4148-B227-B6207518A913"></a></span>Do one of the following: 
+                     </p> <span class="anchor_wrapper"><a name="UL_C836E8AA0F244CCE80482A2BF86F0C17"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-117DF267-3831-48A6-A878-899B4B6316B9"></a></span>To affect the display of selected objects in a single 3D view, click the eye icon
+                              (Show menu) and toggle <span class="MenuCascade" id="GUID-511EFE75-0E2B-46DB-B72E-E2646921150D">Polymesh Hulls</span> and/or <span class="MenuCascade" id="GUID-62B994FD-3B61-4E07-97F5-F9C1265E1A6E">Subdivision Surfaces</span>. 
+                           </p> 
+                        </li>
+                     </ul> <span class="anchor_wrapper"><a name="FIG_BEED16F190AD4289B1D5891C4A198691"></a></span><div class="figure-anchor"><img src="../images/GUID-DE1D3901-B2D2-45E7-82A4-55454719C244-low.png"></div> <span class="anchor_wrapper"><a name="UL_1A700FDBD38144838580834EC5465DF7"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D4B2B8BF-3C61-49B4-8CF1-673E8932FEE3"></a></span>To affect the display of selected objects in all open 3D views, toggle <span class="MenuCascade" id="GUID-16F57BC2-02F1-4CB4-8E0E-FE2B538C3CAF">Polymesh Hulls</span> and/or <span class="MenuCascade" id="GUID-ED6DE0CF-3B58-42C3-8461-E04D642EEE1B">Subdivision Surfaces</span> from the <span class="MenuCascade" id="GUID-B25BBA69-AD89-4400-8CCA-94991C75D003">Display <img src="../images/ac.menuaro.gif"> Attributes</span> menu on the main menu. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0C6F1DB4-8CAA-4674-B0D7-504634ED668F"></a></span>To affect the display of both selected and unselected objects in a single 3D view,
+                              open the Camera Visibility property editor by pressing Shift+S or choosing <span class="MenuCascade" id="GUID-71B85231-0E70-4580-9E77-420EB1F3E631">Visibility Options</span> from the eye icon (Show menu), and then set the <span class="MenuCascade" id="GUID-3BBD92F7-26E0-421D-84B7-E482F1FA4D21">Polymesh Hull</span> and <span class="MenuCascade" id="GUID-901A4FB5-2A3D-49FD-86BC-DA11A47846CF">Subdivision Surface</span> options on the Attributes tab. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9CE15A74-5DFB-466B-9A01-26690BBFDEAD"></a></span>The left checkboxes affect the display selected objects and the right checkboxes affect
+                              the display of unselected objects. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-972BECE9-1E41-4B9F-A187-4934DF5B65A0"></a></span>To affect the display of both selected and unselected objects in all open 3D views,
+                              open the Camera Visibility property editor by choosing <span class="MenuCascade" id="GUID-7E806585-5DB3-4C87-B8A5-4FE47ADF1558">Display <img src="../images/ac.menuaro.gif"> Visibility Options</span> (<span class="MenuCascade" id="GUID-E745BEB5-F8FA-485A-9872-5481380E5A52">All Cameras</span>) from the main menu and then set the <span class="MenuCascade" id="GUID-571A41C5-9E0F-4B3C-9038-2352CA0A97D6">Polymesh Hull</span> and <span class="MenuCascade" id="GUID-F8E249D9-D18A-4B7B-9D0D-A4B4661D7BAE">Subdivision Surface</span> options on the Attributes tab. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0DA470FB-55AF-49E4-A9DE-BBE5D591AD31"></a></span>The left checkboxes affect the display selected objects and the right checkboxes affect
+                              the display of unselected objects. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5DD06608-1904-46BE-B904-1AC9634F9DCF"></a></span>To quickly toggle the display of polymesh hulls in all open 3D views, press Ctrl+plus
+                              (+ key on the numeric keypad). 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-0028"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-934D59D8-D0B7-436D-9C75-9396E2EA269B"></a></span>Show Simplified Subdivision Wireframe
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-8D43A8B7-4C47-4C2C-BC32-7036D1C3BACD"></a></span>You can choose to display a simplified or a detailed version of the subdivision wireframe.
+                     For example, you may prefer to see the detailed version while you are modeling and
+                     the simplified version while you are animating. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_F5542B00DE4D49CCA28D936831A4DADB"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-D7D6F81B-0227-48E9-8136-0852916088FF-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-3D2F809D-B81C-4FBB-ABEB-8AB6B3C876DD-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9BF18C6A-0688-4208-9874-91C1E0372B72"></a></span><p class="table-body">Show Simplified Subdivision Wireframe = on: </p> <span class="anchor_wrapper"><a name="GUID-740C1FFF-8470-42C8-B21B-8FFDA6002584"></a></span><p class="table-body">Only the edges corresponding to the hull polygons are displayed. </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-02B8F9D9-6E2A-4CAF-B7A4-685A9BE6C88B"></a></span><p class="table-body">Show Simplified Subdivision Wireframe = off: </p> <span class="anchor_wrapper"><a name="GUID-40F70816-1F31-4457-AC46-B767816462CC"></a></span><p class="table-body">All edges are displayed. The edges corresponding to the hull polygons are darker.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-002B"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-62FD86A3-7C87-4F8D-8B22-68BF07343566"></a></span>To toggle the simplified wireframe
+                     </h4> <span class="anchor_wrapper"><a name="GUID-C3FD5ABA-6232-4121-AA8E-2DB75B41CD8A"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-EDF61422-02CF-4194-8E3A-E1EF8B307675"></a></span>Do one of the following: 
+                           </p> <span class="anchor_wrapper"><a name="UL_25CF87AB7B004D3299F2F1E1633C20B3"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-61D382BE-4DDF-4563-BA2B-09FAF4206D6A"></a></span>To affect a single 3D view, choose <span class="MenuCascade" id="GUID-74A7D154-3EB5-42A5-A705-8DED078A8F3F">Display Options</span> from the Display Mode menu in the view. 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-356D7685-4718-4AA3-A61C-164EB3DEF5C3"></a></span> <em class="mild">or</em> 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-42702478-97AF-48DC-B452-69DEB40627E5"></a></span>To affect all open 3D views, choose <span class="MenuCascade" id="GUID-5D08637F-7DC2-49B7-AF3A-AA2E777B7AB1">Display <img src="../images/ac.menuaro.gif"> Display Options</span> (<span class="MenuCascade" id="GUID-AAE3C1F6-291E-4AE9-94FE-38A88BFBF354">All Cameras</span>). 
+                                 </p> 
+                              </li>
+                           </ul> 
+                           <p><span class="anchor_wrapper"><a name="GUID-76406217-76BB-48E3-ABE6-4D650C4591DD"></a></span>The Camera Display property editor opens. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6D7620A1-810B-408A-9439-0743B8ADE121"></a></span>On the Display Options tab, toggle one or both of the <span class="MenuCascade" id="GUID-AE96979E-A564-40A6-AA89-5D21853C85F5">Show Simplified Subdivision Wireframe</span> options: 
+                           </p> <span class="anchor_wrapper"><a name="UL_7DE12DB3160E4403B181AFAD69E1C4C7"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-C9D09C94-33D5-48C2-9112-87DFDF65637C"></a></span>The option in the <span class="MenuCascade" id="GUID-9C8AC818-EF1A-46E4-9CB9-BBBBD95C9064">Wireframe Mode</span> group controls the display when the 3D view is drawn in Wireframe mode. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-B055F11B-2E84-475B-B7B0-1108FBB62B62"></a></span>The option in the <span class="MenuCascade" id="GUID-B494FDCE-95B2-4752-89D4-2A3A7BA2A32C">Shaded Mode Wireframe Highlight</span> group controls the wireframe that is drawn on top of objects in Shaded mode. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-002C"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-70EF3294-567E-4FA5-8DD8-D946A665728D"></a></span>To quickly toggle the simplified wireframe for all open 3D views
+                     </h4> <span class="anchor_wrapper"><a name="UL_163A2F922362420282125431F6D80E8F"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-12A731E9-0CE5-4B76-A19D-D6D954090B41"></a></span>Press Alt+plus (+ key on the numeric keypad). 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D981EDD6-81E5-44CC-BFA9-108D8B7DB37D"></a></span>This toggles the <span class="MenuCascade" id="GUID-FBD75A34-FD0A-4671-A611-A0270CFFB45E">Show Simplified Subdivision Wireframe</span> option for both <span class="MenuCascade" id="GUID-A9A79140-EA3E-4407-B2CB-A64352120772">Wireframe Mode</span> and <span class="MenuCascade" id="GUID-7B4235C3-4C8E-4E53-9311-8DEE60B8B728">Shaded Mode Wireframe Highlight</span> in all 3D views. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4A8BA794D56CFB4DBDB00B4776CC881A-002D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B52EA2F0-CC99-4936-8B9C-439C76C172DB"></a></span>Selecting and Manipulating Components on Subdivision Surfaces
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-EA68CB9E-5CF4-4F41-B08C-C529D6EE71D5"></a></span>For subdivision surfaces created with the geometry approximation method, you can select
+                  and move components directly on the subdivision surface, when both subdivision surfaces
+                  are visible and polymesh hulls are not visible. 
+               </p> <span class="anchor_wrapper"><a name="UL_F5C0D379E08F4CB2BDC8F0D2453B6985"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F944837F-2DAD-458D-AF0B-3D1E6F749F9F"></a></span>You can select those edges that correspond to edges on the hull. Those edges are indicated
+                        by thicker lines. 
+                     </p> 
+                  </li>
+               </ul> <span class="anchor_wrapper"><a name="FIG_1F1C7941546242D5AF201F03DB7FCA34"></a></span><div class="figure-anchor"><img src="../images/GUID-CFCDF61D-E157-4794-9706-CA175B58CDAB-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-DF68C0B4-5F3E-4A4B-9E95-5CDA5C8870B5"></a></span>This selected edge on the subdivision surface (A) corresponds to this edge on the
+                  polymesh hull (B). 
+               </p> <span class="anchor_wrapper"><a name="UL_1C43EBF2861D473999C9534EEF26A4B5"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E71CA13A-486A-46DA-896B-AC9FAAE845E6"></a></span>You can select the "patches" that correspond to polygons on the hull. These are the
+                        areas bounded by thicker lines. 
+                     </p> 
+                  </li>
+               </ul> <span class="anchor_wrapper"><a name="FIG_B66786A40AB844459066D7AAAED2E1D7"></a></span><div class="figure-anchor"><img src="../images/GUID-B6132532-FF1A-4361-BEB2-60DE366FB833-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-EC668F55-DAD2-4947-967C-5DC49D7418F6"></a></span>This selected patch on the subdivision surface (A) corresponds to this polygon on
+                  the polymesh hull (B). 
+               </p> <span class="anchor_wrapper"><a name="UL_0822EC2985124E1B80587781DC2F4CF2"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F1F743C4-5E02-41ED-ADB5-42B8A98BE3EE"></a></span>You can select points that correspond to points on the hull. These are the points
+                        at the intersections of the thicker lines. 
+                     </p> 
+                  </li>
+               </ul> <span class="anchor_wrapper"><a name="FIG_4ED0D829B8864863A29BC05EE790507B"></a></span><div class="figure-anchor"><img src="../images/GUID-278E675A-D918-4FDC-AF9D-C18BAB446A04-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-750DD999-BCC4-4711-ABB9-D4A2008F921A"></a></span>This selected point on the subdivision surface (A) corresponds to this point on the
+                  polymesh hull (B). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D8B38A06-3ECF-490D-A434-50668FEA87ED"></a></span>Once a component on the subdivision surface is selected, you can perform almost any
+                  modeling operation: transform, deform, delete, subdivide, split, bevel, extrude, and
+                  so on. This means that you can effectively model without displaying the hull. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-455AA366-6B8A-4C0E-A02A-D6E4F4400732">
+      <meta name="indexterm" content="constraints: particles (ICE)">
+      <meta name="indexterm" content="particles: transforming objects">
+      <meta name="indexterm" content="transformations: controlling objects with particles">
+      <meta name="topic-type" content="concept">
+      <title>Using Particles to Transform Objects</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-455AA366-6B8A-4C0E-A02A-D6E4F4400732"></a></span><div class="head">
+            <h1>Using Particles to Transform Objects</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-F7ABCB8A-6A85-49B9-9028-A6343FF93778"></a></span>You can use particles to transform objects. This is similar to particle instances,
+               but actual scene objects get transformed instead of instances of master objects. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4154518E-539A-46F5-A7D1-085DDABF2C8A"></a></span>Objects are matched to particle IDs by selection order. If there are more objects
+               than particles, then some objects are not transformed. Conversely if there are more
+               particles than objects, some particles do not get an object attached to them. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-525DDCBA-E622-4E95-BA32-86E6AB594A6D"></a></span>Under the hood, a null named xform_container_pointcloud is added to the scene, and
+               used to build and store an array of transformations corresponding to the points' position,
+               orientation, and scaling. The objects are added to a group called KinematicsGroup,
+               and each object gets an ICE tree that reads a transformation from the array on the
+               null and uses it to set kine.global. Note that adding objects to the group later will
+               not set their transforms — you must reattach the objects to the particles instead.
+               
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-166507CA-7040-4B8F-B5CA-B8023ADCE382"></a></span>Attaching Objects to Particles
+               </h2> <span class="anchor_wrapper"><a name="GUID-560D89DD-CFC8-46C6-93D0-25A5E855BD97"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DBBBA7FA-F778-43AA-BB77-C2BCAB0F198C"></a></span>Select the objects to transform in order, starting with the object that you want to
+                        be transformed by the first particle. Alternatively, you can select a group, in which
+                        case the order in which the objects were added to the group is used. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D4BCB47E-1E49-4708-BA71-292E940B2832"></a></span>Choose <span class="MenuCascade" id="GUID-AA969C07-EE0B-4CF5-A7F0-CEBC7D5B6EF3">Kinematics <img src="../images/ac.menuaro.gif"> Create <img src="../images/ac.menuaro.gif"> Transform Objects by Particles</span> from the ICE toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DFA9AA9F-ABC1-4DCD-BB42-95B1C8DEEEB7"></a></span>Pick the point cloud to use. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-000F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2629CEE3-BF6C-412E-9FB8-30F4103F1A21"></a></span>Reattaching Objects to Particles
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7ADAAAD9-661E-493A-8514-5FABECF780AA"></a></span>To modify the set of objects that get transformed by particles, or to change the order,
+                  simply repeat the procedure for attaching them. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-460866E4-8570-40D9-9AAB-0628E8850DA3"></a></span>Note that previously attached but currently unselected objects are not affected, so
+                  they are still attached to the particles that they were originally attached to. This
+                  means that you might have two or more objects attached to the same particle unless
+                  you detach them manually. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-00652EED-95AE-48F3-9B3F-0F82AA91740D"></a></span>Each time you reattach objects to a pointcloud, a new xform_container_pointcloud null
+                  and KinematicsGroup are created. You can delete the old ones manually if they are
+                  no longer being used. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-0010"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-876C2EFD-38B3-46F8-96F6-0EA34389380D"></a></span>Detaching Objects from Particles
+               </h2> <span class="anchor_wrapper"><a name="GUID-4AD7E191-4418-47A8-B2AF-C2844FBD34B3"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-059AA462-8ACB-4EFC-B54E-07256B165D0D"></a></span>Select the objects to detach from the particles. If you select a group, use <span class="MenuCascade" id="GUID-4CC00B2D-096A-4F04-BF4F-B4CE47103DD9">Select <img src="../images/ac.menuaro.gif"> Select Components/Members</span> to select the objects themselves. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0A9F3494-18CD-4C00-AABC-0DDD7C5563DB"></a></span>Choose <span class="MenuCascade" id="GUID-3CC74B9E-EE2A-474D-8F7E-AC14ECA2EA52">Kinematics <img src="../images/ac.menuaro.gif"> Create <img src="../images/ac.menuaro.gif"> Remove Particles Constraint</span> from the ICE toolbar. 
+                     </p> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-EE36D75A-39C3-4976-A60C-D7179771BC64"></a></span>Note that the xform_container_pointcloud null and KinematicsGroup are not removed.
+                  You can delete them manually if desired. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

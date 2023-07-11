@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-347FBA98-2A7D-423D-B62D-774C24E84A29">
+      <meta name="indexterm" content="environment_shaders_EnvironmentBlur">
+      <meta name="topic-type" content="concept">
+      <title>Environment Blur (mia)</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-347FBA98-2A7D-423D-B62D-774C24E84A29"></a></span><div class="head">
+            <h1> Environment Blur (mia)</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-18504187-719C-4E79-A155-E3AD333C1551"></a></span>| <span class="char_link"><a href="shaderpresets732.htm">Environment</a></span></p>
+            <p><span class="anchor_wrapper"><a name="GUID-5AC06F3C-AD63-415C-B7D8-3A60D896008C"></a></span> <em class="strong">Category:</em> Environment
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-28FAA9EA-5642-4EF2-A404-D83DD48184FF"></a></span> <em class="strong">Shader Family:</em> Environment
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-88759E34-ABB3-457E-A39E-934BBCD9AEA0"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A4897692-D980-4630-9450-D9681FB87D06"></a></span> <span class="MenuCascade" id="GUID-59B26884-B4AF-4BA8-B15F-9E0A1BAF1374">Related mental ray shader:</span> <span class="char_link"><a href="mentalray_mia_envblur.htm">mia_envblur</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-73D119B9-83C0-4B92-ABA4-6AA7BBCF12C3"></a></span>The Environment Blur shader works by accepting some other environment shader as input,
+               which would usually be a shader that performs an environment lookup in an HDRI environment
+               map. This shader is intended to increase quality and performance of rendered objects
+               that are largely reflecting the mental ray environment (that is, objects that do not
+               primarily reflect other objects).
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2AB73296-108E-4F72-B138-C5DD05A90A67"></a></span>The Environment Blur shader is particularly useful in product visualization renderings
+               that are surrounded by an HDRI environment map for reflections, and also for visual
+               effects work where you want to integrate CG objects in a real world scene using HDRI
+               reflections with smooth yet fast lookup.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-73DDB84B-9321-451C-A488-090BD7AF5B59"></a></span>The Environment Blur shader is not as useful for interior architectural renderings,
+               since in those (enclosed) scenes, most reflection rays are bound to hit other objects
+               and the purpose of this shader is to help reflection rays that do not hit other objects.
+               Therefore, you will get the largest benefit in an "open" scene.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C4016EAF-CCD4-4928-9BB8-EED2269D4C3A"></a></span>When the rendering starts, the Environment Blur shader performs a one-time setup and
+               rasterizes the result of the environment shader into a special internal mipmap format.
+               Then, as rendering proceeds, the shader can perform an extremely efficient blurring
+               operation in the environment map in a way that provides a "look" very similar to shooting
+               an extremely large number of glossy reflection rays, yielding a perfectly smooth result
+               very quickly.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E3FD6234-07F0-4729-AE6C-4E0A4C8AB824"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6FEC1401-D041-465D-9D5A-CE3191C52C73">Blur Amount</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-ADB32BD8-C0E1-405A-9258-EECCC892EE7E"></a></span><p class="table-body">The amount of blur (range 0.0 to 1.0) applied on the image. When set to 0.0, the internal
+                           mipmap is by-passed and the environment shader is looked up directly, as if the Environment
+                           Blur shader was not there.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A992A545-7B0C-4B26-A00D-2A1DC0E91EA6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B08F968C-A3A8-4E6B-B043-B45DA0D59C69">Image Resolution</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BAF12D31-F3B8-4073-9AAB-0F0E02B940B7"></a></span><p class="table-body">The resolution of the internal pyramidal data structure used for the filtering. The
+                           default value of 200 means that a map of 200 x 200 samples are taken and stored, for
+                           subsequent filtering. This should be set high enough to resolve the smallest features
+                           in the environment map. A value of 200 is generally enough for any still image, but
+                           animations need higher resolutions such as 1000.
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB911DA6DE2BCE449A3C7AF04BA6CCDA-000B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-747B7516-6944-499E-88D4-6846F00C51FA"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-5488F4C4-2CE0-4454-8EA4-86DD61BEBD24"></a></span>Where your existing environment shader is connected (in the material node's Environment
+                  input port), instead connect the Environment Blur shader, and then reconnect your
+                  original environment shader into the Environment Blur shader's <span class="MenuCascade" id="GUID-3BEE33AD-E39B-4E25-B02A-F54E5912AFCB">environment</span> shader input port.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-2697D28E-9CEA-44DB-BD7D-56A383FA8012-low.png"></div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB911DA6DE2BCE449A3C7AF04BA6CCDA-000D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-669287CA-90C8-441B-8AA8-DD6C6C14336A"></a></span>Tips for using Environment Blur with the Architectural Material
+                  </h3> 
+                  <ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AC6427B0-29E1-460D-9E1D-FD7BE5182B2A"></a></span>In the Architectural Material shader, click the Optimization tab and enable the <span class="MenuCascade" id="GUID-2F2843D0-ACDA-44B6-9EA9-93C31A6C2563">Single Environment Sample</span> checkbox.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F3F2359B-BBF0-4416-AC46-5B2168050869"></a></span>In the Environment Blur shader, set the <span class="MenuCascade" id="GUID-9A5721AD-577E-4146-9EC8-1CEB0B8C30FC">Image Resolution</span> high enough to resolve the details of your original environment map.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C7A46B0B-68EC-4E54-BF54-668D955DDBC0"></a></span>As for the actual blur amount, you have two choices:
+                        </p> 
+                        <ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-439C695F-8AF5-4B9C-B830-0D0A1F2CC483"></a></span>You can set a fixed <span class="MenuCascade" id="GUID-E0870ED9-B7FF-46E4-9405-5CCEA8231C54">Blur Amount</span> in the Environment Blur shader. But this is not ideal if you have different materials
+                                 of different glossiness, because you would need separate copies with different blur
+                                 amounts applied as environment maps to each material.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8E962A10-8C0A-4522-9A41-62BF3F9D4E30"></a></span>A better solution is to set the <span class="MenuCascade" id="GUID-B371A742-B445-41BA-9E65-BC063C3BE244">Blur Amount</span> to 0.0 and allow the blur to be calculated by the Architectural Material shader.
+                                 Any glossy reflection environment lookup performed by Architectural Material will
+                                 automatically create the appropriate blur amount for the Environment Blur shader.
+                              </p> 
+                           </li>
+                        </ul>
+                        <p><span class="anchor_wrapper"><a name="GUID-097E2A1B-E732-46E6-BAF3-7D41DF93DE63"></a></span>Essentially, the Architectural Material "informs" the environment shader which Glossiness
+                           setting is used for a certain environment lookup, and thereby allows a single global
+                           copy of the Environment Blur shader (applied to the render pass' shader stack) to
+                           follow the glossiness of multiple Architectural Materials. This setup also works for
+                           map-driven glossiness on a single material.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7BEE14FF-749F-4DAB-84E9-00D8EB91713D"></a></span>Inter-object reflections will still involve multiple sampling and may display some
+                           grainy effects, but you can work around this by limiting the <span class="MenuCascade" id="GUID-047E8730-CF2D-43BB-9E13-484E0EFD080D">Reflection Distance</span> in the Architectural Material shader for example.
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

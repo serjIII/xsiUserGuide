@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-4847FEDA-BFE0-4A5D-885D-1D58E606D7C1">
+      <meta name="indexterm" content="transitions: between clips in animation mixer">
+      <meta name="indexterm" content="animation mixer: transitions between clips">
+      <meta name="indexterm" content="action clips: transitions between">
+      <meta name="indexterm" content="shape clips: transitions between">
+      <meta name="indexterm" content="compound clips: transitions between">
+      <meta name="indexterm" content="shape animation: transitions">
+      <meta name="indexterm" content="animation mixer: Cardinal transition">
+      <meta name="indexterm" content="transitions: Cardinal">
+      <meta name="indexterm" content="animation mixer: standard transition">
+      <meta name="indexterm" content="transitions: standard">
+      <meta name="indexterm" content="Cardinal transition: between clips in animation mixer">
+      <meta name="indexterm" content="standard transition in animation mixer">
+      <meta name="indexterm" content="transitions: setting automatically">
+      <meta name="indexterm" content="transitions: muting">
+      <meta name="indexterm" content="muting: transitions between clips in animation mixer">
+      <meta name="indexterm" content="weights: also envelopes, mix weights, spine deformation, transitions, weight maps">
+      <meta name="indexterm" content="transitions: removing">
+      <meta name="topic-type" content="concept">
+      <title>Creating Transitions between Clips</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-4847FEDA-BFE0-4A5D-885D-1D58E606D7C1"></a></span><div class="head">
+            <h1>Creating Transitions between Clips</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-E870A7F0-D3CE-4998-B811-D6878D96C3BB"></a></span>Transitions are an interpolation from one clip to the next. They make the animation
+               flow smoothly between clips, rather than jerk suddenly at the start of the next clip.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-61E137FA-B929-4570-A055-C2A892F06CC6"></a></span>If you're working in a pose-to-pose method of animation using pose-based action clips,
+               you need to use transitions to prevent a blocky-looking animation. As well, transitions
+               are absolutely necessary for doing shape animation. This is because both shape and
+               pose action clips do not contain animation themselves: they are keys representing
+               a particular deformation (shape) or pose of an object. 
+            </p><span class="anchor_wrapper"><a name="FIG_85A4A6CB92384D78B769ED58F2F02502"></a></span><div class="figure-anchor"><img src="../images/GUID-48FE6D27-77AA-4F2A-AAF8-34AB0CD4156D-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-6E1DC13A-2FD4-4DA2-9468-E4B0ACF4BF8E"></a></span>Club-bot is in mid-transition between the Arm wave and Dejected turn action clips.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-47DF522C-4E19-4D60-B479-FDD9C6FC9248"></a></span>There is a Cardinal transition (<em class="strong">A</em>) between two clips that are not overlapping. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-723918C2-F693-45E0-BF99-CD2F86FBD84D"></a></span>For the clips that are overlapping in time, there is a Standard transition (<em class="strong">B</em>) over their overlapping frames. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DA5246CE-D918-4F7C-ADA8-76E1FB209DEE"></a></span>Transition weight curves control the transition's interpolation: after you've created
+               a transition, you can edit these curves to control how the transition is weighted
+               (see <span class="char_link"><a href="animmixer_CreatingTransitionsbetweenClips.htm#WS051802B44FE12145ACD9E000FD9E83E7-00DE"> Animating and Modifying the Transition's Fcurve</a></span>). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-312DC4AC-CC77-420A-92D3-2154E29D1D3A"></a></span>There are three types of transitions you can use between clips: Standard, Cardinal,
+               and Bridge. Clips are represented in the mixer by colored bars connecting clips (invalid
+               transitions are black): 
+            </p><span class="anchor_wrapper"><a name="UL_E06EE2222086400FA619795E97AE37B4"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C13B6785-40E4-4DB7-AB0B-37D02C496C0E"></a></span> <span class="MenuCascade" id="GUID-EED68DFC-A25A-46A3-BEAF-08842E84BC0B">Standard</span> transitions are purple. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-33C29939-CD1F-4756-8FAE-1198D2F8D9B7"></a></span> <span class="MenuCascade" id="GUID-DCB6192F-9F8C-463D-9D54-476624A01FA9">Cardinal</span> transitions are red. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4F92FE86-749F-4226-855B-C72F0D05AD5A"></a></span> <span class="MenuCascade" id="GUID-E7745DD9-D999-49E0-AF07-9978926987D0">Bridge</span> transitions are light orange. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-76BF251E-51CE-4AD6-9B0F-924C697EA2DB"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_9C896D8A34A94EA78EAD55A090204712"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-71AC6EE3-2C88-4F01-955D-FCEC6FC7697B"></a></span>You cannot create transitions between audio clips. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E48B9C51-F838-423E-B29A-7DE28DFEFC75"></a></span>You can use the bridge transition only between action clips — see <span class="char_link"><a href="actions_CreatingaBridgeTransitionbetweenActionClips.htm">Creating a Bridge Transition between Action Clips</a></span>. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </div>
+                  </div> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00D2"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-03636AC9-F2CE-480C-9981-83847E77F77D"></a></span>Adding a Standard or Cardinal Transition
+               </h2>       
+               <p><span class="anchor_wrapper"><a name="GUID-CDE71AA8-9B2F-4D6E-AA1C-9EBB4596E7D8"></a></span>Standard and Cardinal transitions work well for most basic animations. They both create
+                  a transition function curve that you can edit (see <span class="char_link"><a href="animmixer_CreatingTransitionsbetweenClips.htm#WS051802B44FE12145ACD9E000FD9E83E7-00DE"> Animating and Modifying the Transition's Fcurve</a></span>). 
+               </p> <span class="anchor_wrapper"><a name="UL_C7A6ECA2CB124068B8A6CCF77586842A"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A3272349-2AFE-4476-80D2-2405AD2E0F61"></a></span>The Standard transition creates a direct transition from one clip to the next. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-61B5B458-23E7-4DED-ABB2-24EEFFB4AE48"></a></span>The Cardinal transition interpolates between the sources of up to the four nearest
+                        clips (two clips before and two clips after the transition). This gives for a smoother
+                        blending than a Standard transition. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-79A69FDD-60DD-46A5-80A0-334E6B6197EA"></a></span>If the clips do not overlap in time, the interpolation is a weighted blend between
+                  the last frame of the first clip to the first frame of the second clip. If the clips
+                  overlap, the interpolation is a weighted blend between the clip values at each frame.
+                  
+               </p> <span class="anchor_wrapper"><a name="TABLE_B57A5D0F5F9F458CA7356559B055B40E"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-2A41DE0A-F7D6-400C-B6D8-34E74E9E09DC-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-3AF34C69-C1E5-452A-8B9E-7FED3138DAEA-low.png"> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-C2285FDD-9969-406F-9986-9F4640760806"></a></span>Above on the left, a Standard transition between two sequenced clips on the same track.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B94D53F1-50D1-49D7-B089-41229E047D28"></a></span>On the right, a Standard transition between two overlapping clips on different tracks.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00D5"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-70B92AB1-1B03-4C7B-9D34-CAF16E5CC157"></a></span>To create a transition between clips
+                  </h3> <span class="anchor_wrapper"><a name="GUID-4ADC6066-B13D-4138-BC89-135CCC8F2992"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B2B4AF67-5BCB-42DF-B1CA-8E95C8DC23D2"></a></span>Do one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_2C26B7F4D11743B6AB8930887145417B"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-1BE333B4-445C-4D20-BDE0-E10132B04C94"></a></span>Choose <span class="MenuCascade" id="GUID-9E3AB31D-BB52-46D0-96E9-AD3DC31D5FEC">Mix <img src="../images/ac.menuaro.gif"> Standard Transition Tool</span> from the mixer's command bar or press the <span class="MenuCascade" id="GUID-16D46382-B8CA-4120-8D98-95B5DDDAF435">T</span> key. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-026BA48D-525C-4AF5-91A6-333022489D5B"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-938F2017-033A-4194-9A3F-603192057692"></a></span>Choose <span class="MenuCascade" id="GUID-4CA9897F-72D9-4B3D-9E22-B111681AD13D">Mix <img src="../images/ac.menuaro.gif"> Cardinal Transition Tool</span> or press the <span class="MenuCascade" id="GUID-AB9928FD-0519-44A2-B17A-9F8DC73EF381">C</span> key. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8FBA1AC1-90D7-481E-A547-9D75F2630632"></a></span>Pick the first clip and then pick the second clip. A transition is created and displayed
+                           as a purple (standard) or red (Cardinal) bar joining the clips. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-AD5E0E81-8EC0-47E8-9232-46AFE86EDAD3"></a></span><div class="note-note"><span class="label">NOTE:</span>If you cannot see the transition bars above the clips, choose <span class="MenuCascade" id="GUID-196786CC-84B2-4B61-92F0-F3CEF3C57D0B">View <img src="../images/ac.menuaro.gif"> Transition Curves</span> in the mixer command bar. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CD442466-88B3-4206-ACA4-4A313F13F565"></a></span>The Transition tool remains active and you can continue to pick clips to create a
+                           chain of transitions. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E0B306EA-A473-4CCA-A936-2D4633F7D8A3"></a></span>When you have finished, right-click to deactivate the Transition tool. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00D6"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0FD2B384-B499-4481-90B6-1DA495D1BF6E"></a></span>Adding Transitions Automatically
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-93B5B2DC-9D11-4F81-B655-0E1A95DD8D8A"></a></span>You can create transitions automatically as you add clips to tracks, making it easy
+                  to set up a series of clips in a sequence. You can turn auto-transition on or off
+                  in the mixer, but you can also turn it off for specific tracks to prevent auto-transitions
+                  even when you turn them on for the mixer as a whole. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0066FE85-FAFD-42C5-BA09-31DAE83F20F1"></a></span>When both of these transition controls are active for a track, transitions are created
+                  between all neighboring clips when you add a clip to that track. If you add a clip
+                  to a track that does not have auto-transition active, no transitions are created.
+                  <span class="anchor_wrapper"><a name="GUID-A48882F1-D064-4FDA-9131-B9D334C23AFB"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3375AB4B-6D76-4F12-9E8D-87D01BE66790"></a></span>Make sure that auto-transition is active for each track where you want transitions
+                           (this is on by default). Right-click the track, choose <span class="MenuCascade" id="GUID-3B4576B0-E565-4A5B-BBFD-08F58DABF2FE">Track Properties</span>, and select <span class="MenuCascade" id="GUID-A348EBEA-8A91-4C2F-9F86-BFAFADBE046E">Auto-Transition</span> in the Track property editor (or select the track and choose <span class="MenuCascade" id="GUID-4337ED86-2077-4EEF-8437-B37C0BDD53BD">Track <img src="../images/ac.menuaro.gif"> Track Properties</span> and do the same). 
+                        </p> <span class="anchor_wrapper"><a name="FIG_FADDE08B6CDC4DDBB2B7125C940D7F49"></a></span><div class="figure-anchor"><img src="../images/GUID-7AA86B6A-9BA7-4EF5-AB84-81470A1328AC-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-74D359CB-F0D3-4397-85C4-5CFF7FCD350B"></a></span>Choose <span class="MenuCascade" id="GUID-397917F7-33C3-4F88-9490-1FFD9CF7B2A3">Mix <img src="../images/ac.menuaro.gif"> Auto Transition</span>. By default, the Standard transition method is selected, which you can change as
+                           described below. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00D9"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B330DDD4-4AC6-40DB-BFB7-2F2147371FDA"></a></span>To change the default transition type
+                  </h3> <span class="anchor_wrapper"><a name="GUID-7BEF685E-597F-4FF0-B7A3-904258E33867"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4F8DC079-7ACC-49DE-B5FE-E9B3B2364CBB"></a></span>Select a transition and press Enter or right-click the transition and choose <span class="MenuCascade" id="GUID-AF124F14-6118-4556-A87E-0FA2B77F9BF1">Properties</span> to open the Transition property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AAC65EAF-4AF1-4016-85D9-0E911FBD538F"></a></span>Select a <span class="MenuCascade" id="GUID-6C89A08C-51E5-4FB4-9A05-8B105EB61696">Transition Type:</span> Standard, Cardinal, or Bridge. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_8E2BD866C03947498AC2DEF2F8E69B27"></a></span><div class="figure-anchor"><img src="../images/GUID-89C20C41-5203-4FC6-A123-33132BDA485A-low.png"></div> 
+                        <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-9B927CD4-456C-4778-A38A-2662ACD6BAB9"></a></span><div class="note-note"><span class="label">NOTE:</span>The <span class="MenuCascade" id="GUID-F920106E-53E5-46D6-9A9D-8393DCB270C0">Auto Transition</span> option is independent of the shape-key modes set on the <span class="MenuCascade" id="GUID-0003511B-0CD4-4F92-A926-21B023FA979B">Deform <img src="../images/ac.menuaro.gif"> Shape</span> menu of the Animate toolbar. See <span class="char_link"><a href="shape_anim_ChoosingaShapeKeyModeforShapeClips.htm">Choosing a Shape Instance Mode for Shape Clips</a></span> [<span class="char_link"><a href="shape_cover.htm">Shape Animation</a></span>] for more information. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00DB"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B2BD7D85-F59B-41F4-B677-CD58431EEC12"></a></span>Muting Transitions
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-9B3824E5-AF1D-4F42-8BB6-26CCD2D56C6B"></a></span>When you mute a transition, you temporarily disable the effect it has on the object's
+                  animation. This helps you test out different factors of an animation as you're working.
+                  <span class="anchor_wrapper"><a name="GUID-36060416-5DCB-4374-A898-6D55D9F2310A"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-08EE5E22-DD10-4072-97AA-1131D524376F"></a></span>Select a transition and press Enter or right-click the transition and choose <span class="MenuCascade" id="GUID-42B5CD86-F40E-4B31-A60B-0D6B0A30192A">Properties</span> to open the Transition property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6A4201CC-90E2-41B4-A21D-A4DCE5D91A1A"></a></span>Deselect the <span class="MenuCascade" id="GUID-0907B5EA-3782-402C-A67C-842335ACF011">Active</span> option. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BDF6F2E7-1FAF-4DF5-A713-3159AB019084"></a></span>When the transition is muted, its bar is gray and the mixer does not calculate its
+                           effect in the animation when you play it back. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00DD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-21826220-7065-4E13-BFA8-3AB38C803942"></a></span>To mute all transitions in a mixer
+                  </h3> <span class="anchor_wrapper"><a name="UL_49176572AAF54C04874E0D9EB99F223A"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BBF18AF9-14BD-4E6C-ADC6-5A6B22CD5C1D"></a></span>Enter this in the command box in the lower-left of the Softimage window: 
+                        </p> <span class="code">SetValue "Mixer.Transition*.active", False</span> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00DE"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6145C05F-DF64-4007-9A44-D31514973ACC"></a></span> Animating and Modifying the Transition's Fcurve
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-EAB3E494-15A1-42E0-90D1-574F293B6B89"></a></span>You can modify the profile function curve that controls the transition by setting
+                  keys and editing it using the animation editor. Keep in mind that values on the fcurves
+                  represent the proportional weight of the second clip. 
+               </p> <span class="anchor_wrapper"><a name="UL_D9A3CCAFE8BF4E3EAA6E8280537AB2E3"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FEFFFCFF-0210-4185-970A-C8316B3148B1"></a></span>A value of 0 represents the last frame of the first clip with no contribution from
+                        the second. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3A29E6DF-D64A-4760-8830-8A8A5E92FFD6"></a></span>A value of 1 represents the first frame of the second clip with no contribution from
+                        the first. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-21B18701-E5EC-4A29-B0F2-7CD13DF38303"></a></span>You cannot use values outside of the range [0, 1]. If you do, the values are "clamped":
+                        
+                     </p> <span class="anchor_wrapper"><a name="UL_D572BB2808F149DE9A08B3B1E9AE918B"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3D6E90DF-1918-4D3E-89A0-B5D71D830D96"></a></span>values below 0 are treated as 0. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-643066FD-BA0E-400C-ACA6-EC3283D18135"></a></span>values above 1 are treated as 1. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-C45CF2F4-5B76-4827-B5BD-B4A8B0833C54"></a></span>Transitions weights are essentially a mechanism for mixing between clips, so the 0
+                  to 1 range makes sense; for example, it doesn't make sense to have a transition of
+                  110% for clip A and -10% clip B. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3708757E-8C7A-4AA6-8AF9-13B0F1760D26"></a></span>The type of transition (Standard or Cardinal) has nothing to do with the type of interpolation
+                  created for its weight fcurve. Standard and Cardinal refer to how the transition itself
+                  is computed. A Standard transition creates an fcurve with a spline interpolation,
+                  while a Cardinal transition's fcurve has a linear interpolation. You can change the
+                  interpolation as with any other function curve (see <span class="char_link"><a href="ani_fcurves.htm">Editing Function Curves</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]). 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00DF"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-4D4745F7-FF8B-495B-BB5F-FAE63007F45D"></a></span>Setting Keys for the Transition Weight
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-37833E2A-D33B-489F-BC14-9A7B79FD8044"></a></span>To set keys for the transition weight between two clips: 
+                  </p> <span class="anchor_wrapper"><a name="GUID-3218D918-E3B3-48E1-8638-4D2661738029"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-05A2B9DF-AC58-4786-AF23-21A593AA7821"></a></span>Select a transition and press Enter or right-click the transition and choose <span class="MenuCascade" id="GUID-3AE43E07-82BB-4B19-9DDA-0DC3DABDAA9B">Properties</span> to open the Transition property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-53BBEEC7-24D9-446E-935F-DFAF1BE03BEA"></a></span>Set the <span class="MenuCascade" id="GUID-F88767AB-306F-4194-A9B4-114687B37CA1">Transition Weight</span> value and click its animation icon to set a key. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_A2C70ECB5F2C4A98903A2806250F41FC"></a></span><div class="figure-anchor"><img src="../images/GUID-E23E74C6-08B8-48FB-A35D-64984DC4F63F-low.png"></div> 
+                        <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-C6FA9DD1-8793-48B5-B3B9-01772DE5223F"></a></span><div class="note-note"><span class="label">NOTE:</span>The colors of the animation controls do not properly reflect whether there is a key
+                              at the current frame. This is because the keys are set in the local time of the transition
+                              rather than the global time of the scene. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00E2"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-13248BB9-6CEA-4AAC-8F66-E410F3A92E36"></a></span>Editing Transition Weight Curves
+                  </h3> <span class="anchor_wrapper"><a name="GUID-B113EEAC-5FF0-4BBE-ACC2-EBC1EAF544C3"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7121E54D-F143-4E9B-B9F0-3FC5E932298A"></a></span>Right-click the colored bar that represents the transition and choose <span class="MenuCascade" id="GUID-5F7415B3-0E1C-4F75-A178-9D6807634EE1">Animation Editor</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-08B01B0C-0E33-46A1-8A04-64B7036EA629"></a></span>Select the <span class="MenuCascade" id="GUID-E43C7928-9B7F-4959-A6FF-2E6DB154E1A5">weight</span> curve in the editor. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AF583944-79D7-41F6-9CB7-DA5F293BF969"></a></span>You can now edit it like any other function curve (see <span class="char_link"><a href="ani_fcurves.htm">Editing Function Curves</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-190D2D9F-58B4-466A-A814-5925BC12CCC5"></a></span>You'll notice that the time cursor in both the animation mixer and the animation editor
+                           correspond to the same frames. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F4804A96-FC17-4742-A2F2-2E6DF0CE9610"></a></span>Keep in mind that time is relative — the transition appears to be a certain number
+                           of frames long, but this time is stretched or squashed to the duration of the transition.
+                           
+                        </p> <span class="anchor_wrapper"><a name="FIG_359AC11CA2004B8A8E4C9A3F62D7C3D6"></a></span><div class="figure-anchor"><img src="../images/GUID-35F5CA0B-4B5F-49C7-A206-C260C4820638-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00E5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8ABB094D-CED6-45D1-87D4-C48706AF6E86"></a></span>Removing Transitions
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-CC1CEC03-B363-437C-B4F0-906933F1CD95"></a></span>Do one of the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_F41276DD858C495DAE314B79869631DA"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DEE93651-7EA7-40F4-B207-B0E1E2D543E1"></a></span>Select the colored transition bar and press Delete. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-33E5CE4C-B992-4E59-9FCB-BAFA6F59FB2C"></a></span>Right-click the colored transition bar and choose <span class="MenuCascade" id="GUID-73C1C7EE-89AA-4920-ABFF-15ABB19C31E1">Delete</span>. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00E7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-645B6041-163E-4321-9A32-7C3003310CBD"></a></span>To remove multiple transitions with the Clear Transition Tool
+                  </h3> <span class="anchor_wrapper"><a name="GUID-8A73B3E5-DB41-485F-A33C-C541CCF56468"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-073DA7F9-F95A-47E4-8401-097B1A579689"></a></span>Choose <span class="MenuCascade" id="GUID-EDAB59A6-EE0F-454D-A01E-BDAE060B5D3E">Mix <img src="../images/ac.menuaro.gif"> Clear Transition Tool</span> in the animation mixer. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-24780DE6-41F4-438D-9993-B9B55E2F8AD4"></a></span>Pick the clips between which you want to remove the transitions. The transitions are
+                           removed. The Clear Transition tool remains active and you can continue to pick clips.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E4E02C75-19BE-462A-AAA4-00B3CB0E2B20"></a></span>When you have finished, right-click to deactivate the Clear Transition tool. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

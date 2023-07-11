@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-B33A90FB-E3BC-43DF-96BF-738B9B47E82E">
+      <meta name="indexterm" content="image clips: managing memory">
+      <meta name="indexterm" content="image management: managing memory">
+      <meta name="indexterm" content="image clips: management modes, changing">
+      <meta name="indexterm" content="image management: default mode">
+      <meta name="indexterm" content="realtime shaders: image clip memory management">
+      <meta name="topic-type" content="concept">
+      <title>Image Clip Memory Management</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-B33A90FB-E3BC-43DF-96BF-738B9B47E82E"></a></span><div class="head">
+            <h1>Image Clip Memory Management</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-003A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-40519653-AA49-4177-8146-DB811220C8DA"></a></span>mental ray
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-13E7932D-FBF0-479B-A677-25B7BA358116"></a></span>You can define how much image clip information Softimage passes to the mental ray
+                  renderer and how much of that information mental ray, in turn, sends to the render
+                  slaves in your distributed rendering network. This is useful when you are working
+                  with large texture images because you can speed up rendering by reducing the amount
+                  of information being sent across the network. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-83B82DA1-4D54-4667-8B0D-280328B64737"></a></span>You can set each image clip to one of these three image management modes: 
+               </p> <span class="anchor_wrapper"><a name="UL_D422D77FD3A04273B2ADBA82FFA7F4E8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3E0E1082-CCD1-48F3-85CE-F0833748033A"></a></span> <span class="MenuCascade" id="GUID-6CC7534C-3845-4B44-91B9-5C2AFFC018C1">Load in Memory:</span> Softimage opens the image file and keeps in memory any changes or clip effects that
+                        you apply to it. At render time, the image's pixel data, including effects, is sent
+                        to mental ray. If you are using distributed rendering, the pixel data is sent from
+                        the master to all render slaves. 
+                     </p> <span class="anchor_wrapper"><a name="UL_589A266BF0974B2587007FD80D709567"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0A2F3C8E-C599-42E6-AC56-EE3D3225ACFD"></a></span>This is the only image management mode that lets you use the clip effects available
+                              from the Texturing tab of the image clip property editor. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A02AFC54-BFE1-4082-BC2D-1E1CD1007036"></a></span>If you are creating an <span class="MenuCascade" id="GUID-A1B4CA7E-C34C-4BB1-9BB2-44D918704CF0">MI</span> file, it will have the texture in-line. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-14EDF32B-BDBA-450F-95B8-3D60A8CD6504"></a></span><div class="note-note"><span class="label">NOTE:</span>If you're working with large image clips (1000 pixels or more in either direction),
+                                 <span class="MenuCascade" id="GUID-033D43A9-F83E-4546-A9D2-C33C3BA2130A">Load in Memory</span> mode can decrease rendering performance. Because Softimage loads the image pixel
+                                 data before passing it to mental ray, two copies of the image are created, doubling
+                                 the memory requirement. If this is an issue, set the image management mode to <span class="MenuCascade" id="GUID-027B5EB9-ED6B-41BE-8A16-74068FEA0C4E">Use From Disk or Broadcast.</span> 
+                              </div>
+                           </div> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4528B3BC-9470-45B2-B403-15576608D84A"></a></span> <span class="MenuCascade" id="GUID-30B29B13-3A29-42AF-A8B0-1EB4E8EAC7B9">Use from disk:</span> Softimage passes the image clip's path and file name directly to mental ray. mental
+                        ray opens the file and, if you are using distributed rendering, sends the image's
+                        pixel data to the render slaves. Unless you specify otherwise, this is the default
+                        image management mode for all new image clips. 
+                     </p> <span class="anchor_wrapper"><a name="UL_95E3DD09140A42EE88271EDC933BFABF"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7C3E10A5-76FD-487F-9095-993C336794E0"></a></span>You cannot apply any clip effects because the Softimage doesn't load the image in
+                              memory. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2CD91C6A-37A1-4E6C-B19C-AFE00623FD9F"></a></span>If you are creating an <span class="MenuCascade" id="GUID-9A577AC4-996A-4E1C-A8A1-64B1F45F4BD5">MI</span> file, it will have the texture in-line as long as the echo verbatim option is on.
+                              If echo verbatim is off, the <span class="MenuCascade" id="GUID-085E4C6A-87CF-40B8-BC29-6B2A45BC94FC">MI</span> file will have the path reference to the texture. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BAD32FF5-09AA-4628-9F87-1FBC2A9FFBEB"></a></span> <span class="MenuCascade" id="GUID-055D2E0F-B889-44E5-AFC9-5A35CFF9549D">Broadcast:</span> Softimage passes the image clip's path and file name directly to mental ray, which
+                        then opens the texture file and broadcasts the path and filename to the render slaves,
+                        instead of sending the image's pixel data. 
+                     </p> <span class="anchor_wrapper"><a name="UL_83B75C6517C0421A83CFF1D29CFDDF6F"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-87A5FA08-C0A8-4C57-8A2C-003B6F2E5C0B"></a></span>You cannot apply any clip effects because the Softimage doesn't load the image in
+                              memory. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-287064D8-7EB6-46E1-97FE-2C40DD81082E"></a></span>If you are creating an <span class="MenuCascade" id="GUID-2B04A164-0B15-4C56-A1A6-7D4440ACB2C7">MI</span> file, it will have the texture in-line as long as the echo verbatim option is on.
+                              If echo verbatim is off, the <span class="MenuCascade" id="GUID-D60EEDC7-3CEA-4B37-A23A-3A050E98937F">MI</span> file will have the path reference to the texture. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-76D044B2-3E3E-40CB-BD97-97E88F3FE228"></a></span><div class="note-note"><span class="label">NOTE:</span>If you set the image management mode to either <span class="MenuCascade" id="GUID-C124F417-CEAB-4A5E-86F0-68390A352F59">Use from Disk or Broadcast,</span> your texture image must be in a format supported by both mental ray and Softimage.
+                                 This is because Softimage passes the image's path and file name to mental ray without
+                                 opening the image. File formats supported by both Softimage and mental ray include:
+                                 <span class="MenuCascade" id="GUID-D66FDB43-651A-462D-8BDB-6CFC71D6B4F5">.pic / .tga / .tiff / .sgi / .jpg / .ct / .map</span>. 
+                              </div>
+                           </div> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-003B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1B102CF4-C743-4862-A1A3-3A99FAB10387"></a></span>Changing a Clip's Image Management Mode
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-5C85F533-C0FF-45E1-A434-7C3DEF6D0CFE"></a></span>You can specify each clip's image management mode from the Texturing tab of the Image
+                     Clip property editor. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-9E233390-8793-4A90-AC64-A421840CB8E0"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ABBC6A88-E040-4EA3-83FF-415D4DBA1D0B"></a></span>Open the image clip's property editor as described <span class="char_link"><a href="tex_clip_source_EditingImageClipProperties.htm">Editing Image Clip Properties</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4047F153-C400-42BC-A1F3-44F0926A4346"></a></span>From the Texturing tab, choose an Image Management mode. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-003C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9B9F0490-D3D0-4976-A0FF-BC432688B7F8"></a></span>Setting the Default Image Management Mode
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-AABEF1CA-A538-4659-A2CF-1CDB9993B834"></a></span>You can set the image management mode that new image clips use by default. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-A99288F7-F4D6-420D-9079-EEBD9A4C07D5"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1B03FE98-8DD9-4BAA-939F-3AE67AD4931B"></a></span>Open the Preferences view (choose <span class="MenuCascade" id="GUID-F5D1E9BF-9998-459F-AEC7-2949E720E504">File <img src="../images/ac.menuaro.gif"> Preferences</span> from the main menu) and double-click the Rendering preferences in the explorer pane.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B7D40AF1-21A3-4410-B6C6-955F412DACC7"></a></span>The Rendering Preferences property editor opens in the right pane. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9BBAE1C5-384B-4D8B-B983-C22479528F44"></a></span>From the <span class="MenuCascade" id="GUID-09202056-C43B-4706-A929-D7CDC76E7F63">Image Clip Default Settings <img src="../images/ac.menuaro.gif"> Management Type</span> list, choose the desired management mode. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-003D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E08EA519-52E9-4E2B-B8A2-D995EE4AA193"></a></span>Setting the Image Management Mode for All Clips
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-47829109-F0BC-4269-99DC-69CEF3CD5405"></a></span>Rather than setting the image management mode one clip at a time, you can set it for
+                     all of the clips in the scene at once by typing the following in the script-editor
+                     text box: 
+                  </p> 
+                  <div class="codeBlock"><pre>
+SetValue "Clips.*.ImageDefinitionType", &lt;mode&gt;</pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A6DE633F-A683-4FB1-9356-26F856419277"></a></span>Set the Mode value to one of the following: 
+                  </p> <span class="anchor_wrapper"><a name="UL_BDB6AD10AA0645BF946B3DB4D70218B2"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-59BFF185-78E2-43E9-9E0F-020423D6A58F"></a></span> <span class="MenuCascade" id="GUID-135CAC0B-F954-4348-A2B7-A9E3681CB66B">0</span> – Load in Memory 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-36910254-FC86-4748-B944-D12DFF9996F6"></a></span> <span class="MenuCascade" id="GUID-2C2A1C17-1836-416F-99FA-6E6B8629E86C">1</span> – Use from disk\ 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-723F9D6B-DE6B-498E-82C0-80DD981EDEC0"></a></span> <span class="MenuCascade" id="GUID-49269F5F-74D4-44F7-81DE-14A3778D724B">2</span> – Broadcast 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-003E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8D9B3C33-8170-4646-95AC-DA9EB5D894E0"></a></span>Hardware (Realtime Shaders Display Modes)
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-0EE00416-47F5-4BD4-949E-4F534F181ABC"></a></span>When 3D views are set to <span class="MenuCascade" id="GUID-17782BC2-1970-44B0-A79B-618968393CFD">OpenGL</span> or <span class="MenuCascade" id="GUID-FB9967B9-190A-4771-9FC6-514B01DA9BC3">DirectX</span> display modes, only one copy of a texture is uploaded to the graphics processor even
+                  if multiple clips are defined from the same source. This optimizes the use of texture
+                  memory. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

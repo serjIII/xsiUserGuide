@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-60757004-8C7E-4773-BC6F-3C6389062F8B">
+      <meta name="indexterm" content="obstacles: rigid body, ICE">
+      <meta name="indexterm" content="collision objects: rigid body, ICE">
+      <meta name="indexterm" content="ICE rigid bodies: obstacles">
+      <meta name="indexterm" content="ICE rigid bodies: muting collisions">
+      <meta name="topic-type" content="concept">
+      <title>ICE Particle Collisions with Obstacles</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-60757004-8C7E-4773-BC6F-3C6389062F8B"></a></span><div class="head">
+            <h1>ICE Particle Collisions with Obstacles</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-9BE6567A-E1EB-4275-9955-EF4F410B095C"></a></span>In addition to colliding with themselves, particles can collide with objects that
+               are set as rigid body objects: these are known as <em class="mild">collision objects</em> or <em class="mild">obstacles</em>. 
+            </p><span class="anchor_wrapper"><a name="FIG_F5AE647E01554A248D3CED8A714EDD7A"></a></span><div class="figure-anchor"><img src="../images/GUID-3E8FBEA2-490E-448E-9B20-3435D264696A-low.png"><p><span class="anchor_wrapper"><a name="GUID-A8257869-A888-4E6C-BD2F-1428F64018EC"></a></span>In this image, the cereal box, the bowl, and the table are all set as obstacles. 
+               </p>
+            </div><span class="anchor_wrapper"><a name="GUID-3726BBB8-210F-4F3B-812E-85AE7DC9864E"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-182B3B81-9A74-4E27-AB58-495B74CF795B"></a></span>Create a rigid body particle emission — see <span class="char_link"><a href="ICE_rigidbody_MakingICEParticlesintoRigidBodies.htm">Creating an ICE Rigid Body Particle Emission</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2FED4811-AAA3-4BD6-BC49-5EA125741F22"></a></span>Create one or more objects to be the rigid body obstacles, and drag their names from
+                     an explorer into the ICE workspace to create Get Data nodes for them. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1F5A67ED-F555-48D6-850C-707E6A5FDCD4"></a></span>Plug one or more of the obstacle object's Value outputs into Obstacle &gt; Geometry ports
+                     on the Simulate Rigid Bodies or Simulate Bullet Rigid Bodies node. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C331E6D3-6347-4C9F-9416-4E63800010F1"></a></span> <img src="../images/GUID-AA783B24-0313-4ED4-9757-9C6E41169EB8-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A09F34DE-BDD7-4F17-9378-4D0B43E1D69B"></a></span>Open the Simulate Rigid Bodies or Simulate Bullet Rigid Bodies node's property editor
+                     and set the collision properties for the obstacle — see <span class="char_link"><a href="ICE_rigidbody_SettingtheElasticityandFriction.htm">Setting the Elasticity and Friction</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CD6D68E3-3F3E-4A63-951B-233446B85430"></a></span>For the Simulate Bullet Rigid Bodies node, you can also select the whether to use
+                     the actual shape of the obstacle for the collision geometry — see <span class="char_link"><a href="ipart_rigidbody_CollisionGeometryforRigidBodyParticlesandObstacles.htm#GUID-58E576FA-8266-4DEA-9EE6-003E8A0D98C1">Collision Geometry for Rigid Body Obstacles</a></span>. 
+                  </p> 
+               </li>
+            </ol>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7CF6F022-F193-4C0D-B74F-E1B7C4373DE6"></a></span>Using Rigid Body Obstacles in Groups
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-113F0DC6-3D69-43D7-8F47-EF2289A1741A"></a></span>If you have many obstacle objects and want to deal with them as one entity in the
+                  ICE tree, you can create a group. The advantage of groups is that you can add objects
+                  to the group and have the particles automatically collide with them without having
+                  to bring them directly into the ICE tree and connecting them. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DA7ECF80-8151-4E8E-B92A-FF1686C40069"></a></span>Remember that all obstacles in the group will have the same rigid body properties
+                  (collision geometry type, elasticity, and friction), which is usually useful, but
+                  if you want to set some obstacles differently, you should remove them from the group
+                  and plug them in separately. 
+               </p> <span class="anchor_wrapper"><a name="GUID-26F67F98-9566-4533-962A-EFF6C4508BE4"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AC7FE9BC-37DF-4D7D-AEE0-DC5FC739E93B"></a></span>Select all the obstacle objects you want to use and press Ctrl+G to create a group.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E67120EB-BB9A-457C-A29F-0D5465537096"></a></span>From the explorer, drag the group name into the ICE Tree to create a Get Data node
+                        for the group. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0DE9F2AC-B2C2-4C80-8431-EA51CB214857"></a></span>Plug the Result output from the Group node into an Obstacle &gt; Geometry port on the
+                        Simulate Rigid Bodies node. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_0AAFC4327C7D47D7A946D7282AC6ED0C"></a></span><div class="figure-anchor"><img src="../images/GUID-107E911A-AE95-4B21-AB90-425124FB7F32-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-24FA1E33-C20F-4E6D-BA41-0042DB8CBF8E"></a></span>Muting the Collisions
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-E34F5A4C-B394-466A-BA43-70CB5CDC0DD5"></a></span>You can mute a collision so that all obstacles, or just certain ones, do not take
+                  part in the dynamics calculations. This can be handy when you're troubleshooting or
+                  just trying out different combinations of the simulation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5908276B-286C-4AAC-AB94-CA53D1DE16DC"></a></span>Open the Simulate Bullet Rigid Bodies or Simulate Rigid Bodies property editor and
+                  select the option that you want: 
+               </p> <span class="anchor_wrapper"><a name="UL_061AF5940E874712AEA2CC670F3597A4"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CBA0E800-9BA0-4536-9E70-C4566A3A8FA9"></a></span>Select <span class="MenuCascade" id="GUID-42679F8D-854A-4577-AB48-B4236C12A2DB">Mute</span> to mute the simulation for <em class="mild">all</em> rigid bodies connected to the Simulate Bullet Rigid Bodies or Simulate Rigid Bodies
+                        node. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7A27D719-91E1-4D85-9274-EF8A2EBA84C9"></a></span>Select <span class="MenuCascade" id="GUID-DFF31BC2-0167-48FE-A4DF-35C6F3D077C4">Collide</span> to have <em class="mild">all</em> rigid bodies connected to the Simulate Bullet Rigid Bodies or Simulate Rigid Bodies
+                        node participate in the collision; deselect this option it to prevent them all from
+                        participating. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F7AE4457-819D-4077-9B80-BDCC39E0A669"></a></span>For each individual connected Obstacle, select <span class="MenuCascade" id="GUID-76A65C1A-F908-4929-9EAF-3011A129ABCD">Active</span> to have it participate in the collision, or deselect it to prevent it from participating.
+                        
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

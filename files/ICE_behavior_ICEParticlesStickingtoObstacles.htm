@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-CA0C0E35-CD84-4405-9202-949202673B22">
+      <meta name="indexterm" content="ICE particles: sticking to objects">
+      <meta name="indexterm" content="sticking: ICE particles to objects">
+      <meta name="indexterm" content="Stick to Surface compound">
+      <meta name="indexterm" content="ICE particles: unsticking from object">
+      <meta name="indexterm" content="Unstick from Surface compound">
+      <meta name="topic-type" content="concept">
+      <title>ICE Particles Sticking to Obstacles</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-CA0C0E35-CD84-4405-9202-949202673B22"></a></span><div class="head">
+            <h1>ICE Particles Sticking to Obstacles</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-9CB3967E-1EE2-431E-9766-093B24DB0CDE"></a></span>Using the <span class="MenuCascade" id="GUID-F9B9276C-B47B-40D0-B5D6-FAB2FA35D2F5">Stick</span> to <span class="MenuCascade" id="GUID-6380997C-70FB-4A9E-AA8E-E34DDA3B5543">Surface and Stick</span> to Location compounds, you can make particles stick to an obstacle's surface, or
+               to a specific location on an object's surface, upon collision and remain there for
+               the duration of their lifetime, unless you set up some condition that makes them fall
+               off the obstacle (unstick). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-1E945574-38A3-4C9E-840E-81E41D58C547"></a></span>For example, you can create effects such as paint being sprayed onto a surface, metal
+               filings being attracted and sticking to a magnet, or sprinkles getting stuck in the
+               icing on a cupcake. Obstacles can be deform-animated and the particles will follow
+               the shape of the changing surface. This is useful for creating wet snow or mud hitting
+               a surface. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0512308C-4FDD-430C-AE1F-575DEC3FC747"></a></span>You can choose to use the Stick to Surface and Stick to Location compounds on their
+               own or as part of a more extensive effect via a State system. 
+            </p><span class="anchor_wrapper"><a name="FIG_02C264C0E504429DB232DE104D0FBFDB"></a></span><div class="figure-anchor"><img src="../images/GUID-59AE7709-303D-4F1A-B3A9-03C3FFF7C62F-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-498A96E3-8CA9-46C5-8DC5-0F5A1E1FC341"></a></span>Particles stick to surface of the sphere (obstacle) as it passes through a field of
+               falling particles. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-10289F2F-C496-43D5-A557-2037DA69B1CC"></a></span>Making Particles Stick to Obstacles
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-0013"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-079AADE0-CFFD-4F12-8BFC-40E369F1033F"></a></span>To make particles stick to the surface on an obstacle
+                  </h3> <span class="anchor_wrapper"><a name="GUID-38F1953A-B338-441F-B5E8-41EB09558031"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8AD712AB-0B55-4C87-B83A-D1FB850559B6"></a></span>Create one or more objects that you want to use as surfaces for the particles to stick
+                           on. These objects need to have geometric surfaces, such as polygon meshes or NURBS
+                           surface objects. Make sure that the particles will reach these obstacles at some point
+                           in the simulation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1EF83F49-10C7-48FC-8C35-CE7A6C11D720"></a></span>Create a particle emission — see Creating a Basic Particle Emission. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7D5875E5-947D-4448-B5E0-EA3DF473E07A"></a></span>Choose <span class="MenuCascade" id="GUID-8A8E7101-A8D6-4580-8310-41F84C1AEF45">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Stick to Surface</span> from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C6D2E76D-87E0-45C8-964B-946A65CE23A8"></a></span>This command adds the compound to the ICE tree, plugging it into the Execute port
+                           of the Simulation Root compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1BB42C25-3D38-4D3E-9319-BCBF17F59BAD"></a></span>Pick one or more objects to use as the surfaces for sticking. Each object's Get data
+                           node is then plugged into the Surface port of the Stick to Surface compound. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-464B4501-1318-4D54-8F6A-6E6EDA24C7B8"></a></span>You can also add more objects to the ICE tree later — drag each object's name into
+                           the ICE Tree view to create a Get Data node for it, then plug it in as the other obstacles.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-032E773E-06DB-42F1-B359-7B124C238AFD"></a></span>In the Stick to Surface property editor, set the collision method (for deformed objects
+                           or static), use the particle size or create an offset from the obstacle, and align
+                           the particles to the obstacle's surface normals. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-239BB816-D044-4D37-A7BD-5F90F48335E8"></a></span>To unstick the particles from the surface, see Detaching (Unsticking) Particles from
+                           Obstacles. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_67A73286DB9248CCB2AD243C55618FC7"></a></span><div class="figure-anchor"><img src="../images/GUID-2E81444F-B5F3-4277-A27E-53E7A0336CC8-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-0015"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EC651C39-9822-4D89-925C-3FFD0F294E60"></a></span>Making Particles Stick to a Specific Location on an Object
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-0016"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8EF6D4F6-0BB1-4905-90C9-A7464F2F2A3A"></a></span>To make particles stick to a specific location
+                  </h3> <span class="anchor_wrapper"><a name="GUID-F89AC547-8E54-4F85-A995-011714220391"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7950999D-554A-4D35-A25E-C3CE5CD918D3"></a></span>Create the appropriate object that you want to use for the stick location for the
+                           particles. This can be: 
+                        </p> <span class="anchor_wrapper"><a name="UL_BD3D3450FE41427DA015176EB8109DB0"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-AC3B791F-2089-4C88-8A38-6B789916D285"></a></span>An obstacle object with which the particles collide. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-13C0CC8E-571E-41ED-A392-D9A9A46E47F0"></a></span>The particles' emitter object. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D8DCF669-FB4E-4D44-B38C-CCCF7E7B93E7"></a></span>An object upon which the particles slide. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-75472331-EB8E-4870-AC6D-80398313EE0F"></a></span>An object that is a goal for the particles. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-21454D88-F632-4262-92E6-95AF4CFA2B23"></a></span>Any surface object that you plug into the Input Location port. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F6CBBDBE-058E-449E-B3B6-1C5785D7E3F0"></a></span>Create a particle emission — see Creating a Basic Particle Emission. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-48E3D28E-62E1-4B62-BA00-912F69F84476"></a></span>Choose <span class="MenuCascade" id="GUID-69B9B118-E66E-4C3B-8ABD-A850202AF6D7">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Stick to Location</span> from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E9DC9644-4AED-4F86-BCCC-9F1AEE392E96"></a></span>This command adds the Stick to Location compound to the ICE tree, plugging it into
+                           the Execute port of the Simulation Root compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-520BD634-535B-408F-9E01-8CE5D25B7105"></a></span>In the Stick to Location property editor, define the appropriate location for where
+                           the particles will stick according to the type of object you're using (see step 1).
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-0017"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A6FCFA13-6E9A-431A-8724-2EF599E063E3"></a></span>Using the Stick Compounds in a State System
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-0018"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1077E236-7408-43D9-9391-B98C1811DB6A"></a></span>To use the Stick compounds with a state system
+                  </h3> <span class="anchor_wrapper"><a name="GUID-A02BD8D8-638A-448E-A2BF-EE26E5FFF388"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AC228CCE-059A-4A5B-B109-56B3195F3AA9"></a></span>Create a particle emission — see Creating a Basic Particle Emission. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C1551E16-59CE-485B-A480-C49E4E02D499"></a></span>In the ICE Tree, set up State compounds as you like, as described in Overview of Creating
+                           a Particle State Setup. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C1E2FCEC-A25C-48D2-8E98-D2FD73202B11"></a></span>Plug the <span class="MenuCascade" id="GUID-7F9F29F4-4E16-400F-9896-F909FCC3DA60">Stick to Surface</span> or <span class="MenuCascade" id="GUID-9DA51FD1-76AB-4AC4-8A68-2A05D4EF16F5">Stick to Location</span> compound's Execute output into an Execute Every Frame port of a State compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8D5CC420-0424-4198-B712-7BEB56AED70E"></a></span>Plug the <span class="MenuCascade" id="GUID-581BAA9B-2AE9-4C79-A77F-AC12B7F6CD9D">Stick to Surface</span> or <span class="MenuCascade" id="GUID-D14B55C6-06AE-4672-9404-03E957C3C4C8">Stick to Location</span> compound's Execute output into an Execute Every Frame port of a State compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-93891D5A-02D5-41C1-9587-666DC69E08C1"></a></span>Continue with creating the effect you want with the State compound. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-0019"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EB3DCFB5-7647-4D28-AD4D-C2CBF97DD2D8"></a></span>Detaching (Unsticking) Particles from Obstacles
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-FAF95114-7437-4A5E-B266-3883FFE5B40F"></a></span>If particles are stuck to an obstacle using the Stick to Surface compound, you can
+                  detach (unstick) them from obstacle's surface by either setting parameters in the
+                  Stick to Surface property editor, or you can use the Unstick from Surface compound
+                  in a State system. 
+               </p> <span class="anchor_wrapper"><a name="FIG_6F42FBB24B804CC7872817A828B20C5A"></a></span><div class="figure-anchor"><img src="../images/GUID-C8062445-1FBA-41B6-93AC-8C873F2744A4-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-B2FBEC16-546C-4034-A4E8-330257E5F995"></a></span>Particles become unstuck from the sphere when the force and angle threshold values
+                  have been reached. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-001B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8BA478C5-8B5A-4338-9406-481F6F88AFEA"></a></span>To release stuck particles from the object
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B7988EBC-6C85-4DA4-9824-196BC0D026F5"></a></span>In the Stick to Surface property editor, you can set up the conditions that release
+                     the particle from the surface. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-0FF0645A-3F2B-4369-90BF-B1927F87128E"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-18F96BF7-45E3-416B-B393-2514D3D91AA8"></a></span>Set up the particles to stick to an object as described in the previous sections,
+                           Making Particles Stick to Obstacles. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F70ECDEB-27A3-400F-BB04-4C294D6AA45C"></a></span>Open the Stick to Surface property editor and set these parameters: 
+                        </p> <span class="anchor_wrapper"><a name="UL_0596E6A120CD46B0985F125B5DCF0FAE"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-0EB905D9-30AF-44A8-9CA6-CA00B79741E0"></a></span>Select the <span class="MenuCascade" id="GUID-093439B0-79AB-4BA8-95E3-2BBCD170122D">Allow Unstick</span> parameter. This allows the particles to be released from the surface of the object
+                                 if the Angle and Force Thresholds are at appropriate values. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A80F053D-62FF-4936-AE95-359FAFD0DDB9"></a></span>Set the <span class="MenuCascade" id="GUID-CF33FC8B-9CFA-4025-85F6-10325878FF70">Angle Threshold</span>, which is the angle at which the object needs to be before particles will fall off
+                                 it (unstick). This is based on the obstacle's surface normals and gravity or other
+                                 forces in the scene. At a low angle, the particles will not unstick easily, whereas
+                                 at a high angle, they will. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-55C72A91-A351-4903-9714-34AB7E7F6FDC"></a></span>Set the <span class="MenuCascade" id="GUID-D3AE73A6-438D-494D-A7C9-09A3DA0F088E">Force Threshold</span>, which is the maximum force required to make the particles fall off the obstacle
+                                 (unstick). This is used mostly when the obstacle is moving and you want the particles
+                                 to release from the surface based on the obstacle's velocity. A high threshold makes
+                                 it more difficult for the particles to unstick, whereas a low threshold makes it easy.
+                                 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-001C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9D53BEEC-9EFF-435D-A956-4ACE8B338980"></a></span>To release stuck particles with a state system
+                  </h3> <span class="anchor_wrapper"><a name="GUID-B24DEAB5-A7F1-46B7-82D0-632A284E29B2"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D483B191-E670-4D3B-849B-5EB3F746293E"></a></span>Create a particle emission — see Creating a Basic Particle Emission. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-231E30CA-C4C9-4BE2-93D8-DBD114AC1AB7"></a></span>In the ICE Tree, set up State compounds as you like, as described in Overview of Creating
+                           a Particle State Setup. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-00A1A6B9-D4C5-40E8-86D8-529B99B58EBA"></a></span>Plug the <span class="MenuCascade" id="GUID-AA590787-0B2B-4138-97AB-6B8D102C18C7">Stick to Surface</span> compound's Execute output into an Execute Every Frame port of a State compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-098B0507-4721-46C0-B228-7926CDA50FC6"></a></span>Drag the <span class="MenuCascade" id="GUID-293372CE-98CA-48DF-BE12-736032D02C16">Unstick from Surface</span> compound from the Surface Interaction group into the ICE view. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E4E87E35-28F9-491C-BFA9-099A0C12BEAD"></a></span>Plug its Execute output into the Execute Once on Enter State port of the State compound.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A0A1A8FE-4382-4D08-895C-2ADE08E87E33"></a></span>Continue with creating the effect you want with the State compound. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

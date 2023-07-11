@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-EFB0D614-0A04-429D-BDDF-CB34AA173BEE">
+      <meta name="indexterm" content="ICE trees: controlling execution">
+      <meta name="indexterm" content="ICE trees: filtering data">
+      <meta name="indexterm" content="ICE trees: validating data">
+      <meta name="indexterm" content="ICE trees: switching contexts">
+      <meta name="topic-type" content="concept">
+      <title>Controlling Execution in ICE Trees</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-EFB0D614-0A04-429D-BDDF-CB34AA173BEE"></a></span><div class="head">
+            <h1>Controlling Execution in ICE Trees</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-95FA32EA-6F1B-4E61-9514-19F1BBC9EA44"></a></span>The nodes in the Execution category can be used to control program flow in ICE trees.
+               
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0028"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0154B6E2-BF4A-40F7-A3D8-8652A57BB083"></a></span>How Trees Are Evaluated
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-458EA33E-4616-4409-A94F-DACDDE1C938B"></a></span>To understand how a tree is evaluated, it helps to think of it as a two-way process.
+                  Requests for data are pushed upstream along execute-type connections from right to
+                  left. Each port of the root node begins afresh by requesting a full set of data. As
+                  the request for data gets passed along, If and Select Case nodes may send requests
+                  for different members of a data set down different sub-branches. As a result, the
+                  data that is being requested in a specific branch may not be the full set. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B997A2ED-3E6D-4D19-ABBC-56CAA2026B7E"></a></span>Once the requests for data have been pushed up the tree to the leaf nodes, the data
+                  values flow back down the connections from right to left towards the root. These data
+                  values may be filtered, either explicitly using a Filter node (see <span class="char_link"><a href="ICE_trees_ControllingExecutioninICETrees.htm#WSB74EE070EB80114199F4C921243896F3-002A">If versus Filter</a></span>) or automatically under certain conditions (see <span class="char_link"><a href="ICE_trees_ControllingExecutioninICETrees.htm#WSB74EE070EB80114199F4C921243896F3-002E">Automatic Filtering</a></span>). The members of a data set that have been filtered out are specially flagged and
+                  ignored by downstream nodes. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0029"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-217AFD3A-313D-497A-85BD-64FE93AB8D3F"></a></span>Conditional Execution: If and Select Case
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E579BD6E-BDFC-443E-96E5-393C8FE0C7F2"></a></span>The If and Select Case nodes are used to evaluate different subtrees according to
+                  a condition. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-327EB698-654D-49B1-B732-E208673500D9"></a></span>They both accept either execute or data-type connections. You can connect execute
+                  ports to their inputs in order to execute different subtrees for different members
+                  of a data set, or you can connect other data types to pass different values downstream.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-74FACFB0-E5F5-4BA3-8FA8-2F99D400A3BC"></a></span>The If node evaluates one of two branches, based on a Boolean Condition. If the If
+                  node's Condition has been filtered out for a member of a data set, neither branch
+                  is evaluated for that member and the result is filtered. The If node can be used in
+                  a similar way to the Filter node — see <span class="char_link"><a href="ICE_trees_ControllingExecutioninICETrees.htm#WSB74EE070EB80114199F4C921243896F3-002A">If versus Filter</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-00674067-D657-4916-A35E-A763C1E9762C"></a></span>The Select Case node evaluates one of an arbitrary number of branches, based on the
+                  value of an integer Condition. If no branch has been specified for a specific integer
+                  value, it returns the result of its Default branch. If the Condition value has been
+                  filtered out for a member of a data set, no branch is evaluated for that member and
+                  the result is filtered. The Select Case node is particularly useful in compounds,
+                  where you can assign strings to predefined integers and select them from a drop-down
+                  list — see <span class="char_link"><a href="ICE_compounds_ManagingExposedPorts.htm#WS5115FDADD976BD418C0DD1375D5E8437-0026">Setting Predefined Values</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-002A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-10F0AB92-F2F9-45F0-A46A-256797C213F6"></a></span>If versus Filter
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F30E2D04-D379-4B03-A198-5A915DCC8CCA"></a></span>The If and Filter nodes can be used to apply values to certain members of a data set.
+                  In many situations, they can be used almost interchangeably. For example, the following
+                  two trees both set particles' Color to red if Age is greater than 10. 
+               </p> <span class="anchor_wrapper"><a name="FIG_A78619C4B6694A9990E32DE13BB2E5D7"></a></span><div class="figure-anchor"><img src="../images/GUID-6A53082D-02A0-4E40-BB74-8B1C3F7EA33A-low.png"></div> <span class="anchor_wrapper"><a name="FIG_58332399C38F4CEDB21C075E7D260554"></a></span><div class="figure-anchor"><img src="../images/GUID-A791812A-08DC-4C0C-8D7E-A9762132BD1D-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-43CC95D1-7DA3-438C-8E8A-626160A7CC08"></a></span>The difference between the Filter and If nodes is that Filter filters out values that
+                  do not meet the Keep condition so that they are ignored by upstream nodes. In contrast,
+                  the If node has branches for If True and If False — if there's an execute-type port
+                  with nothing connected then nothing will happen, but if there's a data-type port then
+                  a value will be passed downstream whether the Condition is true or false. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7D5E991B-34D9-43CC-AA4D-D68F61048444"></a></span>One possible use of Filter is to create a compound that processes a data set in a
+                  general way without using Set Data to write values of specific attributes. On the
+                  other hand, you cannot attach execute-type connections to Filter's input port, and
+                  you cannot use Filter to supply data where Keep is false. For example, if you want
+                  to supply Undefined Location where a condition is not met, you must use an If node
+                  as in the following illustration: 
+               </p> <span class="anchor_wrapper"><a name="FIG_BB05D79588634A368642F48F83099AD0"></a></span><div class="figure-anchor"><img src="../images/GUID-E6D4A83A-A4DB-42D9-B79E-9CCFEECB9C7B-low.png"></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-002E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2B1DBA57-6C30-4819-BE2A-CA5BB30A4B54"></a></span>Automatic Filtering
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F3792AB4-1826-4B07-A516-445DC7CD8721"></a></span>Some values in a data set may get filtered out automatically without using a Filter
+                  node explicitly. This will happen in the following cases: 
+               </p> <span class="anchor_wrapper"><a name="UL_C61DE75FE1884510AC994CC1752BFE72"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-70F19E83-F56D-4941-8BCD-C941C492F80B"></a></span>If you use a Get Data node to return PointPosition or other attributes from an undefined
+                        location, the value is filtered. For example if you use Get Closest Location with
+                        a Cutoff Distance, members of the data set that are too far away from the specified
+                        geometry return Undefined Location. If you then get the PointNormal, those members
+                        of the data set are filtered out. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9C088AE6-E6EF-4647-81C4-BF1642A46805"></a></span>When you use the Basic Collide node, Hit Frame Fraction is filtered out when Hit is
+                        false. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-002F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5D885F6C-3B75-4289-993A-6710E41E7F99"></a></span>"Short-Circuit" Boolean Logic
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-5893DA93-2CB2-482F-BEE7-7C7692FF1E52"></a></span>The And and Or nodes use "short-circuit" logic to evaluate their inputs. This means
+                  that for each member of a data set, the And node stops evaluating its inputs as soon
+                  as it encounters a non-true value. The first non-true value is passed to the nodes
+                  downstream. When one or more of the input data sets contain members that have been
+                  filtered out, the first non-true value could be either "false" or "filtered out" depending
+                  on the order in which the inputs are connected. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_D8E7F3B27AF5437199BD4BBE9AC1E025"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-FBD8D571-A2A3-44EE-A4D5-ADB50C2C6C84-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C98A30BB-8D31-4FEA-A4A1-F25B830030D5"></a></span><p class="table-body">Filter is the first input that doesn't evaluate as always true. In the resulting data
+                              set, some members are false and some have been filtered out. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-D32A5016-EBD9-45A5-89DD-FED3A2922456-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2D48DB6D-DE21-467E-A6B6-5CE21D2570AF"></a></span><p class="table-body">False is the first input that isn't true. The result is false for the entire data
+                              set — the Filter node is not evaluated. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-FAEFBCFC-9822-4FF6-A958-8DD250E9127A"></a></span>Similarly, the Or node returns the first non-false value among its inputs. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_64FB705D502048D7A45C2E8645B7B038"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-991B0800-56FF-4DF4-BE2D-12457E0C8DBC-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ABB82269-B54F-4264-A265-9F3CB18BC84F"></a></span><p class="table-body">Filter is the first input that doesn't evaluate as always false. In the resulting
+                              data set, some members are true and some have been filtered out. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-6FD82F32-8AAF-4D75-9FE8-E01F95A3D6BC-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E4EC5356-E38D-4A2D-BC7D-7231E464B193"></a></span><p class="table-body">True is the first input that isn't false. The result is true for the entire data set
+                              — the Filter node is not evaluated. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D5ECE805-2074-40E5-A144-E399121036AF"></a></span>You can take advantage of this short-circuit logic by placing easy-to-evaluate conditions
+                  first among the inputs for And and Or nodes in order to save unnecessary processing
+                  costs. For example, put an "Enabled" toggle before a complex calculation. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0034"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0BB72333-24BC-4350-A1FE-D0030BDE3CB6"></a></span>Looping: While and Repeat
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B75924BF-E6EB-4310-9EDD-FBFB51B804B9"></a></span>The While and Repeat nodes can be used to "loop" or repeat a branch of a tree. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FEC7B3BD-D91A-4708-B4B9-25AE6EAF13D7"></a></span>If the Condition of a While node has been filtered out for a given member of a data
+                  set, then no processing is done for that element. Similarly, if the Iterations of
+                  a repeat node have been filtered out, no processing is done for that element. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1FB674D0-9254-4A36-94A5-D21B749510B1"></a></span>If you need to get the iteration number within the loop, store it in a custom attribute.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0035"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-18277291-FF3D-4216-BADB-668609B75F54"></a></span>Validating Data
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-8BAE6099-5357-4224-B6D5-F58B403A2BB7"></a></span>There are several ways to validate data as it flows downstream. 
+               </p> <span class="anchor_wrapper"><a name="UL_36BF1A2685944EE19476EAEF57D7DE39"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F2943087-F3B5-4716-A1D2-506DF5747A28"></a></span>You can use the First Valid node to supply alternative values. It will return the
+                        value from the first connected branch that is not in error (displayed as red nodes).
+                        The First Valid node itself is considered to be in error and appears red only when
+                        all of its inputs are in error. The First Valid node only considers structural problems
+                        in the tree, such as undefined references — it does not consider runtime errors such
+                        as division by zero. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DFBC01B9-1D97-4CF6-81FB-879ADFD9DE64"></a></span>You can use the Is Valid Location node to verify that a location is valid, that is,
+                        that the location exists on any geometry in the scene. You can use the Is on Geometry
+                        node to verify that a location exists on specific geometric objects. See <span class="char_link"><a href="ICE_trees_UsingGeometryQueries.htm#WSB74EE070EB80114199F4C921243896F3-0060">Testing Locations</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7CB0F634-B9F4-4270-A220-5899421A0E9E"></a></span>Some nodes, including Divide by Scalar, Invert, Modulo, and Log, have Valid output
+                        ports that return false in the case of invalid operations like division by zero or
+                        inverting a singular matrix. You can use the Valid port in combination with If or
+                        Filter nodes to filter the problematic results. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0B93130D-8C3A-4EFF-86B1-603048D34031"></a></span>You can also use Filter and If nodes to filter problematic values before passing them
+                        downstream, For example, you can test whether a divisor is equal to zero before dividing,
+                        or use the Is Singular node to test whether a matrix is invertible before inverting.
+                        
+                     </p> <span class="anchor_wrapper"><a name="FIG_362AF671C8244F948769E032F1DAB094"></a></span><div class="figure-anchor"><img src="../images/GUID-71B1A876-8ACF-4B14-AA9D-DF8AB444425D-low.png"></div> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-9E5D08A0-A83A-4255-B6B4-28A4BA5BF321"></a></span>This tree tests whether mass = 0 before using it to compute acceleration = force /
+                  mass. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D97BF4D7-0B29-4830-8805-EF65F107761E"></a></span>If mass = 0, then it simply returns the force. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0037"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7DAF0316-AA02-41E1-8903-AC970CC7E97D"></a></span>Execute
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4B776E16-14B4-4AD7-A79B-5E0879BA96F3"></a></span>The Execute node evaluates all execute-type connections that are plugged into it.
+                  This is useful for performing actions such as setting data at tree locations other
+                  than the root, for example, in a loop or in a branch of an If node. The Execute node
+                  is also useful for collecting multiple execute-type connections into a single output
+                  port in a compound. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0038"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3AA836EC-92F3-4897-8271-62042D2C6108"></a></span>Pass Through
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-A5A00774-4B66-4F6D-B7B0-D0CDF6FB1E32"></a></span>The Pass Through node simply passes along anything connected to it completely unchanged.
+                  It is mainly used in compounds for connecting an exposed input port to multiple internal
+                  nodes. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0039"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5E86C06B-2CA6-4065-B9E3-6FCB00B6FCC9"></a></span>Switching Contexts
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-3F13AA00-991C-42DE-BA9E-8645B3CEBA6E"></a></span>In general, you cannot combine data from different contexts. This is because the data
+                  is usually incompatible. For example, different objects usually have different numbers
+                  of points, and there is no way to add or compare data sets of different sizes. There
+                  is one exception — when objects are duplicates — and in this case you can use the
+                  Switch Context node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5BA8FCB6-B318-400B-AA9E-D0506BE8DAAB"></a></span>The Switch Context node simply "decontextualizes" the upstream branch so that it can
+                  be combined with any other context. The other context gets propagated to the downstream
+                  nodes. Both data sets must have the same size or the branch will not be evaluated.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D2DD301B-B649-47FF-8D6E-C3C9361646CD"></a></span>One possible use of the Switch Context node is to create a simple shape mixer that
+                  interpolates the PointPosition values of one object between those of other objects.
+                  However, you won't get sensible results unless the topologies are identical. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

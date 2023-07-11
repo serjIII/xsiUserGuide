@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D07F5FF7-80D6-4996-A0A3-1AC5E851FB91">
+      <meta name="indexterm" content="realtime shaders: blending modes (ogl particle)">
+      <meta name="topic-type" content="concept">
+      <title>OpenGL Particle Shader</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D07F5FF7-80D6-4996-A0A3-1AC5E851FB91"></a></span><div class="head">
+            <h1>OpenGL Particle Shader</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-E4E41E3E-6F36-4CD6-8403-98D267106C3A"></a></span> <span class="MenuCascade" id="GUID-1A99C3CA-2238-482A-8AD2-C4ADE4FFC7EA">OGL Particle Shader Type</span> | <span class="char_link"><a href="realtime-ogl_shaders_OGLParticle.htm#WS349A1059FFC671449CEA65A315C2358D-002A">Type (Primitive)</a></span> | <span class="char_link"><a href="realtime-ogl_shaders_OGLParticle.htm#WS349A1059FFC671449CEA65A315C2358D-002E">Type (HW Acc. Sprites)</a></span> | <span class="char_link"><a href="realtime-ogl_shaders_OGLParticle.htm#WS349A1059FFC671449CEA65A315C2358D-0031">Type (Billboard)</a></span> | <span class="char_link"><a href="realtime-ogl_shaders_OGLParticle.htm#WS349A1059FFC671449CEA65A315C2358D-0034">Type (Velocity Vectors)</a></span> | <span class="char_link"><a href="realtime-ogl_shaders_OGLParticle.htm#WS349A1059FFC671449CEA65A315C2358D-0037">Type (Density)</a></span> | <span class="char_link"><a href="realtime-ogl_shaders_OGLParticle.htm#WS349A1059FFC671449CEA65A315C2358D-003A">Type (Line Trails)</a></span> | <span class="char_link"><a href="realtime-ogl_shaders_OGLParticle.htm#WS349A1059FFC671449CEA65A315C2358D-003C">Lighting and Blending</a></span> | <span class="char_link"><a href="realtime-ogl_shaders_OGLParticle.htm#WS349A1059FFC671449CEA65A315C2358D-003F">Render Tree Usage</a></span></p>
+            <p><span class="anchor_wrapper"><a name="GUID-11C13EB0-5F8B-4586-B903-A983162F52D4"></a></span> <em class="strong">Category:</em> RealTime &gt; OpenGL
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-ED921C8D-937F-4C09-A36A-E795285F6D7B"></a></span> <em class="strong">Shader Family:</em> Realtime
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5EFE4B44-3CC8-4522-93DB-A814757354EB"></a></span> <em class="strong">Output:</em> Realtime
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-45109B7A-D47E-461F-A892-566439B42FAB"></a></span>The OpenGL Particle shader allows for the realtime shading of particles in a 3D view
+               set to the OpenGL display mode. This realtime particle shader implements multiple
+               shader types within a single node. Each shader type applies a different realtime effect
+               to the particle cloud.
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-9BBC4654-1BAE-4B09-BD88-9783ECFEC55B"></a></span><div class="note-note"><span class="label">NOTE:</span>The OpenGL Particle shader is provided as an integrated working example of how you
+                  can override the viewing attributes in Softimage by writing your own realtime particle
+                  shader. The source code for the OpenGL Particle shader is available from <span class="filePath">&lt;Install_Path&gt;\XSISDK\examples\realtimeshader\Particles\OGL.</span></div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-002A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8B1651F0-18B4-4116-BC87-20D497C92708"></a></span>Type (Primitive)
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DF785BEE-694F-4037-9BD4-9227EEA15048"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-485AD1E2-1059-4393-B8F1-0E4A56C9DFFC">Shader Type</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D8C5992D-C005-4FEB-9707-395C7E5F71F0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-065F2C4E-98E5-47C3-A1AE-D13B6E405D4E">Primitive:</span> Draws each particle point as a specific primitive type such as a sphere, snowflake,
+                              cube, etc.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-002B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E216B785-BBE4-41DC-88B4-5FA3819373BA"></a></span>Primitive
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9292886A-A7A0-4EF5-901E-758D2AEC0068"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DD5F9CAC-95CD-4CB3-A2D4-2A54711ACDFE">Primitive Type</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-36974AE7-45B5-4C78-98AA-F2629B14521D"></a></span><p class="table-body">Specifies the type of primitive used to draw the particle. You can choose Points,
+                                 Cubes, Spheres (Solid), Spheres (Wireframe), Snowflake, Debris, Quad, or Arrows.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A8A62C10-3461-4503-9F3C-9797CC477ECB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EF0BFB50-8DE3-4F81-B98A-F149F4AAB5B2">Point Size</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E847C810-CDD0-4591-81F3-5FAF29F1661E"></a></span><p class="table-body">Sets the size (width) of the point primitive in pixels. The default is 1.0.</p> <span class="anchor_wrapper"><a name="GUID-66F23AB3-3F67-462D-BEAD-4A6932FB5761"></a></span><p class="table-body">Available when <span class="MenuCascade" id="GUID-FCC5C0E5-27DC-4657-A1F1-6E0B3238E2FA">Primitive Type</span> is set to Points.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5F1C1485-32F0-4977-9525-1891C678F96D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-48CCC0AF-7427-4344-88F7-9998A6D5228B">Smooth Point</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DA8A4E29-0F44-44CB-93A4-05ABE314E3B3"></a></span><p class="table-body">Enables primitive antialiasing.</p> <span class="anchor_wrapper"><a name="GUID-E92B73BF-1A52-4DF2-8608-2D7967F151F6"></a></span><p class="table-body">Available when <span class="MenuCascade" id="GUID-21FB4F9B-A479-45C0-8AD1-826CA39FCB89">Primitive Type</span> is set to Points.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7D20378F-6EB3-4FCC-9600-30B0F22BD331"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E9E78643-2FB3-45B0-9E72-F0FDFC027D9C">Stretch Along Velocity</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-36637362-86B9-4589-BAA0-022074C501CB"></a></span><p class="table-body">Stretches the primitive along the length of each particle's velocity vector.</p> <span class="anchor_wrapper"><a name="GUID-DDE5060B-B40B-487A-8EE7-B5402409E7A0"></a></span><p class="table-body">Available when <span class="MenuCascade" id="GUID-9855F33E-0914-4A7D-AE4A-4952B3637DCC">Primitive Type</span> is set to Cubes, Spheres (Solid), Spheres (Wireframe), Snowflake, Debris, Quad, or
+                                 Arrows.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-81D96644-BEE2-4945-BB03-0B395CC8737D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7352E092-B91F-407E-AB72-F6764DD40C75">Use GPU Instancing</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C3E64030-48AE-4716-9461-EAA583A23E60"></a></span><p class="table-body">GPU instancing is way of transforming the particles using the GPU which can double
+                                 your render speeds, particularly for very large particle clouds. Instead of transforming
+                                 the vertices of the primitive on the CPU (basically positioning each particle and
+                                 then rendering an instance), the GPU renders the instance and then passes the position
+                                 as an attribute of the vertex. The position of the particle is retrieved and transformed
+                                 in the vertex shader.
+                              </p> <span class="anchor_wrapper"><a name="GUID-E179FCC7-F8B1-4A1C-AECD-53B404F48975"></a></span><p class="table-body">When disabled, the primitive is rendered using the traditional method of transforming
+                                 the instances on the CPU.
+                              </p> <span class="anchor_wrapper"><a name="GUID-250C31B0-DEDB-4D43-8AA5-F86A9131C1B5"></a></span><p class="table-body">Available when <span class="MenuCascade" id="GUID-DCB4B153-CE19-4F56-93FD-A4B71BAA4AB1">Primitive Type</span> is set to Cubes, Spheres (Solid), Spheres (Wireframe), Snowflake, Debris, Quad, or
+                                 Arrows.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-37A82B57-44FA-4372-8DD4-730622C92086"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1EEC1B3D-20DF-4124-8B96-C46F0FE5D559">Custom Fragment Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D5148399-C76D-43CC-8E6E-866C1C2B40E0"></a></span><p class="table-body">Opens a text editor where you can enter the code for a fragment shader. This allows
+                                 you to override the fixed functionality part of the pipeline with your own custom
+                                 fragment shader code.
+                              </p> <span class="anchor_wrapper"><a name="GUID-9A9E1E2E-8B65-49FB-AEF5-7E9F9E30C0C9"></a></span><p class="table-body">Available when <span class="MenuCascade" id="GUID-874134EF-CCEC-4044-B176-55D9CDC4B49A">Primitive Type</span> is set to Cubes, Spheres (Solid), Spheres (Wireframe), Snowflake, Debris, Quad, or
+                                 Arrows.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A9B47210-5BDF-4479-95DC-62F943D14622"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B31F4EB2-527F-4B4B-9038-5159D6BF5965">Fragment Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E93A7F9A-85D9-463A-BE7B-EDECE5ED4217"></a></span><p class="table-body">The text editor widget supports text customization (font, color, size), syntax styling,
+                                 folding (hiding blocks such as functions and subroutines), auto-completion and highlighting
+                                 for keywords.
+                              </p> <span class="anchor_wrapper"><a name="GUID-1E230479-8899-43C2-832C-FD9DF9E4AC6D"></a></span><p class="table-body">To implement this text editor widget in your own plug-ins, see Text Editor Widget
+                                 [SDK Guide].
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-002C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C608AE8D-D597-44E2-8B42-25B6BD8C8659"></a></span>Sprite Settings
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B554E7C2-19C5-4172-8802-32B842CB6771"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CD8F5F60-A347-49A5-B26B-0217F480D43E">Sprite Layout</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9283FE07-7E50-486E-8698-7B9801A641BE"></a></span><p class="table-body">When you are using a texture as a sprite, you can use the entire image as a tile (Single)
+                                 or you can separate the texture into tiles of 2x2, 3x3, 4x4, all the way up to 8x8.
+                                 The texture's coordinates are updated to use only the tile portion specified by this
+                                 option.
+                              </p> <span class="anchor_wrapper"><a name="GUID-54D35426-BA84-4A14-8D49-A7F61B21CDE2"></a></span><p class="table-body">This is particularly useful if you're using a multi-image texture (such as the image
+                                 below) to achieve texture animation in the sprite.
+                              </p> <img src="../images/GUID-82977A99-32F2-4E7D-897C-00939D6933AB-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-002E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A39C3A13-F20B-44DF-A112-589F1A47F8A9"></a></span>Type (HW Acc. Sprites)
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-99CAFFB9-C347-4569-BFB5-6F32EA039198"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-202D50A5-346B-44B4-A5E2-2EBA0B89941D">Shader Type</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-528CDE27-CF01-49BF-B79B-E54194CC2A73"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8E13959C-6BEC-488B-87B4-C51D14BAF878">HW Accelerated Sprites:</span> Draws OpenGL hardware accelerated point sprites at each point position.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-002F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-AC0BA3AF-5849-45BB-A3B7-119F1BAD06FA"></a></span>Primitive
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C3ADE412-048C-4181-BC60-620752869097"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AADEF50D-53EA-4F31-A976-F77A2168137B">Point Size</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-25F32A5C-B12D-4BD6-B84E-26CA9CCB5DBA"></a></span><p class="table-body">Sets the size (width) of the point primitive in pixels. The default is 1.0.</p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0030"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-39D1B954-EF47-4D39-977A-BDE78E30513E"></a></span>Sprite Settings
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4706FB75-FE79-43C4-BEF2-71E913BAD60D"></a></span><p class="table-body">Point Size Minimum</p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EAECF9E8-2FE3-4FA7-B613-C85B660AA2CF"></a></span><p class="table-body">Sets the attenuated minimum point size. The default is 0.0. Values less than zero
+                                 are invalid.
+                              </p> <span class="anchor_wrapper"><a name="GUID-45977823-865F-4F4C-910C-1BDE83FB50DB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3BAEDF1A-C361-456D-A1AA-9A0CD878DADC">Note:</span> If you set the minimum point size greater than the maximum point size then the point
+                                 size will be undefined.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EEFA17EE-77BD-4FCF-B7F4-BF3C954927FD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AF5C37BA-8D74-4835-89FE-486AC9A6D9E9">Point Size Max</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6A310529-7E19-4D44-B4DD-FE02F29A2640"></a></span><p class="table-body">Sets the attenuated maximum point size. Values less than zero are invalid.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-62865F2C-8520-4C55-AA33-C94EE5D28B77"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-17CBF227-50B0-470B-B286-EEC8CF10373F">Fade Threshold</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AF2D5D7F-323B-456D-8221-2946551053ED"></a></span><p class="table-body">Sets the threshold for alpha attenuation. This fades the point alpha when the point
+                                 width goes below the given threshold. Values less than zero are invalid.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9FF4DF4F-C7F0-4AB7-B112-4A16F273B041"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2471DA6C-DD09-46E2-B164-E347B8E9976E">Attenuation</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F28FF79B-07BB-4A5D-A813-51E60CD1B872"></a></span><p class="table-body">Attenuation is the effect of points appearing to diminish in size as a function of
+                                 distance. Each point has constant, linear, and quadratic attenuation factors that
+                                 are taken into account when the point size is computed.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C2ACF4A5-A227-4D68-9F86-E2F8FAA167B1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-04E96406-D03F-4727-8A88-4D9DBA5B41FC">Constant</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-549A3D16-5AD3-48B1-9ABA-2CA3FEEF6EE5"></a></span><p class="table-body">Allows the size of a point to be affected by constant distance attenuation.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E7A43A8A-A43F-49FF-B8BF-9528D1C977FD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0C4EFA64-1BA4-459F-AE11-EB10EC384C7C">Linear</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-65F6AD1A-D0D9-4E6D-AC5E-6F0EC03CEA5A"></a></span><p class="table-body">Allows the size of a point to be affected by linear distance attenuation.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-446944E4-3B04-4248-BE4E-AC805943BF7D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8589400B-4A45-4AE6-B81B-8B6ABCDC31FA">Quadratic</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-10E96D7A-EEBF-4930-B6EA-EA695749E547"></a></span><p class="table-body">Allows the size of a point to be affected by quadratic distance attenuation.</p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0031"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5D1AAFAF-358B-4EC5-BDE1-6C8791E1792B"></a></span>Type (Billboard)
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-580B5A35-D095-4D47-9B6E-1B4E4B31B43A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F45C3C3D-06D3-4548-BAB0-382D937CE4E5">Shader Type</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C991858E-65CD-4F86-B590-74AF45A1B75E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F26910AA-30A8-4386-8C8E-C05F91D9AA90">Billboard Sprites:</span> Draws billboard sprites for each point primitive using the OpenGL point sprite extension.
+                              This shader is similar to the hardware accelerated sprites shader, expect that billboard
+                              sprites are expanded on the CPU and then sent to the GPU. This means that the size
+                              of the sprites remain the same regardless of the viewing angle.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0032"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D5ABB2FC-05FA-4CAB-84A5-38829FA07FE3"></a></span>Sprite Settings
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-21DFC928-39DB-40F2-AE4E-DB3D232493E3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5F423067-3C5C-43E0-9916-3CF1C0C80B45">Sprite Layout</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4FFCAAAB-8779-48C4-8A9A-79CBC9ECF3B3"></a></span><p class="table-body">When you are using a texture as a sprite, you can use the entire image as a tile (Single)
+                                 or you can separate the texture into tiles of 2x2, 3x3, 4x4, all the way up to 8x8.
+                                 The texture's coordinates are updated to use only the tile portion specified by this
+                                 option.
+                              </p> <span class="anchor_wrapper"><a name="GUID-A6867D27-F120-497E-967E-2B7D8F24BE9A"></a></span><p class="table-body">This is particularly useful if you're using a multi-image texture (such as the image
+                                 below) to achieve texture animation in the sprite.
+                              </p> <img src="../images/GUID-82977A99-32F2-4E7D-897C-00939D6933AB-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0034"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-013CDD55-6632-45B7-84A0-EC0FB34D74C9"></a></span>Type (Velocity Vectors)
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1059F7F4-69B7-4C8F-9854-664DC35D9AA8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A26BE267-D8F5-4220-9D6C-14313C74EAEC">Shader Type</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8C5C78D1-32EA-42EA-9805-60A353AEA3B5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CA9C0B7B-BF64-4E33-BCFB-4F87E5D83E16">Velocity Vectors:</span> Draws a line behind each point primitive, the length of which is dependent on the
+                              particle's velocity.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0035"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3B7F883B-04AF-49E1-A6FE-3BFE0F94E468"></a></span>Sprite Settings
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A751C4C4-6A7B-460C-9E19-4776591CD004"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C517AC5D-5C64-429F-A101-D10FAA7760F0">Sprite Layout</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-75C93CE9-A10A-40E7-AB59-BF99ED851D8D"></a></span><p class="table-body">When you are using a texture as a sprite, you can use the entire image as a tile (Single)
+                                 or you can separate the texture into tiles of 2x2, 3x3, 4x4, all the way up to 8x8.
+                                 The texture's coordinates are updated to use only the tile portion specified by this
+                                 option.
+                              </p> <span class="anchor_wrapper"><a name="GUID-485F77C9-062D-4781-8411-6AF76EB575EB"></a></span><p class="table-body">This is particularly useful if you're using a multi-image texture (such as the image
+                                 below) to achieve texture animation in the sprite.
+                              </p> <img src="../images/GUID-82977A99-32F2-4E7D-897C-00939D6933AB-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0037"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-152CA085-B28D-43B9-BDA0-C8FEA52A868A"></a></span>Type (Density)
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-44C7C764-2392-44A8-92CB-394D3893B34A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3F26B364-BC9C-4612-A45E-D65E968DF613">Shader Type</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9445011D-55F7-4658-88B5-4759D0A18238"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-89D5A64E-174E-4D43-8CCF-3C3C9245319F">Density:</span> Draws each point and displays the cloud density encoded as colors. For each point,
+                              the density shader will check the distance of neighboring particles and, depending
+                              on the <span class="MenuCascade" id="GUID-D22EAC71-055E-440C-985E-8FDF627ABED1">Density Falloff</span> and <span class="MenuCascade" id="GUID-7E409B52-490D-4C39-A934-D71A9295CFAC">Density Limit</span>, will shade the point using the <span class="MenuCascade" id="GUID-77A3B5A9-BF5D-46D1-9D71-B90513C699C8">Sparse</span> or <span class="MenuCascade" id="GUID-87E0C413-9FF8-4D2C-BE3F-6E150968E8AC">Dense</span> color settings. This shader is useful for visualizing the density of particle clouds.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0038"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BA1566DF-E421-4225-8388-88E0115CB389"></a></span>Primitive
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CFA74902-782F-4AB4-95A0-C6030083B0EE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-27E91BAB-4BE2-490E-800C-AB037844055A">Point Size</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-296A553C-A3E3-424D-842C-D516DE47532F"></a></span><p class="table-body">Sets the size (width) of the point primitive in pixels. The default is 1.0.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D62DC907-EF32-4C15-BCA6-88BAFAB19CD2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E806D5F5-3D83-48E9-B13E-77030B5C3F81">Smooth Point</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-88DC2F16-84F7-43BA-885E-5F4839753CA4"></a></span><p class="table-body">Enables primitive antialiasing.</p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0039"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A6B405D0-B824-43E5-A7F1-3A7459C1983F"></a></span>Density Field
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-570A4347-DF44-477D-96E3-BC3AF354CAFB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B2682F50-0346-4F5F-B5B6-A0270D2938E0">Density Falloff</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1FE8C94E-7E3A-4337-BAA8-2F59A83E227F"></a></span><p class="table-body">Sets the rate at which the particle color blends from the <span class="MenuCascade" id="GUID-8BDFFE95-7C2E-49F6-9D81-83747768634D">Dense</span> color to the <span class="MenuCascade" id="GUID-20111E26-6F46-4B46-8F78-66C4F73C8CA2">Sparse</span> color, and vise versa.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-386A357B-B8BE-4C88-8A1A-7D5F2184F930"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-427CA304-6EEB-4468-82E1-F8E4A441DCA8">Density Limit (in # of particles)</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1EFC3811-97FA-4945-97CF-E41F9B954977"></a></span><p class="table-body">Sets the number of particles whose proximity to each other (based on a hard-coded
+                                 distance to neighboring particles) is considered dense.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1F569752-95DE-4A80-A5DB-BDD7CEA2B044"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-69A37A2E-46A9-4F00-A171-123D03A25A49">Sparse</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F046C767-5CF4-4542-97BA-782E01CF738D"></a></span><p class="table-body">Sets the color to shade the particles that are considered sparse in terms of their
+                                 proximity to each other.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E6AD3CB5-EC32-4716-95DB-588DBC84A344"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E6F16132-D167-4624-9D70-C6A53FBBA09E">Dense</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-62436152-66AF-4A03-8CE0-BA9959829F8E"></a></span><p class="table-body">Sets the color to shade the particles that are considered dense in terms of their
+                                 proximity to each other.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-003A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7E0AA787-7580-4174-B900-941210A20AF6"></a></span>Type (Line Trails)
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A2444C05-50A3-4A49-96C8-D13F168737BE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-09E5EA15-2E07-445D-B616-13723CC4C269">Shader Type</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E38093FA-90BB-49A9-8A18-50755952C06E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9C7DAEFE-4A12-4151-B646-C1081F4E80FB">Line Trails:</span> Draws particle trails as lines.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-003B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-53250A4E-738C-464F-8B88-7971FCFB5748"></a></span>Primitive
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0B9D6AD2-D8C1-4C6B-9BBE-C1F44C91C028"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8652AD24-C79F-4A93-A817-FF8B1F9D07E3">Use GPU Instancing</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FDA0CA55-2C80-4895-8920-6C7D363C58A4"></a></span><p class="table-body">GPU instancing is way of transforming the particles using the GPU which can double
+                                 your render speeds, particularly for very large particle clouds. Instead of transforming
+                                 the vertices of the primitive on the CPU (basically positioning each particle and
+                                 then rendering an instance), the GPU renders the instance and then passes the position
+                                 as an attribute of the vertex. The position of the particle is retrieved and transformed
+                                 within the vertex shader.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-56802B81-11FB-48AE-9B47-2E8649BF5249"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6F333790-37B5-4C1D-938E-DD9D8CAA7A31">Custom Fragment Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-541669CA-8EF7-44ED-8499-85826A81D3F5"></a></span><p class="table-body">Opens a text editor where you can enter the code for a fragment shader. This allows
+                                 you to override the fixed functionality part of the pipeline with your own custom
+                                 fragment shader code.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3C7572ED-1D25-4FEE-88F8-1F40537842D9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-34F8F87E-7787-4020-B76E-F6E0B44A3BD2">Fragment Shader</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EACED3C8-23F6-47CC-90E8-DB916C23C629"></a></span><p class="table-body">The text editor widget supports text customization (font, color, size), syntax styling,
+                                 folding (hiding blocks such as functions and subroutines), auto-completion and highlighting
+                                 for keywords.
+                              </p> <span class="anchor_wrapper"><a name="GUID-25DD7CE1-E770-4052-83B2-324993D23AE7"></a></span><p class="table-body">To implement this text editor widget in your own plug-ins, see Text Editor Widget
+                                 [SDK Guide].
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-003C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CA6CFF6E-C2F9-48F9-ABC6-F57B7A200AD0"></a></span>Lighting and Blending
+               </h2>  
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1C41F7A5-D964-4626-805C-76323F55C562"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6892C3CF-B6AB-4135-92E8-8271DBD46AF2">Use OpenGL Lighting</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-574E8D9E-568B-41EF-AAD2-330F1AE5B408"></a></span><p class="table-body">Turns on or off lighting. GL lighting produces a primary and secondary color for each
+                              vertex. The effects from enabled light sources are used in conjunction with surface
+                              material properties to determine the lit color at a particular vertex.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-003D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9CFA5B60-FF3E-46D7-A020-1B942C37B3DE"></a></span>Blending
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8AC83DDE-6528-46EA-81D2-A1EA7E674040"></a></span>In RGBA mode, pixels can be drawn using a function (<em class="mild">glBlendFunc</em>) that blends the incoming (source) RGBA values with the RGBA values that are already
+                     in the frame buffer (the destination values). For more information, see <span class="char_link"><a href="realtime_conc_CreatingMultipassEffects.htm#WS349A1059FFC671449CEA65A315C2358D-0049">How Blending Works</a></span>.
+                  </p> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-940B473B-1759-4580-8AF9-FD8CA4DAD968"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-49A77681-7983-4AFF-B515-1FFC27C52CA3">Use Blending</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1F81AA75-C52A-44AC-B4AD-60334C3181BC"></a></span><p class="table-body">Enable or disable blending. When enabled, the blend function defines the operation
+                                 of blending.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-78D9F9B5-C5E7-40E7-8769-44B2CD104B2E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C421A907-F652-4533-A8CF-A99B1C23B870">BlendScr</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-44EA835A-087A-49AE-BF76-582BE1D4CAB8"></a></span><p class="table-body">The blend source factor (<em class="mild">sfactor</em>) specifies which method is used to scale the source color components.
+                              </p> <span class="anchor_wrapper"><a name="GUID-415326EE-2A72-4CEA-B86B-E6AD04DBAFD7"></a></span><p class="table-body">Select one of the supported methods from the drop-down menu. Each method defines four
+                                 scale factors, one each for red, green, blue, and alpha. All scale factors have range
+                                 [0,1].
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3FF47365-B52A-47B7-81E8-87B1CE1940E9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E1EC109E-2803-432A-8466-224B752B2300">BlendDest</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-96E038BC-2524-4F09-998C-F853084859E8"></a></span><p class="table-body">The blend destination factor (<em class="mild">dfactor</em>) specifies which method is used to scale the destination color components.
+                              </p> <span class="anchor_wrapper"><a name="GUID-D1308E35-A5F0-4415-8EA3-0485F9D82F64"></a></span><p class="table-body">Select one of the supported methods from the drop-down menu. Each method defines four
+                                 scale factors, one each for red, green, blue, and alpha. All scale factors have range
+                                 [0,1].
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-003E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-4BCD9BC4-9E71-4980-AF8D-F3A86FE72DD7"></a></span>Alpha Testing
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-613AA986-B677-4179-AABF-2AF666442ED9"></a></span>Alpha testing (<em class="mild">glAlphaFunc</em>) discards fragments depending on the outcome of a comparison between an incoming
+                     fragment's alpha value and a constant reference value. The alpha test specifies the
+                     reference value and the comparison function. The comparison is performed only if alpha
+                     testing is enabled.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E34966A3-48AD-437C-AE6F-5D24FEC16ECA"></a></span>The alpha function and alpha reference specify the conditions under which the pixel
+                     is drawn. The incoming alpha value is compared to <span class="MenuCascade" id="GUID-EC360FC1-F9F5-412D-A294-D765CB400AEC">AlphaRef</span> using the function specified by <span class="MenuCascade" id="GUID-089E420D-A6A9-4ED0-9C34-5520ADF30CFC">AlphaFunc</span>. If the value passes the comparison, the incoming fragment is drawn if it also passes
+                     subsequent stencil and depth buffer tests. If the value fails the comparison, no change
+                     is made to the frame buffer at that pixel location.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9D6BF23B-F62D-4A6C-8D82-9037F320FFBF"></a></span>Alpha testing operates on all pixel write operations, including those resulting from
+                     the scan conversion of points, lines, polygons, and bitmaps, and from pixel draw and
+                     copy operations. It does not affect screen clear operations.
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-A313FDA7-F1A7-45B0-AF89-07E2F142E704"></a></span><div class="note-note"><span class="label">NOTE:</span>Alpha testing is performed only in RGBA mode.
+                     </div>
+                  </div> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AB58BB43-5595-4F16-9C13-AB8B3D86C168"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A9180C68-A705-4119-A96B-13C16AC76B4F">Perform Alpha Testing</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AD9A27C8-1599-4E5F-BA67-0C39F68786D9"></a></span><p class="table-body">Enable or disable alpha testing.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F89471D1-BFA9-4EEB-83A4-B8A7456424B8"></a></span><p class="table-body">AlphaFunc</p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-173C4C48-0021-4C3C-BED6-7033F6799514"></a></span><p class="table-body">Specifies the alpha comparison function (func).</p> <span class="anchor_wrapper"><a name="GUID-C5F7C30F-69EA-44D8-85A2-94F64E3B625E"></a></span><p class="table-body">Select one of the supported comparison functions from the drop-down menu. The functions
+                                 are defined as follows:
+                              </p> 
+                              <ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-61591461-DDC4-42D5-A9E0-A074A14C1E77"></a></span> <span class="code">¥GL_NEVER</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-FA461280-4E08-4F4A-9C2F-D21689636813"></a></span>Never passes.
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-DDF10F43-457C-4960-868B-B3578A76F78B"></a></span> <span class="code">GL_LESS</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-1DE400D1-A1E7-495A-8E74-FC2F026C5AE5"></a></span>Passes if the incoming alpha value is less than the reference value.
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-0B76668E-CE02-4E12-B23D-3668D6A02975"></a></span> <span class="code">GL_EQUAL</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-AB4FED29-9AE9-4C32-ACB9-2E64AFF3FB3A"></a></span>Passes if the incoming alpha value is equal to the reference value.
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-384C4BEE-2E4E-403B-B947-7D2C837D2493"></a></span> <span class="code">GL_LEQUAL</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-08EAEDCB-3918-4661-A126-77CA52FDC384"></a></span>Passes if the incoming alpha value is less than or equal to the reference value.
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-6123CE9B-21DD-4592-AEE5-0C54AB186F8E"></a></span> <span class="code">GL_GREATER</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-8D98E886-EA8A-42F1-B143-E288DD6B66C1"></a></span>Passes if the incoming alpha value is greater than the reference value.
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-54BAC478-2E1D-4640-B548-18ABDCEAD413"></a></span> <span class="code">GL_NOTEQUAL</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-9781CA2B-3C05-4A51-8A3B-5BE6DBB5D51C"></a></span>Passes if the incoming alpha value is not equal to the reference value.
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-FFA2909B-2359-4EDD-B97C-939FC52E9B05"></a></span> <span class="code">GL_GEQUAL</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-6E171C1B-CA3D-467F-821F-9E70BBE58859"></a></span>Passes if the incoming alpha value is greater than or equal to the reference value.
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-541AA442-246E-4AF5-A98E-8810C02A153F"></a></span> <span class="code">GL_ALWAYS</span> 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-214E865C-497A-47E7-85A6-B687238AE0C2"></a></span>Always passes.
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0535C118-5743-48D9-B534-E550A74C18AD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F39505C8-075C-4ADD-9FCC-928191CF53BF">AlphaRef</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-352CCE6B-B119-46E6-8023-336ACF6D941A"></a></span><p class="table-body">Specifies the reference value (<em class="mild">ref</em>) that incoming alpha values are compared to. This value is clamped to the range [0,1],
+                                 where 0 represents the lowest possible alpha value and 1 the highest possible value.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-003F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-837AC9B7-AA77-4945-A7AD-758645256075"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B5684305-ACA9-4263-838F-C1F4489E334F"></a></span>This is a typical render tree set up using the OGL Particle shader.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-2C365206-D6A8-4A7B-9C78-6A3F962BDC57-low.png"></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

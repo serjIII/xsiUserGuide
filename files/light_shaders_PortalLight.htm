@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-7BB1D60E-C363-4D91-B4B6-586240162B64">
+      <meta name="indexterm" content="environment shaders: and portal lights">
+      <meta name="topic-type" content="concept">
+      <title>Portal Light (mia)</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-7BB1D60E-C363-4D91-B4B6-586240162B64"></a></span><div class="head">
+            <h1>Portal Light (mia)</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-FC8B1C7C-4D4A-4759-AD63-0028EE4DAA37"></a></span>| <span class="char_link"><a href="light_shaders_PortalLight.htm#WS11476D1E0C4A9D4894174F1D846BD98D-0016">Render Tree Usage</a></span></p>
+            <p><span class="anchor_wrapper"><a name="GUID-EA680DDD-1355-4BFE-A008-C8F5105B00FA"></a></span> <em class="strong">Category:</em> Light
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D70D81F9-78BE-44A9-9803-F13982D28D0B"></a></span> <em class="strong">Shader Family:</em> Light
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D13F3D5B-F130-4B23-8533-C70A0F87AB6F"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-50BF83DC-2989-474D-A7BF-DED0AA13CA85"></a></span> <span class="MenuCascade" id="GUID-03C13BA8-13B2-4973-A1B8-66637449D3B5">Related mental ray shader:</span> <span class="char_link"><a href="mentalray_mia_portal_light.htm">mia_portal_light</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D1D4ACE9-2CE0-45C0-BA7A-B87C26B9D770"></a></span>The Portal Light shader is most often applied to a rectangular area light which is
+               placed in the window of a room scene. The shader obtains its proper intensity and
+               color from the sky outside the window (for example, an environment shader such as
+               the <span class="char_link"><a href="environment_shaders_PhysicalSky.htm">Physical Sky (mia)</a></span> shader or similar) and how much of that sky can be seen.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-695EBDDB-B9A8-4820-973A-5513CBA7CD20"></a></span>When used with final gathering, the Portal Light acts as a final gathering concentrator,
+               so that instead of having to send thousands of final gather rays around the scene
+               to "find" the window, the portal light actually blocks final gather rays, and instead
+               converts light from beyond the window to direct light, including high-quality area
+               shadows.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-145DF739-D13A-48E0-B0A0-A153A21E83EC"></a></span>Final gathering will now see a well lit room rather than a black room, and can use
+               much lower final gather ray counts. Furthermore, since the light from the window is
+               now direct, you gain one extra light bounce for "free".
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ED83065A-0C13-486D-A169-B121ECBBBB8D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EFD161DE-0E03-4BC3-91BD-27D288CA15CC">Enabled</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B99F63E9-9751-40A9-BE03-46F5D83669F5"></a></span><p class="table-body">Enables or disables the light.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS11476D1E0C4A9D4894174F1D846BD98D-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D4F81647-2BC2-421C-90C6-63A83EFB9BD0"></a></span>Color
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6D77E03C-A39D-47D3-B7EA-C4D532AF0654"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C0BF4F27-623A-4C68-B01D-8B5DC2D54785">Intensity</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D3299F7A-D369-42BC-97A4-2339E927659A"></a></span><p class="table-body">A multiplier for the intensity of the light.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B6191836-DADE-451D-82F5-C109896D0D2B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-06F02FFF-0F19-46BA-B346-8E916B0DC28B">Tint</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-529CB45F-722C-4CD9-874F-2038F7A4632B"></a></span><p class="table-body">Modifies the light color.</p> <span class="anchor_wrapper"><a name="GUID-80451B6A-C6E1-4F25-B80C-40A65098B03B"></a></span><p class="table-body">When Tint is white, and the Intensity is 1.0, the light emitted is equal in intensity
+                              and color to the environment light that final gathering would have seen if allowed
+                              to send many thousands of (unfiltered) final gather rays.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-44A553B5-DF4A-4EAD-BC21-5AF22FF289B4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EBF04571-B34B-4BB6-AC9D-EBC8178EB85D">Visible in Render</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F89F4845-C5D4-4630-B673-71329C20AFD3"></a></span><p class="table-body">Specifies whether or not the light emitting surface is visible.</p> <span class="anchor_wrapper"><a name="GUID-05F369CC-985D-421A-8CF1-50ABD6FD6231"></a></span><p class="table-body">When off, eye rays, reflection rays, etc. go straight through so that the portal light
+                              itself remains unseen and you can still "see" out the window.
+                           </p> <span class="anchor_wrapper"><a name="GUID-10A2B2CC-8571-4DAA-B68F-155251D5FF97"></a></span><p class="table-body">When on, the actual light emitting surface becomes visible to eye rays, reflection
+                              rays, etc. and you cannot "see" out the window anymore, although you can still "see"
+                              the environment shaders result. This is useful when using the Portal Light as a light
+                              card shader (see <span class="char_link"><a href="light_shaders_PortalLight.htm#WS11476D1E0C4A9D4894174F1D846BD98D-0014">Portal Light (mia)</a></span> option).
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-02BE163A-CF60-46DD-8D10-BEC0F5EDBD9F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-092C7D91-BD53-47D6-BB29-011C06D3F5E7">Portal Transparency</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B86464DC-5D17-4D7D-93F1-37E01DB8F3AC"></a></span><p class="table-body">Portal Transparency has two functions:</p> 
+                           <ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-24040C4B-CD41-4C08-9EB6-A42B58AFE43D"></a></span>When Visible in Render is on, Portal Transparency is a multiplier for the "visible
+                                    color" of the area light. When set to white, the directly "visible" color is the one
+                                    dictated by the laws of physics for a surface that emits that amount of light.
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-1EB5C753-30FF-4EDF-8B44-B1C52EB439BE"></a></span>Modifying the parameter values away from white allows you to artificially change the
+                                    balance between the visible result (which is changed by changing this parameter) and
+                                    the intensity of the emitted light (which is not affected by this parameter). This
+                                    can be useful to avoid noise
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-9C66D511-F574-404C-B3C0-FF2FDA799A54"></a></span>When Visible in Render is off, Portal Transparency defines the transparency of the
+                                    area light. This allows the Portal Light shader to double as a "gel" on the window,
+                                    to subdue the intensity of what is seen outdoors, which otherwise tends to appear
+                                    overexposed and blown out. The actual emitted light intensity is not affected by this,
+                                    nor does this affect the intensity of other light rays travelling through the window,
+                                    it only affects what is visible to the eye, in refractions or reflections.
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS11476D1E0C4A9D4894174F1D846BD98D-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1D73BC49-A493-4341-A948-FF3E14527F7C"></a></span>Shadows
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-37DC84D5-8DEC-499C-85F1-79D3D181FBC4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C1D6B1C8-E73A-42DE-95CA-9C2B89AD779C">Enable Shadows</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-81144800-D6C5-43D0-97A7-0EEA0D893832"></a></span><p class="table-body">Turns shadows on or off.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8A72D597-9DC7-414D-AF79-DFF865DEF0A4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FE77F249-BF4F-4F04-BA7E-52905ED324E3">Shadow Offset</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-77649D91-C084-4CCF-BCF0-9E0EDC63C211"></a></span><p class="table-body">If Shadow Offset is 0.0, the Portal Light shader begins tracing shadow rays at the
+                              light. When positive, the shadow rays actually start at that distance "outdoors".
+                              So if there is a large object just outside the window, its shadow will be taken into
+                              account. Conversely, a negative value allows the shadow rays to begin at that distance
+                              inside the window, which allows the shadow generation to skip over troublesome geometry
+                              near the window (such as flowers, curtains, etc.) that would otherwise just introduce
+                              noise into the shadows.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS11476D1E0C4A9D4894174F1D846BD98D-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2DCEF645-0329-4DE0-991B-17FE561FB8A5"></a></span>Environment
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="WS11476D1E0C4A9D4894174F1D846BD98D-0014"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1F63BE03-0D94-4418-BF40-C29735B785EB">Use Custom Environment Shader</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BFA7ABED-E1A5-4AED-9B68-025193646E8F"></a></span><p class="table-body">When Use Custom Environment Shader is off, the Portal Light shader gets the color
+                              of the light from the global environment shader define for the scene.
+                           </p> <span class="anchor_wrapper"><a name="GUID-79B8B5FB-4C81-48D8-84CF-EB73EF6070EE"></a></span><p class="table-body">When Use Custom Environment Shader is on, the Portal Light shader calls the shader
+                              that is connected to its custom_environment input port in order to get the color of
+                              the light.
+                           </p> <span class="anchor_wrapper"><a name="GUID-F32F37C4-BC9E-4AD1-A5AF-1F588BE9A170"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D31F48E4-4FE6-43F2-B75E-6939A3EA8A6B">Light card example:</span> While this shader is intended to be a portal to an environment, you can also use
+                              it as a "light card" by connecting a shader that returns a solid background color
+                              into its custom_environment input port. If Use Custom Environment Shader is on, and
+                              no custom environment is actually passed, the shader behaves like a white light card.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2073B9BC-E492-48EB-9FE5-A2F4EC60C839"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-338C1BCE-1638-4F34-8EFB-D25EFD9F1C7C">Sample Environment Using FG</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D2A5CF58-C656-4543-A7B9-A91BD7BB0BA6"></a></span><p class="table-body">When Sample Environment Using FG is off, a ray is cast into the environment and the
+                              environment shader is called to compute the color of the light.
+                           </p> <span class="anchor_wrapper"><a name="GUID-D4222195-38B2-4D7F-A94E-E111C95FC7BB"></a></span><p class="table-body">However, some shaders behave differently if they are called by a final gather ray
+                              or by another ray (for example, the mia physical sky shader does not show the "image"
+                              of the visible sun to final gather rays). Since the main purpose of the Portal Light
+                              shader is to act as a final gather concentrator, it should therefore follow that behavior.
+                              So when Sample Environment Using FG is on, it calls the environment with the final
+                              gather ray type, so that shaders that switch their behavior based on this can return
+                              the color appropriate for a final gather ray.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS11476D1E0C4A9D4894174F1D846BD98D-0015"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-04FC79F2-127E-4904-807A-2CB5B051CD14"></a></span>Additional Options
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-747952C3-272B-4777-9000-3264F9AFA947"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6EB9F8FB-6F40-4DE6-9E62-534AB7162F53">Light Cutoff Threshold</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-90258F91-A338-4CC0-85DF-41935912DA21"></a></span><p class="table-body">This is a performance optimization option. Any light below this level is ignored,
+                              and no shadow rays are traced (which is what consumes the bulk of the render time
+                              of an area light). Of course, this makes the scene slightly darker since light is
+                              ignored, but can save a lot of excess render time.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D076BEA3-9A4E-4ADA-8634-EFBDD70FA1A4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8C297843-D502-477A-AD05-2435C1F82D55">Reverse Light Direction</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F4714339-937B-4006-8134-A68254288264"></a></span><p class="table-body">The light normally shines in the positive Z direction of the light object's coordinate
+                              space. If Reverse Light Direction is on, it shines in the negative Z direction.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7227225F-269E-4438-A090-002EFC3C002A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7FBE2CE1-8EF4-4A51-90C8-986A29DB8D63">Emit Photons Only</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6A2A3EB7-4DE4-4F76-97B7-DBBA0F39BBF6"></a></span><p class="table-body">If Emit Photons Only is on, the light only shoots photons and does not actually emit
+                              any direct light at all.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS11476D1E0C4A9D4894174F1D846BD98D-0016"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AA750B59-687F-4E9A-82EF-62F31F41A4BA"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2CFD3281-E1EE-48E5-9C7D-3864785443A0"></a></span>The Portal Light shader should be connected to both the <span class="MenuCascade" id="GUID-7A41EA53-CBA4-4ABA-BDE0-8CF698290BA0">Light Shader</span> input and the <span class="MenuCascade" id="GUID-41B50F06-2E27-469B-A4BE-806395F185F0">Light Photon Emitter Shader</span> input of a rectangular (assuming a standard window setup) area light.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9E360ABE-DD64-4E9E-9CAC-3E0DFDECA0F6"></a></span>By default, the Portal Light shader gets the color of the light from the global environment
+                  shader define for the scene. Alternatively (as shown in the render tree setup below),
+                  the Portal Light shader can call another environment shader (that is connected to
+                  its custom_environment input port) in order to get the color of the light.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-463F77A6-F6AA-49E8-BD6E-1B006CA0F316-low.png"></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

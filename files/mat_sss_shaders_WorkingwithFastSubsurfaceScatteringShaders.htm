@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-EEB67598-4B7C-436B-B392-E34110A7366F">
+      <meta name="indexterm" content="skin shader">
+      <meta name="indexterm" content="fast skin shader">
+      <meta name="topic-type" content="concept">
+      <title>Working with Fast Subsurface Scattering Shaders</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-EEB67598-4B7C-436B-B392-E34110A7366F"></a></span><div class="head">
+            <h1>Working with Fast Subsurface Scattering Shaders</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-A27AF44D-0526-4998-9C91-DCD4C69F3A1B"></a></span>You can create fast subsurface scattering effects using three different methods: 
+            </p><span class="anchor_wrapper"><a name="UL_2672970021014C23A62A5BF2AC732095"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C116EB79-80E3-4A04-AFE3-73D8CF4B9719"></a></span> <span class="MenuCascade" id="GUID-9CF0E07D-E35E-4CDE-BA20-9BC4C0751737">Material phenomena</span>: The <span class="char_link"><a href="mat_sss_shaders_WorkingwithFastSubsurfaceScatteringShaders.htm#WS09530771B2F33F4AAC02499CEA3EFF7D-000D">Fast Subsurface Scattering Phenomena</a></span> are predefined combinations of shaders packaged into a single shader node. Everything
+                     you need to create the effect, including lightmap generation, is handled within one
+                     node. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0D8E440B-C616-4A4E-8BA0-9BD12580A5C2"></a></span> <span class="MenuCascade" id="GUID-52C72CCD-4FFA-42D7-B384-F6C1083C8E9F">Shader compounds</span>: The pre-packaged <span class="char_link"><a href="mat_sss_shaders_WorkingwithFastSubsurfaceScatteringShaders.htm#WS09530771B2F33F4AAC02499CEA3EFF7D-0011">Fast Subsurface Scattering Shader Compounds</a></span> provide examples for how to build subsurface scattering effects from "scratch". Unlike
+                     the material phenomena, the shader compounds require that you manually generate your
+                     own lightmap files. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C9AB04DE-DA2E-426E-AE1F-292E6AFEC86B"></a></span> <span class="MenuCascade" id="GUID-9B1B237B-7FD6-4825-9EC8-3ED5E52AB10C">Component shaders</span>: Build the effect from "scratch" using the <span class="char_link"><a href="mat_sss_shaders_WorkingwithFastSubsurfaceScatteringShaders.htm#WS09530771B2F33F4AAC02499CEA3EFF7D-0014">Fast Subsurface Scattering Component Shaders</a></span>. As with the shader compounds, you'll have to generate your own lightmap files. 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-000D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-036A253A-AE4D-48DF-83B2-BD643CDCD416"></a></span>Fast Subsurface Scattering Phenomena
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-543F6484-136D-4239-A93E-4F92A264460D"></a></span>The fast subsurface scattering material phenomena are pre-configured groups of shaders
+                  designed to produce a scattering effect. A material phenomenon "takes over" the entire
+                  definition of a material (you'll notice that all ports on the material node, expect
+                  for the Material port, become grayed out when a phenomenon is connected). As such,
+                  all you need to do is connect the shader to the Material port of the object's Material
+                  node and you can begin tuning all the parameters needed for the effect in one place.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-925A2953-4B6C-4FEA-8D77-A8E1B21E89CE"></a></span>These are the Softimage fast subsurface scattering phenomena: 
+               </p> <span class="anchor_wrapper"><a name="UL_63ECA78D3E5A4917BFFD6910FF1D7CA8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2212B7E7-45AF-4569-80E4-A6869457B199"></a></span> <span class="MenuCascade" id="GUID-5A10604C-0AF3-44B7-8025-9B0D3E52EF2B">Illumination</span> &gt; <span class="char_link"><a href="shaderpresets4003.htm">Fast Simple (misss)</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B1279D07-C60A-4EC3-B092-99D8839D4F24"></a></span> <span class="MenuCascade" id="GUID-9A8D26DD-30E6-4CB4-9C54-AE40302622FD">Illumination</span> &gt; <span class="char_link"><a href="shaderpresets4004.htm">Fast Skin (misss)</a></span> 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-082D5254-CBE7-4F5D-AAC6-51FC75AA24CD"></a></span>These are the fast mental ray fast subsurface scattering phenomena: 
+               </p> <span class="anchor_wrapper"><a name="UL_9E1D0C93DAEB4283B3BDD93D4F0A7625"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A19199F2-3EC2-4176-9AD4-DBADB02EFB86"></a></span> <span class="MenuCascade" id="GUID-EB2665AD-CE8C-4B1C-A952-59D203532014">mental ray</span> &gt; <span class="MenuCascade" id="GUID-DFED5026-303C-4689-8DED-0E605A0D52C2">Material Phenomena</span> &gt; <span class="char_link"><a href="mentalray_misss_fast_simple_phen.htm">misss_fast_simple_phen</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FE570D18-8ACB-4A2C-B007-270EDCE0FA73"></a></span> <span class="MenuCascade" id="GUID-62F2AEE6-D93C-4802-BCDF-DA55796D1425">mental ray</span> &gt; <span class="MenuCascade" id="GUID-68B7AAE7-0A61-4F3F-8ADB-CFB06AC11459">Material Phenomena</span> &gt; <span class="char_link"><a href="mentalray_misss_fast_skin_phen.htm">misss_fast_skin_phen</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0034C0F6-6CE3-4EDD-8AF3-4D7D4B01FD40"></a></span> <span class="MenuCascade" id="GUID-7320F042-6178-4708-B072-4A4C3B798225">mental ray</span> &gt; <span class="MenuCascade" id="GUID-0CA32F90-2AFB-42C1-9FFE-9A2358CF578F">Material Phenomena</span> &gt; <span class="char_link"><a href="mentalray_misss_fast_skin_phen_d.htm">misss_fast_skin_phen_d</a></span> (with displacement) 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-000E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DF6CCE71-89A7-4337-872A-37B5BDE503B8"></a></span>Creating Fast Subsurface Scattering
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EEB48B46-DB23-47DA-B46D-F53106DCC9FF"></a></span>For the purpose of this example the Fast Simple (misss) phenomenon is used, but any
+                     of the material phenomena (listed above) can be used in the same way to create a subsurface
+                     scattering effect. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-E0A562CE-7AA3-4670-A825-48AD8C8A9E78"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DF03C0A4-A66F-415E-9941-E092312147AC"></a></span>Select the object to which you want to apply the subsurface scattering effect and
+                           press 7 to open the render tree. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F92136A3-BEDF-4CE8-85FA-15A4BB119744"></a></span>From the preset manager, drag a Fast Simple (misss) node to the render tree workspace.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-32A3B082-A6D5-4DF6-A4C7-53BCC1E680C2"></a></span>Connect the Fast Simple node's output to the Material node's Material port. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-7B83B5F8-1AD0-4D96-A1E8-B87A7C5A2984-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D4D3F530-0B97-4B4E-AEC8-5E6DD82F49CF"></a></span>Double click the Fast Simple node to open its property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A1B6AEF0-A04A-4A5E-BFD4-A668C787E068"></a></span>Set the following parameters to define the effect: 
+                        </p> <span class="anchor_wrapper"><a name="UL_AD3C78F4B1B146C6B7EE412C312258C5"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E8A46FDF-EDD4-4207-9641-F5821D31A09D"></a></span>Set the surface illumination parameters. See <span class="char_link"><a href="mat_sss_shaders_DefiningtheSurfaceIllumination.htm">Defining the Surface Illumination</a></span>. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-98DE9B5F-0BE7-4930-9D0B-4F0C1E18A172"></a></span>Set the front and back scattering parameters. See <span class="char_link"><a href="mat_sss_shaders_DefiningScattering.htm">Defining Scattering</a></span>. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-783869F2-94BA-4C07-8DCF-E3F751BE7DB0"></a></span>Enable and control the amount of indirect illumination, such as global illumination
+                                 and final gathering, that gets sampled and stored in the lightmap and scattered over
+                                 the object's surface. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-18D80145-7BA4-4983-A7D9-6B54D176F1C4"></a></span>If desired, you can apply a bump or displacement map, as described in <span class="char_link"><a href="mat_sss_shaders_AddingBumpandDisplacementMaps.htm">Adding Bump and Displacement Maps</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-0010"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C30F0749-BCD4-4D64-A011-FF7B42C61CBE"></a></span>Creating Fast Skin Subsurface Scattering
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-59674B0C-CA79-4866-A8E7-A870731F0776"></a></span>The fast skin variants of the fast subsurface scattering phenomena are specifically
+                     designed to simulate human skin. They supports three levels of light scattering, two
+                     levels of specular highlights, and glossy raytraced reflections. All of the scattering,
+                     illumination and specularity layers are added together to produce the final skin effect.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B6758423-C74F-4567-80E4-687CA54B334E"></a></span>Applying and tuning the fast skin effect is almost identical to creating the effect
+                     with the fast subsurface scattering phenomena. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F91CB802-D876-4330-82EF-4BF12339FC05"></a></span>Fast Subsurface Scattering Shader Compounds
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-828074F3-37A3-4A42-8115-C3E3479342D2"></a></span>The fast subsurface scattering shader compounds are provided as examples to help you
+                  create subsurface scattering effects using the component shaders. You can explore
+                  the internal structure of the SimpleSSS and the SkinSSS shader compounds available
+                  from the SSS Compounds category in the preset manager. Just drag and drop either shader
+                  compound into the render tree workspace and edit it to view how the subsurface scattering
+                  component shaders contained within it are connected together. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-32E2A6C8-70F8-416F-A8C6-15AE69D319D8"></a></span>It is important to note that these shader compounds are built using the Softimage
+                  versions of the mental ray component shaders. Their layout and the parameters they
+                  exposed may not match the mental ray component shaders exactly, but their node connections
+                  still provide valid examples for both. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-0012"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5A66CEBE-9FCD-4722-9343-4BAEF7A06A18"></a></span>Generating Lightmaps for the SSS Compounds
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C17B058F-F97E-4DC3-9EFE-C3C3F465F21A"></a></span>If you are creating a fast subsurface scattering effect using the SSS shader compounds
+                     then you will have to generate a separate writable lightmap image for each object
+                     connected to an SSS shader compound. The SSS shader compound needs to be local to
+                     each object using this effect, otherwise the lightmap shader simply overwrites the
+                     results of a previous lightmap shader. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7CA4E885-AC11-4AFC-8D94-5E72087DE8B9"></a></span>If you edit the SSS shader compounds, you will notice that they already contain a
+                     <span class="char_link"><a href="lightmap_shaders_sssLightmapWrite.htm">Sub-Surface Lightmap Write</a></span> shader that is connected to the branch of the render tree containing the material
+                     to be sampled. The Lightmap Write shader's <span class="MenuCascade" id="GUID-C680B916-B01D-4D41-AAA7-A5A03494E8F6">Lightmap</span> input and output ports are exposed in the compound node. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_3843CF6C41044D2AB596BFFFA01E2581"></a></span><div class="figure-anchor"><img src="../images/GUID-7167CCF2-0A69-4557-A76B-21AF7B28B8BB-low.png"></div> <span class="anchor_wrapper"><a name="GUID-B3E277C8-D49B-4644-A0A4-CEABA4B2C2C3"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-783A23FA-D712-4E50-889D-7E5A6FD2C018"></a></span>Select the object for which you want to create the fast subsurface scattering effect
+                           and open the render tree (press 7). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-94FDBAC1-0D58-4485-8DE3-8E0309D9ECC3"></a></span>From the preset manager, drag and drop either the <span class="MenuCascade" id="GUID-4AF7293D-917A-4EC5-A96A-D524A3D896B8">SSS Compounds <img src="../images/ac.menuaro.gif"> SimpleSSS</span> or <span class="MenuCascade" id="GUID-45F67F10-F6C9-448F-867A-91146F27353F">SkinSSS</span> node to the render tree workspace. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-039191B7-F147-42E7-9AFA-47D51C1A083C"></a></span>Connect the shader compound's Surface output to the Material's Surface input port.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FF0920D6-F171-4598-B5E2-2001518F250C"></a></span>Connect the shader compound's Lightmap output to the Material's Lightmap input port.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-46FF1A21-7DB7-4E0B-8580-13E64324EB5E"></a></span>Now you must create a lightmap file for the effect. Choose <span class="MenuCascade" id="GUID-4D5DF6AB-2D6F-4D91-AA4C-E2B03DAFFD5D">User Tools <img src="../images/ac.menuaro.gif"> Create SSS Lightmap</span> from the render tree command bar. This generates a lightmap image clip and writable
+                           image source for the object's sampled material. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D7FC6E18-2504-4FBD-8A5C-EB770203DA00"></a></span>Connect the sss_lightmap_clip node to the shader compound's Lightmap input port. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EFB1DB1B-A334-44AE-B5B4-F280ED72DF2A"></a></span>Fast Subsurface Scattering Component Shaders
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4B12C58F-C6FA-4705-B941-C5925B1C980A"></a></span>The fast subsurface scattering component shaders are available for you to use individually
+                  in your own particular render tree setup. Each shader's inputs and outputs can be
+                  connected as you wish and you are not restricted by the "black-box" implementation
+                  of a material phenomenon. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0583A1F9-86D1-4003-BFCF-B02242E1F0F7"></a></span>For examples of how to connect the fast subsurface scattering component shaders, see
+                  the <span class="char_link"><a href="mat_sss_shaders_WorkingwithFastSubsurfaceScatteringShaders.htm#WS09530771B2F33F4AAC02499CEA3EFF7D-0011">Fast Subsurface Scattering Shader Compounds</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AA892FC2-CB09-4540-978C-F7634BAED79A"></a></span>These are the mental ray subsurface scattering component shaders: 
+               </p> <span class="anchor_wrapper"><a name="UL_77F236289B5E4DF7B7EF6C21DD072957"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-37D91FFD-3395-4B37-BCDB-857222C71774"></a></span> <span class="MenuCascade" id="GUID-F456588F-29BF-4EF1-B68E-F8F4CD8D790A">mental ray</span> &gt; <span class="MenuCascade" id="GUID-5B4A089F-75A9-48D3-A535-B03CF7A69524">Material</span> &gt; <span class="char_link"><a href="mentalray_misss_fast_shader.htm">misss_fast_shader</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9D93D919-8ECF-42B4-9549-9BAD88BB5DCE"></a></span> <span class="MenuCascade" id="GUID-AFB99479-BA47-47F9-B82B-816033D08977">mental ray</span> &gt; <span class="MenuCascade" id="GUID-A0D2B8B2-AA11-4609-BF41-D0CCA13F4CB7">Material</span> &gt; <span class="char_link"><a href="mentalray_misss_fast_shader_x.htm">misss_fast_shader_x</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1B03C6B2-FF85-4E20-A56E-75D3C355F8F4"></a></span> <span class="MenuCascade" id="GUID-648B4E66-DD67-4DD2-BF33-326AC9F599E3">mental ray</span> &gt; <span class="MenuCascade" id="GUID-274D7CDE-5A51-475C-97EF-742791E5B7F4">Material</span> &gt; <span class="char_link"><a href="mentalray_misss_skin_specular.htm">misss_skin_specular</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-36E9313A-5F5F-4341-A873-9A74F986486A"></a></span> <span class="MenuCascade" id="GUID-D838DF90-93F5-4352-8F57-C8FC6ADB2655">mental ray</span> &gt; <span class="MenuCascade" id="GUID-9D3C75B1-C6DB-4DE8-AB5F-CB335A992A92">Material</span> &gt; <span class="char_link"><a href="mentalray_misss_call_shader.htm">misss_call_shader</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-28949F9F-0C9A-4829-9B49-D3B7F740E9AD"></a></span> <span class="MenuCascade" id="GUID-D421CB69-6A8D-4F92-8D95-BD62FDFE98D5">mental ray</span> &gt; <span class="MenuCascade" id="GUID-29541F0B-0F37-418A-A8A3-80B69EED482D">Lightmap</span> &gt; <span class="char_link"><a href="mentalray_misss_lightmap_write.htm">misss_lightmap_write</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5CC52287-3092-4A02-B918-F0700123105B"></a></span> <span class="MenuCascade" id="GUID-70B6858F-0C1D-41D1-ADCE-6C60F5BDBC1C">mental ray</span> &gt; <span class="MenuCascade" id="GUID-C71AAAB8-2D6C-49DA-B71E-1E2415A5C503">Texture</span> &gt; <span class="char_link"><a href="mentalray_misss_lambert_gamma.htm">misss_lambert_gamma</a></span> 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-0015"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-13EAB385-EE93-47B4-AAB0-25B76FDFBFA2"></a></span>Generating Lightmaps for the misss Component Shaders
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-62A57372-5114-4488-9B62-9158AB89145C"></a></span>If you are creating a fast subsurface scattering effect from "scratch" using the component
+                     shaders then you will have to generate your own lightmap file using the <span class="char_link"><a href="mentalray_misss_lightmap_write.htm">misss_lightmap_write</a></span> shader. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_771F44491CB34694ADF336E2EB4CB35B"></a></span><div class="figure-anchor"><img src="../images/GUID-F749A36B-CA91-4CFD-90CC-8AFE9C2E9533-low.png"></div> <span class="anchor_wrapper"><a name="GUID-210D1EBE-CB11-4162-ADE2-BEC772C4BF5C"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2D3BB516-97E1-49FF-9B07-97A26B87C51D"></a></span>Connect the misss_lightmap_write shader to the Material node's <span class="MenuCascade" id="GUID-21C294C1-44B1-4B89-963D-787B623942A9">Lightmap</span> port. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5B2B34B5-286D-47DE-B87D-7E26BC757289"></a></span>Connect the branch of the render tree containing the material you wish to sample to
+                           misss_lightmap_write's <span class="MenuCascade" id="GUID-B4832A35-1121-494E-849E-E996B1ECAA98">input</span> port. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A0F6F706-44F4-4BE5-BBF4-F1FE8C06FAAD"></a></span>Generally, <span class="char_link"><a href="mentalray_misss_lambert_gamma.htm">misss_lambert_gamma</a></span> is used, but any illumination shader can be used to sample the lighting in the model
+                           for the lightmap. For example, you can use <span class="char_link"><a href="mentalray_mib_illum_lambert.htm">mib_illum_lambert</a></span> or even experiment with a <span class="char_link"><a href="mentalray_mib_illum_phong.htm">mib_illum_phong</a></span> and the scattering of specular reflections. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9B74D045-42AD-4F05-B0D3-BB23588DF1AC"></a></span>Once you've made your connections, choose <span class="MenuCascade" id="GUID-E64CF008-97C4-47D5-8D7D-19308127FCBD">User Tools <img src="../images/ac.menuaro.gif"> Create SSS Lightmap</span> from the render tree command bar. This generates a lightmap image clip and a writable
+                           image source for the object's sampled material. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ABD2FD19-A377-4EB3-A7EF-6C909A6033D8"></a></span>Connect the sss_lightmap_clip node into the misss_lightmap_write's <span class="MenuCascade" id="GUID-A45B2C4D-1CF9-4104-9B3D-5833A493EF5A">lightmap</span> port. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-0017"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-59446D76-B0F6-4DE3-80E3-970BE974B962"></a></span>Creating Shader Compounds
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-74E9C477-5E1D-4551-B39F-D37EB3A8FF76"></a></span>Once you have built your render tree network of subsurface scattering shaders, you
+                     can package it up as a shader compound exposing only those inputs and outputs required
+                     to tweak the effect and then apply it to the objects in your scenes. For more information,
+                     see <span class="char_link"><a href="rendertree_CreatingShaderCompounds.htm">Shader Compounds</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C987C429-536A-48BA-9F9E-26B5C72776D5"></a></span>You can also use the ready-made SSS Compounds available in the preset manager, see
+                     <span class="char_link"><a href="mat_sss_shaders_WorkingwithFastSubsurfaceScatteringShaders.htm#WS09530771B2F33F4AAC02499CEA3EFF7D-0011">Fast Subsurface Scattering Shader Compounds</a></span>. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-9446C0D0-6A61-45CF-BFBE-3F3C836E2F80">
+      <meta name="indexterm" content="irradiance particles: accuracy">
+      <meta name="indexterm" content="irradiance particles: number of rays">
+      <meta name="indexterm" content="irradiance particles: interpolation points">
+      <meta name="topic-type" content="concept">
+      <title>Setting Accuracy and Interpolation for Irradiance Particles</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-9446C0D0-6A61-45CF-BFBE-3F3C836E2F80"></a></span><div class="head">
+            <h1>Setting Accuracy and Interpolation for Irradiance Particles</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-BE3A71DA-A213-45A5-AAE5-C459426472A8"></a></span> <span class="MenuCascade" id="GUID-7E1C0647-B6C8-47E5-99B5-5E9A075EF152">Location:</span> 
+            </p><span class="anchor_wrapper"><a name="UL_BFBF505A1F874B3886C5B64D48EFAEDC"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B33AE40E-33A1-4DF1-9D0F-F138F5AC7940"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; mental ray (Global Renderer) 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C9E0CF7C-9D2F-44DD-ACF9-8C0C325FE050"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; (select a pass) &gt; mental ray 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DEF36F5A-5640-40D0-8524-00C2418CE211"></a></span>Set a current pass and choose Render &gt; Render &gt; Renderer Options from the Render toolbar.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EFEAB297-05EA-4D44-8CB9-6684A39944BF"></a></span>Tab: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-007B">Irradiance Particles</a></span> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A017DFE2-263E-497C-BBF0-3D1262A09D14"></a></span>Options: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-007E">Interpolation</a></span> and <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-007F">Environment</a></span> 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-4B23B539-5945-40B8-8B39-54FDFF4929EF"></a></span>The Accuracy options are the main settings used to control the render quality of an
+               irradiance particles effect. In addition, interpolation can be used to reduce the
+               rendering time without any obvious loss in the quality (although the effect may not
+               be as accurate, in most cases to the naked eye, it will be good enough). 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC1844997AAA3454093C78643135F0F79-000D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-95BB6DD6-07CF-468E-9A91-E3B5494B36D0"></a></span>Setting Additional Indirect Passes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-10986805-D811-416F-B6AA-A7297E1C64F8"></a></span>Set the number of additional <span class="MenuCascade" id="GUID-1AA8C859-A07F-4464-BEBC-6E4B3DADE368">Indirect Passes</span> you want to use to collect the indirect lighting. When this option is greater than
+                  0.0, a sequence of passes are done to collect the irradiance coming from every particle
+                  position, such that irradiance particles will contain both direct illumination and
+                  indirect illumination information. The default of 0.0 means that the irradiance particles
+                  will contain direct illumination information and the equivalent of one bounce of indirect
+                  lighting. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC1844997AAA3454093C78643135F0F79-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-64511D4D-9CA8-44A9-8812-4C3EF57AB925"></a></span>Setting the Number of Rays
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-5E1FC738-175A-4C4E-A547-FF20FC969FFB"></a></span>Specify the number of <span class="MenuCascade" id="GUID-DEAABFBA-2F22-4B44-9990-61E623F02A50">Rays</span> that are shot from a shading point to collect illumination information. The contribution
+                  of these rays is averaged, which means that shooting more rays produces more accurate
+                  lighting. Sampling the particle map with many rays at <em class="mild">every</em> shading point, is the most precise way to calculate indirect illumination with irradiance
+                  particles, but it is also the slowest. Rendering times can be very long if you don't
+                  use point interpolation (see <span class="char_link"><a href="lights_IP_SettingAccuracyandInterpolationforIrradianceParticles.htm#WSC1844997AAA3454093C78643135F0F79-0012">Setting Points for Interpolation</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-167C6381-F49A-47FF-A392-12008C54C38D"></a></span>The images below show different results when varying the number of rays without using
+                  interpolation: 
+               </p> <span class="anchor_wrapper"><a name="TABLE_8D7AE2D2005249A0B610D36086080CDE"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-1D490A16-4CCC-4CB0-AC13-DE39D648FE84-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E9B72005-8A1A-4A83-ABC9-2A590E79334C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CCE1174B-FA94-493B-9866-4CAE07E2B076">Rays</span> = 2 
+                           </p> <span class="anchor_wrapper"><a name="GUID-10E4B4E6-9AE8-4517-8968-A648E62DE84D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2B738FDE-7803-4635-A9E5-C45165E471DE">Interpolation</span> = Never 
+                           </p> <span class="anchor_wrapper"><a name="GUID-A78A8935-2D8B-4F78-A6B9-CB50F13BB8FE"></a></span><p class="table-body">If the number of rays is too low, then the image is likely to display a lot of noise.
+                              Shooting the minimum of 2 rays means that at every shading point, mental ray samples
+                              two directions for irradiance particles, which is far too few. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-B220EC80-2AFE-414F-9955-B884C8BCBCEB-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A7845B34-4B13-4F0E-8459-78AB22819633"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ADA56FA0-1AF4-445B-964B-055007EC4872">Rays</span> = 256 
+                           </p> <span class="anchor_wrapper"><a name="GUID-F7ED1940-E906-496A-91ED-D1248790134C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-84B62BE5-EEF9-40EF-834B-C9ACAC658955">Interpolation</span> = Never 
+                           </p> <span class="anchor_wrapper"><a name="GUID-CB666E05-4547-47A2-874E-7F1B24B27828"></a></span><p class="table-body">Increasing the number of rays makes the indirect illumination less noisy but also
+                              increases the rendering time. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-CD045E73-F6A9-470A-9290-A62D4436E60C-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-52C5752E-03CD-489B-B014-77C647948425"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7D244C86-8BFA-4C23-8F74-09105F521796">Rays</span> = 512 
+                           </p> <span class="anchor_wrapper"><a name="GUID-27F58E74-13BB-48FA-A57C-25C5231EE52E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C88E7BCB-B281-4B92-B23A-F70E9CDC6D4E">Interpolation</span> = Never 
+                           </p> <span class="anchor_wrapper"><a name="GUID-392B5388-619F-4126-9057-37781E0B9AFB"></a></span><p class="table-body">To produce this image, mental ray sampled the particle map with 512 rays at every
+                              shading point, this is why it took 50 times longer than the original image (without
+                              any irradiance particles) to render. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC1844997AAA3454093C78643135F0F79-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6EC6C359-08B9-4BCB-9EC5-69591DB7AEE7"></a></span>Setting Points for Interpolation
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-05DC4E04-7C77-46A4-B003-C7C5B2DCEC6D"></a></span>Rendering time can be significantly shortened by using point interpolation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4E83B143-DE72-4134-856E-E671D4F3FEE4"></a></span>Interpolation is active by default and is set to <span class="MenuCascade" id="GUID-D60D84DF-97B1-44CD-9117-BF2EB8D4D23D">Always</span>. If your scene has a lot of reflective and refractive surfaces, you can enable interpolation
+                  <span class="MenuCascade" id="GUID-4EFC2EC9-7DD7-4A83-97E0-CA9869EFBAA1">For Secondary Rays Only</span>. You can also disable interpolation by selecting <span class="MenuCascade" id="GUID-20382D57-EBBF-4894-99DB-8DBDFBC7506D">Never</span>, which is something you may want to do if you are trying to test for how many rays
+                  would be needed to get the most accurate illumination effect. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F11709D3-7344-45BE-B4F3-C3BB62B1F2CB"></a></span>When using interpolation, mental ray adds an extra final irradiance pass in the preprocessing
+                  step where it samples the particle map to gather the illumination information for
+                  each irradiance particle, which it will use later for interpolation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1237A076-00FD-4716-AE15-EE61CD9C9D6D"></a></span>When mental ray computes the irradiance at a shading point during rendering, it looks
+                  for the <em class="mild">n</em> closest irradiance particles, where <em class="mild">n</em> is the number of interpolation <span class="MenuCascade" id="GUID-94B18A00-01C8-47F1-975A-C639B45DB489">Points</span> and computes the weighted sum of those irradiance values. This process is much faster
+                  than tracing the rays for every shading point. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-18650156-E4D7-49C4-AB09-4C1638ECFAA7"></a></span>The images below show the same scenes, but this time with interpolation set to Always,
+                  the number of interpolation points remain fixed, and the number of rays are varying
+                  as before. Now each scene results in much shorter rendering times. However, the higher
+                  quality render (512 rays) is not significantly better to warrant the additional render
+                  time, so (for the purpose of this example) the rendering of this scene is optimized
+                  at 256 rays with interpolation. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_E78CD9DAE86A42DC862D3BB948A9558D"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-60BC9ACD-CC95-446B-83F2-DA8F10024C52-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-10433263-6E15-42FD-B9FE-B08F61DF60E7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-073F5DE7-97A2-4395-95E3-A4DE83BA9B94">Rays</span> = 2 
+                           </p> <span class="anchor_wrapper"><a name="GUID-85D317A3-77C6-442E-9ECA-788E47FA8899"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BEFB8915-CE57-40E5-8723-2FC4D5D63762">Interpolation</span> = Always 
+                           </p> <span class="anchor_wrapper"><a name="GUID-08B70D0B-019E-4493-B188-D721233D097D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-66754191-BEF2-40DA-A00A-537AAD04F4CF">Points</span> = 64 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-B266483A-F085-4AB4-9D3E-242B29EBF5D0-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CF143E41-5BCA-4D97-90BA-AD34ABC343E8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-80C2D993-03DF-44FC-80AD-EECE31BDBA7C">Rays</span> = 256 
+                           </p> <span class="anchor_wrapper"><a name="GUID-C700C584-2005-4C5B-8358-95B416E002D4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-78F12965-22DE-4651-887F-A3451E21D8E1">Interpolation</span> = Always 
+                           </p> <span class="anchor_wrapper"><a name="GUID-0260A3DE-D9BB-4971-A634-634D5D984FAD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D46D6BAC-B19B-473D-BB9C-3A12B2A7BA78">Points</span> = 64 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-0111337E-9498-47F3-9A2C-CAF63DD0FEC4-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C2D9C3A2-4C73-4B68-8065-3DC284BA2CC7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2812B7C4-452C-4BE1-AC15-7D9CF4F4A8BE">Rays</span> = 512 
+                           </p> <span class="anchor_wrapper"><a name="GUID-25025180-9151-4E64-AB17-1D6A20E7F405"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8272DF99-D4A9-4BBE-B3E2-B9289CF86FED">Interpolation</span> = Always 
+                           </p> <span class="anchor_wrapper"><a name="GUID-30204BCB-0610-4C07-9A6E-2E520B9B47E3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BC34C3EA-D5F3-4D13-874E-DFED4F1035FF">Points</span> = 64 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-15F20FB9-D033-433E-B404-64EDDE302CCF"></a></span>The next step is to determine an optimal number of interpolation <span class="MenuCascade" id="GUID-0715AF31-B8E2-4C3E-A9D5-8CD0486E03CD">Points</span>. The following images show what happens when the Points parameter is changed. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_B88180B61D334CD6A469550E434B120B"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-7E9BA9CD-0483-4152-997B-78003DDC0CAE-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9A1DEA45-01B2-4B74-B4D2-A9E4173AF9A6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BF99A11D-E648-462C-A6E5-77BB84424305">Rays</span> = 256 
+                           </p> <span class="anchor_wrapper"><a name="GUID-36784F2A-E896-42BF-85A1-BFE5FA3D3629"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4C0E6790-B47B-4166-AD5E-4327B7E0A5BB">Interpolation</span> = Always 
+                           </p> <span class="anchor_wrapper"><a name="GUID-B3AEB1D1-5C0A-4853-AA4F-F99EC1E0C9F8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-54AFCF0C-D0B1-4C68-930B-4A2F17AFF042">Points</span> = 3 Three interpolation points (the minimum) are too few, and the image displays
+                              artifacts because the irradiance at a shading point is computed by building the weighted
+                              sum of only these three points. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-32E45E51-5BC7-4E23-80EC-A1B82822B463-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4FD53A19-18B6-48D7-9855-44A3B4859E58"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-323318DF-0322-4ED9-B78B-6C5FCBB233DC">Rays</span> = 256 
+                           </p> <span class="anchor_wrapper"><a name="GUID-462F92C1-D87C-47DC-8BB0-A735D6A136EE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7C9C7EE0-DA1C-4928-8241-6EA0F78919B9">Interpolation</span> = Always 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1878CD2E-4463-49E7-A4D1-CFCF15D98AED"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-801F4BA1-81EB-4F58-ADEF-FD2F23B4AE80">Points</span> = 64 The general rule for determining an optimal number is to use enough interpolation
+                              points to avoid artifacts and retain important details, without significantly increasing
+                              the rendering time. Values between 50 and 64 points work quite well for most scenes.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-BCFB8DDD-8690-43E9-AE76-2C426A0D1CE5-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DDE8743E-555D-4BDE-8EE8-AD97A37A4785"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1AFFFF21-903F-4EA7-89ED-8FD7A7430DE2">Rays</span> = 256 
+                           </p> <span class="anchor_wrapper"><a name="GUID-65DD62BD-D367-490E-800D-12F2550573D7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FE89A128-7C33-491C-9A20-CB3D1E3E831A">Interpolation</span> = Always 
+                           </p> <span class="anchor_wrapper"><a name="GUID-A02C1917-E0B9-490B-990D-1DD36E71B2FE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9038D28E-B217-44FA-9BAF-D00446F9CFD6">Points</span> = 256 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

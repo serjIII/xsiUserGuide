@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-A0B69608-67EE-4D73-8EA9-3CC95BCBFBC3">
+      <meta name="indexterm" content="action clips: weighting">
+      <meta name="indexterm" content="shape clips: weighting">
+      <meta name="indexterm" content="compound clips: weighting">
+      <meta name="indexterm" content="action clips: mixing weights">
+      <meta name="indexterm" content="shape clips: mixing weights">
+      <meta name="indexterm" content="compound clips: mixing weights">
+      <meta name="indexterm" content="animation mixer: mixing clips">
+      <meta name="indexterm" content="blending: clips weights in animation mixer">
+      <meta name="indexterm" content="weights: mixing actions in animation mixer">
+      <meta name="indexterm" content="mixing: weights for clips in animation mixer">
+      <meta name="indexterm" content="weights: preset in animation mixer">
+      <meta name="indexterm" content="animation mixer: crossfading between clips">
+      <meta name="indexterm" content="crossfading: between clips in animation mixer">
+      <meta name="indexterm" content="shape animation: additive weighting">
+      <meta name="indexterm" content="action clips: additive mixing">
+      <meta name="indexterm" content="action clips: averaged mixing">
+      <meta name="indexterm" content="additive: animation mixing">
+      <meta name="indexterm" content="normalized: animation mixing">
+      <meta name="indexterm" content="animation mixer: additive or normalized weight mixing">
+      <meta name="indexterm" content="shape animation: averaged (normalized) weighting">
+      <meta name="indexterm" content="quaternion rotations: mixing in animation mixer">
+      <meta name="indexterm" content="Euler rotations: mixing in animation mixer">
+      <meta name="indexterm" content="animation mixer: rotation mixing, Euler and Quaternion">
+      <meta name="topic-type" content="concept">
+      <title>Mixing and Weighting Clips</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-A0B69608-67EE-4D73-8EA9-3CC95BCBFBC3"></a></span><div class="head">
+            <h1>Mixing and Weighting Clips</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-ED04B5EB-80D8-4408-8FC9-001B8CD2D2BB"></a></span>One of the most powerful features of the animation mixer is its ability to mix and
+               weight clips against each other. When two or more clips overlap in time and drive
+               the same elements, you can mix them by setting weights that control their relative
+               influence. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DD50F28D-F594-4743-95C0-37D379104940"></a></span>By adjusting the weight of a clip, you can control how much of an influence it has
+               compared to the other clips in the resulting animation. The higher the mix weight,
+               the more strongly a clip contributes to the animation. Mixing compound clips is an
+               easy way to blend animation at an even higher level. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-093DB119-F28E-43B8-A6EB-08BED1026F78"></a></span>You can set keys on each clip's weight to animate the changes. When the weight is
+               animated, a weight fcurve is created that you can adjust like any other fcurve. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B13C571D-76D9-41F5-BCA2-EE5484EA90E1"></a></span>You can also set the mixer properties to control how weights are combined in each
+               model and compound clip. You can set mix weights outside the range [0,1]. By default,
+               mix weights are averaged (normalized) so that, for example, if Clip A has a weight
+               of 1 and Clip B has a weight of 1.5 at a given frame, then A's influence is 40% (1
+               Ö (1 + 1.5)) and B's influence is 60%. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-32FE5A36-0049-4A7B-A779-005386843673"></a></span>If you turn off normalization in the mixer's property editor, it is possible to "overshoot"
+               the data in the clip by setting weights higher than 1 (see <span class="char_link"><a href="animmixer_MixingandWeightingClips.htm#WS051802B44FE12145ACD9E000FD9E83E7-010A">Controlling How Weight Is Mixed</a></span>). 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-E7916A77-9E27-49B6-9C67-521C31919BF2"></a></span><div class="note-note"><span class="label">NOTE:</span>You cannot mix audio clips. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00F6"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8905FEB0-79CA-43DE-81AD-3C0FA50CB809"></a></span>Overview of Mixing and Keying Clip Weights
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-32EC031D-6206-47A1-9B15-FC712C3A5AC0"></a></span>This overview shows the basic steps to how to set weight values and key them in the
+                  animation mixer. 
+               </p> <span class="anchor_wrapper"><a name="FIG_177E790731554678AFE8A3DDD0B89644"></a></span><div class="figure-anchor"><img src="../images/GUID-6D68BADA-31E0-4472-B849-0363450EBCF7-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_1AE0F8CD99074A7F89F409ADCF9186AB"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D1BD0398-E063-4DD9-99F9-187B6636425D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FB1F9463-C1D6-4C7D-B18A-6602E6C54D24">1</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9138AEC8-AB41-4368-B3F2-025E84061556"></a></span><p class="table-body">Put clips on different tracks and overlap them where you want to mix them. In some
+                              cases, this can be for the whole duration of the scene. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1228AB17-D9EC-431A-9760-6C6010EAB398"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B8F96EE9-8903-4D30-BF2B-63E1F6B7DD24">2</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EB7B98D2-227A-4676-9305-595606AE83E9"></a></span><p class="table-body">Move to the frame at which you want to set a key. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D903A950-E7E4-467E-85BE-094310D1B41A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4843628C-5061-409F-9DB7-C77209D54CB5">3</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6CD931BB-D681-40AD-862B-18C1C9DC0B4A"></a></span><p class="table-body">Set a weight value for each clip at this frame. Red curves on the clip display its
+                              weight values. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-2CD6E4C1-8B85-456C-BE56-A9D9690C7E68"></a></span><p class="table-body">See <span class="char_link"><a href="animmixer_MixingandWeightingClips.htm#WS051802B44FE12145ACD9E000FD9E83E7-00FA">Animating the Mix Weights</a></span> for information. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-581CD702-D0B1-42F8-8204-27687C68D886"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6129CE93-ABC2-4560-8F80-5E205FC41795">4</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DC272B19-4D19-4E99-B769-C528C4602610"></a></span><p class="table-body">Click each weight's animation icon to set a key for this value at this frame. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1AB8AE70-05F6-4A54-8DF2-E69169F7A88F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FB666833-3F48-4836-A6D4-6C52D29A5F6A">5</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-34442015-915A-42FE-BC61-4ADBF3563296"></a></span><p class="table-body">After you are done setting keys for the weights, you can edit the resulting weight
+                              fcurves. Right-click the weight's animation icon and choose Animation Editor. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-BEFA99A6-44DF-4E44-A964-8D3B5F27629B"></a></span><p class="table-body">See <span class="char_link"><a href="animmixer_MixingandWeightingClips.htm#WS051802B44FE12145ACD9E000FD9E83E7-0101">Editing Weight Fcurves</a></span> for information. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00F8"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BDAE5565-1DBE-41B2-B07D-E787BF7BED79"></a></span>About the Weight Mixer Panel
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1B012FF3-D0AF-4CC1-BAC3-9DC635493329"></a></span>When setting the weights of clips in the animation mixer, make sure that <span class="MenuCascade" id="GUID-6CC22B1C-F1DB-4030-AE45-6FD4228A341F">View <img src="../images/ac.menuaro.gif"> Weight Mixer Panel</span> is on (press the <span class="MenuCascade" id="GUID-E32C7200-BB3D-4118-A656-B068A0F2AFDE">W</span> key). A Weight Mixer Panel is displayed at the right end of each action and shape
+                  track, showing a weight slider and a green animation icon for keying the weight. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-68BF2C3E-65FD-4944-82FF-B3A5F0948897"></a></span>A red line runs across the clip signifying its general weight over time. If the weight
+                  is 1 (default), the red line is at the top; if the weight is 0, the red line is at
+                  the bottom, etc. Make sure that <span class="MenuCascade" id="GUID-46188A7B-D2AC-40E1-8DD6-344514B3437C">View <img src="../images/ac.menuaro.gif"> Weight Curves</span> is selected to see this. 
+               </p> <span class="anchor_wrapper"><a name="FIG_E18A30593A8D497CB044F9648943D4B7"></a></span><div class="figure-anchor"><img src="../images/GUID-5C7F0C06-2C58-4595-9051-D88F2D19AC08-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-4D832255-8398-4DB7-A743-0D7B9EB9CC0A"></a></span>Red weight curves are displayed for each clip when you select View &gt; Weight Curves.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7DDB3FA2-4971-4E0A-BCE2-6F36F4B21E02"></a></span>On the right, the weight mixer panel for each track has a slider and an animation
+                  icon for setting and keying a clip's weight. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-77064CE3-5CBD-48CB-B7AC-8CAC0A320525"></a></span>For each track, the Weight Mixer Panel affects the clip at the current frame. If the
+                  playback cursor is not on a clip, the mixer for the corresponding track is unavailable.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E6D52C36-AFEC-4CF6-A41D-0B5CB4C6E83A"></a></span>When setting clip weights, note the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_3A8D391E9DC8465DBA125A8C9E1FA510"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C533AAB2-03DB-417E-AD83-2CEB7CBFF467"></a></span>If a clip's weight is 0, it does not contribute to the animation. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4C8A6A98-6C36-4914-802E-EDF8358FDD10"></a></span>If a clip's weight is not driven by a function curve (for example, if it is controlled
+                        by an expression or linked parameter), no weight curve is displayed on the clip when
+                        <span class="MenuCascade" id="GUID-8BA13E6A-2E44-49B2-BC28-BBC4DD1CFE95">View <img src="../images/ac.menuaro.gif"> Weight Curves</span> is on. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7DD0BF10-DBBA-4811-AFEF-9F9564E2177F"></a></span>However, if an expression is driving the weight, then the notation -&gt;<span class="MenuCascade" id="GUID-BB84D091-6EDC-4E04-9072-839F5507F2DD">W</span> appears to the left of the clip. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-38093187-EF80-48D0-8970-3BC59D48C8EA"></a></span>If there is a transition between clips that are part of the mix, the transition is
+                        calculated first, then mixed with the other clips. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8E0E54D7-78D7-460E-9AD4-89C57FC8793C"></a></span>If there is a non-overlapping transition, the contribution for each clip is also governed
+                        by the weight of the two clips (the end weight of the "from" clip and the start weight
+                        of the "to" clip). 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00FA"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9DCE140A-9EAF-4F49-AE01-793B8F50B27D"></a></span>Animating the Mix Weights
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-997431CC-E9D0-4F68-A102-A8F9E5F6A9D9"></a></span>There are different ways in which you can set and key a clip's weights, depending
+                  on how you like to work. You can set a clip's weight using: 
+               </p> <span class="anchor_wrapper"><a name="UL_4A15E0C5254C4280ABDED2E0FFF2A55C"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-885A6D32-449F-4D98-8AE7-45340AFB8332"></a></span> The weight slider in the weight mixer panel. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A1095217-3CEE-4CF7-A80E-4FC984BA2240"></a></span>The clip's property editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-63481FAB-01FC-4BE6-9887-BB4B4945CAF9"></a></span>A custom parameter set with proxy parameters of the weight sliders that you have set
+                        up yourself. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-6EA6E312-E709-4498-970B-65C7303D9B9A"></a></span>See below for a description of each of these methods. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4546EDF7-07D2-4DD0-8BB6-72802588A0E2"></a></span>If you're setting the weights on shape clips, you can also use the weight sliders
+                  in a custom parameter property editor that is created if you are saving shape keys
+                  in mixed weight mode. This property editor contains proxies of each shape's weight
+                  parameters that are in the mixer. See <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm#WS5D22904DD940DF4B81E23C96D0B1457F-0087">Mixing Shape Weights in a Custom Parameter Set</a></span> for more information. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00FB"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-153F4980-B652-4F8C-884B-FB91D8B3047E"></a></span>To set and key weights using the weight mixer panel
+                  </h3> <span class="anchor_wrapper"><a name="GUID-AB45DD04-1F18-435D-9D1F-137E367DAFA1"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-966AAB52-D038-4064-97BC-7CD1D5C72142"></a></span>To set the clip's weight, drag the slider. The slider's range is [0,1] but you can
+                           set values higher than 1 or lower than 0 (negative weights) by right-clicking on the
+                           slider and entering a value. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9704A030-236F-49B6-BBD2-C922F1ADC7F1"></a></span>The higher the mix weight, the more strongly a clip contributes to the combined animation.
+                           For example, if you set the value to 4, the resulting action is 4 times greater than
+                           the original weight. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9848BA6E-C9EE-488D-B329-10292517AFA3"></a></span>To set a key for the clip's weight at the current frame, click the animation icon
+                           beside the slider. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-91F2A8B1-1446-4187-8ECA-5AB12CC1305F-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AFC01BB5-60F0-49B6-B516-2AC596D05AE4"></a></span>You can then edit the resulting weight function curve in the animation editor (see
+                           <span class="char_link"><a href="animmixer_MixingandWeightingClips.htm#WS051802B44FE12145ACD9E000FD9E83E7-0101">Editing Weight Fcurves</a></span>). 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-E61187D3-FBF6-4C56-BE61-7C031914EAA5"></a></span><div class="note-tip"><span class="label">TIP:</span>To access other animation options, right-click the animation icon and choose the command
+                              from the menu that appears. For example, you can remove animation, copy and paste
+                              animation, set an expression on the mix weight, etc. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00FF"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A71D19A4-D4F5-4DFE-BF05-017BAC429A08"></a></span>To set and key weights in a clip's property editor
+                  </h3> <span class="anchor_wrapper"><a name="GUID-04F82808-6AD5-4B34-BF25-9D2DD60F8E19"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8F9E547F-0613-49F6-8A25-655C088B33DA"></a></span>Right-click an action or shape clip and choose <span class="MenuCascade" id="GUID-A39D90B3-B901-4EA2-8987-028BB0A09390">Clip Properties</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6592D0C3-85CD-439B-81EA-FEBC5E1F0D1D"></a></span>In the Instanced Action property editor, set the <span class="MenuCascade" id="GUID-553ACE1F-ACCE-4D32-9558-5727BAFFA9FF">Weight</span> value using the slider or type a value in its text box. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-239165FE-9985-45C3-9485-3DA897825685"></a></span>Set a key for the weight by clicking the animation icon beside <span class="MenuCascade" id="GUID-4A7A8006-620F-4B1C-B65E-7D89B6E403CA">Weight</span>. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-07127ADD-39CB-4F19-866E-26681562A2B4-low.png"></div> 
+                        <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-0CF02D1D-1D02-425B-B31E-EDC4F82590B9"></a></span><div class="note-note"><span class="label">NOTE:</span>The colors of the animation controls in its property editor do not properly reflect
+                              whether there is a key at the current frame. This is because the keys are set in the
+                              local time of the clip rather than the global time of the scene. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-00FD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-80A13136-23CB-41A6-B7D7-179E956EC672"></a></span>To set and key weights in a custom parameter set
+                  </h3> <span class="anchor_wrapper"><a name="GUID-385671A3-7B46-4873-BB7E-309DAAEC20D3"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D8A446B6-0AB1-4B10-A7AC-96CF8F5B96D9"></a></span>Create a custom parameter set by choosing <span class="MenuCascade" id="GUID-E97388E4-9CDA-4BB5-B5E0-E4A6357AAE2E">Create <img src="../images/ac.menuaro.gif"> Parameter <img src="../images/ac.menuaro.gif"> New Custom Parameter Set</span> from the Animate toolbar. Give it a name. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FD2344E6-47AF-49A1-AFBD-1A5EC6C53D6C"></a></span>In the explorer, click the custom parameter set's icon to open it. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-95D3D910-99B4-45BA-BB2E-82A744C73D21"></a></span>Drag the animation icon for each weight slider from the animation mixer into the custom
+                           parameter set (just below the light gray bar) to make a proxy of it. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-99C96FE3-A0ED-4CFB-8738-8657ABB6212F"></a></span>In the custom parameter set, drag the slider for each clip to set its weight and set
+                           keys using the animation icon as you would in the mixer's weight panel. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E619EE3C-01C5-4313-968C-F35A5CBF8C0B"></a></span>Because the slider in the custom parameter set is a proxy of the original slider in
+                           the mixer, anything you do to it (change value and key) acts as if you did it to the
+                           original slider. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-F0F334C3-9737-4370-B716-972A8498B88F-low.png"></div> 
+                        <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-FFD76531-A766-4E12-A385-8FCAEEB44188"></a></span><div class="note-tip"><span class="label">TIP:</span>You can also drag and drop the weight's animation icon to a parameter's expression
+                              editor to easily create an "equal to" expression (see <span class="char_link"><a href="expressions_CreatingExpressions.htm">Creating Expressions</a></span>). 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-0101"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-99702ED4-9DA4-4A25-A990-5CFF162DD8AA"></a></span>Editing Weight Fcurves
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E2EFC5C3-CC36-4154-9BEB-93B9B785E84F"></a></span>After you have set keys for a weight in the mixer, you can edit the resulting weight
+                  curve as you would any other function curve in the animation editor. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A9CADAD4-21AB-4061-A31C-67F8DCC9F632"></a></span>You can open up the animation editor in any of the usual ways (in a viewport or press
+                  <span class="MenuCascade" id="GUID-7144FE30-1F44-4331-A099-597524D31201">0</span> to open in a floating window) to edit the weight curve. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B5A6EFAC-BB53-4A85-B983-60D530ADAC94"></a></span>However, if you want the weight curve to be already selected when you open the animation
+                  editor (which is a good idea if you have a lot of fcurves in your clip), do one of
+                  the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_D68FE4C9435048AAAB57BEB2AE95EA16"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A302D3DE-43B3-44A5-81BB-33681F62FECB"></a></span>Right-click the animation icon beside the weight slider in the mixer (see previous
+                        page) and choose <span class="MenuCascade" id="GUID-CF6F32AE-47C3-405E-AEBF-B7A682BAE5F5">Animation Editor</span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-09395228-AC94-4B16-ABA2-DC35A95B6314"></a></span> <em class="mild">or</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C18228B9-58A8-4DA3-ABB6-CEADF922125C"></a></span>Right-click the clip with the weight curve and choose <span class="MenuCascade" id="GUID-37B15C6F-C90D-453F-B7A5-7C701CF5C35C">Animation Editor</span>. 
+                     </p> 
+                  </li>
+               </ul> <span class="anchor_wrapper"><a name="FIG_5C4E75B82A2A4D6E94BB8B048B9727DD"></a></span><div class="figure-anchor"><img src="../images/GUID-6B7F6789-5DDF-4640-A048-02AB056B4A84-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-FE3D6CA9-8D74-4A91-9206-ABD614E30F01"></a></span>In the animation editor fcurve graph, the horizontal axis refers to each clip's local
+                  time rather than the scene's global time. If clips are of different lengths or have
+                  been offset, scaled, or trimmed, the frame numbers in local time and global time are
+                  different. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0C26121F-2020-4E5F-A03D-F7A2BD82856C"></a></span>You'll also notice that the time cursor in both the animation mixer and the animation
+                  editor correspond to the same frames. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-01661926-6298-4860-8032-3B56956FACC8"></a></span>Like other curves, the interpolation of the weight curves are spline by default but
+                  often need to be linear. To change this, as with any other function curve, open the
+                  animation editor, select the Weight parameter for each clip, and choose <span class="MenuCascade" id="GUID-27C0ABC3-EB97-4D4F-8132-3EBFF5B5A7E8">Curves <img src="../images/ac.menuaro.gif"> Linear Interpolation</span> (or click the linear icon on the animation editor's toolbar). 
+               </p> <span class="anchor_wrapper"><a name="FIG_0064B8E437E041DABD31583D7E7DBEF3"></a></span><div class="figure-anchor"><img src="../images/GUID-A03CADD7-43D0-4DFC-B955-188E013061BA-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-6B9D983C-9743-4E87-857A-982787DD5CC6"></a></span>For more information on fcurves in general, see <span class="char_link"><a href="ani_fcurves.htm">Editing Function Curves</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-0104"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-443F0E91-577E-4686-81A1-0DAAA59204D7"></a></span>Using Preset Weights
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-091EED36-E463-4B25-86AF-0F5F70A3C57C"></a></span>To make your life easier, there are a number of preset weights you can use to quickly
+                  achieve different common mixing effects, including a crossfade. <span class="anchor_wrapper"><a name="GUID-FE62EE63-7F56-4C3F-BA38-281F6B70C83C"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-94B97625-1130-4C48-85F9-0B58C2799F86"></a></span>Select one or all of the clips you want to mix (action or shape). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7648DD09-9425-40A5-A5A3-58F769DF7315"></a></span>Choose <span class="MenuCascade" id="GUID-C5EF1600-BFD0-4A7A-84B6-679A93EA9B10">Clip <img src="../images/ac.menuaro.gif"> Preset Weights</span>, or right-click a clip and choose <span class="MenuCascade" id="GUID-9662AF5D-CA51-439D-8536-7DD7A731A25B">Preset Weights</span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4C6858E7-DE9E-492A-B59F-75430E7D17A4"></a></span>This menu lists all available preset weight curves you can apply to the clips, such
+                           as an exponential ease, linear ease, Gaussian, or oscillate. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-82407A8A-FDF7-45C6-8B49-510BC59A2656-low.png"></div> 
+                     </li>
+                  </ol> <span class="anchor_wrapper"><a name="TABLE_DED0D67B8B3D45C290151E33AB3A1A67"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D1FBFF43-D2F6-4573-8329-CB1FA8E054DC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6835A514-2751-410D-B79D-2D09640CCCCB">A</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2BF58D72-0E6A-45E2-A7F4-0846C04A5222"></a></span><p class="table-body">Ease-out </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B7EA5B30-9BC8-48FB-8457-51A40A522FE0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-959DB0A5-58A5-49CA-B7EA-813487EAFEDD">B</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DE9D5220-D7EA-4F34-93C5-50CAB5C54B8F"></a></span><p class="table-body">Ease-in </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3C5DDD65-1DEF-4AED-87D9-2F14EB574B99"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7290F80A-E4E3-479E-8CDB-3AA45F7EF477">C</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4A3F0A71-9ACA-456C-B718-15B99E7EEA99"></a></span><p class="table-body">Oscillation </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-35063382-E4A3-4C14-8252-0F860D9706E6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E8BC2BED-49CC-474D-BA4A-1B9C731BDD07">D</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D7BD8CE6-1424-4392-8E24-2C33577B57FE"></a></span><p class="table-body">Gaussian (0 -1 - 0) </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-0107"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AB96FAF5-3DDC-4044-9E51-45136543EED3"></a></span>Crossfading between Clips
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-DC49E4CD-46FF-4F0E-8613-BE4A8CD22639"></a></span>A crossfade in animation is similar to that in video editing: one clip fades out as
+                  another fades in. In the animation mixer, you can create a crossfade between the overlapping
+                  portion of two action or shape clips. The weight curves of the two clips are modified
+                  so that one fades out as the other fades in (using a range of 0 to 1). <span class="anchor_wrapper"><a name="GUID-DAB6C294-2F19-4943-8B6D-5227E9D32252"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5C4F8F06-0E90-4919-9536-556C4BCA6966"></a></span>Select two clips that overlap in time (press Shift and click). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C9B16C60-03E0-42F7-B1C3-91C0C142BFC9"></a></span>Choose <span class="MenuCascade" id="GUID-2B32C7F3-3E24-4211-96D9-1DEDE176B848">Clip <img src="../images/ac.menuaro.gif"> Cross Fade Weights</span> in the mixer command bar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-32F41A15-1EBC-41D0-A198-B78EC2ABB64C"></a></span>You can see the weight curves on the clips change in the areas that the clips overlap
+                           (make sure <span class="MenuCascade" id="GUID-F54B0230-C719-43B2-B5B2-64148958E49F">View <img src="../images/ac.menuaro.gif"> Weight Curves</span> is on). 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-38422F42-29F2-42B3-B4A3-CB9E697E2BF7-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-791E981F-EF61-4E8B-929F-EC28EBF551B2"></a></span>A crossfade on an overlapping section of two clips. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-5B99460F-9573-4E19-94DA-C53F0488DABA"></a></span><div class="note-note"><span class="label">NOTE:</span>Using this command, you cannot have more than one crossfade on the same clip. You
+                              can, of course, manually key the weights. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-010A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4030C0C1-9DC2-457E-AD64-526F6D7E9F52"></a></span>Controlling How Weight Is Mixed
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-069AB05C-3297-4C3D-9B28-99FB2C026F94"></a></span>The mixer properties control how the weights of clips are combined within the mixer
+                  or a compound clip. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-010B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-24957EA7-0D68-40F6-B0A6-2CD07486C4C3"></a></span>To set the mixer properties
+                  </h3> <span class="anchor_wrapper"><a name="GUID-9096A543-66DF-4B03-9976-BFA30C29BFA9"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3E89609E-161D-4276-A1BB-23E46D30A63F"></a></span>Right-click anywhere in the track area of the animation mixer and choose <span class="MenuCascade" id="GUID-6E016EC5-1B95-4DA1-B91C-3292696CB039">Mixer Properties</span>, or choose it from the <span class="MenuCascade" id="GUID-4F73E600-B10C-44A5-8956-92ABF5235BD0">Mix</span> menu. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-5E01C858-B1F7-4B59-9DBA-7568E3E7B411-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A278BB31-9D0E-4154-AC40-DAA9806B4795"></a></span>Select <span class="MenuCascade" id="GUID-B239B0BD-EEAC-4AD0-8F95-85B32C2FD7AB">Active</span> to have the entire compound clip contribute to the animation during playback. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-64A6B7B7-C5C9-4658-A39A-B1FFA09B092E"></a></span><div class="note-note"><span class="label">NOTE:</span>If shape clips are in a compound clip, you can open the mixer properties as described
+                              above. However, if the shape clips are not in a compound, you must open their mixer
+                              properties using the explorer: go to the model's Mixer &gt; Compounds &gt; Shape &gt; CompoundContainer
+                              node and click the Mixer icon. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EB5348DC-A0CE-41E6-AE4B-4E63FC82CDBF"></a></span>You can determine how weight and rotations are mixed using the following two sections
+                     as your guide. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-010D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CBA31A53-B010-4F25-8E7A-200925A7A004"></a></span>Normalized or Additive Weight Mixing
+                  </h3>       
+                  <p><span class="anchor_wrapper"><a name="GUID-AE3282A7-A791-4A60-855A-79E9E35BA555"></a></span>Whether you use averaged or additive weight mixing depends on whether you select the
+                     <span class="MenuCascade" id="GUID-0959D466-1778-4BD6-B296-572C88E507B0">Normalize</span> option or not: 
+                  </p> <span class="anchor_wrapper"><a name="UL_3E0C70F9AED64D9AB863A3C2020F001B"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-39BAC629-8C45-4FCF-AC2E-337A400BED3B"></a></span>By default, <span class="MenuCascade" id="GUID-99170DA1-AB05-47BA-8973-0786F15F7C97">Normalize</span> is on meaning that the weights are mixed with a weighted average (normalized). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0F387F4C-4D61-47F8-AED3-375FFA15A595"></a></span>The results are mixes that fall between the values of the separate clips. For example,
+                           with averaged weights, if Clip A has a weight of 1 and Clip B has a weight of 1.5
+                           at a given frame, then A's influence is 40% (1 Ö (1 + 1.5)) and B's influence is 60%.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6A83CC0B-1F32-4584-840D-FD448038E1D2"></a></span>When <span class="MenuCascade" id="GUID-DF66F02D-CC6E-4F1B-8D0A-A03F4DFEA4AB">Normalize</span> is off, mixes are additive meaning that the values of the separate clips are added
+                           on top of each other. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-98896628-1CEA-4CB3-A153-6E499BC00279"></a></span>This lets you "overshoot" the data in the clip by setting weights higher than 1. This
+                           method of mixing is especially useful when mixing clusters in shape animation. For
+                           more information on this, see <span class="char_link"><a href="shape_anim_MixingtheShapesxd5Weights.htm">Mixing the Shapes' Weights</a></span>. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS051802B44FE12145ACD9E000FD9E83E7-010E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CDA2E81A-99D5-4DCD-8D08-E530F4B23EBA"></a></span>Quaternion or Euler Rotations
+                  </h3>    
+                  <p><span class="anchor_wrapper"><a name="GUID-76ECE9A7-8251-42A9-A127-0172A0F673C5"></a></span>When you put competing rotations on different clips in the mixer, you can choose between
+                     two <span class="MenuCascade" id="GUID-9472CA5C-1557-4B1D-985A-4A4089CB7E23">Rotation Mixing</span> methods that describe how the resultant posed orientation is calculated: Quaternion
+                     (default) or Euler. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2B3A13EF-2DF4-434D-8C0E-2C5DE3892785"></a></span>For information on these two types of rotations, see <span class="char_link"><a href="ani_xform_AnimatingRotations.htm">Animating Rotations</a></span>. 
+                  </p> <span class="anchor_wrapper"><a name="UL_F5DF9151DC0C4575BB58EA78BD21BFE4"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-729A139F-C037-4841-82C8-13353D764014"></a></span> <span class="MenuCascade" id="GUID-B558AE6C-F987-4028-8661-A08600A78777">Quaternions</span> basically result in smoother rotations than Euler. With Quaternion selected, use
+                           the <span class="MenuCascade" id="GUID-4BF42D22-5571-45C5-8BC6-F0D014178746">Maintain Continuity</span> option to generate more continuous rotation curves, especially for operations such
+                           as plotting, freezing, and generating a bridge transition for rotation parameters
+                           driven by the animation mixer. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AB5F1254-0140-4B40-94CD-FB43CCF6632D"></a></span>However, if you are mixing two or more rotations and using Quaternion, there may be
+                           some unexpected flips in the animation. Using Euler will probably solve this problem.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-09DC0319-B244-46AD-89D7-A9CCC581FB96"></a></span>With <span class="MenuCascade" id="GUID-6AEBF42E-8802-4DBD-9F36-0F1D563ED716">Euler</span> values, you can sometimes get rotation values with extra "spins" (such as getting
+                           rotation values of –591, 1015, and 15). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1B742C51-7AFC-4BDB-9460-1946EFD19261"></a></span>To solve this problem, select <span class="MenuCascade" id="GUID-F42F5442-EF2E-41F1-A12B-1F168A0F8C35">Remove Spins</span>. This gives you the same rotation but without the spins (rotation values are between
+                           –180 and 180). 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

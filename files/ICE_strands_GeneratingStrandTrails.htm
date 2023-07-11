@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-8389115C-9FE0-4006-8B67-EEF45D714CB3">
+      <meta name="indexterm" content="Generate Strand Trails compound">
+      <meta name="indexterm" content="ICE particle strands: generating strand trails over time">
+      <meta name="topic-type" content="concept">
+      <title>Generating Strand Trails</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-8389115C-9FE0-4006-8B67-EEF45D714CB3"></a></span><div class="head">
+            <h1>Generating Strand Trails</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-D7E8BD0B-1360-4C7A-9875-384CD4BF7DD5"></a></span>The Generate Strand Trails compound creates strands similar to the Create Strands
+               compound, but instead it dynamically creates as many strand segments as you need for
+               a simulation based on the number of frames in the simulation and the limit of segments
+               you have set. One strand segment is created per second up to the maximum number of
+               segments that you have set. Only when the maximum number of segments is reached do
+               the strands "release" from the emitter and move away from it. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-7790FB64-C4EA-436F-85BE-7A39CBC702AD"></a></span>When the strands do release from the emitter, their length is affected by the particle's
+               velocity. This means that a fast moving particle will have longer strands than slower
+               moving particles. The strands "stretch" to accommodate the faster velocity. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9D04DE90-3469-4D7F-9568-7C9C5F8321E0"></a></span>When the particles are emitted, the strands follow behind, creating the effect that
+               the strands are growing. As a result, this compound is useful for simulating elements
+               such as tree branches, hair, root systems, branched lightning, or grass sprouts where
+               the particle strands grow over time but never leave the emitter. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-34243377-C25E-46D6-B903-3B0B2DC5611E"></a></span>If you use the Generate Strand Trails compound, you cannot also use the <span class="MenuCascade" id="GUID-1EBDFE55-C271-490A-A03A-E5110F682019">Create Strands</span> or <span class="MenuCascade" id="GUID-CC45F461-DF0A-4E85-92FB-FC1603516269">Emit Strands</span> (which contains Create Strands) compounds in the same ICE tree. 
+            </p><span class="anchor_wrapper"><a name="FIG_E1A18530F40240ECB411F85B72024C5C"></a></span><div class="figure-anchor"><img src="../images/GUID-9B8E1B22-59D5-4013-AE75-32A032F05E8E-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-933E15DF-9C39-40A8-939B-CD3E6DB5046D"></a></span>You can generate strand trails either from scratch or using an existing particle simulation:
+               
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE54D8F0707D71042A8D6EBEB70C057F5-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-25C08BC6-98D5-4E4C-9180-1DC9A32CDFED"></a></span>To generate particle strand trails from scratch
+               </h2> <span class="anchor_wrapper"><a name="GUID-32B6FE1C-9F38-4931-B497-1966BAF6D97D"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F40F2290-8DC1-4088-93C9-D01ACE20B97A"></a></span>Select an emitter object. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-017F3497-9B16-4E13-B317-22A884D167D4"></a></span>If the emitter is animated, see <span class="char_link"><a href="ipart_particles_AdjustingtheICEParticleEmission.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0050">Keeping Particles on the Emitter</a></span> for information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A92FAB2A-B6B8-49E5-8A11-16AE33F019E7"></a></span>Choose <span class="MenuCascade" id="GUID-35B925EF-A6E2-426D-B84F-AF1064E77A0F">Particles <img src="../images/ac.menuaro.gif"> Create <img src="../images/ac.menuaro.gif"> Strands <img src="../images/ac.menuaro.gif"> Growing Strands</span> from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-591F9462-8161-4790-A557-8C636F046E4E"></a></span>This creates a point cloud and sets up the following ICE tree that uses the <span class="MenuCascade" id="GUID-C068095A-C76B-4514-9B3B-3A1F8B1003E3">Generate Strand Trails</span> compound: 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-3A5C0B72-0C04-4499-A5C1-59BF48061506-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-776DE687-1F5B-436F-A7E4-EC6F12DBDBE0"></a></span>The Generate Strand Trails compound is plugged in after the Simulate Particles node
+                        in the Simulation Root node. Because the strands are created after the particles are
+                        simulated, the particle's final point position for the frame is used after all other
+                        calculations have been done to it (the particle's point position, velocity, rotational
+                        velocity, etc.). This means that if the emitter is animated, the strand is created
+                        at the particle's emit location, no matter where that is. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C56D530D-AD55-4E8D-A606-4ED1B2824B8E"></a></span>You can also plug the Generate Strand Trails compound into any Execute port of a State
+                        compound, if you're using a state system. If you want to generate strands for particles
+                        that belong to a certain state, you may want to plug this compound into the lowest
+                        Execute port of the State compound (see <span class="char_link"><a href="ICE_states_CreatingaStateSystem.htm">Setting Up States</a></span>). Every State compound has its own Simulate Particles node, so you would need to
+                        edit that State compound: open it and plug Generate Strand Trails into the last port
+                        of the Execute node. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C82AE469-5FD0-4583-8E36-7B617A1FBA53"></a></span>In the Emit compound, select the <span class="MenuCascade" id="GUID-7CEB9A06-AEEB-47FF-995C-F3A346A0AD97">Shape</span> type you want to use for the strand. This shape is repeated along the strand's length
+                        (one shape per segment). 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-21E6AD23-7D3B-435B-BB37-188484D0E403"></a></span>You can see the results in the render region. — see <span class="char_link"><a href="ipart_strands_ViewingandRenderingStrands.htm#WSE54D8F0707D71042A8D6EBEB70C057F5-004F">Viewing Strands</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5903D2C4-E2F1-4796-93A1-52E98E9E868B"></a></span>Depending on the effect you want, set the particle <span class="MenuCascade" id="GUID-248FF500-A831-4C2E-A293-BE1F9F378735">Speed</span> — see <span class="char_link"><a href="ipart_strands_DeterminingHowtheStrandsMove.htm">Determining How the Strands Move</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-47DAB9FA-4415-4B98-8BC4-F04EC41533AE"></a></span>Set the particle <span class="MenuCascade" id="GUID-F533CAF3-7316-4C28-AC3D-6673B6F722D9">Rate</span> for the number of particle strands to be created, as well as the <span class="MenuCascade" id="GUID-19BFF99A-77FD-48F7-8BC9-3E3C0C92A971">Rate Type:</span> you can either create the number of strands per second or have the total amount of
+                        strands all appear at the initial frame of simulation — see <span class="char_link"><a href="ICE_particles_ICEParticleRateAmount.htm">ICE Particle Rate (Amount)</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A2D487A8-44DC-443D-884A-40D57C59D372"></a></span>In the <span class="char_link"><a href="iceref_Generate_Strand_Trails.htm">Generate Strand Trails</a></span> property editor, you can set the maximum number of segments in the strand, multiply
+                        the strand size, set the strand size (growth rate over length of strand) using a profile
+                        curve, and loft the particle shape along the strand. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE54D8F0707D71042A8D6EBEB70C057F5-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-64699F0F-BA45-4F1F-AF7B-2879513ACC70"></a></span>To generate strand trails for an existing particle simulation
+               </h2> <span class="anchor_wrapper"><a name="GUID-716CA15B-ECBF-4D9E-B44E-98DAFFFD4585"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F94D0AF6-749D-4DDC-A994-82BD3312909B"></a></span>Select the point cloud with a particle simulation to which you want to add strands.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6B27A912-CA47-4F71-B89F-3304BA73E747"></a></span>Choose <span class="MenuCascade" id="GUID-3FF4766A-D6C3-4C11-8D70-88738B668A17">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Strands <img src="../images/ac.menuaro.gif"> Generate Strand Trails</span> from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-245437C6-895F-42F9-91F8-D4E5543DB251"></a></span>In the point cloud's ICE tree, the Generate Strand Trails compound and a Set Strand
+                        Length node are added and plugged into PostSimExecute ports on the Simulation Root
+                        node. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D8F3BA6F-98D5-4CBA-8C49-20A62929392B"></a></span>The Set Strand Length node sets the StrandLength attribute which is necessary when
+                        using other compounds in the ICE tree. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-D8C0BC36-5C9E-4C0C-B406-857E5CC1B9BD-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

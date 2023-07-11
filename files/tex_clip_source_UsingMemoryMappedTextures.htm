@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-074D1031-A16E-4E9A-98B2-4F2E5B21E266">
+      <meta name="indexterm" content="textures: memory-mapped">
+      <meta name="indexterm" content="memory-mapped textures: about">
+      <meta name="indexterm" content="distributed rendering: memory mapped textures, using with">
+      <meta name="indexterm" content="memory-mapped textures: distributed rendering">
+      <meta name="indexterm" content="memory-mapped textures: creating automatically">
+      <meta name="indexterm" content="memory-mapped textures: creating manually">
+      <meta name="topic-type" content="concept">
+      <title>Using Memory-Mapped Textures</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-074D1031-A16E-4E9A-98B2-4F2E5B21E266"></a></span><div class="head">
+            <h1>Using Memory-Mapped Textures</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-C9BA9489-24CD-4F1D-AE27-17A5F61FE651"></a></span>When a texture is memory-mapped, it means that the texture is never loaded into memory
+               when rendering. Instead, it is accessed directly from disk whenever a shader uses
+               it. When used properly, memory mapped textures can speed up rendering considerably.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F8D7B821-FBD5-455D-A598-69A1892F7459"></a></span>For example, if scene and its textures are large enough that they don't fit into physical
+               memory (RAM), loading a non-memory-mapped texture means loading the file into memory,
+               decompressing it, and copying it out to swap (the disk partition that acts as a low-speed
+               extension of the system's RAM). From then on, the texture is accessed from the swap.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9CC6E5E5-8BAE-4C87-8C8E-42A68043E928"></a></span>If you use memory-mapped textures in the same situation, the "read-decompress-write"
+               step is eliminated and the textures are accessed from the file system instead of from
+               the swap; therefore, less space is needed. In other words, instead of accessing the
+               entire texture, mental ray only accesses the parts that it needs to access to render
+               a given tile. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-30A53081-6FF3-4037-B38C-821024D36B20"></a></span>If a texture is memory mappable, the mental ray renderer recognizes it and memory
+               maps it automatically. Any file format can be mapped, as long as mental ray recognizes
+               the file format from the file's header. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-45FA521A-3FEB-4A18-9288-3A0C80C32A67"></a></span>To create memory mapped textures, you can either have Softimage create them automatically,
+               as described <span class="char_link"><a href="tex_clip_source_UsingMemoryMappedTextures.htm#WSF3670244173DE845B36001FAA69DB62C-00B4">Creating Memory-Mapped Textures Automatically</a></span>, or you can create them manually, as described <span class="char_link"><a href="tex_clip_source_UsingMemoryMappedTextures.htm#WSF3670244173DE845B36001FAA69DB62C-00B7">Creating Memory-Mapped Textures Manually</a></span>. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B0"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7A68BFB8-B491-4A85-810C-0A597108389A"></a></span>When to Use Memory Mapped Textures
+               </h2> <span class="anchor_wrapper"><a name="UL_5A51C26F71C7490D91B9CA0681E82B1F"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-59E48568-1F54-4F1F-96C4-1B86C7E72258"></a></span>Memory mapping works best if there are extremely large textures containing many tens
+                        of megabytes that are sampled infrequently, because then most of the large texture
+                        files are never loaded into memory. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-E0D726D4-1533-489D-80F2-5F2F7B082415"></a></span><div class="note-note"><span class="label">NOTE:</span> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5DEB7EB8-5C01-4B52-A8F3-7B9239E13A76"></a></span>Memory-mapped textures are not decoded or converted by mental ray when they are read
+                              in: mental ray expects memory-mapped textures to be in the exact format that it uses
+                              during rendering. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4BD8FE27-716A-4969-9F34-E3B5429C181B"></a></span>Normally, mental ray does attempt to automatically convert image-data formats. For
+                              example, if a color image file is to be used as a scalar texture, mental ray converts
+                              the color pixels to scalars as the texture is read in. This does not apply to memory-mapped
+                              textures. 
+                           </p> 
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0326DBEF-F781-406D-B415-093B50FD47DE"></a></span>Memory mapping also works well with elliptical filtering, see <span class="char_link"><a href="tex_clip_source_FilteringanImageClip.htm">Filtering Image Clips for Rendering</a></span>. This is especially true when you auto-generate memory mapped textures (see <span class="char_link"><a href="tex_clip_source_UsingMemoryMappedTextures.htm#WSF3670244173DE845B36001FAA69DB62C-00B4">Creating Memory-Mapped Textures Automatically</a></span>), since the auto-conversion process automatically creates pyramid-mapped textures
+                        that are well suited for elliptical filtering. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B1"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0803AF06-FFD1-4258-8FF4-EF838C9C74C7"></a></span>When Not to Use Memory Mapped Textures
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CCD570B4-E637-4C50-929D-4CFC214FE937"></a></span>If used incorrectly, memory-mapped textures can have a negligible, or even negative
+                  effect on rendering speed. For example: 
+               </p> <span class="anchor_wrapper"><a name="UL_30878CA3A4B9457D8325432AD7265D98"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4048330E-E93C-48A3-AC53-708FDE793CF8"></a></span>If the texture and scene are not large and fit into memory, memory-mapped textures
+                        are slower than regular textures because the swap would not have been needed to load
+                        the textures in the first place. This is especially true if the textures are accessed
+                        frequently. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E3543316-975D-4943-9A68-4641602A35AA"></a></span>If the texture is applied in such a way as to be completely visible in the rendered
+                        image, memory-mapped textures have the same memory requirements as their non-memory-mapped
+                        counterparts. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-360F5558-3F24-4BD9-9734-89FF430379B7"></a></span>In a distributed rendering setup where textures are stored on a remote server, using
+                        memory mapped textures can slow down rendering considerably. This is because the textures
+                        are accessed frequently, and the resulting network traffic can cancel out the speed
+                        increase afforded by memory mapping. You can avoid this by copying your memory-mapped
+                        textures onto each render slave. For more information, see the following section,
+                        <span class="char_link"><a href="tex_clip_source_UsingMemoryMappedTextures.htm#WSF3670244173DE845B36001FAA69DB62C-00B2">Memory-Mapped Textures and Distributed Rendering</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B2"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A8B11388-9286-4455-8D99-DC52C38C0FCE"></a></span>Memory-Mapped Textures and Distributed Rendering
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-60ED6C74-BD7E-473C-AF04-6C33A5FA5A5C"></a></span>If you are using memory-mapped textures in a distributed rendering environment, it
+                  is crucial that before you begin rendering, each such texture is copied to the same
+                  location on every render slave machine. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-88E92C0D-488B-4DA0-87BD-51E5C739E6FD"></a></span>This is because memory-mapped textures are automatically set to Broadcast mode, which
+                  means that during rendering, mental ray broadcasts the texture image's path and filename
+                  to all of the render slaves, instead of sending the image's pixel data (see <span class="char_link"><a href="property3509.htm">Image Clip Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>] for more information). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7984E4B4-6D68-42F9-8EDE-B7647504FB34"></a></span>If the memory-mapped textures are stored on an NFS-mounted file system (one that is
+                  imported across the network from another host), then all of the render slaves have
+                  to access the texture from the same single location. The resulting network traffic
+                  reduces the effectiveness of memory mapping and can easily make rendering slower than
+                  it would have been using regular textures. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DFCCC4AB-4E9C-455D-A723-3F172EC86333"></a></span>There are numerous ways to prepare your memory-mapped textures for distributed rendering.
+                  One of these is described in the following procedure: 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B3"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FBC67CE9-3C65-445E-8355-F3B728C00DC0"></a></span>Example: Preparing memory-mapped textures for distributed rendering
+                  </h3> <span class="anchor_wrapper"><a name="GUID-A26A04D5-6B68-4D7F-98B5-94394C5E5243"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A32F825D-64BB-4BC3-9C94-392C0244CE9C"></a></span>As you are creating your scene, make sure to activate the <span class="MenuCascade" id="GUID-219AC68E-2242-4EDA-90EF-69CBB1091B3E">Automatically Convert Images to .map Files</span> rendering preference. For more information, see <span class="char_link"><a href="tex_clip_source_UsingMemoryMappedTextures.htm#WSF3670244173DE845B36001FAA69DB62C-00B4">Creating Memory-Mapped Textures Automatically</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4BAF6E6B-EB4C-4AFC-846C-96D874F75FD9"></a></span>Copy the resulting <span class="MenuCascade" id="GUID-4714E3A3-948D-4F69-AB26-7FC4C94434FE">.map</span> files to the same location on each render slave machine. For this example, assume
+                           the location is <span class="filePath">C:\mr_map</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-11421AE2-8A36-476C-ABB3-392BD8EF37D4"></a></span>Before you render your scene, open a Softimage command prompt and define a new environment
+                           variable. For this example, you would type: <span class="code">set MR_MAP=C:\mr_map</span> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6B17AA99-6E02-4E8C-AB6F-9CCD2AE7B11C"></a></span>Start Softimage and load the scene you want to render. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5462B74C-7C82-4969-A57E-D8ACB557FD35"></a></span>From the main menu, choose <span class="MenuCascade" id="GUID-BAABFDCF-4172-4CF5-A5B8-781289FDEF97">File <img src="../images/ac.menuaro.gif"> External Files</span> to open the External Files Manager. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-515F21CF-E742-44F2-854F-41B4B353BA9E"></a></span>Set the <span class="MenuCascade" id="GUID-A9D38BCB-8E53-45A9-9249-314E4895FAFB">File Type</span> to <span class="MenuCascade" id="GUID-ABF37807-72BC-406E-A725-647A53A837B1">Pictures</span> and, for each memory-mapped texture, change the path and file extension to look like
+                           this. Change: 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-794CBE96-1597-4128-A7D9-020FD7950ABF"></a></span> <span class="filePath">C:\projects\pictures\wood.pic</span> 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-79BC0F05-6C9D-453E-B2FF-2E637EFCC09A"></a></span>to: 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-24876642-1ACA-4DAA-9174-47221A4292E3"></a></span> <span class="code">$MR_MAP\wood.map</span> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D722D2E5-33B7-4051-9AD4-2CA6E01E1E0F"></a></span>Edit the render region options, and the render options for each pass. On the Optimization
+                           page of each property editor, set the <span class="MenuCascade" id="GUID-EDC5F8A4-C085-4FDB-B46A-4382F3009F9D">Automatic Map Conversion <img src="../images/ac.menuaro.gif"> Type</span> option to <span class="MenuCascade" id="GUID-D09465C3-EBE4-4DA3-9BDF-3553872ED03C">Off for this pass</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BFE076E9-64F5-4F9A-A969-08D92768C118"></a></span>On each render slave machine, edit the <span class="MenuCascade" id="GUID-1714DF49-6058-46C7-9CA1-46ED766E8E50">setenv.bat</span> file to add the environment variable that you created earlier: 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2F2EFCAE-3C38-4835-9357-FB556B4E3222"></a></span> <span class="code">set MR_MAP=C:\mr_map</span> 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0BFCF491-FAB4-4F21-BAEA-E31222242F99"></a></span>And you're done. The scene is now ready to be rendered using distributed rendering.
+                     
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B4"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FB2BEAEB-4162-4A57-A4C3-59F1A5A07D89"></a></span>Creating Memory-Mapped Textures Automatically
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-AD011EF0-E082-4FFA-BCE8-046212EEA732"></a></span>The easiest way to create memory-mapped textures is to have Softimage generate them
+                  automatically by converting some, or all of the scene's image clips to <span class="MenuCascade" id="GUID-09C5E095-34B6-4F3B-93ED-47A0EDE95813">.map</span> format at render time. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2CD372FE-3417-4C70-A0CA-CDAD11829BCD"></a></span>The auto-generated <span class="MenuCascade" id="GUID-EAACA977-D285-4310-AD43-BFCA105962DD">.map</span> files are stored in a subdirectory (named <span class="MenuCascade" id="GUID-991F49E4-992F-4B46-92C6-7DB5FC56B930">mr_map</span>) of the directory where the original image sources are stored. The <span class="MenuCascade" id="GUID-2C9EAFA8-5945-4C62-9194-1F73E8CA0706">.map</span> files are used for rendering only, while the original image clips are used to display
+                  the textures within Softimage. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BAE82590-6FE0-4DA0-9F3B-58D9A9522C48"></a></span>Some of the advantages of auto-generating <span class="MenuCascade" id="GUID-C9A17C5B-CA51-4A51-A0B4-A9DA0E71B40A">.map</span> files are: 
+               </p> <span class="anchor_wrapper"><a name="UL_FC1F703651764CBE9730DF01B4043D22"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E35AF4A0-C02B-4800-AC1A-392037E00626"></a></span>It's automatic, so you don't have to spend time manually converting your textures
+                        to <span class="MenuCascade" id="GUID-8E3BADFC-DB45-4B76-86C5-7E47EB3AACE8">.map</span> format. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CAEFE688-066D-4729-AA47-E5E52DB3769C"></a></span>By default, the auto-generated <span class="MenuCascade" id="GUID-66FD4E1D-4E99-4430-B11D-5A642085CB7A">.map</span> files are used automatically so you don't have to update paths with new file extensions
+                        before you render. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-234DB8FD-5FFE-45B9-A850-164A4E6F41BC"></a></span>Because the <span class="MenuCascade" id="GUID-291396D6-6819-4D6D-A379-C76DB02FCB42">.map</span> files are created from the scene's image clips, changes that you make to the clips
+                        (using the compositing and/or 2D paint tools, for example) are automatically incorporated
+                        into their <span class="MenuCascade" id="GUID-1986DED1-0033-4B56-927F-F297D321CE9E">.map</span> counterparts. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-3FCD63E0-0BFC-4DB1-96EE-712EF1DA7DEE"></a></span>Although auto-generating <span class="MenuCascade" id="GUID-7A643E9D-C9AB-4318-BB56-8FF7C2086119">.map</span> files is controlled by user preferences that affect the scene globally, you can override
+                  these preferences both in the render region and in any individual render pass. This
+                  is described in <span class="char_link"><a href="tex_clip_source_UsingMemoryMappedTextures.htm#WSF3670244173DE845B36001FAA69DB62C-00B6">Controlling Auto-Generated .map File Use</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B5"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-76CB102A-02FA-4F79-B20D-F68D9EF28AF6"></a></span>To have Softimage auto-generate .map files
+                  </h3> <span class="anchor_wrapper"><a name="GUID-22271CF4-7276-4F47-947D-59BBCDC81213"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-26F78D18-973C-41B2-8554-ABD4357E6882"></a></span>Open the Preferences view (choose <span class="MenuCascade" id="GUID-B3526836-0E49-4F40-AC4A-427DFD16F911">File <img src="../images/ac.menuaro.gif"> Preferences</span> from the main menu) and click Rendering in the explorer pane. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-75DD9109-F45D-44B0-A269-B9C76545CC3C"></a></span>The Rendering Preferences property editor opens in the right pane. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-24C708DF-EC2A-4C36-A306-BC10F1B32032"></a></span>Set the following two <span class="MenuCascade" id="GUID-DA77070F-12D7-4E2F-8E04-676F897D5451">Map Conversion</span> options: 
+                        </p> <span class="anchor_wrapper"><a name="UL_2416417AE89546E384B12BEC6D51F5C9"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DF0DF188-700A-40C9-856A-7B194248F75F"></a></span> <span class="MenuCascade" id="GUID-65EBD699-24B2-4C77-A21C-A8041DE8FD3C">Automatically Convert Images to .map Files:</span> when activated, all of the image clips that are used in your scene, and meet the
+                                 <span class="MenuCascade" id="GUID-A95DAE31-F305-4ED6-B40D-3278D8E8C99F">Minimum Size</span> requirement, are converted to <span class="MenuCascade" id="GUID-06EE751C-9B20-4849-B925-3C77ADC8FE61">.map</span> files. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-682E469F-3433-4373-A84D-AFE7EBC87022"></a></span> <span class="MenuCascade" id="GUID-9D379989-316B-432F-B44A-A069301CD6B8">Minimum Size:</span> specifies the minimum resolution necessary to convert an image to <span class="MenuCascade" id="GUID-D1BD5BB4-AC96-499B-9C40-5ACD3DB8B8D4">.map</span> format. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-923FDD53-FC83-428E-8F34-C243F02E90F7"></a></span>Images whose resolution in either axis is greater than or equal to this value are
+                                 automatically converted. Images whose resolution in both axes is less than this value
+                                 are not converted. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A2F01EBD-80F2-42E0-B61A-412A415E6B55"></a></span>This helps you avoid converting images that are small enough that memory mapping them
+                                 does not affect rendering speed. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BE45FF56-17A0-4BF5-BD9C-422E34FFDFBD"></a></span>Controlling Auto-Generated .map File Use
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9F619990-A1A9-4C16-9858-CAC307278195"></a></span>Whether or not you've activated automatic <span class="MenuCascade" id="GUID-31DD0FF3-5C44-43ED-B8AC-253F3BDF4415">.map</span> file conversion in the Rendering preferences (as described in the previous section),
+                     you can specify whether it should be used for a given render pass, and/or in the render
+                     region, by doing the following: 
+                  </p> <span class="anchor_wrapper"><a name="GUID-840DE878-AAF1-445D-8F68-F3C09B18F7FF"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-65E59D03-4809-408B-ACE7-39280370D500"></a></span>Do one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_B15F81BFC884435E94A17889A24BDA7C"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B7318AD3-CE4A-4EC7-A818-70F30DFEF7CA"></a></span>Choose <span class="MenuCascade" id="GUID-AF484707-DD83-46AD-A9AC-1417B3A0D152">Render <img src="../images/ac.menuaro.gif"> Render <img src="../images/ac.menuaro.gif"> Options</span> from the Render toolbar to open the Render Options property editor for the current
+                                 pass. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-863C8608-8BEE-4755-B830-A27AFB2BF406"></a></span>Choose <span class="MenuCascade" id="GUID-557EDC86-9DA1-4D60-9BE9-6EBC6DC360E3">Render <img src="../images/ac.menuaro.gif"> Regions <img src="../images/ac.menuaro.gif"> All Options</span> to open the View Render Options property editor for the render regions. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-78A1E3E4-DD84-4073-80EA-11AC53690980"></a></span>Choose <span class="MenuCascade" id="GUID-6A30B4DA-17CC-4F55-8F1D-41649182274C">Render <img src="../images/ac.menuaro.gif"> Regions <img src="../images/ac.menuaro.gif"> Active Viewport Options</span> to open the View Render Options property editor for the last viewport you clicked
+                                 in (highlighted with a white border). 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-59854D21-7E78-410D-AD82-D10BF7E18A5B"></a></span>On the Optimization tab, set the <span class="MenuCascade" id="GUID-CE6E699E-8A20-4182-AD47-0DCEE22F9958">Automatic Map Conversion <img src="../images/ac.menuaro.gif"> Type</span> parameter to one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_2C0411E981344AA8A5EB86FA9D4F58A8"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7BAA6C56-E831-41BB-8C2F-C82D8D10B74C"></a></span> <span class="MenuCascade" id="GUID-DB883FA1-1ED6-4731-90EC-6CADD41BF02F">Use Preferences: .map</span> files are generated and used at render time only if automatic <span class="MenuCascade" id="GUID-BD68A9B0-739E-4C32-B2FF-EE30005B93A9">.map</span> file conversion is activated in the rendering preferences. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7180910D-7FEB-40CB-9455-4FCBCB7034E5"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-90130391-3676-49A4-B3AF-ED49BC45C999"></a></span> <span class="MenuCascade" id="GUID-A26D8854-DD6E-41B6-8F4E-5868985BF253">On for this pass/for region render: .map</span> files are generated and used when you render the pass/region, regardless of whether
+                                 or not automatic <span class="MenuCascade" id="GUID-ABC3F7AD-F97B-4001-8D48-248DAED9A44E">.map</span> file conversion is activated in the rendering preferences. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-71B3293E-49BA-43BD-93FE-B06836B4D5B4"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E705BFB9-CE0E-4CB4-91FF-5F99C1B8030B"></a></span> <span class="MenuCascade" id="GUID-75C68477-1923-401A-B5FA-38236852303B">Off for this pass/for region render: .map</span> files are not generated when you render the pass/region, regardless of whether or
+                                 not automatic <span class="MenuCascade" id="GUID-1256CADD-AB56-4262-A725-4EA82B1952A4">.map</span> file conversion is activated in the rendering preferences. Previously auto-generated
+                                 <span class="MenuCascade" id="GUID-E4CBDFBF-0BDD-4D10-BD56-CBCEBB951087">.map</span> files are not used when rendering the pass as long as you maintain this setting.
+                                 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B7"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-625C1E0A-67DB-4F1E-841F-FE76D56F2C60"></a></span>Creating Memory-Mapped Textures Manually
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-F2F566E2-10E8-4627-8230-315A20CED277"></a></span>If you didn't (or don't want to) have Softimage automatically convert your image clips
+                  to <span class="MenuCascade" id="GUID-24F33C0D-4861-4016-8566-035AB2769250">.map</span> format, you can manually create memory-mapped textures in any of the following three
+                  ways: 
+               </p> <span class="anchor_wrapper"><a name="UL_8C7E540AAD0C4E5CAA80FF85D5E054F9"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E298510E-E1DE-4C7D-965C-8B92D718BD5A"></a></span>Using the Image Clip Viewer. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-57AE6032-C33D-4229-AC7D-6147548D8393"></a></span>Using the flipbook. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2D04A272-989D-47E3-9D56-A96B2E874163"></a></span>Using the imf_copy standalone. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-CF76E856-EDDB-4FE1-B507-A1D2FBEDE18C"></a></span>Use whichever method is most convenient for you. Once you have created the textures,
+                  you'll have to update your scene to use them, as described in <span class="char_link"><a href="tex_clip_source_UsingMemoryMappedTextures.htm#WSF3670244173DE845B36001FAA69DB62C-00BB">Updating the Scene File</a></span>. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-ABB6D848-078C-42AB-AFB2-2F85E2A3C808"></a></span><div class="note-tip"><span class="label">TIP:</span> <span class="anchor_wrapper"><a name="UL_538215D6B9FA45A68EE57D016A8F3866"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1E7BA642-17BA-4E34-B236-6FC7195D82B4"></a></span>The mental ray renderer recognizes <span class="MenuCascade" id="GUID-DE064A51-0B7D-45CB-A76E-D4AD4C0279EE">.map</span> textures even if they have an extension other than <span class="MenuCascade" id="GUID-3362B164-B426-4525-9A5F-A85DDEDD4C0F">.map.</span> This means that you can continue to use the "non-<span class="MenuCascade" id="GUID-AA69F3E3-8D14-445B-9ACB-E6DE9669538B">.map</span>" texture references in your scene file. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FF50817B-4785-4AA1-82D6-1AFCEF4E4378"></a></span>If you want to paint or retouch a manually created memory-mapped texture, you should
+                              give it a <span class="MenuCascade" id="GUID-5FABE085-43FE-48CB-AC91-BEC85CD4E9D2">.tga</span> or <span class="MenuCascade" id="GUID-05E0876B-8B13-4FF4-8A69-4EBC285DF07C">.pic</span> file extension until the image is finalized, then convert it to <span class="MenuCascade" id="GUID-0E3DC149-08AA-4CE8-B708-105033CCC5BE">.map</span> format. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div>
+               </div> 
+               <div><span class="anchor_wrapper"><a name="GUID-B5932DAA-DFEE-4A7F-94F2-5C034CF0DD4B"></a></span><div class="note-important"><span class="label">IMPORTANT:</span>A file that has been made mappable on a Windows platform cannot be copied to the Linux
+                     platform and vice-versa. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B8"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-336E75D8-3ADC-4DCB-ACEE-5489A7FAFADD"></a></span>To create a memory-mapped texture from the image clip viewer
+                  </h3> <span class="anchor_wrapper"><a name="GUID-7E6C8AC4-C3C6-4485-804D-84E00FE22EFC"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BB69F23F-3157-4872-BFAB-042AD60623AD"></a></span>Open the image clip viewer (choose <span class="MenuCascade" id="GUID-755E74D4-1838-4343-98BB-0D75EE039D9F">Views <img src="../images/ac.menuaro.gif"> Rendering/Texturing <img src="../images/ac.menuaro.gif"> Image Clip Viewer</span> from the main menu). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-02E8D6E9-0973-49DB-9695-FDCF89023CDC"></a></span>From the image clip viewer's menu, choose <span class="MenuCascade" id="GUID-BC171F0B-DDED-4304-9B23-7D55A63F7A95">File <img src="../images/ac.menuaro.gif"> Import</span>. A browser is displayed. Select the image to import and click OK. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FBDB94DE-C189-4051-95B3-8FF1CC6EEC07"></a></span>From the image clip viewer's command bar, choose <span class="MenuCascade" id="GUID-720EC501-870D-4741-B640-65CBE74D5C8D">File <img src="../images/ac.menuaro.gif"> Export</span>. In this browser, select a destination for the image, make sure that the <span class="MenuCascade" id="GUID-73A2C859-FC20-402F-9D23-F18AC95F829D">File Type</span> is set to <span class="MenuCascade" id="GUID-70622B07-FC14-4691-9287-BDD2FCB68B7D">.map</span>, and click OK. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00B9"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3826560C-0BCA-4F51-B0DC-449A3CFF84C8"></a></span>To create a memory-mapped texture from the flipbook
+                  </h3> <span class="anchor_wrapper"><a name="GUID-DEA0FFF3-05AD-4A76-9889-5301AC4D7158"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9A559586-E776-488E-9D66-6AB2A6BECBC6"></a></span>Open the flipbook by choosing <span class="MenuCascade" id="GUID-508F1BAA-642C-4111-8CF4-4431C665C2B3">Flipbook</span> from the Playback menu in the Playback panel. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A0AC3854-9DFD-4478-803D-71BF4848ADD7"></a></span>In the Open Images dialog box, select an image to open and click OK. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0442F0D9-C138-44A0-92CA-FB9587B28ACE"></a></span>From the flipbook's command bar, choose <span class="MenuCascade" id="GUID-A964EE67-B505-4EFF-9DC9-D24EF7D91904">File <img src="../images/ac.menuaro.gif"> Export</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D5902950-8F2B-41DE-940D-EB6980372057"></a></span>In the Export dialog box, save the image to the appropriate directory, making sure
+                           that the <span class="MenuCascade" id="GUID-08EAAE9C-C88B-4DA8-B4EE-D81094C8DE17">File Type</span> is set to <span class="MenuCascade" id="GUID-B6B63167-5C9C-4808-8601-C0D461F806E5">.map</span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00BA"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5ACA3222-DE54-452D-8297-44FE235DC0A4"></a></span>To create a memory-mapped texture using the imf_copy standalone
+                  </h3> <span class="anchor_wrapper"><a name="GUID-AC28EBDB-E052-47C4-83D2-4AA32DCC8333"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ACFF20B1-9DAF-4458-98C9-E33C31CF3D39"></a></span>Open a Autodesk Softimage command prompt. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-051BFCE1-99D4-4D5D-820C-95CED5358FF6"></a></span>Type the path of the folder where the file(s) that you want to convert are stored
+                           (for example: <span class="filePath">C:\projects\myproj\pictures</span>). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2B5F4BB6-8161-4AF7-8A4F-9370BBB7985B"></a></span>Do one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_5490EC15B2F1432FA76D40618DF5D809"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-0F846C60-91B6-4122-B6F8-29AE3BD4B5B1"></a></span>To convert a single image, type the following command (all on one line): 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E87E944B-F629-4CDC-871F-59FF2212FB7D"></a></span> <span class="code">imf_copy [-v] [-p] inimage outimage [outformat [outtype]]</span> 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D0486724-020E-4279-ACF1-187C46B9E0C4"></a></span>For more information about using imf_copy, type <span class="code">imf_copy -h</span> in the command prompt for command line usage or see <span class="char_link"><a href="standalones.htm">Standalones</a></span>. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-EC989E77-704D-4E59-9592-19EACC2EF464"></a></span>To batch convert multiple images in the same directory, type the following command
+                                 (Windows): 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DDD0B841-0048-417D-B1F0-DF1E158DA255"></a></span> <span class="code">for %i in ([informat]) do imf_copy [-v] [-p] %i %~ni.map</span> 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DF024446-BB73-4DF8-B962-FAD5DB576EA0"></a></span>For example, if you have a directory full of <span class="MenuCascade" id="GUID-7489F97C-41F2-44E5-AF82-F43E8B3AC39E">.pic</span>, <span class="MenuCascade" id="GUID-F6DA68E3-988F-4D7E-851D-223698E594F2">.tga</span>, and <span class="MenuCascade" id="GUID-B34B6171-0BD0-41E9-A7B2-7D9D2DAC82CA">.jpg</span> files that you want to convert, you would type (all on one line): 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-F6C8483E-9B4F-41A6-8428-DB79A90DC096"></a></span> <span class="code">for %i in (*.pic *.tga *.jpg) do imf_copy [-v] [-p] %i %~ni.map</span> 
+                              </p> 
+                              <div><span class="anchor_wrapper"><a name="GUID-BEF75C9D-0B75-4A5C-8EE8-86323B547805"></a></span><div class="note-tip"><span class="label">TIP:</span> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-53892116-17A7-48A2-A4B8-374B0490ED8D"></a></span>In both of the previous examples, the <span class="code">-p</span> option outputs the <span class="MenuCascade" id="GUID-B0539AFF-1A07-4C6D-8827-FF17F143913A">.map</span> file in pyramid-mapped format. Pyramid mapping pre-filters the texture into multiple
+                                       resolutions. At render time, the resolution appropriate to the texture's distance
+                                       from the camera is used. 
+                                    </p> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-7B13AC84-E8D6-4269-A9D9-038FB78ABA47"></a></span>This can speed up rendering, especially when the higher-resolutions of the texture
+                                       are not required. However, it does require more space to store the textures. If disk
+                                       space is a concern, you can use imf_copy without the <span class="code">-p</span> option to generate your <span class="MenuCascade" id="GUID-A5BDFDED-ACB3-4425-B203-0CD1F2D28E89">.map</span> files. 
+                                    </p> 
+                                 </div>
+                              </div> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00BB"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3926CCAA-1A5F-41DD-BE9D-BA498E46773E"></a></span>Updating the Scene File
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4911CD3D-E869-471E-8CCE-254ED201664C"></a></span>After manually converting your textures to <span class="MenuCascade" id="GUID-74CC6D1D-F36F-4DE6-8A69-7136DF2E9501">.map</span> files, you must update the scene file to reference these files instead of the original
+                     files. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-0B61031E-34CC-4EE1-9681-B9534AB7D699"></a></span><div class="note-note"><span class="label">NOTE:</span>Once you've updated your scene, working with the memory-mapped textures is the same
+                        as working with any other textures. You can still preview textures in Textured display
+                        mode and you can still see thumbnails of the <span class="MenuCascade" id="GUID-3FC3F5AB-6369-4204-AF98-9F67CCDED6B6">.map</span> files in the Image Clip property editor. 
+                     </div>
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00BC"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-9FE0A251-AFE4-4D68-BDC4-7B937B75526A"></a></span>To update the scene file
+                     </h4> <span class="anchor_wrapper"><a name="GUID-E57634F9-6214-45A8-852C-569DA11E6BD1"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3AF8650E-A2FF-4D42-B2D3-04DD95AC3012"></a></span>Load the scene and choose <span class="MenuCascade" id="GUID-D06A345D-4B2C-48F9-BC7E-6CF158796BC3">File <img src="../images/ac.menuaro.gif"> External Files</span> from the main menu. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-DF68E023-7D45-4358-9B56-F54A1BF8C87A"></a></span>In the External Files Manager, click the <span class="MenuCascade" id="GUID-2C728CDA-89FB-4385-9FB3-0E0791F5D20D">Search and Replace</span> button to open the Search and Replace dialog box. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9C76DD62-D9B4-4D5C-8417-2F267872D755"></a></span>Set the <span class="MenuCascade" id="GUID-E1B7D395-6511-43D4-9B44-D733023806F5">File Type</span> to <span class="MenuCascade" id="GUID-07E5C401-5781-48FC-8A88-FF135AF50817">Pictures</span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4DA23656-BCD6-4308-88D8-554FB097CEEE"></a></span>Using the <span class="MenuCascade" id="GUID-B8B885B9-6468-4A36-BD4E-6F4652C16381">String to Search</span> and <span class="MenuCascade" id="GUID-2D82D947-B725-46E6-8BDB-B11C13B8FECA">String to Replace</span> text boxes, search for each file format's extension (<span class="MenuCascade" id="GUID-A33066E6-10B0-4CE2-850E-C8B43DC77F43">.pic</span>, <span class="MenuCascade" id="GUID-3EBA76CD-732A-4EF8-9603-CB9F754A5A4A">.tga</span>, <span class="MenuCascade" id="GUID-8C990B1F-E4D5-4F3D-BCCC-87DA76ECB57B">.jpg</span>, and so on) and replace it with <span class="MenuCascade" id="GUID-3A4F30EE-C9B9-4D85-9FD7-20E6470C8B6E">.map</span>. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

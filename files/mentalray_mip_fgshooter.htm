@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-04E658F7-757A-4A3D-BD71-AA1B9B3DF03C">
+      <meta name="topic-type" content="concept">
+      <title>mip_fgshooter</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-04E658F7-757A-4A3D-BD71-AA1B9B3DF03C"></a></span><div class="head">
+            <h1>mip_fgshooter</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-22F148DB-8A1E-45D8-80EC-1F6B65166FC5"></a></span> <em class="strong">Category:</em> mental ray &gt; Lens
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8C973717-5EAE-4686-8D23-6E5B226F84B1"></a></span> <em class="strong">Shader Family:</em> Lens
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9F48BA3A-D1E2-4005-A6D0-F53DDA37DA36"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-688FFE2F-E351-4A84-8A2D-73BFFEA1FC2F"></a></span>This shader is used to shoot final gathering (FG) rays into the scene in a predefined
+               way. Without this shader, mental ray normally shoots eye rays through the camera into
+               the scene during the final gathering precomputation stage. FG points are calculated
+               in the scene based on the location caused by how these eye rays are shot.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6A77DF6A-3602-4BCF-8910-3803E7F29C50"></a></span>The advantage of this is that the density of FG points is related to image space,
+               and is therefore automatically adapted to exist in areas where the points are necessary.
+               On top of this is an adaptive calculation of the FG point density, creating the optimal
+               solution for the image.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5076F26E-27C0-4A55-9698-404CC8790D62"></a></span>However, when the camera moves during animation, the location of where FG points are
+               calculated actually moves along with the camera. In an animation, this can potentially
+               cause artifacts in certain situations, especially if the camera moves slowly or only
+               moves a little (such as in a small pan, dolly, tilt, truck, or crane move).
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-1A4C8D7B-A01F-4E99-AAC2-F98EB7703FC0"></a></span>The mip_fgshooter shader safeguards against these situations: it allows you to use
+               a fixed (or a set of fixed) transformation matrices as the root location from which
+               to shoot the eye rays that are used (during the final gather precomputation phase
+               only).
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B9EDF818-EC45-4240-BFEF-BD624048F16A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A2DFF7B5-C462-45D2-904F-9CE4CFEE4BCA">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F728125F-AE8A-4A1A-86C6-C5BAC0A62D6A"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-89AB094C-6678-4687-A4C1-DD3E494618C5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AE907D3D-22FD-4088-B159-8C5B6617201D">mode</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F7492C54-6F0E-474C-9379-3EC6A0829A3F"></a></span><p class="table-body">Defines how the matrix (or matrices) passed are displayed during the final gather
+                           prepass. Since the way in which it is displayed affects the adaptivity, this has some
+                           functional implications.
+                        </p> 
+                        <ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-37D8E5BD-CE9E-4FDF-B77C-37C5885A5745"></a></span>0 breaks the render into subframes, each containing the image as seen from a given
+                                 position. This requires a higher final gathering density to resolve the same number
+                                 of details, but gives the best adaptivity.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-566189C1-AF4B-4681-B1BF-19D31CB1627D"></a></span>1 stacks the different results on top of each other. This does not require any additional
+                                 density, but the final gathering adaptivity does not work as well.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2B63AB45-FE63-4A8C-B19F-6E92FE7E2D79"></a></span>2 works like 1, but only visibly displays one pass (but all the others are calculated
+                                 in exactly the same way).
+                              </p> 
+                           </li>
+                        </ul> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-17244968-5D69-4552-A1ED-C24911F42B68"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FD4A2D01-6A94-4200-8347-B49801F82AA1">trans</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-77A43A54-9A09-4A0D-BCC8-C8CBB747E2CC"></a></span><p class="table-body">Contains an array of transformation matrices, defining how the eye rays are shot during
+                           the final gather prepass. Instead of using the camera to calculate the eye rays, they
+                           are shot from the 0,0,0 point, mapping the screen plane to the unit square surrounding
+                           the point 0,0,-1, and then transformed by the passed matrix (or matrices) into world
+                           space.
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

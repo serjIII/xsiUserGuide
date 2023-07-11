@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-682853CB-42A3-4D22-A627-58C409C06DC3">
+      <meta name="indexterm" content="geometry shader objects: transforming">
+      <meta name="indexterm" content="geometry shader objects: applying materials">
+      <meta name="indexterm" content="geometry shader objects: applying textures">
+      <meta name="topic-type" content="concept">
+      <title>Working with Geometry Shaders</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-682853CB-42A3-4D22-A627-58C409C06DC3"></a></span><div class="head">
+            <h1>Working with Geometry Shaders</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-B61B6F09-DF95-42E5-8DF0-81DFEC3CE3B1"></a></span>Here are a few things to keep in mind when using geometry shaders.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEA9A5DAFCEB1FF4FBC7A002F1D6997F0-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ED753F91-DE0F-413C-A969-EA99B4C0E268"></a></span>Transforming Geometry Shader Objects
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-D1FE9B28-4FE1-436D-A8EF-FD3B4F908985"></a></span>The geometry shader object acts as a placeholder in your scene for the geometry created
+                  by the shader. Any scaling, rotation, and translation of the object is applied to
+                  the geometry before rendering.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEA9A5DAFCEB1FF4FBC7A002F1D6997F0-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-80916855-4896-40CC-A8A7-6F5CB6C5D6CA"></a></span>Applying Materials to Geometry Shader Objects
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-A14E3980-A224-4438-AA4B-4057AD2E7DFE"></a></span>You can apply any material to the geometry shader object; the object does not need
+                  to be branch-selected first. The material is automatically propagated to the geometry
+                  created by the shader.
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSEA9A5DAFCEB1FF4FBC7A002F1D6997F0-0013"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-04C9C747-CDE4-499A-8225-03E0E7ED298D"></a></span>Modifying Materials in the Render Tree
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-22FC3CD2-046B-4936-8235-3C1C6153D261"></a></span>If you select a geometry shader object and then open or update the render tree, the
+                     geometry shaders are displayed.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-09BED9A8-2B7B-4A71-A79F-6CF01FF64621"></a></span>To display and work with the material instead, choose it from the list box at the
+                     top.
+                  </p> 
+                  <div class="figure-anchor"><img src="../images/GUID-908FDC0A-D876-41C7-BB8D-E9FA7611D096-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-47C8F8DD-46B3-4C23-93C4-9E5D458A0CD7"></a></span>For more information on materials and the render tree in general, see <span class="char_link"><a href="mat_materials.htm">Materials</a></span> and <span class="char_link"><a href="mat_rendertree.htm">The Render Tree</a></span>.
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSEA9A5DAFCEB1FF4FBC7A002F1D6997F0-0015"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A961DB55-55AD-4A4F-A324-AB8C95442411"></a></span>Using Displacement with Geometry Shader Objects
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D7EB6592-9F35-4855-86BC-E0A4926EC8EB"></a></span>If you want to use displacement maps or shaders on a geometry shader object, then
+                     the geometry shader must set <span class="MenuCascade" id="GUID-D7C42BE9-384B-4B40-8633-4660F54CBE5A">max displace</span> to a non-zero value.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FA935761-3BB4-4D87-A198-AC9D5D69C573"></a></span>mental ray requires that an object that is displaced with a displacement shader must
+                     contain a max displace statement that specifies the maximum displacement of the object.
+                     For example, if the max displace value is 2.5, then no displacement shader may move
+                     the surface more than 2.5 units in any direction. Without max displace, mental ray
+                     will truncate any displacement to 0.0, actually disabling displacement.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BCB12E69-1B3B-4E42-9466-D18979453ACE"></a></span>Refer to the mental ray manual (available in the <span class="filePath">Doc\mental_ray</span> subfolder of the directory where Softimage is installed) for more information about
+                     max displace and other mental ray parameters.
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEA9A5DAFCEB1FF4FBC7A002F1D6997F0-0016"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A89F6768-8F57-4A13-9AB3-3753FAF9FB16"></a></span>Applying Textures to Geometry Shader Objects
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-F21FE9AC-FAC2-4647-9C09-897536AB60F6"></a></span>You can use only purely implicit texture projections with geometry shader objects.
+                  You cannot use texture control objects or edit texture UVs. For more information about
+                  purely implicit projections, see <span class="char_link"><a href="tex_basicproc_MakingProjectionsImplicit.htm#WSF3670244173DE845B36001FAA69DB62C-00A1">Creating Purely Implicit Projections</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>].
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-59EC9788-A411-449F-A924-620A30309DC8"></a></span>Alternatively, you can define the UVs in the geometry shader itself.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEA9A5DAFCEB1FF4FBC7A002F1D6997F0-0017"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F7DB350B-E326-41ED-AD2B-D3D10E454993"></a></span>Limitations of Geometry Shader Objects
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-59611432-7331-4E4A-A6AE-097E13C39B42"></a></span>There are some limitations of geometry shader objects:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EB4C67B8-AF93-4DDB-9653-D16AD9CA4BCC"></a></span>Output shaders do not work on geometry shader objects.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-104B68CB-E7F8-4EAB-989C-5CB365354EDE"></a></span>Because geometry shader objects have no geometry until render time, you cannot use
+                        them to create hair, emit particles, or perform other operations that depend on having
+                        a surface or geometry.
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

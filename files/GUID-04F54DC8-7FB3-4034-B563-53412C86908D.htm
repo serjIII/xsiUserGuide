@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-04F54DC8-7FB3-4034-B563-53412C86908D">
+      <meta name="indexterm" content="ICE simulations: subframe sampling">
+      <meta name="indexterm" content="subframe sampling: for ICE simulations">
+      <meta name="indexterm" content="substeps for ICE simulations">
+      <meta name="indexterm" content="subframe sampling: caching the data">
+      <meta name="indexterm" content="caching: subframe sampling data for ICE simulations">
+      <meta name="indexterm" content="cache manager: caching subframe sampling data for ICE simulations">
+      <meta name="indexterm" content="Cache on File node: caching subframe sampling data for ICE simulations">
+      <meta name="indexterm" content="subframe sampling: updating scenes and compounds to use">
+      <meta name="topic-type" content="concept">
+      <title>ICE Simulation Subframe Sampling</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-04F54DC8-7FB3-4034-B563-53412C86908D"></a></span><div class="head">
+            <h1>ICE Simulation Subframe Sampling</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-23B0091E-39B0-4DD0-AAC0-8B1DA9CF219E"></a></span>    
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-D1E5CA56-3385-4AF9-A378-C5E6AB77445E"></a></span>With certain types of ICE simulations, you may need to sample each frame more than
+            once, as is usually done. These are the most typical simulation situations in which
+            you need to increase the subframe sampling: 
+         </p><span class="anchor_wrapper"><a name="UL_B8498672D62B418BB333F329500AE685"></a></span><ul>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-6BA69D90-760B-472E-810D-DC566E72C534"></a></span>Particles being emitted or moving quickly from one frame to the next, especially in
+                  a nonlinear fashion. These objects move too quickly to be properly solved within the
+                  time of a single frame. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-5D720218-2CA2-46AC-B553-7277E34A87C3"></a></span>Particles being emitted from a deforming object. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-ACCA1174-163E-4A79-B2DA-615D0051966A"></a></span>Collisions with objects whose position or shape changes quickly from one frame to
+                  the next. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-CEF91FDE-B847-4F09-B02E-8A6684B47074"></a></span>There are many small-sized particles that require greater precision for collisions.
+                  
+               </p> 
+            </li>
+         </ul>
+         <p><span class="anchor_wrapper"><a name="GUID-47BC0C69-33EF-4F84-9EE9-CD25A8834087"></a></span>Subframe sampling determines how many times an ICE simulation is evaluated per frame.
+            Increasing the subframe samples can help make the simulation solving more accurate.
+            For example, with a fast-moving particle emitter, subframe sampling gives more accurate
+            data on the particle's position. Of course, the payment for increased subframe samples
+            is increased simulation time, so you need to balance the results of the effect that
+            you need to achieve versus the time that it requires. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-EDECCE21-8AD0-4DA6-B708-B3A1DA83260E"></a></span>To upgrade scenes and/or compounds that were created prior to Softimage 2012 to be
+            able to use subframe sampling, see <span class="char_link"><a href="GUID-04F54DC8-7FB3-4034-B563-53412C86908D.htm#GUID-4FD6C0AD-BDC7-4043-A796-1572B5B1ACB4">Updating Scenes and Compounds to Use Subframe Sampling</a></span> below. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-744DF792-4B2C-466B-B8C6-D1A13BB3556E"></a></span>In the image below, the Subframe Sampling value is 30. The particles are properly
+            emitted along the sphere emitter's path. The sphere travels very quickly in a nonlinear
+            path over 8 frames. Other particles are emitted upon collision. 
+         </p><img src="../images/GUID-9B7D2F67-F5DE-45B9-8EFF-10C8E24E77A6-low.png"><p><span class="anchor_wrapper"><a name="GUID-AC631F38-2F93-4D15-BC18-A11089015A21"></a></span>In the image below, the Subframe Sampling value is 1. You can see that the sphere
+            emits particles once at each frame, resulting in a very different look. The movement
+            over each frame is so quick that the collision doesn't have time to be calculated.
+            
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-754886E0-1FD6-47FE-A856-98108FD4B466"></a></span> <img src="../images/GUID-A870A3C8-691A-4321-8A04-B8798934F34E-low.png"> 
+         </p>
+         <div><span class="anchor_wrapper"><a name="GUID-ABF87817-E643-4B63-AA67-4B102A9631E5"></a></span><div class="note-note"><span class="label">NOTE:</span>Subframe sampling is not currently supported for non-ICE simulations (such as rigid
+               bodies, soft body, cloth, and non-ICE Syflex Cloth). 
+            </div>
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_5D4E0054358B444893362C64EB7EF16E"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-9816883A-E9C8-4D9E-9391-8F37CE044402"></a></span>Setting the Number of Subframes for a Simulation
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-A8460A06-13B4-469A-A21B-B620A50C391D"></a></span> Subframe sampling is done via the Simulation Settings property that automatically
+               gets created when you create a simulated ICE tree for an object. This property is
+               set on a per-object basis because the whole object must use the same subframe sampling
+               to get predictable results. This property is connected to a port on the EvolveOp operator
+               for the ICETree node. The EvolveOp reads the results of all the operators in the Simulation
+               region and keeps the previous evaluation in memory. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-6B5452A8-6F5E-44CB-8DC0-558B1D7C8F00"></a></span> You cannot currently adaptively change the number of subframe samples used for the
+               simulation, such as increasing them only when there are collisions or during a particle
+               emission. Only constant subframe sampling for the simulation is supported. 
+            </p> <span class="anchor_wrapper"><a name="OL_56E65FCB7B8F4DE0A395087B3462E8EB"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-62AD74DD-C454-4171-900F-9539B9E61AFA"></a></span>Create an ICE simulation (particles, rigid bodies, deformations, Lagoa, or Syflex
+                     ICE cloth/curve). 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1B3EFCDE-78C1-43AD-9215-0D7ED8DEB9F8"></a></span>From an explorer, click the node for the Simulation Settings property directly under
+                     the simulated object. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-08ECDBB2-B800-40E7-A65B-8F5831321377"></a></span> <img src="../images/GUID-88FE7039-230B-4EB6-B51B-A12FAE586AE4-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-199FAD30-B960-4D75-B806-65BD90EF7FD5"></a></span>In the Simulation Settings property editor, set the <span class="MenuCascade" id="GUID-9C53FFBE-8A34-4D7C-8E47-15C7E8A978A5">Subframe Sampling</span> value to be the number of times per frame that you want the simulation to be sampled.
+                     For example, if you set this to 10, each simulation frame is sampled 10 times. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8377B262-CD97-48F4-A32B-C00FA75D8590"></a></span>Start out with lower values, such as 2 or 3, testing the results as you go. It's best
+                     to use the lowest value possible that produces the results you want. For example,
+                     with Syflex ICE simulations you may need only a maximum of 4 or 5, or 10 as a maximum
+                     for Lagoa simulations, or 20 - 30 as maximum values for extremely fast-moving ICE
+                     particle emitters or deforming objects. 
+                  </p> 
+               </li>
+            </ol> <span class="anchor_wrapper"><a name="UL_E53537FCDF1144C0AD2994ED375E4A97"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ED1D12FA-61D2-4357-8DDE-587BDF3AE6BB"></a></span>Subframe sampling evaluation is done using whatever simulation operator (solver) is
+                     in the Simulation region. To get the best results, you must move simulated points
+                     with solvers that use time for the integration, such as the Simulate Particles or
+                     Lagoa Simulate Multiphysics nodes. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-996E0DCF-4A22-4531-82EE-01189DF73586"></a></span>If you set the Subframe Sampling value to be above 1, you may notice that of rate
+                     of particle emission changes. This is normal behavior because the emission rate is
+                     based on the number of particles emitted for each sample. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D3768E30-2899-4DCB-B745-A59B86B06911"></a></span>For example, let's say you emit 3 particles in one frame and you use 1 subframe sample
+                     per frame. If you then increase the subframe samples to 2, you need to emit 1 particle
+                     in the first sample and 2 particles in the second sample to match the results of using
+                     1 subframe sample. Basically, it is not possible to perfectly match the same number
+                     of particles using a constant value. 
+                  </p> 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0057"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-5205C723-F507-4D82-B243-251E039DA3FF"></a></span>Displaying Subframe Sample Data
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-384A09E9-8A15-401D-A060-54D358DBF86C"></a></span>You can visualize the <span class="MenuCascade" id="GUID-318C8BBD-1DF4-4564-9160-1579913A582F">Subframe Sampling</span> values by creating a display attribute property. In the <span class="char_link"><a href="UI_props_AttributeDisplay.htm">Attribute Display</a></span> property editor, set the Attribute value to <em class="strong">NbSubSamples</em>, and set the other options as you like. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-74ED6F0C-CDBF-4CB8-965D-6A3F46138457"></a></span>For information on how to create a display attribute property, see <span class="char_link"><a href="view_viewing_ChoosingWhattoDisplayin3DViews.htm#GUID-8CF9BBCD-6236-4BC6-BE91-DFDCD4D5D4D2">Displaying Attribute Values</a></span>. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-21D58977-05D1-42A9-8D39-7DF4FBF56337"></a></span> In this image, you can see that the Subframe Sampling value is set to 20. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-9D3B2299-E44C-4671-8A10-69E5BBCEF6DF"></a></span> <img src="../images/GUID-02B9DDB0-DE23-4DFF-852C-3FEBECFE7FF6-low.png"> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_89B26C496BD44AE6A889717905BE42F2"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-5E67126D-0B3E-4C93-ABB7-FC38E1C078BA"></a></span>Caching Subframe Sample Data
+            </h2>   
+            <p><span class="anchor_wrapper"><a name="GUID-F8561F23-D810-46DE-9E74-C3F58D548800"></a></span> When an ICE simulation is using subframes samples, you can cache the simulation frames
+               as "regular" frames or you can choose to cache the frames with the <span class="MenuCascade" id="GUID-14D86F3C-0B17-4A33-9705-6F4C36A60CD7">Subframe Sampling</span> value. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-D7A7ABE5-E161-4635-9497-63AB157B8DB4"></a></span>You can cache subframe samples using either the Cache Manager or the Cache on File
+               node: both ways are described here. 
+            </p> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_B0EC88C6BD694776A429A4867AE7A134"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-C2F9A91E-5C30-48C1-9240-12666C5940EE"></a></span>Caching Subframe Samples from the Cache Manager
+               </h3>  
+               <p><span class="anchor_wrapper"><a name="GUID-610F0EB3-28C5-4043-B7EB-4C15C0E0FB92"></a></span> <span class="anchor_wrapper"><a name="OL_E253B97B90E14457BE23AA22425698A3"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-95E10D9C-9703-40BE-900E-C3CEBCE1F6C6"></a></span>Open the ICE-simulated object's Simulation Settings property editor and set the <span class="MenuCascade" id="GUID-7BFB8910-21EE-414C-A981-976BCF7C1A92">Subframe Sampling</span> value, as described above. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-64D81791-40C5-4D4B-801D-187149EEA69B"></a></span>To cache the simulation using the current <span class="MenuCascade" id="GUID-154EB27E-1D53-4F39-92DF-4B3BADC82AFB">Subframe Sampling</span> value, select the <span class="MenuCascade" id="GUID-9DB914FE-4451-4399-839A-45DE3429C358">Cache Manager - Cache All Simulation Samples</span> option so that each subframe is saved in the cache file. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DB2AC3D0-E5AD-4A84-B6F6-4E05E08915E7"></a></span>If this option is off, the simulation frames are cached as whole, non-sampled frames.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AE3D2A37-904C-45E5-9066-6FC599640E7A"></a></span>Click the <span class="MenuCascade" id="GUID-32A344EC-83BB-4133-9405-000038D0BA06">Open Cache Manager</span> button to do just that, then write the ICE simulation to a cache file as described
+                           in <span class="char_link"><a href="sim_cache_PlottingSimulationorAnimationDataintoCacheFiles.htm">Writing Animation or Simulation Data to Cache Files</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0D7F2022-AF55-46DF-B37A-709A7CC867A4"></a></span>To load the cache file onto an object and the cache clip into the animation mixer,
+                           see <span class="char_link"><a href="sim_cache_LoadingtheCacheFileintotheAnimationMixer.htm#GUID-B17625AD-1B11-4AD9-9D7C-BF8215E4BEDD">Using Cache Files in the Animation Mixer</a></span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8F1C9BD5-7102-41DE-808C-8ED22B460270"></a></span>Each subframe is saved in the cache file, and the cache file is automatically scaled
+                           to match the speed of the original simulation. For example, if the simulation you
+                           cache is 8 frames long and the Subframe Sampling value is 20, then 160 subframes are
+                           actually saved in the cache file, as you can see with the values displayed on the
+                           cache clip below. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7C221178-4104-4557-ABED-7AE0163EA6F3"></a></span> <img src="../images/GUID-B5B13D9A-BEDB-44D5-B3F2-88D3FCB0F88C-low.png"> 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EF47821C-5C01-46BB-82EF-51069C99ED6F"></a></span>Using the subframe data, you can retime the cache file in the animation mixer with
+                           more precision than with full-frame caches. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4B8576BC-935E-492C-BD9C-0DAECC72CA55"></a></span>You can scale the timing of clips using the <span class="MenuCascade" id="GUID-E6E865F1-F4D2-4D28-9A77-8970687F5E1C">Scale</span> value in the Time Control property editor, or use the timewarp curve to adjust the
+                           simulation timing or reverse it. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2A865614-9B18-493B-9A97-BCD9A932E79D"></a></span>See <span class="char_link"><a href="animmixer_ScalingClips.htm">Scaling Clips</a></span> and <span class="char_link"><a href="animmixer_ChangingTimeRelationshipsTimewarps.htm">Changing Time Relationships (Timewarps)</a></span> for more information on these options. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_DED3B97B30BE4DEE9FD14E959CB9FDA0"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-D9539180-EF2B-4FCB-A5C3-1962A604202E"></a></span>Caching Subframe Samples with the Cache on File Node
+               </h3>  
+               <p><span class="anchor_wrapper"><a name="GUID-35DF9265-C4D7-4F39-B0EF-B3A40DA920FB"></a></span> <span class="anchor_wrapper"><a name="OL_B68172725BC24519981345D2C854A1A7"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1E5D9E37-EA3E-4B74-95C5-6CBF1C96620D"></a></span>Open the ICE-simulated object's Simulation Settings property editor and set the <span class="MenuCascade" id="GUID-DEF930E3-5B1A-4E4C-9FB8-77CE81603B8C">Subframe Sampling</span> value, as described above. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-598571A9-5DE5-40CC-9AF9-E07ED19A49C6"></a></span> Open the ICE Tree view for the simulated object and plug the Cache on File node in
+                           the simulated object's ICE tree. 
+                        </p> 
+                     </li>
+                     <li>Write the simulation to a cache file as described in <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#GUID-9236E1FD-A19E-462C-9836-BE4CFE62055D">Writing Cache Files in the ICE Tree</a></span>. Make sure to select the <span class="MenuCascade" id="GUID-31F70573-2AEC-4B6A-93B1-45727D7CBF13">All Simulation Samples</span> option in this property editor so that the subframe samples are cached. 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-52C00133-D8DD-411E-B9AF-F2D2F79865E3"></a></span>On another object (or the same one), set up the Cache on File node to read the cache
+                           file as described in <span class="char_link"><a href="ICE_cache_CachingICEDataandSimulations.htm#GUID-E87FBD33-1258-4E16-84BB-8E28A0FE0B06">Reading a Cache File in the ICE Tree</a></span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E6DE3F1A-BEC8-47F0-B4DB-DE1AE970B909"></a></span>Make sure to select the <span class="MenuCascade" id="GUID-10241D3F-05EB-4B45-BA4C-D8C1D11DEA9A">All Simulation Samples</span> option so that the cache file is automatically scaled to match the speed of the original
+                           simulation. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F304F7BF-16E8-429C-91AA-C2ED96B20460"></a></span>If this option is off when reading the cache file, every subframe is read as a regular
+                           frame so the simulation will be slower (if the number of subframe samples is greater
+                           than 1). 
+                        </p> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_08F057A8F66A490C889D4F521A3C9350"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-4FD6C0AD-BDC7-4043-A796-1572B5B1ACB4"></a></span>Updating Scenes and Compounds to Use Subframe Sampling
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-D6E668A2-134D-4CA4-BF72-54A71FE2928F"></a></span>In order to use subframe sampling for scenes and compounds from Softimage versions
+               previous to 2012, there are a few steps you must follow. In older ICE simulations,
+               the Simulation Settings property was not created and a previous version of the EvolveOp
+               operator (the operator used to compute things in the Simulation region) was used.
+               
+            </p> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_35439264365F4620B030005C1DD7BB86"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-61F3091C-2F6C-416F-8FF9-45D1BDBDE757"></a></span>Updating Older Scenes
+               </h3> 
+               <p><span class="anchor_wrapper"><a name="GUID-A7905E43-230D-4F77-B85D-EABA3D48280F"></a></span> To update a scene from a Softimage version that is previous to version 2012, follow
+                  these steps: 
+               </p> <span class="anchor_wrapper"><a name="OL_47B740309C6A4F51823C5161347DC7F6"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3BC63106-43AB-430D-B500-B053A21D0411"></a></span>Select the ICE-simulated object and open the ICE tree. In the construction stack on
+                        the right, you can see the current ICETree node in the Simulation region. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-75462578-9271-426C-84D9-08372D0CD849"></a></span> Move the ICETree node out of the Simulation region and into one of the regions below,
+                        such as Animation or Modeling. This is temporary. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-84EF9FE4-F934-4046-B78B-DCB9CD83B2D7"></a></span>Delete the Simulation region marker in the ICE construction stack. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1B399FA8-2472-46D2-A16A-B8A89E68A5CB"></a></span>Create a new simulated ICE tree so that a new Simulation region marker is created
+                        with a new ICETree node in it. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3037C51D-D683-43AA-BE54-8A50967B0B93"></a></span> <img src="../images/GUID-F8A55DE0-AFE8-4BEF-9E00-A89852757326-low.png"> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CF950B82-1AAE-495D-901E-C0F86706FCD0"></a></span>Delete the new ICETree node, then drag your original ICETree node back into the Simulation
+                        region. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4918E81A-DF04-40E7-98E4-5DFADAB9FEBB"></a></span> <img src="../images/GUID-B477FE8C-7D97-4148-A08B-41A152244D9D-low.png"> 
+                     </p> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-325A40EC-A6A6-4627-8F17-7BD59B88A7E5"></a></span>Now you've got the new EvolveOp operator and the Simulation Settings property for
+                  your ICE simulation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-87148B39-D568-4C60-9724-45D8C47B9E95"></a></span>Most of the ICE sample scenes, including Lagoa scenes, that used the Simulation Step
+                  node have been updated so that they can use subframe samples. 
+               </p> 
+            </div> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_AD859CBB79CC42C0A4160DE388EE1BEE"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-4080C4B2-39B0-451F-B991-74B5044B93F6"></a></span>Updating Older Compounds
+               </h3> 
+               <p><span class="anchor_wrapper"><a name="GUID-F8B4F4BB-C2C9-4991-BDC2-9D2A3C283687"></a></span> If you've created compounds using a Softimage version that is previous to 2012, you
+                  will probably need to update them if you want them to be able to use subframe samples
+                  with a value over 1: 
+               </p> <span class="anchor_wrapper"><a name="UL_928D040F412B4A118C0E39E9A8C8CCEB"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-10B3A283-00F5-4DF7-841A-FD6DA43D779D"></a></span>If your compounds are time-based, you don't need to update them. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F22B5AE1-0EC6-4713-993C-170A691DD9D2"></a></span>If your compounds are frame-based (they use the Simulation Step node), you need to
+                        update them with the <span class="char_link"><a href="iceref_Frame_Step.htm">Frame Step</a></span> node instead of the Simulation Step node. The Frame Step node can process subframes
+                        while the Simulation Step node doesn't. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-EDF16073-965B-4A19-AA95-C9BC4BC29962"></a></span>You can use the Compound Version Manager to check if the compounds use the latest
+                  version of the nodes (tagged "SubFrame Support") - choose <span class="MenuCascade" id="GUID-46B833C1-ECD5-4A73-AFEC-A9C9010A3FD8">Compounds <img src="../images/ac.menuaro.gif"> Compound Version Manager</span> in the ICE Tree view. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3DBE4B0F-19A7-442E-88AC-B3D66641E4CC"></a></span>See <span class="char_link"><a href="ICE_compounds_VersioningCompounds.htm">Versioning Compounds</a></span> for information on how to update the version of your compound. 
+               </p> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_5A7804500B2B4FA491C777FAC8D1A47D"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-9DE98F46-1C19-4D03-A2AC-09669051321E"></a></span>Updated Factory Nodes and Compounds
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-B14AF3C1-85D7-4BC9-816B-5DAB16CD0168"></a></span>The following factory ICE compounds that used the Simulation Step node have been updated
+               to use the Frame Step node to be able to handle Subframe Sampling values greater than
+               1: 
+            </p> <span class="anchor_wrapper"><a name="UL_6BF6AF70E2EE40C484868C2821DE183C"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-85FB81AE-4A59-4932-B968-0527DD78325E"></a></span> Apply Curl Noise 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-012BD28B-12BB-43D3-863A-411EBCA5CE78"></a></span>Convert Rate Per Second to Num Per Frame 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EE6E7022-B76A-4659-9451-CF1DDFE30F51"></a></span> Drag Force 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FABC3D55-219C-4D66-9326-2E963F4C0E5E"></a></span> Emit Blast 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1BAFD63A-96F2-4B3B-AE9B-D78DC5AB29B6"></a></span> Emit from Curve 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5AC33E66-83ED-4DD7-8C3A-56802B2B41AC"></a></span> Emit from Geometry 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DAD37136-44A8-45FE-8134-293CAAB571BA"></a></span>Emit from Position 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E517F64C-37B2-49EE-8D5B-21E20E659648"></a></span> Emit Splash from Surface Collision 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-612EB25C-F68F-4752-8202-5B4C1BE29CF8"></a></span> Emit Trail at Surface Intersection 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-50AD3079-CF55-47C4-8702-4E142FEAD5D0"></a></span>EvolveOp operator 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AE1747F3-792E-4F91-8EB0-325781FBF9B7"></a></span> Frames to Seconds 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B226D89C-2560-4066-90E7-ACD9EB550260"></a></span> Generate Points 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BAEF0D5E-121F-4791-94A3-E5D9B4268F96"></a></span> Lagoa compounds 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-028632AF-C3A7-478C-87E5-B912A771D3F4"></a></span> Seconds to Frames 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AED26911-BAB6-4BC3-8140-C1D04989D2AC"></a></span>Simulate Particles 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6ADA61E7-E5BE-49F0-A602-F8D54445257F"></a></span>Simulate Rigid Bodies 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8715BE2B-7BDC-4C65-9C85-CFD47CCDF2F7"></a></span>Simulate Bullet Rigid Bodies 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-62ABF862-B772-45F4-8738-DF20B8B1B0A5"></a></span>Simulation Step 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4D8B75A0-06A9-44DB-BFB8-5E2E5DAD2C07"></a></span> Test Should Drip 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-15F98059-110B-4566-8E5A-70052F3802F5"></a></span> Wind Force 
+                  </p> 
+               </li>
+            </ul> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

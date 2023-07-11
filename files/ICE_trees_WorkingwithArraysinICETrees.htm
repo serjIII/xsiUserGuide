@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6A521520-7EA6-4213-98D5-2C3EE04326F2">
+      <meta name="indexterm" content="ICE trees: arrays">
+      <meta name="topic-type" content="concept">
+      <title>Working with Arrays in ICE Trees</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6A521520-7EA6-4213-98D5-2C3EE04326F2"></a></span><div class="head">
+            <h1>Working with Arrays in ICE Trees</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-8F3EA62B-60AD-4271-9902-78E8AF2BEC66"></a></span>A data set may be composed of single values or arrays. An array is an ordered set
+               of values of the same data type. Among other things, arrays are used to implement
+               particle strands. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D87A6AA7-62DC-4CE2-AC44-47DFB2F43B2F"></a></span>Arrays are zero-based. This means that in an array of size 5, the first element has
+               index 0 and the last element has index 4. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-B83D8CA1-6128-4962-BD1A-ED87F7A9092A"></a></span><div class="note-note"><span class="label">NOTE:</span>The Build Array node has inputs called Value1, Value2, and so on, but these are just
+                  the names of the ports. The array indices are 0, 1, etc. 
+               </div>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-1A87010F-2C6F-4F3A-9814-D56D8A535DED"></a></span>Arrays may have different sizes for different members of the same data set. For example,
+               Get Closest Points may return a different number of locations for each position depending
+               on how many points are within the cutoff distance. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C4D310B1-690C-4609-A7D8-04F326C4B65A"></a></span>Many of the basic nodes support arrays in addition to single values, including nodes
+               in the Math and Conversion categories. There is also a set of nodes that allow building
+               and modifying arrays; for example, the Push On Array node adds a value at the end
+               of the array. There are also nodes that access array attributes such as the size of
+               the array, the average of the values, etc. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-EE0556B4-A18E-4C5A-B6A7-425EBA520F4A"></a></span>The nodes in the Array category are used to perform the standard array operations:
+               popping, pushing, removing, and so on. See the sections below for special notes on
+               specific nodes. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-006D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D221A404-EFC3-4031-9CA2-8EA8D9037D92"></a></span>Array Size
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-A8101087-EB35-42FD-ABE2-3D5DF5AD0930"></a></span>Arrays are dynamic — they automatically change size when you insert, remove, pop,
+                  or push items. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-54F4CA27-6EE0-4E39-A3A6-B6A9CAAD4799"></a></span>However, if you know the maximum size that the array will grow to in advance, you
+                  can improve performance by using the Reserve Array node to reserve memory for it,
+                  for example, in a separate ICE tree earlier in the construction stack that does not
+                  get re-evaluated during a simulation. You can also use Reserve Array to reserve additional
+                  memory for existing arrays. For example, if you are about to push four items into
+                  every array in a data set, it may be more efficient to reserve the memory first. Reserving
+                  memory does not change the size of arrays. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C9C75F92-1C83-4F99-9235-1400CB127E85"></a></span>The Resize Array node from differs Reserve Array in that it does change the array
+                  size. If the new size is larger, new elements are filled with default values. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-006E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F8234BF1-1E36-4933-83C7-B24AED9D085C"></a></span>Inserting into Arrays
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-AF0E758D-1083-4F1C-B8CB-BC8F0F91CBC3"></a></span>In addition to using the Insert in Array node to insert a value into an array, you
+                  can use it to insert an array into another array. This is like splicing one array
+                  inside another beginning at the specified index. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-006F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0B55D318-4746-446C-8EAE-D990EF10FD2F"></a></span>Selecting Items in Arrays
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-52255273-C05A-42D8-892B-B2D52D006B89"></a></span>The Select in Array node returns the item in an array at a specified index value.
+                  You can also connect an array of index values to return an array containing the specified
+                  items. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0070"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6333E13C-18D0-41D0-B70F-3460027737CC"></a></span>Sorting Items in Arrays
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CE069AB9-2679-4DAF-B138-DBB80644E6BF"></a></span>There are two nodes for sorting arrays: 
+               </p> <span class="anchor_wrapper"><a name="UL_20B1A275D06A4FE6BB38AC77757B5519"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9BB912C6-08BC-4280-9513-17317C7CE677"></a></span>Sort Array rearranges the items in the array in ascending or descending order. It
+                        uses the same criteria as the Compare node — see <span class="char_link"><a href="ICE_trees_WorkingwiththeMathNodes.htm#WSB74EE070EB80114199F4C921243896F3-0048">Comparing Values</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-649CE7E1-FF09-4877-9EE2-D48F74CDF1F4"></a></span>Sort Array with Key sorts one array based on another of the same size. It is similar
+                        to sorting the rows of a table or spreadsheet based on one of two columns — the other
+                        column is rearranged in the same way. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-B34E18B3-A35F-42DC-B002-3CC1BE59B746"></a></span>Note that you cannot sort arrays of locations or custom user data blobs. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0071"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D763077D-FD99-4886-86DD-F9108611572E"></a></span>Getting Array Indices
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3ADC78E4-B14F-4DE7-A0F5-C3EA42106E17"></a></span>The Get Array Sub Indices node simply returns an array of the integer indices used
+                  by another array. This is typically used with Sort Array with Key. For example, if
+                  you have an array of deformers and an array of point weights and you want to get the
+                  two deformers with the strongest influence, you can get the indices of the deformer
+                  array, sort it according to the point weight array (using descending order), and then
+                  return the first two indices. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0072"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-795E2B75-7CE4-4346-9737-6E5B8C435E9F"></a></span>Accessing Arrays at Invalid Indices
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-95BAAF43-65E2-4829-AD83-2D8A70C6E754"></a></span>If you use invalid index values with the array nodes, such as index values that are
+                  negative or that are greater than or equal to the array size, then the result is filtered.
+                  In some cases, for example when using Set in Array, this can result in the entire
+                  array being filtered for those elements in a data set. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0073"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1DFD3CD7-2BC4-44AB-9BBD-9A640F6C8493"></a></span>Combining Arrays and Non-arrays
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E7715F75-AF1B-4C70-AFE3-71268B309E54"></a></span>You can combine arrays with single values. For example, adding a single scalar value
+                  to an array of scalars adds the value to every item in the array. Similarly, muliplying
+                  an array of vectors by a scalar multiplies every vector in the array by the scalar.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0074"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-62B807A9-8E30-4707-BA12-8527F8E81158"></a></span>Operating on Multiple Arrays
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4ED8DC5C-9099-4784-8435-101F07124030"></a></span>When combining arrays using operators, for example, when adding, multiplying, or comparing
+                  arrays, the operation is performed item by item. For example, when adding two arrays,
+                  Value1[0] is added to Value2[0] to give Result[0], Value1[1] is added to Value2[1]
+                  to give Result[1], and so on. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F59517CE-F43F-4B05-9205-9038575E2446"></a></span>If the arrays are of different sizes, any "overflow" is filtered and the output is
+                  the same size as the smallest input array. The same is true for the If node when the
+                  Condition, If True, and If False inputs are arrays of different sizes, and for the
+                  Select Case node when its inputs are arrays of different sizes. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0075"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7575445C-03AD-44CA-BEAA-6958A098AC5B"></a></span>2D Arrays
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E2B58575-E975-4453-9FF2-056F5A128263"></a></span>The Array2d compounds mimic an array of subarrays. This category is available on the
+                  Tools tab of the preset manager 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-341654F9-F11C-4A85-989A-3C02E5D33CEA"></a></span>Internally, 2D arrays are implemented as two separate array attributes: 
+               </p> <span class="anchor_wrapper"><a name="UL_0FDB3F1DC5954F019D8C98953EADC1D0"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-942D4FD1-D095-4B0A-A0AF-88E4DEBBEBF7"></a></span> <span class="MenuCascade" id="GUID-07EBC739-7E48-4FE7-A01B-9FAF82E475BD">2darray</span> is a linear concatenation of all the subarrays. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-85382F4E-DD36-4A8A-B055-C9ED57237D03"></a></span> <span class="MenuCascade" id="GUID-B8DCAFA1-B628-4CAF-A397-2587674A7DDB">2darrayids</span> is an array of integers that stores the last index of each subarray in 2D array.
+                        
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-E94B7CC0-C001-459A-A084-9048F280F142"></a></span>If you use more than one 2D array on an object, you must rename these attributes in
+                  the Build 2D Array compound and make the corresponding name changes in the other compounds
+                  that work with 2D arrays. Otherwise, the different 2D arrays will overwrite each other.
+                  Apart from that, you can use the Array2d compounds without worrying about how they
+                  work internally. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6BC0128F-7323-47BA-A9C6-296B63EC7EDE"></a></span>The general workflow for 2D arrays is: 
+               </p> <span class="anchor_wrapper"><a name="GUID-389E6334-A0BA-4FA1-B640-32529E98457C"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BF9D7046-6C51-4282-9FE9-EBE9E4BE42F7"></a></span>Build standard arrays using the standard array nodes. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-31A899FF-485D-4FE4-BB78-C5CF82A537B9"></a></span>Assemble arrays into 2D arrays using <span class="char_link"><a href="iceref_Build_2D_Array.htm">Build 2D Array</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E0B2921F-60D9-4CD3-A1F4-2581FA8AE5C0"></a></span>To get and work with values from a 2D array, use <span class="char_link"><a href="iceref_Select_SubArray_in_2D_Array.htm">Select SubArray in 2D Array</a></span> and then use standard array nodes. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5F53BF5F-8E7C-485D-AA68-FC62E6D75D7E"></a></span>To change values in a 2D array, use <span class="char_link"><a href="iceref_Set_SubArray_in_2D_Array.htm">Set SubArray in 2D Array</a></span>. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

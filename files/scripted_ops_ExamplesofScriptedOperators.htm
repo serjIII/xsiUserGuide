@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-7CE4DEB8-5D8D-48A7-B42B-50E829A781F1">
+      <meta name="indexterm" content="scripted operators: examples">
+      <meta name="indexterm" content="scripted operators: editing on parameters">
+      <meta name="indexterm" content="scripted operators: creating on parameters">
+      <meta name="indexterm" content="scripted operators: editing on properties and objects">
+      <meta name="indexterm" content="scripted operators: creating on properties and objects">
+      <meta name="topic-type" content="concept">
+      <title>Examples of Scripted Operators</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-7CE4DEB8-5D8D-48A7-B42B-50E829A781F1"></a></span><div class="head">
+            <h1>Examples of Scripted Operators</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-58DCD412-0264-4D84-8C5D-F606DE287895"></a></span>This section provides a couple of simple examples that cover the basics of scripted
+               operators. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-005C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C145E534-E195-406C-A784-E83B2C826199"></a></span>Example 1: A Scripted Operator on Parameters
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-FD88C724-C274-4704-8986-5A2EFB1C4E3A"></a></span>The following example shows how to apply and edit a simple scripted operator on an
+                  object's position parameters. It covers making connections, setting output values,
+                  and using custom variables. The final operator places a sphere between two cones according
+                  to a weight variable. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-005D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5D6DCA58-1CD6-4377-B885-7D6868AF8AF8"></a></span>Start simple
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5575868A-AA1C-4EA0-B4B1-D69DDD36CC16"></a></span>The first part is to move the sphere between the cones in X. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-ADFE250A-0BD3-4F9B-B070-E1C14A4429E9"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0A22ACE2-9232-486E-8CE6-CDE72212B93A"></a></span>In a new scene, get two cones and a sphere. Move them around a bit. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-764C3733-C666-4DED-9EF8-A2F0A2D78CD9"></a></span>When the sphere is selected and the Translate tool is active, the sphere's position
+                           parameters are already marked. Choose <span class="MenuCascade" id="GUID-8B8B33A6-F190-4880-AD64-3138677CD500">Animation <img src="../images/ac.menuaro.gif"> Set Scripted Operator</span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-28DEE0BB-A0DA-4296-B2A5-8626A61C6FB7"></a></span>The scripted operator editor opens with a default operator on the first marked parameter,
+                           <span class="MenuCascade" id="GUID-BD0ABCCA-DBFD-40FE-8E1C-A63628E08E24">sphere.kine.local.posx.</span> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AC2B978B-A569-481E-BD08-4772B0068E44"></a></span>Create two new input connections on the cones' X positions. Rename the connections
+                           if you want. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-2338D353-033F-4DDF-BBAC-9D3381F200AB-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FD952988-6192-4902-88BE-07F336FE8066"></a></span>In the main editing pane, delete the default code and enter the following line: 
+                        </p> 
+                        <div class="codeBlock"><pre>
+	Out.Value = (InX0.Value + InX1.Value)/2</pre></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-570CAF7F-7601-4D88-AD6D-E6A23162BAC9"></a></span>Click <span class="MenuCascade" id="GUID-6A3BC1DC-31B3-4F20-B53B-827EEB1A2A98">Apply</span>, then move the cones about in X. The sphere stays midway between the cones in X.
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_4C87015FC9DF4FD283FEDFC97C5FDEB7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D1C50317-0E06-4952-A4C2-51608C07EACC"></a></span>Building it up
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C0564FEA-EB5B-4054-BB2C-D778287723CA"></a></span>Now that the operator is working in X, extend it to the other axes. 
+                  </p> <span class="anchor_wrapper"><a name="OL_360852721B3F48EFA66EC103A1D85A14"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F4DE19D1-E486-477E-B665-2E4CA6CD40C4"></a></span>Add output connections for the Y and Z positions of the sphere, and input parameters
+                           for the cones. Follow the same naming convention. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-5E9980B2-5B65-44B3-9533-9B2BBF46EC67-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-62C94867-C4E0-4314-9CF7-CBF515D1CC68"></a></span>Add the corresponding code to the main update routine. Remember that, since there
+                           are multiple output connections, you must test <span class="MenuCascade" id="GUID-7D9420F9-F07A-4CB2-8AF6-7104EFF4A177">Out.Name.</span> 
+                        </p> 
+                        <div class="codeBlock"><pre><span class="MenuCascade" id="GUID-39FDAC2B-5435-4455-981A-0D21C9C878FB">If Out.Name = "OutX" Then</span>
+		Out.Value = (InX0.Value + InX1.Value)/2
+	<span class="MenuCascade" id="GUID-C4422AE0-57F9-4C2C-8A35-B40917FBAADB">Elseif Out.Name = "OutY" Then</span><span class="MenuCascade" id="GUID-4EF8F690-BB05-41A6-B651-E02EA7B906C7">Out.Value = (InY0.Value + InY1.Value)/2</span><span class="MenuCascade" id="GUID-8BBA904A-4E3A-47B9-A129-CF555FF6EB07">Else</span><span class="MenuCascade" id="GUID-BB558ACF-5455-4D01-BFC2-BAD075A7BB3D">Out.Value = (InZ0.Value + InZ1.Value)/2</span><span class="MenuCascade" id="GUID-28C2DBEC-8078-4FEB-A5C1-7909B065FD58">End If</span></pre></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-81AED3AC-ED31-401A-B4FE-C5D7AA3344F6"></a></span>Click <span class="MenuCascade" id="GUID-04C60BA1-C70E-42CF-BDD1-654BF1B3CDD0">Apply</span> and move the cones around again. The sphere stays midway between the cones in all
+                           axes. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_BE7D0A7C3CEA42CD8DC5CFFFAB19E64F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-017BB7D4-0FC1-4A6C-BEF3-01C6F365F6A1"></a></span>Adding the finishing touch
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B7159690-F8D0-4493-9E49-05F703B558D5"></a></span>The last part is to add a variable for the weight and modify the code accordingly.
+                     
+                  </p> <span class="anchor_wrapper"><a name="OL_5D3BBCA0444D45B6BB2763BB2D45580A"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A762ED62-6D4D-4AD4-9F83-C9A5E86F096A"></a></span>Select <span class="MenuCascade" id="GUID-4914765F-4598-41AF-9231-A09E1F7DD74F">Variables</span> from the list in the upper left of the scripted operator editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AF8E3DF2-B5A9-432C-8D26-BAF50B8C8E69"></a></span>Click <span class="MenuCascade" id="GUID-11E055E5-8B4D-4F97-8ABF-B23E0F1EA89E">New</span>. Call the new variable <span class="MenuCascade" id="GUID-D4E9AA3F-AF34-4FC0-9418-CF874E47B83E">Weight</span> and set its default value to 0.5. Leave the other options as they are. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-DA0BB11C-030E-4D1E-AFDE-039017E03617-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C0D7D4D9-6A9D-4B4C-A448-81D229F46336"></a></span>Modify the main update routine for the weight: 
+                        </p> 
+                        <div class="codeBlock"><pre><span class="MenuCascade" id="GUID-932F51CE-715E-4564-99CB-67A821206AA7">dim wt
+	wt = In_UpdateContext.Parameters("Weight").Value</span>
+	If Out.Name = "OutX" Then
+		Out.Value = <span class="MenuCascade" id="GUID-2B900F24-9A14-435B-B441-B3229D9D10D2">InX0.Value*wt + InX1.Value*(1-wt)</span>
+	Elseif Out.Name = "OutY" Then
+		Out.Value = <span class="MenuCascade" id="GUID-8C0F18A2-3C1B-498B-B402-7807A80FE85A">InY0.Value*wt + InY1.Value*(1-wt)</span>
+	Else
+		Out.Value = <span class="MenuCascade" id="GUID-3A6EC11C-195D-464D-A9E1-F527585EB539">InZ0.Value*wt + InZ1.Value*(1-wt)</span>
+	End If</pre></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7C2E67B8-D61F-4AC5-AE9A-E8203CCA62C4"></a></span>Click Apply and move the cones around again. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BA69A797-DB6E-4C9B-AD87-F954CE5D3735"></a></span>Click <span class="MenuCascade" id="GUID-B336E10D-7826-47F4-9710-DFB129B0D034">Inspect</span>. A property editor opens showing the custom Weight parameter. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-941AA654-A0B1-4799-9A7C-71B59E757CAF"></a></span>Adjust the <span class="MenuCascade" id="GUID-46B35951-103A-4EE9-9E05-8D427F9E445F">Weight</span>. The sphere moves closer to one cone or the other. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0061"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-63BFCD5C-EBA5-4431-998A-0FF4100E5E0F"></a></span>Example 2: A Scripted Operator on an Object's Geometry
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-94D06FE2-5CF0-449D-A11F-3C6597192028"></a></span>This example is of a very basic deformation. It shows how to connect to an object's
+                  geometry, and how to get and set the positions of its points. The operator simply
+                  truncates the position of points that are below Y = 0. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0062"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6160640B-B63E-4875-8363-3ED06C5AACF0"></a></span>Connecting to an object's geometry
+                  </h3> <span class="anchor_wrapper"><a name="GUID-9809CF3F-C49F-4E04-90F4-E22E6FCA2F95"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-94E226C2-3DE6-4860-87E4-47A40019A4DB"></a></span>In a new scene, get a primitive surface sphere. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-391F50BB-1A3A-4AE0-A697-D2B7B7BFBEBE"></a></span>Click the <span class="MenuCascade" id="GUID-6C357735-AE4F-437E-BDC7-BF57AD756A04">Selection</span> button on the Select panel, then select the sphere's <span class="MenuCascade" id="GUID-5C828CD2-E90F-472E-BF99-1D9228194A42">NURBS Surface Mesh node</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3EFD0FBB-405B-4DE4-A312-BD9E9A7AD4DF"></a></span>Choose <span class="MenuCascade" id="GUID-D196FD42-6AA1-4747-AE54-23D225A942EB">Animation <img src="../images/ac.menuaro.gif"> Set Scripted Operator</span> from the Animation panel. The scripted operator editor opens with an output connection
+                           on <span class="MenuCascade" id="GUID-4C591041-75B4-406F-B035-48A589256594">sphere.srfmesh</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4C9997A6-4CB8-4C3D-8F5A-540254DED372"></a></span>Rename the output connection <span class="MenuCascade" id="GUID-1CFD4C9C-6F7B-4C99-B3AE-BEBC612AE5FA">OutGeom</span>, then add a new input connection called <span class="MenuCascade" id="GUID-8059E444-99CA-43A3-ABCD-99D3BBC0F3AB">InGeom</span> and connect it to <span class="MenuCascade" id="GUID-297C5C34-4146-4BBF-8333-0EC129DCFD97">sphere.srfmesh</span> as well. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-C618D445-E832-4D64-A8DB-93DC53820275-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D7EAEC15-0058-43CE-8345-706DEB183C30"></a></span>Enter the following lines for the main update routine: 
+                        </p> 
+                        <div class="codeBlock"><pre>
+' Get an array listing the positions of the points
+Dim pts
+pts = InGeom.Value.Geometry.Points.PositionArray
+
+' Loop through the array
+' If a point is below Y = 0, set it to Y = 0
+For i = 0 to UBound(pts,2)
+	If pts(1,i) &lt; 0 Then
+		pts(1,i) = 0
+	End If
+Next
+
+' Write the new positions to the output
+Out.Value.Geometry.Points.PositionArray = pts</pre></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-22230FB8-33F2-44E5-B8BB-E2206A1B46D0"></a></span>Click <span class="MenuCascade" id="GUID-351CE475-AB70-4A18-AFC5-21613B71878F">Apply</span>. The sphere's points are moved to its local Y = 0 position based on their position
+                           relative to its center. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DFE262D3-0DCA-469B-BA24-998458A56588"></a></span>If you move the object, the points are not affected. That's because the operator is
+                           affecting their local positions. For a persistent effect, you would need to convert
+                           the input positions to global coordinates, modify them, and convert them back to local
+                           coordinates before outputting. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-29835DAF-4794-4F64-8AB6-89123A674B4A"></a></span>Also, if you move the center after applying the operator, nothing changes because
+                           the Center operator is above the scripted operator in the stack. You need to reapply
+                           the operator to see the effect of moving the center. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

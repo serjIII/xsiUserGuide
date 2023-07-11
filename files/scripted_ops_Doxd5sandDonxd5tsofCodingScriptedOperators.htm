@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-A3C131BE-2BCA-4EFA-9C88-8246B8C4FFCD">
+      <meta name="indexterm" content="scripted operators: tips and tricks">
+      <meta name="indexterm" content="scripted operators: restrictions">
+      <meta name="indexterm" content="scripted operators: helper routines">
+      <meta name="indexterm" content="name collisions, scripted operators">
+      <meta name="indexterm" content="scripted operators: name collisions">
+      <meta name="indexterm" content="VBScript: with scripted operators">
+      <meta name="indexterm" content="JScript: with scripted operators">
+      <meta name="indexterm" content="scripted operators: scripting languages">
+      <meta name="indexterm" content="scripting languages: for scripted operators">
+      <meta name="indexterm" content="scripted operators: global variables">
+      <meta name="indexterm" content="global variables: in scripted operators">
+      <meta name="indexterm" content="scripted operators: combining with constraints">
+      <meta name="indexterm" content="constraints: combining with scripted operators">
+      <meta name="indexterm" content="expressions: combining with scripted operators">
+      <meta name="indexterm" content="keyframes: combining with scripted operators">
+      <meta name="indexterm" content="function curves: combining with scripted operators">
+      <meta name="indexterm" content="scripted operators: combining with fcurves and expressions">
+      <meta name="topic-type" content="concept">
+      <title>Do's and Don'ts of Coding Scripted Operators</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-A3C131BE-2BCA-4EFA-9C88-8246B8C4FFCD"></a></span><div class="head">
+            <h1>Do's and Don'ts of Coding Scripted Operators</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-C4831695-745E-4C1E-B9A9-34FFA9C7FEAC"></a></span>When writing the code of scripted operators, there are several specific issues to
+               be aware of. These issues are described below.
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-5F11A32A-4135-4EE4-9A06-3FB7D92FF6B3"></a></span><div class="note-note"><span class="label">NOTE:</span>The script engine does not recognize numeric constants that use a comma as a decimal
+                  separator. Make sure that your operating system settings are configured to use a period
+                  as a decimal separator.
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0066"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3C487F8C-3667-4C56-8147-182F372EBFD4"></a></span>Restrictions on Scripted Operator Code
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-13276168-19B5-4BDC-A1B2-B9B43BE65BD5"></a></span>Scripted operator code has a few restrictions:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1CEB21E7-1332-469C-A234-37A43C0AECF1"></a></span>You can only use object model statements. You cannot use scripting commands.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-611DE35A-3E8B-460A-9F98-5B2B6D1F53EC"></a></span>You are restricted to a subset of methods and properties. These are specially marked
+                        in the Scripting Reference section of the SDK Guide.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2D7670B8-152F-485F-9761-D1C298CE8A6C"></a></span>You can only access data for which you have explicitly created a connection.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4D96E615-2BC0-4F62-9DED-6375E35EB9E1"></a></span>In general, you cannot do anything that may cause an evaluation cycle. This includes
+                        getting the value of a parameter at another frame.
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0067"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A8DB4D0C-F433-43E7-A347-39687D80E1D4"></a></span>Subroutines, Variables, and Name Collisions
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-C0885154-A0E1-4C3D-9A61-A1B723605D72"></a></span>You can use the bottom pane of the scripted operator editor to write subroutines that
+                  hold global variables. These subroutines are helper functions you can use to organize
+                  your code. You can call them multiple times from your main update routine or from
+                  other subroutines.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9DADAAC6-D278-4CDE-BF3C-B21A84125CDD"></a></span>However, for reasons of speed and efficiency, Softimage maintains only one instance
+                  of the scripting engine per language for all scripted operators. This means that if
+                  two subroutines or variables in different operators have the same name, then whichever
+                  was parsed or set last will be used for both. This is called <em class="mild">name collision</em> and can cause incorrect updates or broken operators.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-824D41E0-4AA2-4059-876F-90AE48AE09D3"></a></span>To avoid problems, it's a good idea to prepend your names with a distinctive identifier
+                  such as your initials and/or an operator-specific prefix, particularly if you are
+                  working with multiple operators, merging scenes, or sharing files with other users.
+                  For example:
+               </p> 
+               <div class="codeBlock"><pre>
+me_MyDeform_CalculateVals(i_par1, i_par2, o_par)</pre></div> 
+               <div><span class="anchor_wrapper"><a name="GUID-3D4F13DD-0FCB-4C5A-942D-C6AEEEF4AD0B"></a></span><div class="note-note"><span class="label">NOTE:</span>There is no problem with name collisions between the main update routines because
+                     the names are remapped internally to unique values. This is why the first and last
+                     lines of the main update routine are read-only.
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0068"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DAE9FCE4-3090-4A43-9F78-041CC787FFA3"></a></span>Mixing Scripting Languages
+               </h2>     
+               <p><span class="anchor_wrapper"><a name="GUID-9A1627E1-053C-44F1-935D-2A94E730046A"></a></span>Different scripted operators can be written in different scripting languages in the
+                  same scene. However, you can use only one language within the same scripted operator.
+                  The language that is used to parse a particular scripted operator is the language
+                  that is set on the <span class="MenuCascade" id="GUID-8B20A74E-2F14-42BF-B26A-8F53A8F76458">Scripting</span> page in the <span class="MenuCascade" id="GUID-1FD462D3-4460-4D2F-99FB-A87E84FA0279">Preferences</span> window when the scripted operator is first created.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0069"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B4E29BBC-80AF-4131-8AF2-4B5A9AB8D51B"></a></span>Using Global Script Variables
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-47AF9DB8-70F2-4080-AEE4-A6886975CDEA"></a></span>You can declare scripting variables that are global to your scripted operator in the
+                  bottom pane of the editor. However these variables are available only when your scripted
+                  operator is called to update its output connections, so you can't, for example, use
+                  them in expressions and so on.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CC1F063D-E230-4C1F-B090-38B090948C7D"></a></span>In addition, you may experience problems with name collisions as described in <span class="char_link"><a href="scripted_ops_Doxd5sandDonxd5tsofCodingScriptedOperators.htm#WSF9298584C75F6742BEB150C3C0A6A3BC-0067">Subroutines, Variables, and Name Collisions</a></span>. If you need to use persistent data, it may be better to create a custom variable
+                  for your scripted operator as described in <span class="char_link"><a href="scripted_ops_Variables.htm#WSF9298584C75F6742BEB150C3C0A6A3BC-0041">Adding New Variables</a></span> and make it read-only. You can still set the value of a read-only custom variable
+                  through script commands.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-006A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-461C7E6C-0646-4B92-B316-41ADC8FCA9A6"></a></span>Combining Scripted Operators and Constraints
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-5490AB6E-8870-4C3F-BB82-E66719EC0253"></a></span>Like expressions, scripted operators are evaluated before constraints on the same
+                  object. If you use the value of a constrained parameter in a scripted operator, you
+                  may not get the results you wanted.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D66CA0F7-6C06-4B6F-A013-912F5628130D"></a></span>For example, suppose you want to write a scripted operator to control an object's
+                  orientation based on its position; if the object has a path constraint, the orientation
+                  is evaluated before the position is updated at each frame so the operator uses stale
+                  values.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-35F6203D-7C3C-4484-8839-7FB54B7BCF0A"></a></span>To achieve the desired result, constrain an intermediate object like a null to the
+                  path, then constrain the object's position to the null. When calculating the new orientation,
+                  use the null's position instead of the object's position.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-006B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8F1FF102-ADEC-4916-8C60-061E536C7B0A"></a></span>Combining Scripted Operators and Other Animation
+               </h2>     
+               <p><span class="anchor_wrapper"><a name="GUID-392019B2-2116-4BE4-83A1-082FF16C86F7"></a></span>You can combine scripted operators with other animation, such as keys and expressions.
+                  However, if you make a specific parameter both an input and output connection of an
+                  operator and then later animate the parameter, the input connection will retrieve
+                  the parameter value from the function curve or expression before it has been updated
+                  for the current frame.
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-59CB2C7A-BE6E-4EC3-AB99-B3FA04ABE6D2"></a></span> <span class="MenuCascade" id="GUID-51853A41-5606-4564-B063-930C86AA5F06">To solve this problem</span>, reapply the scripted operator after you have defined the other animation.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F5E68D7B-C128-46D7-9A69-B718DD6A83E5"></a></span> <span class="MenuCascade" id="GUID-6F3BBC72-543B-4BE8-B066-F3DA35FB3F52">To avoid the problem</span>, create an expression or set a key on the parameter before applying a scripted operator.
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-006C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7BF004A7-6842-4128-BA5B-E48357A01AAB"></a></span>Using Enumerated Values in Scripted Operators
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-740EFD01-0217-4609-8B25-CD188DCAF3F5"></a></span>Enumerated values defined in the object model are not evaluated properly in scripted
+                  operator. Therefore, you should use the integer value directly.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-613A8D78-38CD-4DEE-88F8-96E11CD7C7FA"></a></span>For example, use this:
+               </p> 
+               <div class="codeBlock"><pre>
+LogMessage "Closed in U: " &amp; bClosed(0)(0)
+LogMessage "Closed in V: " &amp; bClosed(1)(0)</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-B3A3BCCE-FBD8-46C0-B1E2-504358D58FC0"></a></span>Instead of this:
+               </p> 
+               <div class="codeBlock"><pre>
+LogMessage "Closed in U: " &amp; bClosed(siUDirection)(0)
+LogMessage "Closed in V: " &amp; bClosed(siVDirection)(0)</pre></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

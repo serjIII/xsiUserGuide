@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-AAF858C9-9113-4FB4-8F48-932BDED9C22E">
+      <meta name="topic-type" content="concept">
+      <title>mip_matteshadow</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-AAF858C9-9113-4FB4-8F48-932BDED9C22E"></a></span><div class="head">
+            <h1>mip_matteshadow</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-6DFAFF11-F942-4A66-9A2F-71841EFD1309"></a></span> <em class="strong">Category:</em> mental ray &gt; Materials
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D24A76FE-3CA8-40F5-82AF-2875F09459AF"></a></span> <em class="strong">Shader Family:</em> Surface Material
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5A4B26DB-3BC1-42A3-90F0-5FF989486DD9"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-939AB168-7F15-407A-BFED-86C263E44334"></a></span> <span class="MenuCascade" id="GUID-190FBD5B-9C0A-4D4C-ADF1-FE53ADC9F6F6">Related Softimage shader:</span> <span class="char_link"><a href="mat-mentalimages_shaders_MatteShadow.htm">Matte Shadow (mip)</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-08ED376C-E83D-4F32-9116-42BAE760D54F"></a></span>Often you want to include synthetic objects into an existing photographic background
+               plate filled with real world objects. For example, adding a yet-to-be-constructed
+               building into an empty lot, adding a virtual car onto a road, or having a virtual
+               character walk through a scene and realistically interact with objects in the real
+               world scene. In general, the term "synthetic" refers to additional objects to be inserted
+               in the scene, and "real world" refers to objects that are already there.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-ADDC72AE-8827-45AD-AB41-BB387AC101D2"></a></span>Two main shaders exist to facilitate this work: the Camera Map (<span class="char_link"><a href="mentalray_mip_cameramap.htm">mip_cameramap</a></span>) shader which "projects" an image from the camera onto geometry, and the Matte Shadow
+               (mip_Matte_Shadow) shader which takes care of generating hold-out mattes, as well
+               as allowing the real world objects in the photographic plate to both cast and receive
+               shadows, as well as receive reflections and indirect light.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5AB4A7A4-FAF7-4AB2-A8D2-25AEBBD66A2F"></a></span>The Matte Shadow shader is used to create "matte objects" (objects that are used to
+               represent existing real world objects in a photographic plate) for the following purposes:
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F20E8370-727A-43AC-9397-F2C8021EA6B7"></a></span>Blocking another synthetic object from the camera's view (to allow the synthetic objects
+                     to go behind the real world object).
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4C0DE553-632E-4249-B4B5-841B6B4940A8"></a></span>Allowing synthetic objects to cast shadows, occlude, and receive shadows from the
+                     real world objects.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8B349B35-40F3-4E84-9191-839FCA5EF05F"></a></span>Adding reflections of synthetic objects onto real world objects.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7D175C5E-7088-4EEC-9502-CF10DDEA9374"></a></span>Allowing the interplay of indirect light between synthetic and real world objects.
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-A9563A1F-6C6A-4A5A-B4E3-939899004310"></a></span>In all the above mentioned cases, the Matte Shadow shader is applied to an object
+               representing the real world object, and the synthetic object uses a traditional material.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0296BE1B-434B-4195-99C3-137A51C80871"></a></span>This shader can also function as a "shadows only" shader which only shows how much
+               in shadow a point is compared to the incoming light, but ignoring the actual amount
+               of incoming light itself (only the occluded percentage of it).
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-575E19ED-6CDA-42D4-BA5B-A4FE62928C33"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1D550BA6-C388-4F35-B634-A43D8FA1B38E">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F7B88484-CE36-4649-8D86-AADA6A94D9D6"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2C61C28F-07FF-4627-9397-02D4D527FED1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FCD2E201-6198-4174-8DB0-254BAAE402F5">background</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0ED264A4-EBFB-4D87-9C2E-C510F567F2FD"></a></span><p class="table-body">The background color. If neither of the catch_xxx options are on, this result is simply
+                           returned, including its alpha, and the shader does nothing. Otherwise it is the base
+                           color upon which all the other operations occur. When using external compositing this
+                           is generally transparent black (0 0 0 0), otherwise you would use the real world background
+                           plate mapped with the <span class="char_link"><a href="mentalray_mip_cameramap.htm">mip_cameramap</a></span> shader.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C5B76E1B-5721-47DB-9EFB-451C4A062C02"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7B639ED1-4113-4316-B3DA-E3F70BE480FF">catch_shadows</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C3DE59E6-BBC5-452F-9A44-4A996AE43053"></a></span><p class="table-body">When enabled, allows other objects to cast shadows on this object.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2A4FBD57-EA1E-4ED6-B51E-F488E0AC8365"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-670C6E30-1B94-4581-B29D-2F6F3D1A6470">shadows</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3826DA4D-4800-4150-A5F3-27328C3FE565"></a></span><p class="table-body">The color of the shadows. When shadows are detected, a blend between background and
+                           shadows is performed depending on how much "in shadow" the point is.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8B4E6818-0BF9-4DAB-9CD2-AB91C876768D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-50239BA2-D0D4-4040-BFF7-0E0457DB66FA">ambient</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7D9DCF32-8982-45FE-A4A8-700814046E95"></a></span><p class="table-body">Sets a "base light level" by raising the lowest "in shadow" level. For example, if
+                           this is 0.2, 0.2, 0.2 the darkest shadow produced will be a 20 percent blend of background
+                           to a 80 percent blend of shadow (unless ambient occlusion is enabled).
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E7E0BAC8-77BE-4F04-9559-25BAC62598D8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2CFBA254-8C0E-4CD4-85DE-016B754FD4DB">no_self_shadows</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9099E9B3-6146-4011-97A9-EF2EF618CCA0"></a></span><p class="table-body">When enabled, causes objects using the Matte Shadow shader not to receive shadows
+                           from any other such object.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E2AEA575-A074-4B8D-BEAA-BC328D99E4E9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B2157BFA-D62E-4B9A-B503-F916AA45CC63">use_dot_nl</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F4261690-18CA-4AB2-80EB-06F406782B49"></a></span><p class="table-body">Specifies whether or not the angle to the light is considered when calculating the
+                           incoming amount of light.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-87ADC963-83F8-444C-B0E2-5DF27F116FB9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E9DF9175-1FFB-46D7-9AD0-625A731C566F">colored_shadows</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EFB3722F-0A23-4D92-8A8B-FE8BC4D56042"></a></span><p class="table-body">If the Shadow Coloring Factor is 0.0, all shadows are cast in grayscale. If it is
+                           set to 1.0, the shadows have full color. For example, if the surface is lit by one
+                           red and one green light, the red light will have a green shadow, and the green light
+                           will have a red shadow.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-83AC2CCD-3815-4552-A870-7D4C4BDE8445"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-69900225-8D1E-4A75-9CE5-050339D623B2">ao_on</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6C73210A-91A6-4B33-8CF1-221936C93965"></a></span><p class="table-body">When enabled, a built-in ambient occlusion is applied. The ambient occlusion respects
+                           the No Self-Shadowing option and will not cause ambient occlusion from objects with
+                           the same material as itself.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8C450CA1-A497-4FCA-9E98-8F36AF8BE8F0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-759E8948-50E8-4815-A8D4-27E5B61CE44D">ao_dark</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CF98E014-58B6-4EF5-B77B-4A089CBA2E47"></a></span><p class="table-body">Specifies how dark the AO shadows will be. The default black is generally adequate,
+                           but a lighter color will cause a less pronounced shading effect.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-930EE2EB-7DD2-4D43-8975-AD715C60AF3E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6DBD4E51-3856-4112-BB5C-407DEAF70537">ao_samples</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BB54902E-6E43-42B9-9030-2DEA95C8A080"></a></span><p class="table-body">The number of ambient occlusion rays that are shot into the scene.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EF28AA72-B3B1-4A0E-B284-EDB32E78D9B3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-482B4820-90AA-4E9F-B0CA-8F9D6EBBA245">ao_distance</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CF74EAF2-E14A-4A74-964A-A2D368197B89"></a></span><p class="table-body">Sets an upper limit on the distance ambient occlusion rays can travel. If the value
+                           is set to zero, the rays reach infinitely far (no limit). Short rays increase performance
+                           dramatically, but localize the ambient occlusion effect.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-74849A2A-3516-41AC-9530-DD29B343464D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7D74DDED-3478-4D9A-A917-A061465A57EB">catch_reflections</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DD72BC66-7999-42E9-8726-BF6B131686A1"></a></span><p class="table-body">Enables reflections.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0876B569-E837-4533-8B7F-4BD265074412"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8D1D0025-F35A-4737-9AAF-1097A613ED70">refl_color</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DF300FE4-AAF7-4655-984F-58B3356E5DEC"></a></span><p class="table-body">A multiplier for reflections. Note that the alpha value of this color is important
+                           in that the reflections will influence the alpha by this amount. In some cases the
+                           reflections may need to be subtractive, in which case <span class="MenuCascade" id="GUID-92B76337-6F86-4891-83FD-9EE9B316F6E3">refl_subtractive</span> is used.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-70283680-1436-4B33-AFCB-084AAED190B5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-19932DF6-8347-4BEB-9A46-A801357A392F">refl_subtractive</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FB483774-1022-44DC-9D16-8A8C890DF022"></a></span><p class="table-body">Subtractive reflection color.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0D8D480B-FBD0-4A87-BFF3-D63453666455"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A7288B1B-167F-441B-91AE-79FD0E40470F">refl_samples</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FE0BB87A-D723-4BAD-91A2-38EB407C2594"></a></span><p class="table-body">Sets the number of glossy reflection samples. If it is set to zero, mirror reflections
+                           are used.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9B7C2DFF-0C3F-4F2E-BB19-2BD2F48AD636"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C4EF842A-F337-473D-BAD4-38B3E174F450">refl_glossiness</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-91604F6C-99FE-4EF0-B012-5297001BA949"></a></span><p class="table-body">Sets a Ward glossiness for reflections.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1F8ED1A0-6CB9-4FE3-822C-C1FAB5445B1F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-287FC411-768C-4014-8B31-71D92EDA712F">refl_max_dist</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E6D885CA-E0FB-4E8A-ABE2-ED2463B4DDD8"></a></span><p class="table-body">Limits the reach of glossy reflection rays.</p> <span class="anchor_wrapper"><a name="GUID-BAF461E1-9B02-4300-A65D-900DABE9155F"></a></span><p class="table-body">If the maximum distance is set to 0.0, the reach of the glossy reflection rays is
+                           infinite. For values greater than 0.0, the reach of the glossy reflection rays is
+                           limited to this distance, and the color of the reflection is faded toward the environment
+                           color as the length of the ray approaches this distance.
+                        </p> <span class="anchor_wrapper"><a name="GUID-5D44947D-1912-467F-8B26-2585EB21C6B6"></a></span><p class="table-body">Use Maximum Distance to improve performance and reduce excessive noise caused by high-contrast
+                           objects in the distance.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BCDBC5B6-92E3-4F25-8C78-DFE768DD7BFF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D3928B46-1DE1-42BB-B40A-CDA0BF254FCA">refl_falloff</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7493FD87-BB33-48D5-AA34-EC66C81092D7"></a></span><p class="table-body">The rate for fading into the environment. The default of 2.0 means that the falloff
+                           is by distance squared. A value of 3.0 means distance cubed, and so on. This parameter
+                           has no effect if Maximum Distance is 0.0.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1AE69207-BFBB-44AD-8644-3725A51E1E7C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F921FC27-F293-4B00-B2BB-3ACD5F3A77F4">catch_indirect</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3EC77FBF-31AA-4301-B3E6-8B6430FA9D21"></a></span><p class="table-body">When on, indirect light is gathered and scaled by the indirect color (which one generally
+                           sets to the same as the background color, thereby treating the background color as
+                           a reflectance value for the indirect light).
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9173E6BC-49A4-48E1-8E8A-38AC0EF7390D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DA14FB68-2CD1-4244-8A3E-03BC2A1AF812">indirect</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7097D90F-ACA9-45E7-918B-0C4A6C3A8EA6"></a></span><p class="table-body">The indirect light color.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0F8A3788-8E9B-41FA-A557-C21B6002CD29"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9BDC2CB7-C805-4B2D-BD26-8F45EF7265B5">multiple_outputs</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3B9751EF-B023-4570-8A1A-053E2D6AAE4C"></a></span><p class="table-body">When on, the shader writes to the multiple output ports. When off, the shader only
+                           writes to the main "result" output port.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EE620E5B-6C92-4396-A768-153D067B4845"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-03A68065-DCD5-49A0-B4F1-BFC2BF96DAF1">catch_illuminators</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-79F0CBCF-A296-4B60-B0CE-0FF050F57F39"></a></span><p class="table-body">Enables the use of illuminators to light the scene.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS46CC01C21B33B846AC1E286D6380C7F6-006B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9B8CEB46-AD0B-475E-9ECC-F692AF95CDFA"></a></span>Illuminators
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-77591253-4EC7-4F35-899F-36E8E0A76FFD"></a></span>Creates an illuminators list to specifiy which lights should produce the effect.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E0A85AF7-4540-4176-95D7-1596DE294606"></a></span>Note that the difference between lights and illuminators is that the lights are only
+                  used to cause shadows on the background, whereas the illuminators are used to throw
+                  actual light on it. This means that the lights list should contain lights that are
+                  already present in the background plate, and the illuminators list contains any additional
+                  lights introduced by a CG element, such as the headlights of a CG car.
+               </p> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-66A4420F-3668-46B6-B8D3-645CE402FFC7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BCE53F84-A72F-4B80-A87E-9230A715EE29">Add</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6830E831-6E93-41BC-8F6F-C0CF85A6516A"></a></span><p class="table-body">Adds a light Item to the list.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6CF485D1-D79E-4361-B47A-A2E16D674BC4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4E80EFCA-33F3-467B-9BAC-F90E2B84126C">Clear</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2F43B00E-ED9B-40F0-A8A4-966F75F96C83"></a></span><p class="table-body">Removes all light Items from the list.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EFFBD8A7-932A-4844-8A34-7162EAB8D332"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D06301D5-3EA6-4B20-A0EB-F77743AE6DD5">Item</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8BCC5BA9-F999-4A7F-B25F-3F6376F971EA"></a></span><p class="table-body">An Item port (parameter) representing a single light in the list.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D8C3E756-CF69-4046-A029-134CA4173180"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3C6A8AC5-2906-4AC3-A72D-19F6424DB240">Pick</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A41AEF4D-0DE7-41DC-8F0D-120EB8F9FC01"></a></span><p class="table-body">Allows you to choose a light in your scene that will be used to compute the effect.</p> <span class="anchor_wrapper"><a name="GUID-A052C985-8FB3-444B-A778-9CC8BBE9366F"></a></span><ol type="1" start="1">
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-950191EF-05C3-4E7F-80A6-4123C1D2BCD8"></a></span>Click the Pick button.
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-C2582C0F-B111-493F-872D-C975B1C34D20"></a></span>In the pop-up explorer, select the light you want to use.
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-1A1092C0-EAFD-4911-B381-D3F1610DF289"></a></span>Right-click outside the explorer to end the picking session.
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-438E9435-5B99-4CCD-9772-D3B4B8863CE5"></a></span>The Item text box displays the name of the selected light.
+                                 </p> 
+                              </li>
+                           </ol> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-F71CD98D-C4B0-4DC5-AA6B-12380D87081E-low.png"> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FD19241D-C5F4-4CCA-A377-ED2DD40491F9"></a></span><p class="table-body">Click the <span class="MenuCascade" id="GUID-59518AF0-AC13-4F96-B253-15278E0E97FC">Edit Item icon</span> to Remove, Rename, Move Up, and Move Down each Item entry in the list.
+                           </p> <span class="anchor_wrapper"><a name="GUID-62081103-E265-42C9-AAAB-A3459E3C40D7"></a></span><p class="table-body">Once an Item is removed from the list, it no longer influences the effect created
+                              by the shader. In most cases, the position of an Item in the list indicates its order
+                              of evalution. Changing the evaluation order (moving Items up and down in the list)
+                              can impact the final output results of the shader.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-836DF7AD-7E66-43F3-A35A-6808FDDF3C3C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A2C466E3-FB18-423A-860F-F85E5B927F9E">additional_color</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-64437CF9-5760-44ED-8712-0C86DBFE6053"></a></span><p class="table-body">A color input simply added to the result.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1E7CF2AF-ED88-4B9D-BF84-6F6B2B2F40BC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5F6B2450-2024-4DBA-BE5F-196D48C00737">mode</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-82C5FF45-365B-422A-9E28-9F51A40725DD"></a></span><p class="table-body">The mode selector for the light list. For more information, see <span class="char_link"><a href="dir_lights_UsingLightLists.htm#WSA59A7FAEF78253428BAE4814A930B7F3-003C">Setting the Light List Mode</a></span> [<span class="char_link"><a href="dir_lights_cover.htm">Direct Illumination</a></span>].
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS46CC01C21B33B846AC1E286D6380C7F6-006D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-41EF8373-32E1-400C-98C6-3EB87EADB7A3"></a></span>Lights
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-A8FD804D-2DF2-4898-9FAB-D6C0A165A3D8"></a></span>Creates a light list to specifiy which lights should produce the effect. For more
+                  information, see <span class="char_link"><a href="dir_lights_UsingLightLists.htm">Using Light Lists</a></span> [<span class="char_link"><a href="dir_lights_cover.htm">Direct Illumination</a></span>].
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS46CC01C21B33B846AC1E286D6380C7F6-006E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B7FCB2F2-5C2C-4CEF-83C5-E74B4EAF8475"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-AAE9463C-552C-4E42-86E6-B4FD418AE83B"></a></span>The mip_matteshadow shader has multiple outputs. All outputs are as "raw" as possible
+                  to be maximally useful as layers in post production. For example, to ensure that the
+                  reflections have not been multiplied with the reflection color, and so on.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7D82C8E1-17AB-4B37-9E9E-077BF0EF624C"></a></span>When <span class="MenuCascade" id="GUID-E8799B0D-FEA2-43CA-B193-28B6DC5D8529">multiple_outputs</span> is enabled, the shader outputs the following values:
+               </p> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-68B31E15-CECC-4E2D-BE56-162E805CFF0A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-25D9F684-EBE6-4C7B-B9BF-EEE822A738BB">result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3E6D60A6-B894-4794-ADB4-17871FAE892D"></a></span><p class="table-body">The combined result.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E69C30B5-0BC1-4FF5-BCA8-E1DD7EEF9151"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BA867A84-3B3D-4313-A675-FDE5145593A0">shadows_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EAAF46AB-76D3-49DF-9641-B117BDACFCA8"></a></span><p class="table-body">The raw full-color shadow pass on white background, suitable for compositing on top
+                              of a background in "multiply" mode.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4887F0A8-BCCE-4E95-8623-20379EABFDE7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DC009AC5-EB3A-4E4B-BB83-852A147BC236">ao_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-840EF104-2838-4350-840F-CA4E8B247D20"></a></span><p class="table-body">The raw ambient occlusion.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1B46EFD5-CD5D-485F-A917-8CA5A20A1568"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EF1D3BE5-AB89-467E-A6A3-96B7F2DA4D18">refl_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-75FFFFC3-5D9D-44EA-952B-C32027F85B0A"></a></span><p class="table-body">The raw reflections.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C5DD7E05-97E1-46C9-8B17-B18365831D93"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2061386A-D75A-45C7-AE5F-3122C982D2A6">indirect_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A5278760-B4FA-4178-A1AA-4CD2EAD38EDF"></a></span><p class="table-body">The incoming indirect light.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-72F3A519-2EA2-4598-9179-FF8BB27544C0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AAE2BBA8-2646-489F-B661-B05051ED0B6D">illumination_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F6C01B53-C2DF-485E-BD70-2F2B02C334BE"></a></span><p class="table-body">Light gathered from any lights in the illuminators list.</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D73C2F0C-70BB-4319-9FCE-72BEFD837537">
+      <meta name="indexterm" content="RenderMap: multiple objects">
+      <meta name="indexterm" content="RenderMap: creating for multiple objects">
+      <meta name="topic-type" content="concept">
+      <title>Rendermapping Multiple Objects</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D73C2F0C-70BB-4319-9FCE-72BEFD837537"></a></span><div class="head">
+            <h1>Rendermapping Multiple Objects</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-857CC559-D09B-464A-B865-EA3B681F444F"></a></span>There are two ways to rendermap multiple objects: you can simultaneously create a
+               single set of rendermap images for each object or you can create a single set of rendermap
+               images that is used by all of the objects. These techniques are described in this
+               section. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-0025"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B4298D51-85FD-4642-8B9A-2A99E05EA27E"></a></span>Generating Multiple Objects' Rendermaps Simultaneously
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-BC80FD48-5B28-4FDA-99A3-6A986092FA34"></a></span>If your scene contains several objects that you want to rendermap separately, the
+                  easiest and fastest thing to do is to generate their rendermaps all at once. Not only
+                  is it faster to set the rendermaps' options simultaneously, it is also considerably
+                  faster to generate rendermaps for several objects at once than one at a time. 
+               </p> <span class="anchor_wrapper"><a name="GUID-F6A2FF99-E55C-4DC0-B9CD-95C48F1E1D0A"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4963AAC4-D26C-47E1-92E0-1704FF077DE9"></a></span>Select all of the objects that you want to rendermap. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-88439B09-AAE3-425C-B7E2-8CD00E327A34"></a></span>Apply a Rendermap property to the multi-selection, as described <span class="char_link"><a href="rendermap_RenderMapWorkflowOverview.htm">Basics of Baking with RenderMap or RenderVertex</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3D9A9FDF-5499-4BEF-AB7F-89F518508D38"></a></span>While setting the rendermap options, make sure to select the <span class="MenuCascade" id="GUID-5D8099F9-B186-4744-8046-3D16BC4FE911">Prepend owner name to file name</span> option. This ensures that rendermap does not try to write two object's output images
+                        to the same file. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-322B4C9F-2721-441D-B9F1-156A8FEF0BD3"></a></span>When you've finished setting the RenderMap options, click the <span class="MenuCascade" id="GUID-83A55621-09D4-4A7F-A89C-7BC952534458">Regenerate Maps</span> button to generate the rendermaps. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-0026"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-82F75B20-E4D1-46FB-A26E-585FFC75C30C"></a></span>Generating a Single Set of Rendermap Images for Multiple Objects
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-8A76053E-32FE-4FBE-9F85-E1F7073E5E4A"></a></span>Generating a single set of rendermap images for multiple objects is a bit more complex
+                  than generating several objects' rendermaps at the same time. The trick is to group
+                  the objects and give each object a set of UV coordinates used strictly for rendermapping.
+                  You can then adjust those sets of UV coordinates in such a way that they will not
+                  overlap when placed on the same texture image. When you generate the rendermap, the
+                  properly positioned UV coordinates are used to sample all of the objects and write
+                  their textures to the correct position on a single image. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BF1DF79F-C48E-4597-9482-8F8D0E8216D9"></a></span>The illustrations for this procedure are taken from a simple scene in which four spheres
+                  have been turned into eyes using a complex combination of procedural shaders. The
+                  rendermap image shown is a surface color map, though the method applies equally to
+                  any type of rendermap image. 
+               </p> <span class="anchor_wrapper"><a name="FIG_2CC42E66BA4045C18B2DDF3492207B37"></a></span><div class="figure-anchor"><img src="../images/GUID-0B63FCFD-9DC2-4CEC-ABFC-74A01E3DB45A-low.png"></div> <span class="anchor_wrapper"><a name="GUID-B72F0170-8579-4789-BBD3-38A3B1C49ED8"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1B50E1CD-3F3C-4A04-8B47-AAA37AB0065D"></a></span>Although the objects that you want to rendermap are textured already, apply a second
+                        texture projection to each of them. These are the projections that you'll use to generate
+                        the rendermap, so make sure not to use them to texture your objects. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-11F95841-7670-47AF-87F8-D5CC7102F5D0"></a></span>Select all of the objects and open the texture editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1BC10424-2880-44A4-8E7F-37631B164B05"></a></span>From the <span class="MenuCascade" id="GUID-E6790CCC-0A4C-420C-91BB-24A14CE4B3C6">Clips</span> menu in the texture editor menu bar, select or import an image clip. The clip should
+                        be the same size as you want the final rendermap images to be. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0397D60E-F2C4-49EB-AF34-0F2C3E5DF66E"></a></span>Selecting an image clip from the Clips menu does not apply it to your object. The
+                        image is simply displayed in the texture editor workspace to help you position the
+                        object's UV coordinates over it. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5AB4C530-353B-446C-9330-A509A4F4FF02"></a></span>For more information about displaying image clips in the texture editor, see <span class="char_link"><a href="uved8.htm#WSD7310B9F6BF91E409654D86936886C8C-0010">Choosing a Texture Image to Display</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6ED6EF14-7797-4524-907B-BB113DC051BE"></a></span>From the <span class="MenuCascade" id="GUID-1D02E59E-8618-464D-BB0D-46E1C2F1D9AF">UVs</span> menu in the texture editor menu bar, select the texture projections that you created
+                        specifically for generating the rendermap. You can Shift+click the appropriate projection
+                        for each object to display them all simultaneously. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-87D9F837-6493-40A0-9A44-80845CE1EC1E"></a></span>For more information about working with multiple projections in the texture editor,
+                        see <span class="char_link"><a href="tex_editonobj_EditingMultipleUVSets.htm">Editing Multiple UV Sets</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FA3E2837-DD0A-4BD4-8EE8-157A95B47CB5"></a></span>Transform each object's UV coordinates so that they occupy only a portion of the total
+                        texture image. Make sure that no object's UV coordinates spill into the space occupied
+                        by another object's UV coordinates. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-58860987-CBFC-473F-85D5-BBD8A7C8030B-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9028D184-1DE2-4503-9800-B448DBE92746"></a></span>For more information about transforming UV coordinates in the texture editor, see
+                        <span class="char_link"><a href="tex_texeditor.htm">Working with UVs in the Texture Editor</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5991D887-3C2B-4254-9285-DAF791ACB194"></a></span>Make sure that all of the objects that you want to rendermap are still selected and
+                        click the <span class="MenuCascade" id="GUID-A4EEB376-4282-430F-A946-110DEFB87568">Group</span> button in the <span class="MenuCascade" id="GUID-A3D697E5-E1F1-412A-8FE3-973C5C77D46B">Edit</span> panel to put them objects in a new group. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-887CEC6E-468E-4B37-803E-FEEE854F22A6"></a></span>Select the group and apply a RenderMap property to it as described <span class="char_link"><a href="rendermap_RenderMapWorkflowOverview.htm">Basics of Baking with RenderMap or RenderVertex</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-05C262CA-5340-4765-8BB0-40437C95814D"></a></span>As you are setting the rendermap options, make sure that each object in the group
+                        is using the correct texture projection (the one that you created for the rendermap).
+                        
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-8D91D001-F1C5-474B-874F-500733A8DF4F-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B6539DB5-DD57-4CD3-8184-18991C551BFD"></a></span>When you are finished setting the rendermap options, click the <span class="MenuCascade" id="GUID-C4EBE9FB-7F64-48B8-91D5-7AADA5C10404">Regenerate Maps</span> button to generate the rendermap. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-92180175-9D04-4384-90D1-BAC8F48D7374"></a></span>The output images should show each object's texture (or normal map, or surface color
+                        map, and so on) in the correct area. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-52E46CEF-8367-454A-8E00-7AE847F70B13-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D4E0D538-2664-481F-8802-18404E0703CC"></a></span>You can now texture the objects, individually or as a group, using the output image
+                        and the texture projections that you created for the rendermap. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

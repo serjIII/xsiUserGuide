@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-CBA6C8D7-A626-454D-B0CA-C564A70C32B3">
+      <meta name="indexterm" content="photons: with render tree">
+      <meta name="indexterm" content="photons: controlling effect">
+      <meta name="indexterm" content="photons: controlling with irradiance">
+      <meta name="indexterm" content="photon shaders">
+      <meta name="topic-type" content="concept">
+      <title>Controlling the Photon Effect</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-CBA6C8D7-A626-454D-B0CA-C564A70C32B3"></a></span><div class="head">
+            <h1>Controlling the Photon Effect</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-6EFE99E0-C6E0-4902-B999-CB68981EEEB4"></a></span>The easiest way to edit or color-correct the photon effect of an object is to edit
+               its Irradiance parameter. This parameter is found on the Indirect Illumination tab
+               of a surface shader's property editor. The Irradiance parameter defines which color
+               is displayed when a photon effect is triggered. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5ACDFBDB-E2F4-4384-85CF-6435B89D3C07"></a></span>It is also possible to edit and alter caustic and global illumination effects using
+               the render tree. The key to affecting photon effects is connecting a shader or tree
+               of shaders to the Photon input of the material node. 
+            </p><span class="anchor_wrapper"><a name="FIG_5E0F95101A18421E939A06C76F79E2D3"></a></span><div class="figure-anchor"><img src="../images/GUID-3D0EEFAA-B261-4DD5-8C86-71C167930B8C-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-42D2C927-1E03-4D9C-ACCD-2CFA2FE04DFE"></a></span>The surface shader connected to the material node is usually connected to the Surface,
+               Shadow, and Photon inputs, so you can control all of these parameters from one shader.
+               If you wish to have independent control of each, you can define a specific shader
+               per input. In this example, a Simple Lambert controls the surface and the Photon Irradiance
+               controls the Photon input. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0029"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-33A6C1D5-0F7C-4EB2-8794-EC3E2E9B08AB"></a></span>To add a shader to the photon input
+               </h2>  <span class="anchor_wrapper"><a name="GUID-7C898963-9F88-4E4A-BD50-C5D686805F71"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-85055C84-1D3F-477D-8E0C-7343A1F14561"></a></span>Select the object to which you want to add a photon shader. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3752959B-88FA-4B4C-9B58-D41B4E3D2752"></a></span>From Render toolbar, choose <span class="MenuCascade" id="GUID-A888A1DE-8E17-4BE4-8819-25B4DC6C50F6">Get <img src="../images/ac.menuaro.gif"> Shader <img src="../images/ac.menuaro.gif"> Photon</span> and select a shader. The only types of shaders you can connect to the Photon input
+                        are surface shaders (Blinn, Lambert, Phong, etc.) and special photon shaders. These
+                        shaders are: 
+                     </p> <span class="anchor_wrapper"><a name="UL_B071EC8FD7C04611920CBF5A2122AAFF"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E787C349-9536-4673-8BF7-CCEEF418F863"></a></span> <span class="char_link"><a href="shaderpresets29.htm">Photon Irradiance</a></span> defines a color for the photon effect or applies a texture. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-931B286D-5484-430E-A435-AA41D7B56A18"></a></span> <span class="char_link"><a href="shaderpresets142.htm#WSC4397E14436F894A94BAF71961E0FA22-0009">Render Tree Usage</a></span> defines a separate Diffuse, Specular, and Transparency color (or texture) for the
+                              photon effect. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B4620974-399D-41D6-A4E1-4698CDF85C30"></a></span> <span class="char_link"><a href="shaderpresets676.htm#WSC4397E14436F894A94BAF71961E0FA22-000C">Render Tree Usage</a></span> specifies a Diffuse, Specular, Transparency, and Reflection color or texture. You
+                              also have control over the photon effect's index of refraction. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3E497C68-A935-45E8-8D3F-958D3071ABA4"></a></span>Create the photon effect set up by defining a light, receiver, and caster as outlined
+                        <span class="char_link"><a href="GIcaustics_CreatingaPhotonEffect.htm">Creating a Photon Effect</a></span>. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-9B2503FA-5977-47E7-8F87-3822836F4DFD"></a></span><div class="note-note"><span class="label">NOTE:</span>The last shader to be connected to the Photon input must be either a surface shader
+                           or one of the photon shaders listed above. Otherwise, no photon effect is visible.
+                           
+                        </div>
+                     </div> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

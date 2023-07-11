@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-10003411-B54C-4E9B-BA3A-328AA31CDBC1">
+      <meta name="indexterm" content="scripts: in synoptic views">
+      <meta name="indexterm" content="in_obj variable in synoptic scripts">
+      <meta name="indexterm" content="in_mousebutton variable in synoptic scripts">
+      <meta name="indexterm" content="in_keymodifier variable in synoptic scripts">
+      <meta name="indexterm" content="files: external in synoptic scripts">
+      <meta name="indexterm" content="external files: in synoptic scripts">
+      <meta name="topic-type" content="concept">
+      <title>Synoptic Scripts</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-10003411-B54C-4E9B-BA3A-328AA31CDBC1"></a></span><div class="head">
+            <h1>Synoptic Scripts</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-6624DE0D-CA7D-4E23-BE9B-B7A6CE1B7CD6"></a></span>The scripts that you can create and run with synoptic views are essentially the same
+               as those you create and run with the script editor. However, synoptic scripts have
+               a couple of extra features: special variables and the ability to easily include external
+               files. There is no limit on the size of synoptic scripts.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2F8B4AF4EA4574459D295B6646F05E31-0038"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8145AA0D-C54E-46A8-8E93-8B00DD27BFEF"></a></span>Special Variables in Synoptic Script Procedures
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8818C9E1-9A98-41EE-9B2D-072AB0731138"></a></span>Procedures in synoptic scripts have special variables that let you determine the object
+                  on which the synoptic is applied, as well as the mouse button and key modifiers used
+                  when clicking the link.
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-90BB30F2-85D6-4F42-AE29-103B61612473"></a></span><div class="note-note"><span class="label">NOTE:</span>If you are updating an older synoptic property that supports only <span class="MenuCascade" id="GUID-8838DC5E-62C5-4593-9CD5-13C7FDD68165">in_obj</span> and you want to use the new function signatures, you must open the corresponding
+                     .htm file in a text editor and change <span class="code">&lt;body&gt; to &lt;body version="2"&gt;</span>.
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2F8B4AF4EA4574459D295B6646F05E31-0039"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7829627C-82E7-404D-8F25-3F6A61636122"></a></span>in_obj
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-97D637E5-102C-43D3-AB1A-35768747FF52"></a></span>The <span class="MenuCascade" id="GUID-45EBC609-8920-409B-81AC-4FFBA761B346">in_obj</span> variable is a string containing the name of the scene object to which the synoptic
+                     property is applied, and is set automatically. This means that you can use <span class="MenuCascade" id="GUID-BDD1D487-AF79-4808-9974-C3624392315A">in_obj</span> to access anything on the scene object, and reuse the synoptic file on other objects.
+                     For example:
+                  </p> 
+                  <div class="codeBlock"><pre>
+myVis = GetValue (in_obj &amp; ".visibility.viewvis")</pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-67CA4362-394F-464B-A5A3-2C2E320CB8F5"></a></span>You can also get a pointer to the object with the synoptic property:
+                  </p> 
+                  <div class="codeBlock"><pre>
+set oObj = GetValue (in_obj)</pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C314DFBA-7DB6-4D59-8EE0-4890B87627B1"></a></span>There are a few things you should know when using <span class="MenuCascade" id="GUID-E5DBFE38-0E20-4D2D-8EB9-B2D6B3679ECE">in_obj</span> in your synoptic script procedures:
+                  </p> 
+                  <ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C4FEA55F-77D1-4241-A69F-516AA3AD7823"></a></span> <span class="MenuCascade" id="GUID-370523C9-2F0E-4BD5-8B2E-620BC9116791">in_obj</span> is always the name of the object on which the synoptic property is applied. This
+                           could be either the scene object itself, or a parent if the object inherits a synoptic
+                           property applied in branch mode.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1ED87373-DACB-4A6C-928D-B0ABF7674086"></a></span>If a primary synoptic view opens secondary ones, the value of <span class="MenuCascade" id="GUID-104DE7CC-188E-4604-B1B4-50D6742BA40C">in_obj</span> does not change. You can still use <span class="MenuCascade" id="GUID-7A51ECBE-2293-480C-967E-7E5F32C3B2B1">in_obj</span> to refer to the scene object in secondary synoptic views, even if those views are
+                           not directly applied on anything in the scene.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-99EBFD73-0CC5-47D0-B7A8-DA3D6EF95A95"></a></span>If there are multiple synoptic properties on the same scene object, you can cycle
+                           through the views using the up and down arrow keys. When you do this, the value of
+                           <span class="MenuCascade" id="GUID-E694C471-1FFA-4F35-B5DC-5DD45C2B642B">in_obj</span> can change if, for example, one synoptic property is applied directly on the object
+                           and another one is inherited from a parent.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1A90C531-5CF4-4A38-B892-8A5A76A2396B"></a></span>The value of <span class="MenuCascade" id="GUID-03029414-50CC-41CA-A385-46F1D08A59CA">in_obj</span> is displayed in square brackets on the title bar of synoptic views.
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2F8B4AF4EA4574459D295B6646F05E31-003A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6D281C6B-B72A-457F-B4D1-3E5483BF1E55"></a></span>in_mousebutton
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-AFA05D69-7B8E-4535-A664-A61C7ED742F9"></a></span>The <span class="MenuCascade" id="GUID-0A05757E-519D-42CC-931A-F05B0D05A16E">in_mousebutton</span> variable is an integer that indicates which mouse button was used to click the hotspot.
+                     You can use this variable in your script to perform different operations based on
+                     the mouse button.
+                  </p> 
+                  <ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1276004E-46AE-4235-8F72-ADDAC631E7D3"></a></span> <span class="MenuCascade" id="GUID-1E8E911D-4618-4114-A29D-A83787B57B25">0</span> indicates the left mouse button.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6E7EECED-8A57-4E69-AD8B-8741310B6C27"></a></span> <span class="MenuCascade" id="GUID-10BF563D-01DC-4D42-B31A-8C6C4591FA72">1</span> indicates the middle mouse button.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E35E4584-FC90-469C-B3A1-20E89549ED21"></a></span> <span class="MenuCascade" id="GUID-A42151D8-AD93-4289-AADF-5437F176A166">2</span> indicates the right mouse button.
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2F8B4AF4EA4574459D295B6646F05E31-003B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0308B5DE-39D2-487D-9AE6-1F293BD66751"></a></span>in_keymodifier
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-9EA20515-B7DE-4A8E-8557-9BDB6B9808E8"></a></span>The <span class="MenuCascade" id="GUID-F21468CA-C55B-4C4B-88F9-A06D501F6A26">in_keymodifier</span> variable is an integer that indicates which key modifiers were pressed when the hotspot
+                     was clicked. You can use this variable in your script to perform different operations
+                     based on the Shift, Ctrl, or Alt keys were pressed.
+                  </p> 
+                  <ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-41F3D4D3-599D-441C-8036-BD2B6D1DF45D"></a></span> <span class="MenuCascade" id="GUID-DDE1450C-8E8C-4721-9A07-34269990BE2C">0</span> indicates no modifier keys were pressed.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-504FFD50-642F-4D63-BC34-967D77B015CB"></a></span> <span class="MenuCascade" id="GUID-121675C7-FDDE-430D-B6F2-B7E574510CDA">1</span> indicates that the Shift key was pressed.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A9494A01-44B0-4591-B99B-D1C1AC942F54"></a></span> <span class="MenuCascade" id="GUID-AC2E5BB1-E967-4C4E-8EFD-7942064BA0EB">2</span> indicates that the Ctrl key was pressed.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ACFD96D9-4966-4D6A-B088-37FBF0206680"></a></span> <span class="MenuCascade" id="GUID-EF4B9F23-F16B-4292-90D4-1FE92542C049">4</span> indicates that the Alt key was pressed.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-06668F8D-CD75-4401-8D4C-8850CECFF0ED"></a></span>Combinations of keys are indicated by the sum of the key values. For example, <span class="MenuCascade" id="GUID-EB9E3A44-9E93-4948-A1BD-E843ABF3978B">5</span> indicates that Shift+Alt was pressed.
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2F8B4AF4EA4574459D295B6646F05E31-003C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6CDFA98B-F8DD-4C71-804B-8CA1D3EC45BA"></a></span>Turning Off Command Logging
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D28036D9-686E-4FA1-A84E-E08E6B705177"></a></span>Normally, scripts run from a synoptic view log every command line to the command history.
+                  However, you can turn off command logging temporarily in a script by getting the current
+                  value of the scripting.cmdlog preference, setting it to false, performing the main
+                  block of your script, and finally restoring the original preference value. This can
+                  speed up the performance of synoptic scripts. See Preferences [SDK Guide].
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2F8B4AF4EA4574459D295B6646F05E31-003D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C66127EE-D29F-4943-AA87-A9221F912B77"></a></span>Including External Files
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-97CE6E2E-BD35-44AC-A974-6AFAFD12F509"></a></span>You can include external files in synoptic scripts using the #include statement. This
+                  lets you easily reuse a library of helper functions that you have created. There is
+                  no limit to the number of files you can include.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1C82A53F-BA07-4CAE-9EA7-36E7BBEC9E51"></a></span>The external files must either be in the same directory as the synoptic (HTML) file
+                  that includes them, or at an absolute path you specify. To include an external file,
+                  use one of the following forms:
+               </p> 
+               <div class="codeBlock"><pre>
+#include "myFile.vbs"
+#include "&lt;absolute_path&gt;/myFile.vbs"</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-F80342EA-ADE9-4453-A2C2-496917F283EB"></a></span>When you include a file, it's as if the entire contents of the external file were
+                  typed into the synoptic file at the position of the #include statement. Be careful
+                  not to accidentally put the #include statement inside a subroutine if you want the
+                  procedures and functions defined in the external file to be available at a global
+                  level.
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-3FDAC473-F5DB-4358-8DCC-613BAFB20537"></a></span><div class="note-note"><span class="label">NOTE:</span>If you reopen the synoptic file in the synoptic editor, the #include statements are
+                     expanded. Use a text editor to modify the synoptic file if you want your helper functions
+                     to be maintained as external references.
+                  </div>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

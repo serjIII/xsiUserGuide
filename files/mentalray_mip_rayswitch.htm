@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C1E5FC5C-C615-4100-93D9-9E062F01358D">
+      <meta name="topic-type" content="concept">
+      <title>mip_rayswitch</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C1E5FC5C-C615-4100-93D9-9E062F01358D"></a></span><div class="head">
+            <h1>mip_rayswitch</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-7BB5D16F-FB12-427E-BD24-3F392B81F3F4"></a></span> <em class="strong">Category:</em> mental ray &gt; Materials
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C93943A4-EB88-4645-B170-B25399F9D100"></a></span> <em class="strong">Shader Family:</em> Surface Material
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-944021C9-7DA1-4B69-BE46-E663904D0A3E"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-EA6577A7-8042-4D9C-BD2F-9EBA0179E11B"></a></span>The mip_rayswitch and <span class="char_link"><a href="mentalray_mip_rayswitch_advanced.htm">mip_rayswitch_advanced</a></span> utility shaders allow different types of rays to return different results. There
+               are many cases in which this can be useful, including but not limited to:
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-24A62A45-9689-4AB8-A504-18FE9609CB5A"></a></span>Separating primary and secondary rays into calls to other shader.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-84F14D4F-3730-440F-8AC1-8A53D2DAE907"></a></span>Returning a different environment to eye rays (such as a photographic background plate
+                     for a screen background), reflection rays (such as a spherical high resolution environment
+                     to be seen in reflections) and final gather rays (a filtered environment suitable
+                     for lighting the scene).
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ADB5F050-0E97-4851-A9AA-41579E0AA3EF"></a></span>Limiting time-consuming shaders where they are nearly invisible. For example avoiding
+                     a complicated secondary illumination or ambient occlusion shader in the refractions
+                     seen through frosted glass.
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WS46CC01C21B33B846AC1E286D6380C7F6-0071"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-53A23144-17D7-4C35-A08E-ED4B3F2BAAF2"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0CA97DBE-4E7E-4092-BC76-EB5C9752AC1B"></a></span>The Ray Switch shader is a simple shader that accepts a set of color inputs from other
+                  shaders to apply for certain classes of rays.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-0F758076-2932-4174-9445-079A4A6F49CA-low.png"></div> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-759972D7-F67A-4024-814A-AD88B7C02A7C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3560CF7D-523C-476B-82D8-4253A35A8976">eye</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8F177321-00F1-4DE9-AB92-F3D3AA4948EF"></a></span><p class="table-body">Sets the result for eye (primary) rays.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E8D762B4-6873-4BBC-A985-5FAF291CAC15"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-170D765A-EAA7-4DF2-A7D5-ED418694E518">transparent</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F3FEFD35-4E5C-4459-BE4D-20DEB7FBFC32"></a></span><p class="table-body">Sets the result for transparency rays.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7B7B3FDB-9463-4378-B77C-B0031C52DC92"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-62A810D9-3950-4BAB-9610-2CE25FED5D51">reflection</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7335387D-5B36-430C-AA60-46FC2BCAB735"></a></span><p class="table-body">Sets the result for reflection rays.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BABCE855-5579-4D3D-98B4-2FA6FDDD4E9D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3B65BF15-BDAE-4561-B4C8-06F147F16DE0">refraction</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BB9CA9F6-7ED7-4389-ABEB-11AD76DE7BAA"></a></span><p class="table-body">Sets the result for refraction rays.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1FF38DA2-43E7-4D95-9141-68E8E6BC5784"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-372D1B42-AC9F-4BAC-95A3-95E720F76BE6">final gather</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F23739C1-80B2-452D-BF38-01A0C79D840C"></a></span><p class="table-body">Sets the result for final gather rays, as well as any child rays to final gather rays.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DF226247-FD33-4B71-8539-BF12C71B9109"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-806717FD-33CC-40E2-B39B-A673AF3096DF">environment</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DE3A3CFA-96AE-4DB9-884A-14B057BF914B"></a></span><p class="table-body">Sets the result for environment rays.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CDBD00D6-3C84-4391-8E31-2F01AEC01A1D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AD9174F1-F1FC-4F66-BA9F-EAD1F396EFBC">shadow</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-35F40F56-0BE9-48DB-A2BA-5193CDAE4E91"></a></span><p class="table-body">Sets the result for shadow rays.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F144B292-6E25-42DA-8CB1-43A47DFC10A0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E8911326-D81F-4E67-8015-AB0D0EEE7042">photon</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6D039767-54E3-4BBC-841A-7A07C4FB38CE"></a></span><p class="table-body">Sets the result for photon rays.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7F3E0ED5-F4A9-4100-91C7-4EE21E74EECE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EFDB9F87-930E-4C96-BEEE-27390680D7FD">default</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C0604726-7FD7-4E8E-844F-312F633260BA"></a></span><p class="table-body">Sets the result for any other ray type. It is not a fall-through default, however,
+                              each of the above returns their respective result whether connected to a shader or
+                              not (generally 0 0 0 0 black). If you need fall-through defaults, use <span class="char_link"><a href="mentalray_mip_rayswitch_advanced.htm">mip_rayswitch_advanced</a></span> which is the advanced version of this shader.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

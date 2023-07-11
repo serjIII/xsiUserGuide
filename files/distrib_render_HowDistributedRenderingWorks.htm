@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-AF911340-7671-44AC-8822-25DBAA9AFDEC">
+      <meta name="indexterm" content="distributed rendering: rayserver (ray3xsi5_0server)">
+      <meta name="indexterm" content="rayserver (raysatxsi5_0server, ray3xsi5_0server), distributed rendering">
+      <meta name="indexterm" content="distributed rendering: types of">
+      <meta name="indexterm" content="distributed rendering: Satellite vs. Standalone">
+      <meta name="indexterm" content="files: raysatxsi.bat">
+      <meta name="indexterm" content="files: rayhosts">
+      <meta name="indexterm" content="distributed rendering: rayhosts file">
+      <meta name="indexterm" content="rayhosts file: distributed rendering">
+      <meta name="indexterm" content="distributed rendering: linktab file">
+      <meta name="indexterm" content="files: linktab">
+      <meta name="indexterm" content="linktab file: distributed rendering">
+      <meta name="topic-type" content="concept">
+      <title>How Distributed Rendering Works</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-AF911340-7671-44AC-8822-25DBAA9AFDEC"></a></span><div class="head">
+            <h1>How Distributed Rendering Works</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-125AA2E0-8E08-47F5-A8F0-7F7B22214083"></a></span> Distributed rendering is started automatically once a render is initiated on a computer.
+               The initiating computer is referred to as the <span class="MenuCascade" id="GUID-089659E6-FFE2-46B8-B4ED-1956E733BEAE">master</span> and the other computers on the network are referred to as <span class="MenuCascade" id="GUID-12057D05-78FB-427B-93DF-8FF3370C9F0D">slaves</span>. The master and slaves communicate via a mental ray service that listens on a designated
+               TCP port and passes information to mental ray. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DBF9C0F3-7950-424B-A4F3-362A0F2CC83F"></a></span>There are two types of distributed rendering: Satellite and Standalone. However, only
+               mental ray Satellite distributed rendering (raysat.exe) can be installed and configured
+               during the Softimage setup process. The mental ray Standalone software (ray.exe) is
+               a separate product that is installed and configured through its own setup and licensing
+               process. Examples of Satellite distributed rendering are used throughout this section,
+               but most of what is discussed here also applies to setting up mental ray Standalone
+               distributed rendering. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFCA497CD769F774F9B86DC1899848563-0004"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FB413FA7-3B4B-4DCD-9770-43767160BE4D"></a></span>Distributed Rendering Components
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-47F54BFB-0399-4F14-9930-DD7CAECFA68F"></a></span>Satellite distributed rendering relies on a number of components that must be configured
+                  correctly. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSFCA497CD769F774F9B86DC1899848563-0005"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B3C8CF0D-F872-4CD8-9B67-EA2E442C7D8F"></a></span>Satellite Tokens
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4CA8572C-F2A7-42A1-B96E-05A0EC34BC00"></a></span>mental ray Satellite distributed rendering requires a Softimage license for the master
+                     machine. No additional licences are required for the slave machines. Instead, the
+                     master has a fixed number of Satellite tokens (4 tokens by default), each of which
+                     can be used for a render slave processor. On multi-processor machines, each processor
+                     requires a separate token. Satellite distributed rendering only works when rendering
+                     using Softimage (interactively or from the command line). 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSFCA497CD769F774F9B86DC1899848563-0006"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2A342B4C-2267-4ADA-97CC-4CB34116E58A"></a></span>The mental ray Service
+                  </h3> <span class="anchor_wrapper"><a name="UL_71AB848087D148BD8B16175DBFEEC17D"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2F165686-F309-450C-B08A-D9790DF8731D"></a></span>On Windows systems, the distributed rendering service listens on the TCP port and
+                           runs an associated batch file. Satellite distributed rendering uses the <span class="MenuCascade" id="GUID-63343C7F-0570-41BA-8041-3424BC863993"><span class="charspan-emphasis">raysatsi2013_3_10_1_4</span>server</span> service, which runs the <span class="MenuCascade" id="GUID-19B1317B-BEC6-4453-AF5E-0BD148371D5D"><span class="charspan-emphasis">raysatsi2013_3_10_1_4</span>.bat</span> batch file on each computer. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-88B73A00-0D1A-4491-8029-E3ED5B1C2170"></a></span>These batch files set the environment variables required for distributed rendering
+                           through <span class="MenuCascade" id="GUID-A5E16B41-2FC8-4BE8-B097-8C7B830ABDE3">setenv.bat</span> and then run the mental ray renderer (<span class="MenuCascade" id="GUID-D84D5442-389D-4108-A44B-63031E2B6B92">raysat.exe</span>). For more information on how to manage the mental ray service on Windows, see <span class="char_link"><a href="distrib_render_SettingUpForDistributedRendering.htm#WSFCA497CD769F774F9B86DC1899848563-000D">Managing the mental ray Services</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6A710E37-DAB6-4E2F-88B5-208D5B20A94B"></a></span>On Linux systems, the <span class="MenuCascade" id="GUID-7718460B-5BF3-434C-AB0E-55AB390A82C1">xinetd.conf</span> file reads the <span class="code"> <span class="charspan-emphasis">raysatsi2013_3_10_1_4</span> </span> service configuration file from the <span class="filePath">/etc/xinetd.d</span> directory. The service is configured to call the <span class="MenuCascade" id="GUID-ADBDC530-E5BB-4FDC-80CF-EDBFF8D9FFA8">ray3.sh</span> script file, which sets the environment variables required for distributed rendering
+                           and then runs the mental ray renderer (<span class="MenuCascade" id="GUID-376A1249-DB6A-4AA2-B142-3CED54F377AE">raysat</span>). 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSFCA497CD769F774F9B86DC1899848563-0007"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-662A68D0-AD94-45DD-A494-D5E8DD3C4E54"></a></span>.ray3hosts File
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4762DE15-2454-4032-BE9C-2201DD6F0564"></a></span> In a distributed rendering setup, the master machine reads a local <span class="MenuCascade" id="GUID-C5CCB05A-4E78-48D3-AFC0-3EA8F456DE3C">ray3hosts</span> file, which lists the slaves to be used for the render. The image to be rendered
+                     is broken up into segments (tiles), which are placed in a queue. Each computer, master
+                     or slave, requests tiles from the queue to render. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7681D46B-441F-4237-A79A-97B198DA3F3A"></a></span>Once a tile is finished, it is sent back to the master and another tile is requested
+                     from the queue. The master assembles all the tiles to create a complete rendered image.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7082CD37-EC59-46D9-B84C-0ADA5987156F"></a></span>For more information on how to configure the <span class="MenuCascade" id="GUID-607C4AB6-81E7-422E-98C1-A743E84594FB">.ray3hosts</span> file, see <span class="char_link"><a href="distrib_render_SettingUpForDistributedRendering.htm#WSFCA497CD769F774F9B86DC1899848563-000B"> Defining a .ray3hosts File</a></span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSFCA497CD769F774F9B86DC1899848563-0008"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6224C1F8-FB3B-4A08-8429-E03F89A7C41D"></a></span>linktab.ini File
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-30A19304-5F75-4837-A873-52F46744104E"></a></span>During distributed rendering, the master also sends any extra information the slave
+                     might need to accomplish a render, such as texture names and paths. When your render
+                     slaves use a mix of different operating systems, you can use a <span class="MenuCascade" id="GUID-B7F90028-921E-4199-9663-E413CDF8AD38">linktab</span> file to coordinate file sharing. For more information on defining a linktab file,
+                     see <span class="char_link"><a href="linktab.htm">Configuring the linktab.ini File</a></span>. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

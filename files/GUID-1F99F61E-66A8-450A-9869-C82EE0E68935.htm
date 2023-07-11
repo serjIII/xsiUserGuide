@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-1F99F61E-66A8-450A-9869-C82EE0E68935">
+      <meta name="indexterm" content="CrowdFX: goals">
+      <meta name="indexterm" content="CrowdFX: goal radius">
+      <meta name="indexterm" content="CrowdFX: moving between multiple goals in sequence">
+      <meta name="indexterm" content="CrowdFX: goal groups">
+      <meta name="indexterm" content="CrowdFX: moving toward closest goal">
+      <meta name="topic-type" content="concept">
+      <title>Moving Toward Goals</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-1F99F61E-66A8-450A-9869-C82EE0E68935"></a></span><div class="head">
+            <h1>Moving Toward Goals</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-6640AD9E-56A2-4DBE-A652-66091753313A"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-37B1C298-71F3-4C36-AE72-781DA0060481"></a></span> You can create one or more goals to which the actors (particles) in a crowd simulation
+            are attracted, similar to how magnetic attraction works. Goals are null objects that
+            have specific ICE data that CrowdFX understands. You must create these objects using
+            the <span class="MenuCascade" id="GUID-A6CFE3E0-78A4-4958-9B83-BAF0E7579532">Add Goal</span> command described below - you can't use other objects as goals. However, you can
+            use goals as proxy objects to represent the real geometry for an object you want to
+            use in the scene. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-2E32080B-8096-4D58-BC40-0F15E296D935"></a></span> Throughout the simulation, the actors always try to reach the goals no matter what
+            gets in their way, either other actors or walls. If the goal moves, the actors keep
+            on trying to reach it. When the actors reach the goal, their velocity decreases and
+            they keep moving slowly around the goal. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-9BD55218-70D6-47BC-B4CB-A5D0BE046289"></a></span>In the image below, the actors move toward the goal that is closest. The wall exit
+            points are "temporary goals" that the actors move toward, then they continue on toward
+            the real goal when they move past these points. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-713F8BD9-22D3-404E-A7B2-7FEA05CA25E1"></a></span> <img src="../images/GUID-8A4C569E-C816-4FDA-B736-849F33C6F0C7-low.png"> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-2C5DE3E7-DB83-41D9-877B-89602D7828FF"></a></span>There are three basic ways in which you can make the actors move toward goals: 
+         </p><span class="anchor_wrapper"><a name="UL_763B7F05FDCF4630A5D42F6F6043458C"></a></span><ul>
+            <li>Moving from one goal to the next in sequence. This is the default behavior when you
+               create goal objects, as described in the next section below. 
+            </li>
+            <li>Moving to the closest goal - see <span class="char_link"><a href="GUID-1F99F61E-66A8-450A-9869-C82EE0E68935.htm#GUID-6BDA4740-4940-45D8-9FFE-DD1243772602">Moving Toward the Closest Goal</a></span> below. 
+            </li>
+            <li>Following "subgoals" along a curve, making the actors follow a path - see <span class="char_link"><a href="GUID-31CA1EB3-12B2-4868-BEE4-3F5E21F10EA5.htm">Following a Path</a></span>. 
+            </li>
+         </ul>
+         <p><span class="anchor_wrapper"><a name="GUID-B1AA05A7-4D98-4E1D-87CC-2B55F0BD98DC"></a></span> You can also create groups of goals that can be useful when you are driving several
+            independent groups of actors within the same crowd simulation - see <span class="char_link"><a href="GUID-1F99F61E-66A8-450A-9869-C82EE0E68935.htm#GUID-EA70D07F-E03C-4020-9F40-F00A84EA6A2D">Creating Groups of Goals</a></span> below. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="WS023556C5E04D53409E7E875671E8B309-0035"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-C91ED33E-4741-4F25-A057-CE913E815A4B"></a></span>Adding Goals to a Crowd Simulation
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-F431A9B6-8EF7-40AE-9AA6-F192B1F7037D"></a></span>To create goal objects and add them to the current crowd simulation: 
+            </p> <span class="anchor_wrapper"><a name="GUID-3EE12E39-D2AE-486F-BED7-7FB49381A3E3"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B946A4F8-705E-45C7-A7AD-1A6B217503ED"></a></span>Make sure the Crowd model you want to use is the current crowd - see <span class="char_link"><a href="GUID-2D267577-4F1A-4200-AA77-A39890B357C7.htm#GUID-D59CC5D2-1F28-4887-820A-7EB3F1847356">Setting and Selecting the Current Crowd</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E2ED1A56-90C3-47C0-AEE6-857F58FF457C"></a></span> Choose the <span class="MenuCascade" id="GUID-F32605AE-2FD5-48D4-BB0C-428C898A9852">CrowdFX <img src="../images/ac.menuaro.gif"> Crowd <img src="../images/ac.menuaro.gif"> Create <img src="../images/ac.menuaro.gif"> Add Goal</span> command from the ICE toolbar. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-84B74418-5658-4798-AD27-7D7F0B15E8F4"></a></span> This creates a customized null as a goal object, located at the scene's origin. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-29150CC2-38AD-479C-A37F-A3DA77E7E054"></a></span> The <span class="char_link"><a href="CrowdFX_Goal_Property_Editor.htm">CrowdFX Goal Property Editor</a></span> appears in which you can set its properties. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-65F9068A-0A9C-427E-9BC8-5A40BF3287C7"></a></span>Each goal object is assigned an <span class="MenuCascade" id="GUID-0B378A3D-0210-437A-8233-950C4A1FF281">Index</span> value in the order in which it was created, starting at 0. The Index value is used
+                     with multiple goal sequences. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F981B384-6A44-459E-9EB1-CF8D78D0DA11"></a></span>Choose the <span class="MenuCascade" id="GUID-B36348BC-96AB-4773-A616-87AFA27F695C">Add Goal</span> command for each goal you want to create. 
+                  </p> 
+               </li>
+               <li>Position or animate each goal where you want along the X and Z axes, but don't change
+                  its position in Y because the actors need to pass within the goal radius to move on
+                  to the next goal. 
+               </li>
+            </ol> 
+            <p><span class="anchor_wrapper"><a name="GUID-79CC6CE1-E33F-4104-8D7D-A2E41B39812B"></a></span>By default, the actors move from goal to goal in sequence - see <span class="char_link"><a href="GUID-1F99F61E-66A8-450A-9869-C82EE0E68935.htm#GUID-96A1E5A9-F45F-4650-86F6-06B96C264F49">Moving Among Multiple Goals in Sequence</a></span> below. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-9068E857-798A-4A67-8EC2-1AE26C117A8F"></a></span> <img src="../images/GUID-B0327F06-5320-4EDB-84AA-C1449D9CDD3C-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-FB033CF4-2505-4399-8DF3-F73F6EE3ED42"></a></span>The goal objects you create are added under the Goals_Root node and the Goals group
+               in the Crowd model - see <span class="char_link"><a href="GUID-B28743FA-33EC-4DA3-877B-FA7E7FD97F68.htm">Anatomy of a Crowd Simulation</a></span>. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-1AB71B0C-3322-4F79-AD01-1C995F224D10"></a></span>If you duplicate a goal object, its copy is automatically added under the Goals_Root
+               node and the Goals group. You can then position it as you like and change its <span class="MenuCascade" id="GUID-0C8090CD-A530-4CFB-94E4-614CC68372F8">Index</span> value to a unique number in the <span class="char_link"><a href="CrowdFX_Goal_Property_Editor.htm">CrowdFX Goal Property Editor</a></span>. 
+            </p> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_1F543F9C91AC4AC4B987FBE88CD948BF"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-22943131-C1DB-4FC0-AAFE-2F9F2FEE2EE4"></a></span>Hiding or Displaying the Index Values
+               </h3> 
+               <p><span class="anchor_wrapper"><a name="GUID-A59594DC-AB59-424A-9B12-96E26C4EEF93"></a></span>By default, each goal's index value is displayed above it so that it's easy to identify
+                  it. You can also display the group's index value. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-18A649CC-7226-4F0D-996B-D54F22460525"></a></span> <img src="../images/GUID-519C0807-AA34-4E4F-8918-A9A8455EEE39-low.png"> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-25634334-3072-43F4-B912-9557F4012C18"></a></span>To toggle its display: 
+               </p> <span class="anchor_wrapper"><a name="OL_28331655C2954297BFD2F1742F389AC2"></a></span><ol type="1" start="1">
+                  <li>Open the Display Goal Data ICE tree that's created for each goal object. </li>
+                  <li> In the <span class="MenuCascade" id="GUID-E8FF6E6F-C48A-4411-B164-3A294F1C91D3">Display Goal Data</span> compound, toggle the <span class="MenuCascade" id="GUID-B788313F-E92B-412B-8C14-FA4AAC13154F">Show Index</span> and <span class="MenuCascade" id="GUID-061F53CD-6F84-4D24-A77F-4F8664A15D44">Show Group Index</span> options. 
+                  </li>
+               </ol> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_1E4CB2F5051E48DDA9CF2A24074DD010"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-CD2EE8A4-F595-4502-889A-6D571A897EB0"></a></span>Setting the Goal's Radius
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-C9B95E1E-19B3-4061-AE23-BF491AE2A4E2"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-2B73FEAD-131C-498F-B5B6-571F629B46B7"></a></span> The goal's size is set by the <span class="MenuCascade" id="GUID-273D49E4-DF5E-45E2-8CA8-2F840B27F5B6">Min Distance</span> value in each goal object's <span class="char_link"><a href="CrowdFX_Goal_Property_Editor.htm">CrowdFX Goal Property Editor</a></span>. This is the radius (in units) in which the actors have to enter to be considered
+               as reaching that goal. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-AA019243-869B-4B3B-BCD9-F98B585F7CB4"></a></span>Depending on the type of <span class="MenuCascade" id="GUID-BE87C88D-3B5C-4A3E-83F9-8EE4158959B2">Goal</span> compound you're using, this value has a different effect: 
+            </p> <span class="anchor_wrapper"><a name="UL_30963B0870A847D5B67B64618C51E829"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F357EB50-3ECA-4D20-B8F1-80BBC996A174"></a></span>For the <span class="char_link"><a href="iceref_Set_Goal_By_Goal_Sequencer.htm">Goal Sequencer</a></span> compound, the actors don't move on to the next goal in the sequence until they have
+                     reached their current goal. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F03A9C27-1F30-40E0-A253-983164836CE4"></a></span>The larger the radius, the easier it is for the actors to reach the goal and move
+                     on to the next one in the sequence. If this value is low, the actors may get congested
+                     around the goal as they each keep trying to reach it, slowing down the progression
+                     to other goals. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8746E532-FF9D-4F63-87F6-120FFAAD9E35"></a></span>In the <span class="MenuCascade" id="GUID-56D93D94-7E58-4E56-915F-F8DA3ACE9E8F">Goal Sequencer</span> compound, you can also set the <span class="MenuCascade" id="GUID-87BB8FFE-B41A-42FE-91CF-BD390E5D9866">Min Distance</span> value, then select <span class="MenuCascade" id="GUID-90BD9D7C-0C1C-4E2B-8455-6C2584616428">From Min Distance Input</span> as the <span class="MenuCascade" id="GUID-529DFBC3-D81F-4B9C-B856-F08DCC81535F">Min Distance Mode</span> to override the <span class="MenuCascade" id="GUID-00C2CAFA-FDB1-4467-AD4B-C736A9E669A9">Min Distance</span> value set in each goal object's CrowdFX Goal property editor. This is an easy way
+                     to set the size for all goal objects at once. You can also randomize the minimum distance
+                     value here. 
+                  </p> 
+               </li>
+               <li> For the <span class="char_link"><a href="iceref_Closest_Goal.htm">Closest Goal</a></span> compound, this is the maximum radius in which the actors try to reach a random point.
+                  The larger the radius, the more random the actors' movement when they reach their
+                  goal. 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_12D9C8D9F62A4795B337DD75AC1FCB4D"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-96A1E5A9-F45F-4650-86F6-06B96C264F49"></a></span>Moving Among Multiple Goals in Sequence
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-8A92E6F7-7B22-4F71-8C56-C16789360120"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-BEDA94F2-53EF-4CFE-91C0-A86B35D3A867"></a></span>When you create a pedestrian crowd simulation and create goal objects, the default
+               behavior is that the actors move in sequence among the goals. This is because the
+               <span class="MenuCascade" id="GUID-C9AD5BC8-1B84-49DF-A00E-740834649B7D">Set Goal By Goal Sequencer</span> compound is plugged into the input port of the <span class="char_link"><a href="iceref_Set_Velocity_Using_Collision_Avoidance.htm">Set Velocity Using Collision Avoidance</a></span> compound in the simulation point cloud's Behavior ICE tree. 
+            </p> <span class="anchor_wrapper"><a name="FIG_1CA519D477CF4F9F97A57749A479A584"></a></span><div class="figure-anchor"><img src="../images/GUID-B12F6E33-993A-48F5-A694-18D1A615EFB2-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-6B146B5D-0DA2-4A31-8FB1-69F3135D8B14"></a></span>The order of the goal sequence is based on the goal's <span class="MenuCascade" id="GUID-A61A18CB-0714-4C05-A087-ED6A924B8E07">Index</span> value that's automatically assigned upon creation. The actors first move toward the
+               goal with the lowest index value, then to the goal with the next highest index value,
+               and so on. Each actor must reach each goal (enter within its radius) in order before
+               proceeding to the next one. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-721FE7BE-7B20-4FC6-B8C4-F18AE4912748"></a></span>You can control the order in which the actors move from goal to goal by setting the
+               Index value of each goal. By default, the first goal object you create has an index
+               value of 0, then next one is 1, and so on. Each goal must have a unique index value
+               within the same <span class="MenuCascade" id="GUID-FA55E967-8709-4AA5-9BD2-599C92C376F6">Group Index</span> value (see the section below); for example, Group 0 and Group 1 can both contain
+               goal objects with an Index value of 0. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-F28EB4A7-869A-46A8-9812-F0A9E0D06195"></a></span>In the image below, actors from both emitters move to Goal 0 first, then the rest
+               in order: 1, 2, and 3. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-E1CFE664-45F9-4736-BFAD-F843668D3BA3"></a></span> <img src="../images/GUID-56A75C4F-75ED-4AD8-A8F2-3A535B61B49A-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-309C715C-FFF5-4C39-85B1-7EEFB255CC53"></a></span> 
+               <div><span class="anchor_wrapper"><a name="GUID-79F41949-E2C3-463B-A12C-7BE846A0AF13"></a></span><div class="note-note"><span class="label">NOTE:</span>The goal object's position in Y needs to remain at 0 because the actors need to pass
+                     within the goal radius in order to move on to the next goal. 
+                  </div>
+               </div> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_1AA572D27D67456BABC3FE02EF511F02"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-EA70D07F-E03C-4020-9F40-F00A84EA6A2D"></a></span>Creating Groups of Goals
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-A96DEF55-7B65-4758-B9BF-6CB4BDCC08B5"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-5B08677D-5875-4369-BA7F-8CE9EB75BA04"></a></span>When you have multiple goals, you can create groups of goals so that one group of
+               actors moves among one group of goals, while a different group of actors moves among
+               another group of goals. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-70C9F63A-5DDF-4E55-9CED-A1035373075F"></a></span>Each goal object belongs to a different group as defined by its <span class="MenuCascade" id="GUID-1DC2B164-8D0D-4D54-ACBC-9732D955090A">Group Index</span> value. By default, this is defined as 0, but you can change it for each goal object.
+               
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-47CD4457-B323-4150-9CD0-12757A08E589"></a></span></p> 
+            <p><span class="anchor_wrapper"><a name="GUID-B9EAE034-DB4D-4D3D-A6C0-7701FDC4773E"></a></span>To set up goal groups: 
+            </p> <span class="anchor_wrapper"><a name="OL_3B99A293FC1B497A949F10CD49ADEDD3"></a></span><ol type="1" start="1">
+               <li>Create a crowd simulation using the multiple goals with the <span class="MenuCascade" id="GUID-24CE9EAE-663B-4783-A4E7-4E7C052CA5A1">Goal Sequencer</span> compound, as described above. 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F18266BC-EB88-4986-B688-935D0C24D818"></a></span>Set the same <span class="MenuCascade" id="GUID-95644755-9707-43B8-9049-B0E42C55E0C2">Group Index</span> value in the <span class="char_link"><a href="CrowdFX_Goal_Property_Editor.htm">CrowdFX Goal Property Editor</a></span> for each goal object that you want to be in the same group. Make sure that its <span class="MenuCascade" id="GUID-9BF89C4C-D7F1-4AA2-800F-028662B8B7A0">Index</span> value is unique within that group. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9693DD70-7FDC-4482-96E6-2CEE77B1F800"></a></span>When you set a value other than 0, the color of the goal object changes from the default
+                     red to another color to make it easy to identify that it's in a different group. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-40AD2F08-A36F-4A61-BE4C-512393A7EE75"></a></span>In the <span class="char_link"><a href="iceref_Initialize_Collision_Avoidance.htm">Initialize Collision Avoidance</a></span> compound (in the simulation point cloud's Emit ICE tree), set the <span class="MenuCascade" id="GUID-F3B265C2-3020-4D34-8A92-F895BDA7DAA4">Goal Group Index</span> to the index value of the group that you want to use. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5015A1AB-E4A1-4A41-AE71-2E74C44108B7"></a></span>This makes all particles in the simulation consider only that group of goals, so you
+                     will need to set up some type of condition in the ICE tree to change the behavior
+                     on a per-particle basis. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-925939C2-155F-4A13-97B4-6CADE725AEAC"></a></span>For example, if you to separate the actors into groups based on their emitter, you
+                     must first give each emitter a unique ID (in its <span class="char_link"><a href="iceref_Set_Emitter_Data.htm">Set Emitter Data</a></span> compound). Then plug the <span class="char_link"><a href="iceref_Get_Crowd_Emitter_ID.htm">Get Crowd Emitter ID</a></span> node into the Goal Group Index port. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_B3B2A495238D4F289E849C9FA3788CD2"></a></span><div class="figure-anchor"><img src="../images/GUID-374FAEF5-0C94-4F12-A9AD-497329334819-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-725AC6DB-8E4A-40BC-99DA-A38BDB31E5B6"></a></span>The actors then move among only the group of goals whose Group Index value matches
+                     their emitter's ID. They still follow the goal's Index values within their group.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-384D1335-A27E-45FE-8378-F4A78FBA32E0"></a></span> <img src="../images/GUID-35F76028-38C9-4547-B5BF-0301EBC58C86-low.png"> 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_AD96D0F5B0C945E3A4C0BD87C35D6C8F"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-6BDA4740-4940-45D8-9FFE-DD1243772602"></a></span>Moving Toward the Closest Goal
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-084D3542-F79E-4DD8-A0B8-221E0FAF7BD1"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-042C6CC0-B289-4E69-9C7C-5A9246AB2B03"></a></span>You can make the actors in a crowd move to whichever goal which is closest to them
+               using the <span class="MenuCascade" id="GUID-36AB86F0-994D-4CD2-8B2E-322D4AC234E9">Closest Goal</span> compound. The goal's Index value is not used in this case: the position of each goal
+               is evaluated in relation to the position of the actors, and the actor moves to the
+               goal object that's closest. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-907F51C6-F2BE-4310-BB15-F84555FBD1C3"></a></span>To make actors move toward the closest goal object: 
+            </p> <span class="anchor_wrapper"><a name="OL_59C70A3DC14D47ABBAA3F40E6AA01B11"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AF3C4731-CAEB-4003-8793-E99A8E9A2589"></a></span>Create one or more goal objects with the <span class="MenuCascade" id="GUID-35727BA2-C74C-425D-B0D4-9DC7F443F6F5">CrowdFX <img src="../images/ac.menuaro.gif"> Crowd <img src="../images/ac.menuaro.gif"> Add Goal</span> command from the ICE toolbar. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C59EDF25-7A86-4D1D-96A6-A3AD01EC29E2"></a></span> <img src="../images/GUID-759A3B34-DDEA-41BF-8B80-7C6759DC3BA8-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6A9054D6-53F4-4B71-A4C0-152B924337AD"></a></span>Delete the <span class="MenuCascade" id="GUID-76C9FDF5-96D4-4747-B569-8982821347C0">Set Goal By Goal Sequencer</span> compound from the <span class="MenuCascade" id="GUID-66D7DD64-DA1A-454C-9B7D-8C4E28712EA9">Execute Goal</span> port on the <span class="char_link"><a href="iceref_Set_Velocity_Using_Collision_Avoidance.htm">Set Velocity Using Collision Avoidance</a></span> compound in the simulation point cloud's Behavior ICE tree. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-799C7FBA-08C5-4DCA-BC92-A37CF15BA0D2"></a></span> Get a <span class="char_link"><a href="iceref_Closest_Goal.htm">Closest Goal</a></span> compound and plug it into the input port. 
+                  </p> 
+               </li>
+               <li>Set the values in each goal object's <span class="char_link"><a href="CrowdFX_Goal_Property_Editor.htm">CrowdFX Goal Property Editor</a></span>. 
+               </li>
+            </ol> 
+            <p><span class="anchor_wrapper"><a name="GUID-BAD0A978-4B40-426B-A755-D07D7D0301D5"></a></span>The actors move to random points within the goal's radius (<span class="MenuCascade" id="GUID-CF85D003-EDB7-413D-8334-6B1F7677E274">Min Distance</span>) so that they don't all clump up at the same point. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C08A4395-82CB-4563-969C-07C06C17A1D5"></a></span>In the image below, the particles are emitted, then immediately head toward the goal
+               object that is closest. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-E370EDB9-3161-4135-BE4F-FC7CCF2B14B8"></a></span> <img src="../images/GUID-99159211-1488-4CAE-A07B-86BB9A5D2C5B-low.png"> 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

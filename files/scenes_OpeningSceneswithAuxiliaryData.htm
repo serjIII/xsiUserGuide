@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F0007410-1283-4376-B060-5A743FAD14FF">
+      <meta name="indexterm" content="auxiliary data: about">
+      <meta name="indexterm" content="scenes: auxiliary data">
+      <meta name="indexterm" content="auxiliary data: defining">
+      <meta name="indexterm" content="auxiliary data: loading">
+      <meta name="indexterm" content="command line: auxiliary data">
+      <meta name="topic-type" content="concept">
+      <title>Opening Scenes with Auxiliary Data</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F0007410-1283-4376-B060-5A743FAD14FF"></a></span><div class="head">
+            <h1>Opening Scenes with Auxiliary Data</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-93C35048-31AF-4255-931B-84D71BE54251"></a></span>An auxiliary data file contains a sequence of values that can be set once a scene
+               has finished loading. All parameters are set sequentially prior to registered OnEndSceneOpen
+               events. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3636A517-B79D-4291-9A97-3DB17EC40F2E"></a></span>Auxiliary data is especially useful for batch rendering because it provides a simple
+               way to modify various parameters of a scene without having to modify the scene file.
+               
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-B20A5417-77E0-4912-846D-579827DCA424"></a></span><div class="note-note"><span class="label">NOTE:</span>An alternative to auxiliary data is the scene TOC file. One difference is that scene
+                  TOC data is specific to individual scenes, while auxiliary data applies to any scene.
+                  For more information about scene TOC files, see <span class="char_link"><a href="scenes_GettingandSettingSceneDatawiththeSceneTOC.htm">Getting and Setting Scene Data with the Scene TOC</a></span>. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2213EA91FD37A848ABE673F9285ED43A-0016"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DCE17002-2860-4D0C-8107-690A0C7694CA"></a></span>Defining an Auxiliary Data File
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-0B9202DB-94F5-47F4-B0C3-C4000CA5F2F8"></a></span>The auxiliary data file format is a plain ASCII file that must start with the following
+                  header: 
+               </p> 
+               <div class="codeBlock"><pre>
+	XSI_AuxiliaryDataFile ASCII 1 0</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-5D64BBA2-ECA2-4EF8-9A9E-C694E15D8667"></a></span>The header identifies the file as a v1.0 Auxiliary data file in plain ASCII. At the
+                  moment, there is no other format but other file formats may be introduced in the future.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E869FC8C-1CF1-4C82-A1EF-354BF19A6627"></a></span>Lines following the header can be: 
+               </p> <span class="anchor_wrapper"><a name="UL_BA54BE15134D4C2D8D862683A29E8B63"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C8B8B3C6-63D7-4CA3-814F-DED4CADF7CF9"></a></span>Comments (lines starting with //). 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-72C2663D-3181-4D63-BD25-42901E41C856"></a></span>Comments cannot be put anywhere else but on the start of a line, unlike C++ style
+                        comments. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AC0CD0E0-B44D-485D-ACE3-19AB3043C620"></a></span>White space (carriage returns, tabs, or spaces). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B6592F6C-6B31-49AB-A89E-5A6ECF01D08A"></a></span>Parameters. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E1782967-A53E-4863-9893-7DF7D84756F3"></a></span>Parameters use the same syntax as the argument of the Softimage VBScript command <span class="MenuCascade" id="GUID-CC9999FA-43FB-4D59-850D-F0D30161CEEF">SetValue</span>. Every parameter in the auxiliary data file must fit on a single line. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-CE1A5E47-E00F-4608-85C1-F52A24C1D9DC"></a></span>For example, using the following line in your auxiliary file... 
+               </p> 
+               <div class="codeBlock"><pre>
+"Passes.Default_Pass.RenderOptions.EndFrame", 1</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D473F6DE-43A9-41DF-A480-27050306B582"></a></span>...has the same effect as calling this command in Softimage: 
+               </p> 
+               <div class="codeBlock"><pre>
+SetValue "Passes.Default_Pass.RenderOptions.EndFrame", 1</pre></div> 
+               <div><span class="anchor_wrapper"><a name="GUID-331169AE-04F4-4C34-8B88-368DDF78E700"></a></span><div class="note-note"><span class="label">NOTE:</span>Every parameter in the auxiliary data file must fit on a single line. 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2213EA91FD37A848ABE673F9285ED43A-0017"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-439141E5-5B9F-4989-BB7C-907ADC80DDE7"></a></span>Loading and Applying Auxiliary Data
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-D43CCD69-4D0E-452A-BCB8-C1A2709BBB0E"></a></span>To apply auxiliary data in Softimage, you have to specify which file contains the
+                  values you want to set with the <span class="code">-auxiliary_data</span> switch. 
+               </p> <span class="anchor_wrapper"><a name="GUID-4A3D48CC-655F-4E76-9575-AF0F1F54C426"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F9CD39DC-A145-4137-89DD-C7095DD5A988"></a></span>If your auxiliary data file is named <span class="filePath">C:\myData.txt</span>, type the following at the command line: 
+                     </p> 
+                     <div class="codeBlock"><pre>
+	xsi -auxiliary_data C:\myData.txt</pre></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8B8874B4-0A17-46AD-9CBE-CBC9E2CA2726"></a></span>This creates a new check box labeled <span class="MenuCascade" id="GUID-EF15EC40-BC77-4599-A148-7A4FBCB97137">Apply Auxiliary Data</span> in the Open Scene dialog box. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-742C85B9-BCFB-4D6B-B7CA-57DE945C538C"></a></span>Turn this option on to apply the auxiliary data when a scene is opened. This is a
+                        convenient way to test if your auxiliary data is applied correctly. 
+                     </p> 
+                  </li>
+               </ol> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2213EA91FD37A848ABE673F9285ED43A-0018"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EB9E7217-44E2-4EA5-A64A-080A5C8CE116"></a></span>To apply auxiliary data with scripting
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-80C63069-F44C-46E2-B944-C63D3414F5F6"></a></span>You can use scripting to apply previously loaded auxiliary data. For example, if you
+                     want to apply auxiliary data to your scene called <span class="filePath">C:\MyProject\Scenes\MyScene.scn</span>, use the following command: 
+                  </p> 
+                  <div class="codeBlock"><pre>
+	OpenScene "C:\MyProject\Scenes\MyScene.scn",,TRUE</pre></div> 
+                  <div><span class="anchor_wrapper"><a name="GUID-9AAFD184-673A-4293-9ACC-2CA1CCFEA565"></a></span><div class="note-note"><span class="label">NOTE:</span>Auxiliary data is not applied by default in both cases (through the interface and
+                        scripting). 
+                     </div>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2213EA91FD37A848ABE673F9285ED43A-0019"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-43C04736-7762-40EF-B95A-CACBF25EBE01"></a></span>To apply auxiliary data from the command line
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-6DABAB0F-8961-4410-9553-8E6AE60445B8"></a></span>You can apply auxiliary data automatically to a scene from the command line by typing
+                     either of these lines at the prompt: 
+                  </p> 
+                  <div class="codeBlock"><pre>
+xsi C:\MyProject\Scenes\MyScene.scn -auxiliary_data C:\myData.txt</pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FDAF5B50-CB6C-44B1-8618-E8A05D6225D3"></a></span> <em class="mild">or</em> 
+                  </p> 
+                  <div class="codeBlock"><pre>
+xsibatch -render -scene C:\MyProject\Scenes\MyScene.scn -auxiliary_data C:/myData.txt</pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-496B2FDD-F1CC-44C2-9A04-B2CA5322610E"></a></span>For a description of the difference between <span class="code">xsi</span> and <span class="code">xsibatch</span>, see Issues in Batch Scripting [SDK Guide]. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

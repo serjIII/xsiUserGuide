@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-A84B40F5-B12D-4A5B-80B7-F926F3A31730">
+      <meta name="topic-type" content="concept">
+      <title>Particle Gradient Control</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-A84B40F5-B12D-4A5B-80B7-F926F3A31730"></a></span><div class="head">
+            <h1>Particle Gradient Control</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-ED20F5C1-729B-4759-9099-0C286C10F8E8"></a></span> <span class="char_link"><a href="particles_shaders_ParticleGradientControlICE.htm#WS847B00E07AC16C48B8444DC51F49DB91-00BB">Particle Gradient Control</a></span> | <span class="char_link"><a href="particles_shaders_ParticleGradientControlICE.htm#WS847B00E07AC16C48B8444DC51F49DB91-00C0">Render Tree Usage</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-7BC4BC6D-5ACC-4868-9215-338F527529E9"></a></span> <em class="strong">Category:</em> Particle 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2786FDDA-EABC-45DD-B5D5-260971BE5472"></a></span> <em class="strong">Shader Family:</em> Texture 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3E62680D-515B-4E3E-94E8-5A9B64207F30"></a></span> <em class="strong">Output:</em> Scalar 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A21F210D-45B1-4AE5-BE01-02D85D097F68"></a></span>The Particle Gradient Control shader uses the input from other shaders from which
+               it generates a gradient. The shader allows you to change ICE particle colors and/or
+               density based on the particle's density, age percentage, or any particle attribute
+               you define. For general information about ICE particle shaders, see <span class="char_link"><a href="ipart_particles.htm">ICE Particles</a></span>. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2B4D01AD-3C4E-44B7-B594-5EE474853F1F"></a></span>The parameters in this shader control the position of a gradient (ramp) shader. They
+               allow you to specify the criteria that is driving the gradient. The gradient's position
+               is controlled by six attributes. The first two attributes (Density, Age %) are predefined
+               while the other four attributes (Inputs 3 - 6) can be controlled by any input shader,
+               such as an Attribute shader or a fractal texture shader. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-CE858354-6B65-4233-BB2C-47EA9F515AEB"></a></span>You can set multiple options and have their results blended together, such as using
+               both the particle's Density and Age % to determine the value set by the gradient.
+               
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00BC"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0BED7861-D8C1-49D7-97A5-961B0740E559"></a></span>Parameters
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00BD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D411C879-8D46-48FC-B921-1FB07514B9EC"></a></span>Per Cloud: Density
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C2C3D35C-7A73-49B0-91BE-F7E288B8E995"></a></span>Uses the particle's density to drive the gradient. The density increases from the
+                     rim to the center of each particle. If there are multiple particles in the same space,
+                     their density is added together. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_DC87325730774A53922F23C6CB3681F2"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BDB8405B-E7A4-41C0-8C47-9E36C4A6CD9A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EF6C0661-086E-46BD-8668-24A5DA8DED18">Gradient Starts At/Ends At</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3B2C6666-38D8-4A82-8F21-887B5A023686"></a></span><p class="table-body">Uses the values on the gradient based on the particle density. </p> <span class="anchor_wrapper"><a name="GUID-31DDDBE6-7AD4-4B5F-862F-1AE28D52BB53"></a></span><p class="table-body">If the <span class="MenuCascade" id="GUID-6B18F1FF-9AA4-4D4F-9090-DDCA7CD338FC">Gradient Start At value</span> is set to 0 (particle rim), the value in the box at the left end of the gradient
+                                 control is used. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-BC816751-F0A7-49E6-B818-29914C7210E0"></a></span><p class="table-body">If the <span class="MenuCascade" id="GUID-730F08C0-A312-4B2E-9254-831ABF0BAA8B">Gradient Ends At value</span> is set to 1 (particle center), the value in the box at the right end of the gradient
+                                 control is used. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E9C015D3-0107-4209-85D0-DF0F4AC17451"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0DB8AEFE-F480-481F-AC52-0A24BFFA39D6">Intensity/Influence</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5DA536B6-4E88-4235-87AD-2BD271AD5075"></a></span><p class="table-body">Determines how the Density is weighted relative to the other attributes set on this
+                                 tab. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-57C503E3-0622-4D63-AC03-6C1C67B23763"></a></span><p class="table-body">For example, if the Density Influence is 0.6 and the Age % Influence is 0.3, then
+                                 Density has twice as much influence on the final result. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00BE"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1C69ABEF-5AB7-42B5-9445-F49586EC9876"></a></span>Per Particle: Age %
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-02308384-5D1F-4BE1-BFB0-1A950769EF91"></a></span>Uses the particle's age percentage to drive the gradient. You must define the particle's
+                     age limit in the ICE tree so that the shader can use that value to set the values
+                     correctly — see <span class="char_link"><a href="ICE_particles_ICEParticleLifeSpan.htm">ICE Particle Age</a></span> for more information. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_B78F22A40549427682151C2EA9BD3D7F"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B32689D8-8ED8-4C4A-BA1A-CE0A5BF3AF78"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D0AE9764-E727-4C06-889A-59C9C6D93179">Gradient Starts At/Ends At</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DC10330F-CA37-4E1B-9CFF-E0640BD935EB"></a></span><p class="table-body">Uses the values on the gradient based on a percentage of the particle's age. </p> <span class="anchor_wrapper"><a name="GUID-6FEB98AE-6B77-4FD7-A0F6-009BF00F6E40"></a></span><p class="table-body">If the <span class="MenuCascade" id="GUID-5080BA08-53A0-4D2D-94D6-C0B2742002CE">Gradient Start At</span> is set to 0 (particle birth), the value in the box on the farthest left of the gradient
+                                 control is used. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-628B86C0-BBE6-4C16-A641-B2FD79C31A5D"></a></span><p class="table-body">If the <span class="MenuCascade" id="GUID-2597DFCE-CA78-40E9-AC8C-B50E93AA16E8">Gradient Ends At</span> is set to 1 (particle death), the value in the box on the farthest right of the gradient
+                                 control is used. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-F9BE5212-AB93-4949-9618-F3EDDDFBAA38"></a></span><p class="table-body">For example, if the <span class="MenuCascade" id="GUID-CD528E27-7A46-4781-971F-18AEB4F71B72">Gradient Start At</span> value is set to 0 the value at the left end of the gradient is used at the birth
+                                 of the particle. But if the <span class="MenuCascade" id="GUID-65E08496-76CE-4D00-B0C7-09CDB7FC13E0">Gradient Ends At</span> value is 0.5, only half of the particle's lifetime has been reached, so the values
+                                 stop changing in the middle of the age of the particle. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A03EBF73-0D43-4757-AE04-F7F8BA1BDD45"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B3DF8686-18A7-4522-93CF-AB4FAE8F7326">Intensity/Influence</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2C9F248E-5118-4339-A67A-1D5AFA6CC4D6"></a></span><p class="table-body">Determines how the Age % is weighted relative to the other attributes set on this
+                                 tab. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-167B55C9-271D-4C48-A64C-A0B80971C26C"></a></span><p class="table-body">For example, if the Age % is 0.6 and the Density Influence is 0.3, then Age % has
+                                 twice as much influence on the final result. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00BF"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7F06B31E-0758-424B-92D1-10C2676264B9"></a></span>Per Particle Input 3 - 6
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B2A901EE-F959-4098-A5C6-F949013565E7"></a></span>These four inputs can use any shader to drive the gradient. They are controlled by
+                     shaders such as ICE Attribute shaders (see <span class="char_link"><a href="GUID-DEEDC6CB-D6DB-40DE-B170-FD7A3E3005AE.htm">Bringing ICE Data into the Render Tree with Attribute Shaders</a></span> for more information) or fractal texture shaders, such as the Fractal Scalar or Cell
+                     Scalar shader. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D8EC5F14-A332-4EBC-A9B3-60F9E4B4B840"></a></span>For example, using the Vector Attribute shader, you can use the particle's velocity
+                     to drive color gradient values so that the particles fade off or change color as they
+                     get faster. You can use any attribute that is defined for the particles in the ICE
+                     tree to drive the gradient. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_12F540B4EE224E79808F23DA516CE2E0"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8409CFF5-75C0-40AE-BA9E-B550A277CEC7"></a></span><p class="table-body"> <em class="strong">Enable Input <em class="mild">n</em></em> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2F17E043-BDC1-4A25-AF7E-24D26BA345E4"></a></span><p class="table-body">Toggles the activeness of this input. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2E5266F4-8C8E-4AF8-A19C-91A9472879CB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-14566F3C-9E6B-470A-B437-C36440874FD1">Input</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-06446086-D204-435B-823C-61AE8FE764E6"></a></span><p class="table-body">The value of the input shader. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4D954432-B270-4AEE-B3C9-8A1AB819D767"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D9FDC2B9-A6BF-4CBC-B60B-98C9342CAC5A">Gradient Starts At/ Ends At</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B596EDC9-7D07-448F-8C1F-2ABEFDB61A95"></a></span><p class="table-body">Sets the start and the end of the gradient based on the attribute value. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-848BE634-7A8A-4530-973E-466F57EEC072"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A1419C3E-BC6E-4C80-8340-7C0EC60FFB88">Intensity/Influence</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9F36C8CF-196F-48BE-9046-F2A8209C6A5F"></a></span><p class="table-body">Determines how this Particle Input is weighted relative to the other attributes set
+                                 on this tab (Density, Age %, and other Particle Inputs). 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2DED3BC8-302C-475A-B048-ED678F775F7B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F944D797-703C-4E35-9ABC-C10ABAEFE60E">Adjust Result (Otherwise Add to)</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6C8FC47F-78B7-4CB2-9228-8DBF40C9BCCF"></a></span><p class="table-body">Adjusts the result of the input shader, if this option is selected. </p> <span class="anchor_wrapper"><a name="GUID-D3BD1DD1-AEE9-45D0-A37F-474779DE0685"></a></span><p class="table-body">For example, say you have created a gradient that you like. Now you just want to add
+                                 a little bit of variation to the gradient. With Adjust Result, you can use a new input
+                                 shader, such as a fractal. The gradient on all the particles does not change much,
+                                 just a bit of noise is added. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-6E3302EA-2196-4E0F-8F0C-65C27F77C857"></a></span><p class="table-body">If this option is unselected, you add the result of the shader, which has a more significant
+                                 effect on the gradient. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00C0"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CA6B2F48-3912-409D-9951-E3F17BF84E64"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-DA3F8DB2-9844-47E6-A9A3-21BBBBFD0DC8"></a></span>You can plug the Particle Gradient Control shader into any gradient port, such as
+                  the Per Cloud or Gradient Color and Density ports of the Particle Density shader or
+                  any gradient port on any of the particle shader compounds. 
+               </p> <span class="anchor_wrapper"><a name="FIG_A94FE4800D7944589E7E2D46D475F19D"></a></span><div class="figure-anchor"><img src="../images/GUID-2C1C1116-53E1-4343-90C8-8BCA2FE250F8-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-DF264E36-F281-4B81-9382-61F4461E959D"></a></span>The Particle Gradient Control shader uses inputs from which it generates a gradient.
+                  There are two predefined inputs set up for you (Density and Age %), but you can also
+                  connect shaders to the shader's four Per Particle: Input (scalar) ports. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6FAD4B7F-E53F-492F-9466-48CE31E748DA"></a></span>For example, you can use any of the Attribute shaders as inputs for this shader to
+                  drive the gradient based on almost any ICE attribute for the particles, such as their
+                  velocity, size, orientation, mass, point position, etc. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

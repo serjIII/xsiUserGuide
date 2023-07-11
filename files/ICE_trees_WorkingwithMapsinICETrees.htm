@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-1A83D4C2-A47A-432A-9F4E-1975ACFAF799">
+      <meta name="indexterm" content="ICE trees: weight maps">
+      <meta name="indexterm" content="weight maps: ICE trees and">
+      <meta name="indexterm" content="ICE trees: texture maps">
+      <meta name="indexterm" content="texture maps: ICE trees and">
+      <meta name="topic-type" content="concept">
+      <title>Working with Maps in ICE Trees</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-1A83D4C2-A47A-432A-9F4E-1975ACFAF799"></a></span><div class="head">
+            <h1>Working with Maps in ICE Trees</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-DC684C4E-74A7-42A8-A8AB-9987ED411347"></a></span>You can work with both weight maps and texture maps in ICE trees. In addition, you
+               can read and write UV texture coordinates.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0078"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CB971975-C70C-4C49-BC5E-07A2B86F1129"></a></span>Weight Maps in ICE
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-0FE3CEB9-E4B4-402A-9E9D-5E041F732520"></a></span>To work with weight maps in ICE, you connect to its properties and attributes located
+                  underneath the associated cluster. For example, to work with the weight values, you
+                  connect to "&lt;object_name&gt;.cls.&lt;cluster_name&gt;.&lt;weightmap_name&gt;.Weights".
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BF87BA44-568D-4229-8520-B73934A21131"></a></span>You can read and write weights. When you get the value of a weight map's Weights at
+                  a location, the interpolated weight value is returned. The following subtree modulates
+                  particles' PointVelocity based on the weight at their EmitLocation.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-AFD6621D-6A5E-46DE-868E-66AD6AB6109C-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-5892E1A5-204F-4DE9-988A-90FA38AE676F"></a></span>To write values to a weight map, you set the Weights attribute at the points' positions.
+                  The following subtree uses a Turbulence node to set weights.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-303D8B37-C1AE-4EE4-A895-6ACAF6F4467D-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-2B58DF6B-AB45-47AF-B815-D2AF26274687"></a></span>There are some principles that apply when getting and setting weight maps in ICE trees:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B4236E32-8B9D-4423-9DE7-8A968FB907EA"></a></span>If an ICE tree gets weights but does not set them, then any paint strokes you make
+                        are applied below the read point in the stack so they are read by the tree.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A4AE3EBE-FF7C-4896-A573-A7C899E8448C"></a></span>If an ICE tree sets weights but does not get them, then any paint strokes you make
+                        are applied on top. This lets you use the ICE tree to generate a default map to use
+                        as a base for painting.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FF6E94E9-26B9-48D8-B90A-AB65F18678B1"></a></span>If an ICE tree both gets and sets weights, for example, if it smooths weights, then
+                        there are special rules. If the ICE tree is above the Modeling region in the construction
+                        stack, paint strokes always go below it and are read by the tree. If the tree is in
+                        the Modeling region, then new paint strokes go above it but you can detach and re-attach
+                        the weight map in the tree (for example, by removing the reference and then putting
+                        it back) to place it above them.
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-007B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-ACB83C2F-A317-41FC-BDA6-0EAAF7A4785C"></a></span>Using Weight Maps with First Valid
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C2CC6E58-F7A0-4E40-8F1B-B3C2A94E4EDF"></a></span>Many native Softimage parameters, such as the Amplitude of a Push operator, use a
+                     weight map if one is connected, and use a simple numeric slider value if there is
+                     no weight map. You can achieve the same result with a First Valid node as shown in
+                     the following illustration of a portion of a compound. If a weight map is connected,
+                     its value is multiplied by Amplitude and passed downstream. If no weight map is connected,
+                     Amplitude is passed directly downstream.
+                  </p> 
+                  <div class="figure-anchor"><img src="../images/GUID-6FC198B2-CC6D-4009-81ED-75C70BBC5781-low.png"></div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-007D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BCF795CD-ACCA-48AA-A2A5-75201E2D10D9"></a></span>Texture Maps in ICE
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-4E58D5DE-307E-496B-A022-A76A57D113DB"></a></span>To work with textures or other image maps in ICE trees, you need a texture map. A
+                  texture map is a property that associates an image clip with a set of UV texture coordinates.
+                  See <span class="char_link"><a href="weightmaps_TextureMaps.htm">Texture Maps</a></span> [<span class="char_link"><a href="scel_cover.htm">Scene Elements</a></span>].
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7019AFE1-FA22-4547-8F72-7E7705803C6A"></a></span>To work with the color values of a texture map, get the texture map at a location.
+                  The following subtree sets particles' color based on the value of the texture map
+                  on the emitter at their EmitLocation.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-ACFA1351-CCFE-4B50-B321-A2A7C4412ABA-low.png"></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-007F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-997C272A-C6DD-46EE-A459-B7DD5439F3C0"></a></span>Texture UV Coordinates in ICE
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-21443ECC-C6A6-453F-B41A-B7044B40E5A4"></a></span>To modify texture coordinates in ICE, simply get and set the UVs or UVWs attribute,
+                  located under the texture projection of the appropriate cluster.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-0F22A8ED-034C-4E70-9194-C917194066C2-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-3889A46E-9CE4-4796-A212-07214799DBD2"></a></span>Note that if you set texture UV coordinates in an ICE tree, the result is applied
+                  on top of any other operators that affect them. As a result, you cannot modify the
+                  texture UV coordinates in the texture editor, for instance — you need to freeze the
+                  texture UV coordinates (and the ICE tree) first.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0081"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BB37354A-47CE-4066-8D31-FE32ED41D3E1"></a></span>Caching Images Used in ICE Trees
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-245B3CDD-1DA4-4D58-B0FC-515C01EF380E"></a></span>When images are used in ICE trees, it can be helpful to cache them. This speeds up
+                  read operations, particularly for complex formats like EXR or compressed TIFF.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3079F076-D61A-43DD-9405-B8908A024A54"></a></span>To do this, use scripting or the SDK to set the FrameCaching property of the image
+                  source object. For example, in VBScript:
+               </p> <span class="code">SetValue "Sources.noIcon_pic.FrameCaching", true</span> 
+               <p><span class="anchor_wrapper"><a name="GUID-9DE2EC3E-E022-45D2-9742-2B9C1A63949F"></a></span>In JScript:
+               </p> <span class="code">SetValue("Sources.noIcon_pic.FrameCaching", true, null);</span> 
+               <p><span class="anchor_wrapper"><a name="GUID-8BE7CF76-5087-4E87-B4F2-6860642214D0"></a></span>For more information, see the [SDK Guide].
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A4DEBA41-28F5-4204-BC48-DB4BE91CC4CD"></a></span>Note that activating this option does not affect the speed of texturing or rendering
+                  operations.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

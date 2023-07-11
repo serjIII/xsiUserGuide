@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-B0AB9606-12A0-40BA-A9F1-1C11A66F9EBB">
+      <meta name="indexterm" content="operator stack: hair">
+      <meta name="indexterm" content="hair: operator stack">
+      <meta name="indexterm" content="styling hair: operator stack">
+      <meta name="indexterm" content="freezing: hair">
+      <meta name="indexterm" content="styling hair: freezing">
+      <meta name="topic-type" content="concept">
+      <title>Progressive Styling by Freezing the Stack</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-B0AB9606-12A0-40BA-A9F1-1C11A66F9EBB"></a></span><div class="head">
+            <h1>Progressive Styling by Freezing the Stack</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-5BA774E8-5937-4EB5-A84D-32DF5C37DC17"></a></span>When you use a hair styling tool, its operator gets added to the hair object's stack,
+               as you can see in the explorer. You can freeze the hair object's operator stack as
+               you would any object in Softimage (see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0037">Freezing the Operator Stack</a></span> for more information). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DADA22A0-4587-415B-9390-7F6528D9D9CA"></a></span>Freezing collapses all the styling operators (including any Scale, Rotate, or Translate
+               operators from the Transform panel) into the hair generator operator and keeps the
+               hair's state as the base state. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9CE58F76-3E6F-44BE-87C1-794C44FDBB14"></a></span>You can also use the Immediate mode when styling hair, which doesn't keep any operators
+               in the stack. See <span class="char_link"><a href="basic_mod_ImmediateMode.htm">Immediate Mode</a></span>. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9B281E97-86C3-40FD-8113-DC0BEB2E0A3D"></a></span>Freezing the stack lets you style the hair progressively, taking advantage of the
+               dynamics at each new hair state. For example, do some styling, add dynamics and move
+               the hair around to enhance the styling, and then freeze the stack. The results, taking
+               into account the dynamics and any styling operators that are present, are "baked"
+               into a new hair state that becomes the current state. With this new state, you can
+               continue building the style, and dynamics are applied relative to the new hair state.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E4D4605B-9569-47FF-AC68-E1D461C85598"></a></span>Below, guide hairs (in white) in a style before freezing. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-62E7F513-9681-4488-B423-A7C99AC280E8"></a></span> <img src="../images/GUID-50A3FF7A-B30D-4A2B-AFCD-9054F0FA71EB-low.png"> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6176C1D5-E149-4E11-A12C-1D49BEC17D29"></a></span>Character has dynamics applied and is animated to move forward and down quickly. Her
+               hair is frozen in this state to keep it as the current one. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-EE0BCA98-49A2-4965-AF08-8CB005EEF518"></a></span> <img src="../images/GUID-EC22C5C4-7FBD-4234-8DD7-9C6BD7E1937C-low.png"> 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEE033441ABFE7B44B10ECC543AAB91FE-000F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DD8C0B50-0658-4C56-9462-CE30FEBDA96A"></a></span>To freeze the hair's stack
+               </h2> <span class="anchor_wrapper"><a name="UL_EB77DD6B4C7B4C87AF6AFFA906FA0B30"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1BBB5E1E-C354-4470-ABC3-66674F4DD6E8"></a></span>Select the hair object and click the <span class="MenuCascade" id="GUID-56E75E5A-8810-4E1E-BDA5-A36E99AFDD4E">Freeze</span> button in the Edit panel of the main command panel. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-53B84CA8-EE20-4BFB-B0B2-12B0ECDF2C54-low.png"></div> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-C4686C8A-0D75-4FD1-AE3E-A209B6633F77"></a></span>All the styling operators are deleted, including any Scale, Rotate, or Translate operators
+                  from the Transform panel as contained in the MoveComponent operator node. If dynamics
+                  is applied to the hair, its operator is also removed unless it's muted. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A938D8E7-DD8E-4B44-A6DC-2352C69C44B1"></a></span>The hair generator operator remains because it is required to generate hair (it is
+                  freeze-resistant!). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4E0BCE0F-EA49-4680-BAC6-0FB80162FF67"></a></span>Also, any points that were locked remain locked even though their Lock operator is
+                  removed. This is because the locked state was baked into the base state. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-78DC9272-550A-41B4-B4CB-EE99C9548EE2"></a></span>Below on the left, the hair stack with styling operators before freezing. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-43581AE0-CB39-4DD6-8676-3D19C298D44C"></a></span>On the right, the hair stack with styling and dynamics operators gone after freezing.
+                  If the dynamics operator is muted when you freeze, it remains in the stack. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D71CD452-F33C-416B-B8A0-D1751962F344"></a></span> <img src="../images/GUID-F007A8DD-16B0-4D54-8971-7274A3D24D31-low.png"> <img src="../images/GUID-11382990-7D63-4286-8D37-2F902D05FAD4-low.png"> 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

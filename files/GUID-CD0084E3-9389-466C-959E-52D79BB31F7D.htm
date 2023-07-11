@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-CD0084E3-9389-466C-959E-52D79BB31F7D">
+      <meta name="indexterm" content="Syflex ICE: collisions">
+      <meta name="topic-type" content="concept">
+      <title>About Syflex Collisions</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-CD0084E3-9389-466C-959E-52D79BB31F7D"></a></span><div class="head">
+            <h1> About Syflex Collisions</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-F273F379-87D4-4C43-ACB5-CF321B6CB725"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-876D4077-7BD7-4E35-84F6-6CE1FFA4893A"></a></span>As part of a typical Syflex cloth or curve simulation, you need to set up how the
+            cloth or curve reacts to collisions. Collisions can be with other objects, or they
+            can be self-collisions, such as preventing a cloth from intersecting itself when it
+            folds up or flaps in the wind. A collision object (also called an obstacle) obstructs
+            the points of the simulated object, causing the points to interact with and move around
+            it in some way. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-41D57D71-FFDD-4A69-B48C-6FAF476C7141"></a></span>Although they aren't collision object properties, velocity and mass also play a large
+            role in how a cloth object reacts in a collision: 
+         </p><span class="anchor_wrapper"><a name="UL_236A9CF22B18421B8535DF8E9D192E74"></a></span><ul>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-16E785CD-85EB-49C9-B357-625D3C796446"></a></span>A cloth object moving at a high velocity is going to deform more than one moving at
+                  a low velocity. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-CC428366-1F95-4CF9-A064-7595F9EC5B19"></a></span>A cloth object with a high mass value is going to deform less than one with a low
+                  mass value, but it will have greater momentum. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-4CA5AB0D-54F1-4E5C-A87C-9318AAB6C5AA"></a></span><div class="note-note"><span class="label">NOTE:</span>Energy and momentum cannot be transferred from the cloth to a collisions object or
+                     vice versa. 
+                  </div>
+               </div> 
+            </li>
+         </ul>
+         <p><span class="anchor_wrapper"><a name="GUID-E40730B3-96EE-4FE4-8E97-77AAFDB06F4F"></a></span> <img src="../images/GUID-6C4AD30E-EAAB-40EE-99A8-1B829B7A1EA0-low.png"> 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_1104FA869227406C931C3FAB70528577"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-123639F3-CACD-4AB6-996C-CEDFC1667525"></a></span>Types of Collisions
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-838A0F15-E6E7-4051-A2B9-EA26DEC2290B"></a></span>There are several types of collisions that you can create for cloth or curve simulations,
+               using these Syflex ICE compounds: 
+            </p> <span class="anchor_wrapper"><a name="UL_EF76458C68F34DDABDE5803591146DB3"></a></span><ul>
+               <li>Syflex Collide Capsule or Sphere or Plane create shaped bounding boxes around a null
+                  for the collision object - see <span class="char_link"><a href="GUID-74B31395-C13B-4EC2-B300-B2225FA4A801.htm">Creating Collisions with Bounding Box Objects</a></span>. 
+               </li>
+               <li>Syflex Collide Mesh uses polygon meshes for collision objects - see <span class="char_link"><a href="GUID-D058F1DE-B538-4A50-8D7D-0C926A3EDED6.htm">Creating Collisions with Polygon Mesh Objects</a></span>. 
+               </li>
+               <li>Syflex Collide Self allows the cloth object to collide with itself - see <span class="char_link"><a href="GUID-F7172F17-3723-4CCF-B2BA-D36D3873E07D.htm">Creating Self Collisions</a></span>. 
+               </li>
+            </ul> 
+            <p><span class="anchor_wrapper"><a name="GUID-3D7507D3-124C-4D63-A177-63EBD4C9EB07"></a></span>As a rule of thumb, you should use the bounding shapes (capsule, sphere, and plane)
+               for collision objects if possible. Collision calculations with these shapes are faster
+               than with polygon mesh collision objects, which use the actual shape. However, you
+               will need to use polygon mesh objects when you need to have the exact shape of the
+               collision object for the interaction with the cloth, such as for a shirt colliding
+               with a character's arms, armpits, and upper body. 
+            </p> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_469BC6306FED413488C3589FF97CED86"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-F9EA0528-4405-4586-B95D-725D252B4425"></a></span>Evaluation Order of Collide Nodes
+               </h3> 
+            </div> 
+            <p><span class="anchor_wrapper"><a name="GUID-15E275D5-B58C-4EEA-B4CC-9AB138F47505"></a></span> In ICE, the evaluations of a node start from its top port and go down, so the order
+               in which nodes are plugged in usually matters. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-F42A16AC-6164-4F09-899D-6DACD625F77D"></a></span>This is the case for the Collide nodes: the order in which you plug in any of the
+               Syflex Collide node outputs into the Syflex Cloth or Syflex Curve nodes' Force ports
+               can make a difference in the resulting simulation. For example, if you are using several
+               Collide nodes to have multiple collisions happening in the same area of the cloth,
+               you need to plug in the Collide nodes in the order that you want them evaluated. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-AB2A95DD-6D7E-4206-B5C0-04EEBC211336"></a></span>Forces, such as gravity or wind, are always computed before collisions, so the order
+               of the Force nodes doesn't matter. 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

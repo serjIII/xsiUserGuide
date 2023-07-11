@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6F9FCB8A-4E9C-4AFE-9F52-98A8F9521D33">
+      <meta name="indexterm" content="animation: sharing between scenes">
+      <meta name="indexterm" content="action sources: external sources in files">
+      <meta name="indexterm" content="external action sources: in files (.xsi or .eani)">
+      <meta name="indexterm" content="action sources: saving in .xsi or .eani files">
+      <meta name="indexterm" content="file types: .xsi (action sources)">
+      <meta name="indexterm" content="file types: .eani (action sources)">
+      <meta name="indexterm" content="dotXSI files: saving action sources in">
+      <meta name="indexterm" content="EANI files (native Softimage binary): saving action sources in">
+      <meta name="indexterm" content="external action sources: loading in a scene">
+      <meta name="indexterm" content="external action sources: offloading">
+      <meta name="indexterm" content="offloading: external action sources">
+      <meta name="indexterm" content="external action sources: offloading parts of a source">
+      <meta name="indexterm" content="offloading: parts of an action source">
+      <meta name="topic-type" content="concept">
+      <title>Creating External Action Sources</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6F9FCB8A-4E9C-4AFE-9F52-98A8F9521D33"></a></span><div class="head">
+            <h1>Creating External Action Sources</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-ACDF4A48-313F-48D1-BD56-196B3130B7C4"></a></span>You can save an action source to a file (*.xsi or *.eani) to make it easy to share
+               animation between different Softimage scenes. These types of action sources are known
+               as <em class="mild">external</em> action sources because the action is saved in a file that is separate and external
+               to a scene or model. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9FEFF38E-3083-4F43-B384-E154FB7FCA65"></a></span>In addition to easily transferring animation between Softimage scenes, you can also
+               update the function curves within an action source using the Crosswalk SDK (formerly
+               known as the SOFTIMAGE|FTK, or File Transfer Kit) without having to load the Softimage
+               scene from where the action source originated. The Crosswalk SDK provides tools to
+               read and write to the dotXSI file format (*<span class="MenuCascade" id="GUID-D053AB27-73CB-4048-BA7C-779768AE2E8B">.xsi</span>) to integrate it into production pipelines. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-ECD85C3E-8A7D-4B90-ACEF-A583F51E31D9"></a></span>Using external action sources can save you time in different ways: 
+            </p><span class="anchor_wrapper"><a name="UL_8DAE7AA8A9B64EEAA21955ED38A41E3D"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-29224E14-F109-435E-869F-6D90D799553D"></a></span>When you refer to an external action source in a scene, the source is not actually
+                     loaded into the scene until you need to use its contents, such as by creating clips
+                     from it or modifying a clip that refers to it. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-24CBCBCC-2B18-4C10-B00A-DC6A1ECD7B5B"></a></span>If you load an external action source into a scene but don't change it, the external
+                     source isn't saved again when you save the scene. External sources are saved only
+                     if they have been altered in the scene. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-20AB5804-5B50-4678-9122-0C58CB56A821"></a></span>You can offload a whole external action source or just parts of it. When sources are
+                     offloaded, it means that they are not loaded into the scene. Of course, you can easily
+                     reload them when you want to use them. See <span class="char_link"><a href="actions_CreatingExternalActionSources.htm#WSA3B2924969ED704E813291282A376B72-0147">Offloading External Action Sources</a></span> for more information. 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0142"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-67025536-0817-4EC5-99ED-E4A930A591AA"></a></span>Saving Action Sources to a File
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BC1053DA-26D3-4132-BFF3-22286AAAFD67"></a></span>You can create an external action source by saving it to a file (either *<span class="MenuCascade" id="GUID-AFB23294-8A94-48B5-815D-2983A3C8E255">.xsi</span> or *<span class="MenuCascade" id="GUID-BA527F85-ADA6-47B7-AC2F-ADB986BA91E5">.eani</span>). To make an action source external, the original animation data stored in the source
+                  must be from function curves. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-03AE47DD-3B18-4902-877E-475E163AACE4"></a></span>Action sources created from expressions, constraints, or quaternion function curves
+                  are <em class="mild">not</em> supported by *<span class="MenuCascade" id="GUID-8D0D53BB-3254-4F0E-8ECE-1B0456A102EA">.xsi</span> files. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-FDD85DA3-E74A-4042-B3A3-FD5162BF3698"></a></span><div class="note-note"><span class="label">NOTE:</span>Creating an external action source is the same as exporting an action source as an
+                     *<span class="MenuCascade" id="GUID-C0451485-D4D8-40CC-8BD7-28B9BA19E23D">.xsi</span> or *<span class="MenuCascade" id="GUID-0CADC933-0994-4933-93A2-48266BBF39B7">.eani</span> file. See <span class="char_link"><a href="actions_ImportingandExportingActionSources.htm#WSA3B2924969ED704E813291282A376B72-015C">Exporting Action Sources as Files</a></span> for more information. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0143"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6CA44E62-70C3-4108-A1DC-EF099767E2FB"></a></span>To save an action source in a file
+                  </h3> <span class="anchor_wrapper"><a name="GUID-34B5ABDF-1C59-4DAC-B8F1-18B9D16BFE01"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0120E194-01FB-4B47-AACC-82EC826FC9AD"></a></span>Right-click an action clip and choose <span class="MenuCascade" id="GUID-A512A2E5-5A2A-48B7-BF8A-2FA58A39E941">Source</span> to display the action source's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7E8956C5-268A-48D8-9867-210779495336"></a></span>In the action source's property editor, select a file format option from the <span class="MenuCascade" id="GUID-A91672E7-75BF-455F-867A-EA908E064B0B">Storage</span> list. You can choose from these file formats: 
+                        </p> <span class="anchor_wrapper"><a name="UL_6380625D0A2C481AA365AE88ED42BB3C"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-01BEA4EE-A9E6-4064-8510-3C39D48EB27F"></a></span> <span class="MenuCascade" id="GUID-0E30D2D4-90EB-40B6-A2ED-F65D83DBFDAE">External</span> (<span class="MenuCascade" id="GUID-745DA7BF-16DD-4100-B1A9-54ABD42B3B20">.xsi text</span>) saves the action source in a *<span class="MenuCascade" id="GUID-9498D304-B7A6-4989-8393-5821E6A17275">.xsi</span> ASCII text file. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-EE445A1A-DA8F-4E3D-B6CD-9DC00D91ECE7"></a></span> <span class="MenuCascade" id="GUID-BB322B7A-D7D5-4436-8781-20F7F4AA93DF">External</span> (<span class="MenuCascade" id="GUID-E1FCFED6-218F-47AA-B8AC-70E9CB726B7A">.xsi binary</span>) saves the action source in a *<span class="MenuCascade" id="GUID-D1B34189-0699-4131-8E8F-7992A16D1BDE">.xsi</span> binary file. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-0035F6C7-E01C-448C-A3D7-883EC136A192"></a></span> <span class="MenuCascade" id="GUID-7B9E68D9-F7F1-4F21-B86F-129550A1265C">External</span> (<span class="MenuCascade" id="GUID-140E4D44-57EB-4BA8-83C6-980775FC1960">native binary</span>) saves the action source in a native Softimage binary (*<span class="MenuCascade" id="GUID-1AB2432D-54D0-4914-AC8C-94A3FCFD83DD">.eani</span>) file. This is faster to load and save, but cannot be imported into other applications
+                                 using the Crosswalk SDK. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-C8E6471C-DF45-4EC3-AC6F-B6D7B0D82FBB"></a></span> <span class="MenuCascade" id="GUID-A0981A55-A639-4326-8586-F8D35BE3C77C">External</span> (<span class="MenuCascade" id="GUID-2036855C-BE1E-4C23-86E7-73ED65008501">custom format</span>) saves the action source in a format that you have created. 
+                              </p> 
+                              <div><span class="anchor_wrapper"><a name="GUID-5FA6C1E3-E9A6-4109-83AF-528D5F35D40B"></a></span><div class="note-note"><span class="label">NOTE:</span><span class="MenuCascade" id="GUID-6D02A1FA-13DF-48A4-9FE6-898B8CEE95E9">Internal</span> saves the action source as part of the scene. This is the default type of action
+                                    source that is created when you store a source. 
+                                 </div>
+                              </div> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-656E371D-5933-4EB2-BCCD-2BB3B67E33B2"></a></span>Enter a <span class="MenuCascade" id="GUID-37CD31D9-A63E-4AB6-BC0C-EE30A3ABA70B">File</span> name and path in which the action source will be saved. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AF1FF7B8-D0C7-4EE4-947F-CF14C10709FF"></a></span>By default, the path is set to the <span class="MenuCascade" id="GUID-425E59FD-9535-4BA9-80FA-FF4CE025B549">Actions</span> folder in your current project. Click the browser button (...) to open a browser
+                           and choose a location. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_103CBDDB859043E6B83198E88A0CC821"></a></span><div class="figure-anchor"><img src="../images/GUID-D82D02DB-2D64-4A1B-BACA-DC4A09F55BA2-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-171C19C4-8875-41D2-BF38-9CDBED60C3F4"></a></span>When you save the scene, the action source is saved in the file you specified. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-34E15451-A1CD-4F23-AF5B-A722902A717D"></a></span>If there is already an external action source that you are using in your scene, the
+                           action source file is updated only if the contents of the action have been modified.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4FF9008E-7AAD-4038-A129-492B9180BA94"></a></span>You can now load or import the file into other scenes as described in the next section,
+                           <span class="char_link"><a href="actions_CreatingExternalActionSources.htm#WSA3B2924969ED704E813291282A376B72-0145">Loading External Action Sources</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0145"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-33BA8EC6-90DE-487B-91CC-B75637B79304"></a></span>Loading External Action Sources
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-B61483CB-FE72-464E-8B63-ADCE09C2EAFC"></a></span>After you've created an external action source, you can load it into any Softimage
+                  scene. When you refer to an external action source in a scene, the source is not actually
+                  loaded into the scene until you need to use its contents, such as by creating clips
+                  from it, modifying it, or modifying a clip that refers to it. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3E952A17-DCC4-4410-89EE-0F094082A570"></a></span>If you load an external action source into a scene but don't change it, the external
+                  source file isn't updated when you save the scene. External sources are saved only
+                  if they have been altered in the scene. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0146"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D39D81CD-2339-4373-9019-DF71E1518C82"></a></span>To load an external action source
+                  </h3> <span class="anchor_wrapper"><a name="UL_E42DDB4E6B804B7995FCDDA8810FBB44"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F9392D97-2652-422F-8DD1-97968D9A08AB"></a></span>Use any of the methods as described in <span class="char_link"><a href="actions_ImportingandExportingActionSources.htm#WSA3B2924969ED704E813291282A376B72-0152">Importing Action Sources Files</a></span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BAD77576-447B-4329-8D18-6B135063D866"></a></span>If the file is not valid, the source is still loaded but the content is empty. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0147"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7231E9AD-F001-4884-846F-03777DC6B132"></a></span>Offloading External Action Sources
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-7EB7345B-6933-405C-A601-E4C3BCA8BFA0"></a></span>You can offload external action sources in a scene to save time when working in the
+                  mixer. When sources are offloaded, it means that they are not loaded into the scene
+                  and are temporarily unavailable. Of course, you can easily reload them when you want
+                  to use them. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4ADD4F43-29DC-4ED6-BF4A-311A64BD0FA4"></a></span>As well, you can choose to offload only certain frames within an action source (see
+                  <span class="char_link"><a href="actions_CreatingExternalActionSources.htm#WSA3B2924969ED704E813291282A376B72-014C">Offloading Parts of an External Action Source</a></span>). 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0148"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F4AD027D-3190-4F95-AEC8-9F00301473A0"></a></span>To offload an external action source
+                  </h3> <span class="anchor_wrapper"><a name="GUID-873FD21B-C991-45C1-A1BE-CF5DDC2BB78E"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-62E5CB50-F6B7-43E1-9913-6D7EF4B42FAC"></a></span>Right-click an action clip and choose <span class="MenuCascade" id="GUID-CEC775F0-1ABB-412D-9024-2002EEB35B52">Source</span> to display the action source's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4D210B3D-F5D5-492C-AAF4-CB9925D973BA"></a></span>Select one of the <span class="MenuCascade" id="GUID-BC30A7E9-D06B-4909-94A4-08DCAD8DD81A">External</span> file format options from the <span class="MenuCascade" id="GUID-BB12E10F-810F-482E-8A5E-E20B58676E07">Storage</span> list. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4FB19081-EA1F-49B0-A426-E161F7970697"></a></span>Select <span class="MenuCascade" id="GUID-2240F28F-E892-4148-A1F0-3087A6706CFA">Offloaded</span> from the action status list. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_2360623232C64F6498BFF8EB5C151107"></a></span><div class="figure-anchor"><img src="../images/GUID-841988DC-418B-45B2-B528-7E3C55356E2F-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2A22F01A-CF2B-4BA6-ABDF-C7AB0BBB4B2C"></a></span>On top, the offloaded action source's icon changes to an outline of the running man.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A31AABF5-4340-4D9B-A690-9CE743C5D46D"></a></span>On the bottom, the clip that refers to an offloaded source is dark gray with (Offloaded)
+                           added to its name. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-014A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-87DCA148-2637-4C71-AAE8-3A885123A4FB"></a></span>To reload an offloaded source
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8E3756AE-7238-4D80-9016-A3AB4507B42E"></a></span>If the external action source is offloaded when you open a scene, the source isn't
+                     loaded. You can reload a source if you need to use it or modify it. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-4F0274F2-8E06-4E69-88BA-A3CB3A849EE3"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0D33260B-BBC3-4AF9-9211-1CAA2F284606"></a></span>Right-click an action clip with an offloaded source and choose <span class="MenuCascade" id="GUID-8B9F2FBC-1A1B-4044-AD0B-6FD9944BAC46">Source</span> to display the action source's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CDEEA1E5-C01D-4E1F-A153-63EC177A371A"></a></span>Click the <span class="MenuCascade" id="GUID-2D53ACC2-52FC-4D8C-9649-34A42110F913">Reload</span> button at the top of the property editor to reload the offloaded source. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_FA68DF67A96D4B9A95772345E5EC6A72"></a></span><div class="figure-anchor"><img src="../images/GUID-FE46CDE2-7572-4A99-9C33-5A5F117C142E-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-014C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F2C91B91-A07D-4684-855F-5AB0C54F6AC9"></a></span>Offloading Parts of an External Action Source
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-13C0EAEF-782A-4A03-9E2C-02365B0F7E48"></a></span>In addition to offloading a whole external action source, you can offload only certain
+                  parts of the action. This saves you time when loading many action sources into the
+                  scene. You specify a range of frames of the action that you want to offload and all
+                  keys that are in that range are offloaded. Of course, you can reload the offloaded
+                  source segment back into the scene at any time. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-20075AE0-F5D8-4D24-BEF4-978EFB13C600"></a></span>Offloading partial sources is useful if you have particularly large action sources,
+                  such as data coming from motion capture. For example, let's say you have a mocap action
+                  source that has animation data from somebody running and then dancing, but you want
+                  only the dancing part. You find the frame ranges of the running segment and then offload
+                  these frames so that they aren't loaded the scene. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-98706DC5-3981-4AE1-9D85-1AA2A91CCC14"></a></span>A partially offloaded source is not saved, so it does not change the data in the source
+                  file (<span class="MenuCascade" id="GUID-D980B026-E43A-426F-B394-64620B03204C">.xsi</span> or <span class="MenuCascade" id="GUID-394F5B94-C58A-433E-ADA2-9590399E7F31">.eani</span>). However, the source parameters are saved so if the scene is reloaded, partial offload
+                  will be reapplied. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A4F2BE00-5F06-46DF-BF4D-7CA6D1BAA1B3"></a></span>When loading a scene that refers to partially offloaded sources, these sources are
+                  loaded only if they are used. The source is trimmed to its partial amount only after
+                  the action is loaded. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-014D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A4A7FA8B-0F83-4CA8-8FD7-45E5B13022A9"></a></span>To partially offload an external source
+                  </h3> <span class="anchor_wrapper"><a name="GUID-ABFA1D74-1641-4725-8E82-684FB46F9B72"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DE500134-6BC6-4667-868C-D2F5BD4321DB"></a></span>Right-click an action clip and choose <span class="MenuCascade" id="GUID-DF7C920D-8E8E-4325-BDB6-07D00ECC0540">Source</span> to display the action source's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C0A6F60C-73BC-4A50-817B-8D64F7C7ADC7"></a></span>Select one of the <span class="MenuCascade" id="GUID-616745C4-033C-467B-864E-308B37BFC00A">External</span> file format options from the <span class="MenuCascade" id="GUID-913ECE3B-7763-4FAB-A0CF-AF199A4C67FA">Storage</span> list. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-953C2524-A299-491B-B9AB-20A28CD542F4"></a></span>In the <span class="MenuCascade" id="GUID-54A24949-376A-4264-82C5-180A04DFDD69">Partial Fcurves Offloaded Ranges</span> text box, specify the range of frames that you want to offload. The syntax is <span class="MenuCascade" id="GUID-4172D336-EC75-42DB-8558-D2E3656BBEAD">Start,End</span>; 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-396D7808-3F16-4996-B5A2-5593EAF1FCCD"></a></span>You can specify any number of frame ranges (separated by semicolons) in this text
+                           box; for example: <span class="MenuCascade" id="GUID-608AAA58-7CF3-4A92-A559-43C0D0896544">1,10;30,40;80,100</span> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3D461179-45EC-40B2-B92D-6B7DB6795119"></a></span>Select <span class="MenuCascade" id="GUID-F5F9ADA2-79B1-4ADB-B23D-7F0F1A5814B6">Partially Loaded</span> from the action status list. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_FA2D721172004D34B8D4EC2474AABDBF"></a></span><div class="figure-anchor"><img src="../images/GUID-5E58A9D7-712C-47AF-A6A1-A513FCE5C097-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-014F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BDAAFA43-CBFE-421E-9E47-2EFFFA21F62B"></a></span>To reload a partially offloaded source
+                  </h3> <span class="anchor_wrapper"><a name="GUID-A55CCCB9-8A9B-4318-ACFC-E6CF529AA69D"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FEA780BE-502E-4A19-A219-204AC72CF238"></a></span>Right-click an action clip with a partially offloaded source and choose <span class="MenuCascade" id="GUID-F3638718-8328-491D-8D3D-79D490831D77">Source</span> to display the action source's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-589C207B-5707-4936-84A8-8970B12CB47D"></a></span>Do either of the following to reload the entire action back from disk: 
+                        </p> <span class="anchor_wrapper"><a name="UL_5A75BCABFC12407283BE25D796194C28"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-482B0ACA-F016-44EB-B568-8D4FF8721978"></a></span>Click the <span class="MenuCascade" id="GUID-0C0BA6BF-F2D2-4B3B-8A07-F52E2FB15775">Reload</span> button at the top of the property editor. This reloads the action and then trims
+                                 it so that only the partial frames are available. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4ADB630E-2F02-42DD-A0D8-6E76F700CC87"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-C42D410E-66C7-486A-85EF-8D6E9C2DF3FC"></a></span>Set the action source's status to <span class="MenuCascade" id="GUID-C214FC73-9DF9-4AF9-85DD-04B4269EE44D">Loaded</span>. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

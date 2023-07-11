@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-80694EDD-9207-4950-9E42-F06468E46972">
+      <meta name="indexterm" content="Verlet integration">
+      <meta name="indexterm" content="deformations: Verlet">
+      <meta name="topic-type" content="concept">
+      <title>Verlet Integration</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-80694EDD-9207-4950-9E42-F06468E46972"></a></span><div class="head">
+            <h1>Verlet Integration</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-54BD17BD-F144-44E9-91D1-A7205BE0FC8E"></a></span>Verlet integration is an alternative to the Eulerian integration method used by the
+               Simulate Particles node. While both methods have their advantages and disadvantages,
+               one nice feature of Verlet integration is that it is easy to incorporate constraints,
+               for example, to fix edge lengths, edge angles, and so on. This means that Verlet integration
+               is often used for cloth and other soft-body simulations.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5B02E203-F170-4024-8F48-0D96532D743A"></a></span>The supplied Verlet compounds are provided as examples to demonstrate how to set up
+               and control Verlet simulations, and to form the basis of more complex effects.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5BEF7ED4F5DCEA44ABA9080671F0A970-002D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7079593F-3D6E-4A30-BB66-CA8CA1FA64E4"></a></span>Overview of Working with the Verlet Framework
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D4DEBF2C-4B12-49A2-9F47-6EA390A35073"></a></span>Here is a high-level overview of the basic steps involved when simulating a mesh deformation
+                  using Verlet integration:
+               </p> <span class="anchor_wrapper"><a name="GUID-93D92CC3-144F-44B5-B7F9-E2E462D1ECCA"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-37C561C6-809B-44D9-BB22-ADD29BCD377D"></a></span>Create an unsimulated ICE node in the Modeling region of the mesh's construction stack
+                        above all topology modifiers, and connect an <span class="char_link"><a href="iceref_Init_Verlet_Geometry_Data.htm">Init Verlet Geometry Data</a></span> compound to store data for later use in the simulation.
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-7B583614-98F0-46ED-8E61-403F80E4C90A-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FA460F8E-6760-4DA9-8CC0-A1EAB9CF0A71"></a></span>Create a simulated ICE tree and connect the <span class="char_link"><a href="iceref_Verlet_Framework.htm">Verlet Framework</a></span> compound.
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-1844C7F6-41E7-4CBF-86CF-4EBEA7FDCD63-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-79C7A3E8-737D-4D95-9D53-927BF1417F31"></a></span>If desired, use the Blend parameter to control which points are simulated or not,
+                        for example, by connecting a weight map. Points with a value of 1 are simulated, points
+                        with a value of 0 are unsimulated, and the positions of points with values in-between
+                        1 and 0 are interpolated between the simulated and unsimulated positions. For example,
+                        this lets you pin the corners of a cloth, or paint where you want fat to jiggle.
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-D4074ACA-B3E6-4824-9A9A-FFEC7097D5A0-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A23A7737-4A57-499F-9165-BEF2BFCF093D"></a></span>If desired, you can also specify the target to be used for the unsimulated points
+                        and for blending with the simulated points:
+                     </p> 
+                     <ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-76F407A7-279A-4CCC-9CA0-DE917B93F095"></a></span> <span class="MenuCascade" id="GUID-98CE480C-CA79-43D1-A0F9-3A78A708977E">Use This Mesh Presimulate</span> (0) uses the point positions stored by the Init Verlet Geometry Data compound.
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5BBF5A50-4A99-4CD7-8A0E-16838F5E28DC"></a></span> <span class="MenuCascade" id="GUID-89B05F35-B3DD-40D6-BC47-B2E6FDE90A97">Use Another Mesh</span> (1) lets you specify another mesh to use as a target, such as an animated duplicate
+                              of the mesh. Note that you can get significant jittering at the first frame of the
+                              simulation if there is a large difference between the two meshes.
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-954D0653-211E-40D7-9789-EC9600CB52A1"></a></span>Add any forces desired. Every force has a toggle that controls whether it is applied
+                        in local or global space. You can use a simple 3D vector, such as a -Y value for gravity,
+                        or use any of the compounds from the Verlet Forces group of the Deformation task in
+                        the preset manager:
+                     </p> 
+                     <ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E1D2D777-6372-44C9-A92C-DE712E0043AE"></a></span> <span class="char_link"><a href="iceref_Restitution_Force.htm">Restitution Force</a></span> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-DFDBC957-B996-433F-891D-9F56E703E539"></a></span> <span class="char_link"><a href="iceref_Verlet_Drag_Force.htm">Verlet Drag Force</a></span> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6ABB3DF7-CC7B-47B0-8FFB-87C347CF7949"></a></span> <span class="char_link"><a href="iceref_Verlet_Wind_Force.htm">Verlet Wind Force</a></span> 
+                           </p> 
+                        </li>
+                     </ul> 
+                     <div class="figure-anchor"><img src="../images/GUID-AF4711E0-56D8-4F30-888E-2A34958E87B4-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-40361341-1FEB-43EB-A258-957D2B975C41"></a></span>Connect any desired constraints into the Execute Each Iteration ports. To minimize
+                        jittering, decrease the weight of the constraints and increase the Iterations of the
+                        Verlet Framework compound. You can create your own constraints, or use one of the
+                        following compounds from the Verlet group in the preset manager:
+                     </p> 
+                     <ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E672E577-58E3-40B7-A412-212DA677649F"></a></span> <span class="char_link"><a href="iceref_Apply_Surface_Stiffness.htm">Apply Surface Stiffness</a></span> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-DB28BBFA-D372-4535-A904-B16BD64F414A"></a></span> <span class="char_link"><a href="iceref_Correct_Edge_Lengths.htm">Correct Edge Lengths</a></span> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7D0CF79D-608F-4D80-A944-BBFD71B1EE12"></a></span> <span class="char_link"><a href="iceref_Inflate_Volume.htm">Inflate Volume</a></span> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F3D2F968-3647-4511-8E9B-6F172ECAADCE"></a></span> <span class="char_link"><a href="iceref_Move_Points_Outside_Geometry.htm">Move Points Outside Geometry</a></span> 
+                           </p> 
+                        </li>
+                     </ul> 
+                     <div class="figure-anchor"><img src="../images/GUID-F71545B2-9386-4261-9BE7-158198BCB1F8-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5BEF7ED4F5DCEA44ABA9080671F0A970-0033"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2E83AB70-94CD-4056-9D26-C3872F2C4B1E"></a></span>Example: Simple Cloth
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1F557BB7-57C4-47DA-B3CE-D96CC1DF176E"></a></span>Here is an example of a very simple draping-cloth–like effect using the Verlet framework.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-6B934FD6-8B30-4E20-95D8-96B7D90B23AD-low.png"></div> 
+               <div class="figure-anchor"><img src="../images/GUID-33635BC4-A962-4F38-B99A-E4E3F0A03688-low.png"></div> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EE8AEDC7-F7E3-4EF9-9409-4D568FF65736"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9F9943EE-A4ED-42CD-8C11-F8271CDE4D2C">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FCA6D5D5-BB7B-470C-ADB3-3A7FC70F43B5"></a></span><p class="table-body">A weight map is used to pin the corners of the cloth.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-064C6621-1460-40FE-BD7E-DC2E3E2592D6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A86C5A4D-C86B-4852-9D4D-7911767643B6">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1652BE9B-8BF0-4682-892B-3B654A255372"></a></span><p class="table-body">A simple gravity force is applied in local -Y. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DE9864CA-C6A0-468E-A290-3DD3371F58F9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1A0F48F2-F4E5-4FC9-B431-FB7CCF170330">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-056602CD-26FE-402B-8706-03A39B52AC9B"></a></span><p class="table-body"> <span class="char_link"><a href="iceref_Verlet_Drag_Force.htm">Verlet Drag Force</a></span> prevents the mesh from bouncing around too much, and reduces its stretchiness. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-84A46F6E-247A-487E-87C3-B93C7C112D4C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-487FE495-F2C8-4808-BB2B-28E7C1BA37D9">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-538BACB9-AF58-40CA-97B5-2E9DCE861B52"></a></span><p class="table-body">Under Iterative Execution:</p> 
+                           <ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-85DDB9EE-7A43-4B62-A53A-941FACFFC4DB"></a></span> <span class="char_link"><a href="iceref_Correct_Edge_Lengths.htm">Correct Edge Lengths</a></span> partially restores the original edge lengths. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-C032C10E-DB8D-463F-8B88-865A260B42F5"></a></span> <span class="char_link"><a href="iceref_Move_Points_Outside_Geometry.htm">Move Points Outside Geometry</a></span> moves any points that penetrate the sphere to its surface, simulating a collision.
+                                 </p> 
+                              </li>
+                           </ul> <span class="anchor_wrapper"><a name="GUID-95CEFB32-ADAF-42A3-BFCC-74A8A4D3C44D"></a></span><p class="table-body">These nodes are repeated several times each frame to obtain a more stable simulation.</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5BEF7ED4F5DCEA44ABA9080671F0A970-0036"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AF8656B5-5987-40CB-8947-32A19B186653"></a></span>Example: Simple Soft Body
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8E4E7A67-3A7F-439E-9884-F56CD6583D7D"></a></span>This example demonstrates a simple soft-body deformation using the Verlet Framework.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-A60BA474-1771-450E-A21C-3BCF48B166BF-low.png"></div> 
+               <div class="figure-anchor"><img src="../images/GUID-C1D25D6C-A5A1-4A58-B6F2-A554A5D88664-low.png"></div> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A052FB33-8C62-4672-AA55-7DB0498DAC73"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-67FB42D5-8DFA-4D9D-B473-7BF3D034536D">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7ADEFCEA-D7EE-4691-9BFA-3EF823FE04B9"></a></span><p class="table-body">The 3D vector defines a gravity force that makes all points on the ball move downward.
+                              They fall right through the grid.
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-501DF1A1-AC9E-460B-B5AA-1D534CF06D8C-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DC9919DB-D1DF-4109-A9B9-497AB75C0E4A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B85064B3-DEA2-4195-B1C0-4E858B1484D5">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BF33DD9F-033D-4763-84C9-9E08C82CEF5E"></a></span><p class="table-body"> <span class="char_link"><a href="iceref_Move_Points_Outside_Geometry.htm">Move Points Outside Geometry</a></span> prevents the points from passing through the grid, but just leaves them flattened.
+                              
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-0E6C46A9-85B0-4706-ADFA-EA58AE5490A5-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9A719B62-DE41-4A83-8704-A3A032AAAE63"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1A826D22-564C-4247-B2BD-F43B605FCE6A">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-66F92039-21C9-4DD3-968A-109D71304D8C"></a></span><p class="table-body"> <span class="char_link"><a href="iceref_Correct_Edge_Lengths.htm">Correct Edge Lengths</a></span> partially restores the original edge lengths, but the result is still crumpled.
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-4650F960-711C-4CF7-9485-7F6004976D4F-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-55B2DA6D-033D-427D-88A9-FA2493D1F7C3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FBE71D44-6040-4780-B93B-867079BC26C6">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CDE76C27-1B3A-4E91-AA32-30A193A30888"></a></span><p class="table-body"> <span class="char_link"><a href="iceref_Inflate_Volume.htm">Inflate Volume</a></span> partially restores the volume.
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-F1FFB892-E407-417D-8124-E3A7C88EB938-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F2593B1F-0B9D-49AE-B933-A51F2152EC55"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F46E03D2-8357-49EB-A382-3C3EBF5CFCEE">E</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3BD207D4-BDCE-4F6E-8B18-12F2B8A7B532"></a></span><p class="table-body"> <span class="char_link"><a href="iceref_Apply_Surface_Stiffness.htm">Apply Surface Stiffness</a></span> partially restores the original edge angles, smoothing out the sharp edges on the
+                              underside.
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-DD7567EE-EAD1-416C-BA4D-079941BE0D15-low.png"> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5BEF7ED4F5DCEA44ABA9080671F0A970-003E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7E21E34D-A369-4CD0-B142-DBDA022D6EEA"></a></span>Example: Jiggly Bits
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-DA8913A7-83F2-4E3B-B53E-1CDF63254548"></a></span>This example demonstrates how to paint jiggly fat on a character.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-3AC1A94D-B821-4E17-8C76-B429A43106B3-low.png"></div> 
+               <div class="figure-anchor"><img src="../images/GUID-5171BF4B-D59F-4D16-8636-E59CEE2C905D-low.png"></div> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-871FD7B7-5B78-47DA-844B-2A77A4CDB168"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-96103CDF-54DD-46D7-9ED8-B9321533285D">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5A76991D-854F-4D78-9720-ACDAF67D851A"></a></span><p class="table-body">A weight map controls which points are affected by the simulation.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-01EE24FA-916A-4AA3-8926-CA546C644AB5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-97A55EAE-9350-4FDF-A8FD-52F1D0B660AC">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-11F4961C-E486-4568-A061-4772F708F675"></a></span><p class="table-body">The blend target is an animated duplicate of the mesh. A duplicate is required because
+                              the operators below the Simulation region are not re-evaluated during a simulation.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-66DEB6D3-B152-4C5E-A320-B71BB880DBE0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-664A6BFB-4586-478F-98AC-5F245D8AB058">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DD57FA32-0D29-40C4-BCA3-BB28945B6CB4"></a></span><p class="table-body"> <span class="char_link"><a href="iceref_Verlet_Drag_Force.htm">Verlet Drag Force</a></span> prevents excessive jiggliness.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8C33017D-2B40-4EB5-9722-42E996CB5C29"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-829B4C1E-FDCA-46B2-979F-A6455E2A32FD">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-78B40BDA-D5FE-4438-9DD1-ACBED5ACF9EF"></a></span><p class="table-body"> <span class="char_link"><a href="iceref_Restitution_Force.htm">Restitution Force</a></span> specifies a shape that points try to assume. In this case, it's the same animated
+                              duplicate that is used as the blend target. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3216D2B5-E819-49D2-B647-D9E87DF5F46B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F1391387-63DE-4860-A132-C1F403979AAA">E</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9504DC5D-1993-4DDE-BA14-BF0A6969B3FF"></a></span><p class="table-body"> <span class="char_link"><a href="iceref_Correct_Edge_Lengths.htm">Correct Edge Lengths</a></span> partially restores the original edge lengths, limiting the distance that the points
+                              can move.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

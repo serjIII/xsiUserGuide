@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-2E7CB5CA-662D-4DBB-A9C6-49C311CE699E">
+      <meta name="indexterm" content="projecting curve onto surface">
+      <meta name="indexterm" content="trimming: surfaces with curves">
+      <meta name="indexterm" content="trim curves: creating">
+      <meta name="indexterm" content="surface curves: creating">
+      <meta name="indexterm" content="trim curves: deleting">
+      <meta name="topic-type" content="concept">
+      <title>Projecting and Trimming with Curves</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-2E7CB5CA-662D-4DBB-A9C6-49C311CE699E"></a></span><div class="head">
+            <h1>Projecting and Trimming with Curves</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-39C96CF5-C0E9-43EC-9E5D-CE65FB386B50"></a></span>You can project curves onto surfaces and then use the result to remove a portion of
+               the surface, or for any other modeling purpose. This is useful for modeling manufactured
+               objects like car parts with holes or for creating smooth surfaces that aren't four-sided
+               like a standard NURBS patch. 
+            </p><span class="anchor_wrapper"><a name="FIG_E69C0AD322704DEA928547898D373444"></a></span><div class="figure-anchor"><img src="../images/GUID-29AF9A6F-A135-48F4-81F0-5A77375F784C-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0040"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7FE0860D-AFA4-4633-9734-3C3A31BDF677"></a></span>What Are Surface and Trim Curves?
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E26637E1-6BD1-4567-9ACE-60EF9F0D71E1"></a></span>Both surface and trim curves involve projecting a curve object onto a NURBS surface.
+                  The difference is whether the result is used to remove a portion of the surface or
+                  not. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0041"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-16A47F51-71CC-4AC5-8C90-7E54399647A1"></a></span>Surface Curves
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C115C7C8-3A0C-4996-8E48-7B71F37799F8"></a></span>If the curve object is just projected and nothing more, the result is called a <em class="mild">surface curve</em>. It is a new component of the surface. This surface curve can be used like any other
+                     curve component of the surface (isoline, knot curve, and so on) for modeling operations
+                     like Loft, Extend to Curve, and others. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_3BC069C1D138458483D375DA68CFE19F"></a></span><div class="figure-anchor"><img src="../images/GUID-21407E42-C123-4BBA-B178-41101A7A13FD-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B59DD8CF-A42E-4072-A960-4643135D14D2"></a></span>The curve object (A), the NURBS surface (B), and the resulting surface curve (C).
+                     
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0043"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3E0819C0-A1DB-4F49-A6A5-0A8E95D58F73"></a></span>Trim Curves
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F22E1382-97FF-45F2-A8BE-8E531E09D39A"></a></span>If you use the projection to remove part of the surface, it is called a <em class="mild">trim curve</em>. Trims are useful for making holes in surfaces and for making NURBS patches that
+                     don't have the usual four-sided boundary. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_AEDF49E5FF794DEF8628517C8F0ED396"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-64877D8B-E540-4704-9E97-63A9FBDDEAF7-low.png"> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp; <img src="../images/GUID-D7EF72B2-29A5-41DC-B0EB-63BC1F9DCD68-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6AF6E46E-CC73-48FC-88A6-9C6F99A01248"></a></span>Trimming affects the visible portion of the surface. All the underlying points are
+                     still there and you can still affect the surface's shape by moving points in the trimmed
+                     area. However, you can still use trimmed surfaces as collision objects for soft body
+                     and cloth simulations, and the simulation uses the exact shape of the trimmed surface.
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_CBE1A7316F90438A8A930A214A58A962"></a></span><div class="figure-anchor"><img src="../images/GUID-22E044FC-332C-4136-B199-77F63D6F9282-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-55CFFBD8-60F0-455E-9B57-2C7AF32F5D20"></a></span>The effect of moving a point in the trimmed area. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0047"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-33A7E9AB-095D-4950-B938-57D0BC693E97"></a></span>Working with Trim and Surface Curves
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0048"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-65FB5677-7340-4987-BA7A-242C62173431"></a></span>Viewing Trim and Surface Curves
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6C3AC9B8-A450-4F4A-AE44-02AC6711CF66"></a></span>By default, surface and trim curves are displayed in dark blue when you select the
+                     surface or when it is active for component selection. On trimmed surfaces, the U and
+                     V boundaries are also displayed in dark blue, but you can ignore that — they are not
+                     truly considered trims. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-253E18B0-F093-4D79-8958-A47DF5697F32"></a></span>You can control the resolution used to draw trim and surface curves. The Hardware
+                     Display tab of Geometry Approximation property editor controls the resolution used
+                     in the OpenGL views, while the Surface Trim tab controls the resolution used for rendering.
+                     For more information, see <span class="char_link"><a href="property6061.htm">Geometry Approximation Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0049"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BC51099A-A046-42B1-AF85-96C7F9D24463"></a></span>Selecting Trim and Surface Curves
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EB625313-AB2D-482F-A290-7981D4E6E5B7"></a></span>When working with trim and surface curves, you can use the Trim Curve and Surface
+                     Curve component selection filters that are available on the Select panel when you
+                     select a surface object. For more information about selecting components in general,
+                     see <span class="char_link"><a href="scel_selecting.htm">Selecting</a></span> [<span class="char_link"><a href="scel_cover.htm">Scene Elements</a></span>], 
+                  </p> <span class="anchor_wrapper"><a name="FIG_1D87EABAB31745F191E7F6D1C9EB91F5"></a></span><div class="figure-anchor"><img src="../images/GUID-AD046DF4-D9B2-49C2-8C26-5288ACF79A7A-low.png"></div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-004B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B0F40551-8EB6-4D15-9185-5F4EB4CF272F"></a></span>Extracting Trim and Surface Curves
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C53F7D4A-DD07-4F17-BB3A-CE96022CE439"></a></span>Surface and trim curves can be extracted in exactly the same way as other components
+                     of surfaces (like isolines and knot curves). See <span class="char_link"><a href="curves_CreatingCurvesfromOtherObjects.htm#WS20FD922AA9DF2240AD94FFADCE73807F-005B"> Extracting Curves from Surfaces</a></span>. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-004C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CDB10DEF-8C54-4213-91C9-A25C347F6E91"></a></span>How Curves Are Projected
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6337ED56-7B97-49AC-9F66-FF811296CAE6"></a></span>In Softimage, curve objects are mapped onto surfaces using a parallel projection.
+                  The projection follows the normal of the average plane of the curve and extends infinitely
+                  both directions. 
+               </p> <span class="anchor_wrapper"><a name="FIG_314AE52C3FD24B269075FBE056DB480F"></a></span><div class="figure-anchor"><img src="../images/GUID-4CAD081E-3B86-4227-ABD7-F58DD8343B88-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-03E1CEBA-7AFC-4BD8-9713-191413E63068"></a></span>The curve is projected onto both the front and back sides of a surface and can intersect
+                  the surface multiple times if the surface is folded. The curve can punch a hole through
+                  the surface or just take a bite out of the edge. 
+               </p> <span class="anchor_wrapper"><a name="FIG_E614E09795844BB58F06A8E0E117667E"></a></span><div class="figure-anchor"><img src="../images/GUID-3EB7E9B7-0177-4D40-B291-BCAD31C3FEEA-low.png"></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-004F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E468885C-C4E7-4FA8-9FD2-DE37A530142E"></a></span>Before You Trim or Project Curves
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-38968E07-0774-40F5-9E12-864347D04A16"></a></span>Here are some things to keep in mind when creating curves to use for projecting: 
+               </p> <span class="anchor_wrapper"><a name="UL_94BC34F497A3434B923A7BA3E7EBAFB4"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9712BF11-CE54-422B-B857-AA58EAF9E2A8"></a></span>Try to keep the points of the curve in the same plane as much as possible. This helps
+                        you visualize what the effect will be once it is projected. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1258A585-8427-41CB-879A-9EEB11DCDBF2"></a></span>Make sure that the curve does not intersect itself in its average plane. If the curve
+                        projects badly onto the surface, parts of it may be ignored. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0050"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2B2F6CBC-72CC-4E48-AB3C-D2C50F4473F1"></a></span>Projecting or Trimming by Curves
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-6F6613E2-E861-49F0-A4AB-32E92D2ABFA9"></a></span>The <span class="MenuCascade" id="GUID-A724C9CE-7AD7-4F23-BC71-5900B35059BC">Modify <img src="../images/ac.menuaro.gif"> Surface <img src="../images/ac.menuaro.gif"> Trim by Projection</span> command is used both to project a curve onto a surface and to trim a surface by a
+                  curve. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0051"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-58588A3B-18FA-4C90-A0EE-EC66346E373C"></a></span>To project a curve onto a surface or trim a surface by a curve
+                  </h3> <span class="anchor_wrapper"><a name="GUID-BD7C5656-46D5-4B6E-9BBF-6E1D0E738C95"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3C5171C4-4FD4-42B4-BB66-C82DC13B3BEC"></a></span>Select a NURBS surface object. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FD0E0B53-6B91-4EF2-A6C9-15463551631B"></a></span>Choose <span class="MenuCascade" id="GUID-6F68A62F-019D-4065-9EE1-DB7FECB13859">Modify <img src="../images/ac.menuaro.gif"> Surface <img src="../images/ac.menuaro.gif"> Trim by Projection</span> from the Model toolbar. A picking session starts. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-45AD6FA5-A766-4D7E-B580-456081D8C16D"></a></span>Pick a curve object. The curves are projected onto the surface and, by default, the
+                           surface is trimmed using all projected curves. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1A342440-D75E-4D9A-8CDA-B6A643893EE1"></a></span>In the Trim Surface by Space Curve property editor, do any of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_7AAE60817DB44F9486134D411A60EE9B"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2FFE031A-BFA0-4D2F-80C4-3002C513043A"></a></span>To trim the surface using only some of the projected curves, click <span class="MenuCascade" id="GUID-2E8642D7-9AFA-4DB7-98E9-FC8F9D28D1C5">Pick Trims</span> and then pick the desired surface curves. Right-click when you have finished picking.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A057A9E9-8D5A-4963-AB29-C9264BD71817"></a></span>To trim the surface using all the projected curves, click <span class="MenuCascade" id="GUID-A431C829-D27E-4B01-A3FC-50940D75E0A7">Trim with All</span>. This is useful if you used Pick Trims or Project All and then changed your mind.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B7398F3E-CB9B-4123-9D21-89DC9C76738A"></a></span>To project the curve onto the surface, click <span class="MenuCascade" id="GUID-3DF5A5EE-F45A-4843-9AFE-AD7CB6CFAAA9">Project All</span>. The surface curves become components of the surface and can be used in modeling
+                                 operations like loft and others. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-27C7BE62-DC14-4576-B63C-07AD608FA7DA"></a></span>Adjust any of the other options as needed: 
+                        </p> <span class="anchor_wrapper"><a name="UL_58710294E68643FC9E189A70D0B18952"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-6A0A1361-2C49-4B58-B292-BF0B2F42B193"></a></span>When trimming rather than simply projecting, use <span class="MenuCascade" id="GUID-B1E9F520-E2ED-4E3B-9814-32A674E41154">Is Boundary</span> to determine which portion of the surface to keep: make a hole by keeping the area
+                                 outside the curve (off) or crop the outside leaving only the interior (on). 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4AC28C5C-3921-49FD-AD1C-8CAABD7DB7F6"></a></span>Use Projection Precision to control the precision used to calculate the projection.
+                                 If the shape of the projected curve is not accurate, increase this value. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8EC8A4F9-7E45-429C-8209-C1DD5D41844B"></a></span>However, high values take longer to calculate and may slow down your computer. For
+                                 best performance, set this parameter to the lowest value that gives good results.
+                                 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0052"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2DF7233E-7807-4503-9594-B2428485663D"></a></span>Deleting Trims
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-78D409EF-D8AB-42A4-8432-8412A46D725F"></a></span>Deleting a trim allows you to remove a trim operation even after you have frozen the
+                  surface's operator stack. If you have not frozen the stack, you can alternatively
+                  reopen the Trim Surface by Space Curve property editor and use <span class="MenuCascade" id="GUID-2B37D611-737B-469B-ACFE-9728DB03AEED">Pick Trims</span>, or delete the Trim Surface by Space Curve operator altogether. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0053"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2D1A7E8D-0135-41C2-98B6-245D49E2D588"></a></span>To delete trim operations
+                  </h3> <span class="anchor_wrapper"><a name="GUID-34BEF448-E55C-4108-ADA4-A9AEC344C6A8"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7C338579-53BC-454A-9C3D-77C506C611A7"></a></span>Select a trimmed NURBS surface. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9D89D2F2-4D3F-4BB3-80EC-81A25113998D"></a></span>Set the selection filter to <span class="MenuCascade" id="GUID-E253B0DD-3B57-436B-9774-31EEA08D8F36">Trim Curve</span> and select one or more trim curves on the surface. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-516C4E12-2535-4090-835B-DEF1544F26D1-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2BDF3522-0CFE-462F-BCF0-198617C5173E"></a></span>Choose <span class="MenuCascade" id="GUID-CAC623C0-35C8-436D-A763-3BDC1FF12AAC">Modify <img src="../images/ac.menuaro.gif"> Surface <img src="../images/ac.menuaro.gif"> Delete Trim</span> from the Model toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D802FF75-5B88-45F0-BC97-D40700C703E5"></a></span>If you did not select any trim curves in step 2, you can pick one now. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS49F5C00AA8A2504790A8E494C274B490-0055"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F2D4F543-A8C6-4793-9EE1-3636823EEDE7"></a></span>Notes on Trimming and Projecting
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1157F250-9603-41E3-81EC-656DC078E939"></a></span>Here are some notes about trimming and projecting: 
+               </p> <span class="anchor_wrapper"><a name="UL_2D94C282E14043CE9BF5D095EB8B109A"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0034BD13-7959-40C9-9B17-5570476A9280"></a></span>You can trim with open curves. This can be useful if you are just taking a bite out
+                        of an edge of a surface; you don't need to close the curve first. However if the entire
+                        curve can be projected onto the surface, a straight segment connects the end points.
+                        
+                     </p> <span class="anchor_wrapper"><a name="TABLE_CB9CA1F355B04FA58638F3D0EB88C4F8"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body">&nbsp; <img src="../images/GUID-A10B57EC-9699-4B56-B65D-C0409129F7FC-low.png"> 
+                              </td>
+                              <td class="table-body" align="left">&nbsp; <img src="../images/GUID-1BB5F57F-DA09-4FA4-8DAD-000546414CDC-low.png"> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E35A1620-3CE8-49DB-8AF9-3CC260ECB268"></a></span>You can use a single curve object composed of multiple subcurves, such as a curve
+                        created with text or by importing an EPS file. In such cases, each subcurve creates
+                        a separate surface curve or trim curve component. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A1E5BCDA-1493-4BEF-B043-A70DDA12E425"></a></span>When trimming, disjointed subcurves (such as the exterior curves of different characters)
+                        produce separate holes, while interior subcurves produce "islands" within the holes
+                        (or vice versa, if <span class="MenuCascade" id="GUID-2C222C5D-C7EE-498C-836F-2D299E97A4D3">Is Boundary</span> is on). 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-9A34EF3F-6F5B-43E7-80BE-B982BBC7F8E8-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-907620FD-E495-49E9-865D-950CE94C8EB2"></a></span>You can use a second trim operation to create an island in the trimmed area. For the
+                        second trim operation, make sure that <span class="MenuCascade" id="GUID-50A75288-B7BE-45EA-8CA6-ECECE1F33D4B">Is Boundary</span> is on. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-0570B136-C8F0-4000-A5A8-1F58FC26F78F-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-ACD0FC45-A234-49AB-99B2-138DD0D30FDA"></a></span>The first trim makes a hole (A) and the second trim makes an island (B). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6332DBC8-4526-4916-9B2F-44B4566AEF3C"></a></span>When projecting curves onto assembled surface meshes, multiple trim or surface curves
+                        will be created if the projection intersects a boundary between subsurfaces. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-186E42B8-1D76-4C41-AFA7-0EFD5D0B4539"></a></span>You can animate the surface and curve objects to change the resulting trim or surface
+                        curve over time. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

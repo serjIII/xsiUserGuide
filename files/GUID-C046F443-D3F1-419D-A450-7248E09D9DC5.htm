@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C046F443-D3F1-419D-A450-7248E09D9DC5">
+      <meta name="indexterm" content="CrowdFX: Adding Variations to Crowd">
+      <meta name="topic-type" content="concept">
+      <title>Adding Variations to the Crowd Animation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C046F443-D3F1-419D-A450-7248E09D9DC5"></a></span><div class="head">
+            <h1>Adding Variations to the Crowd Animation</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-9FAAD29B-DD0F-42FC-A8F4-B3CB24C034C1"></a></span> The actors in your crowd system behave or react according to the parameters defined
+            in the pre-recorded animations. For example, how the actors should behave when moving
+            from one terrain color to the other, what actions to be performed when they collide
+            with obstacles, and so on. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-57039F0A-AA07-45CF-B1DF-C008B08C3D30"></a></span>This section explains how to vary an existing animation in a scene. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-0E685013-0380-4CC9-97BB-6763AAEC1469"></a></span>You can use the sample crowd scenes available in the <span class="filePath">\Data\XSI_Samples\Scenes\ICE\CrowdFX</span> to try out the variations on the pre-recorded animations as explained in this document.
+            
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_4661145A5EB34E879C8E33870958D0EF"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-69FDC91D-C1C7-4DF6-A21E-24067518E5AC"></a></span>Assigning Different Animations to Actor Proxies
+            </h2> <span class="anchor_wrapper"><a name="OL_64A5B6B066D04B88B3BF4996B79A7C7D"></a></span><p><span class="anchor_wrapper"><a name="GUID-6A42675F-9ED7-4E6F-B899-94C672D465A4"></a></span>You can make the animation more interesting by assigning different animations to each
+               actor in a group. This process includes: 
+            </p>
+            <ol type="1" start="1">
+               <li>Initializing an animation state </li>
+               <li>Using the animation state in the Behavior ICE tree </li>
+            </ol> <span class="anchor_wrapper"><a name="OL_0BF207FA19D64A16BA05BCE3754225D3"></a></span><p class="list-intro"><span class="anchor_wrapper"><a name="GUID-C98FE973-E6D8-4258-8D46-25A90AFC9D2E"></a></span>To initialize an animation state
+            </p>
+            <ol type="1" start="1">
+               <li>In the <span class="MenuCascade" id="GUID-0772C439-B1D1-4B45-9BD7-38AA4AB2571D">Emit_and_Initialize</span> ICE tree, create a new ICE attribute by adding the Set Data compound. 
+               </li>
+               <li>Double-click the <span class="MenuCascade" id="GUID-5C57ADED-2010-4174-994F-EA36E518D49C">Set Data</span> compound. 
+               </li>
+               <li>In the Set Data property editor, enter a reference name or action ID for the ICE attribute.
+                  <span class="anchor_wrapper"><a name="FIG_432759A64B1C416B9A11F36348DE42AA"></a></span><div class="figure-anchor"><img src="../images/GUID-80329CAC-0A9D-4780-A1AD-1A47793A441F-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F29D50E6-C46B-4F32-8ECE-CD55139F8D27"></a></span>To have this Set Data attribute as an integer, add an Integer node and assign its
+                     output port to the Reference value of the Set Data compound. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-088A9960-A32C-4DF5-B95A-1A90E7798217"></a></span>This assigns an integer 1 or 0 to each of the actors. 
+                  </p> 
+               </li>
+               <li>Add the <span class="MenuCascade" id="GUID-4A027D11-C7E4-49FA-8024-63FB93F28160">Randomize Value by Range</span> compound, and connect its output port to the input port of the Integer node. 
+               </li>
+               <li>Double-click the Randomize Value by Range compound. </li>
+               <li>In the property editor, set the <span class="MenuCascade" id="GUID-67DE2F10-E1B8-468A-AF2C-96A63DFB9B82">Max Value</span> as 1 and turn off the <span class="MenuCascade" id="GUID-FB05A575-07CB-4907-9026-90487DA73A82">Animated</span> option. <span class="anchor_wrapper"><a name="FIG_3A21FD79F38F4133BBE3427D98109F0B"></a></span><div class="figure-anchor"><img src="../images/GUID-DB66E221-631C-4F70-A5A6-B3E57074319C-low.png"></div> 
+               </li>
+               <li>Connect the output port of the Set Data compound to an input port in the Emit_and_Initialize
+                  ICE tree. <span class="anchor_wrapper"><a name="FIG_757F89F4DC61444FBECD269BABD9C838"></a></span><div class="figure-anchor"><img src="../images/GUID-D36A0074-A4BC-40F1-B5DD-921ABFB5D70B-low.png"></div> 
+               </li>
+            </ol> <span class="anchor_wrapper"><a name="OL_20452CE91A154FED93763B18D2C796B9"></a></span><p class="list-intro"><span class="anchor_wrapper"><a name="GUID-31402CC1-3A5A-4127-BECE-54244D7D5A7C"></a></span>To use this animation state in the Behavior ICE tree
+            </p>
+            <ol type="1" start="1">
+               <li>Add the <span class="MenuCascade" id="GUID-CE126DE7-5BFE-49B2-8565-9FF71378EC56">Get Data</span> node in the Behavior ICE tree. 
+               </li>
+               <li>Double-click the Get Data node. </li>
+               <li>In the Get Data property editor, enter the same action ID that you have entered in
+                  the <span class="MenuCascade" id="GUID-A6E1028B-AB9C-4618-AB95-B7B95BF93A5D">Set Data</span> node. <span class="anchor_wrapper"><a name="FIG_48E4BD3A370B4F20B124F11BCF0C4A39"></a></span><div class="figure-anchor"><img src="../images/GUID-80329CAC-0A9D-4780-A1AD-1A47793A441F-low.png"></div> 
+               </li>
+               <li>Copy an existing ICE tree that defines the falling of actors. </li>
+               <li>In the first ICE tree that defines the falling of actors, double-click the <span class="MenuCascade" id="GUID-873ECE89-3C83-4C98-831B-D30BCD89FC81">Set Animation State</span> compound. 
+               </li>
+               <li>In the Set Animation State property editor, select an animation state from the <span class="MenuCascade" id="GUID-A020255E-DA28-474E-BB48-92EFB6A97BEC">State</span> drop-down list. <span class="anchor_wrapper"><a name="FIG_48FA121CE55A4047A7E9CE8CD18C55FF"></a></span><div class="figure-anchor"><img src="../images/GUID-797A58F6-DE37-470C-A638-5ABCF7A32036-low.png"></div> 
+               </li>
+               <li>Similarly, in the second ICE tree that defines the falling of actors, select a new
+                  animation state from the State drop-down list in the Set Animation State property
+                  editor. 
+               </li>
+               <li>Add a <span class="MenuCascade" id="GUID-1C00BD3A-A758-4646-AB82-214A55D7DB85">Select Case</span> node. 
+               </li>
+               <li>Connect the Execute output port from the first ICE tree to the Case0 input port in
+                  the Select Case node. 
+               </li>
+               <li>Connect the Execute output port from the second ICE tree to the Case1 input port in
+                  the Select Case node. 
+                  <p><span class="anchor_wrapper"><a name="GUID-10E7A24A-AFFF-4218-8D95-02446D714803"></a></span>These nodes are connected to make the actors collapse or wave depending on the action
+                     ID. 
+                  </p> 
+               </li>
+               <li>Connect the Value output port of the Get Data node to the Condition input port in
+                  the Select Case node. 
+               </li>
+               <li>Connect the Result output port of the Select Case node to the If True input port in
+                  the <span class="MenuCascade" id="GUID-8BEFB7E2-1C0D-4D1E-8732-41BE4C386608">If</span> node. 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_4C495BBC296648EFACD64B59B66E901B"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-7B9AEF79-0D3C-426D-9F08-B7AA55D739A5"></a></span>Varying the Animation Playback Speed
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-FF5E0A3E-759D-49B9-9C15-0C9D85601753"></a></span>You can vary the speed of the prerecorded animation using the <span class="MenuCascade" id="GUID-0AF16801-3C97-44C9-9092-93F037F75A25">Set Animation State Parameters</span> node. 
+            </p> <span class="anchor_wrapper"><a name="OL_5BB9ABB333D5462DA517E637DED20EED"></a></span><p class="list-intro"><span class="anchor_wrapper"><a name="GUID-CA892802-C7F0-4E09-B7CE-365CA6991028"></a></span>To vary the playback speed of prerecorded animation
+            </p>
+            <ol type="1" start="1">
+               <li>Add the Set Animation State Parameters node in the Behavior ICE tree. </li>
+               <li>Connect the Execute output port of the Set Animation State Parameters node to the
+                  input port of the Execute node in the ICE tree for falling actors. 
+               </li>
+               <li>Double-click the Set Animation State Parameters node. </li>
+               <li>From the <span class="MenuCascade" id="GUID-55F8769A-62E5-4518-901F-FDA10D3416A2">State</span> drop-down list, select the animation state for which you want to define the speed.
+                  
+               </li>
+               <li>Increase or decrease the <span class="MenuCascade" id="GUID-808B8904-5709-4124-8873-A21504C1D98D">Speed</span> value to specify how fast or slow the pre-recorded animation should be played. <span class="anchor_wrapper"><a name="FIG_E20C4C19647D4252880F99D178EA9E58"></a></span><div class="figure-anchor"><img src="../images/GUID-C1A1EF70-D936-464E-92B8-CCCE055FF8CF-low.png"></div> 
+               </li>
+               <li>Add the <span class="MenuCascade" id="GUID-B02846FD-F553-4A7B-985A-ED3ADF42A155">Randomize Around Value</span> compound. 
+               </li>
+               <li>In the Randomize Around Value property editor, specify different values for the <span class="MenuCascade" id="GUID-D87BC3E9-E6FB-422E-8269-57B063C3DD7A">Base Value</span>, <span class="MenuCascade" id="GUID-981680CB-D42D-4A84-97F1-E61A3E2E03B1">Variance</span>, and <span class="MenuCascade" id="GUID-16FE2D11-A0C4-40D3-85B3-926382D1AFFE">Seed</span>. Turn off the <span class="MenuCascade" id="GUID-EADB7E65-3F2A-41AD-8F8E-A38B2B2AE810">Animated</span> option. <span class="anchor_wrapper"><a name="FIG_CF67BDD4EDAA49038DE98DD9CF87AED4"></a></span><div class="figure-anchor"><img src="../images/GUID-2E33FB36-1442-4042-A207-9F1C55EE8B63-low.png"></div> 
+               </li>
+               <li>Connect the Value output port in the Randomize Around Value compound to the Speed
+                  input port in the Set Animation State Parameters node. 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_5584D000733142EB8ADF25387C7F7475"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-80014AD1-0464-4F7A-B836-79D91653B839"></a></span>Blending Between Two Animation States
+            </h2> <span class="anchor_wrapper"><a name="OL_1F287DEC120C4071B79563259612A31D"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-096F3880-0CAC-4C45-85A3-36B5F5C4398F"></a></span>Expand the <span class="MenuCascade" id="GUID-400D862A-51EA-468E-AEC9-85E1056F91C3">Animation_Definition</span> node in the <span class="MenuCascade" id="GUID-3CD2B26D-B403-4C67-AE1E-7F28DADBAB0D">Animation_Blending</span> ICE tree. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-643B2CA9-EE9C-4474-898B-7311F4C19744"></a></span>The <span class="MenuCascade" id="GUID-69E9AF3A-D9D6-4E95-8EDC-F04FB4237675">Define Animation State Transition</span> nodes in the Animation_Definition node ICE tree store the transition between one
+                     state to another. 
+                  </p> 
+               </li>
+               <li>Double-click the Define Animation State Transition node. </li>
+               <li>In the property editor, change the <span class="MenuCascade" id="GUID-64F26C62-74FE-4EC5-9EF3-ED7654D03433">Target State</span> from the original state to the new state. <span class="anchor_wrapper"><a name="FIG_4E48AE28A4D1409CBBD2834D95147CAE"></a></span><div class="figure-anchor"><img src="../images/GUID-47EB8A20-9166-428D-8383-57A3F2151F3F-low.png"></div> 
+               </li>
+               <li>Add the Execute node. </li>
+               <li>Connect the Define output ports from all the Define Animation State Transition nodes
+                  where you changed the Target State to the input ports in the Execute node. 
+               </li>
+               <li>Connect the output port in the Execute node to the Animation_Definition system. </li>
+            </ol> 
+            <p><span class="anchor_wrapper"><a name="GUID-C1B2D463-1122-41A4-9088-32B1F7AFFCDE"></a></span>This creates a smooth blending between two different animation states. 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-B8CDCF9C-EE99-4CEA-80BC-45E3337F829F">
+      <meta name="indexterm" content="ICE: about">
+      <meta name="indexterm" content="ICE: construction stack and">
+      <meta name="indexterm" content="construction modes: post-simulation">
+      <meta name="indexterm" content="construction modes: simulation">
+      <meta name="indexterm" content="ICE: attributes">
+      <meta name="topic-type" content="concept">
+      <title>Understanding the ICE Framework</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-B8CDCF9C-EE99-4CEA-80BC-45E3337F829F"></a></span><div class="head">
+            <h1>Understanding the ICE Framework</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WS9FE06F03DF579543AA4724145BC8BB4F-0017"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-357FB3C7-BDF6-4D19-8B9B-B015748192D4"></a></span>Anatomy of an ICE Tree
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8F872D89-6045-4E11-BAF5-79AC0E10334E"></a></span>The following illustration shows a typical ICE tree for a simple particle system.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-8FB6107A-9277-485F-B8A9-8AE703495A24-low.png"></div> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-43CAE3A0-2C50-4623-8898-33F57BF5E21E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DDEC6686-F9EF-4BEE-9E99-0FE2C023E113">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-466C8C8B-4071-4D34-AAD9-1584D045A9D0"></a></span><p class="table-body">Data flows "downstream" from left to right along connections from one node's output
+                              ports to the next node's input ports.
+                           </p> <span class="anchor_wrapper"><a name="GUID-FB97507C-669B-458D-BC26-851A08C4EB0D"></a></span><p class="table-body">Each connection represents a data set. Some data sets have a single member, for example,
+                              NbPoints of a polygon mesh. Other data sets have multiple members, for example, PointPosition
+                              contains a 3D vector for each point in a geometric object.
+                           </p> <span class="anchor_wrapper"><a name="GUID-B84DDC84-22C7-4811-9589-C5FD2834EA3C"></a></span><p class="table-body">Depending on the context of a connection, the data may be per component, per object,
+                              or node-bound. When component data is different, each member of the data set is handled
+                              independently. However, if you drive component data with one value, the same value
+                              is used for all components.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7CB34B18-C453-4586-B930-1E3D5DCF0733"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2A42D052-8266-4E71-9FC6-8889C14B2F81">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BED84195-6220-4C06-929F-9A75D32873D2"></a></span><p class="table-body">Nodes must be connected to the root ICETree node in order to be evaluated. The root
+                              ICETree node appears in the object's construction stack and can be renamed.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7E1B0C1B-ACF5-4E72-93CF-1D6871E24B12"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B44E182F-33FB-4B4F-9590-716335A79A7C">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0BEE1446-5282-4B31-992E-FC52BB8E8478"></a></span><p class="table-body">Execution flows sequentially from top to bottom along the input ports of the root
+                              node and other Execute nodes.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8D9C3EF3-A718-40ED-829F-958200DAB029"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F0673FDB-CCB7-4B95-B4F9-28D27230A850">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-43D78C3A-7E74-4483-8BB3-CE0424DB44DA"></a></span><p class="table-body">Nodes that are connected to the Emit node's Execute on Emit port are applied only
+                              to new points that are generated on the current frame. They are not applied to all
+                              particles on every frame.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8A164696-0A18-41B4-BF6D-1C24E23AD2A0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B404633B-A199-4052-8425-97994C5703BA">E</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9777B7FD-1B5D-4151-BECF-014C476E4969"></a></span><p class="table-body">Nodes that are connected to the root node are executed on every frame. You can control
+                              which data gets set on which elements by using If and Filter nodes in the upstream
+                              branches. The simulation framework resets every particle's force to 0 at the end of
+                              each frame, so forces must be reapplied every frame.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E79C8205-DDF4-4D7A-945F-41AD20279B8F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D868EC80-3DAF-426E-9072-644FA3B2713D">F</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-420A504A-195D-4290-936F-7BD0E022C4AC"></a></span><p class="table-body">The Simulate Particles node does the following:</p> 
+                           <ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-ADF23FB0-FB60-40EC-8960-348CAD12C408"></a></span>Calculates the point accelerations based on mass and force.
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-3E863F13-AECA-4E80-9F28-FA2F45A63E65"></a></span>Updates the point velocities based on acceleration.
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-72AF0050-ABC3-41E1-952B-DD095D6883EC"></a></span>Updates the point positions based on velocity.
+                                 </p> 
+                              </li>
+                           </ul> <span class="anchor_wrapper"><a name="GUID-457A2462-0108-4710-98C6-8DA3D43C4FE5"></a></span><p class="table-body">The Simulate Rigid Bodies node is similar to Simulate Particles, but it also allows
+                              points to collide and pile up. In addition to the above, it takes into account other
+                              attributes like orientation, angular velocity, shape, size, scale, elasticity, static
+                              friction, and dynamic friction.
+                           </p> <span class="anchor_wrapper"><a name="GUID-028D787A-93E0-4153-9AB7-5C4F282F73D6"></a></span><p class="table-body">The Simulate Particles node (but not the Simulated Rigid Bodies node) also sets the
+                              simulated frame fraction to 1. This prevents points from being resimulated by other
+                              Simulate Particles nodes in the same tree or in other trees on the same object.
+                           </p> <span class="anchor_wrapper"><a name="GUID-EDBD8747-72C6-461F-8793-038312A70638"></a></span><p class="table-body">You do not need to include a simulation node in your tree — if you prefer, you can
+                              set point positions directly.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9FE06F03DF579543AA4724145BC8BB4F-0019"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-783FE509-D580-4B86-8B88-7317B6E74AAE"></a></span>ICE Trees and the Construction Stack
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-209D6DFD-4943-49B6-AB30-28E3DB2AE3FB"></a></span>The root ICETree node appears in the object's construction stack. You can have multiple
+                  ICE trees on the same object, and they can be renamed. ICE trees are evaluated with
+                  other operators according to their position in the stack, and they can be moved by
+                  dragging and dropping.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-6F5F544B-1EDA-40F0-81BA-3637D6156190-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-CAC9E532-7891-4E1D-9B69-BF98F9C1B8BB"></a></span>When you create a simulated ICE tree, two new construction regions are created: Simulation
+                  and Post-Simulation. The ICE tree is added to the Simulation region. The only difference
+                  between a simulated ICE tree and a non-simulated one is its position in the stack.
+                  You can turn a simulated tree into a non-simulated one by moving it to another region,
+                  say the Modeling region, and you can turn a non-simulated tree into a simulated one
+                  by moving it to the Simulation region.
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9FE06F03DF579543AA4724145BC8BB4F-001B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-406DE6A1-2E2C-4C66-8857-EF67D48B10A5"></a></span>The Simulation Region
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2437DE1B-8B33-4444-9102-8FC66D515D31"></a></span>The difference between the Simulation region and other regions is that the Simulation
+                     region is incremental. That is, calculations are based on the previous frame rather
+                     than the results of the lower construction regions.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DF8377FF-1D70-41A3-B150-B2E4C2F0C578"></a></span>This is true not only for ICE trees, but for all operators in the Simulation region.
+                     For example, if you apply a non-ICE Twist deformation with a small Angle value in
+                     the Simulation region and play back the scene, the object becomes progressively more
+                     twisted without any keyframes or other animation being directly defined.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9E06C03E-E3DF-4DB5-B186-8243C6B4928E"></a></span>If the simulation environment is not active, operators in the Simulation region are
+                     skipped. When the construction stack is evaluated, the results of the top of the Animation
+                     region are passed directly to the Post-Simulation and Secondary Shape Modeling regions.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4C3AF464-AD58-44F3-992B-5C7E5948A78A"></a></span>By default, the initial state of a simulation is the result of the regions below the
+                     Simulation region on the first frame that the simulation environment is active. While
+                     the simulation is active, the lower regions are not re-evaluated.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9A60A818-0529-4E67-8AA8-4848585D1163"></a></span>Because the first frame of the simulation is the initial state, if you are emitting
+                     particles in the Simulation region then they will appear on the next frame.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4D612A63-A730-45C2-8151-C87B83A57D13"></a></span>If you manually set an initial state, that state is stored and used when the simulation
+                     starts instead of the top of the Animation region.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6756E444-C01D-4E41-924F-81E0D86F37C3"></a></span>If you accidentally created a Simulation region and you want the lower regions to
+                     be re-evaluated, you can select and delete the Simulation region marker from the construction
+                     operator stack. Both the Simulation and Post-Simulation region markers are removed
+                     if either one is deleted, but operators in these regions are not affected and can
+                     be moved to the desired regions afterward.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AAFDCCB0-A8D7-4D9C-953E-13F2A99D5276"></a></span>See <span class="char_link"><a href="ICE_simulation_TheICESimulationEnvironment.htm">The ICE Simulation Environment</a></span> for more information about the simulation environment, and see <span class="char_link"><a href="ICE_simulation_CreatinganInitialStateforICESimulations.htm">Creating an Initial State for ICE Particle Simulations</a></span> for more information about the initial state.
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9FE06F03DF579543AA4724145BC8BB4F-001C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A2B4472F-1733-461E-8A71-465591A34296"></a></span>The Post-Simulation Region
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-31A292C4-8166-453A-9E37-0BC11F6E942D"></a></span>You can use the Post-Simulation region for any operators that you want applied on
+                     top of the simulation, but that you don't want applied incrementally like in the Simulation
+                     region and that you don't want to use for defining shapes like in the Secondary Shape
+                     Modeling region. For example, you can use the Post-Simulation region to apply a lattice
+                     on top of a particle effect.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-34B71C99-6235-4F66-B6EA-C5227CDB22A0"></a></span>The Post-Simulation region is always evaluated, even when the simulation environment
+                     is not active.
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9FE06F03DF579543AA4724145BC8BB4F-001D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-ED6667B8-EE3B-4D9F-8EC2-79D90624FEF1"></a></span>Particles Outside the Simulation Region
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E0B91365-0D3F-4854-ADFB-8DA62097A877"></a></span>You can emit particles outside of the Simulation region. For example, you can emit
+                     a number of particles in the Modeling region, and then optionally freeze the construction
+                     history.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E7E5B210-F989-4C5B-8DF4-CA89F646FA5D"></a></span>Because other regions are not simulated, particles are not added to those that existed
+                     at the previous frame, but instead they are added to the result of the previous operators
+                     in the stack.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3B35DF7C-742F-455C-BD74-A902222D9481"></a></span>Outside of the Simulation region, you can select and move particles like any other
+                     type of geometry. However, operators below the Simulation region are not re-evaluated
+                     while the simulation environment is active. You must move to the first frame of the
+                     simulation environment (the default initial state) to see the effect of MoveComponent
+                     and other operators.
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9FE06F03DF579543AA4724145BC8BB4F-001E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3A45C5E6-CF4F-4C85-8276-0FE971CDAE6F"></a></span>ICE Attributes
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-0315DE06-A054-4B78-AB9F-BC2353217B0A"></a></span>Attributes are at the heart of ICE. Attributes are data that is associated with scene
+                  elements. Attributes can be stored on objects or on components such as points, edges,
+                  polygons, and nodes (also known as polygon nodes or texture samples). Almost every
+                  ICE tree involves getting and setting attributes.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1F92F170-67A6-446D-AFF9-3BE7C57D0703"></a></span>Some predefined attributes are inherent to elements in the scene, such as PointPosition,
+                  PointNormal, Weights, EdgeLength, PolygonArea, and so on. Some inherent attributes
+                  can be modified in ICE trees, including PointPosition and Weights. Other inherent
+                  attributes cannot be modified directly, including PointNormal, EdgeLength, and PolygonArea
+                  (although they will be affected by modifying other attributes such as PointPosition).
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9C3D844B-F747-4559-A28B-94C4080110AD"></a></span>In addition to the inherent attributes, there are other predefined attributes including
+                  PointVelocity, Force, Mass, Size, and so on. They are dynamic, meaning that they do
+                  not exist until they have been set. Some nodes and compounds automatically set certain
+                  attributes, but otherwise it's up to you to set them. For example, the Add Point node
+                  sets ID, and the various Emit compounds that contain Add Point also set Age and other
+                  attributes, but those attributes are not set if you get a point cloud from the Get
+                  &gt; Primitive menu. All dynamic attributes can be set, except for ID.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-550E2D82-45E3-4EBD-A1DB-9EC47D01CB75"></a></span>Some nodes and compounds recognize specific attributes by name. For example, the Simulate
+                  Particles node uses Force, Mass, and PointVelocity to update PointPosition.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DF8E7F76-DF06-4E9F-AEF6-1764381922AA"></a></span>In addition to predefined attributes, you can set custom dynamic attributes in your
+                  trees and use the data in any way that you want. In fact, some attributes used in
+                  the supplied compounds, such as AgeLimit and StateID, are not predefined but are actually
+                  custom attributes that are used in the compounds for specific purposes.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B8B60F62-371A-49C9-9400-A3A0A72390B7"></a></span>For more information, see <span class="char_link"><a href="ICE_trees_GettingandSettingDatainICETrees.htm">Getting and Setting Data in ICE Trees</a></span>.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

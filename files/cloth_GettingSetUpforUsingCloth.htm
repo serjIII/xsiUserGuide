@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-ADF632C4-802C-4E51-AE31-80276496B98E">
+      <meta name="indexterm" content="cloth simulation: choosing geometry">
+      <meta name="topic-type" content="concept">
+      <title>Getting Set Up for Using Cloth</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-ADF632C4-802C-4E51-AE31-80276496B98E"></a></span><div class="head">
+            <h1>Getting Set Up for Using Cloth</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-F606F360-315C-4168-AA43-B3BF8A601787"></a></span>The first step to creating a cloth object is to start with the right geometry and
+               resolution. This has a big impact on the way that the cloth is deformed.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CC70BB6A-0F0F-4183-8F56-DC8C89F06DC7"></a></span>Polygons or NURBS Surface Objects?
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-D6694D43-5766-46E1-A9F2-4910D1A1B7FB"></a></span>You can use either a NURBS surface or polygon object to be used as the cloth. You
+                  can also create a net of grids and assemble them into a NURBS surface mesh model,
+                  then use the resulting model as the cloth model.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4667D66A-FBEF-418C-B302-98C95969A4D1"></a></span>You'll find that using polygon objects give a more accurate response to collisions
+                  because the points lie directly on the surface of the polygon, as compared to points
+                  on NURBS surfaces (see <span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span> for more information on object geometry).
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-AFA689F0-8CC7-4444-9634-FA25D4B5D60B-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-4BFBE1AF-ABCB-40B5-986A-E67BBCA1FEC3"></a></span>On the left, a polygon mesh sphere has points directly on its surface.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-57658897-DC60-454D-8829-C99D8458AE28"></a></span>On the right, a NURBS surface sphere has its points away from the surface.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-31F3C910-E7BB-4904-B5C0-B858C71A6DBE"></a></span>For example, if you're dragging a cloth over another object, the points of the cloth
+                  (as opposed to the cloth itself) ride over the other object. This may cause the cloth
+                  to go "into" the other object. With NURBS surfaces, you may have to adjust the <span class="MenuCascade" id="GUID-D2A0E162-672F-434E-A135-66F7EF370CC1">Push Length</span> parameter in the <span class="char_link"><a href="property523.htm">Obstacle Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>] to keep the cloth surface from intersecting with the obstacle.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-59D9BA7E-1C12-41D2-A2FE-B9B2B245F1D9"></a></span>If you're using a polygon object as the cloth, keep a fairly constant polygon density
+                  and distribution. This is because every edge becomes a spring in the simulation, with
+                  additional invisible cross-bracing springs added to keep polygons from shearing.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D015F0F2-B352-450D-9295-52A8C7D96C38"></a></span>If you want to build a garment, set up the appropriate parent-children hierarchy in
+                  the cloth model.
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-814C54F5-F819-4557-8E10-BBEBE287A692"></a></span><div class="note-tip"><span class="label">TIP:</span>As with all standard objects, a cloth object inherits the animation from its parent.
+                     When making clothes for characters, it's generally a good idea to make the skeleton
+                     root the parent of the cloth object.
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0015"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0F64147F-6080-435A-85BF-52097F3D838E"></a></span>High or Low Geometry Resolution?
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-63F6AFAA-6980-44B5-A5F8-CF53463D9F3C"></a></span>Make sure that the cloth model has a high enough resolution to give the effect you
+                  want. For example, if you want silk draped over a chair, the resolution needs to be
+                  higher than a piece of burlap. However, high-resolution objects are costly to calculate.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A4B7723F-A592-48A3-98A7-B1FC24E9478F"></a></span>Generally, the cloth model must not be too low for two reasons:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CFFB70CB-2C3D-4621-B3CA-C6E0B403B51C"></a></span>You need a sufficient number of vertices for getting a satisfactory collision response.
+                        Edges may penetrate some polygons of the obstacle even if the vertices are well managed.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FB5441D4-6841-4C37-9053-8619653AE961"></a></span>Subdivision not only adds new vertices but also moves the original ones, so you may
+                        violate the obstacle constraints.
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-D25154FF-0117-4CA1-B711-D0580AA7DC1E"></a></span>As with all simulations, the trick is to find the lowest resolution acceptable for
+                  the results you want. One way to accomplish this is to use an acceptable low-resolution
+                  "stand in" model while you're setting up the basic simulation and collisions. Then
+                  when you're done that, swap in the high-resolution model and tune the parameters accordingly.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

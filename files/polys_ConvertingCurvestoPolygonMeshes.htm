@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D196DDA2-B2D3-4307-9453-031A4C7403C5">
+      <meta name="indexterm" content="curves: converting to polygon meshes">
+      <meta name="indexterm" content="polygon meshes: creating from curves">
+      <meta name="indexterm" content="polygon meshes: creating from text">
+      <meta name="indexterm" content="converting: curves to polygon meshes">
+      <meta name="indexterm" content="Poly. Mesh Curves to Mesh">
+      <meta name="indexterm" content="holes: in polygon meshes">
+      <meta name="indexterm" content="tessellating: converting curves">
+      <meta name="indexterm" content="Minimum Polygon Count tesselation method">
+      <meta name="indexterm" content="Delaunay tesselation method">
+      <meta name="indexterm" content="Medial Axis tesselation method">
+      <meta name="indexterm" content="embossing when converting curves">
+      <meta name="indexterm" content="extruding: when converting curves">
+      <meta name="indexterm" content="extruding: text">
+      <meta name="indexterm" content="text: extruding">
+      <meta name="indexterm" content="beveling: when converting curves">
+      <meta name="indexterm" content="beveling: text">
+      <meta name="indexterm" content="text: beveling">
+      <meta name="indexterm" content="partition clusters">
+      <meta name="indexterm" content="exploding: curves to mesh hierarchy">
+      <meta name="indexterm" content="polygon meshes: exploding from curves">
+      <meta name="indexterm" content="curves: exploding to mesh hierarchy">
+      <meta name="topic-type" content="concept">
+      <title>Converting Curves to Polygon Meshes</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D196DDA2-B2D3-4307-9453-031A4C7403C5"></a></span><div class="head">
+            <h1>Converting Curves to Polygon Meshes</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-44A4189C-E46C-4535-AE09-3FCD350A4A62"></a></span>You can convert curves to create complex polygon meshes with holes. The Curve to Mesh
+               Converter is also used to create planar and solid mesh text. 
+            </p><span class="anchor_wrapper"><a name="UL_86A41D01C0CD43C39A13B29A49CF043C"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F392565C-307D-4F21-8DAD-FEDC21CA520F"></a></span>For information about creating text curves, see <span class="char_link"><a href="prim_text_CreatingText.htm">Creating Text</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-74B1951A-33BB-48FF-B76B-5EC2D91211E3"></a></span>For information about controlling how text and other curves are converted to polygon
+                     meshes, including extruding and beveling, read on. 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-018F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6D4073FB-34B6-4751-82C5-AEB88DD954E3"></a></span>Before You Start — Preparing the Input Curves
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E1DCA372-B985-4CE8-9420-537F55E98696"></a></span>If you understand how the conversion treats the input curves, you'll know what to
+                  expect in the resulting polygon mesh. 
+               </p> <span class="anchor_wrapper"><a name="UL_05F4595E741944FE8FE1E20E270FD073"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-59B69D8C-73F0-444D-AC0D-5E8DC8866AC3"></a></span>You can use multiple curve objects, curve objects with multiple subcurves, or a combination.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8823E9D8-C76C-43AC-B461-DC9C97AF4BF2"></a></span>You should have at least one closed exterior curve. Multiple closed exterior curves
+                        become disjoint parts of the same mesh object. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-11C295AA-5D0D-458D-87C1-4A4C418A81D7-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-55199218-3E72-4B61-8E5A-5A1C9360D13D"></a></span>Exterior closed curves become disjoint parts of the same mesh object (A). Interior
+                        closed curves can become holes (B). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5C69A4AE-6EBC-448B-A627-4EE1CE765E42"></a></span>You can use open, interior curves to define contour (or "flow") lines inside the mesh.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B101FF41-F4B3-4EF0-B51F-EB3E6FC4D285"></a></span>Closed interior curves can be used either to define holes or as interior contours
+                        for the tesselation. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-07CF0448-4FFC-440A-A5CB-124A393B925B"></a></span>Curves can intersect or self-intersect. These intersections can be used to define
+                        holes or not, depending on the options you choose. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E7FC31AD-A2F6-4F17-BAB0-B6DAE0C72E37"></a></span>Instead of using a single closed curve to define the exterior contour, you can use
+                        multiple curve objects that enclose an area. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FF791460-D045-4060-ACEB-965A0CC470A5"></a></span>In this case, <span class="MenuCascade" id="GUID-B6E39B20-33C6-4E6D-A296-0CB30616A72E">Curve Can Intersect</span> must be on — see <span class="char_link"><a href="polys_ConvertingCurvestoPolygonMeshes.htm#WSF64117A6A93C394BA4D767D8C01808E6-0194">Setting General Options</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DE812469-C8A5-49E7-9BA5-C8258C1ABC55"></a></span>Curves can be non-planar. However, for the purpose of tessellation, the curves are
+                        projected onto their average plane and then after the tessellation, depth is added
+                        to the resulting mesh based on the height of the original curves. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-43666B55-14B4-4CF1-9288-07B2B370A4CF"></a></span>If the curves are extremely skewed or twisted, they may intersect when projected and
+                        the resulting tessellation may not be what you expected — it's easier to visualize
+                        the results if the curves are almost coplanar. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0191"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-26CE2DEF-8998-4EEC-8F9C-CE1CDE737A61"></a></span>Creating Polygon Meshes from Curves
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0192"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7811DBC4-952A-4AB5-B9B5-E94D1F15BC13"></a></span>To convert curves to a polygon mesh object
+                  </h3> <span class="anchor_wrapper"><a name="GUID-DC7318C3-FCEE-497F-B483-1C5ABCF0446F"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DAD2B15A-6E24-4E47-A4D8-2EA60822255C"></a></span>Draw, import, or otherwise create one or more curves. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E3360447-62EE-4DA9-9D4D-D816BCD56951"></a></span>Select all the curves. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-495E680D-A730-410F-BDCC-7A7AA7630B02"></a></span>Choose <span class="MenuCascade" id="GUID-0046CE9D-D4E4-47A1-BB5B-8E4CC31F3EC8">Create <img src="../images/ac.menuaro.gif"> Poly. Mesh <img src="../images/ac.menuaro.gif"> Curves to Mesh</span> from the Model toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1209BE44-9E6D-4BD0-ADE3-36C5724C9BD7"></a></span>A polygon mesh object is created and the Curve to Mesh Converter property editor opens.
+                           The options on the various tabs of this property editor are described in more detail
+                           in the sections that follow. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0193"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-80ABD447-9F38-4A88-B22D-EA1D07501E40"></a></span>Managing Input Objects
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AE13409B-A653-4780-AE60-98327C77E854"></a></span>Whenever you generate a new object from other input objects, you can manage the inputs,
+                     for example, hide or delete them. See <span class="char_link"><a href="basic_mod_ModelingRelations.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-004A">Managing Generator Inputs</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-47F2D9A6-57A2-471C-8F67-EEA9BA55FC0B"></a></span>You can also set <span class="MenuCascade" id="GUID-0BE3FD69-B8B6-4C31-BC2F-877A51C48ABF">Update with input transforms</span>. This recalculates the mesh when the input curves are transformed. Leaving this option
+                     off prevents potentially long computations when the curves are moved. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0194"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-64E8ACF4-F5FA-4039-9E67-D4FFF5879965"></a></span>Setting General Options
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6002293B-E30B-479F-B290-BDF9070D42BE"></a></span>The items in the Step and Options sections of the General tab of the Curve to Mesh
+                  Converter property editor control how the input curves are treated. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0195"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-06CBE232-359E-4AA2-AD04-C43786C1D11D"></a></span>Step
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B55A6582-B5D9-4A17-A049-844EA27F8A8A"></a></span>The <span class="MenuCascade" id="GUID-22CE2801-E1C6-431A-BCDF-EBE25C4E7A9F">Step</span> options control how many vertices are created for every knot in the input curves.
+                     You can control the values for the exterior Contours and the interior <span class="MenuCascade" id="GUID-089CFA8A-993B-4373-826A-959F2FC45BB0">Holes</span> separately (unless <span class="MenuCascade" id="GUID-0C469ECA-9227-4625-BE77-6D86CDE6B8E1">Curves Can Intersect</span> is on). 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_E63B8977607D49D3A0EB0B7B55B6C0B3"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-86F8164B-D1CB-475B-8A3C-A9E2334C1841-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-2188D50D-E945-4015-89FF-869A22384BD6-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2D618ADD-EC11-4E34-85E1-A77B8A627C7D"></a></span><p class="table-body">Steps = 3 produces smooth but dense geometry </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-37A2C5AD-52A5-425A-8686-D49CF90BEB98"></a></span><p class="table-body">Steps = 1 produces light but blocky geometry </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-798564DB-D752-408F-A97F-51C78EAE4A25"></a></span>The actually number of vertices in the final geometry can also be affected by <span class="MenuCascade" id="GUID-1CC82AFA-A0B2-4B2E-9416-FD988C7685A3">Filter Colinear Curves</span>. In the illustrations above, that option is on. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-0198"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7A00EF6F-48A2-4FCB-9769-421524E46E3D"></a></span>Create Holes
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-F73BD2A2-128D-400E-A0E2-8412C0067D27"></a></span>The <span class="MenuCascade" id="GUID-8E608F4F-2264-4B0B-826A-6941AF7E509F">Create Holes</span> option determine whether closed interior curves and intersections result in holes.
+                     You can turn this option off to use closed interior curves as interior edges for the
+                     tessellation; this lets you control the tessellation more directly to meet your final
+                     needs, especially if you are using non-planar curves to create a terrain-like effect.
+                     
+                  </p> <span class="anchor_wrapper"><a name="TABLE_24CC5A785B354B8D883AAD5C9E22DA07"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-526FE6BE-03DE-4016-8472-A5931971E907-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-DBA82682-61E8-4501-A941-6AF33838D936-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-08DE8A9F-7F5C-481E-B386-0AA514161F72"></a></span><p class="table-body">Create Holes = on </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1D737B51-3EBD-408C-8032-01BBAD6E6001"></a></span><p class="table-body">Create Holes = off </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-58EE6CAA-D0B6-413F-B9E7-EA0CD57B8C53"></a></span>This option is recursive; it will create holes within polygon "islands" within other
+                     holes, and so on. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_6A798B67799E45868A87AFBDC239B0E9"></a></span><div class="figure-anchor"><img src="../images/GUID-4D37025F-9B47-4AA4-8DFC-42B88899A483-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4B7CC9F0-062A-4B08-BA40-34EC7D16C993"></a></span>Holes in holes 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-019C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D3739C49-85AC-4697-9F0D-6BF97DC8087B"></a></span>Filter Colinear/Spike Points
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-51D22A40-A8CE-472C-917D-84EB407BCB72"></a></span>The <span class="MenuCascade" id="GUID-9B3FF85D-9C14-4230-A70A-4302A60FFB58">Filter Colinear/Spike Points</span> option can be used to remove points from straight edges to simplify the geometry,
+                     as well as to eliminate spiky noise in the input curves. Turn this option on to reduce
+                     the geometry. Turn it off if you need the number and distribution of vertices in the
+                     polygon mesh to reflect the actual vertices in the input curves, or if you need the
+                     extra geometry, for example, to allow the polygon mesh to deform smoothly. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9AC18ADB-73D7-49C2-B08B-A2AC8BF33CDC"></a></span>Use <span class="MenuCascade" id="GUID-43108E2A-0746-40D9-A3E8-CDC1AB7D7D27">Min. Angle Colinear</span> to specify which vertices are considered colinear. Any vertex with two edges that
+                     meet at an angle greater than this value in degrees is removed. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2243AB02-B5F2-45DF-9FF4-02A5103BCE5C"></a></span>Similarly, use <span class="MenuCascade" id="GUID-8552DF43-2BF6-4463-881E-493554AAAB4E">Max Angle Spike</span> to specify which vertices are considered spikes. Any vertex with two edges that meet
+                     at an angle less than this value in degrees is removed. This applies to both convexities
+                     and concavities. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_0BEF5D8751A745F3AFBCAA6B9E142FC7"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-4B7C8D29-8501-4028-BE6F-CDBF00A0C9F5-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-8BA69333-B2C5-49EB-BDE9-618A47C83C26-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-23681529-C048-4082-8FDC-2EE7763A5D6B"></a></span><p class="table-body">Filter Colinear Points = on </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4CE57B4D-E888-4FB5-895A-1F2C5D002569"></a></span><p class="table-body">Filter Colinear Points = off </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-019F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1A384B7A-7AAE-494F-A9C8-11005CE92263"></a></span>Curves Can Intersect
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9516D34B-C267-4526-BDC0-2D46FB81E5A8"></a></span>The <span class="MenuCascade" id="GUID-264D297F-E6B5-429C-B25E-5BAFBDF53C21">Curves Can Intersect</span> option allows holes to be created in areas bounded by the intersection of two curves.
+                     This option may be necessary to provide the correct tessellation on some imported
+                     EPS curves. It treats all input curves as if they were one object, so if you turn
+                     this on then you cannot create partition clusters as described in <span class="char_link"><a href="polys_ConvertingCurvestoPolygonMeshes.htm#WSF64117A6A93C394BA4D767D8C01808E6-01D5">Creating Clusters</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-76583564-6E42-4898-BD1E-2890FC9CB3E0"></a></span>In addition when this is on, you cannot set the <span class="MenuCascade" id="GUID-73200C04-D53F-4A31-87EA-9F6C30A577B7">Step</span> value for <span class="MenuCascade" id="GUID-FB8B7AC2-DA4E-414E-A8BF-D24B53A58D3F">Holes</span>, nor can you use <span class="MenuCascade" id="GUID-6CDAF3A2-5273-4C47-AB00-B651F3685534">Proportionally Smaller for Holes</span> on the Bevel tab. If this option is off and the curves do intersect, you might not
+                     get the desired results. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_2794B758B2CA427CBE52BC19FBB433A9"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-1494E7AB-A990-46ED-8B05-744D4AB712F0-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-44896CD8-B7E7-4F3E-B874-23343BD7446D-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-816AD9FB-9AE4-40BF-85F7-D3E93AC83D02"></a></span><p class="table-body">Curves Can Intersect = off </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DF27C5CF-CEAA-43A6-B3CA-EF77B8FB833C"></a></span><p class="table-body">Curves Can Intersect = on </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01A2"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-78129674-4177-4810-A4D6-86912EB3379E"></a></span>Offset
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D031CBC0-238F-42DF-80F7-1EEA245C914E"></a></span>Use the <span class="MenuCascade" id="GUID-0C4523CC-3664-4128-8BCF-FECBB7B4E977">Offset</span> slider to offset the input curves. Positive values enlarge the curves and negative
+                     values shrink them. Values are in Softimage units. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01A3"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0612617F-2E4E-4707-9823-B0EBF8271F46"></a></span> Tessellating
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-1A286FD7-67CA-4C81-B58B-C5C460BFD9D1"></a></span>Tessellation is the process of tiling the curves' shapes with polygons. Softimage
+                  offers three different tessellation methods: 
+               </p> <span class="anchor_wrapper"><a name="UL_30A4C406AA244A08A9247B9822E3EEC8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4D1D5B44-AE2D-440C-BA1C-61B58495ABBD"></a></span> <span class="MenuCascade" id="GUID-E8493D71-DAC5-40DE-8FBA-F83D9EFDE137">Minimum Polygon Count</span> uses the least number of polygons possible. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-473FE246-BB6C-40DF-A410-D1284E5641C7"></a></span> <span class="MenuCascade" id="GUID-1A1421CE-047D-4FE1-81A2-E2B8DEDE2030">Delaunay</span> generates a mesh composed entirely of triangular polygons. This method gives consistent
+                        and predictable results, and in particular, it will not give different results if
+                        the curves are rotated. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7F515231-78D6-4FBE-8B16-D6C2DE2549D1"></a></span> <span class="MenuCascade" id="GUID-34644FDC-10CF-4A3F-9307-166039D0C537">Medial Axis</span> creates concentric contour lines along the medial axes (averages between the input
+                        boundary curves), morphing from one boundary shape to the next. This method creates
+                        mainly quads with some triangles, so it is well-suited for subdivision surfaces. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-7DF5A5C1-1ADE-46AD-B329-DDC4AFF3F948"></a></span>Each method has its own set of options, described in the sections that follow. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01A4"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A01ADF7C-302E-4EBE-9B5D-44217AF286D3"></a></span>Minimum Polygon Count
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-69CFA588-E0A7-4337-9052-D1CE158831A0"></a></span>The <span class="MenuCascade" id="GUID-4D15AE35-7549-4501-9AEB-926F5FCF4F95">Minimum Polygon Count</span> tessellation method uses the least number of polygons possible. For a single contour
+                     curve with no holes, this results in exactly one polygon. When holes are present,
+                     there are multiple polygons and their shapes are not predictable. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1815ED1D-EAF7-462E-8BD3-03EEE27811BA"></a></span>This is because of the fundamental rules for valid polygon meshes in Softimage: points
+                     cannot be used more than once in a the same polygon and the edges of a polygon must
+                     all be connected — you cannot have a hole in a single polygon because the outer and
+                     inner boundaries would be disjointed. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9EBEBE58-37D5-4035-83FC-24D6CAAF27DC"></a></span>In general, Minimum Polygon Count creates irregularly shaped n-sided polygons. For
+                     this reason, it is best used when you need to keep the geometry light on simple objects
+                     that will not be deformed. Of course, you can always add and remove edges manually.
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_24D7827295734E3A86D8C1079885137B"></a></span><div class="figure-anchor"><img src="../images/GUID-8471952E-38F4-4F5F-B04C-3EBE94053899-low.png"></div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01A6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E989A217-3453-4BCE-93DB-425FC10B5676"></a></span>Delaunay
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-9A6B4B34-4DA1-4CC9-9FB7-2165DCCB289D"></a></span>The <span class="MenuCascade" id="GUID-4A5CC3F1-AD60-43B2-AD2C-AC7AB76BB0EC">Delaunay</span> tessellation method (or more precisely, <em class="mild">constrained Delaunay tessellation</em>) generates a mesh composed entirely of triangular polygons. This method gives consistent
+                     and predictable results, and in particular, it does not give different results if
+                     the curves are rotated. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_F3A6C8A227584B50A32AF0E52DEB106B"></a></span><div class="figure-anchor"><img src="../images/GUID-8880177D-983A-461D-8005-6F36D1A59BD4-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-965ED9BB-8CFE-45C9-BE99-C5E1D5DF4BCC"></a></span>With this method, there are several options for fine-tuning the tessellation further.
+                     
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01A8"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-EA6E64AF-A480-426E-AB93-73A30BD9A1FC"></a></span>To set the Minimum Angle of polygons
+                     </h4> <span class="anchor_wrapper"><a name="UL_6083E3E78D654908BA35915F9C53E222"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FF590A83-ACAA-4921-80BB-3C47F741E594"></a></span>Turn <span class="MenuCascade" id="GUID-67E11F08-7842-4F86-BBE1-AD3C68731788">Minimum Angle</span> on and then adjust the slider. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CB020022-D47C-4863-AF57-41C0F7FF4EBB"></a></span>If a triangle contains an angle that is smaller than this value, it gets replaced
+                              by better-shaped ones. Eliminating small-angled triangles gives a more uniform OpenGL
+                              shading and is more suited for deformations. 
+                           </p> 
+                           <div class="figure-anchor"><img src="../images/GUID-D97B1802-8B0D-4BFF-9026-4501EACB1D04-low.png"></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-649B7EF0-F275-41EF-9E9D-9BA08A2387E8"></a></span>Minimum Angle = 20 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01AA"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-AA48D75E-D73C-4F16-91FE-3C59F6C12FAA"></a></span>To set the Maximum Area of polygons
+                     </h4> <span class="anchor_wrapper"><a name="UL_3AE344702F394499AE46B91471912612"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C7343C1C-20B5-434C-A80C-8630270C453D"></a></span>Turn <span class="MenuCascade" id="GUID-1B798D13-591C-4454-9190-875053ABFEEC">Maximum Area</span> on and then adjust the slider. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-8BF365EF-C45A-46F2-A8DE-8A681155FA32"></a></span>If a triangle is larger than this value, it gets replaced by smaller ones. This allows
+                              the polygon mesh to be deformed more smoothly. 
+                           </p> 
+                           <div class="figure-anchor"><img src="../images/GUID-7261CD5E-7896-49E3-9888-8E97AD329AD4-low.png"></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-84BC459F-480B-4804-8142-6C969210D0E8"></a></span>Maximum Area = 10 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01AC"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-5DF54BF6-04DF-4161-B53D-A2461AE8510C"></a></span>To limit the number of new vertices
+                     </h4> <span class="anchor_wrapper"><a name="UL_3294931F211D4EE9A315848BE2ED85EA"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C78EB618-3124-4CFB-BEF8-AF40D2EE8DEA"></a></span>Turn <span class="MenuCascade" id="GUID-686A42DD-890C-4475-A081-1CBB5EBE6401">Enable</span> on and then adjust the <span class="MenuCascade" id="GUID-0E40B87A-15EB-4CE9-9DD4-8CA9B556B860">Added Vertices Limit</span> slider. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-8CB7F3E9-5989-49B1-88BF-CC4C39A4A978"></a></span>This limits the total number of new vertices that can be added by the <span class="MenuCascade" id="GUID-7EDE862B-3CF0-42F4-ACF9-596FD3EC1DA8">Minimum Angle</span> and <span class="MenuCascade" id="GUID-C3D8E424-042E-475D-8DFB-90011985A48E">Maximum Area</span> options. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9ABAC32F-3C7E-43D7-837A-63AFEFA1EA18"></a></span>Use this option as a precaution against accidentally setting the other options to
+                              values that would create huge amounts of geometry with long processing times. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4DBC9598-A951-464C-B321-38731218B2BF"></a></span>It is not recommended that you rely on this option to control the final number of
+                              vertices because it can force the tessellation to stop before the process is completed,
+                              thereby giving an unpredictable combination of polygon shapes and sizes. Look at the
+                              <span class="MenuCascade" id="GUID-04FE0CC0-F653-4940-94DD-39127A9E2B25">Stats</span> in the property editor to see whether your object is at or near the limit. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01AD"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-B1343B9A-5222-488E-814C-FB31B6901D2F"></a></span>To control tessellation along boundaries
+                     </h4> <span class="anchor_wrapper"><a name="UL_08A784E938AB488487DFC11FD617DB45"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-49ECDA03-3D43-4F4D-A945-109CB5E5A208"></a></span>Set <span class="MenuCascade" id="GUID-0C7F58E4-9C51-4598-B03A-4A663D72F940">Boundary Split</span> to one of these options: 
+                           </p> <span class="anchor_wrapper"><a name="UL_4588B3A7D2FC4E2D9A42A7B413235FE6"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-F55A356F-1CFD-4348-9AAC-13D82B76130D"></a></span> <span class="MenuCascade" id="GUID-2BF2F180-4B1C-46CD-A585-9F9C36C66DCF">Free:</span> Allows the boundary edges along the outer contour and inner holes to be split further
+                                    during tessellation. 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-0BFED818-CD13-487F-BB73-AECBB65276CA"></a></span>This is particularly useful for text and other shapes that may contain straight edges
+                                    that need to be deformed smoothly. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-9AEB7C24-0EF4-4FE4-A3B0-6306CC32CAE3"></a></span> <span class="MenuCascade" id="GUID-BB24C5D2-A045-469E-854E-E30BC44332B7">None on Contour Only:</span> Allows boundary edges along inner holes to be split, but not boundary edges along
+                                    the outer contour. 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-A59083C1-F9AA-4E27-ACD7-24BCD16F584E"></a></span>Note that this may affect the uniformity of the mesh if you are using <span class="MenuCascade" id="GUID-15E08EA7-8AC6-4E76-A151-8C500D8DCAC7">Minimum Angle</span> or <span class="MenuCascade" id="GUID-2E4B10FB-1E60-4DF9-92D6-F4393DFE57F4">Maximum Area</span>. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-1F0DE38A-B318-485A-A606-E906D0A4B896"></a></span> <span class="MenuCascade" id="GUID-A39A71EE-7677-4511-A03D-4E50CF5A5B87">None (Contour and Holes):</span> Does not allow any boundary to be split. 
+                                 </p> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-81B5514E-35E9-4F3A-92FE-E2B6E9A0EBA7"></a></span>Again, this may affect the uniformity of the mesh if you are using <span class="MenuCascade" id="GUID-E419A7B2-4C11-433A-923D-7650598BEB9F">Minimum Angle</span> or <span class="MenuCascade" id="GUID-AFD592ED-98A8-41D3-8C82-6E048FC2F39D">Maximum Area</span>. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                     </ul> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01AE"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DF8E68A1-9BF6-4134-882A-5C48271B2C86"></a></span>Medial Axis
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-CA428BEE-9D3B-46C1-8EEF-B85684B22F0F"></a></span>The <span class="MenuCascade" id="GUID-25B8DCF8-3163-4B8E-AA95-30ECAC1EE0DA">Medial Axis</span> tessellation method creates concentric contour lines along the medial axes (averages
+                     between the input boundary curves), morphing from one boundary shape to the next.
+                     This method creates mainly quads with some triangles, so it is well-suited for subdivision
+                     surfaces. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_E083063715A0477EA26A59371F0A8D2A"></a></span><div class="figure-anchor"><img src="../images/GUID-FA5300C8-6CBC-4EF6-A02E-9A21F9E023CB-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C301B1B8-55A5-4102-86D6-B1D9DB8D51C1"></a></span>With this method, there are several options for fine-tuning the tessellation further.
+                     
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01B0"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-9AD1F5F9-2F88-404B-920F-EE1F2189ECE1"></a></span>To control the number of contour lines
+                     </h4> <span class="anchor_wrapper"><a name="UL_3BAE581B07FE442BBCF3BCE5759BD426"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-8EF4F885-8395-4B56-8636-79AACDC1554C"></a></span>Adjust <span class="MenuCascade" id="GUID-40A31D3A-1798-415F-BC96-054FDFA85A11">Nb. of Loops</span>. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-09BDFD76-539D-4538-997C-5610EB1FCF13"></a></span>If <span class="MenuCascade" id="GUID-420BD32A-6B36-4F2B-A667-86D7D175CC7B">Adaptive</span> is off, this is the exact number of medial axes drawn per boundary (rounded to the
+                              nearest integer). If Adaptive is on, this is the average number of medial axes drawn
+                              and the distance between them is kept fairly constant. 
+                           </p> 
+                           <div class="figure-anchor"><img src="../images/GUID-4FA004E0-4EB8-4CC6-9417-6FE62C882D30-low.png"></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D9A65CB6-4089-4296-B404-8EF9282B12BE"></a></span>Nb. of Loops = 2 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01B2"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-88C38462-6BDE-41A2-9E1D-D2CF32A49C2A"></a></span>To enhance the accuracy of the medial axes
+                     </h4> <span class="anchor_wrapper"><a name="UL_CB3A3C8B866D47628A84A915C3B7341A"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-52A7D659-F649-4BFE-8433-F38B5DD7086F"></a></span>Turn on <span class="MenuCascade" id="GUID-FA254489-22B5-45F3-9952-C4762D51C11F">Split edges to enhance</span>. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E0894430-FA39-4411-8734-42187D262EF4"></a></span>This option adds vertices to allow the contour lines to follow the medial axes more
+                              accurately. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-98BFF70C-64A7-4D81-8410-7E92D9A5C781"></a></span>You should turn this option off if you are not creating holes (that is, if <span class="MenuCascade" id="GUID-B34649DB-3268-4497-9F12-F19159EF5ADF">Create Holes</span> is off on the <span class="MenuCascade" id="GUID-62601536-2641-49AD-9EF7-E3B5CA9D4AC6">General</span> tab); otherwise, there may be shading artifacts along internal curves. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01B3"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-88B45CB7-E897-4D5F-B568-F106E648954F"></a></span>To control the shape of polygons
+                     </h4> <span class="anchor_wrapper"><a name="UL_24B506154344490595BF1B6410DD5B4B"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-15CFFC6D-67F0-41EF-91DC-DD945CA7FCC0"></a></span>Set <span class="MenuCascade" id="GUID-8B1671D9-EB67-4AA7-924C-EC6AEC4376B7">Edge Tessellation</span> to one of the following values: 
+                           </p> <span class="anchor_wrapper"><a name="UL_5445A60D09814D16BC9FB0A63F806F8F"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-444720E4-DB54-4639-B455-9C18B7AFA9CD"></a></span> <span class="MenuCascade" id="GUID-FC480043-6066-4DF6-AB60-3ECB1B4FE84D">None:</span> Long edges are not split. This results in fewer polygons and lighter geometry, but
+                                    the resulting long, thin polygons may not deform well. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-5C41F766-A42E-48C8-83DF-4B07EFBD3A53"></a></span> <span class="MenuCascade" id="GUID-B76210C2-F94A-4549-A7DF-81083F0BC9F8">Equal on both sides:</span> This results in squarer polygons that deform better. 
+                                 </p> 
+                              </li>
+                           </ul> <span class="anchor_wrapper"><a name="TABLE_9D3151B6FF39430B8370DA7F102F4CF0"></a></span><div class="table_NotRuled">
+                              <table cellpadding="0" cellspacing="0" class="not-ruled">
+                                 <colgroup>
+                                    <col>
+                                    <col>
+                                 </colgroup>
+                                 <tr class="not-ruledOddRow">
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-FF36A758-634A-438A-9492-5C3B350246F8-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-BCE2D6BE-DB2F-47E0-9912-42854CB3A6A7-low.png"> 
+                                    </td>
+                                 </tr>
+                                 <tr class="not-ruledEvenRow">
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-20C1488D-4AC5-4D03-884A-966295CAB643"></a></span><p class="table-body">Edge Tessellation set to None. </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ACB85C6C-6587-41D0-98C3-9DBAD49379D7"></a></span><p class="table-body">Edge Tessellation set to Equal on Both Sides. </p> 
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01B6"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-C19D60C7-421F-4E09-B231-F5DDCD4C11ED"></a></span>To control the tessellation at extremities
+                     </h4> <span class="anchor_wrapper"><a name="UL_E1C73ED1C53945BDBDAB87D6E60DECE7"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-57BE128D-E087-4EA3-BC92-B75ACA7B13BA"></a></span>Adjust <span class="MenuCascade" id="GUID-ED1CBF62-29EE-477B-841B-6B5938E67B0A">Backtrack Length</span>. 
+                           </p> <span class="anchor_wrapper"><a name="UL_3DC830BB6BA54D0D8058ED38A0E2CB56"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-09DB07A9-75E1-4B48-957F-06F2372FE7CE"></a></span>When this value is 0, the medial axis intersects boundaries at each point of concavity,
+                                    which can often create many small triangles especially in sharp extremities. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-88986D72-21F7-473E-A31D-EC1F1328F6B2"></a></span>When this value is positive, the medial axis does not extend completely to the boundary
+                                    and the remaining area is tessellated with a fan shape. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-EF79CA90-3D65-4B0C-B4A5-4A9852110CE0"></a></span>When this value is negative, it creates sharper embossing effects. 
+                                 </p> 
+                              </li>
+                           </ul> <span class="anchor_wrapper"><a name="TABLE_FE095B43D4B24344A698E59C8BABA019"></a></span><div class="table_NotRuled">
+                              <table cellpadding="0" cellspacing="0" class="not-ruled">
+                                 <colgroup>
+                                    <col>
+                                    <col>
+                                 </colgroup>
+                                 <tr class="not-ruledOddRow">
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-CBB558F5-E639-4C15-BD99-30F08E383CE7-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-266E9937-16C5-4EB7-B4CA-4AAAADCC30B5-low.png"> 
+                                    </td>
+                                 </tr>
+                                 <tr class="not-ruledEvenRow">
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A382DCC5-F5CA-49FA-9374-5D126FA66AE0"></a></span><p class="table-body">Backtrack Length = 0 Medial axis extends to corner resulting in many small polygons
+                                          (A). 
+                                       </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AF6DA621-143D-4568-A3DC-8A280488DFA7"></a></span><p class="table-body">Backtrack Length &gt; 0 Medial axis stops (B) leaving a fan of polygons. </p> 
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01B9"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-3EEB9927-7F9C-4488-8521-7BD8F963765E"></a></span>To emboss
+                     </h4>  <span class="anchor_wrapper"><a name="GUID-74216EF7-241E-415A-ACB9-A6AC40437180"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-66667E82-BB47-4F6D-B04E-F0FDFAAF3C37"></a></span>Set <span class="MenuCascade" id="GUID-131D2C53-CD65-4121-A68F-74FC53ECEBB3">Emboss Height</span>. 
+                           </p> <span class="anchor_wrapper"><a name="UL_F1D863F6C09F485FB52B67766AB7054B"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-0E64FB42-E5BE-411C-9033-7DF1E1FBD322"></a></span>Positive values raise the central medial axes in the direction of the normals and
+                                    negative values push the medial axes back. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-3AFA26AB-69D4-4B27-AE7C-10CD08BC3916"></a></span>A value of 0 corresponds to no embossing. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-14609466-6AE6-47D5-8140-DD44FD3E1807"></a></span>Set the <span class="MenuCascade" id="GUID-3A24AA19-C1C7-4170-8675-748C7F59E03E">Emboss Type</span> to <span class="MenuCascade" id="GUID-E6E84A64-319F-496A-970C-815CF33554BB">Rounded</span> or <span class="MenuCascade" id="GUID-FD06E134-68BD-45CB-8098-91F41F1DD92A">Linear</span>. 
+                           </p> <span class="anchor_wrapper"><a name="TABLE_7CE71B9FC25345B3987F4B9E588BAF57"></a></span><div class="table_NotRuled">
+                              <table cellpadding="0" cellspacing="0" class="not-ruled">
+                                 <colgroup>
+                                    <col>
+                                    <col>
+                                    <col>
+                                 </colgroup>
+                                 <tr class="not-ruledOddRow">
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-B8F13990-0839-415B-A137-D9BC5C87527F-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-D50F9BFD-9EFA-45F2-B004-E1F42FD1D583-low.png"> 
+                                    </td>
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-9AC15AE3-D787-42DA-AAC2-62282B64C988-low.png"> 
+                                    </td>
+                                 </tr>
+                                 <tr class="not-ruledEvenRow">
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CC4C89C4-D343-4DC3-A1FD-5B655827AF4E"></a></span><p class="table-body">Emboss Height = 0 </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-080186A7-7AED-45EB-9ECF-467F4563CEF2"></a></span><p class="table-body">Emboss Type = Linear </p> 
+                                    </td>
+                                    <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CFF0571F-38FF-4630-895B-2B47F6AF822B"></a></span><p class="table-body">Emboss Type = Rounded </p> 
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01BD"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2926737B-7BCC-4F4B-8E8C-1B984D31AADB"></a></span>Extruding
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-AEA3C9AA-2C45-4B59-BAFF-E763D75FADAE"></a></span>You can extrude the tessellated mesh to add depth using the controls on the Extrude
+                  tab of the Curve to Mesh Converter property editor. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-93AC3566-8212-492D-A8FA-884573761145"></a></span>The only difference between the <span class="MenuCascade" id="GUID-95D807B5-47E6-42B6-B968-25E7E70DBD47">Create <img src="../images/ac.menuaro.gif"> Text <img src="../images/ac.menuaro.gif"> Planar Mesh and Create <img src="../images/ac.menuaro.gif"> Text <img src="../images/ac.menuaro.gif"> Solid Mesh</span> is the default value of Extrude Length. 
+               </p> <span class="anchor_wrapper"><a name="FIG_7A0B13271652438F87F1CBD903DB4C9E"></a></span><div class="figure-anchor"><img src="../images/GUID-7DC0E210-8BD2-4836-AD67-C16A0D4779B5-low.png"></div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01BF"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EB14D88B-BD86-44F6-85F6-27D24E86C1E0"></a></span>To set the length of the extrusion
+                  </h3> <span class="anchor_wrapper"><a name="UL_6C7DD1120E8C434BBAE7DC4EDFC408D7"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5D65C856-5D11-4231-B907-BCB2CC05CAFD"></a></span>Adjust <span class="MenuCascade" id="GUID-0FBB1281-4794-4EF8-AF97-E2CB2B4A2497">Length</span>. For no extrusion, set this value to 0. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01C0"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-148A4C37-0C5B-4C68-9C7E-A22C5FBDD2BB"></a></span>To set the number of subdivisions along the extrusion
+                  </h3> <span class="anchor_wrapper"><a name="UL_4210C855432E48CA850E473D03C88275"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9B26C327-2CE8-491D-8248-5A60842B7B07"></a></span>Adjust <span class="MenuCascade" id="GUID-AB772D4A-D517-4892-BECC-425EFB216A42">Subdivisions</span>. Use lower values to keep your geometry as light as possible or higher values if
+                           you need to deform the result smoothly. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01C1"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-429DF9EC-983E-4473-B49D-FCBBDED26669"></a></span>To set the direction of the extrusion
+                  </h3> <span class="anchor_wrapper"><a name="UL_6DEB5F2DA4D44DD889198D59BF0C9AB0"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B30919BE-F439-48A9-B862-3674B945FDB0"></a></span>Set <span class="MenuCascade" id="GUID-702E94B2-C2B2-46B1-B193-60FF21FDC8CD">Direction</span>. <span class="MenuCascade" id="GUID-4114129B-5849-4255-ACA5-A6809FA07EA9">Forward</span> extrudes in the direction of the normals and <span class="MenuCascade" id="GUID-B03C2290-A623-44B1-81E6-2997918AF5E0">Backward</span> extrudes in the opposite direction. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01C2"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A4804B1B-F9CB-4D7F-9C80-9CE6BFB7A898"></a></span>To keep different parts of the extrusion
+                  </h3> <span class="anchor_wrapper"><a name="UL_8A57480E8F234EC9B54B0CF7E19D5073"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FA087FE7-E029-4590-8E36-E5EEBCD020F6"></a></span>Turn the <span class="MenuCascade" id="GUID-08F3A273-C683-4720-AF1B-DF5704C56EC0">Parts</span> options on or off individually: <span class="MenuCascade" id="GUID-88130D10-C34C-4428-96DF-E5805947DE34">Front</span>, <span class="MenuCascade" id="GUID-103CACF2-4FFD-4DDD-B5CE-CCA5536E32E4">Back</span>, and <span class="MenuCascade" id="GUID-A4F1D13E-9D2C-4AAA-82FD-81AB2A3B911F">Tube</span>. 
+                        </p> 
+                     </li>
+                  </ul> <span class="anchor_wrapper"><a name="TABLE_C1D31EFB3D4D4E04AE8069934C478522"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-5F0F5FE0-615F-421B-9711-9CD7C9EC3672-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-6519F88F-7484-41D2-9E4E-9C860E2C7F5A-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D8C97A4D-C090-4725-920D-1EB133DA4C2E"></a></span><p class="table-body">Front and Back </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DCEB8F13-0BAE-4906-8F4C-2120FF604CA3"></a></span><p class="table-body">Tube </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01C5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A709BD0C-559A-405E-B22E-058FF2F239CC"></a></span>Beveling
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-918099E6-1520-4CA6-BF48-4F4A34E1E2BD"></a></span>When converting curves to polygon meshes, beveling extends the contours using a profile.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01C6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5673D67C-6AFB-4A22-9C0F-78B46EE22464"></a></span>Controlling the Size and Direction of the Bevel
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-77407008-FEBB-49EB-937B-52D664EF3BDF"></a></span>The <span class="MenuCascade" id="GUID-861D3406-E1ED-4253-9ECA-1D38104652C4">Bevel</span> options on the Bevel tab of the Curve to Mesh Converter property editor control the
+                     size of the bevel: 
+                  </p> <span class="anchor_wrapper"><a name="UL_1B7051158C404BEB909A2D782EDE6544"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7586B31E-6DD0-4E6D-9E42-B0DD5167352A"></a></span> <span class="MenuCascade" id="GUID-BE26E589-B3CF-4D89-9A5E-00035D528BD8">Depth</span> controls how much the bevel protrudes in front and in back of the base mesh. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C0B60781-2AAA-4944-889C-69D840BD3397"></a></span>The bevel profile is automatically scaled so that the width of its bounding box equals
+                           this value. This value is in addition to any extrusion set on the Extrude tab. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9C94387A-7098-483A-837B-D0C6A34C7104"></a></span> <span class="MenuCascade" id="GUID-AC33E70E-AB99-44A2-8463-C516A195EA66">Height</span> is a scale factor that modifies the profile curve in the direction orthogonal to
+                           the Depth. Positive values push the sides out, while negative values push the sides
+                           in. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8CDFFB12-EE46-4487-B201-F12F4FA65602"></a></span>If your curves have small, thin features and sharp, closely-spaced corners, then don't
+                           set this value too high. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-0A4F8ABD-30EC-463B-9421-353CB5E2F19D-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_1DCA8A456E3E41B4A4361EF423BED042"></a></span><div class="table_Ruled">
+                           <table cellpadding="0" cellspacing="0" class="ruled">
+                              <colgroup>
+                                 <col>
+                                 <col>
+                              </colgroup>
+                              <tr class="ruledHeading">
+                                 <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-E496F321-EE9C-47E5-959C-99E98C455420"></a></span><p class="table-heading">Side view of a beveled corner </p> 
+                                 </th>
+                                 <th class="table-heading">&nbsp; <span class="anchor_wrapper"><a name="GUID-2E363062-BC75-41CF-B9F5-9DF527D8AA8A"></a></span><p class="table-heading"></p> 
+                                 </th>
+                              </tr>
+                              <tr class="ruledOddRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-67F86855-2599-4308-BA9F-A887159909B2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-413CB838-87B8-4520-A88C-B27838042BFE">A</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5A0D2665-25D6-49E3-A233-4E5AAF271404"></a></span><p class="table-body">Bevel profile starts here. </p> 
+                                 </td>
+                              </tr>
+                              <tr class="ruledEvenRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D564DA8F-CC5D-4978-BA3D-470904B20A58"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-057F9B79-A270-41D7-8894-EB748A65A01B">B</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-93350C61-804B-443F-9B91-E948307F79C8"></a></span><p class="table-body">Bevel profile ends here. </p> 
+                                 </td>
+                              </tr>
+                              <tr class="ruledOddRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5DCA1A02-45BD-4F6F-B053-1E8CCF92357D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-33154269-D291-423B-9951-BEBCD3DB2FA7">C</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FD5BD734-0F18-42CD-A08C-AA07925E5E9B"></a></span><p class="table-body">Profile curve is scaled to fit the Depth. </p> 
+                                 </td>
+                              </tr>
+                              <tr class="ruledEvenRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EF6B6D58-F85B-4023-A628-299F8FD0E099"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0D1906D2-E200-43A2-A689-299760AD6940">D</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DE6DF9A1-4868-4CD1-B0D6-56A7780DCD6B"></a></span><p class="table-body">Height is a scale factor applied to the profile. </p> 
+                                 </td>
+                              </tr>
+                           </table>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1E0BEC69-567A-4B38-B8F3-6124A92E1076"></a></span> <span class="MenuCascade" id="GUID-CEDFC7F7-7DBA-4DD7-B02E-A43656AC1BA9">Proportionally Smaller for Holes</span> in the Options box further scales the bevel profile applied to holes. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6CD9E3B1-A7E1-4400-B5B4-AFBA125D1E32"></a></span>This is useful to avoid overlapping geometry when holes are small compared to the
+                           bevel size. This option is not available when <span class="MenuCascade" id="GUID-9ED9D440-C6E4-41A0-812D-34AC6ED06411">Curves Can Intersect</span> is on in the General tab. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1D562714-08AA-4AC1-B4EC-25D4EFA95B49"></a></span> <span class="MenuCascade" id="GUID-E805783A-3D12-42A6-B240-8BDB1ACAFA35">Interior</span> controls the direction of the bevel. 
+                        </p> <span class="anchor_wrapper"><a name="UL_9085502535794D49A88ED9FF696890CE"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-79540BC5-C1C6-4B95-BF11-1A758EC4B730"></a></span>When this option is on, the front and back are beveled outward. As a result, the silhouette
+                                 matches the original curves but polygons may intersect or interpenetrate in narrow
+                                 areas when the bevel depth is high. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-1B8C921D-929F-4D18-AA07-B668116477C7"></a></span>When this option is off, the sides of the tube are extruded outward. In some cases,
+                                 this may distort the object's outline or cause separate islands of polygons (such
+                                 as characters in text) to collide with each other. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-177421D8-B01F-40D2-ACBB-64BFD43F5356"></a></span>The options in the Sides box allow you to bevel the <span class="MenuCascade" id="GUID-76D58508-540D-45D1-BA3C-EE035F4862A5">Front</span> or <span class="MenuCascade" id="GUID-ECD5964C-8AFE-4BB8-93FB-D4F5D259159C">Back</span> individually. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01C8"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C72BABD5-3C37-4DEA-80EC-BA3936E8B012"></a></span>Mitering and Rounding
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DBF47D5B-6D0E-41A1-941B-CDC098C0550A"></a></span>Mitering creates sharp corners, like at the corners of a picture frame. 
+                  </p> <span class="anchor_wrapper"><a name="UL_47919DCDA60444C0B4A8516E735E088A"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E0AAB1FD-1C93-4218-8E6D-D7E20D6C99C7"></a></span> <span class="MenuCascade" id="GUID-D04F01AF-6C71-405F-A3CF-3A085050E197">Create Hard Edges</span> turns mitering on and off. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6C453AE0-A71A-4E93-B721-9047C7830E1A"></a></span> <span class="MenuCascade" id="GUID-D35D8227-45AB-44F3-AD38-F792BBEDDA75">Min Miter Angle</span> sets the threshold for mitering. Adjacent polygons whose dihedral angle is greater
+                           than this value are mitered. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7D149A60-A268-4243-A22B-DE22BE0CCB0C"></a></span>For best results, set this to the same value as the <span class="MenuCascade" id="GUID-CACFCFE5-3CD5-4AB1-8B88-3924C27D6BB5">Discontinuity Angle</span> in the object's Geometry Approximation property — this ensures that the discontinuous
+                           angles of the bevel are aligned with the discontinuous edges of the extrusion and
+                           avoids shading artifacts. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-82CCC85C-2E5D-46E1-BC38-41A64F1EA017"></a></span>For more information about Geometry Approximation in general, see <span class="char_link"><a href="scel_properties_ApplyingandEditingGeometryApproximation.htm">Applying and Editing Geometry Approximation</a></span>. 
+                        </p> 
+                     </li>
+                  </ul> <span class="anchor_wrapper"><a name="TABLE_EDF97C48FB6A47E2BD80144085E951E0"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-4A8E8C7D-F774-46C7-A9FF-64FFF234BC06-low.png"> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-64DD7D47-E372-4BDF-BB87-B6DC6FE9D3A6"></a></span><p class="table-body">Sharp corners are mitered (A) but flat corners are not (B). </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D30BEE71-D01D-4BF5-9C6B-BE4A069A1F5C"></a></span>Mitering can sometimes produce ugly results with extremely sharp angles. In these
+                     situations, you can round the corners instead. 
+                  </p> <span class="anchor_wrapper"><a name="UL_23FA663018BB4D66907DAD16C1D3A035"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-34F0051E-2B39-4107-9A8E-B044BFFEF014"></a></span>Use the <span class="MenuCascade" id="GUID-85727ECE-F887-4BCC-8351-890DF3D5AFAE">Convex</span> and <span class="MenuCascade" id="GUID-0A4E4D55-FC97-4FC5-857C-E6F2045A5DB8">Concave</span> sliders in the Corner Mitering box to define the minimum threshold for mitering convex
+                           and concave angles in degrees. Angles that are sharper than these values are rounded.
+                           A value of 0 is equivalent to turning rounding off. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7D210BA2-A711-4F6F-8BD9-359EADED0DB2"></a></span>Use <span class="MenuCascade" id="GUID-202AAE6B-C68A-4D85-8C0E-2D76657ECD65">Roundness Subdivisions</span> to control the smoothness of the rounding. Higher values produce smoother arcs with
+                           denser geometry. A value of 0 creates a flattened effect like a sawn-off corner. 
+                        </p> 
+                     </li>
+                  </ul> <span class="anchor_wrapper"><a name="TABLE_0C3C82C000CD4C2699661EB5E3B0BF22"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-1E044E6E-3036-4CEF-A7BF-E5258F16458F-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-53977AB1-ECCB-49C5-AB10-456860AD109E-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1BAD0BF7-F451-4F43-9317-2222FCC31745"></a></span><p class="table-body">Mitering can produce a poor effect on extremely sharp corners. </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D92FE132-16D3-4E7F-965C-F4A35DA9AEBF"></a></span><p class="table-body">Convex controls which concavities are rounded (A). </p> <span class="anchor_wrapper"><a name="GUID-D3B12FCB-30CF-4B03-A8BC-FED867BE15AC"></a></span><p class="table-body">Concave controls which convexities are rounded (B). </p> <span class="anchor_wrapper"><a name="GUID-767FB963-1684-4B8B-9BB4-A2208234A50D"></a></span><p class="table-body">Flatter angles are not rounded (C). </p> <span class="anchor_wrapper"><a name="GUID-6AE33A38-2905-452E-A173-C5867F65770A"></a></span><p class="table-body">Roundness Subdivisions controls the smoothness of the rounding (D). </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01CC"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-60B0B4B6-F03E-46D2-A377-7D1A86B18758"></a></span>Choosing the Bevel Profile
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-141AFFB3-5615-4CE6-8B79-A5C7AA074899"></a></span>You can choose one of several preset profile curves or draw your own. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01CD"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-E0FF3DA8-F8B2-4265-8E97-F65965CCF24B"></a></span>To choose a preset profile
+                     </h4> <span class="anchor_wrapper"><a name="GUID-27935FB9-3289-4636-9A14-D6A79B3B3F00"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CEFD9E45-CEFF-45FA-B518-44669FE9BB59"></a></span>Click the browse button (...) to the right of the <span class="MenuCascade" id="GUID-5005BF1C-9C66-48AA-B971-4731A84FB863">Curve</span> box on the Bevel tab of the Curve to Mesh Converter property editor. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0C24B610-2AED-4F4E-9410-4B90AFB1DE63"></a></span>Use the Select File browser to select a preset curve shape. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01CE"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-B2A496C1-8E5F-473A-80E1-138BA7ABA082"></a></span>To use a custom profile
+                     </h4> <span class="anchor_wrapper"><a name="GUID-A63776CD-C1CC-461C-99D2-6113FAFFFA96"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-95FC3C52-8423-4F1F-9247-DF67183C508E"></a></span>In the Front view, draw an open profile curve. The direction in which you draw the
+                              curve affects the direction of the bevel. 
+                           </p> 
+                           <div class="figure-anchor"><img src="../images/GUID-5AC904E5-FA63-494C-A292-DAD8240E5FB1-low.png"></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-59241F1E-A5BC-46D3-B64D-92C239B836F2"></a></span>Front view of custom profile curve: the curve starts at (A) and ends at (B). Depth
+                              is based on the width of the bounding box (C). 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-77E13D27-0475-4847-B3F5-E08664FA394B"></a></span>Click the connection icon (the little plug on the far right of the <span class="MenuCascade" id="GUID-C5D12007-D081-4755-A76D-79A14E1DB810">Curve</span> box on the Bevel tab of the Curve to Mesh Converter property editor) and choose <span class="MenuCascade" id="GUID-E487B3B3-97DA-4958-B167-3FA70E7E4041">Pick and Connect</span>. 
+                           </p> 
+                           <div class="figure-anchor"><img src="../images/GUID-35B6FE64-A355-4E66-8EDC-D18FC26A2659-low.png"></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B898C392-BD68-435E-950E-BAA72698A757"></a></span>Connection icon: unconnected (A) and connected (B) 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B12E324A-8635-4645-8381-3C01977D114A"></a></span>Pick the profile curve. The curve is connected as an input and the connection icon
+                              changes. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FF11E564-26C2-49C6-80A1-3DC941726CE5"></a></span>A modeling relation exists between the beveled polygon mesh and the custom profile
+                              curve. Modifying the profile curve automatically changes the bevel shape. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01D1"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-ED2DED00-65F4-42F0-AFE5-354C5B42CB5C"></a></span>To reconnect to a different custom profile
+                     </h4> <span class="anchor_wrapper"><a name="GUID-5E9953A6-2F07-4D0D-ADAA-A97AC9902C5F"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-AD0E61F3-B9AB-4436-9D53-D9B968CED59D"></a></span>Right-click connection icon (on the far right of the <span class="MenuCascade" id="GUID-6DAE22C7-7313-4B38-BF54-B18CC868BF7B">Curve</span> box on the Bevel tab of the Curve to Mesh Converter property editor) and choose <span class="MenuCascade" id="GUID-35DE61B1-9E79-4E41-94E9-CEA1E21D7DEF">Pick and Connect</span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1C6AA8AA-2EEC-483A-B22C-3D0F554CBC39"></a></span>Pick a different profile curve. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01D2"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-886C32C6-20C8-472D-A7ED-638E0025C293"></a></span>To disconnect a custom profile
+                     </h4> <span class="anchor_wrapper"><a name="UL_AB69055C407E4666BF1C1F77E1777AE9"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A16A91D1-CCF3-48B2-B9EB-144504DA256B"></a></span>Right-click connection icon (on the far right of the <span class="MenuCascade" id="GUID-F2478704-6678-4FBE-A292-6ECDD9ADC099">Curve</span> box on the Bevel tab of the Curve to Mesh Converter property editor) and choose <span class="MenuCascade" id="GUID-6E64901F-4E61-42AF-9607-FCD95AE6E42C">Disconnect</span>. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2D8D992D-3FAC-44EB-B78A-2BE1069CDA8A"></a></span>The last-used preset profile curve is used. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01D3"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-CA2D8FE0-6E6F-4B96-8B1D-282B1E66470C"></a></span>To save a custom profile curve as a preset
+                     </h4> <span class="anchor_wrapper"><a name="GUID-D37EAD59-62A0-4006-8F14-1F7EE2B3C14D"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6871FAB2-3EAD-4DB6-92F9-DFF86BF9C134"></a></span>In an explorer, click the curve's NURBS Curve List icon. An empty property editor
+                              opens. 
+                           </p> 
+                           <div class="figure-anchor"><img src="../images/GUID-77154391-DBD0-4EDE-8038-2AA40436C33D-low.png"></div> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7721560F-FB01-4AB8-A42B-D4D553A21CDE"></a></span>Click <span class="MenuCascade" id="GUID-C0379A66-7264-4FE7-BF6C-6D1AB412AD58">Save</span>. A browser opens. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-ECE7EB50-FF77-4FCC-9D74-F8E2C1ABFAAC"></a></span>Choose a file name and path for the preset. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7F4EE7E6-E8C9-494B-8AA5-8E723CF2C609"></a></span>It is recommended that you save it in the <span class="filePath">Data\DSPresets\2DCurves</span> folder of your user or workgroup application data path — you can use the <span class="MenuCascade" id="GUID-02F4A8BA-C86F-4D3D-9A99-EF6FEC8102EA">Paths</span> button to quickly switch to those locations. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01D5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-60E71572-1B74-4922-99F8-FC8CE1BFA9FE"></a></span>Creating Clusters
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-37837240-E2B4-4561-A976-2C515D3D5397"></a></span>When you convert a set of curves to polygon mesh, you can create polygon clusters
+                  automatically. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01D6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C240D648-585D-4B6F-AFD1-D1B0A19DDCA0"></a></span>Creating Clusters per Island/Character
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-703BC413-15A7-4D40-A482-7BFC7A25B4B5"></a></span>You can automatically create polygon clusters based on separate characters when converting
+                     text, or based on the disconnected islands created by separate outer contour curves
+                     when converting curves. This makes it easier, for example, to break up the mesh by
+                     selecting clusters and extracting new polygon mesh objects using <span class="MenuCascade" id="GUID-5C5824B4-EE3F-4493-8752-4E545D664C21">Create <img src="../images/ac.menuaro.gif"> Poly. Mesh <img src="../images/ac.menuaro.gif"> Extract from Polygons</span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-98F24CDC-4D5F-4EE5-9E5B-6DDD366D9B27"></a></span>If you change the resulting polygon mesh structure by adding, removing, or moving
+                     curves after creating island/character clusters, the clusters are not updated automatically.
+                     If the number of polygon islands is different, then you must re-create the clusters
+                     again. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C89D3004-B784-4794-A84E-3261C06A11E7"></a></span>Note also that you cannot create island/character clusters if <span class="MenuCascade" id="GUID-7A1567AB-505B-4DBB-8C82-FCA6EFB339BE">Curves Can Intersect</span> is on. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01D7"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-72A3F2AC-421D-40F7-95D7-1DB0B93FF3C6"></a></span>To create clusters per island/character
+                     </h4> <span class="anchor_wrapper"><a name="UL_9C2D6BCF5C5949F59EE4BB04E0973114"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4F997E13-99F5-4BBD-AAA9-9764552B1A1A"></a></span>Choose <span class="MenuCascade" id="GUID-96D454CF-5515-4C83-858A-BB3388EC7CCE">Per Island/Character</span> under <span class="MenuCascade" id="GUID-5CDEF603-CE06-41CC-88C3-DDDA8A71F761">Create Polygon Clusters</span> on the General tab of the Curve to Mesh Converter property editor. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01D8"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9AE01823-1CB1-496E-94F1-8FB5CAF68A71"></a></span>Creating Clusters Along the Depth
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-385212E9-93C0-4BD5-B2F3-1243D7D46283"></a></span>You can automatically create five polygon clusters corresponding to the Front, FrontBevel,
+                     Extrusion, BackBevel, and Back. This is useful, for example, if you want to apply
+                     different materials to those sections. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-58D57319-4E42-46BB-96E3-F134E2940530"></a></span>These clusters are automatically updated even if you change the mesh structure by
+                     changing settings, for example, setting a bevel after clicking this button. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0DFF9077-BC5D-4346-A34E-D2F57252BF7F"></a></span>The clusters are created even if they are empty. For example, if you do not apply
+                     a bevel then FrontBevel and BackBevel contain no polygons. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0C70FC9E-3E9C-4FC0-9A67-6D31A9EB0D37"></a></span>The clusters span multiple characters or islands. If you explode the mesh after creating
+                     these clusters, each mesh object in the exploded hierarchy will have these five clusters.
+                     
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01D9"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-0E01B6C2-BC91-4E19-8FF9-02DCD1FEA883"></a></span>To create clusters along the depth
+                     </h4> <span class="anchor_wrapper"><a name="UL_B28FA2032371421AB13D205F46C1B49C"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2F068D2A-6506-4DEF-971D-3283702214A0"></a></span>Choose <span class="MenuCascade" id="GUID-75CDECCD-0516-4C3D-9417-2247038C3D0C">Per Section Along Depth</span> under <span class="MenuCascade" id="GUID-3C47691A-917D-42E7-88E0-3EC3A566B7CA">Create Polygon Clusters</span> on the General tab of the Curve to Mesh Converter property editor. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01DA"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6C95D784-0500-4573-B8CC-0C1E4C782C9D"></a></span>Exploding into Separate Polygon Mesh Objects
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-F7108F07-CD2F-4F38-A543-5FA7D69C1809"></a></span>When converting curves to polygon meshes, you can create a hierarchy of separate polygon
+                  mesh objects. There is one new object for each "island" of polygons (or for each character,
+                  if using text) and all objects are parented under a common null. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01DB"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-AC359284-5D13-4574-82F5-14AE751C89C7"></a></span>To explode curves into a hierarchy of polygon meshes
+                  </h3> <span class="anchor_wrapper"><a name="UL_0325A3022B004A68916005B44F87D10D"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6092FF6D-313E-44E1-A516-F80D23012887"></a></span>Choose <span class="MenuCascade" id="GUID-DF86032F-1093-4663-B039-0F5F4E1EB3AC">Explode Mesh</span> on the General tab of the Curve to Mesh Converter property editor. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ACC0FF4C-68F4-468A-85A1-A544FEC20653"></a></span>Each island of polygons (or character) is automatically extracted and parented under
+                           a new null object. The null object is selected in branch mode. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-944A98F8-796B-4DCF-969E-158AE0878AFE"></a></span>A modeling relation exists between the unexploded mesh and the extracted objects,
+                           so modifying the options on the Curve to Mesh Converter property editor affects the
+                           extracted objects as well. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B82C967D-3C2E-48D2-8EF6-A99758FDB489"></a></span>However if you change the number of polygon islands, for example, by adding or removing
+                           input curves after exploding, you should re-explode the mesh. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01DC"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6582036F-92FB-4FF4-BAD8-2B209B652182"></a></span>Adding &amp; Removing Curves
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-AD5DA79E-3200-49B8-BD7E-CD58485617FB"></a></span>After you have generated a polygon mesh from a set of curves, you can still add and
+                  remove curves without starting over from scratch. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01DD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1B84BAA6-FBB6-4C5B-9EA4-924430E40F07"></a></span>To add a curve using the Curve to Mesh property editor
+                  </h3> <span class="anchor_wrapper"><a name="GUID-960C04DD-BE2A-4285-8700-5644CBB0BFE8"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-192ECFF8-E56F-4DCD-98A2-F86E81CC0B62"></a></span>On the General tab of the Curve to Mesh property editor, click <span class="MenuCascade" id="GUID-572F9C7E-477E-419B-B781-A1BFDD25B535">Add Curve</span>. A picking session starts. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-65970270-D526-4D1C-B2AA-98B2670D648A"></a></span>Pick a curve. The curve is added to the Curve to Mesh operator and the resulting polygon
+                           mesh is re-tessellated according to the current settings. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01DE"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E6A2344C-205A-435B-8247-B7BDC57BC222"></a></span>To add a curve using the Edit menu
+                  </h3> <span class="anchor_wrapper"><a name="GUID-E639D73E-D1A1-4914-AAD4-EB25A80C8D0B"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-060C8891-7F26-4708-8DD9-7DDB01F99DBD"></a></span>Select a Curve to Mesh operator using an explorer view. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8BDC06B0-8A68-4D28-9753-2D94FF2C84D1"></a></span>Choose <span class="MenuCascade" id="GUID-8915B741-859D-44F0-A48C-97CD4A1CA58F">Edit <img src="../images/ac.menuaro.gif"> Operator <img src="../images/ac.menuaro.gif"> Add Input</span>. A picking session starts. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7DB8312B-2351-4731-A5DA-A71279984939"></a></span>Pick a curve. The curve is added to the Curve to Mesh operator and the resulting polygon
+                           mesh is re-tessellated according to the current settings. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF64117A6A93C394BA4D767D8C01808E6-01DF"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-003F2CF5-F964-4592-AE77-64A703817A9E"></a></span>To remove a curve
+                  </h3> <span class="anchor_wrapper"><a name="GUID-918FEBD0-B865-43EA-9AC4-8A46A1CD4038"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DC20AAC1-66D2-45D1-A223-B1C2737CA097"></a></span>Select a curve to remove. If you select multiple curves, only the first one will be
+                           removed. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-957BA0F9-B853-4453-A362-E764FA90BA63"></a></span>Choose <span class="MenuCascade" id="GUID-ECF46962-42FD-47C2-BDEC-329EE987A072">Edit <img src="../images/ac.menuaro.gif"> Operator <img src="../images/ac.menuaro.gif"> Remove Input</span>. The curve is removed from the Curve to Mesh operator and the resulting polygon mesh
+                           is re-tessellated according to the current settings. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-713EC260-F828-4C08-B29A-BC5A809F6FE2"></a></span><div class="note-note"><span class="label">NOTE:</span>The <span class="MenuCascade" id="GUID-5B5B1DC9-6EA4-4637-A409-33C23A1B3D81">Remove Input</span> command does not work if the curve is an input to more than one operator. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

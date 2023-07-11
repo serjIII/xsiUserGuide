@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-24C74367-19E9-482E-A6A8-10B57F14B49B">
+      <meta name="indexterm" content="expressions: combining with constraints">
+      <meta name="indexterm" content="constraints: combining with expressions">
+      <meta name="indexterm" content="expressions: combining with function curves">
+      <meta name="indexterm" content="function curves: combining with expressions">
+      <meta name="indexterm" content="expressions: converting to function curves">
+      <meta name="indexterm" content="function curves: from expressions">
+      <meta name="topic-type" content="concept">
+      <title>Expressions and Other Animation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-24C74367-19E9-482E-A6A8-10B57F14B49B"></a></span><div class="head">
+            <h1>Expressions and Other Animation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-84BB5415-41F7-4678-ACA7-B0EE5CED6363"></a></span>Here are some ways in which you can use expressions with other types of animation
+               on the same object or parameter. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5A8CA9FCE2B5944A88C855580A989789-004C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-983A8895-4CBC-40A2-A8F8-D69A6FCC5811"></a></span>Combining Expressions and Constraints
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-1E14CF24-C761-417F-8EAC-1C7D3451CB05"></a></span>Expressions are evaluated before constraints on the same object. If you use the value
+                  of a constrained parameter in an expression, you may not get the desired results.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5CF2D124-CD84-461A-BC93-AB3F6D6D8E55"></a></span>For example, suppose you want to write an expression to control an object's orientation
+                  based on its position; if the object has a path constraint, the orientation is evaluated
+                  before the position is updated at each frame so the expression uses stale values.
+                  To achieve the desired result, constrain an intermediate object like a null to the
+                  path then constrain the object's position to the null. When calculating the new orientation,
+                  use the null's position. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-ACA471FC-9DD7-431A-8EF0-28ADC21BE835"></a></span><div class="note-note"><span class="label">NOTE:</span>It is possible to create dependency loops with constraints, expressions, and scripted
+                     operators. As a result, a warning appears in a message box if you apply an expression
+                     that introduces a cycle. See <span class="char_link"><a href="ani_proc_CheckingforAnimationDependencyCycles.htm">Checking for Animation Dependency Cycles</a></span> for more information. 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5A8CA9FCE2B5944A88C855580A989789-004D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3AE2A660-E2DD-4F63-B058-4B215FDC0C46"></a></span>Combining Expressions and Fcurves
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-2D293021-F45A-4E50-BBB8-F9B7651E7044"></a></span>While you can't have both fcurves and expressions on the same parameter at the same
+                  time, there are some workarounds to doing this. 
+               </p> <span class="anchor_wrapper"><a name="UL_001186A2540C46DDA149152876E5CEA1"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BC6DC41E-B1FC-47F3-9298-56E1DAD66748"></a></span>If you want to globally clamp an object, you can place an expression on the global
+                        transformation parameter, say on the Y Position, and continue happily animating with
+                        local fcurves on the object. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B9C370C1-CE70-474D-9C18-505E3F7CA7AE"></a></span>You can have fcurves on top of an expression using animation layers. See <span class="char_link"><a href="animlayers_AnimatinginaLayer.htm">Animating in a Layer</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C7BEA8E5-C990-4A91-8BCF-1FF6B5743E3D"></a></span>You can have an expression "on top" of an fcurve using clips on the mixer. For example,
+                        you can write an expression that clamps the Local Y Position and place it in an action
+                        which you drop in the mixer. You can then continue to animate on that channel of animation
+                        with fcurves and the mixer will temper the value with the expression within the clip.
+                        
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-22BBB294-AE84-4732-948A-BB427862E872"></a></span><div class="note-tip"><span class="label">TIP:</span>Because you can activate or deactivate an expression (see <span class="char_link"><a href="expressions_ActivatingandDeactivatingExpressions.htm">Activating and Deactivating Expressions</a></span>), you can have an expression with other animation on the same parameter, but it can't
+                           drive the animation at the same time as other animation. 
+                        </div>
+                     </div> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5A8CA9FCE2B5944A88C855580A989789-004E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FDBCFBD1-29A5-4332-9C17-18FBC9BAA5F9"></a></span>Converting Expressions to Function Curves
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-EE9C9CD9-7218-4B49-9E60-9D225AD4EFC2"></a></span>You can convert an expression to a raw function curve file (<span class="MenuCascade" id="GUID-40F578BD-6CB9-4DDD-9655-EF95C5F57F2E">.fraw2</span> format). Softimage plots the value of the expression and saves a function curve file
+                  with a key at every frame. You can then open the saved <span class="MenuCascade" id="GUID-4879016A-5F17-493B-9408-831447CED8C8">.fraw2</span> file in the animation editor. The original expression applied on the selected parameter
+                  is left unchanged. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5A8CA9FCE2B5944A88C855580A989789-004F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5676CF84-32E1-4491-953F-6158D9AF0F61"></a></span>To convert an expression to a function curve file
+                  </h3> <span class="anchor_wrapper"><a name="GUID-CCAAF3DC-5C31-465D-A4DD-BB45DA57C107"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-152F28DB-A44D-48E6-8246-F3F02F0B882B"></a></span>Make sure that you have applied the expression. Softimage plots an expression only
+                           if it has been applied; it does not plot the contents of the expression editing pane.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-374A38CD-AB08-477D-8ED0-B7DCC4927734"></a></span>In the expression editor, choose <span class="MenuCascade" id="GUID-1FA03E0D-8DA9-43AD-98E1-6FC600CED9ED">File <img src="../images/ac.menuaro.gif"> Save as Fcurve</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3A7C6528-203E-424C-9D66-650BF748A52A"></a></span>In the browser that opens, select a directory and file name, then click OK. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F86F346C-1176-4FB6-9F50-E5346F36F8C7"></a></span>For information about opening function curves in the animation editor, see <span class="char_link"><a href="fcurves_SavingandLoadingFunctionCurves.htm"> Saving and Loading Function Curves</a></span>. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

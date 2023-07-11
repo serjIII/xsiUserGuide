@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-A9CDC842-59C6-4AFE-A24D-F7E4F00B37DB">
+      <meta name="indexterm" content="ICE trees: debugging">
+      <meta name="indexterm" content="profiling performance: ICE trees">
+      <meta name="indexterm" content="ICE: profiliing tree performance">
+      <meta name="indexterm" content="ICE trees: profiling performance">
+      <meta name="topic-type" content="concept">
+      <title>Debugging ICE Trees</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-A9CDC842-59C6-4AFE-A24D-F7E4F00B37DB"></a></span><div class="head">
+            <h1>Debugging ICE Trees</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-E303E331-D136-4B3B-BF45-835CD23C9546"></a></span>There are some basic tools that let you identify and correct problems in ICE trees.
+               
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0090"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3042636E-DC84-4122-B789-B9E43C4BC0F7"></a></span>Types of Problems
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-DEA975F2-C91A-4E2E-8E7E-5A1B59D969DD"></a></span>There are different types of problems you may encounter when building ICE trees: 
+               </p> <span class="anchor_wrapper"><a name="UL_AE83DBB9531A4742A9FE6A3A87D4589D"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-87DAD9B0-27B9-408F-8F61-265029BF8DC4"></a></span>Structural problems are caused by incompatible data types, contexts, or structures
+                        in the tree. Nodes that are in error because of structural problems are displayed
+                        in red, and other nodes in that branch that will not be evaluated because of the error
+                        are displayed in yellow. If you have red nodes, or if you cannot connect nodes that
+                        you think should be connectable, see <span class="char_link"><a href="ICE_trees_DebuggingICETrees.htm#WSB74EE070EB80114199F4C921243896F3-0091">Port and Node Messages</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4C00C2EC-E574-48A0-85DA-520BB3D8DD5F"></a></span>If a tree is working but not doing what you think it should be doing, it may be that
+                        the values being passed to ports are not what you expect them to be. You can display
+                        port values in the scene as described in <span class="char_link"><a href="ICE_trees_DebuggingICETrees.htm#WSB74EE070EB80114199F4C921243896F3-0092">Displaying Port Values</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1CD682F0-CE2F-4603-899D-94030A73A3DD"></a></span>You can display execution times directly on nodes in the ICE tree viewer to profile
+                        the performance of your tree and see which sections are using the most processing
+                        time. See <span class="char_link"><a href="ICE_trees_DebuggingICETrees.htm#WSB74EE070EB80114199F4C921243896F3-009B">Profiling the Performance of ICE Trees</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0091"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E0576D19-EB73-4B03-922B-F0D17722CB9D"></a></span>Port and Node Messages
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E457DF35-BA25-45FF-B7F6-07479E6A198C"></a></span>Messages on ports and nodes help you identify structural problems caused by incompatible
+                  data types, contexts, or structure. 
+               </p> <span class="anchor_wrapper"><a name="UL_6A1ABC2A81F549E087A666EE64C602A1"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6B6275AF-0421-4426-8189-31DD0FE514DE"></a></span>Hover the mouse pointer over a port to display a pop-up message showing the data types,
+                        context, and structure that the port supports, for example, "Array of 3D Vector per
+                        Point of "PointCloud.pointcloud". 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-247C11CA-2641-4349-A01A-8C811FE23222"></a></span>To see more detailed information about a port, right-click over a port or connection
+                        and then choose <span class="MenuCascade" id="GUID-B23AFE24-836A-4A7A-8911-BEFDD696F713">Log port type details</span>. Information is logged to the history pane of the script editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DF2DF3AA-C840-41E2-820E-405F4F7D5563"></a></span>If a node is red (in error), hover the mouse pointer over it (not over a port) to
+                        see the first error message. To see all error messages, right-click over the node
+                        and choose <span class="MenuCascade" id="GUID-831EA984-73EE-4ED6-8069-F193285D583D">Show Messages</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7D1F06CD-BDAA-45E0-BE05-7D3ED384B393"></a></span>When you drag an output port onto an incompatible input port, a pop-up message informs
+                        you of the conflict and shows the data types, contexts, and structure that are supported
+                        by the two ports. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0092"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7017AEF1-A143-46CB-9649-2A6A7A68F6BB"></a></span>Displaying Port Values
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-576A11AD-715C-4CCB-B9AD-BEFC3408972C"></a></span>You can display port values in the 3D scene to help you visualize why a tree is giving
+                  the results that it gives. When a port's values are displayed, a "V" icon appears
+                  on the connection. The color of the icon corresponds to the color of the data in the
+                  3D views. 
+               </p> <span class="anchor_wrapper"><a name="FIG_3F6C7206098844D581EA0B0C7073E99F"></a></span><div class="figure-anchor"><img src="../images/GUID-978519FF-33A3-4C85-BCAC-AD34594B015B-low.png"><p><span class="anchor_wrapper"><a name="GUID-BACB12AD-D8FB-4C01-B042-A93738E6D17C"></a></span>Displaying values on a connection (A). 
+                  </p>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-600D6CF5-0371-4418-8783-D008031F9913"></a></span>Only values in branches that are connected and evaluated can be displayed. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7EDF299F-D3EC-4D33-8A54-DA75AFAEBE42"></a></span>When you export a compound, the display state of ports is saved. In particular, this
+                  lets you create compounds whose only purpose is to show values for debugging purposes.
+                  However, you may need to get and then set the same values back to ensure that the
+                  data gets pulled. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-B6D41FE5-B503-4162-95EA-BB50C97191BA"></a></span><div class="note-note"><span class="label">NOTE:</span>Per-component attributes cannot be displayed on polygon meshes that are subdivided
+                     using the geometry approximation method, unless polymesh hulls are visible. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0094"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2B8D6094-80AD-48D0-BD28-7EC9F35AA7FA"></a></span>To show port values
+                  </h3> <span class="anchor_wrapper"><a name="GUID-A0A3FA13-B441-42FC-A7E5-40B9A56A6EAE"></a></span><ol type="1" start="1">
+                     <li>Do one of the following: <span class="anchor_wrapper"><a name="UL_956FB62DFF33415FB870A0E11CE96666"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-884BFA04-C55C-488A-9203-F00AD49E0D9F"></a></span>Middle-click on a connection. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E8F88857-1AFC-4A2D-988D-EFD13C65527F"></a></span>Right-click over a connection or input port and choose <span class="MenuCascade" id="GUID-3021784C-303D-4338-8936-7A50299D97AC">Show Values</span>. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5C35E56F-4ED5-4697-870F-424F33B71C0C"></a></span>If you haven't displayed the selected port values before, the Show Values dialog box
+                           opens. Specify the desired display options and click OK. See <span class="char_link"><a href="UI_props_AttributeDisplay.htm">AttributeDisplay Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1C1276C5-26E3-4977-826A-B7DF61FDEFD4"></a></span>Otherwise, values are displayed using the last settings. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <div><span class="anchor_wrapper"><a name="GUID-93B3F58E-7365-4D25-A2F7-AD7A6103112D"></a></span><div class="note-note"><span class="label">NOTE:</span>To display values that depend on simulation calculations, it may be necessary to advance
+                        a frame. 
+                     </div>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0095"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F8B855FC-B836-43C8-9027-884CCE4BF617"></a></span>To change port value display properties
+                  </h3> <span class="anchor_wrapper"><a name="GUID-DA753AB3-098D-4FC1-9425-5CB2B865EF8E"></a></span><ol type="1" start="1">
+                     <li> Do one of the following: <span class="anchor_wrapper"><a name="UL_D558A8BFEF1044C386451E4C48272BED"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-88A779C9-0EEA-4C3E-A3B7-1D82C1EB6E74"></a></span>Click the V icon on the connection. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-70B30892-6B8A-4270-AB30-B64039F80CAF"></a></span>Right-click over a displayed port or connection and choose <span class="MenuCascade" id="GUID-957BB4FD-D591-4150-BA72-EC44E254613A">Show Values Properties</span>. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3D3454EA-23CA-453D-9E8F-8F2EFB118DEC"></a></span>Specify the desired display options and click OK. See <span class="char_link"><a href="UI_props_AttributeDisplay.htm">AttributeDisplay Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0096"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-635C7520-CDA9-43FC-A3CD-C23992354F04"></a></span>To hide values for a port
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3F582FDA-D934-4563-9E97-A15EE0622CAE"></a></span>Do one of the following: <span class="anchor_wrapper"><a name="UL_B67B77B27D44413799B316528C3588DE"></a></span><ul>
+                        <li>Middle-click on a connection whose port values are currently displayed. </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-48FC17AF-6F9A-4096-90FC-B9BE205CC051"></a></span>Right-click over a connection or input port and choose <span class="MenuCascade" id="GUID-9992D508-9A65-4FD6-9EE0-26D1D6E1A738">Hide Values</span>. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AA48D1B9-385D-4B2E-8A20-FEEADBC5335A"></a></span>The display settings are remembered and reused the next time you display values on
+                     that port. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_DCB5B54A44E744E7B373CF43FB529406"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-31A2ADAC-C390-4ECB-B23D-D7453779E5D9"></a></span>To hide all values in the current view
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AA6EAFEF-573C-4055-8BD4-6D3A0A9598C3"></a></span>To hide all values shown for the current tree, or the current compound and its sub-compounds,
+                     do one of the following: 
+                  </p> <span class="anchor_wrapper"><a name="UL_DE3919AFF9DD45E2BA673C4952F8282D"></a></span><ul>
+                     <li>Choose <span class="MenuCascade" id="GUID-40753A6A-E4EA-4637-BBAD-B2A8414B8B63">Show <img src="../images/ac.menuaro.gif"> Hide All Port Values</span>. 
+                     </li>
+                     <li>Right-click in the background of the ICE tree view, and choose <span class="MenuCascade" id="GUID-CD4DC110-3FA9-41DB-AED7-246D0BEC2F0E">Hide All Port Values</span>. 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_D42FC9B97E554BCAB859B75A4EF91E91"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8FC62903-FF52-4548-AB34-95BA42233076"></a></span>To hide all values for the selected compounds
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CCD9EB50-1C7C-4335-A1D6-94499ACDF1FE"></a></span>To hide all values shown for the selected compounds: 
+                  </p> <span class="anchor_wrapper"><a name="UL_E0A2923222A54DC3B1DC0F5847671B5B"></a></span><ul>
+                     <li>Choose <span class="MenuCascade" id="GUID-0E8A44C1-87C2-4E1A-8D94-2525CABB0807">Show <img src="../images/ac.menuaro.gif"> Hide Port Values for Selected Node(s)</span>. 
+                     </li>
+                     <li>Right-click in the background of the ICE tree view, and choose <span class="MenuCascade" id="GUID-936C6868-3985-4777-A13F-81CAEB5B6F88">Hide Port Values for Selected Node(s)</span>. 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0097"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EE5F9062-E52E-4F82-8D17-5F89FBFA1833"></a></span>To hide or unhide all port value displays in a specific view
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A437A2DC-9A3A-4EF2-BC4B-B724C6EF06B4"></a></span>Do one of the following: 
+                  </p> <span class="anchor_wrapper"><a name="UL_E5F67E5DF66B40C68EDBF0347B5BBF10"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D3E7923D-584A-49F3-B155-0567EBE6ED1E"></a></span>Click the eye icon (Show menu) in a view's toolbar and toggle <span class="MenuCascade" id="GUID-D18D23A9-67B7-486F-9B6D-F47E1624420F">Display/ICE Attributes</span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E4A53DB2-F333-4F19-9E63-D39DAB0F86DB"></a></span> <em class="mild">or</em> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8CE444F5-75F8-45E1-877E-9523316FFD20"></a></span>Click the eye icon (Show menu) and choose <span class="MenuCascade" id="GUID-5A20D0A2-80CE-4DFA-92C4-463F23A15D36">Visibility Options</span>. On the Attributes tab, toggle <span class="MenuCascade" id="GUID-BE89F919-F543-4297-893E-3A37C5797DC7">Display/ICE Attributes</span>. You can set this option separately for selected and unselected objects. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EBDC1500-C0CD-4238-B09F-3FD0CE1C3E9B"></a></span>Note that this affects both AttributeDisplay properties on objects as well as port
+                     value displays in ICE trees. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0098"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9B34CB52-3027-4FF4-8D6F-E493AAD826DF"></a></span>To hide or unhide all port value displays in all views
+                  </h3> <span class="anchor_wrapper"><a name="UL_6C1243D39A3F40AE881699F08595E46D"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A53DD5BE-C8D4-431C-9F43-9F613070B8B5"></a></span>Choose <span class="MenuCascade" id="GUID-1BA84103-8526-4749-8724-99E25A558B68">Display <img src="../images/ac.menuaro.gif"> Visibility Options (All Cameras)</span>. On the Attributes tab, toggle <span class="MenuCascade" id="GUID-913C1D62-C8DF-42AD-A709-F50116D71F08">Display/ICE Attributes</span>. You can set this option separately for selected and unselected objects. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D0AC423F-49F9-43E6-A01F-53B98E2F2889"></a></span>Note that this affects both AttributeDisplay properties on objects as well as port
+                     value displays in ICE trees. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0099"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-381BFFFD-B941-49DB-871C-17D1CA3BD963"></a></span>Logging Port Values
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1889E359-9EF6-4BC3-809A-909180C46B91"></a></span>You can log the values that are passed along a connection to a port. This lets you
+                  use the history pane of the script editor to analyze the behavior of a tree. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-009A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A2A16A70-70C2-41C7-A7BB-201AA764527B"></a></span>To log port values
+                  </h3> <span class="anchor_wrapper"><a name="GUID-173E4750-B37C-479E-8C14-C9899309CA65"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-10A89A21-7F84-448A-AC0E-5839248E9464"></a></span>Connect a Log Values nodes from the Debug category of the Tools tab of the preset
+                           manager between two ports in the tree. Both the In and Out ports of the Log Value
+                           node must be connected. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4EDAC466-71FB-48B5-977C-0C7008CF590A"></a></span>If desired, set or connect the Log Value node's other ports and parameters. See <span class="char_link"><a href="iceref_Log_Values.htm">Log Values</a></span> [<span class="char_link"><a href="iceref_cover.htm">ICE Reference</a></span>]. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-904F7220-C974-4118-B544-2E9A42A7A65A"></a></span>Force the tree to recalculate somehow, for example, by advancing one frame on the
+                           timeline. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-009B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D87A0DC6-040B-44CA-A22D-8E32F4FC01D7"></a></span>Profiling the Performance of ICE Trees
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-A9B62B6E-F588-4698-AC95-058DF6984F43"></a></span>You can profile the performance of ICE trees by displaying execution times directly
+                  on nodes in the ICE tree viewer. This shows you which nodes take the most processing
+                  time, and lets you see where you can try to optimize the tree. 
+               </p> <span class="anchor_wrapper"><a name="FIG_B393A6D25A07404786135D6D7590C287"></a></span><div class="figure-anchor"><img src="../images/GUID-789BB9BF-B183-4FE6-B634-8582905D655A-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_28CC2257F8F5401D8AEF5BC4D07C3719"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="16.666666666666668%" align="left">
+                        <col width="83.33333333333334%" align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BA2061E8-1C09-4D39-B50D-3768F7F327D4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-912EDB1B-77B8-44CB-9EB6-B95B102E63F3">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2483825E-1E85-4D86-91B1-2C6754F2FD6B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C2F3BB4A-1F9D-44B4-A357-382D41E598E0">Start Performance Timers</span> Activates and deactivates performance logging. Typically, you activate this and then
+                              play back or advance frames. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0FBD58DB-52F2-4B3F-BF06-6071A17C58E6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2052CFC9-66C0-4D6E-B8D7-DDC84BF2E52A">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-253F60EC-4717-4ACD-99F2-77AB815EFD6D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1F239493-DB85-41FE-9A00-A5A79A58ADCE">Reset Performance Timers</span>. Clears the performance numbers. When you have made changes and want to start logging
+                              the new performance values, click this. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3B7B66DD-D21B-4769-9D19-A7D478CFA16B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E9D14830-D297-4E3C-8D46-B17F543ADC8D">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C1917CBE-5625-4DC2-A3D8-8809FF2E074D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5090E6EB-5175-45C4-865E-C93ECDDA82F2">Performance Highlight</span>. Choose one: 
+                           </p> <span class="anchor_wrapper"><a name="UL_53B36B09B2FC4CCCA7931E0B1A57B582"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-6A474A39-F370-4D62-BA96-68CC94D8DDAA"></a></span> <span class="MenuCascade" id="GUID-D85F8A64-CEB8-4BF4-B32B-677C86715FEB">No Highlight</span>. Displays nodes and ports normally. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-468110E9-F50F-49E0-8047-6B32E31F4D4C"></a></span> <span class="MenuCascade" id="GUID-BAE8B170-2E18-46A2-9C6D-050BA3305D67">Time (Top Thread)</span>. Shows the performance of the worst thread per node. The number on the root ICETree
+                                    node is still the total for the entire tree and its inputs. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-031DE8E3-4084-47AC-AAA5-37021D7FC033"></a></span> <span class="MenuCascade" id="GUID-83D0BDAC-3A4B-48E6-B66C-E7E7015DC782">Time (All Threads)</span>. Shows the total performance of all threads per node. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D43F18C2-7C66-41CA-8757-D478CAEB7049"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BE9192D2-896E-4B96-811C-EFC0526B2138">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0BD3B427-1FEE-4FC2-985E-B2D861A507CA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D9B9DE84-AA05-45FB-AFF3-30EED5C213F0">Update</span>. You may need to click this to see new values. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-009D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-379DEC9C-1838-4E6A-AC67-763E9EF77C43"></a></span>To profile the performance of ICE trees
+                  </h3> <span class="anchor_wrapper"><a name="GUID-21F84529-54F5-4284-B255-DC43C29FA2D8"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-993A63A9-077D-499A-879E-644EEB0D9791"></a></span>Start the performance timers. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-203D96AA-FB77-4D06-8D9E-952F70261EF2"></a></span>This setting is per tree, so you should start the performance timers on all trees
+                           that you want to profile. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E784B9DC-1F47-42D5-B304-D807BC4D2077"></a></span>Play back the scene, or advance some frames. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FC9DE110-830B-432E-B076-9C8ACAEF0D49"></a></span>Display performance highlights: <span class="MenuCascade" id="GUID-1E881F35-EC60-4AE5-8604-A2756189CB07">Time (Top Thread)</span> or <span class="MenuCascade" id="GUID-381592E9-2194-4C93-8291-2F8289A4FC0C">Time (All Threads)</span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0A67AD4E-11B0-4929-A560-841054EDF753"></a></span>You can stop the timers or leave them running as desired. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FC8324E4-358B-4C47-90B2-595132F9C475"></a></span>See <span class="char_link"><a href="ICE_trees_DebuggingICETrees.htm#WSB74EE070EB80114199F4C921243896F3-009E">Interpreting Timer Data</a></span> for information about what the numbers mean. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-96343903-65CD-4571-B466-F7C36EF2ACB2"></a></span>If required, make some changes to the ICE tree and profile it again. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-16B7EC21-B976-434C-8455-97AB7FE3C339"></a></span>If you don't want to accumulate timing data, make sure to reset the timers first.
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-009E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8AAD6FCB-BB06-4DDC-9AB4-76D67F6D6DFA"></a></span>Interpreting Timer Data
+                  </h3> <span class="anchor_wrapper"><a name="FIG_3EB21950EA224B76B71A365A99E686AF"></a></span><div class="figure-anchor"><img src="../images/GUID-3D3068A8-4DB0-456F-B1E0-240D7D68AA4B-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-52E9473F-7793-46D8-95F0-E3361B49E124"></a></span>When you display performance highlights, the numbers on each node indicate how long
+                     that node took to execute, and the numbers on the connections indicate the how long
+                     that branch took to execute (that is, the time taken by all nodes upstream). These
+                     values are meant as rough guides and won't add up exactly because of various overheads.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-34090C66-0E4A-4CBA-9351-D90D87DC3E20"></a></span>The nodes and connections that took the longest to execute are highlighted in yellow,
+                     orange, or red depending on what percentage of the total time of the tree or compound
+                     that they took. Note that Execute nodes and connections do not always show execution
+                     times because of how they work internally. 
+                  </p> <span class="anchor_wrapper"><a name="UL_0645CFC32EAA4C7EBBDF135FEBC3A436"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A24153A6-E10A-453A-A120-C6D534D7EE75"></a></span>For <span class="MenuCascade" id="GUID-23C0178F-3DAA-494E-91E7-06F203831590">Time (All Threads)</span>, the numbers show the total time taken by all threads. The number on the root node
+                           shows the time taken for the evaluation of the entire tree. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BA95699A-CFF3-4B50-9823-2B63DC169D60"></a></span>For <span class="MenuCascade" id="GUID-E47E9C60-2803-486F-8881-60E682AD6DFB">Time (Top Thread)</span>, the numbers show the time taken by the longest thread for each node and connection.
+                           In this mode, the numbers do not add up because different threads may take the longest
+                           amount of time in different nodes on the same branch. The number on the root node
+                           shows the total time taken for the evaluation of the entire tree plus any inputs that
+                           were called and evaluated — for example, if the tree gets the point positions of an
+                           object, the time taken to evaluate any deformations is included. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-78E80D09-B444-40C6-82AB-168787867237"></a></span>When analyzing these numbers, here are some things to keep in mind: 
+                  </p> <span class="anchor_wrapper"><a name="UL_955FE46BB47D4F4F843F9B366322CF29"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4F6F4C9E-CFB9-4577-AC0D-3A7EA01B27BC"></a></span>If the value shown by <span class="MenuCascade" id="GUID-1C7CCBC5-6956-4066-AE6F-36CB84DA67C9">Time (Top Thread)</span> is high but still close to the average, that is, close to the value shown by <span class="MenuCascade" id="GUID-99B6E8DA-9CAC-4D01-BD8A-7DF06159AE24">Time (All Threads)</span> divided by the number of threads on your computer, then all you can conclude is that
+                           a node did a lot of computing. There may be very little you can do to optimize it
+                           further, except to avoid computationally expensive nodes — for example, use Squared
+                           Length instead of Length when comparing vectors, or do some checking to avoid calculations
+                           unless necessary. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0C1C8EA3-E19D-4C89-A91C-C55005507E3A"></a></span>If the value shown by <span class="MenuCascade" id="GUID-0ED60A69-ED8E-458E-80CF-75DD6FA1CF60">Time (Top Thread)</span> is much larger than the average, then it represents a bottleneck or a critical path
+                           in the tree. Depending on your tree, you may be able to rearrange the nodes and branches
+                           to minimize the impact of bottlenecks. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7FD178CA-A865-4F63-94FF-68FB3019D8F8"></a></span>If the times shown by <span class="MenuCascade" id="GUID-D6072D74-843D-4193-AC88-1ED9D00BC0A2">Time (Top Thread)</span> and <span class="MenuCascade" id="GUID-A3653DC4-491E-4486-AB32-F041ADC7649C">Time (All Threads)</span> are identical, then the node was not multithreaded at all. This may be because a
+                           custom node does not support multithreading, but it is also normal when dealing with
+                           a small amount of data. Multithreading imposes an overhead, and ICE does not multithread
+                           if it's not worth doing. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BB93B3FD-C280-404F-9777-3B8B06264DDD"></a></span>It's normal to have small numbers on nodes that were not executed at all (for example,
+                           because of an If node). This time represents initialization and pre-evaluation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5DFB0E3D-3764-48BE-A605-31DECC53DA9A"></a></span>When there are multiple connections from an output port, it's normal that most of
+                           the evaluation time is shown on the first connection that gets pulled. The other connections
+                           typically show the time taken to retrieve the cached values. However, if two or more
+                           output connections from the same port show high values, then you should consider storing
+                           and retrieving the data as a custom attribute. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-836C0F0E-1E0D-4DD7-A1C0-067445C9388B"></a></span>If there are multiple connections between a pair of nodes, then the same time is shown
+                           on all connections. This is the total time taken by all the connections between the
+                           nodes, not the time taken by each one individually. Make sure not to count this value
+                           twice when comparing branch times. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F4775CE9-A416-4241-97CC-5E0A6535FD27"></a></span>It can sometimes appear as though a node turns back the clock and the time taken by
+                           its input connections is greater than the time taken by the output connection that
+                           pulls the node first. This is an illusion caused by multiple output connections —
+                           some of the time taken by the input connections is counted against the other output
+                           connections. The total time taken by all the inputs plus the node itself is roughly
+                           equal to the total time taken by all the outputs. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A3AE4E5C-98E8-49C4-8B77-075FB46FD40D"></a></span>Sometimes the time shown on a compound and the time shown on its output connection
+                           are different. This is likely due to various overheads. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

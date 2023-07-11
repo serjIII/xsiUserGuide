@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-55A29174-3D1A-4D6D-A97B-63B7C1079C15">
+      <meta name="indexterm" content="reflection maps: about">
+      <meta name="indexterm" content="mapping: reflection">
+      <meta name="indexterm" content="environment maps: about">
+      <meta name="indexterm" content="reflection maps: raytraced reflections and">
+      <meta name="indexterm" content="reflection maps: environment only reflections">
+      <meta name="indexterm" content="backgrounds: environment mapping">
+      <meta name="indexterm" content="environment shaders: creating a background with">
+      <meta name="indexterm" content="environment shaders: using">
+      <meta name="indexterm" content="environment maps: creating on an object">
+      <meta name="topic-type" content="concept">
+      <title>Reflection/Environment Maps</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-55A29174-3D1A-4D6D-A97B-63B7C1079C15"></a></span><div class="head">
+            <h1>Reflection/Environment Maps</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-4C0FFC79-108D-4093-AEEB-8243271C4550"></a></span>While a reflectivity map determines where an object is reflective, a reflection map
+               determines what it reflects. Reflection maps are also called environment maps. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5FA73596-43CB-465D-B195-49BBFE8623E2"></a></span>You can use a reflection map to replace raytraced reflections and speed up rendering.
+               Alternatively, you can use reflection maps to enhance raytraced reflections, for example,
+               by providing a background in addition to the reflected objects in the scene. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E5940AF5-7D89-410A-B3CA-44B9A0237101"></a></span>You can use an environment to completely encompass the whole scene, or you can apply
+               it to a specific object. 
+            </p><span class="anchor_wrapper"><a name="FIG_8646209418AA4883B0A0A04E94C97F4F"></a></span><div class="figure-anchor"><img src="../images/GUID-BABA6732-551D-4EB2-84BB-2488D53F6C37-low.png"></div><span class="anchor_wrapper"><a name="TABLE_852B3F2EB2754FD883348D89F6E7AEC7"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4BB2BFC9-5690-477C-9135-6309C2561BDE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A64DF298-245A-40E1-B445-34D378ECF4BB">A</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-628BE7B9-2DB7-4E1D-BACB-9F60D912E207"></a></span><p class="table-body">Reflection </p> <span class="anchor_wrapper"><a name="GUID-DA493743-44C6-486D-852D-8DD9FF9C649B"></a></span><p class="table-body">The illustration on the left shows an insect's eyes with its reflection property activated:
+                           notice the flower's reflection in the eyes — this is raytraced reflection. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7912D825-FC59-401C-8DA2-FC7CED5D2885"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-113410E4-6766-4543-A2DB-8445352972EC">B</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0285E93E-EC0A-45D4-A397-66BEB8311E57"></a></span><p class="table-body">Reflection and environment map </p> <span class="anchor_wrapper"><a name="GUID-1C2D45B3-909E-4025-87A3-7045E99C21DC"></a></span><p class="table-body">The illustration on the right has a reflection map (clouds) in addition to the reflection
+                           property (flower). The reflection map is an environment shader that reflects a texture
+                           (in this instance, clouds) in the surface's reflective areas. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-0038"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9FF799D9-C751-4274-A303-C24F10C959B4"></a></span>Reflection Mapping and Raytraced Reflections
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-7AF7BDDD-3B78-414A-B38A-E4217B6550C8"></a></span>You can define whether reflections are <span class="MenuCascade" id="GUID-44CE0FDB-FE22-45FB-BD6A-7DECA9A40913">Raytracing Enabled</span> or <span class="MenuCascade" id="GUID-826E219C-B481-4BF6-9C51-52B021F44CAC">Environment Only</span> from the surface shader's property editor. 
+               </p> <span class="anchor_wrapper"><a name="GUID-0A17C46D-C5C6-4C83-9571-62C8AB8078DD"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3530ABFD-6B4F-4141-A953-44479726A06F"></a></span>Select the object whose reflective surface you want to modify. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2063F08C-03EB-46BB-A915-B9E21DFE48C2"></a></span>Choose <span class="MenuCascade" id="GUID-ACCA829A-3221-44EF-859F-440716B687C4">Modify <img src="../images/ac.menuaro.gif"> Shader</span> and click the <span class="MenuCascade" id="GUID-A59868E3-942D-4CA7-AACB-BF2013AB10DF">Transparency/Reflection</span> tab. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0DB7F050-13BF-4590-A351-9AF6E17467CF"></a></span>For the Reflection options, set the <span class="MenuCascade" id="GUID-DECCE30A-83BC-443B-B15C-8B37DC5FF35A">Reflection Mode</span>: 
+                     </p> <span class="anchor_wrapper"><a name="UL_2BC9F8B67AE04D818CD34CFEF901068F"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5AD2A903-DCB1-4F66-9EE4-6ADCD86805D9"></a></span> <span class="MenuCascade" id="GUID-0A43CE74-EB93-4F40-AF3A-54CEBC2D5293">Raytracing Enabled</span> reflections are slower to render on the object's surface because they are actually
+                              computed for <em class="mild">everything</em> around them. This includes the environment map which is combined with the raytraced
+                              reflections. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-64A6842E-C3A7-4003-9028-F4D539114C42"></a></span> <span class="MenuCascade" id="GUID-455D5F93-3553-4567-9A69-2F6398B2D7BD">Environment Only</span> reflections are much faster to render on the object's surface because they are simulated
+                              based on a specified texture which is defined in an environment shader. There are
+                              no inter-object reflections calculated when this mode is active, only the reflection
+                              map appears on the object's surface. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-0039"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8AB7FC25-79A2-4A5C-B6D5-997A83526CB4"></a></span>Using Environment Map Shaders
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-17F5B22A-4EBF-4EE9-ADDB-277255BE99E7"></a></span>Environment shaders are used mainly to create an environment that completely encompasses
+                  a scene. To simulate this environment, an environment shader can be applied to a geometric
+                  object, or to a scene's render pass so that all reflective objects are affected by
+                  the global environment map. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-424DDC92-A3A7-4752-B361-37EA6B541E22"></a></span>The <span class="char_link"><a href="shaderpresets732.htm#WSDB911DA6DE2BCE449A3C7AF04BA6CCDA-0011">Render Tree Usage</a></span> shader [<span class="char_link"><a href="shaderef_cover.htm">Shader Reference</a></span>] can also be used to light scenes using High Dynamic Range (HDR) images. See <span class="char_link"><a href="ibl_lights.htm">Using Environment Maps to Light a Scene</a></span> [<span class="char_link"><a href="ibl_lights_cover.htm">Image-Based Lighting</a></span>]. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-003A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A69304C3-0734-459D-AC97-E6C839F3AFC0"></a></span>Creating a Global Background Environment
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6688E63A-F3C6-4F25-992C-4C80A57DFC7A"></a></span>The most common use for an environment shader is to create a background that is visible
+                     from any camera angle at any distance and reflected on the surfaces of objects in
+                     your scene. To do this you apply an environment shader to a render pass. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-003B"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-CD1C33F4-F368-449B-AA17-8995F4E0F379"></a></span>To give a scene an environment map
+                     </h4> <span class="anchor_wrapper"><a name="GUID-6898EA19-3527-4266-8AB3-D6966C7D2A0F"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0D791525-A89C-4AB3-83CE-11BC6010454D"></a></span>Select the pass for which you want to generate the background environment and open
+                              its <span class="char_link"><a href="property4501.htm">Render Pass Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E2952275-5BE1-4167-AE77-1F6E4EA31495"></a></span>Click the <span class="MenuCascade" id="GUID-658AF919-0943-47C7-87A5-3FFBC1CDF901">Pass Shaders</span> tab. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1D1EA2FD-055A-484E-90D5-064F264ED535"></a></span>In the Environment stack window, click <span class="MenuCascade" id="GUID-2D37A154-747E-4014-99E0-D7BC994D2B5F">Add</span> to select an environment shader from the shader library. See <span class="char_link"><a href="shaderef_environment.htm">Environment</a></span> [<span class="char_link"><a href="shaderef_cover.htm">Shader Reference</a></span>]. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-48647467-ECD3-433B-9944-C9443E0D4D6E"></a></span>Click OK when you have chosen a shader — it appears in the shader stack list. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-71AB52EA-2E76-4049-930D-8B4FFE458681"></a></span>To give the shader a texture to use as an environment, select the shader from the
+                              stack window and click <span class="MenuCascade" id="GUID-C01CD8B8-483B-46F6-8359-EE0E7B65A932">Inspect</span>. This opens the shader's property editor. For more information on how to use a particular
+                              environment shader, click the ? icon in the shader's property editor. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-003C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C6333F6E-3802-47DF-8B4B-91F79F379865"></a></span>Creating an Environment for an Object
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-8EC6A333-C319-419A-AF31-FE3BD6C7F970"></a></span>Rather than create an environment that encompasses an entire scene, you can work on
+                     a smaller scale and create a specific environment for a single object. The object
+                     is usually reflective and is given its own environment map to speed up rendering.
+                     
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-003D"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-8AAF9D72-816F-4C8B-9484-D090ED702AD3"></a></span>To give an object an environment map
+                     </h4> <span class="anchor_wrapper"><a name="GUID-CC824371-E597-413F-854B-EA98FA01EB6F"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-19F9DF0E-5D0D-44A0-9A66-8C09DEE11754"></a></span>Select the object to which you want to apply an environment shader. Make sure that
+                              you have applied a material to it. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FDA4A385-A410-4598-952D-DE13A8BF28D8"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-91C33509-FC77-4B8A-82FF-E7C862E5AF8B">Get</span><span class="MenuCascade" id="GUID-621F2DFE-416D-4C41-BB6D-F8206ABE5BB7">Shader</span><span class="MenuCascade" id="GUID-948816F5-9D8C-4749-ABD8-E6F39FF6B742">Environment</span><span class="MenuCascade" id="GUID-64399853-E6FE-445E-9F6F-B83416441567">Environment Map or More...</span> to open a list of environment shaders you can use. See <span class="char_link"><a href="shaderef_environment.htm">Environment</a></span> [<span class="char_link"><a href="shaderef_cover.htm">Shader Reference</a></span>]. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E837BA15-F960-4BB5-9057-E56E2FECE2AC"></a></span>When you have chosen a shader — it is connected to the material node's environment
+                              input. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-08DAA63C-1EC2-4330-80D2-A4FE6BEF36DB"></a></span>The shader's property editor opens where you can give it a texture to use as an environment.
+                              For more information on a shader's parameters, refer to its help topic by clicking
+                              on the ? in the property editor. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

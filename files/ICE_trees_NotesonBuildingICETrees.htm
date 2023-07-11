@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-2CA68DFF-738D-470F-A036-C1658753F2AA">
+      <meta name="indexterm" content="ICE trees: expressions and">
+      <meta name="indexterm" content="expressions: ICE trees and">
+      <meta name="indexterm" content="ICE trees: custom operators and">
+      <meta name="topic-type" content="concept">
+      <title>Notes on Building ICE Trees</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-2CA68DFF-738D-470F-A036-C1658753F2AA"></a></span><div class="head">
+            <h1>Notes on Building ICE Trees</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-1B389735-F213-4D83-B640-226C8AF1443F"></a></span>This section contains some miscellaneous notes and advice about building trees in
+               ICE.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-00B9"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9CC025D1-0966-4FAF-837A-8CC24E973084"></a></span>Using Constant Nodes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-596B2459-F35C-460C-A3F0-3C6BEEE6A7BD"></a></span>The nodes in the Constant category can be useful for forcing a value to have a specific
+                  data type. They do not need to have the same value for every member of a data set,
+                  nor are they necessarily constant over time. For example, you can animate their value
+                  or drive them with an input connection.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-00BA"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-57F2DEE7-CDE2-4DD0-9837-E3C5642CC171"></a></span>Using Expressions in ICE Trees
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-3A71253C-6083-4E56-8A01-2656D5FD54FE"></a></span>It is recommended that you avoid using expressions to control values inside ICE trees
+                  and compounds. Instead, you should use ICE nodes to perform the equivalent calculations.
+                  This is for a number of reasons:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-95C5F4BB-8A1D-49CF-9BFD-D931898F7C4D"></a></span>ICE nodes usually execute faster than expressions because they can be multithreaded.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FA79ED99-F681-4760-80FB-499C840B1B14"></a></span>Expressions cannot be analyzed in the same way as trees, and therefore may not be
+                        optimized. In addition, dependency cycles will not be detected.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-67A383B2-38E5-4FEF-A4E5-0619C2CE9D1E"></a></span>Expressions are not stored in compounds. This is because the referenced objects may
+                        not be present in other scenes.
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-76BD6686-FEA3-497C-A458-A27CA9739EA3"></a></span>There is no problem with using expressions on values exposed on top-level compounds,
+                  such as operators applied as described in <span class="char_link"><a href="ICE_compounds_ApplyingICECompounds.htm">Applying ICE Compounds</a></span>.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-00BB"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1B94EC2D-AD70-4D56-8965-31095DAF9CFE"></a></span>Performance and Custom ICE Operators
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-6C1B25B0-10D6-45DB-A370-CDD5FDFFD101"></a></span>Custom ICE operators may not be faster than the equivalent trees built from ICE nodes.
+                  This is because the native ICE nodes make extensive use of multithreading and other
+                  optimizations where possible. Don't write a custom operator simply because you think
+                  it will automatically perform better. For more information, see Custom ICE Nodes [SDK
+                  Guide].
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

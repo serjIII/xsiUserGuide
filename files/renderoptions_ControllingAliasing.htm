@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-BDAFE21E-764B-447B-AC60-91C540C3B8BF">
+      <meta name="indexterm" content="sampling: using">
+      <meta name="indexterm" content="aliasing: controlling (antialiasing)">
+      <meta name="indexterm" content="unified sampling">
+      <meta name="indexterm" content="sampling: unified">
+      <meta name="indexterm" content="threshold, sampling for aliasing">
+      <meta name="indexterm" content="aliasing: sampling">
+      <meta name="topic-type" content="concept">
+      <title>Controlling Aliasing</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-BDAFE21E-764B-447B-AC60-91C540C3B8BF"></a></span><div class="head">
+            <h1>Controlling Aliasing</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-D89510FE-5FE4-4951-A7A7-443738FC2EF6"></a></span>Aliasing refers to artifacts that occur in a rendered 3D image when the scene has
+               not been sampled enough to accurately represent it in pixels. Because it depends more
+               on contrast and image detail than image size, it can occur at any resolution. One
+               of the most common aliasing artifacts is "jaggies" — or jagged edges — on rendered
+               objects (shown below), especially where the edges are curved or diagonal. 
+            </p><span class="anchor_wrapper"><a name="FIG_AE7B60E457CC4CADADECF3ABFDC7EE48"></a></span><div class="figure-anchor"><img src="../images/GUID-0057A4CD-405D-426E-9C5E-3460921057C7-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-EC06C818-E80A-4084-A0EB-A184FB8DAF98"></a></span>These images were rendered from the same model (right). The first image (A) is rendered
+               with no antialiasing. Notice the jagged edges (aliasing) along the sphere's surface.
+               The second image (B) uses antialiasing to achieve a smoother-looking curve without
+               changing the sphere's geometry. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DD1A17F5-569A-4365-8579-598A2843A4D9"></a></span>Another common aliasing artifact is "popping," which occurs when an object — or part
+               of one — is small enough to intermittently fall between sampling rays. As a result,
+               it "pops" in and out of view as it moves across the scene. Moiré patterns, which create
+               a shimmering effect in distant regions of high-detail textures or surfaces, are another
+               common artifact. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D2AA8277-FDBC-4C82-8DA8-8DFF19219266"></a></span>Fortunately, aliasing can be visually curbed by antialiasing. Antialiasing is a method
+               of smoothing out rough or jagged edges of images, and other aliasing artifacts, to
+               produce a more polished look. It uses a mathematical process that subsamples each
+               pixel, then averages the values of neighboring samples to get the final pixel color.
+               Further sampling occurs when the difference between samples exceeds a defined threshold.
+               As a result of these calculations, antialiasing can increase rendering time dramatically.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9D8B1CE7-655F-4809-914E-2F463D736D11"></a></span>The options for controlling aliasing depend on whether <span class="MenuCascade" id="GUID-0F998DFB-1977-4CF5-A4A2-A82B29CC4C36">Unified Sampling</span> is enabled. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_A6118945DB6A42C792E23FE50FF4A50E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5BA18253-BEE8-49FD-B2C1-8E6E6E18958D"></a></span>Using Unified Sampling
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-AD7B06B6-598B-448A-A7CF-21506CE65244"></a></span> <span class="MenuCascade" id="GUID-4A577B2E-DE9D-46B7-BF0F-F132B92984A5">Location:</span> 
+               </p> <span class="anchor_wrapper"><a name="UL_33A19D2110E8440BB11AA5D15FA997D5"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-858134FC-6EFF-4CF4-8CA7-43CDF21A1177"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; mental ray (Global Renderer) 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0A42C4AA-CE69-4640-AC8A-614FAFB2E9DF"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; (expand a pass) &gt; mental ray 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-89F8E86B-3D24-41AC-B162-27E57BA7891E"></a></span>Set the current pass and choose Render &gt; Render &gt; Renderer Options from the Render
+                        toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AFBD1D0D-3056-4744-9CA9-B3B4DD39CBAD"></a></span>Tab: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-0041">Rendering</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>] 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-08A05500-8A23-4CE6-8A88-3B19DF34927D"></a></span>Options: <span class="char_link"><a href="property4502.htm#SECTION_A717F4A200F746C287F301543D4E4E34">Sampling/Aliasing</a></span> 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-B2A24226-7B06-4608-B9C5-E766CA3F1989"></a></span>Unified sampling provides simple and consistent controls for all rendering algorithms.
+                  <span class="MenuCascade" id="GUID-A24ED6B3-C96F-4EBF-8439-B0F1228353D5">Quality</span> is the main parameter for controlling how many samples get taken for each pixel.
+                  It is a relative measurement — the higher the error in an area, the more samples get
+                  taken. Typical values are between 0 and 1, although higher values can be used. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-79FB302E-F0F2-4CF1-B9C9-46E9DE088DF7"></a></span>The number of samples taken for any pixel is always between <span class="MenuCascade" id="GUID-E8F9151B-C0B2-41C6-AE84-25E15E51E859">Minimum</span> and <span class="MenuCascade" id="GUID-A8469FB9-581B-4C0E-A3CA-02A0528B7279">Maximum</span>. The exact value within this range is determined mainly by Quality. High values for
+                  Maximum allow for oversampling, while low values may prevent the Quality setting from
+                  being reached. Setting Minimum to a value below 1 allows for undersampling. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5160427B-9554-4156-BA51-54E7350FD01A"></a></span>You can also set <span class="MenuCascade" id="GUID-F89D8ACD-9A5A-4E78-AC04-E0E9096EFC78">Cutoff</span> to stop taking more samples if the difference between sample levels is smaller than
+                  the cutoff value, even when the number of samples set by Quality or Maximum hasn't
+                  been reached yet. This can be useful for increasing performance in dark, flat areas
+                  while not affecting quality in bright, detailed areas. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_EB613E8B45B04BB7B92F386F38A64302"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B739977E-B079-4139-B57F-D80287252BFF"></a></span>Using Older Sampling Algorithms
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2725F364-BE94-4639-9178-45B82E9FCE09"></a></span>When <span class="MenuCascade" id="GUID-31FCF0AB-2DBE-4D37-8130-7CDED15B2A32">Unified Sampling</span> is off, the older sampling methods are used for the different algorithms. Use the
+                  <span class="MenuCascade" id="GUID-31AC7EC4-FC82-42D5-B0EA-BE5C7C81F03E">Aliasing (Raytracing &amp; Scanline Only)</span> and <span class="MenuCascade" id="GUID-2F4F6029-8D93-4C84-AF2C-D1FF79605E51">Sampling Contrast</span> settings to control the result. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_AB35C6C5FEC249ADAE075C6FE273AE68"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EEE89877-7E7C-407D-B19E-041BE27BC4B8"></a></span>Aliasing
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EB1461D2-1211-43FC-8886-588E254C1184"></a></span> <span class="MenuCascade" id="GUID-9C1E9F9E-D2F1-4C69-8FC5-B837511B50AF">Location:</span> 
+                  </p> <span class="anchor_wrapper"><a name="UL_EEFF263BD11D4497B949CF0F4783D510"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3E4794EB-F09F-4868-B18F-38AFF4E60054"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; mental ray (Global Renderer) 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8F094B59-4422-4D1A-98A7-A5ADD08D104E"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; (expand a pass) &gt; mental ray 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1701D160-0BF0-4882-931D-12F1319D8C18"></a></span>Set the current pass and choose Render &gt; Render &gt; Renderer Options from the Render
+                           toolbar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-12E91833-98F3-4F34-A1FF-2D9572EF402D"></a></span>Tab: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-0041">Rendering</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>] 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-052CD3AE-1D65-4E42-8ED7-C586ECD0099B"></a></span>Options: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-0043">Aliasing (Raytracing and Scanline Only)</a></span> 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-06A8B87E-AECD-4C64-B142-C8D490205F71"></a></span>The Aliasing parameters describe the number of samples taken to compare surrounding
+                     color values that are averaged to define the color of a pixel. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ACF20836-6F80-43D2-92F3-4E6CA04ED785"></a></span>The main sampling controls are the <span class="MenuCascade" id="GUID-A7B17891-58CF-41D7-A0E8-033A68A92C3A">Min Level</span> and <span class="MenuCascade" id="GUID-EBEF4025-BC26-4D3D-A5DD-29BF9959D29E">Max Level</span> sliders. These options determine the minimum and maximum sample rate. Each pixel
+                     is sampled at least 2^min x 2^min times and at most 2^max x 2^max times (2^n in each
+                     direction). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2D7DC52C-E47A-4B15-B837-B201C39FA1FF"></a></span>If the Min Level is zero, each pixel is sampled at least once. Positive values increase
+                     the sample rate and negative values reduce the sample rate to less than one initial
+                     sample per pixel (known as <em class="mild">infrasampling</em>). For example, if the Min Level is set to one, each pixel is sampled at least four
+                     times, if the Min Level is -1, at least one sample is taken for every four pixels
+                     (a 2-by-2 pixel square). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A353823C-67C6-4276-9DE2-47B126709558"></a></span>It is recommended to set Max Level values larger than or equal to Min Level + 2; the
+                     difference should not be higher than 3. This limitation is meant to limit the amount
+                     of memory required and thus optimize performance. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-140B1525-A55E-42D6-90BD-8A5C66BF9EDE"></a></span>Typical values for Min Level and Max Level are -2/0 for low-quality preview rendering,
+                     -1/1 for medium-quality rendering, and 0/2 or 1/3 for high-quality renders. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-35C87D33-4984-40FC-B9D0-0EC8864C2176"></a></span>Use the Min and Max Level options only to set a hard sampling limit. These options
+                     offer simple control over rendering quality. For finer control over quality, use Sampling
+                     Contrast which deals more gracefully with high-contrast cases where the Min and Max
+                     Level technique can leave behind aliasing due to the hard cutoff. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-41863DF4-8E79-4A7F-87A7-0D9E04BBE004"></a></span>For more information, see <span class="char_link"><a href="renderoptions_mr_AntialiasingSamplingandFilteringTipsTricks.htm">Antialiasing, Sampling, and Filtering Tips &amp; Tricks</a></span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_5D1E2E4184A74CB684BE1B4D3CFB06E7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B572F314-8888-4A7C-884F-EA3F653A74B2"></a></span>Sampling Contrast
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DC6A5695-02B3-4339-924D-005BF9F136EA"></a></span> <span class="MenuCascade" id="GUID-6ADCE177-D769-4D6A-BAF8-6B4C533FAB25">Location:</span> 
+                  </p> <span class="anchor_wrapper"><a name="UL_329A9F73F589448DACA84EEBF7BB03B8"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5EFF6754-A289-4775-9633-E3C07E4D3818"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; mental ray (Global Renderer) 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AF14AF6C-F3C4-4FF9-8408-5CEC323DF1AE"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; (expand a pass) &gt; mental ray 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7F0F4D23-EEE4-41EB-82A5-A5591635AD5C"></a></span>Set the current pass and choose Render &gt; Render &gt; Renderer Options from the Render
+                           toolbar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1D48C0E8-48CE-4A36-BCD5-E6EA9CC96B6D"></a></span>Tab: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-0041">Rendering</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>] 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FCBB92D3-2B35-4F04-BE54-B2778CF09AB7"></a></span>Options: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-0045">Rasterizer</a></span> 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BD1C524B-B9B8-41D1-86AD-DFE87EA60305"></a></span>The <span class="MenuCascade" id="GUID-17629FEF-08CB-46B8-8117-E6EC94014BB4">Sampling Contrast</span>sliders help you control adaptive sampling. This is the primary means of image quality
+                     control. If the difference between neighboring samples is greater than the sampling
+                     contrast value, another level of sampling occurs. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A5627246-4607-41BA-9473-6B15E3D9EA0C"></a></span>The smaller the value for each color (R, G, B), the greater the amount of sampling
+                     that must be done to close the contrast gap between the rendered image and the sampling
+                     contrast settings, and the smoother the antialiasing. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-07D6DFB9-2CD8-4424-B684-CB2B68DCA9EB"></a></span>This can lead to higher render times, so use the following guidelines to refine your
+                     sampling contrast settings: 
+                  </p> <span class="anchor_wrapper"><a name="UL_075EEBB53CF348A0AC2051A93340E101"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-00A9D3C7-9D8F-483C-823F-901E4353A44E"></a></span>Lower the sampling contrast values if aliasing artifacts appear in areas of low contrast,
+                           but not high contrast. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-70DBEEA0-7B11-4342-87E2-32E7DA3D767D"></a></span>Raise the sampling contrast values if no aliasing artifacts appear. This reduces the
+                           overall number of samples and reduces render times. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2101B0B5-EAB5-41FC-B7D2-936CD9BAC870"></a></span>For more information, see <span class="char_link"><a href="renderoptions_mr_AntialiasingSamplingandFilteringTipsTricks.htm">Antialiasing, Sampling, and Filtering Tips &amp; Tricks</a></span>. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

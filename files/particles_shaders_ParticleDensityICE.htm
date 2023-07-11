@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-84FA637F-782F-47C3-8F9D-CECB17AAA1E4">
+      <meta name="topic-type" content="concept">
+      <title>Particle Density</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-84FA637F-782F-47C3-8F9D-CECB17AAA1E4"></a></span><div class="head">
+            <h1>Particle Density</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-1143486C-A55D-40E4-A4B5-65EC51C36E94"></a></span> <span class="char_link"><a href="particles_shaders_ParticleDensityICE.htm#WS847B00E07AC16C48B8444DC51F49DB91-0088">Texture</a></span> | <span class="char_link"><a href="particles_shaders_ParticleDensityICE.htm#WS847B00E07AC16C48B8444DC51F49DB91-0091">Texture Coord(inates)</a></span> | <span class="char_link"><a href="particles_shaders_ParticleDensityICE.htm#WS847B00E07AC16C48B8444DC51F49DB91-0094">Shape and Rotation</a></span> | <span class="char_link"><a href="particles_shaders_ParticleDensityICE.htm#WS847B00E07AC16C48B8444DC51F49DB91-0091">Texture Coord(inates)</a></span> | <span class="char_link"><a href="particles_shaders_ParticleDensityICE.htm#WS847B00E07AC16C48B8444DC51F49DB91-00A5">Strand</a></span> | <span class="char_link"><a href="particles_shaders_ParticleDensityICE.htm#WS847B00E07AC16C48B8444DC51F49DB91-00A8">Render Tree Usage</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A3EF172B-89F1-483A-9952-448F5D8EA080"></a></span> <em class="strong">Category:</em> Particle 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-BAC4545A-52B3-4C57-A543-64C6998FC58E"></a></span> <em class="strong">Shader Family:</em> Texture 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-26E55F91-A91F-4D48-BCC5-0C4D474B4ADF"></a></span> <span class="MenuCascade" id="GUID-EEEA97AC-793A-4612-89BA-28B388466361">Multiple Outputs:</span> Color and Scalar 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8FA17A91-C103-4CAC-AE2D-32C183B7436B"></a></span>The Particle Density shader defines each particle within the volume so that the point
+               cloud doesn't look like a single volumetric mass. It reads the particle data and outputs
+               density and color of the particles. It has controls for rotation, shape, and color
+               of the particles, as well as rendering strands (trails) that follow the particle.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-81A043C0-9552-4915-86AA-9331BEBA91A2"></a></span>For general information about ICE particle shaders, see <span class="char_link"><a href="ipart_shaders.htm">ICE Particle Shading</a></span>. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0088"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-05317F54-60BA-45C7-991B-B3C518808644"></a></span>Texture
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2988123E-DDEC-4FFA-ABD5-B37D2C8E47D7"></a></span>The Per Particle parameters on this tab (Density, Shape, Color) are used only per
+                  particle, as their name would suggest. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-294775D3-642C-4788-8804-49B802462CE2"></a></span>Using input texture shaders, you can access the texture coordinates of the particle.
+                  The texture stays with the particles so it moves and rotates as the particles do.
+                  If multiple particles intersect, the texture is blended in the intersecting area.
+                  Because the texture is used per particle, a complex texture can slow down the rendering
+                  quite a bit. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-512493E0-A456-4401-8842-CF3E62438AD1"></a></span>For the inputs which have the note "init only (no tex coord)", the parameter is fixed
+                  for the whole particle (like rotation). It is used once for each particle so you don't
+                  have texture coordinates which change across the particles. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0089"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-4F6C5188-6680-4D97-BC36-4EF1A31929CF"></a></span>Per Particle: Density
+                  </h3> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-008A"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-AF5C5C83-C52E-4EB5-9750-A6FE2747F14B"></a></span>Texture
+                     </h4> <span class="anchor_wrapper"><a name="TABLE_D8E0EC7ADD4D44719AC8628E0A2EC0E2"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col width="220px" align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-16466AE3-FEB7-4ABF-A9F4-7CFFDB0E238E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C571A68A-07F8-4E02-9EFE-5EAE075E87F4">Density Texture</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3CF11199-D25A-4B6E-8BAF-C5110A2A4DC0"></a></span><p class="table-body">Textures the density of the whole particle. The inner and outer area of the particle
+                                    are affected equally. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-587480EE-2D18-46B1-AA93-581390D04B92"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1DA2002D-B119-4A07-B490-64F500AEA4D9">Intensity</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C4AC4695-F264-4834-AFC2-2F95CD5C7225"></a></span><p class="table-body">Scales the intensity of the Input shader's values. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-53877A7E-1EC5-4D6C-820F-4F2CF5DD7737"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A525670E-E126-44C3-A74A-97456FE5756F">Input</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-927A59B7-8A95-4128-B601-0096A7E3F6E9"></a></span><p class="table-body">The shader that is plugged in to define the texture. This is often the Fractal Scalar
+                                    or Cell Scalar shader. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-008B"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-DC7CBED7-AC41-433B-AEF4-4E2D8C090474"></a></span>Shape
+                     </h4> <span class="anchor_wrapper"><a name="TABLE_12DC97A6C82246B4AE566D6261CE33B4"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col width="220px" align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-81DD90FE-95B9-43E5-8C70-30AA3E26302F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-51CC2EC2-B847-4A58-8C15-958F55E386C9">Density Shape</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FBF14DBD-F6FD-4AD6-9666-E87A5B606647"></a></span><p class="table-body">The texture first affects the edge of the particle, carving parts of it away. If the
+                                    input texture is 0.0, the whole particle is gone; if the input is 1.0, then nothing
+                                    is carved away. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C23513E9-D374-46C4-881B-1B1ADAF6F1AC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-46A07585-8F89-4496-88DF-2FBC9CBFAF98">Intensity</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-309BD2E5-454A-4BFB-8AE4-4350A463BD53"></a></span><p class="table-body">Scales the intensity of the Input shader's values. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-24A4CD0F-356F-43B1-85A4-544CE156BF53"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B76E8263-06A6-41E7-8FA1-21B86A010FDD">Input</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AFC63618-D38E-4689-B729-EF4B01D82320"></a></span><p class="table-body">The shader that is plugged in to define the particle shape. This is often the Fractal
+                                    Scalar or Cell Scalar shader. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-008C"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-6DB89077-9E98-4256-9C8C-71A2669AAA78"></a></span>Density Texture versus Density Shape
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-47F2C015-C9CA-45AB-B441-F6AC80F3A5FD"></a></span>The image below shows the difference between the texturing and the shaping of a particle.
+                        
+                     </p> <span class="anchor_wrapper"><a name="TABLE_96BAE81040CE4A299CEB5277CAEEF6DC"></a></span><div class="table_NotRuled">
+                        <table cellpadding="0" cellspacing="0" class="not-ruled">
+                           <colgroup>
+                              <col>
+                           </colgroup>
+                           <tr class="not-ruledOddRow">
+                              <td class="table-body">&nbsp; <img src="../images/GUID-4B60DB36-0369-4B88-A0A2-A266424419B9-low.png"> 
+                              </td>
+                           </tr>
+                           <tr class="not-ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E78F4D9D-F342-435E-B904-47D2C5602182"></a></span><p class="table-body">The top row has a fractal shader applied as the Density Texture. </p> <span class="anchor_wrapper"><a name="GUID-1DD1E4D4-CCCE-466C-B6F0-DCA23DC90456"></a></span><p class="table-body">The bottom row has the same texture applied as the Density Shape. </p> <span class="anchor_wrapper"><a name="GUID-2ED4721B-E997-4A35-80C4-415C2EB79F49"></a></span><p class="table-body">Their Intensity values increase from left to right. </p> <span class="anchor_wrapper"><a name="GUID-10BB73D9-8957-429C-8DD6-4773E065BCD8"></a></span><p class="table-body">While the overall shape of the textured (top) particle is still visible, you can see
+                                    that the shaped (bottom) particle becomes carved away. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-008E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7C3AA933-8741-4CC6-844B-A4888638316D"></a></span>Per Particle: Color
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_82574607827447A88E6E1D784A78EC96"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7D0CFEC5-E2A9-4E55-B20F-F8F46DD8A95D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A96A5FBA-7B3C-46BA-9CD2-95E0CB0C177E">Override Color</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0DDAA3A9-2E74-43BD-A417-122F8686B085"></a></span><p class="table-body">Overrides the color of the particle using the input shader's color. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-008F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FA48FDA4-4FFC-439D-86DE-D74333E9A3FA"></a></span>Per Cloud or Gradient: Color/Density
+                  </h3> <span class="anchor_wrapper"><a name="UL_599DC5DC43B749B1A9049C69E61BA60E"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-97B496D1-8CBD-4E2C-8CD0-8BF7177A3CEE"></a></span>If you plug in the Particle Gradient shader as an input, you have to select the inputs
+                           for its Per Cloud and Per Particle settings (see <span class="char_link"><a href="particles_shaders_ParticleGradientICE.htm">Particle Gradient</a></span>). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7FF7C5C8-F8BD-4F19-8807-4F2F806E58B6"></a></span>If you plug in a texture shader as an input, it uses the texture coordinates of the
+                           whole point cloud. The particles "swim" through the texture: the texture does not
+                           stick to the particles. 
+                        </p> 
+                     </li>
+                  </ul> <span class="anchor_wrapper"><a name="TABLE_1FACE2BBD58A439FA34789E6C528B3D1"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A25CB7B6-B47A-4C7F-96BC-338F6446DE8F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-07D76311-E6F5-45F7-B115-630A30E36749">Enable Global/Gradient Color</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F6AA8B8E-0109-4B05-B131-2B9289637D95"></a></span><p class="table-body">Use the color and/or density per cloud/gradient inputs from the Particle Gradient
+                                 or a texture shader. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EA56F1A4-6135-449F-A35E-E8C5A7128682"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-368EF2C1-8BBF-4B15-938D-23753E37ACEB">Intensity Color</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7D37DE21-6BFB-4217-9B97-790EECD447EB"></a></span><p class="table-body">Changes the color of the whole cloud. </p> <span class="anchor_wrapper"><a name="GUID-FD4A1B64-925C-430F-AEA9-983C5F291463"></a></span><p class="table-body">With the Intensity slider, you can scale the mix amount of the color. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F4F674BD-88E1-4DA0-93D5-5658C4B27546"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-08B69FC7-4032-4216-AC99-242938B4B705">Intensity Density</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-76566474-14CD-4F1F-B788-331EB422CB85"></a></span><p class="table-body">Changes the density for the whole cloud. The cloud density is multiplied with the
+                                 input density (same as Density Texture). 
+                              </p> <span class="anchor_wrapper"><a name="GUID-0ACDE739-8A7F-4027-8575-70A43FA1F11C"></a></span><p class="table-body">With the Intensity slider, you can scale the amount of the density change. </p> <span class="anchor_wrapper"><a name="GUID-DBCD1548-E73A-4708-9679-25BBCDCCA15B"></a></span><p class="table-body">You can use the same Particle Gradient or texture shader that you used for the color
+                                 input. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-963B7F83-9CE7-49F5-8988-C7599377F62F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ED84142D-E503-4354-A92B-EB0FD4C7B140">Density Input Channel</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-39DA7374-D94F-4D2C-919B-2FBDE33D6341"></a></span><p class="table-body">You can decide which channel of the input shader you want to use for the density:
+                                 the Alpha channel or the Green channel. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-B8A4598F-8373-4976-996A-5FCB5C317F56"></a></span><p class="table-body">For example, if you have the Particle Gradient shader plugged in, you can use the
+                                 RGBA gradient's Alpha channel values to affect the density. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0090"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-84FFCF48-DD4B-4CB2-BB02-65A6C81ED1FE"></a></span>Per Cloud or Gradient: Limit Density Inside
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_4A02DF5A64C3494CB4FBA20928064FD5"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-06174379-004F-4B17-8683-AEE373232D22"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1EB4241B-8B7E-43DA-908C-E68ACF34DCBE">Density Limit (low for smoke)</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AF5C5FBB-F05F-445C-BBE9-73C1DEC17FF8"></a></span><p class="table-body">Sets the maximum allowed density for the particle cloud (reduce this value for steam
+                                 or thin smoke). If the value is high, the point cloud shrinks if you reduce the density.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-0F6F19D7-9B61-4AFF-9F30-C3E9FF759BCA"></a></span><p class="table-body">In the real world, steam particles are evenly spread in space; however, in 3D, you
+                                 often have a higher density of particles in the inner parts of the volume and less
+                                 density in the outer region. If you now reduce the density, the particle cloud seems
+                                 to shrink because you don't see the outer region, but the inner region still has enough
+                                 density to be visible. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-1F3044B1-A8BD-4D0D-AEAB-34FDB15ABFC3"></a></span><p class="table-body">With this parameter, you can limit the density in the inner part of the cloud. If
+                                 you now reduce the density of the whole volume, your cloud does not appear to shrink.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0091"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-24C0D1B4-AC62-40CC-9DB3-94FEAA870FD5"></a></span>Texture Coord(inates)
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0092"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F6494525-613F-4134-AF3F-6AD0301DE869"></a></span>Texture Coordinates
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_A51D383C10424E2EA9A66FBC41AB12A9"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-71177513-17AC-4254-8814-48E9C943546C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BBEE8EA4-25B4-4960-B9CA-890E1D753442">Scale with Particle Size</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AFE0EBE4-DED7-4791-AD19-2FA149D792A9"></a></span><p class="table-body">Scales the texture coordinate along with the particle size. The bigger the particle,
+                                 the bigger the texture. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-82C4DE6C-32FA-4EEB-A57C-21930D727FBB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3E91EF4A-3183-4B82-9CE9-BF43F428B1F6">Rotate with Particle</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AB6CE533-9ACB-4AE7-AAFC-FB45FA6F26A8"></a></span><p class="table-body">Rotates the texture coordinate along with the particle. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AA32DBBF-77D7-44F8-B00B-29C6D4662F5F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-211E635E-5E9F-406B-86C3-C24BA9C65081">Unique per Particle</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8756C57E-FDA7-4071-B833-F87142E56BE7"></a></span><p class="table-body">Each particle gets unique texture coordinates. If this option is off, each particle
+                                 has the same texture coordinates. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0093"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-ABCCD206-9526-41E6-AF89-68E3D9F824F7"></a></span> <span class="MenuCascade" id="GUID-6CA18769-1B03-4795-9514-7F55C17E4F36">Motion Blurred Texture</span> 
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_9C726DB2AED24219A77622485B7B4646"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3D419AB7-D443-4FA0-888F-F301D2E7DD93"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-063A616D-A8FB-4BB2-B0AA-134E6D1C2E5B">Enable Texture Motion Blur</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-74C0EABC-CC32-4448-94B0-6E194F4D286E"></a></span><p class="table-body">The shader samples the input shader's textures multiple times to give you the impression
+                                 of motion blur. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-77AB879F-06B5-4781-ADBF-066E886BDBE8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7BBE23B2-2032-436E-B52F-0303A72B7ABE">Curved</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CBC1B71F-6252-4F6A-BDF1-82D742A9BB8E"></a></span><p class="table-body">If multiple particles are overlapping, the shader calculates an averaged curved motion
+                                 direction. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4C20B582-DC8F-4EB5-BE31-2EDC6868E8E0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C00A0BC5-7BC3-476C-8576-CD23F63EF6EA">Blur Length</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-03D0CB9B-EF30-433D-A838-6E92F713AB65"></a></span><p class="table-body">Length of the motion blur. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3C016E88-A964-4FB5-B643-4BA4E1055FCE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-60B125E8-3C17-428C-B3AF-4DF13A146B1F">Sampling</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-59AA34B4-64FC-4FAE-B9FD-BC1680B407F6"></a></span><p class="table-body">Controls the amount of texture samples used for the motion blur. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0094"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9469D890-B9D8-485C-825D-626E22F4EE1E"></a></span>Shape and Rotation
+                  </h3> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0095"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-2CFD17BA-754C-4723-89E6-D1EB8A50F63D"></a></span>Falloff
+                     </h4> <span class="anchor_wrapper"><a name="TABLE_9A5250D1CF0940D2BB10005E33FC1D2C"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col width="220px" align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BBD0D3E0-16E2-478A-89E8-42C955AF9533"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-289FC176-0672-4688-8D2C-66999EFB5405">Falloff Type</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1970E891-EB7B-4D47-817E-C364D9320B44"></a></span><p class="table-body">Type of the metaball falloff: Linear or Cubic. Cubic is better for dense volumes,
+                                    and Linear is better for thin volumes. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-81E802B8-CC0C-494C-A00B-4344A68DEAD9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2293971F-5B9B-4135-8607-B7132E510E68">Falloff Bias</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-27220D87-5E83-4EC6-887A-EC05D4F19384"></a></span><p class="table-body">Bias (gamma) of the falloff. Higher values change the falloff that the density reduces
+                                    later. The particles grow a bit. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-86D22F90-8FD8-47A2-B220-ADE6C6044BC3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DBDFB12A-C3BC-443C-96ED-4732DA85ED4B">Bubble Density (ping-pong falloff)</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BB8B3E75-869F-4A53-A597-036DDF5D9CC4"></a></span><p class="table-body">Density usually increases from the edge to the center of the particle. With this option
+                                    on, the density increases from the edge to halfway to the center, then it decreases
+                                    again to the center, thus rendering a hole inside the particle. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3E25B078-80DA-452A-B016-30B4638D91A8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-811A1562-BB82-4122-908B-81F83A4614A4">Falloff Start</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-28E72BA0-CF8D-44B5-94F1-6C3A9CD69AE6"></a></span><p class="table-body">If you select Bubble Density, you can set the falloff starting point. If you increase
+                                    this value, then the hole inside the particle from the Bubble Density increases. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> <span class="anchor_wrapper"><a name="FIG_F2BCC886F0794ABDAEAB9B688AC3DD3C"></a></span><div class="figure-anchor"><img src="../images/GUID-602577E0-FC16-4D15-8651-198288932894-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-073EC5F7-4D24-4FC0-9ED6-19BE0BF1C85A"></a></span>Particle shape set with Bubble Density and Falloff. 
+                     </p> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0097"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-51D8B034-404B-482C-8AD2-908FD5AEDBC3"></a></span>Shape
+                     </h4> <span class="anchor_wrapper"><a name="TABLE_E2F03E356479404FB7B6A473C497AA38"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col width="220px" align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-128BEAFD-2CA3-4AA5-BD8B-86D2B64251EB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B7DE25A8-A60D-4460-AE6E-9D5BE8A9A383">Metaball Shape</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-439FB66A-1565-4AB0-8312-8BCA6E8D154B"></a></span><p class="table-body">If you increase this value, the whole particle cloud shrinks and the particles melt
+                                    together (like metaballs). The metaball look is more evident if you have dense volumes.
+                                    
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3567749D-AE01-43EC-BD6D-C1CAB6EFE8F7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1915181E-03D4-4934-934B-E1B3B6767071">Elliptical Shape</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C424393D-51B3-4C37-99BD-84B5844E692E"></a></span><p class="table-body">Determines how the ellipse is shaped: along the different axes and planes of the particle
+                                    or the cloud. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8688C4AD-5075-46AB-A30A-1DC2166ACB1C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FD3FDA52-B2E4-433C-A06E-9F05E6DBDD5E">Elliptical</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AAAEEB7A-615B-431A-90B1-B3431A2C307B"></a></span><p class="table-body">Uses elliptical shapes for the metaballs instead of spheres. The higher the value,
+                                    the more elliptical the shape. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0098"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-9D3F04CA-09EB-4F54-97B6-27AA345FBAD0"></a></span>Rotation
+                     </h4> <span class="anchor_wrapper"><a name="TABLE_8DEF356B076A44949DB1615C0778C112"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col width="220px" align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-24242ACC-212D-4FE1-8D3D-4BBCA91705C1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7D9EA291-2703-45E1-8A69-EDB10C855793">Roll Min/Max</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F5B7107E-0E06-4B0C-A6F0-4A3FB7B6D184"></a></span><p class="table-body">The roll is like a rotation around the particle's Z axis. The particles will have
+                                    a random rotation between the Min and Max values (for the current frame, random based
+                                    on the particle ID). To get the typical back-rolling of clouds, decrease the Roll
+                                    value. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-900D25CD-AF45-4D04-855A-CFE6193D1202"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E9C11D29-D08F-4DB2-B0A9-E1EC076254B2">Screw Min/Max</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A542EB61-BE0B-4D74-B0F2-2218E3442A9A"></a></span><p class="table-body">The screw is like a rotation around the particle's Y (up) axis. The particles will
+                                    have a random rotation between the Min and Max values (for the current frame, random
+                                    based on the particle ID). 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-0099"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-9EA22871-64FB-402D-BB09-355F95992B0F"></a></span>Alignment
+                     </h4> <span class="anchor_wrapper"><a name="TABLE_05A16FF9D16D418381E0F986F2A7CD81"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col width="220px" align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-222A3268-8DA4-4637-84CB-42852FA510E5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0795E4FF-E362-4848-98FF-60B0D2ABAEF2">Type</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3A2F53BA-F8C4-4BE6-A88C-05AD1B2B45E6"></a></span><p class="table-body">All alignments use an up vector. The particle's Z axis will point upward (this is
+                                    usually the Y axis). 
+                                 </p> <span class="anchor_wrapper"><a name="UL_5D4CC7771F3C4167AB53144E16101677"></a></span><ul>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-B03D3B89-ACA2-4AE6-BCC8-9482284AE4CF"></a></span> <span class="MenuCascade" id="GUID-A1A3872C-458C-412C-92D1-EABE1DD18FE5">Align on Velocity:</span> The particle Y axis points in the direction of the movement. 
+                                       </p> 
+                                    </li>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-04F5DEAB-8E88-425B-84C6-7CCA6EB113F7"></a></span> <span class="MenuCascade" id="GUID-AE260FDA-4A3C-4742-B531-43BA706AD2E3">Cloud-like Alignment:</span> If you have a bulge in a cloud, the particles rotate away from the center of the
+                                          bulge. You must set the Neighborhood Distance below. 
+                                       </p> 
+                                    </li>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-849789C3-848C-4087-B3CA-90B50C48DB4B"></a></span> <span class="MenuCascade" id="GUID-EC47723F-F631-46D4-96BB-F079EFC03B3C">Direct to/ Look at Point:</span> All particles will look at the point set by the Alignment Point values (below). 
+                                       </p> 
+                                    </li>
+                                 </ul> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F10735BD-AE8D-497C-992E-FCC1AA1B6E43"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CC970465-6DAA-4C89-A7DA-59BB143991D3">Neighborhood Distance</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6EFEFCCB-02DC-4B12-BC8B-13CC77A2B388"></a></span><p class="table-body">If you select Cloud-like Alignment as the Type, you must set this parameter, which
+                                    is the distance from an outer particle to the rest of the bulge. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B4C31D78-A092-4D86-B862-D0F45331FD09"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E4902F48-C389-4EB7-81CD-DB5776C4FC56">Alignment Point</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-42BE4DA0-94F1-4EEF-85E0-FC22EEF4B089"></a></span><p class="table-body">If you select Direct to/Look at Point as the Type, you must set or pick the point
+                                    at which the particles will point. The particle Y axis points to the Alignment Point
+                                    coordinates. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-024513A7-CBCF-4BD0-A67C-3F0A249E4440"></a></span>The shader searches for all particles inside the Neighborhood Distance value and gets
+                        the center of these particles. Then it calculates the Roll axis based on the direction
+                        to the neighborhood's center and the direction of the movement. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_2F8A25EAFBC94D03B84E7495A002ED7A"></a></span><div class="figure-anchor"><img src="../images/GUID-ADA1E78D-93C6-40D4-BF80-09CF1E43978F-low.png"></div> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-009B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B46ED213-8A7E-4C8A-807B-904A8F273EE8"></a></span>Misc
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-009C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6E0A5708-0516-46ED-AC16-FC18DEAEB84C"></a></span>Exclude Particles
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_A619EB90F5B64907B9B653D265657409"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1FAFC0B1-D155-4874-9F75-A57BD432B0B3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E20EBFBA-67D7-4A89-AA82-66D104C1B45D">Per Particle: Visible in Render</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6145670E-86FC-4C9A-9C61-D4FE0E0C4515"></a></span><p class="table-body">Determines if a particle is visible in a render or if it is ignored. This is useful
+                                 if you mix multiple Particle Density shaders. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-009D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-82CFDD7E-170E-429C-84D7-D5E0FDCEBFD1"></a></span>Pick Particle Data from Other Object
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1FD510C0-34F3-40AD-8788-3BE1FC0A3DD2"></a></span>You can pick the data from a different point cloud to get the particles of that cloud
+                     into this shader. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_C3B79D1A1AA1485E9CDEE96A22C72239"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CD60ACC4-D4EF-4112-BA46-33526222AE9F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2D310DE5-8745-418A-9C26-665F1EE22D6F">Use External Object</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-10EED06E-3831-4FF1-97CC-35CAA81CB2D9"></a></span><p class="table-body">Select this option to use the particle data from a source point cloud. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BC0F9782-2443-4629-8307-9DC5863B9650"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-31E81AD1-7712-4342-A2C1-9CBBC103B841">Convert Ref Coord</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-13FFF326-3C7A-44B9-947B-82B4DA383920"></a></span><p class="table-body">Converts the local coordinates from the other point cloud to the local coordinates
+                                 of the current point cloud. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D17574C9-A64D-45CA-8444-4C9C16C641C7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-010957E8-5DD0-4CB4-90AF-41A1FECD7448">Source Object</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4E41471C-DBA6-4367-9F6E-A0F05FFD697D"></a></span><p class="table-body">Pick the source point cloud to be used for the particle data. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-009E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-097D2EF6-8BAF-4863-8D0E-5750382A21CB"></a></span>Flow Texture
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-836E083D-0E90-49DB-9050-639A019712BA"></a></span>The shader tries to create texture coordinates which continue globally over the whole
+                     cloud from one particle to the next, but are also somehow stuck to the particles.
+                     This texture is experimental. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7AFD935A-D2EF-43C7-84BE-27A75192B4AC"></a></span>To create the texture coordinates, you need a lot of overlapping particles. Separate
+                     single particles can have completely different texture coordinates from multiple overlapping
+                     particles. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-009F"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-8BFBDD0C-2572-41BE-8334-58BA6A530AB0"></a></span>Tips:
+                     </h4> <span class="anchor_wrapper"><a name="UL_9BAAFEF7B1CA4F74BE475D391160FE2E"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3A302089-0BE0-4449-A10D-D0FB0C3EDD9A"></a></span>Using the Rotate with Particle option for the Texture Coordinates has a big effect.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E243BBFA-1555-4ABB-A4B5-8C7F56A7804F"></a></span>Try setting the Alignment Type to Align on Velocity. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FD82B36B-4785-4F91-828F-AAC7EBC11455"></a></span>If you want to use a texture for the flow density, plug it into the flow Color first
+                              (and increase the volume density). Tune it until you get the result you want. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-55C7125A-3A62-4D5D-8CBD-E913814BAB2D"></a></span>Try the Slices Mode on the Preview page in the Particle Volume Cloud shader to preview
+                              the texture. 
+                           </p> 
+                        </li>
+                     </ul> <span class="anchor_wrapper"><a name="TABLE_4C03A39537E542F384E5A6757802061C"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col width="220px" align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C183CC9A-C665-4F98-B69F-254CC085B248"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CAB45704-0585-4948-A825-B2F2D648E915">Flow Texture</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9D00CFE5-80EF-4AFF-8E4F-6580F4783D80"></a></span><p class="table-body">Select this to enable the flow texture. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-14944A20-5563-40EE-A150-85FCE31B4F7E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-84C2B426-6460-4C04-A452-669558ECFDB3">Color</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7AC8318C-F848-494B-A1C5-4D2324089847"></a></span><p class="table-body">Color (per Cloud or Gradient) of the flow texture. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-58DBA771-F564-4B27-955E-F602D115F3D4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-55EE648D-9F12-475D-81EB-34FCD3CBF479">Density</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-901932CE-220B-4B6C-9236-3EF198EE4798"></a></span><p class="table-body">Density (per Cloud or Gradient) for the flow texture. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1DF8A4CE-18CA-4021-AE45-880CCF029821"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6A07FB59-8AE3-4292-9FB8-9054266EBE2C">Density Mode</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7E76F857-96EA-417A-9496-E16A871A3692"></a></span><p class="table-body">How the flow texture is applied: Texture or Shape based. This is the same as the Density
+                                    Texture/Shape parameters on the Texture page. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00A0"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8C163A50-5E95-486D-83C3-98B942D94E09"></a></span>Density Falloff with Size
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_04858C4160DA4A9A898A2A757923A38F"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-535A93CF-A6FD-43BF-838F-7D3EC2E3929A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C6738EDA-9092-4F80-95A5-9B7FBB383774">Reduce Density for Bigger Particles</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9C35AD79-5C03-4947-B1D9-7CBD57FE22B5"></a></span><p class="table-body">If you scale a particle, the density value remains the same. However, in the real
+                                 world, if you have an amount of smoke, and the smoke spreads/disperses, the density
+                                 of the smoke is reduced at some point. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-FF084905-8EE1-4C7B-AA0D-87CEB2DBC012"></a></span><p class="table-body">This parameter mimics the real-life effect: the bigger the particle, the less density
+                                 it has. See below for a visual explanation. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7AECAE86-598C-47D0-94A5-30D0A48BFBC5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4234CBC3-6901-4A1B-8D03-C861B8C61BE2">Type</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C23529CF-8A66-47DA-B8A0-40E7B8C24D27"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7FB3612E-A9E3-4449-A9AA-1637B5F2426E">Keep:</span> The particle becomes more transparent as the size increases, but doesn't fade away.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-6D2B804D-BD3C-44F7-A5BA-AA55E0EC8B5F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FC47C078-2067-40E0-885B-0B0F18987BFE">Fade-out:</span> The particle fades away more quickly at the edges as it becomes less dense. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-461166D0-AE34-4570-A510-B10F8AFA4B04"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A27D5FA5-54A0-4F34-8B19-8886625B7635">Minimum Point Size (with full density)</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D1CC5BE4-D60A-4B87-9B32-F9BCB1F8F290"></a></span><p class="table-body">The minimum point size of the particles at which they have full density. All particles
+                                 that are smaller than or equal to this size are not influenced by the density falloff.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> <span class="anchor_wrapper"><a name="TABLE_30E4191548714817A46DE9D58EA1B07F"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body"> <img src="../images/GUID-E537BF08-BF16-4D8B-A14E-87267F6B3AA0-low.png"> <span class="anchor_wrapper"><a name="GUID-43B2D560-39F9-46A9-8F6F-250BC53C45D9"></a></span><p class="table-body">Reduce Density for Bigger Particles is off. </p> <span class="anchor_wrapper"><a name="GUID-22F19A44-9132-4C8A-9403-D7F27F756FB6"></a></span><p class="table-body">A typical particle animation with increasing size over time. At birth you can see
+                                 the background through the particle, with increasing size you can't see the background
+                                 any more. It looks as if the density increases. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <img src="../images/GUID-5969B633-504F-415B-8E93-B096106EF4BF-low.png"> <span class="anchor_wrapper"><a name="GUID-94A40CA0-88FB-4D95-AC08-418DC6D5D2B6"></a></span><p class="table-body">Reduce Density for Bigger Particles is on. </p> <span class="anchor_wrapper"><a name="GUID-49EEEE19-47FC-4962-92E4-787B349EAD0E"></a></span><p class="table-body">Type is Keep: </p> <span class="anchor_wrapper"><a name="GUID-FFBE7E53-3ABA-49BD-B6E6-D5A458177C96"></a></span><p class="table-body">The size of the particle increases, but you still see the background as much as you
+                                 could see it before. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body"> <img src="../images/GUID-51A8B866-3A63-4A39-B7DE-D5D9F626B6A1-low.png"> <span class="anchor_wrapper"><a name="GUID-D3860F2C-3F0E-4288-A9BB-B0AABA69CD23"></a></span><p class="table-body">Reduce Density for Bigger Particles is on. </p> <span class="anchor_wrapper"><a name="GUID-684268E6-BD34-46FF-984A-82B50BD8DB3E"></a></span><p class="table-body">Type is Fade-out: </p> <span class="anchor_wrapper"><a name="GUID-A08F6673-2852-4C2D-8053-5E6982A579CF"></a></span><p class="table-body">The bigger the particle, the less dense the particle gets. This mimics the real world:
+                                 the more the smoke disperses, the more it fades away. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00A4"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-4356C83F-A7DD-4F52-89EA-C9339F751074"></a></span>Size
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_EB29818311E5407A87D7A5437DD11362"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4431ED56-29BA-4BEC-967A-E6B8461D3C43"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-38FDCD2E-F153-468E-9EF2-71A4DF0A4889">Reduce Point Size by Distance to Neighbours</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E685A468-5C9D-4581-AB0B-86A026EBF505"></a></span><p class="table-body">Each particle checks for the five closest particles and reduces its size depending
+                                 on the distance to them. The closer the particle to its neighbors, the smaller it
+                                 gets. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-5E724B29-B0B4-431E-BE2C-4D907918E916"></a></span><p class="table-body">You must set your particle size to the maximum size you want to have. This option
+                                 does not increase the particle size, it only reduces it. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-0DA82932-D8EC-46CA-A9F4-02EAB674C125"></a></span><p class="table-body">Note that this option can have an effect on the render time because the search radius
+                                 for particles is defined by the biggest radius, but most of your particles will be
+                                 much smaller. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-04C0A6CA-0755-4CB7-A157-D5C2C97D2F3A"></a></span><p class="table-body">Tip: Use this in combination with the <span class="MenuCascade" id="GUID-818EA3B8-DA4B-485E-89C4-190F29BCB62E">Reduce Density for Bigger Particles</span> option to get a more evenly thick volume. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-66B60DFF-1346-4861-8C75-6D1A62C57090"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A7239A26-DC31-4C18-917C-7FF39555AFA9">Multiply Neighbor Distance By</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3EFA40AC-7AA5-49B6-A39D-E90B1EFF6C41"></a></span><p class="table-body">Multiplies the distance to the neighboring particles by this value. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00A5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-90ABB45E-E842-4734-A966-53DBD48327FC"></a></span>Strand
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7B995403-2344-4AD7-885A-E989CF0F4D28"></a></span>These parameters are for rendering particle strands (trails) that follow behind a
+                  particle. If you have not generated particle strands, you won't see any results using
+                  these options (the shader uses the particles' Strand attributes). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A9936415-5468-46F3-90B7-EC64F032D616"></a></span>For information on particle strands, see <span class="char_link"><a href="ipart_strands.htm">ICE Particle Strands</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00A7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5E1C2E07-2E34-4017-87AC-65B9701E1993"></a></span>Per Particle: Strand Rendering
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_A3252144B19A4028BDD36233D0439C8D"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1913EA72-A064-4BC6-8EBA-B2F5BD6595D2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1A465E99-1A0D-4B28-97BA-264F023FAA16">Scale Down</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B6F8F7F5-32E6-4138-A119-F9F701F67807"></a></span><p class="table-body">If you created particle strands, you can control the scale falloff for the head (the
+                                 end that is attached to the particle) and tail (the trailing end) of the strand. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-FE3EF3FC-BFE6-4DAC-9C31-BCA3512A2266"></a></span><p class="table-body">The length is measured relative to the maximum strand length. </p> <span class="anchor_wrapper"><a name="UL_22C3AE027F2A418BA60274D1BB39009D"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-CA36C580-C762-47D1-93FB-77172686BC04"></a></span>Scale at End 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-A5429437-D6A8-4F7C-9631-329B50FF649F"></a></span>Length Head 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-59D9507F-617B-4A1B-A69A-3B5115228D39"></a></span>Length Tail 
+                                    </p> 
+                                 </li>
+                              </ul> <span class="anchor_wrapper"><a name="GUID-4CBA78BD-238D-4242-A1C5-669C49691D4B"></a></span><p class="table-body">This means: A value of 0.5 creates a falloff from one end to the middle of the strand;
+                                 a value of 1 creates a falloff from one end of the strand to the other. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-BCE286E1-B89A-449D-8AC3-0BE060D6C44F"></a></span><p class="table-body">If Length Head and Length Tail are both 0.5, then it creates a falloff from the middle
+                                 to both ends. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7A65B113-A45B-499F-B8F1-F349DE46BDF5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D8469615-78B2-444A-9D7C-FE0B7AB15AAD">Density Reduction</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2C21B5D4-8959-46FE-9CCA-25D913F4E701"></a></span><p class="table-body">If you have created particle strands, you can control the density falloff for the
+                                 head (the end that is attached to the particle) and tail (the trailing end) of the
+                                 strand. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-6F18AC9D-9C5C-48CD-B9DF-A398DEA693F2"></a></span><p class="table-body">The length is measured relative to the maximum strand length. </p> <span class="anchor_wrapper"><a name="UL_26FBB650AC054BDAAA57C3DB6965A540"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-6358FDD4-67E9-4F66-AA78-331261165E63"></a></span>Density at End 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-3C33BB3B-FA31-4F4E-8217-24E4F54E22BA"></a></span>Length Head 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-9D22285B-F5FB-40CC-A64B-2F423599E7FE"></a></span>Length Tail 
+                                    </p> 
+                                 </li>
+                              </ul> <span class="anchor_wrapper"><a name="GUID-AD61AC62-8A1A-4CAF-BA81-B65B508A9931"></a></span><p class="table-body">This means: A value of 0.5 creates a falloff from one end to the middle of the strand;
+                                 a value of 1 creates a falloff from one end of the strand to the other. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-1CB814FA-A3C1-4F87-8987-3D8CC3165125"></a></span><p class="table-body">If Length Head and Length Tail are both 0.5, then it creates a falloff from the middle
+                                 to both ends. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS847B00E07AC16C48B8444DC51F49DB91-00A8"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-397BCB8E-D2FB-44A3-ADAB-B2C952F81102"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3B1BA1C3-25D0-4B47-9986-43C7CEB814FF"></a></span>Plug the Particle Density shader's Density output into the Density port of the Particle
+                  Volume Cloud shader to define the particle shape. You can also define the color in
+                  this shader and then plug its Color output into one or more of the Particle Volume
+                  Cloud's Color ports, such as Diffuse Color. 
+               </p> <span class="anchor_wrapper"><a name="FIG_DF9EA949E26C4FF9A54AE8D74251262A"></a></span><div class="figure-anchor"><img src="../images/GUID-0B7BC876-BDFB-42F1-9507-EBC36F926969-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_75D315216F394CADA0221667DCD0DAA5"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9799DD81-5AB2-4A58-8580-545D3F759816"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3856F2D9-E160-43AF-98E4-517B52454966">1</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-76A9F675-2EFA-4296-81D3-B08C12B40166"></a></span><p class="table-body">Plug the Volume output from the Particle Volume Cloud shader into the Volume port
+                              of the Material node. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C16F651A-24D7-4DB0-8AA5-55FEC8C9B993"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-416682EA-EED7-40C6-ACC2-850992A7F6B8">2</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-88A9A3F7-E7AD-4224-A7AD-0F7C8DE27BC0"></a></span><p class="table-body">Plug the Particle Density shader into the Density port. This shader defines each particle
+                              within the volume so that the point cloud doesn't look like a single volumetric mass.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D75F4CA7-1828-4803-9F46-27A5E9E40AEF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-06A229C6-4E49-4536-A4AD-5D6A4DBEF465">3</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B673E552-1FFB-41F0-A9CD-62CB1F4B06A6"></a></span><p class="table-body">You can then plug the Fractal Scalar or Cell Scalar shader into the Particle Density
+                              shader to add noise to the density. For more realistic or complicated smoke effects,
+                              you may want to use two Fractal Scalar shaders, or a combination or Fractal and Cell
+                              Scalar shaders. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0FFAAD8D-176C-4F6D-B6DE-7CFEE056B1B3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-023CA035-B380-4813-9299-F7C9B68B0E7D">4</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C395642F-C9CD-4166-97DE-B3963A2F8639"></a></span><p class="table-body">You can plug the Particle Gradient shader into the Particle Density shader to use
+                              a gradient on the global color and/or global density. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-9518FF0E-8602-46C7-AFE1-99A98F006368"></a></span><p class="table-body">If you use this shader to define the color, you must plug the Particle Density's Color
+                              output into one or more of the Particle Volume Cloud's Color ports, such as Diffuse
+                              Color. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

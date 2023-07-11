@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-CDCF5C34-5B92-4E94-89D5-5EA400F1009B">
+      <meta name="indexterm" content="indirect illumination: global illumination">
+      <meta name="indexterm" content="global illumination: about">
+      <meta name="indexterm" content="lights: non-directional">
+      <meta name="indexterm" content="caustics: about">
+      <meta name="indexterm" content="indirect illumination: caustics">
+      <meta name="indexterm" content="photons: anatomy of">
+      <meta name="topic-type" content="concept">
+      <title>Photon Lighting Overview</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-CDCF5C34-5B92-4E94-89D5-5EA400F1009B"></a></span><div class="head">
+            <h1>Photon Lighting Overview</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0005"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FAC8E23A-918E-484A-B8E1-401FDB92B194"></a></span>Global Illumination
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-FFE68208-E62C-4555-A6BC-4580A0129896"></a></span>In real-life, light travels in a straight line until it hits an object. From there
+                  it either bounces (if the object is reflective), is transmitted (if the object is
+                  transparent or translucent), is absorbed (if the object is opaque), or does a little
+                  of each.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4ECAA13D-6EE3-4E96-9A95-1690757CEAF7"></a></span>In the case of a bounce, the light ray once again travels in a straight line until
+                  it hits another object, and the cycle repeats — with each bounce, the ray gets weaker
+                  until it is invisible. When a light ray is absorbed, some of the color of the object
+                  is bounced back away from the object. For example, a bright red ball in the middle
+                  of a white room causes a subtle red bleed on the white floor.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D9658107-DFAA-4D73-9E58-FCC9BD72E4A5"></a></span>In Softimage, real-life lighting is simulated with global illumination. Global illumination
+                  includes both direct and indirect lighting caused by diffuse reflections. Photon (or
+                  light) rays emanate from the light source in all directions and bombard the scene.
+                  When these photons hit an object, some stick and others are reflected and refracted.
+                  These reflected and refracted rays go on to illuminate other surfaces.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6E35A990-E257-47D6-82A6-E5A03FA07DB8"></a></span>The underside of a table, for example, is not completely dark, even if it is not illuminated
+                  directly by a light or reflections from a shiny surface. With global illumination,
+                  no ambient light is shed, which is a non-directional light that pervades a scene.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-E5736278-C193-4016-82C8-D4AB2DC9D5D7-low.png"></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0007"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-23DB1962-8B9A-441F-824A-BA7E928F6089"></a></span>Caustic Effects
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-7FA099C7-6BE4-40F2-9A68-E20DCCE1413A"></a></span>Caustics are light patterns created when light illuminates a diffuse surface by reflection
+                  or refraction: for example, a bright patch under a magnifying glass, reflections on
+                  a wall from a mirrored disco ball, or shimmering highlights under rippling water.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-05186E9E-A10B-428F-BA4C-C72A9BD1DC58"></a></span>Caustics are a subset of full global-illumination simulation where photons are only
+                  emitted toward any caustic-generating objects in the scene. These photons are then
+                  reflected or transmitted by these objects until they hit diffuse surfaces in the scene.
+                  When a photon hits a caustic-receiving object, it is stored in a caustic Photon Map.
+                  Photons are stored only on diffuse surfaces, so the caustic-receiving objects must
+                  have a diffuse component in the reflection model.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D6EE5298-C3C4-4FAD-931D-89C6C8633351"></a></span>Materials of caustic-emitting objects specify if and how photons hitting this object
+                  should continue. In addition, the materials of caustic-receiving objects decide how
+                  to "pick up" photons absorbed by the object during processing.
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-B28F5372-63C1-4E10-96AB-D7A27ABD01B9"></a></span><div class="note-tip"><span class="label">TIP:</span>For best results, your object's material has to be mainly specular (little or no diffuse
+                     reflection) and the sum of reflection and transparency has to be close to or larger
+                     than 1.
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0008"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D50A0B4B-CF17-4884-9AA7-FAED140EBEC0"></a></span>Anatomy of a Photon
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-522F619A-3787-4688-9682-D73089B573BA"></a></span>If a photon hits an object that transmits the effect, photon information is stored
+                  and the photon continues to trace indirect lighting information.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-554CE42E-08C1-4743-8D44-F281C42F7444"></a></span>Objects that transmit photons are either diffuse (that is, not black), have a high
+                  specularity, are transparent, refract light, or any logical combination of these.
+                  A photon stops bouncing (is absorbed) when it hits an object that neither receives
+                  nor transmits the effect.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1D0FD107-72E8-420C-A679-CAFFCFF68143"></a></span>Using an object's Visibility property editor, you can control which objects receive
+                  or transmit the effects. And from the Render Options property editor, you can control
+                  the number of bounces that a photon makes. See <span class="char_link"><a href="GIcaustics_SettingPhotonCastingReceivingandVisibility.htm">Setting Photon Casting, Receiving and Visibility</a></span> for more information.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-45AD4E10-60C7-47E7-A83E-57BA1550622C"></a></span>This information is stored in a Photon Map, which is a three-dimensional representation
+                  of where photons are stored in the scene. You can save a Photon Map so that when you're
+                  happy with the way your scene looks, you can avoid having to recalculate it every
+                  time you render a scene.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-6834586C-038E-4084-93E6-78029BCBB57E-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-F366A5A3-0B13-4999-897A-F7AB8186E092"></a></span>The path of photons that occurs when using global illumination.
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-000A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C43AD3A9-4FAB-4C98-AE19-6BE783A624EA"></a></span>What Photons Do
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B5AF9559-C537-4E3A-9D16-F864552212B2"></a></span>The more photons you throw into a scene, the more refined the effect will be. Unlike
+                     most other settings, where ranges often go from 0 to 1 or 1 to 100, when working with
+                     photons you'll be specifying high numbers: 1000, 10 000, 100 000, 500 000, or more.
+                     The more photons there are in the scene, the longer it takes to render.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-21596CDD-FEF4-49F0-89C2-2892B5D9CE4E"></a></span>To do all their bouncing around, photons need energy. In addition to a good breakfast,
+                     you need to specify a numerical strength for them so that they can bounce from object
+                     to object, as well as have an effect on distant objects. Photons leave energy behind,
+                     which creates the photon effect, every time they "stick" to a surface.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AC6630C0-0798-4C23-94F6-2627F126CC09"></a></span> <span class="MenuCascade" id="GUID-8B211C39-0C66-4905-99BC-7B9385FD0D6C">Energy Intensity</span> controls the brightness of the effect. Each photon uses an equal amount of the energy
+                     specified. For example, 1000 photons use 1/1000th of the photon energy. Generally,
+                     the farther objects are from the light source, the more energy each photon needs.
+                     Again, you'll be working with large numbers: 100, 1000, 10 000, 100 000, 1 000 000,
+                     and more.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5AC0E18E-5142-43EA-B43F-F7C83C65C181"></a></span>Energy values don't affect rendering time. To set a photon's energy, see <span class="char_link"><a href="GIcaustics_PreparingGlobalIlluminationandCausticsforRendering.htm">Preparing Global Illumination and Caustics for Rendering</a></span>.
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

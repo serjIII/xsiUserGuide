@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-464BEA73-AC42-4CC7-8292-7E1DA57E743E">
+      <meta name="indexterm" content="rigid body: workflow overview">
+      <meta name="topic-type" content="concept">
+      <title>Overview of Creating a Rigid Body Simulation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-464BEA73-AC42-4CC7-8292-7E1DA57E743E"></a></span><div class="head">
+            <h1>Overview of Creating a Rigid Body Simulation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-8CDBAFC8-5E4F-4F3F-B68F-40A8EE05CA46"></a></span>To create rigid body dynamics, you make objects in the scene into rigid bodies. Then
+               you add forces to create movement. The dynamics operator calculates the moment of
+               inertia about a rigid body's centre of mass resulting from forces acting on the rigid
+               body, then does collision detection on the geometry of all rigid bodies involved in
+               the collision. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0F06BA58-D035-47B7-8D4D-5ABC8CB94A6E"></a></span>All elements that take part in a rigid body simulation must exist within the same
+               environment. This includes the rigid bodies themselves, forces, and rigid body constraints
+               (see next page). Currently, elements in this environment can be in the same scene
+               as other simulations, such as soft bodies, cloth, ICE particles, and hair, but they
+               do not interact with each other. For example, a rigid body can act as an obstacle
+               for ICE particles, but the rigid body's movement would not be affected by the ICE
+               particles. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-EC1B4A8D-2368-4B4D-9216-CAEB29EE05F3"></a></span><div class="note-note"><span class="label">NOTE:</span>Before you start to create a rigid body simulation, consider the scale of Softimage
+                  units and objects in your scene. This can make a big difference in how the rigid bodies
+                  are simulated! See <span class="char_link"><a href="rigidbody_GettingSetUpforRigidBodyDynamics.htm">Getting Set Up for Rigid Body Simulations</a></span> for more information on appropriate scales. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0005"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DBFF4D45-FE43-4F3D-8291-456788F795AE"></a></span>Example: A Simple Bouncing Cube
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C2FB3BB4-F756-4530-A806-1C896B8CA27A"></a></span>The workflow for creating a rigid body simulation depends on what you want to achieve.
+                  However, to get started, here's a basic procedure outlining the steps involved and
+                  the different choices you can make: making a cube fall and bounce on a floor. 
+               </p> <span class="anchor_wrapper"><a name="FIG_32B1A0102EC34DA7B3F8B2793E7806B8"></a></span><div class="figure-anchor"><img src="../images/GUID-F88BD5E8-7928-4B1A-B52C-91C08FA6F070-low.png"></div> <span class="anchor_wrapper"><a name="GUID-A685F373-9B00-4750-A76D-EF5037486C1E"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5EAB49D7-36FB-4E53-A80C-45D6880642F2"></a></span>Create a cube and make it an active rigid body by choosing <span class="MenuCascade" id="GUID-97B2B81E-4DF1-4D49-A723-76772A76223E">Create <img src="../images/ac.menuaro.gif"> Rigid Body <img src="../images/ac.menuaro.gif"> Active Rigid Body</span> from the Simulate toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-560D83A0-7ABB-452A-8234-327A1021E918"></a></span>When you create a rigid body, a simulation environment is automatically created in
+                        which the rigid body dynamics are calculated. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E32EB210-CB40-4522-90CC-11A788C9E7D8"></a></span>Create a floor (a flattened cube, not a grid) below the cube and make it a passive
+                        rigid body by choosing <span class="MenuCascade" id="GUID-D2B47CC3-CD29-45AA-9A1E-70DF7C6914D0">Create <img src="../images/ac.menuaro.gif"> Rigid Body <img src="../images/ac.menuaro.gif"> Passive Rigid Body</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1D216209-FD3F-4C2B-8C85-D3C2EDCEA675"></a></span>Create any force in the scene, such as gravity. The force is automatically added to
+                        the simulation environment. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-653BD2FA-DC7E-49BB-B940-C35C126D4069"></a></span>If a rigid body is animated, you don't need a force to make it move: just make sure
+                        to use its animation as its initial state for the simulation. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CF4B0353-C4D4-4B56-827E-7A960D30F158"></a></span>Have two or more rigid bodies collide — make sure that their geometries intersect
+                        at any point in the simulation other than at the first frame. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-086E14B4-9AA1-45E1-AD64-0A58659B215C"></a></span>Here, the floor is set as an obstacle simply by making it a passive rigid body. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-18321479-CAC8-487D-B0D1-CEE492B0FC9E"></a></span>Set up the playback for the environment in the Simulation Time Controls. This includes
+                        the duration of the simulation, the playback mode, and caching the simulation. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1B327AC2-840A-4290-A801-8F4A267FC5DF"></a></span>Play the simulation to see the cube bounce as it hits the floor. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

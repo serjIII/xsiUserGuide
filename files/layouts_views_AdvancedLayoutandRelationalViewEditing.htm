@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6AF8D0B1-1F8D-4ABF-8822-BE59E1D5D8D7">
+      <meta name="indexterm" content="layouts: XML syntax">
+      <meta name="indexterm" content="relational views: XML syntax">
+      <meta name="indexterm" content="XML: layout and view syntax">
+      <meta name="topic-type" content="concept">
+      <title>Layout and View XML Syntax</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6AF8D0B1-1F8D-4ABF-8822-BE59E1D5D8D7"></a></span><div class="head">
+            <h1>Layout and View XML Syntax</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-018BDEC2-4152-4C81-A101-6E8B42307720"></a></span>Layouts and views are defined by an XML-based format: 
+            </p><span class="anchor_wrapper"><a name="UL_961E9AF94B244B90A08E5B53BCFC59A9"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-82C1525F-375B-4B48-92EE-A20CF1CF8D4D"></a></span> <span class="MenuCascade" id="GUID-A5D54773-91CA-4766-82B3-D20D62691FFB">.xsily</span> is used for layouts. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D8686863-CA07-48FC-899E-6623DB65AC68"></a></span> <span class="MenuCascade" id="GUID-5EE0B345-06BD-4721-97CC-7CF658DA2304">.xsivw</span> is used for views, including relational views, which can be floating or embedded
+                     in a layout or another view. It is also used to define the properties factory views,
+                     but that version of the syntax is not covered here. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-5F7D90AD-9682-44F3-85C4-461EB7615B53"></a></span>You can edit the layout and view files in a text editor or XML editor to set options
+               that you cannot control through the layout or view editor in the Softimage interface.
+               Some features you can set in this way are: 
+            </p><span class="anchor_wrapper"><a name="UL_AE73D492CEFC488792D79008236E3716"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A7D57EA9-5C7E-4BB1-ABD4-1BDCA6451D69"></a></span>Creating auto-hide panels, as in the Autohide layout. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D89E9D4A-BE05-49E8-8F46-E3D3C4443A7F"></a></span>Synchronizing and aligning the current frame among timeline, fcurve editor, dopesheet,
+                     and animation mixer panes. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FA318BCB-88C9-4C3A-A40F-A2B92C8A1E43"></a></span>Creating relationships between panes in layouts. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-892D67CA-5CFD-4D1C-9865-A66636E9C3E0"></a></span>Making layout panels optional. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-2067E75F-4ABA-4B02-9ACE-C6B5179D621C"></a></span>For additional examples, take a look at the <span class="MenuCascade" id="GUID-1B8C7AEE-BC91-4265-9D4E-5CFFCA129805">.xsily</span> files installed in the factory location to see how they were put together. There
+               are also some sample <span class="MenuCascade" id="GUID-77B184AC-E2FE-44EC-BCB5-420E171EE7F1">.xsivw</span> files in the SDK Examples workgroup (see <span class="char_link"><a href="custom_basics_CreatingandUsingWorkgroups.htm#WSE9C602CD3033954D92C2399D1A5D34D5-0015">SDK Example Workgroup</a></span>). 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-87799F8C-0D61-4F32-A036-2C2B0E96A2E9"></a></span><div class="note-note"><span class="label">NOTE:</span>You may find additional keywords in the factory views and layouts that are not described
+                  here. These may work in specific situations but have not been tested more generally
+                  and are unsupported. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0056"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F2B0B555-73A3-4CBC-8D92-F624A6AE8451"></a></span>Format Overview
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2837C4B1-BE40-4E4F-9B6F-6FE156085E23"></a></span>Here is an overview of the .xsily/.xsivw format. Note that this is not an actual example
+                  — some elements and attributes are valid only for layouts and others are valid only
+                  for views. Each element (tag) and its attributes are described in more detail later.
+                  Note that all attribute values are strings and are enclosed in double quotes. 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
+&lt;xsi_file type="Layout" xsi_version="7.0" syntax_version="1.1"&gt;
+	&lt;relationalview clsid="{1ECE3500-ED3A-4A74-8999-0D301347AB5E}" name="Fluffy's Workspace" height="1141" width="3198" nbscreen="2"&gt;
+		&lt;definition maxinstances="10000" acceptfocus="true" private="false" defaultsize="100,100,500,500" cmdmap="{00000000-0000-0000-0000-000000000000}" supportedtypes="6" category="Fluffy"&gt; &lt;/definition&gt;
+		&lt;bitmaps&gt;
+			&lt;bitmap name="fluffy" path="fluffy.bmp" highlightpath="fluffy_highlight.bmp"&gt; &lt;/bitmap&gt;
+			&lt;!-- Etc., etc., etc. --&gt;
+		&lt;/bitmaps&gt;
+		&lt;relations&gt;
+			&lt;relation driver="explorer1" driven="objview1" event="selectionproc" cmd="my_selproc"&gt; &lt;/relation&gt;
+			&lt;!-- Etc., etc., etc. --&gt;
+		&lt;/relations&gt;
+		&lt;viewdefaultpos&gt;
+			&lt;view type="Animation Editor" position="113,532,1137,859"&gt; &lt;/view&gt;
+			&lt;!-- Etc., etc., etc. --&gt;
+		&lt;/viewdefaultpos&gt;
+		&lt;frameset orientation="horizontal" name="Frameset1" splitter="movable" sizechild="160,*"&gt;
+			&lt;frame name="explorer1" type="Explorer" primary="true" toolbar="own"&gt; &lt;/frame&gt;
+			&lt;frameset orientation="vertical" name="Frameset2" splitter="movable" sizechild="*,100"&gt;
+				&lt;switcher type="tray" buttonside="bottom" active="0" orientation="horizontal" name="Tray4" buttonsize="80,30" splitter="none" sizechild="*,*,*"&gt;
+					&lt;frameset orientation="vertical" name="Frameset3" bitmap="fluffy" splitter="movable" sizechild="*,50"&gt;
+						&lt;frame name="objview1" type="Object View" primary="false" toolbar="own"&gt;
+							&lt;properties&gt;
+								&lt;displaymode&gt;shaded&lt;/displaymode&gt;
+								&lt;!-- Etc., etc., etc. --&gt;
+							&lt;/properties&gt;
+						&lt;/frame&gt;
+						&lt;!-- Etc., etc., etc. --&gt;
+					&lt;/frameset&gt;
+					&lt;frame name="rtree1" bitmap="rtree" type="Render Tree" primary="false" toolbar="own"&gt; &lt;/frame&gt;
+					&lt;!-- Etc., etc., etc. --&gt;
+				&lt;/switcher&gt;
+				&lt;!-- Etc., etc., etc. --&gt;
+			&lt;/frameset&gt;
+		&lt;/frameset&gt;
+		&lt;autohide&gt;
+			&lt;section side="left" activation="10,0,50%;10,50%,100%"&gt;
+				&lt;view viewsize="105,0,100%"&gt;
+					&lt;frameset orientation="vertical" name="ah_frameset1" splitter="none" sizechild="30,*"&gt;
+						&lt;!-- Etc., etc., etc. --&gt;
+					&lt;/frameset&gt;
+				&lt;/view&gt;
+				&lt;!-- Etc., etc., etc. --&gt;
+			&lt;/section&gt;
+			&lt;!-- Etc., etc., etc. --&gt;
+		&lt;/autohide&gt;
+		&lt;script language="JScript"&gt;
+			&lt;![CDATA[
+			function RV_Init( in_rv)
+			{
+				AddProp("My_Custom_Property", "Scene_Root", "", "", null);
+			}
+	
+			function RV_Term( in_rv)
+			{
+			DeleteObj("Scene_Root.My_Custom_Property");
+			}
+	
+			function my_selproc( in_list, in_driverName, in_drivenName, in_rv )
+			{
+				// This example simply shows how to populate the driven pane.
+				// It is equivalent to event="selection".
+				in_rv.Views(in_drivenName).SetAttributeValue("targetcontent", in_list.GetAsText());
+			}
+			]]&gt;
+		&lt;/script&gt;
+		&lt;floatingwindows&gt;
+			&lt;view name="Explorer1" type="Explorer" position="128,81,500,563"&gt;
+				&lt;properties&gt;
+					&lt;scope&gt;Passes&lt;/scope&gt;
+					&lt;!-- Etc., etc., etc. --&gt;
+				&lt;/properties&gt;
+			&lt;/view&gt;
+			&lt;!-- Etc., etc., etc. --&gt;
+		&lt;/floatingwindows&gt;
+	&lt;/relationalview&gt;
+&lt;/xsi_file&gt;</pre></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0057"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EB144585-BBFF-4329-93B4-848A28D060E2"></a></span>&lt;?xml&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-79061A95-0243-4B83-B93C-98E826FACF81"></a></span>The XML declaration is required by the XML parser. It must always be the first line
+                  and should never be modified. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5CA5B4C7-BDFF-4B7A-A1CA-015C85A481B6"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-FE02DC95-B289-4742-9B7D-C08D36C88147"></a></span>Applies to: layouts and views (required) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-549CC41E-0752-4872-9BF8-5F26FF9A2717"></a></span>Parent: none 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4636912D-F9A1-4860-A5AD-9FA85097F59F"></a></span>Children: none 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0058"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DD7EE1F5-E3F0-430A-9A1C-E6AFC27E6FAA"></a></span>&lt;xsi_file&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7964E428-1B8E-4C1E-B1FA-C89C47B1A82E"></a></span>The &lt;xsi_file&gt; element is the root element for layouts and views. There can be only
+                  one per file. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F49B4A1F-03B1-4335-A6F4-52F55DB2CEA5"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;xsi_file type="Layout" xsi_version="5.0" syntax_version="1.1"&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-E111F221-0230-4B31-A3B4-5555616A2523"></a></span>Applies to: layouts and views (required) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2E7CA097-DD54-4E5E-B232-135AA98731CF"></a></span>Parent: none 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B875C790-0E33-4358-8357-F5E5437754BA"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-005C">&lt;relationalview&gt;</a></span> (required, one only) 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0059"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-09805B95-35F5-4A4B-9EBD-01B613410065"></a></span>type
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6BECE632-A1CA-48DD-B418-BE44E0A1B88F"></a></span>Identifies the type of file. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_27CC7212B1854DE6800B8F3BD84426E0"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="23.076923076923077%" align="left">
+                           <col width="76.92307692307692%" align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-D31E8031-54A3-4609-ADD3-82309AF913F3"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-BA8D1EF7-76A4-4DEC-9AF3-728BF777E222">Value</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-2AD30AB1-A09C-4B51-B73E-12B83A3AF9A3"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-A191538C-E2E3-4485-BCD1-F112862E0DC3">Meaning</span> 
+                              </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4E1B6849-C498-4B7F-ACEC-9685A0BD1DDD"></a></span><p class="table-body">Layout </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4B64CC50-ECE2-4663-BFB4-B4A9AFCC747E"></a></span><p class="table-body">The file defines the configuration of the views and panels in the main Softimage window.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-60702CC7-8BFC-43AB-B897-85E353BC8451"></a></span><p class="table-body">RelationalView </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C9EF14C8-83D4-428A-9367-A3F649C913D4"></a></span><p class="table-body">The file defines a view that can contain relations between panes. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-005A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F8387199-EF11-4FD1-A393-848D22AB0461"></a></span>xsi_version
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CBE7F5F8-DE86-4BA3-A38E-E98A82528D93"></a></span>The version of Softimage in which the view or layout was created or modified. This
+                     value may be used in the future to provide backwards compatibility. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-005B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CD0AA9A4-8525-45DB-AE09-4D32458F72F0"></a></span>syntax_version
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9D7A96C4-670F-460D-82D4-B7741BEA8849"></a></span>The version of the xsi_file XML syntax used. This value may be used in the future
+                     to provide backwards compatibility. The current version is "1.1". 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-005C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DFDDC4F3-B397-4692-8EAF-59CFD6D6F7B9"></a></span>&lt;relationalview&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4F0BF2AB-6172-4C88-A4B5-76B45567593D"></a></span>Defines the basic characteristics of a layout or view, and contains all its components.
+                  There should be exactly one. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B41A3F07-7C04-4267-AAC0-8292A5067B2D"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;relationalview clsid="{1ECE3500-ED3A-4A74-8999-0D301347AB5E}" name="Fluffy's Workspace" height="1141" width="3198" nbscreen="2"&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-977033EF-87F3-4C86-977D-F2B733ED13DC"></a></span>Applies to: layouts and views (required, one only) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-69371642-1593-46FE-A9A9-22F007B1CFC9"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0058">&lt;xsi_file&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0F1AF0F3-E787-4E2B-9C61-70A12E7E3C8A"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0062">&lt;definition&gt;</a></span> (required, views only, one only), <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-006A">&lt;bitmaps&gt;</a></span> (optional, one only), <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-006F">&lt;relations&gt;</a></span> (optional, views only, one only), <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0075">&lt;viewdefaultpos&gt;</a></span> (optional, layouts only, one only), <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0079">&lt;frameset&gt;</a></span> (required, one only as a direct child of &lt;relationalview&gt;), <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-009A">&lt;autohide&gt;</a></span> (optional, layouts only, one only), <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-00A0">&lt;script&gt;</a></span> (optional, views only, one only), <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-00A4">&lt;floatingwindows&gt;</a></span> (optional, layouts only, one only) 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-005D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A943944D-2956-4635-9837-10E0B78A76A1"></a></span>clsid
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-05E73B72-10D3-4963-8B58-9557DEBD849A"></a></span>An identifier for the view or layout. The value must be unique across all existing
+                     layouts and views. If necessary, use a GUID generator. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-005E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1A40832D-C1E6-49BA-B48D-D1E7EFA4980E"></a></span>name
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-63E7E936-1591-4A57-9009-BE033783738C"></a></span>The name of the view or layout as it appears in menus and other parts of the Softimage
+                     interface. The name can also be used in scripts and plug-ins, for example, with the
+                     OpenView command. The name must be unique across all existing layouts and views. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-005F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-AC68C2D6-63B5-4763-9ABD-B1E75E44F443"></a></span>height
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-31CA9D0C-EB7C-4FE3-84DD-D222B137DFD5"></a></span>The default height for views in pixels. A layout can also store default size and position
+                     values for views (see <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0075">&lt;viewdefaultpos&gt;</a></span> below), which overrides the value set here for that layout. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-25ECC9FB-0F7F-4DF4-ABA0-0EAEAF8D195A"></a></span>This attribute is ignored in layout definitions. Layouts use the entire screen space
+                     when maximized. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0060"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-482631EA-DBC2-498D-8C8D-F4730BBB4B55"></a></span>width
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AFF06C7C-9837-44E3-96CF-D71F54937A54"></a></span>The default width for views in pixels. A layout can store default size and position
+                     values for views (see <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0075">&lt;viewdefaultpos&gt;</a></span> below), which overrides the value set here for that layout. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F3A5187C-885D-4AF9-9AC0-56D20945C490"></a></span>This attribute is ignored in layout definitions. Layouts use the entire screen space
+                     when maximized. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0061"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C9F961ED-996F-4445-AA93-CC28011DBF59"></a></span>nbscreen
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8FBC2D4F-4D85-430E-8046-9D0BFFD0BA6C"></a></span>Whether a layout spans multiple screens: 
+                  </p> <span class="anchor_wrapper"><a name="UL_14ADB78850274DD299E161993E0722A8"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D5853AA6-1E2F-4B49-9400-9D6AD470035C"></a></span>If this value is "1", the layout uses only one screen on Windows systems. This may
+                           not be supported by all graphics cards. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CC6A80F8-FE55-43B5-8605-8F56F9E83153"></a></span>If this value is anything else, the layout uses all available screen space when maximized.
+                           
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B9E3D9BC-8D95-4B5E-8068-498CB7EE4AB2"></a></span>This attribute is ignored for views. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0062"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0B831675-6AE7-47F7-BEB1-E06980E674F7"></a></span>&lt;definition&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0368082C-7F99-4579-AC5F-8B79C865C063"></a></span>Defines some basic properties of views. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-834404CA-024D-4490-8B88-F9909B0F7BE5"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;definition maxinstances="10000" acceptfocus="true" private="false" defaultsize="100,100,500,500" cmdmap="{00000000-0000-0000-0000-000000000000}" supportedtypes="6" category="Fluffy"&gt; &lt;/definition&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-F4410F2C-94CE-46AB-AC1A-5A77799A6F5B"></a></span>Applies to: views only (required) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-296E2727-904C-4A30-A8F9-20F150CA8593"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-005C">&lt;relationalview&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-86358574-59B9-4B14-B4CB-30E72247927C"></a></span>Children: none 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0063"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E8B76CCC-9CF8-4130-9F1F-1EFED0ECB414"></a></span>maxinstances
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C19AC648-D1AB-49B0-AAB4-F2D309CFB68A"></a></span>The maximum number of views of that type that can be opened at once. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FB6C9FEC-4FE7-4131-970F-1A9A821D5DFF"></a></span>If this attribute is set to 1, the view is considered to be a single-instance view.
+                     If such a view is contained in a layout but hidden by a switcher displaying a different
+                     pane, then displaying the view by a key press or other mechanism will activate the
+                     corresponding pane in the switcher. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0064"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8A8CC099-F3A3-4B5B-94B4-8C2AEB96CB4C"></a></span>acceptfocus
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-93D728DF-191B-4012-A8FC-0742A03C81A0"></a></span>Used internally by the factory views. Not used for custom views and layouts. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0065"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2DC28F9D-0D30-4B8C-98C3-BC6DC988C93A"></a></span>private
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5D1AC074-128E-4D78-A8C1-CB867B6C5390"></a></span>Controls whether the view appears in menus. This allows you to define views that can
+                     be opened programmatically or instanced inside other view and layout definitions but
+                     that don't clutter the menus. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_85A8E3C6862540D5B886CA4038EA97FA"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="16.666666666666668%" align="left">
+                           <col width="83.33333333333334%" align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-25B71A9A-5009-441C-8AFE-21025BACF396"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-6E7637DE-9F10-4D76-865F-E2EE0DE028AD">Value</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-A447E17D-E3F7-4788-9B46-5D448F0AD09E"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-A73C51BF-5399-4CB7-AEB1-0E009C215571">Meaning</span> 
+                              </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-421FDA6E-30FC-48E2-9058-A6F998FA0044"></a></span><p class="table-body">true </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7B2D6460-E7B3-4485-8E10-AD555A35B192"></a></span><p class="table-body">The view does not appear in menus. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-066BDB19-2BB5-4242-BE03-4252766BE85D"></a></span><p class="table-body">false </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F0F54E16-9680-46D8-8FFE-CE76F8CEEAAF"></a></span><p class="table-body">The view appears in menus. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0066"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-08A2A91C-2B10-47E5-BD85-082BED973EA0"></a></span>defaultsize
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9D8ABBF9-CBDD-4239-B9E7-C64446398F66"></a></span>Defines the default position of the view window. This attribute should be set to a
+                     string of four integers separated by commas (no spaces). The first two integers are
+                     the offsets in pixels of the view window from the left and top of the main Softimage
+                     window. The other two values are unused — the height and width defined in &lt;relationalview&gt;
+                     are used instead. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-75A18FC0-C903-48F6-91C2-4C6875A401F0"></a></span>Layouts can store default size and position values for views (see <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0075">&lt;viewdefaultpos&gt;</a></span> below), which overrides the value set here for that layout. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0067"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2008E108-BE6D-4E8A-9D4A-A55E8E9103A9"></a></span>cmdmap
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2FCACA26-7572-4468-B8F1-5C91343BF453"></a></span>Used internally by the factory views. Not used for custom views and layouts. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0068"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-97E99A84-69E2-41D7-A720-B4335771EBAD"></a></span>supportedtypes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F54DAD33-34CD-46F6-AB42-5020CBEB804E"></a></span>Used internally by the factory views. Not used for custom views and layouts. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0069"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8F1222E0-BEFE-4546-998E-534CC5882FFC"></a></span>category
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A48A7437-21F0-49F6-A6DF-F2BBE02F08E9"></a></span>The submenu of the <span class="MenuCascade" id="GUID-B4E4DBA6-D260-4D2F-93F5-3FD1BCF3B2E7">View</span> menu on which the view appears. You can set this to a new string to place your view
+                     on your own custom submenu. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-214F514B-D958-4345-990E-91853743588A"></a></span>If this attribute does not exist or if it is set to the empty string, the view appears
+                     on the <span class="MenuCascade" id="GUID-196D46E9-84A1-4C6E-9D60-F138B6294025">View <img src="../images/ac.menuaro.gif"> Others</span> submenu. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-006A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EDB280BA-36CB-47E5-9D31-BA4BBF4C54C4"></a></span>&lt;bitmaps&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-676B0A3D-2385-4718-B4D2-F08AD9B45D20"></a></span>Contains a list of bitmaps that can be used as buttons in switchers. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0BBA0D7B-9D02-4F24-ABF9-241A38DBDF24"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;bitmaps&gt;
+	&lt;bitmap name="fluffy" path="fluffy.bmp" highlightpath="fluffy_highlight.bmp"&gt; &lt;/bitmap&gt;
+	&lt;!-- Etc., etc., etc. --&gt;
+&lt;/bitmaps&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-CFDFD1FC-BFD5-40D4-90B4-037C0D8F808B"></a></span>Applies to: layouts and views (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4F40E949-595F-43CD-8766-6F2551D2B4FC"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-005C">&lt;relationalview&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CD3DEAB6-6876-4615-8491-111C6085307E"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-006B">&lt;bitmap&gt;</a></span> (optional, one or more) 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-006B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BDF71F54-190E-4D32-B3BB-4CA1B01EEA42"></a></span>&lt;bitmap&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B2368025-E03D-4361-97CC-92398D893C0E"></a></span>Defines a bitmap that can be used as a button in a switcher. Button images can be
+                  in any supported image format. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4EF2EC0E-8964-4E83-AF53-FFD00EDB8F7B"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;bitmap name="fluffy" path="fluffy.bmp" highlightpath="fluffy_highlight.bmp"&gt; &lt;/bitmap&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-60E22D27-99BD-49C9-AB7C-21446DAEDA82"></a></span>Applies to: layouts and views (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-284AAAA4-6DD3-4BBD-96A1-6E819DB6A156"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-006A">&lt;bitmaps&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4ECE0DD3-75EF-4674-9DBD-FE15AA2872A7"></a></span>Children: none 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-006C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DD94D89C-D6BE-40F5-988D-73679AE2D490"></a></span>name
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F5182076-9FFE-4E29-B48E-0805207F537B"></a></span>The name of the bitmap, as used when specifying bitmaps for buttons in switchers.
+                     
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-006D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3298ECC4-6B81-41FA-B179-65F1AE39C8E1"></a></span>path
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-137B1861-D945-48E4-8CA8-A0AA6BA57141"></a></span>The path to the image file to use for a button's inactive state. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-006E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3083D24D-47BF-4D38-AEE7-93DB5ECA102A"></a></span>highlightpath
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BE99090B-F0EF-44BE-8F0F-E86976D9A15D"></a></span>The path to the image file to use for a button's active state. This attribute is optional.
+                     If it is not defined, the path attribute is used for both states but a white outline
+                     is drawn around the button when it is active. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-006F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C545EFC1-46D8-48EA-9DF9-51D481CF9E92"></a></span>&lt;relations&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-78759279-2F90-4E8A-8C92-8183292CAE2E"></a></span>Contains a list of driver/driven relations between panes in a view. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5A930C87-0016-45E4-BA79-07F91FBD36B8"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;relations&gt;
+	&lt;relation driver="explorer1" driven="objview1" event="selectionproc" cmd="my_selproc"&gt; &lt;/relation&gt;
+	&lt;!-- Etc., etc., etc. --&gt;
+&lt;/relations&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-30593A51-1662-4200-BE6C-2DABFE43C7DF"></a></span>Applies to: views only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2B55992E-4101-42CF-AA40-4A3578F492F8"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-005C">&lt;relationalview&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FE8B0D56-C8EB-4451-BB5E-3AB528CF39C0"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0070">&lt;relation&gt;</a></span> (optional, one or more) 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0070"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A145F180-0A20-47B1-ABCD-16AF876383FE"></a></span>&lt;relation&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-38FA53E2-8C32-45C6-AF6A-BAA07745A6AC"></a></span>Defines a driver/driven relation between panes in a view. Selecting elements in the
+                  driving pane causes the driven pane to update. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B3DE775E-8584-41AE-9ECE-20B337F0100A"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;relation driver="explorer1" driven="objview1" event="selectionproc" cmd="my_selproc"&gt; &lt;/relation&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-E3086B34-939D-46E2-8973-FB70CB76B3DB"></a></span>Applies to: views only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E9FC0609-70AE-43CE-81F3-C0F4B6E825F4"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-006F">&lt;relations&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-21A13870-DF01-410D-8659-D64317C32A96"></a></span>Children: none 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0071"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-30F8AA05-EDE3-4A8A-8A58-1A088CF67E27"></a></span>driver
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2C68173E-2CA3-4EC6-B5B7-A769760C91FA"></a></span>The name of the pane that is driving the relation. This is the name that is defined
+                     in the corresponding &lt;frame&gt; element. Selections made in this pane affect the driven
+                     pane. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0072"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EB5FD8A6-320A-4284-9A63-17F3AB23EC7C"></a></span>driven
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-15F52A60-A116-4341-854C-4B49DBA7431B"></a></span>The name of the pane that is driven by the relation. Again, this is the name that
+                     is defined in the corresponding &lt;frame&gt; element. The contents of this pane are affected
+                     by selections made in the driving pane, but not by selections made elsewhere. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0073"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DAD491DD-523A-4497-BC08-696D158EBAB6"></a></span>event
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F179DDF6-516C-4BAB-9633-826BD6929C0D"></a></span>The relation type. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_21D12AD9C246437EB720D5E4592EBFA7"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="28.571428571428577%" align="left">
+                           <col width="71.42857142857143%" align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-081A27C5-F51E-409C-9DE3-3C8E47353236"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-97C65D4C-2947-4FED-8E64-A841E0CDF852">Value</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-E652880E-AC5C-4696-A769-48CEC66988A3"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-DF29E151-2789-491B-A334-265FE6F3BD07">Meaning</span> 
+                              </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-784BDF24-E03E-4B9F-B652-15B26D602447"></a></span><p class="table-body">selection </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F05FCB13-FAD9-4B41-A4AF-803A090F3501"></a></span><p class="table-body">If one or more elements are selected in the driver pane, they are sent directly to
+                                 the driven pane as target. The driven pane displays the selected elements only. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-A7E17047-D3CC-43FF-8A4E-CCD6A5FF8455"></a></span><p class="table-body">For example, if the driven pane is an explorer, it displays the selected elements
+                                 in the Selection scope; if it is an Object view, it isolates the selection; if it
+                                 is a render tree, it shows the selection's material, etc. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-535E371D-A7AC-451D-8622-D87D6A614DD7"></a></span><p class="table-body">selectionfilter </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F74A15EE-8D1B-4798-8E6F-BF600D99D4FE"></a></span><p class="table-body">This is similar to selection, but the collection of selected elements is filtered
+                                 before being sent to the driven pane. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-E6FB1DCE-5718-407D-87D7-553CD24B58E4"></a></span><p class="table-body">For example, if you use "PolygonMesh" as the filter, the driven pane receives only
+                                 polygon meshes no matter what mixture of object types is selected in the driver pane.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A2FA301E-A4A8-4F31-B7F8-D6B018753C31"></a></span><p class="table-body">selectionfunc </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-177BCF0C-E95A-4600-A2C7-F6F7E6144E3F"></a></span><p class="table-body">This allows you to write your own function to control the elements received by the
+                                 driven pane. Your function receives the collection of elements selected in the driver
+                                 pane, and is responsible for returning a collection of elements to send to the driven
+                                 pane. The function can also use the object model to modify the view, such as to set
+                                 the active tab in a shelf. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-66B0A18D-15CB-474C-B37B-DA5835AD7078"></a></span><p class="table-body">selectionproc </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0229ECCB-0F71-4F9C-B889-369433440A30"></a></span><p class="table-body">This is similar to selectionfunc except that your routine does not return a collection.
+                                 Instead, it must use the object model to control the target content of the driven
+                                 pane. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0074"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1148D9BD-0970-4055-B549-C99FC8398891"></a></span>cmd
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C27D0E29-B4C2-4CF8-B870-42F680DBFB55"></a></span>The filter or subroutine that implements the relation: 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D52FC775-C39C-44CB-9E35-24C72387982B"></a></span>If event is "selection", this attribute is ignored. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0317FABD-F73D-4CD0-A69D-7B6C0464DC04"></a></span>If event is "selectionfilter", this value should be the name of the filter to use.
+                     You can use any filter that appears on the Filters menu of the Select panel or explorer.
+                     Make sure you specify the scripting name of the filter, rather than the display name
+                     (which may contain spaces, etc.). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-565A45A7-F990-47C2-B16C-FB3B8A7B510A"></a></span>If event is "selectionfunc" or "selectionproc", this value should be the name of the
+                     subroutine to run. The subroutine should be defined in the <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-00A0">&lt;script&gt;</a></span> block. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0075"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EE73139F-47C0-4C15-A083-4C821378643A"></a></span>&lt;viewdefaultpos&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-78423590-B5A4-4B34-848C-376D80568A5B"></a></span>Contains a list of the default sizes and positions for floating windows in a layout.
+                  If a view appears in this list, the values set here override the defaults set in the
+                  view's own .xsivw file. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C6FCD66D-A6A4-4E0E-8622-73822219140B"></a></span>This section is saved when you move a floating window, close it, and then save the
+                  layout (<span class="MenuCascade" id="GUID-79650B62-6EA1-43FE-8BC3-B95111A6D2A4">View <img src="../images/ac.menuaro.gif"> Layouts <img src="../images/ac.menuaro.gif"> Save Layouts</span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CCED6384-4615-4277-95D1-43B9855CB9D7"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;viewdefaultpos&gt;
+	&lt;view type="Animation Editor" position="113,532,1137,859"&gt; &lt;/view&gt;
+	&lt;!-- Etc., etc., etc. --&gt;
+&lt;/viewdefaultpos&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-890E71A9-4DD8-473C-9FAE-70D0E02672B8"></a></span>Applies to: layouts only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2F302DA3-6391-4268-BA14-6CAB3CDD068E"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-005C">&lt;relationalview&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CEA16660-4A9E-4420-A589-A20B32E845A5"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0076">&lt;view&gt; (child of &lt;viewdefaultpos&gt;)</a></span> (optional, one or more) 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0076"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9E5ED28D-CC78-490A-8F34-5974BB49879D"></a></span>&lt;view&gt; (child of &lt;viewdefaultpos&gt;)
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-062EA060-B372-4673-9AF7-809B1576D7EE"></a></span>Defines the size and position of a floating view in a layout. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B9AECA5F-AB3A-4842-9259-7FE5137E0E54"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;view type="Animation Editor" position="113,532,1137,859"&gt; &lt;/view&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-0A504264-E81B-4DAE-A193-5A68F099FB09"></a></span>Applies to: layouts only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A6DB3B34-16E5-4639-952B-067715A108D0"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0075">&lt;viewdefaultpos&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8E814E66-6666-4A21-8A2C-016BB1570C47"></a></span>Children: none 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0077"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5503512E-7A83-43D8-B2B7-BDDBD0B570AB"></a></span>type
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4CC8C7F9-1CFA-445B-8E49-AD83CEB006DC"></a></span>The name of a factory or custom view as defined by its .xsivw file. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0078"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-72207A06-91D6-4982-A4A2-A32C50FD73CD"></a></span>position
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A6D6E4ED-2755-4A21-9373-D58937BDC2C7"></a></span>A string containing four comma-separated integers with no spaces. These represent
+                     positions of the left, top, right, and bottom edges of the window in pixels, where
+                     (0, 0) is the top left corner of the layout. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0079"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-29693FBD-0346-428E-80F3-D0CA1782A609"></a></span>&lt;frameset&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-123745BD-390D-41DF-B3D9-B4C01882287B"></a></span>Defines how a pane is divided into subpanes that can contain different views. Framesets
+                  can be nested arbitrarily deep to divide a window in complex ways. A frameset can
+                  have one or more children, each one being a frame, a switcher, or another frameset.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-77895EC0-B6BE-4ECE-A094-557A2881CF98"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;frameset orientation="horizontal" name="Frameset1" splitter="movable" sizechild="160,*"&gt;
+	&lt;frame name="explorer1" type="Explorer" primary="true" toolbar="own"&gt; &lt;/frame&gt;
+	&lt;frameset orientation="vertical" name="Frameset2" splitter="movable" sizechild="*,100"&gt;
+		&lt;switcher type="tray" buttonside="bottom" active="0" orientation="horizontal" name="Tray4"buttonsize="80,30" splitter="none" sizechild="*,*,*"&gt;
+			&lt;frameset orientation="vertical" name="Frameset3" bitmap="fluffy" splitter="movable" sizechild="*,50"&gt;
+				&lt;frame name="objview1" type="Object View" primary="false" toolbar="own"&gt;
+					&lt;properties&gt;
+						&lt;displaymode&gt;shaded&lt;/displaymode&gt;
+						&lt;!-- Etc., etc., etc. --&gt;
+					&lt;/properties&gt;
+				&lt;/frame&gt;
+				&lt;!-- Etc., etc., etc. --&gt;
+			&lt;/frameset&gt;
+			&lt;frame name="rtree1" bitmap="rtree" type="Render Tree" primary="false" toolbar="own"&gt; &lt;/frame&gt;
+			&lt;!-- Etc., etc., etc. --&gt;
+		&lt;/switcher&gt;
+		&lt;!-- Etc., etc., etc. --&gt;
+	&lt;/frameset&gt;
+&lt;/frameset&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-8841C64B-7767-43E8-9E1E-F8EC45EACC83"></a></span>Applies to: layouts and views (at least one required) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3FB5831F-0644-4623-95F1-BAAB60D6DFD8"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-005C">&lt;relationalview&gt;</a></span>, &lt;frameset&gt;, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-008D">&lt;switcher&gt;</a></span>, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-009E">&lt;view&gt; (child of &lt;section&gt;)</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CA45FC63-F6DE-4629-BAA2-167EBF38F3D1"></a></span>Children: &lt;frameset&gt;, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-008D">&lt;switcher&gt;</a></span>, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0082">&lt;frame&gt;</a></span> (at least one or more in any combination) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-402B79E6-676E-42B3-AE1A-49040B4D3BF0"></a></span>Note that &lt;frameset&gt; shares the same attributes as <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-008D">&lt;switcher&gt;</a></span>, although those attributes that are specific to switcher functionality are ignored
+                  in framesets. Occasionally, switcher-only attributes appear in a &lt;frameset&gt; tag when
+                  editing views and layouts in the Softimage interface; these attributes can be safely
+                  ignored or removed. Only the attributes described in this section apply to &lt;frameset&gt;.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-007A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B05B5709-A604-4680-8D58-88F3DCF9B0D4"></a></span>orientation
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-61E79179-D7D4-445F-A4E1-0D73B3145087"></a></span>Controls how subpanes are arranged. To have both horizontal and vertical splits in
+                     a window, nest one frameset inside another. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_8CBE751949EC4D46B17D7C3120E175E2"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="28.571428571428577%" align="left">
+                           <col width="71.42857142857143%" align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-29BA7C36-36F7-4C96-BB88-B5A02E6E8317"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-591BBA88-D911-42B1-A690-DC226A6A6B5C">Value</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-BD9156E9-BB39-4A21-9FD9-FEA5EF28A9E0"></a></span><p class="table-heading">Meaning </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CF85ECA6-68BE-43B5-A0D6-63569D7CBEFE"></a></span><p class="table-body">horizontal </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F239E913-D8D9-47E3-87D7-1E155F0E4E76"></a></span><p class="table-body">The child panes are arranged in a row from left to right. The splitters are vertical.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-64EC5467-1C12-452A-8C36-A01666B42B8E"></a></span><p class="table-body">vertical </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-88409875-C3C5-406A-8143-EA927350B112"></a></span><p class="table-body">The child panes are arranged in a column from top to bottom. The splitters are horizontal.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-007B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-18BC4F33-E457-4967-AA7A-DA5BB98EC334"></a></span>name
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-93F92796-290F-4BCB-8DE6-C91BA46C7A6A"></a></span>A string to identify the frameset. This attribute is optional. If it exists, it must
+                     be unique within the view or layout. It is not case-sensitive. When the frameset is
+                     the child of a switcher, this string is displayed on the button if a displayname or
+                     bitmap is not specified. This string is also used on the <span class="MenuCascade" id="GUID-D3E5543B-DA24-44DF-AFC3-D3998190B15D">View <img src="../images/ac.menuaro.gif"> Optional Panels</span> menu if the optional attribute exists and displayname does not exist. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-007C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9F1FA5FD-E2F0-4BD4-9358-2B93E9848D06"></a></span>optional
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ABB0A9A6-A0CE-46B3-A191-BB6F2200963B"></a></span>This attribute applies only to panes in a layout. If it appears in the tag, the pane
+                     is added to the <span class="MenuCascade" id="GUID-27618373-BE19-4A04-8138-AA02A7ACC436">View <img src="../images/ac.menuaro.gif"> Optional Panels</span> menu. When an optional pane is hidden, its size is considered to be 0 for the purpose
+                     of calculating the sizes of the other children in the parent pane. The menu uses the
+                     displayname if it exists, otherwise it falls back on the name. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_6F3C8E3566BD414B8D44F7825BC2D646"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="28.571428571428577%" align="left">
+                           <col width="71.42857142857143%" align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-2E8ECE93-BF38-4A31-BC5F-B2FFC78F5FD3"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-2CB25437-8CCD-49EC-A9A8-2C77163DFC43">Value</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-D7719594-9CF5-43D2-8F5D-A57A73230D7F"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-6F34EDF4-0410-43CD-AE7B-0E7684924E13">Meaning</span> 
+                              </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5AD88E35-34E1-4C3C-AD98-3DB59CC28876"></a></span><p class="table-body">visible </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-143A91D5-1FD7-44C9-A342-C0E8BDA7C555"></a></span><p class="table-body">The pane is displayed when the layout is first opened. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F1C4CABA-F271-43D6-AED1-3D0C137E4C32"></a></span><p class="table-body">hidden </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6248C5BC-D3DA-4B62-995D-A29D329498FC"></a></span><p class="table-body">The pane is hidden when the layout is first opened. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-007D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-85B152F8-AE99-4835-89BC-C7208D6B5A41"></a></span>displayname
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0B7D901A-EE1E-4373-B96B-39F2B9C4BA35"></a></span>A string that appears on switcher buttons if there is no bitmap attribute. It allows
+                     you to display mixed-case characters on buttons. If this attribute is omitted and
+                     there is no bitmap attribute, the name attribute is displayed on buttons. This value
+                     also appears on the <span class="MenuCascade" id="GUID-41BF6538-4C0D-478A-A1B0-FBFE40B452C9">View <img src="../images/ac.menuaro.gif"> Optional Panels</span> menu if the optional attribute exists. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-007E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CB53B93C-CD1A-44AC-B854-39C11A73E10C"></a></span>description
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EB0C26D6-BF9A-41E7-BCF5-E5986B51217E"></a></span>A string that appears on the tooltip when users hover the mouse over a button in a
+                     switcher. If this attribute is not defined, the tooltip falls back on displayname
+                     and then on name. This attribute has an effect only when the pane is the child of
+                     a switcher. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-007F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A58B788D-48F0-4B87-AF3C-A35ED2A18335"></a></span>bitmap
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FA5659C8-4623-484D-8469-3E2E25DCC81D"></a></span>The name of a bitmap as defined in the <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-006A">&lt;bitmaps&gt;</a></span> section. This is used on switcher buttons. This attribute has no effect if the pane
+                     is not the child of a switcher. If this attribute is omitted, then the displayname
+                     or name attribute is used on switcher buttons instead. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0080"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8BFBF216-54D2-4C54-8CE3-EEEF1BC7E42A"></a></span>splitter
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9BA5E841-48A2-4C8F-8B97-6B377283D781"></a></span>Controls the display and behavior of the splitter bar that divides panes. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_C8389F02FBC64E0DAFA5145D44AEEA4B"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="28.571428571428577%" align="left">
+                           <col width="71.42857142857143%" align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-96101E23-0F28-4869-912C-BF95B90CCD97"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-A6381845-B0E4-4476-AD15-07934B0D768E">Value</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-818FB2F3-9256-43DA-BA37-112F42BF0A21"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-30A3ACE8-6827-4B84-9707-9A49D20E2EF5">Meaning</span> 
+                              </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EA34842F-8923-4823-BAEE-D322D0A1DF07"></a></span><p class="table-body">none </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BD0269B9-9615-492E-A45E-1F59FCE54CF0"></a></span><p class="table-body">No visible splitter bar appears between the child panes. The panes cannot be resized.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-702D63CA-E353-4A39-81C3-119F47F2331D"></a></span><p class="table-body">fixed </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4EF842B5-6A35-45D6-A3D2-150C987E1502"></a></span><p class="table-body">A visible splitter bar appears between the child panes and the panes cannot be resized.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7A7F64F5-36ED-4414-9D3B-FB03D6BBA6A0"></a></span><p class="table-body">movable </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-26F2D29A-A607-4EE0-98DB-988F009B0B52"></a></span><p class="table-body">A visible splitter bar appears between the child panes and users can click and drag
+                                 it to resize the panes. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0081"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2DCB692B-2F48-4ABF-BBD3-36C7449856E9"></a></span>sizechild
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-57140C3D-99B8-4DDE-A7B1-FCBAF28BC3CD"></a></span>The sizes of the subpanes in order. This is a comma-separated string (no spaces).
+                     The sizes are interpreted horizontally or vertically, depending on the orientation.
+                     The number of items in the string is the number of subpanes and should be the same
+                     as the number of child elements. Each item in the string can be: 
+                  </p> <span class="anchor_wrapper"><a name="UL_16578DBE81BC4F04A191D50DCF714EA9"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C07C5BD0-AAF1-40C4-9B34-DFE76FD15719"></a></span>An integer. This represents an absolute size in pixels. This is useful for portions
+                           of the window that you don't want to be resized, like toolbars. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BAFFCAAD-8151-4E72-9541-D6BA1B2BDDEB"></a></span>A percentage. The pane retains its relative proportion when users change the window
+                           size. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E5CCA6B3-8AF3-46E0-984E-D95A57186D7A"></a></span>An asterisk "*". The pane uses all free space remaining. This is useful to ensure
+                           that the sizes of all panes in a frameset add up correctly no matter how the window
+                           is resized. Typically, there should always be one subpane with a size of "*". 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-81B962ED-F18E-4DB7-BF6C-25172A1D1944"></a></span>Remember that users may change the sizes once a view is displayed, depending on whether
+                     the splitter bars are movable. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F471AE52-5111-4E32-8EF7-F1456D6AE03B"></a></span>Some additional notes about setting sizes: 
+                  </p> <span class="anchor_wrapper"><a name="UL_C239F8DB534A4300999721E9AEBB3917"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-48A7EC38-955E-445F-AADA-48BAB59C8D45"></a></span>If you use all absolute sizes, there may be unused space or hidden areas if the sizes
+                           do not add up to the size of the parent frameset. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-97C42A8D-AC97-49F5-979B-3ABA13FAD4C0"></a></span>If you have two or more panes set to free (*) in the same frameset, the leftmost or
+                           topmost one takes all the available space. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0B46DC21-37C0-40C9-8DA3-EBE07FC74922"></a></span>If you mix absolute with relative and/or free size, the relative values are based
+                           on what's left of the parent frameset's size after the absolute sizes are considered.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B883AD09-E97D-4E95-8F74-7299D47A31F0"></a></span>If relative sizes do not add up to 100% and there is no pane with a free size, then
+                           the relative values are normalized. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0082"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C7B56D22-84FE-4EA1-9ACD-471F93B92535"></a></span>&lt;frame&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0571F061-7A0E-415E-BDD8-EBD922EB57C3"></a></span>Specifies the view to be displayed in a pane, for example, an explorer, animation
+                  editor, or custom view. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-EBA9CEB7-BA86-4F33-A719-012841B2E65B"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;frame name="objview1" type="Object View" primary="false" toolbar="own"&gt;
+	&lt;properties&gt;
+		&lt;displaymode&gt;shaded&lt;/displaymode&gt;
+		&lt;!-- Etc., etc., etc. --&gt;
+	&lt;/properties&gt;
+&lt;/frame&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-CB413142-4F69-41FC-8A44-07B6A6754126"></a></span>Applies to: layouts and views 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AA24FD43-7280-4487-A079-90840BF292D1"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0079">&lt;frameset&gt;</a></span>, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-008D">&lt;switcher&gt;</a></span>, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-009E">&lt;view&gt; (child of &lt;section&gt;)</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6AE0A93F-5E56-48D3-9D77-249A1AB578BC"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-008C">&lt;properties&gt;</a></span> (optional) 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0083"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-844451E5-F244-4065-BD3B-437B50F28022"></a></span>name
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7F42358E-0BB6-467A-9D6F-9B16B95950B0"></a></span>An identifier that represents the instance of the view contained in the frame. It
+                     must be unique within a layout or view. It is not case-sensitive. This is the name
+                     that is used in relations, and also the name that is used in the SDK to get a pointer
+                     to that view in order to get or set view attributes. The name is also used on switcher
+                     buttons if there is no displayname or bitmap attribute. This string is also used on
+                     the <span class="MenuCascade" id="GUID-9556C258-3905-4228-8719-237A6940A1A0">View <img src="../images/ac.menuaro.gif"> Optional Panels</span> menu if the optional attribute exists and displayname does not exist. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0084"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A4636F20-FB4D-4D02-8509-AA9738A1FC1E"></a></span>optional
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-84934B2C-0399-43BC-97AC-0403C781284D"></a></span>This attribute applies only to panes in a layout. If it appears in the tag, the pane
+                     is added to the <span class="MenuCascade" id="GUID-81BCC665-4FAA-4161-802D-A38D55695D2B">View <img src="../images/ac.menuaro.gif"> Optional Panels</span> menu. When an optional pane is hidden, its size is considered to be 0 for the purpose
+                     of calculating the sizes of the other children in the parent pane. The menu uses the
+                     displayname if it exists, otherwise it falls back on the name. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_0E42FC6A707041D683E8CC38C0E3C6B9"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="28.571428571428577%" align="left">
+                           <col width="71.42857142857143%" align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-84845FA6-1930-42AF-9754-92B2E528D2B9"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-19EC8370-840E-4624-A9B2-18AB3E4F9CDC">Value</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-F8711C6F-C577-4297-81AE-C890796609DA"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-3F78E66D-7D3E-46C2-9784-6FB040A1C1A6">Meaning</span> 
+                              </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-29DF4B07-D59C-4A30-94FC-1BB852547B9F"></a></span><p class="table-body">visible </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-229B2959-32B0-4356-A03E-A06D32E7C6E3"></a></span><p class="table-body">The pane is displayed when the layout is first opened. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-215EC7E9-EE40-4F46-83A2-C11D50CF42EF"></a></span><p class="table-body">hidden </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-46A78CB2-2FB3-42D8-99F5-749EAC96D71B"></a></span><p class="table-body">The pane is hidden when the layout is first opened. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0085"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BCC512DE-8CF2-4ED4-B08D-D55D9472AB1D"></a></span>displayname
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FC6CDCDA-61BC-460B-A67F-7FF12BAFBE3C"></a></span>A string that appears on switcher buttons if there is no bitmap attribute. It allows
+                     you to display mixed-case characters on buttons. If this attribute is omitted and
+                     there is no bitmap attribute, the name attribute is displayed on buttons. This value
+                     also appears on the <span class="MenuCascade" id="GUID-B3439B63-9236-4933-98E9-4D5BF53230FD">View <img src="../images/ac.menuaro.gif"> Optional Panels</span> menu if the optional attribute exists. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0086"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-020059D3-9E8D-4D54-AA9F-126D8E116D55"></a></span>description
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E32C330C-9B15-46D2-BDAE-A6A9A8B5FBEC"></a></span>A string that appears on the tooltip when users hover the mouse over a button in a
+                     switcher. If this attribute is not defined, the tooltip falls back on displayname
+                     and then on name. This attribute has an effect only when the pane is the child of
+                     a switcher. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0087"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EB8B1F78-F311-42F7-8F82-FE93BCBE7282"></a></span>bitmap
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5A995BEC-48CF-4562-9895-4901D4C12687"></a></span>The name of a bitmap as defined in the <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-006A">&lt;bitmaps&gt;</a></span> section. This is used on switcher buttons. This attribute has no effect if the pane
+                     is not the child of a switcher. If this attribute is omitted, then the displayname
+                     or name attribute is used on switcher buttons instead. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0088"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B8BD1E6C-A0D2-4DF1-891D-E73AB0D4F6E7"></a></span>type
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8DC66DF1-53C6-4195-A988-0EAC55B80139"></a></span>The pane contents. This must be the name of a factory or custom view as defined in
+                     its own .xsivw file. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0089"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CCC34968-03E5-4DDB-A36C-E6C860A987E3"></a></span>primary
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-76300F8E-CB69-4AEA-9EBE-54351CA6E372"></a></span>This attribute is obsolete. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-008A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9075D34F-A3DB-4425-9F95-BC164B0B5949"></a></span>toolbar
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8904C52F-D484-4B9F-9A83-C855B9FD12B9"></a></span>Controls how the the toolbar appears. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_769D5450FD7C43C4AAF8971A909A2415"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="28.571428571428577%" align="left">
+                           <col width="71.42857142857143%" align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-67A9705B-1F59-42C5-A7D3-DA253ED3FD47"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-8BC4C5C1-69B9-4ED3-8A22-161F836EE433">Value</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-6892B205-1F1B-4D71-9954-5B52F1B653E9"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-A1D9EC7F-48B7-4BA0-B49B-B739E916E960">Meaning</span> 
+                              </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4C039E1B-39A7-4D76-AC0B-3FC85B36656A"></a></span><p class="table-body">none </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-77899473-5996-46FA-8C9D-92C1F82A8F05"></a></span><p class="table-body">Hides the view's toolbar. This is not supported by all view types. For example if
+                                 you don't want users to change settings, you can hide the toolbar of an Object view
+                                 and either set the display type in its &lt;properties&gt; tag or control it using the SDK.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6A67488C-7261-4AFD-806B-8BFA3EFDEFD4"></a></span><p class="table-body">own </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-74C4D9C9-1F51-4207-9EC5-D2A57A272CC4"></a></span><p class="table-body">Displays the view's toolbar normally. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E8A2E576-5E61-4EB1-AE3D-94BDD1E30EEB"></a></span><p class="table-body">shared </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8F46B1CB-9250-42C3-BB2A-68B6FD715311"></a></span><p class="table-body">Displays the view's toolbar in a special area across the top of the relational view.
+                                 This is supported only for explorer views. Setting it for other views may produce
+                                 undesirable artifacts. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-E0B921F3-9803-48A7-B903-6E42E2F1F962"></a></span><p class="table-body">Not working in current versions. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-008B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0520FCE6-9E8B-47E1-ACFE-D8DCDDA7A8F6"></a></span>timeline
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-50457262-9EC0-4797-A983-738290C4B312"></a></span>The name of a <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0082">&lt;frame&gt;</a></span> that exists in the same file and has type="Timeline". This synchronizes and aligns
+                     the view in this pane with that timeline. This works with the Animation Mixer, Dopesheet
+                     and Fcurve editor. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-008C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A9E1F0DB-F436-4C47-AC06-55A7AC6593A1"></a></span>&lt;properties&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-03378A3E-3220-48FA-8AD1-D3D3793E19DD"></a></span>Contains a list of view attributes and their values. Each view attribute that you
+                  want to set should be a child tag of this element, and its value should be that tag's
+                  content as in the following: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;properties&gt;
+	&lt;attributename&gt;value&lt;/attributename&gt;
+	&lt;!-- Etc., etc., etc. --&gt;
+&lt;/properties&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D89777D8-F5A6-4A73-862B-B2B0BC820A9F"></a></span>The specific view attributes that are available depend on the view's type. The contents
+                  of each element should be a valid value for the corresponding view attribute. For
+                  a list of attributes and values for the various views, see View Attributes [SDK Guide].
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B6960CDB-DF46-4627-A7F6-324C5F4A8BB3"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;frame name="pane5" type="Object View" primary="false" toolbar="own"&gt;
+	&lt;properties&gt;
+		&lt;displaymode&gt;shaded&lt;/displaymode&gt;
+		&lt;localview&gt;true&lt;/localview&gt;
+	&lt;/properties&gt;
+&lt;/frame&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-6A3CF274-4320-4FDC-84B7-B02A75DE747F"></a></span>Applies to: layouts and views (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1F149239-CEF9-490B-997E-DAA586676604"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0082">&lt;frame&gt;</a></span>, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-00A5">&lt;view&gt; (child of &lt;floatingwindows&gt;)</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-999FE93E-FFB9-46EE-B612-2FF5B97581DE"></a></span>Children: any supported attribute of the view type 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-008D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-01DDC6E8-3026-4297-BFAA-127D9B5DEAF1"></a></span>&lt;switcher&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6FCF444B-B121-479C-9B4C-B96AC1F09D3F"></a></span>Creates a pane that can switch between different child panes using buttons. Each child
+                  can be a frame, a frameset, or another switcher. Switchers can be nested arbitrarily
+                  deep. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0B21E79B-E6FC-469A-A813-82F201250D96"></a></span>The buttons in a switcher display bitmap if it exists, and fall back on displayname
+                  and then name otherwise. If users hover the mouse pointer over a button, the tooltip
+                  uses description if it exists, and falls back on displayname and then name otherwise.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9AD9F94C-BA41-41F5-8CA5-282ABDB62FFD"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;switcher type="tray" buttonside="bottom" active="0" orientation="horizontal" name="Tray4" buttonsize="80,30" splitter="none" sizechild="*,*,*"&gt;
+	&lt;frameset orientation="vertical" name="Frameset3" bitmap="fluffy" splitter="movable" sizechild="*,50"&gt;
+		&lt;!-- Etc., etc., etc. --&gt;
+	&lt;/frameset&gt;
+	&lt;frame name="rtree1" bitmap="rtree" type="Render Tree" primary="false" toolbar="own"&gt; &lt;/frame&gt;
+	&lt;!-- Etc., etc., etc. --&gt;
+&lt;/switcher&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-1E201658-9CAF-4D49-896F-380564B4D8F3"></a></span>Applies to: layouts and views 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-420DE822-16AA-4F64-A917-746F4519C9DD"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0079">&lt;frameset&gt;</a></span>, &lt;switcher&gt;, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-009E">&lt;view&gt; (child of &lt;section&gt;)</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5D80B9BD-8680-48A3-A8DE-C40A0F28AC16"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0079">&lt;frameset&gt;</a></span>, &lt;switcher&gt;, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0082">&lt;frame&gt;</a></span> 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-008E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F15217E5-A948-4B69-933D-AC220152B0D0"></a></span>type
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1FF8F641-EB49-40AF-BEB7-3F73C5622D88"></a></span>The only value supported by custom views and layouts is "tray". Tray switchers display
+                     only one child pane at a time. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-008F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-278434E5-636B-48CC-A3DE-334BBA478E68"></a></span>buttonside
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-108C1DB2-0E98-4ECB-A95A-8B6236A6CF51"></a></span>Controls where the switcher buttons appear. Possible values are "top", "left", "bottom",
+                     or "right". 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0090"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-ACA169C4-A143-47A8-952F-51543922F922"></a></span>active
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3CFBB607-2F50-4FC7-BEA2-F4779099B652"></a></span>A string specifying the number (zero-based index) of the child that is active when
+                     the view or layout is first opened. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0091"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D43D4CA2-4278-4A46-9E0D-46FC3EA3D158"></a></span>orientation
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-15FE93D0-F99B-4546-9522-D444450B0B22"></a></span>Not applicable to tray switchers. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0092"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C207D50B-B4BE-4102-BDE6-B56D52B81499"></a></span>name
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-67CD1191-1B44-4900-95F7-95EA068B8894"></a></span>A string to identify the switcher. This attribute is optional. If it exists, it must
+                     be unique within the view or layout. It is not case-sensitive. When the frameset is
+                     the child of a switcher, this string is displayed on the button if a displayname or
+                     bitmap is not specified. This string is also used on the <span class="MenuCascade" id="GUID-23B8BF5D-1684-47C9-AA76-213AEAEF5E29">View <img src="../images/ac.menuaro.gif"> Optional Panels</span> menu if the optional attribute exists and displayname does not exist. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0093"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-65E63282-3F8C-427D-AB14-379AD2756807"></a></span>optional
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-32CD4D83-C6B9-4D60-9422-C220A720AB9B"></a></span>This attribute applies only to panes in a layout. If it appears in the tag, the pane
+                     is added to the <span class="MenuCascade" id="GUID-8DBBE185-D406-45E9-902A-97F28121E853">View <img src="../images/ac.menuaro.gif"> Optional Panels</span> menu. When an optional pane is hidden, its size is considered to be 0 for the purpose
+                     of calculating the sizes of the other children in the parent pane. The menu uses the
+                     displayname if it exists, otherwise it falls back on the name. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_61717A641A754FA08DE6039F1E187ABE"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="28.571428571428577%" align="left">
+                           <col width="71.42857142857143%" align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-4E0B9AA6-12CB-4AF4-B473-385E580A4F97"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-4358EA75-5251-42D4-90AB-ACF0C96501F4">Value</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-6572A56E-CE3A-45E0-8394-B59D45B2FA8A"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-D30AACB5-C40B-4DCA-ACD1-EB8F58A13F8A">Meaning</span> 
+                              </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-764E379F-5939-4B3B-AA51-0E3D8FC243A8"></a></span><p class="table-body">visible </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E019E21F-018C-4AAF-9475-EA8E6BA5E596"></a></span><p class="table-body">The pane is displayed when the layout is first opened. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AB674707-2590-47B2-8742-5CEEF327F6DB"></a></span><p class="table-body">hidden </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-852F8969-EC13-4E1F-8D0B-1E9F03DEE989"></a></span><p class="table-body">The pane is hidden when the layout is first opened. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0094"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-587AA076-DE87-4593-856E-6B43FDFAD1F5"></a></span>displayname
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D925AEBB-03CA-45DE-A498-9E399F1304EF"></a></span>A string that appears on switcher buttons if there is no bitmap attribute. It allows
+                     you to display mixed-case characters on buttons. If this attribute is omitted and
+                     there is no bitmap attribute, the name attribute is displayed on buttons. This value
+                     also appears on the <span class="MenuCascade" id="GUID-9531402A-1BE5-4E91-9349-01E62FE808E4">View <img src="../images/ac.menuaro.gif"> Optional Panels</span> menu if the optional attribute exists. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0095"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-43A1025F-4207-45C2-810D-0C8184E61153"></a></span>description
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-46BBB3C8-8DA5-4373-B2FE-BA64F83AA450"></a></span>A string that appears on the tooltip when users hover the mouse over a button in a
+                     switcher. If this attribute is not defined, the tooltip falls back on displayname
+                     and then on name. This attribute has an effect only when the pane is the child of
+                     a switcher. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0096"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-33FD68E7-1242-491F-9218-7567D7C4F513"></a></span>bitmap
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-59995CB1-F731-48CF-8AAB-2825AE38A552"></a></span>The name of a bitmap as defined in the <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-006A">&lt;bitmaps&gt;</a></span> section. This is used on switcher buttons. This attribute has no effect if the pane
+                     is not the child of a switcher. If this attribute is omitted, then the displayname
+                     or name attribute is used on switcher buttons instead. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0097"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3ADF5DF4-F4F1-4B01-8F61-877A1462A770"></a></span>buttonsize
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BFCAE9A6-04CB-4AC0-B6B0-36CCDDF44EDF"></a></span>A comma-separated string (no spaces) specifying the width and height of the switcher
+                     buttons in pixels. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0098"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-38E3A4E9-58E9-49B3-94B3-96D2E91D9A75"></a></span>splitter
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8D1EC357-218A-4382-ACB0-919DAA8B6CBA"></a></span>Ignored by tray switchers. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-0099"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0C5D577F-7323-4BE0-85AC-BA81BD003067"></a></span>sizechild
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-889AB3BF-D9F9-477C-828D-036B58F518FD"></a></span>For tray switchers, this should be a comma-separated string of asterisks (no spaces)
+                     with as many asterisks as there are children of the switcher. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-009A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B3641412-E4B5-40E4-82C4-42F05529180D"></a></span>&lt;autohide&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B92345F0-67E4-458F-9F21-959B5F79F23C"></a></span>Contains a list of autohiding panes in a layout. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AF0C170A-4659-4397-8742-1FD7A235C582"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;autohide&gt;
+	&lt;section side="left" activation="10,0,50%;10,50%,100%"&gt;
+		&lt;view viewsize="105,0,100%"&gt;
+			&lt;frameset orientation="vertical" name="ah_frameset1" splitter="none" sizechild="30,*"&gt;
+				&lt;!-- Etc., etc., etc. --&gt;
+			&lt;/frameset&gt;
+		&lt;/view&gt;
+		&lt;!-- Etc., etc., etc. --&gt;
+	&lt;/section&gt;
+	&lt;!-- Etc., etc., etc. --&gt;
+&lt;/autohide&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-9ABAECC5-F46B-45E0-A27C-0D3BFBA9C4B8"></a></span>Applies to: layouts only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1F7A9E89-C584-48E9-8B68-938E5FA5D65D"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-005C">&lt;relationalview&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A9F9BB1B-FAE2-4DF4-8325-E2A7645370EE"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-009B">&lt;section&gt;</a></span> (maximum 4) 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-009B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CC76C743-DE29-4B67-BC27-49A29E02F154"></a></span>&lt;section&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6DAA9D39-CF93-4AF3-8C15-858B0A3D3CE1"></a></span>Defines the activation zones on one of four sides in a layout. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A801EAC4-D35D-4056-9B32-887C51646A94"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;section side="left" activation="10,0,50%;10,50%,100%"&gt;
+	&lt;view viewsize="105,0,100%"&gt;
+		&lt;frameset orientation="vertical" name="ah_frameset1" splitter="none" sizechild="30,*"&gt;
+			&lt;!-- Etc., etc., etc. --&gt;
+		&lt;/frameset&gt;
+	&lt;/view&gt;
+&lt;!-- Etc., etc., etc. --&gt;
+	&lt;/section&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-32AAA2E2-49CD-4091-AFA8-8FE9FB3987F4"></a></span>Applies to: layouts only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B2935D74-7BC2-4A69-A640-A510148F7A78"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-009A">&lt;autohide&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AE952741-FF4F-4453-ADF0-B46F692E000D"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-009E">&lt;view&gt; (child of &lt;section&gt;)</a></span> 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-009C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C981E5F7-AE14-432C-91A2-C3E1ECD1C528"></a></span>side
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2B68B816-F557-45B9-B56B-C7B7C29115E2"></a></span>Specifies one of the four sides of a layout. Possible values are "top", "left", "bottom",
+                     or "right". 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-009D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E9F7897A-D716-4D66-A591-F9CE30A703BD"></a></span>activation
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E9B13F88-BDDE-4D8E-920A-9F5AADD259F4"></a></span>The activation zones on one side of a layout. An autohide pane is displayed when the
+                     mouse pointer enters an activation zone. There can be multiple activation zones, each
+                     one corresponding to a separate autohide pane defined in its own &lt;view&gt; tag. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-90B9B786-D42C-42D1-BD97-4F91DD2EF097"></a></span>This value is a list of triplets of numbers. Triplets are separated by semicolons
+                     (;), and numbers within a triplet are separated by commas (no spaces). There is one
+                     triplet for each &lt;view&gt; child of the &lt;section&gt;. In order, the numbers in a triplet
+                     represent: 
+                  </p> <span class="anchor_wrapper"><a name="UL_EABE6F6BDDC4476195DF14519BDB338C"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C7F9D0B5-4AF5-43A6-8C10-17E97C4CAD20"></a></span>The width (if the side is left or right) or the height (if the side is top or bottom)
+                           of the activation zone. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DD6340B5-7C1F-41F8-959E-D8465DD23FC4"></a></span>The top (if the side is left or right) or the left (if the side is top or bottom)
+                           of the activation zone. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-68256C65-12B7-4674-8744-E6917C0086CC"></a></span>The bottom (if the side is left or right) or the right (if the side is top or bottom)
+                           of the activation zone. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-12A3ED33-E055-4F06-A25A-88EEE9BA65C5"></a></span>All numbers can be integers (pixels) or percentages, where (0, 0) is the top left
+                     corner of the layout. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C95FE178-88BB-46E8-A23E-2D5342116409"></a></span>If two or more activation zones overlap, the first one defined takes precedence. This
+                     is also true if the overlapping activation zones are defined in separate &lt;section&gt;
+                     elements. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-009E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AA8693B5-91FA-41E1-929B-31A7925F3897"></a></span>&lt;view&gt; (child of &lt;section&gt;)
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-293AF87F-7DF7-476A-9686-2A9763C421AA"></a></span>Defines the size and position of an autohide pane when it is displayed. There should
+                  be one view for every triplet in the activation attribute of the parent &lt;section&gt;
+                  element. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E8FB614D-98EA-4F9E-B886-7D7F81DC6857"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;view viewsize="105,0,100%"&gt;
+	&lt;frameset orientation="vertical" name="ah_frameset1" splitter="none" sizechild="30,*"&gt;
+		&lt;!-- Etc., etc., etc. --&gt;
+	&lt;/frameset&gt;
+&lt;/view&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-01A986DD-9EF4-44C5-BA9E-F1536186A353"></a></span>Applies to: layouts only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-EBB06BBE-D553-48FC-9217-4AF2B743C47A"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-009B">&lt;section&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E6AFB388-5907-40BF-8D39-D8D4958193B1"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0079">&lt;frameset&gt;</a></span>, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0082">&lt;frame&gt;</a></span>, <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-008D">&lt;switcher&gt;</a></span> (maximum 1 direct child) 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-009F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E218702F-42ED-4F16-8CD3-9597C5FBDB69"></a></span>viewsize
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A91D2407-A81C-4801-9312-F41C8FF3B39F"></a></span>A comma-separated list (no spaces) of three numbers that defines the size and position
+                     of the autohide pane. The pane disappears as soon as the mouse pointer leaves this
+                     area. Therefore it is important that the viewsize completely covers the corresponding
+                     activation size, otherwise the panel may disappear as soon as it is displayed. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FE38C932-2A83-4BF7-8BDF-AEEA2DA75497"></a></span>As with the activation size, the numbers represent: 
+                  </p> <span class="anchor_wrapper"><a name="UL_2102937DD7704B2DA4906848D263B6D9"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-314625D1-C909-48C7-84AF-4040589E2FCB"></a></span>The width (if the side is left or right) or the height (if the side is top or bottom)
+                           of the autohide pane. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D00114AD-CA2A-4169-82E4-9D93A71CB26C"></a></span>The top (if the side is left or right) or the left (if the side is top or bottom)
+                           of the autohide pane. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-56E0289D-5E51-4A21-A441-BF91459518E1"></a></span>The bottom (if the side is left or right) or the right (if the side is top or bottom)
+                           of the autohide pane. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FE493CB5-D400-427E-9AB2-6BE71310BCD8"></a></span>All numbers can be integers (pixels) or percentages. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A0"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6B5CE527-9309-4379-B08D-7F08A8BDF769"></a></span>&lt;script&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6F85BA53-50B9-4FC7-BA77-DA48A4221C49"></a></span>Contains scripts that can be used in the view. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E05855CC-1479-46D9-93AC-5B6587CD7527"></a></span>The contents of this element should be enclosed in a &lt;![CDATA[…]]&gt; section, otherwise
+                  any XML markup characters like &lt; and &gt; in your script will prevent the file from parsing
+                  correctly. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-81EA7B09-DDA5-4B6A-AD1A-2FB3E27E45F3"></a></span>There are two basic types of script that you can include here: 
+               </p> <span class="anchor_wrapper"><a name="UL_61FCA0EDD26148DF848E5E1693D8D00B"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F1EFED3A-0B33-4AA9-9F8A-2AAA3238CB42"></a></span>Init and term callbacks that are executed when the view is initialized and terminated.
+                        See <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-00A2">RV_Init and RV_Term</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3FB8A828-28A4-447F-A092-20216427B084"></a></span>Routines that can be used as the cmd attribute of <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-0070">&lt;relation&gt;</a></span> when event is "selectionfunc" or "selectionproc". See <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-00A3">selectionfunc and selectionproc</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-DBA116EE-090D-4B29-AA66-07E858CD8092"></a></span>Remember that global code (i.e., code that is not within a function or procedure)
+                  runs automatically when the view is opened. This is a side-effect of parsing the script.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-02C7910E-B8A4-4BDE-B043-65C14D13AC3B"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;script language="JScript"&gt;
+	&lt;![CDATA[
+	function RV_Init( in_rv)
+	{
+		AddProp("My_Custom_Property", "Scene_Root", "", "", null);
+	}
+	
+	function RV_Term( in_rv)
+	{
+		DeleteObj("Scene_Root.My_Custom_Property");
+	}
+	
+	function my_selproc( in_list, in_driverName, in_drivenName, in_rv )
+	{
+		// This example simply shows how to populate the driven pane.
+		// It is equivalent to event="selection".
+		in_rv.Views(in_drivenName).SetAttributeValue("targetcontent", in_list.GetAsText());
+	}
+	]]&gt;
+&lt;/script&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-B0E41EB5-B13F-4E65-9015-ED04E8899356"></a></span>Applies to: views only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AF5E0044-8492-4B38-B965-21FA5FC5CE13"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-005C">&lt;relationalview&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E64D3189-A0CB-45A4-AEB5-1A5FFC645653"></a></span>Children: none 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A1"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-64CF37FC-C748-4B50-A910-15BF18A5E330"></a></span>language
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-78F3AD1B-0C08-4B4F-9B9F-036C100191CC"></a></span>Specifies the scripting language used in the &lt;script&gt; block. "VBScript", "JScript",
+                     and "Python" are supported by all installations of Softimage. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A2"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8BC2A71B-5BB3-4A28-B020-62A62A0EE7DE"></a></span>RV_Init and RV_Term
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-634FCEDD-C035-461A-821B-FE30E3D4DAFF"></a></span>RV_Init and RV_Term are callbacks that are executed when a custom view is created
+                     and closed, respectively. They allow you to perform some set-up at the start and some
+                     clean-up at the end. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1F8141A5-C2B4-4C5A-808E-DE220423EE88"></a></span>You must use the exact names RV_Init and RV_Term. Each function is passed a pointer
+                     to the view object. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A3"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-008BE558-412A-4FF8-B748-264BA53B8445"></a></span>selectionfunc and selectionproc
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-021B43A0-9F07-486A-A89B-6EF165169158"></a></span>If you set the event parameter of a &lt;relation&gt; to "selectionfunc" or "selectionproc",
+                     you must use the cmd parameter to specify the name of a routine, and then create the
+                     named routine in the &lt;script&gt; block. 
+                  </p> <span class="anchor_wrapper"><a name="UL_3B01894C458F44A4AD0BFAFF6A04DC77"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F7E3CA31-D5B2-418C-970E-7A7DF1C50F77"></a></span>If you are using selectionfunc, your routine is responsible for returning a collection
+                           of elements to send to the driven pane. The function can also use the object model
+                           to modify the view in other ways, such as to set the active tab in a shelf. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-22232F99-583B-49BF-92C1-5F88E5455F9C"></a></span>If you are using selectionproc, your routine does not return a collection. Instead,
+                           it uses the object model to control the target content of the driven pane. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-91511989-8F8E-4776-8B2D-7F74F4C025A3"></a></span>In both cases, the routine receives: a collection of objects selected in the driving
+                     pane, the name of the driving pane, the name of the driven pane, and a pointer to
+                     the relational view. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A4"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C09F2AE3-E287-4658-B1C8-DC2197A2C51C"></a></span>&lt;floatingwindows&gt;
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-AFA3ECAA-3683-412A-AB5C-3CF0E806A813"></a></span>Contains a list of floating windows that open automatically when a layout is first
+                  opened in a Softimage session. Note that during a Softimage session, the states of
+                  floating windows are persisted if you switch between layouts. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-860415F4-B276-4DB7-A75C-CD26CB72B74C"></a></span>This section is saved if you have open floating windows when you save a layout (<span class="MenuCascade" id="GUID-1685402D-5460-4288-B626-A5FEEE158C16">View <img src="../images/ac.menuaro.gif"> Layouts <img src="../images/ac.menuaro.gif"> Save Layouts</span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B69FD18E-0930-4884-B488-82FCA446B97C"></a></span>Example: 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;floatingwindows&gt;
+	&lt;view name="Explorer1" type="Explorer" position="128,81,500,563"&gt;
+		&lt;!-- Etc., etc., etc. --&gt;
+	&lt;/view&gt;
+	&lt;!-- Etc., etc., etc. --&gt;
+&lt;/floatingwindows&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-BCF8BE74-57AA-4864-96D7-12B333629B1A"></a></span>Applies to: layouts only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5541E0EB-D5CB-4929-AC5A-00CC19BD670B"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-005C">&lt;relationalview&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2AA56235-9AC4-4FCA-8811-250C42A5EDB8"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-00A5">&lt;view&gt; (child of &lt;floatingwindows&gt;)</a></span> (optional, one or more) 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A8FE5FF5-8C62-461F-8BF0-B8D2C9B47872"></a></span>&lt;view&gt; (child of &lt;floatingwindows&gt;)
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-AEA7BEB3-6257-4CEC-96D8-C708D04960CF"></a></span>Defines a floating window that opens automatically when you first open a layout. 
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;view name="Explorer1" type="Explorer" position="128,81,500,563"&gt;
+	&lt;properties&gt;
+		&lt;scope&gt;Passes&lt;/scope&gt;
+		&lt;!-- Etc., etc., etc. --&gt;
+	&lt;/properties&gt;
+&lt;/view&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-7A699F69-6B7A-4E64-A049-EA37CA71488F"></a></span>Applies to: layouts only (optional) 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-687D9004-A792-4F96-BA6B-7E95C4E546F8"></a></span>Parent: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-00A4">&lt;floatingwindows&gt;</a></span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-65CA81D4-79AB-446A-AE0D-8479470D6F0D"></a></span>Children: <span class="char_link"><a href="layouts_views_AdvancedLayoutandRelationalViewEditing.htm#WS71BF12DCDFD289488AD651C1E9DD8AE9-008C">&lt;properties&gt;</a></span> 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B66CBA3B-D34C-4276-B411-0D719BA83A3F"></a></span>name
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ED860AB1-37D9-4F1A-94E2-860CAEA82165"></a></span>A string that identifies the auto-created instance of the floating window. This name
+                     must be unique in a layout. It can be used to manipulate the view using the SDK. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5ED2DA7B-E00A-4C0C-BC68-A1A6D013D7FD"></a></span>type
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-93D9BF74-E582-4E9D-B43A-44964B5C12A8"></a></span>The type of floating window. This must be the name of a factory or custom view as
+                     defined in its .xsivw file. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A8"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3C8F95EF-24B0-4D41-9E01-C5633586E08A"></a></span>position
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-35BF57A6-ECE8-466F-8475-C05BB2BCEB5C"></a></span>A string containing four comma-separated integers with no spaces. These represent
+                     positions of the left, top, right, and bottom edges of the window in pixels, where
+                     (0, 0) is the top left corner of the layout. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS71BF12DCDFD289488AD651C1E9DD8AE9-00A9"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2AC553F3-78C3-4FF1-A88F-D159ECCEDBA9"></a></span>Comments
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-495367C8-9802-48AC-A7F1-32E89D5021D9"></a></span>You can include standard XML comments in .xsily and .xsivw files. For example, you
+                  can include a general description or describe specific sections. Comments begin with:
+                  
+               </p> 
+               <div class="codeBlock"><pre>
+&lt;!--</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D4C156FB-40AB-49D6-B889-33B00B55F5F8"></a></span>and end with: 
+               </p> 
+               <div class="codeBlock"><pre>
+--&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-4753E9D6-12C5-40C7-999A-D330DE14370B"></a></span>Comments cannot appear inside tags (between &lt; and &gt;). In addition, comments cannot
+                  be nested. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1B439A4D-1C9A-4A52-A3E3-6B1A002462AD"></a></span>To include comments in a script inside a &lt;![CDATA[…]]&gt; section, use the comment syntax
+                  of the scripting language rather than the XML comment syntax. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

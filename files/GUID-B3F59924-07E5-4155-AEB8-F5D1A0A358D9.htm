@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-B3F59924-07E5-4155-AEB8-F5D1A0A358D9">
+      <meta name="indexterm" content="CrowdFX: materials on actor envelopes">
+      <meta name="indexterm" content="materials: on CrowdFX actor envelopes">
+      <meta name="indexterm" content="CrowdFX: textures on actor envelopes">
+      <meta name="indexterm" content="textures: on CrowdFX actor envelopes">
+      <meta name="topic-type" content="concept">
+      <title>Modifying the Actor's Materials and Textures</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-B3F59924-07E5-4155-AEB8-F5D1A0A358D9"></a></span><div class="head">
+            <h1>Modifying the Actor's Materials and Textures</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-66D37886-6EAE-488B-B3B8-7B11611036DD"></a></span>   
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-606C7EDC-36B3-43DC-99FE-03322E1434F6"></a></span>When you import a model as an actor in CrowdFX, the materials that are set on its
+            clusters are converted to ICE materials in an ICE tree on its envelope mesh. Here,
+            a Material ID is assigned to each source model cluster's material. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-DB8BC4F9-E10B-47E7-AF2A-D9958F502139"></a></span> <img src="../images/GUID-0B50B6F0-38BB-4F40-91B4-A843C9944B28-low.png"> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-E6F0D3EA-71A1-4C04-B89C-771627FC9A92"></a></span>The Mesh Proxy object makes a copy of the source model, keeping the model's material
+            and textures. The Actor Copies mesh then gets the material and texture data from the
+            Mesh Proxy object and creates copies of it so that each instance of the actor in the
+            crowd simulation uses the same material and textures as the source model. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_C21BC959C1424CBFAF69CDA765B38DE5"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-8F46CDFF-24CB-4237-9A32-2283F13AC0F6"></a></span>Modifying the Source Material after Importing the Actor
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-627E89D7-97F9-4828-8492-AC76E9D78DDC"></a></span> In the Mesh Proxy object's <span class="MenuCascade" id="GUID-D8C9A415-A735-4448-8BBF-56F574BA13F5">Set Mesh Proxy</span> compound, the <span class="MenuCascade" id="GUID-035732C2-C9D0-448B-B0D8-C4B6ABD32CB4">Copy Material Attributes</span> option is enabled by default so that the source model's material is automatically
+               propagated to the actors in the crowd who are instantiated from this source. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-978C0B0E-B20D-44B2-A69C-075C3EFE1C1D"></a></span> This means that if you make a change to the source model's material, it is immediately
+               used by all the actor instances that reference that model. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_ACF9B39406894BD9A0BFFCB22E5F67C9"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-428A0D29-4E5D-4775-8A4B-6AB9439DCEC6"></a></span>Varying the Actor's Materials
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-2E9CD769-87EC-4387-AC08-FAF308B66BF1"></a></span>There are many different ways in which you can vary the materials on actors. A simple
+               way is to duplicate the same source model several times and import each one to create
+               different actor proxies in the crowd simulation. Then change the material colors on
+               each source model (such as the color used for the face, hair, shirt, or pants). 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-7A130824-A5B1-43DC-8D2B-F3236C04D6C7"></a></span>You can also create multiple materials for each cluster on a single source model,
+               then create an ICE tree on the Actor Copies mesh in which you decide which materials
+               are used according to a condition you have set up. You can set up the conditions using
+               any of the standard ICE nodes, then use the Material (Topology) nodes to set the materials
+               used. For general information on using the ICE Material nodes, see <span class="char_link"><a href="GUID-01F2C304-487D-4557-9522-B66CBD33E396.htm">Applying Materials in ICE</a></span>. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-DA560CA6-248D-4886-9AC7-3FC9AB4F3654"></a></span>In the following example, two extra materials are created for the shirt cluster of
+               the same source model. Which color of shirt is used for the actor depends on the emitter
+               ID. Of course, you can create any condition you like for selecting or randomizing
+               the materials. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-5E2ADB1B-02C8-4D44-A052-8EC3516B8016"></a></span> <img src="../images/GUID-8F9BC520-1967-4A96-9BD5-66DA00831D05-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-7CC1D5BA-6322-4E3B-9816-60DEB4F1F561"></a></span>Using this example, here's what you generally need to do to use a variety of materials
+               on an actor: 
+            </p> <span class="anchor_wrapper"><a name="OL_16B529F085354021BB5F733B67A961A7"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EC367CFD-D4AD-48E7-96F7-99CA45E6584A"></a></span>Create multiple materials on the source model. In this case, the shirt cluster has
+                     two extra materials. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9CE98531-A790-4576-AD55-776917FD49FC"></a></span> <img src="../images/GUID-30C7627B-6EC0-48EB-8473-CE7A03A14E12-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2DB60246-9184-4AA0-B967-96C4307825C7"></a></span>On the Actors Copies mesh, create a new ICE tree in its Modeling region. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F99362F3-71C0-4903-8C5A-9C2BBFDE9C65"></a></span>In this tree, get the different materials you want to use, reference their data in
+                     an array, then set the Materials data. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F1D4A3BE-9E07-4521-ABEE-05D22673A46B"></a></span> <img src="../images/GUID-9E3F2CBF-F834-4CC8-A7B7-D3A25D1F5C01-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-34AB226C-75F5-49AE-B590-DE4AFC10EC50"></a></span>In the same ICE tree, create the conditions for when each material will be used, then
+                     set each material's Material ID. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-391DD126-4033-44AD-BB26-6F0FD5F9A87E"></a></span>In this example, the emitter ID determines which material is used on the actors. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-67FFAF11-1148-4B74-ADAC-5F100E630A42"></a></span> <img src="../images/GUID-78F58F50-81DA-4816-B806-1B0A4FCF475F-low.png"> 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-084A34CC-3B6C-4829-BC14-67B6CB20F38C"></a></span> <img src="../images/GUID-0E8C28B4-300A-4E0C-AF67-84615910E748-low.png"> 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_A851CAF04BBA483BB55C2D13EA03AC38"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-E2BDA504-E66E-4684-8903-AA08B640279A"></a></span>Modifying the Texture Projection for an Actor's Texture
+            </h2>   
+            <p><span class="anchor_wrapper"><a name="GUID-10B6D79F-3472-4C30-8E5E-03E2B38830CC"></a></span>By default, the textures are applied to the actors using the same clusters as the
+               source model. However, the texture projections on the source model's clusters may
+               have different names from what's being referenced by the Actor Copies mesh. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-17290E05-B280-4670-9829-346EBB9E8C59"></a></span>This source model has a texture applied to his body cluster. The hair is a separate
+               cluster. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-8904462B-DE83-4AE0-91DE-13DBF318C939"></a></span> <img src="../images/GUID-D0C281C8-C284-4D27-BD7D-AFF4E54EE0D0-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-7605F277-072E-4B97-AF8A-2D39CDBF452D"></a></span>The references to the source model's material and texture projections are locked in
+               the Actor Copies mesh's <span class="MenuCascade" id="GUID-AE04667F-159C-4A5A-AAD3-332F9BA8CBC3">Duplicate Mesh Proxy</span> compound, which gets its data from the Mesh Proxy mesh. So to fix the texture projection
+               reference, you need to update it on the Mesh Proxy mesh. 
+            </p> <span class="anchor_wrapper"><a name="OL_BE17B67CA2E84494A3E6DB6A763656DA"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-77BA091C-0C0C-4752-9103-A86211F645F1"></a></span>In a render tree, check the name of the texture projection used by the source model's
+                     material. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-31069D48-098E-4E00-B3B8-03C32BC95696"></a></span>In the Mesh Proxy's ICE tree, open the <span class="MenuCascade" id="GUID-5ABD2DCB-4E2C-4516-83B5-D6B8618EABAE">Set Mesh Proxy</span> compound for editing. This compound is referenced by the Actor Copies mesh's <span class="MenuCascade" id="GUID-770F90CF-A9EB-44F8-B5A2-5977E5D562D8">Duplicate Mesh Proxy</span> compound. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-548BE5C1-5DA6-4D54-A4FB-D345C44414C1"></a></span> <img src="../images/GUID-9A8125D1-FC5A-4DB6-89BB-D31DE1F7BC69-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6E3102A2-3751-49CC-8F8D-EBF0E3EB08EF"></a></span>Open the <span class="MenuCascade" id="GUID-1D7983B9-1959-454D-89C9-36687C9D6F9F">Copy Texture Projection from Source</span> compound's property editor. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-29F21DE9-0C61-48C3-8EF2-ADDE73F7486F"></a></span> <img src="../images/GUID-C1544C05-DA55-4A54-A096-37CFEE4F7F87-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FAC4BC44-62E7-4A86-88CB-8D9D49EA6006"></a></span> In the <span class="MenuCascade" id="GUID-EB9CA50D-6F63-4818-ACBC-BD137A7B9F1E">Source Name</span> field, use the explorer to select the texture projection attribute (such as <span class="MenuCascade" id="GUID-CA1A264B-2DD4-4D75-9E36-B975B67FFBE4">UVWs</span>) used on the source model so that the Actor Copies mesh is referencing the same texture
+                     projection as the source. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-440F5B81-C935-4D0D-90B4-2E0EA57D6AE1"></a></span> <img src="../images/GUID-2AEF8718-3E6D-4886-9595-B3F8CA9C9542-low.png"> 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0EFA8F5E-92DF-45F6-B06D-7EC2E40B4D6F"></a></span>The textures now appear correctly on the actor instances. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3FB54C2E-0B4D-4A79-96AB-863E0285F56D"></a></span> <img src="../images/GUID-198EC94E-41A2-4CAE-BA36-EE6C0D8E0905-low.png"> 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

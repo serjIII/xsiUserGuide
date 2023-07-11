@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-A2473968-36D5-42E0-AE82-9012683BC525">
+      <meta name="indexterm" content="ICE kinematics: simulations">
+      <meta name="topic-type" content="concept">
+      <title>ICE Kinematics and Simulation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-A2473968-36D5-42E0-AE82-9012683BC525"></a></span><div class="head">
+            <h1>ICE Kinematics and Simulation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-BA5EAD67-8C60-4327-8AC8-3272600B36E2"></a></span>If you want the transformations that you are driving with ICE kinematics to be based
+               on the previous frame's values instead of being propagated upward through the operator
+               stack, you can use a simulation. For example, this allows you to drive spring-like
+               deformers to add secondary dynamics to a rig for jiggling or other effects. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-18A7D23C-A932-41D3-8933-1E559B5423E8"></a></span>When you select a null and choose <span class="MenuCascade" id="GUID-D7B32E5D-6B11-4370-9423-ECCAF37301EB">Create <img src="../images/ac.menuaro.gif"> Simulated ICE Tree</span> in the ICE tree view, the Pre-Simulation, Simulation, and Post-Simulation regions
+               are created in the operator stack. 
+            </p><span class="anchor_wrapper"><a name="FIG_1C87B689B48B4099B12A1BAAC9638970"></a></span><div class="figure-anchor"><img src="../images/GUID-0B6DBA58-2517-4540-92D9-A3F8FB70BFED-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-728F1892-224F-4F40-A5AD-A41AE855784C"></a></span>These regions work in a similar fashion to the regions on geometric objects. 
+            </p><span class="anchor_wrapper"><a name="UL_773947710FD64DCDA88445ED2BBD99BE"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AABED2B7-6FA2-4036-8765-2840217BC003"></a></span>Operators in the Pre-Simulation region are evaluated when the simulation environment
+                     is not active, and on the first frame of the simulation. They are not re-evaluated
+                     during a simulation. They can be used to define the initial state of a simulation
+                     as well as to initialize any data that is needed. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4FDF8D2D-C3DE-49A9-BF2D-32519DC7AD1E"></a></span>Operators in the Simulation region are evaluated on the second and subsequent frames
+                     of a simulation. They are updated based on the previous frame instead of the result
+                     of the Pre-Simulation region. For example, you can use Verlet integration to update
+                     spring velocities based on the previous values. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5FB405DE-F225-4FAB-9C2F-EA6720874D7D"></a></span>Operators in the Post-Simulation region are applied to the result of the regions below.
+                     They are always evaluated. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-FD442FC7-6C71-4A91-A843-928D758FE627"></a></span>If necessary, you can move operators between regions as described in <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0030">Changing the Order of Operators</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-79A56188-337D-4C30-9F60-ACBCACC9369A"></a></span>For more info about environments in general, see <span class="char_link"><a href="ICE_simulation_TheICESimulationEnvironment.htm">The ICE Simulation Environment</a></span> [<span class="char_link"><a href="ice_cover.htm">ICE Guide</a></span>]. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-0019"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1A1CE66A-4B5E-41B1-A91C-9A822944CB13"></a></span>Simulations and the Order of Evaluation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-9BC8E6B2-54FB-46D6-A4A2-4512ED039368"></a></span>When using simulations with ICE kinematics, you need to be especially careful about
+                  which ICE trees get and set data on which objects. For best results: 
+               </p> <span class="anchor_wrapper"><a name="UL_0253646441F3409EA583160B5750719C"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-07061BC9-4410-452A-81A2-0996506D86D6"></a></span>Use a separate null or other object to hold the initialization and evaluation trees.
+                        This should be the only object with a Simulation region. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2376F386-B125-4CFE-9DFC-BE3F43412EE8"></a></span>Calculate initial values in a tree in the Pre-Simulation region, and store them as
+                        custom attributes on the null itself. Do not set data on the driven objects. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8D2E7F31-9B70-4DE7-86DD-0A25D3B5CE0A"></a></span>Evaluate the simulated values in a tree in the Simulation region, and store them as
+                        custom attributes on the null as well. Again, do not set data on the driven objects.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-34B6B0E2-A20C-4482-9AE8-AB10B002EEB6"></a></span>On the driven objects, use a tree to get values from the null and set self.kine.global.
+                        It is also possible to use a tree on a different null to get the custom attributes
+                        and set kine.global on multiple objects. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-001A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-225C8CF8-5F09-4C26-9FEE-3F91FA3458FD"></a></span>Modifying Simulated Trees
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-522174D4-BD2F-43EE-BF2B-7CAE6BC0AF44"></a></span>If you modify an ICE tree in the Simulation region, the changes take effect immediately
+                  but the previous frames are not automatically re-simulated in Live and Interactive
+                  simulation modes. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C3AADD13-E480-4C45-B526-4F6952732A0D"></a></span>If you modify an ICE tree in the Pre-Simulation region, the changes do not take effect
+                  until you return to the first frame of the simulation. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-001B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D9C61FA3-7BE7-453F-B5B4-E94353EA7605"></a></span>Plotting Simulations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8CD3E1E5-25AB-43C8-9298-64F1028E3CCB"></a></span>You cannot cache the results of ICE-driven transformations. Instead, you must plot
+                  the results. For more information about plotting, see <span class="char_link"><a href="ani_proc_PlottingAnimation.htm">Plotting (Baking) Animation</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

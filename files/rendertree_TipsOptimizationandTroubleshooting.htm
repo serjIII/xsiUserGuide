@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C29FD575-37DB-47E7-BB7E-904D8D2B63E6">
+      <meta name="indexterm" content="render tree: optimizing">
+      <meta name="indexterm" content="render tree: tips &amp; troubleshooting">
+      <meta name="topic-type" content="concept">
+      <title>Troubleshooting Render Trees</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C29FD575-37DB-47E7-BB7E-904D8D2B63E6"></a></span><div class="head">
+            <h1>Troubleshooting Render Trees</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-0A4FE4A8-C371-4562-8AA7-BD3F64EB8979"></a></span>The following will help you optimize render trees, as well as troubleshoot common
+               problems with them. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-447833E8-06E3-489B-BC3A-BCD1ED80A2C9"></a></span><div class="note-note"><span class="label">NOTE:</span>Keep in mind that speed optimizations usually sacrifice quality, while quality optimizations
+                  usually decrease speed. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-00D5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-582C51EA-B0BD-4BF3-938C-F368D2BC1D7D"></a></span>Render Tree Tips
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-00D6"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EEE6CEF6-4088-460B-8608-90E2D7793710"></a></span>Auto-Refresh Render Region
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-868365EB-15F2-457D-8B7A-EAB6FA36EDA5"></a></span>When working with several shaders at once, it may be best to turn off the auto-refresh
+                     option for the render regions. This prevents the render regions from updating every
+                     time you make a change to the render tree. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1B3190B3-FE9A-4BB2-B051-EE9FC1AA6437"></a></span>To turn off the auto-refresh feature, choose <span class="MenuCascade" id="GUID-96A8BA3A-B606-4CBE-8CFE-63EF5E28024B">Render <img src="../images/ac.menuaro.gif"> Regions <img src="../images/ac.menuaro.gif"> Auto-Refresh</span> from the Render toolbar. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-680E901A-FADA-4FD2-B4A2-1854E0FEC743"></a></span>When auto-refresh is off, you can manually force the render regions to refresh by
+                     choosing <span class="MenuCascade" id="GUID-AB7E1DE4-D313-4B98-B26F-61A59AC8A11B">Render <img src="../images/ac.menuaro.gif"> Regions <img src="../images/ac.menuaro.gif"> Refresh</span> or by pressing F5 while the mouse is over a viewport. 
+                  </p> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E197F09E-8458-4D79-BF27-546374F570DD"></a></span>Previewing Individual Nodes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-663C9440-A5FA-4A9B-8509-8C7E44EBFF0D"></a></span>To see how a particular node affects the render tree, connect it directly to the Material
+                     node's surface input. When you're finished previewing, reconnect whichever node was
+                     originally connected to the surface input. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-00D7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B0239278-9952-49BF-84A8-83BDC5331D5E"></a></span>Replacing an Image Clip with a Texture Shader
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3EFA6BA6-C500-4497-A41C-0E5BBD333990"></a></span>Make sure to connect the <span class="MenuCascade" id="GUID-25D5E0A8-747A-4CF1-9FEB-932110992EFF">State Vector</span> shader to the Coordinates input of a texture generator shader when it is being connected
+                     to an image shader. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E4384AF2-3275-4D8F-8470-3CCCFEE1EC4B"></a></span>For example, if you have an image shader with an image clip connected to an object's
+                     Surface or Bump input and you wish to replace the image clip with a Clouds texture,
+                     connect the Clouds shader to the input of the image shader. Then connect the State
+                     Vector shader to the Coordinates input of the Clouds shader. This gives the clouds
+                     a set of vector coordinates. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-00D8"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3B2B5562-0E38-49CC-ABB0-76167CC2731A"></a></span>Correct a Color
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D76105BF-0229-4012-8F14-B18E0C6FD4E5"></a></span>If you like complete control of all your textures, you can connect a Color Correction
+                     shader after (to the right) of each texture shader or any shader that outputs a color
+                     (RGB) value. This shader lets you control the Gamma, Contrast, Hue, and Saturation
+                     of a color value. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-00D9"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8B62DA39-E6E1-4B2B-8914-10ACBD38A744"></a></span>Number of Shaders (Speed Optimization)
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CFD6F2DC-6D1C-4419-A76F-F1EC7B8DC884"></a></span>Try to use as few shaders as you can while maintaining the look you want. Softimage
+                     may slow down if an excessive number of shaders is used to create an effect. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ABA83770-AFC5-4E01-BCA1-AC0AF1496E38"></a></span>You may find that a single shader can replace two or three shaders that are made redundant
+                     by options available in the one. This may often be the case with surface shaders and
+                     texture shaders that have built-in alpha controls and don't require any of the alpha
+                     conversion shaders. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

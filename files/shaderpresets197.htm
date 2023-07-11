@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-BF5608F1-D29E-463C-993F-71170E95429A">
+      <meta name="topic-type" content="concept">
+      <title>Fog</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-BF5608F1-D29E-463C-993F-71170E95429A"></a></span><div class="head">
+            <h1>Fog</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-64EA0847-1DF3-4E4F-B933-3A9CE14D609A"></a></span>| <span class="char_link"><a href="shaderpresets197.htm#WSEF14F822642D1C488DA74AC2B317CA94-0029">Render Tree Usage</a></span></p>
+            <p><span class="anchor_wrapper"><a name="GUID-52409616-325D-4DD9-A599-1D71D684EFE0"></a></span> <em class="strong">Category:</em> Volume
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C4161B5C-4D45-4605-86C3-5B605501573B"></a></span> <em class="strong">Shader Family:</em> Volume
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-CFAAA512-C4FC-4CF8-B1A5-3CF5EF2B34F1"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-042E3BC5-558F-4544-AE38-B61E2535D81D"></a></span>Implements a vertical layer of fog between two specified distances. This shader uses
+               Poisson distribution to calculate the density of the fog, where the fog is at its
+               density at half the layer's height and drops to half its maximum value at its edges.
+               In addition to this vertical component, the volume of the fog is specified by a start
+               and stop distance from the ray, which corresponds to the ray entering and leaving
+               the volume.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-CB3772D0-FE7F-480E-AFC0-5EE7050AA458"></a></span>This shader is also used to create a depth fading effect when applied to a render
+               pass.
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-6430C211-085A-4086-B24A-E76D13C04F8C"></a></span><div class="note-note"><span class="label">NOTE:</span>This distance clipping only works correctly for primary rays; secondary illumination
+                  such as reflected or refracted rays are treated as if they originated from the camera.
+                  This means that for start distances greater than 0, the first segment of the length
+                  as given by the start parameter of the secondary ray is not affected by the fog, even
+                  if the ray originates in the middle of the fog layer.
+               </div>
+            </div>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1BAF6D6F-B083-4A36-8AE7-4094D7AAAB22"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CF1AB610-A4E6-4363-B653-E4529ED59D90">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8878ED0B-5ADB-496B-A2AD-C0B69AF79864"></a></span><p class="table-body">The shader's name. Enter any name you like, or leave the default.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-74AA593C-826E-4A1E-BE87-23303E412B72"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3FB0F41D-FF07-4FBA-8D4E-446F51D934F0">Start, End Distance</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D1126397-FA8F-47B0-85FA-BFA6402A5DFB"></a></span><p class="table-body">Specifies the distance between where the fog begins (completely transparent) and where
+                           it ends (completely opaque). Fog appears only between these two distances, and the
+                           fog density is linearly interpolated between these them.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-512A2741-ED83-4E20-AD23-1FD200DD8ABF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C2F0E47A-7D5C-4C64-827B-55A6DB51D29B">Transparency Rate</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-22EED984-6DDF-4243-AD2B-D1F8F29BCAD9"></a></span><p class="table-body">Specifies the density of the fog. 0 = no fog and will not obscure light; 1 = opaque
+                           fog.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-30396C30-ED0A-4C1E-888F-2491D7046E6B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C82CF132-3B0C-4025-977B-950446C20C1E">Transmissive Color</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2C7F041B-F98F-45DE-8601-4A9C08093A25"></a></span><p class="table-body">Specifies the color of the fog that light rays are faded into.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-41171589-F5C3-44AE-87BD-B50C0B08176D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5F3A11A0-8443-4AEA-B87A-171CD5F567AB">Light Rays</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-711C68FF-B55D-44A9-9B7A-B4C8BEA76EFE"></a></span><p class="table-body">Specifies whether or not light rays are also attenuated by fog.</p> <span class="anchor_wrapper"><a name="GUID-3B779636-D47E-4F78-9B5B-095611B6D8AE"></a></span><p class="table-body">When on, light illumination is subject to fog attenuation;</p> <span class="anchor_wrapper"><a name="GUID-7FC659FA-A5DB-4F87-8066-384C68097B2B"></a></span><p class="table-body">when off, lights can illuminate objects at any distance regardless of fog.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSEF14F822642D1C488DA74AC2B317CA94-0029"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3C67A2FC-CC73-4FD6-88EF-57AA4C11374A"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3515662D-989A-49D8-8364-A1864CDF9BEA"></a></span>To apply this volume effect to an object (as opposed to a scene) connect this shader
+                  to the Volume input of the Material node. Volume shaders cannot be expanded or built
+                  upon in the render tree.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

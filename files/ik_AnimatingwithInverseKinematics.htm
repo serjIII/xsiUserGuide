@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-3D721D65-8BA7-4674-9C67-C694117E67BD">
+      <meta name="indexterm" content="inverse kinematics: animating with">
+      <meta name="indexterm" content="chains: animating with inverse kinematics (translating effector)">
+      <meta name="indexterm" content="kinematics: inverse">
+      <meta name="indexterm" content="chains: preferred angles when drawing">
+      <meta name="indexterm" content="preferred angles: drawing chains">
+      <meta name="indexterm" content="joints: preferred angle">
+      <meta name="indexterm" content="inverse kinematics: preferred angle of chain">
+      <meta name="indexterm" content="chains: resolution plane">
+      <meta name="indexterm" content="resolution plane: for chains">
+      <meta name="indexterm" content="inverse kinematics: resolution plane for chain">
+      <meta name="indexterm" content="effectors: animating (inverse kinematics)">
+      <meta name="indexterm" content="inverse kinematics: animating effector">
+      <meta name="indexterm" content="translations: animating chain's effector (inverse kinematics)">
+      <meta name="indexterm" content="inverse kinematics: translating effector">
+      <meta name="indexterm" content="chains: animating on path">
+      <meta name="indexterm" content="paths: animating chains on">
+      <meta name="indexterm" content="inverse kinematics: using with path">
+      <meta name="indexterm" content="constraints: curve (path) with chains">
+      <meta name="indexterm" content="chains: controlling orientation">
+      <meta name="indexterm" content="chains: preventing flipping">
+      <meta name="indexterm" content="flipping: chain's orientation">
+      <meta name="topic-type" content="concept">
+      <title>Animating with Inverse Kinematics</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-3D721D65-8BA7-4674-9C67-C694117E67BD"></a></span><div class="head">
+            <h1> Animating with Inverse Kinematics</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-1F0301B5-97AD-47D1-9370-979DF19A5C8B"></a></span>Inverse kinematics (IK) is an animation method that's more straightforward than FK
+               — you define the goal of the action by positioning the effector of a chain and Softimage
+               calculates how to position the rest of the chain to reach that goal. For example,
+               to bend a leg, you drag the leg's end effector and the rest of the chain follows.
+               
+            </p><span class="anchor_wrapper"><a name="FIG_81CA1E49B216489FB9410AA935DE929D"></a></span><div class="figure-anchor"><img src="../images/GUID-F2591D5D-AF21-417E-B129-70D0010E41F9-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-5009ADF5-941B-4E7F-BDB1-AAB618B173D6"></a></span>Leg's effector is branch-selected and translated to move leg from standing position
+               to raised. Softimage solves the joint rotations required to reach the goal. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-51DDA8CC-57DD-4E26-9A27-3CB2D0B67795"></a></span>You save a key for the translation of the effector at different times, and Softimage
+               solves the joint rotations, from the root to the effector, based on the effector's
+               position. You can then key the translation of an effector as you would any other object.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-1D862DEA-28E4-4CF5-8BBF-5EA58DBAC43B"></a></span>To blend IK with FK animation on the same chain, see <span class="char_link"><a href="ik_BlendingBetweenFKandIKAnimation.htm">Blending Between FK and IK Animation</a></span>. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-001D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1DFF7911-0E5E-4582-8C58-0D1AA0C9D97E"></a></span>When to Use Inverse Kinematics
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-20169B2D-7104-44DD-8A33-8DF2DA92F8DD"></a></span>IK makes it simple and fast to move characters, but you often need to tweak the movements
+                  later to compensate for any unwanted movements. These problems occur because there
+                  is often more than one way for the chain to reach the goal set for it by the effector,
+                  or because the effector goes from position to position rather than allowing the bones
+                  to rotate in a natural arc as you get with FK. Luckily, there are many tools in Softimage
+                  to help you fix these problems, as described in this section. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BA9E0D02-4880-408D-BB65-90BA48680C37"></a></span>You can use IK to do the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_211DB933C4CB43258A0E08CAF32A9475"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D9B760E5-E33B-49B7-8302-318950BC5B0C"></a></span>You can easily try out different movements. Dragging an effector to reach a goal is
+                        intuitive for certain types of movements. Consider how you reach for something: you
+                        think about moving your hand to grab the object, not moving your shoulder first and
+                        eventually your hand. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FC08883A-4BDD-4567-9D99-6488897399AB"></a></span>Quickly animate simple movements, including 2D chains that have a limited range of
+                        movement. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7089681D-8800-41C1-A941-9BD9A227A19B"></a></span>Set up poses for a chain by positioning the effector, then keying the bone rotations
+                        (FK). 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-001E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7740AE33-9C89-4C17-853B-D63BBCAE8291"></a></span>Basic Concepts for Inverse Kinematics
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3C43A3F3-6566-4A65-9317-DB91A74C7A19"></a></span>There are a number of issues about the way a chain behaves when you invoke IK. Two
+                  fundamental concepts you should understand before you start working in IK are a chain's
+                  preferred angles and its resolution plane. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-001F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3F168D25-3A70-4BFF-A704-1EDDF65086C0"></a></span>Preferred Angles
+                  </h3>     
+                  <p><span class="anchor_wrapper"><a name="GUID-07051B9B-C046-4EEE-8B0C-889DD082E01C"></a></span>When you draw a chain, you usually draw it with a bend to be able to predict its behavior
+                     when using IK. This bend is called the chain's <em class="mild">preferred angle</em>. When you move the effector, Softimage tries to preserve the preferred angle as much
+                     as possible. For example, you can prevent a character's elbow from bending unnaturally
+                     because bones are prevented from rotating backward against their joints' <em class="mild">preferred angles</em> when using IK. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_26EDD2776216448C99F9DEC139B44ECA"></a></span><div class="figure-anchor"><img src="../images/GUID-BF543181-20E5-4452-A34C-5F0E49D950A7-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D60F26B0-CF35-4740-BA11-90D3FC2315DE"></a></span>Chain drawn with slight bend to determine its direction of movement when using IK.
+                     This state shows the preferred rotation angle for each bone's joint. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9F1AEDE0-5E26-49B4-B4E9-B262CAAF3BED"></a></span>As well, having a home state ensures a solution that you can reproduce: whenever the
+                     effector comes back to the same place, it always goes to the same chain state. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-15C7A2D5-0970-45B8-8F94-99FB1D708E52"></a></span>The preferred angles of a joint are local rotation angles. These angles influence
+                     the behavior of the entire chain, depending on the selected IK behavior. For more
+                     information on IK behavior, see <span class="char_link"><a href="ik_ChoosingHowanIKChainReachesItsGoal.htm"> Choosing How an IK Chain Reaches Its Goal</a></span>. 
+                  </p> <span class="anchor_wrapper"><a name="UL_CE92E416C53B45F5AE06D52B5224DBB6"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9DB7EB00-316B-4A3F-8CF2-12FF8F8395E8"></a></span>When using 3D chains, the preferred X, Y, and Z angles of the joints are used, since
+                           3D joints work like ball joints. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3D95FC0D-7541-4E94-9EBA-FEFE1E6AF690"></a></span>When using 2D chains, only the preferred Z angle of a joint is used. Each joint is
+                           constrained to remain on a single plane and can rotate only around its local Z axis
+                           when the effector is moved, except the first joint. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9909BA08-6CCC-4A89-9148-358E872168A0"></a></span>To change the preferred angle, see <span class="char_link"><a href="ik_ChangingtheJointxd5sPreferredAngle.htm"> Changing the Joint's Preferred Angle</a></span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0021"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8A6CE291-18F4-49C9-9E9C-CA19E8758152"></a></span> The Chain's Resolution Plane
+                  </h3>    
+                  <p><span class="anchor_wrapper"><a name="GUID-3AE69FF8-CB7A-467B-BDFC-E42156385CD1"></a></span>With 2D chains, the preferred axis of a chain (see <span class="char_link"><a href="ik_ConstrainingthePreferredAxisofRotation.htm"> Constraining the Preferred Axis of Rotation</a></span>) is perpendicular to the plane in which Softimage tries to keep the chain when moving
+                     the effector in space. This plane is referred to as the general orientation or <em class="mild">resolution plane</em> of a chain because it is in the space of this plane that the IK system resolves the
+                     joints' rotations to get the effector where you want it. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-829EE288-4296-4714-A9B9-38E5E97C8B4F"></a></span>To get an idea of a resolution plane, extend your arm in front of you and do a biceps
+                     curl: as your arm bends, it forms an angle at the elbow. That bend occurs in the plane
+                     perpendicular to your body. When you do the biceps curl, that plane (your arm's resolution
+                     plane) remains static unless you change it by rotating your shoulder joint. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_6D0522B122A548CCB94BBB3DB6127070"></a></span><div class="figure-anchor"><img src="../images/GUID-1A66141E-8E07-41C3-9447-78D6360AD195-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_372789E7A63D4CBFB64EFEC78C9E1039"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-61D9A270-31D5-4D66-8BB8-85170D25DD89"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-67BF8957-B588-4905-8A48-382360CCE804">A</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-62682054-E2DF-4CD6-8A4F-903CE88F561E"></a></span><p class="table-body">The resolution plane of this skeleton's leg is illustrated here by a gray triangle,
+                                 connecting the root, the effector, and the knee joint. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-05B9149A-BA40-4E06-A1C6-84F7B98D30C6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D43F0D9B-426D-4E0A-B491-0D8F4E9058E8">B</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-02E7C9BA-2212-4F8B-B0E7-F8DA761A15A6"></a></span><p class="table-body">The resolution plane is defined by the first joint's XY plane, and any joint rotations
+                                 stay aligned with this plane. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C3673587-780B-43B2-8235-ADB814C968A8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E827EE5F-E211-4317-998B-C5E02D9CBB3E">C</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-583071F0-017A-4B8F-ABD3-07806BEE39D5"></a></span><p class="table-body">When the first joint is rotated, the resolution plane rotates accordingly, and all
+                                 joint rotations remain on the resolution plane. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8711D1E3-B36E-4009-9751-EFA454FE420A"></a></span>The resolution plane of a 2D chain is the plane in which the entire chain lies. This
+                     plane corresponds to the local XY plane of the first joint (and all subsequent joints)
+                     of a 2D chain. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E49639DE-97C3-411C-9DDB-1BFEC2A56986"></a></span>The general orientation of a 3D chain is also influenced by its preferred rotation
+                     axis. However, the joints of a 3D chain do not necessarily lie on the same plane,
+                     as do the joints of a 2D chain. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-8B351D18-B9B3-4508-9F2C-A7ECA546085A"></a></span><div class="note-note"><span class="label">NOTE:</span>You can rotate a joint in a 2D chain outside of its resolution plane using FK. However,
+                        if you invoke IK the chain will snap back to the resolution plane. 
+                     </div>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0023"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5CBEE821-1892-4B29-A951-FE10E323934D"></a></span>Animating the Effector
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-74000881-E9DE-42DE-B71A-309509422812"></a></span>The basic way of animating IK is to set keys for the translation of the chain's effector.
+                  Translations on effectors of chains created in Softimage are local to the effector's
+                  parent (by default, the chain root). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7F6DDF5B-90BA-46B8-8C77-44CA23F7BA26"></a></span>In other words, you can drag the entire hierarchy without the effector wanting to
+                  "stick" to the scene's global coordinates. With the default Softimage setup, you don't
+                  need to constrain a null to the effector and then animate the null. Of course, you
+                  can remove the effector from the hierarchy or parent it to the last bone. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7DE02876-52C1-4188-AA19-D189B8F10FF4"></a></span>By not having the effector tied to the last bone, you are free to create local animation
+                  on the effector that can be translated with its parent. However, many animators prefer
+                  to constrain effectors and bones to a separate hierarchy of control objects (control
+                  rigs) so that they never animate the skeleton itself directly (see <span class="char_link"><a href="char_rig.htm">Character Rigging</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9C135C70-3B26-4007-BB0D-282A2C422778"></a></span>If the effector is the child of an object outside of its own chain (that is, you have
+                  parented it to a different object), it will behave as if it is still in the chain
+                  <em class="mild">until</em> you animate its translation. At that point, the effector is locked in the local space
+                  of its parent and you won't be able to control it by manipulating its parent. The
+                  parent acts as an "anchor" for any animation on the effector, but it can't create
+                  IK behavior (that is, it can't solve the chain). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-384D6B1A-700C-4B02-9CD5-0BD89A201131"></a></span>The only way to invoke IK is by directly manipulating or keying the effector, or by
+                  using the <span class="MenuCascade" id="GUID-5B730ACD-80F2-4E2D-860B-1A688FED1AAF">Force IK</span> option (see <span class="char_link"><a href="ik_ChoosingHowanIKChainReachesItsGoal.htm#WSF4D645293765AE498C69174E3D6620E4-0043">Forcing the Effector's Position</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9B3AC0A5-C5F5-4798-8830-928E2E8FB318"></a></span>For more information on how the effector works with IK, see <span class="char_link"><a href="ik_ChoosingHowanIKChainReachesItsGoal.htm"> Choosing How an IK Chain Reaches Its Goal</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0024"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1E63BD80-4BEC-4941-8C4E-009C1CC9AF2E"></a></span>Animating the Effector's Translation
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-75126BD5-300D-4C00-BE0D-6E3E7FA92F1D"></a></span>Animating the translation of the effectors is the most basic way of animating chains
+                     with IK. You don't usually animate the effector directly; instead, you animate the
+                     rig control object that is constrained to the effector. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1AB27A06-D8C2-4C77-ACE6-A8E18A6BCFC9"></a></span>For more information on animating transformations in general, see <span class="char_link"><a href="ani_xform.htm">Animating Transformations</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0025"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-CEDDC770-4470-4D60-B042-8418D82C7723"></a></span>To animate the effector's translation
+                     </h4> <span class="anchor_wrapper"><a name="GUID-0B91540E-0655-48F7-AB57-B9CFC51321AC"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A986BB22-43B5-451B-86A4-B9512865D758"></a></span>Select the chain's effector or the rig control object that is constrained to the effector.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-543C4887-0D2A-441C-81AF-EFF827BD40E4"></a></span>Click the <span class="MenuCascade" id="GUID-58F1FE30-8D54-447A-92BE-FD2B32B0E7F3">Translate</span> (<span class="MenuCascade" id="GUID-1A7C1F2A-E3E0-4465-B04F-AAEF0CAA4EEB">t</span>) button on the Transform panel or press <span class="MenuCascade" id="GUID-F8801F9B-9DEE-4C9C-8510-360D6DE1DF2F">V</span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D20C61CB-D592-4411-8820-62C6358F9571"></a></span>Move the effector so that the chain is in the position you want. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-691455A7-0CF7-4873-9E9F-DD7C3E487D2A"></a></span>Key the translation values by clicking the keyframe icon, or pressing <span class="MenuCascade" id="GUID-89040F0A-B58D-4BD2-97FB-74E2D727DE7C">K</span>, or by choosing <span class="MenuCascade" id="GUID-EACB968B-26B5-4AE3-A62F-FE6A30AC0F6F">Animation <img src="../images/ac.menuaro.gif"> Set Key</span> from the Animation panel. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D59163EC-DF7E-45B9-81D3-5A55A3D9D2B2"></a></span>To animate your chain, move the timeline pointer and invoke IK by moving the effector
+                              to another position and setting another key. 
+                           </p> <span class="anchor_wrapper"><a name="FIG_88ED7DEAEFCE49CC9E21CC47D9D4D5D3"></a></span><div class="figure-anchor"><img src="../images/GUID-EC7808BF-3C08-4B92-A14A-78983BB9197F-low.png"></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-777ED4B5-A942-46F4-BE40-BC61B8188B1E"></a></span>Here, the chain is animated by keying the effector's translation at frames 1 and 10.
+                              The joint angles at each inbetween frame are solved. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-9BB07D47-F6B4-4391-B2CB-2AE8735FA04A"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_DCDDA5F9FA1A456A89FB0C3963D2E5C3"></a></span><ul>
+                                    <li>By default, when you create a chain in Softimage, the effector is a child of the chain
+                                       root, and you animate the effector in local space. However, if you drew the chain
+                                       using the <span class="MenuCascade" id="GUID-3EA88F83-EEA4-49B8-83E4-8EE5FEE59FF6">Create <img src="../images/ac.menuaro.gif"> Skeleton <img src="../images/ac.menuaro.gif"> SI|3D Drawing</span> command, you must animate the effector's position in global space. 
+                                    </li>
+                                    <li>To do this, you must deactivate the effector's Local Transform options for inheriting
+                                       its Position and Orientation from its parent (see <span class="char_link"><a href="ani_xform_AnimatingTransformationsinHierarchies.htm">Animating Transformations in Hierarchies</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]). 
+                                    </li>
+                                 </ul> 
+                              </div>
+                           </div> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0027"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-600D5657-F21D-4DC1-A374-1DC9324ED7E9"></a></span> Animating on a Path
+                  </h3>     
+                  <p><span class="anchor_wrapper"><a name="GUID-B9BDBD33-E4ED-4EF7-AB79-50FEFC5A1E7C"></a></span>You can also translate chains by constraining them to a path or a trajectory: 
+                  </p> <span class="anchor_wrapper"><a name="GUID-5FA4DE87-CA54-40D9-B111-F24F262F5A56"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DC2DAEF0-7748-4114-AD7C-FA705E8E2674"></a></span>Create a curve for a path and select the chain's effector to be constrained to the
+                           path. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-07C1B198-1154-449D-9772-B848F9FEE2DA"></a></span>Choose <span class="MenuCascade" id="GUID-C099F667-D6AC-447C-BB1B-A8C0FE972605">Create <img src="../images/ac.menuaro.gif"> Path <img src="../images/ac.menuaro.gif"> Set Path</span> in the Animate toolbar and follow the steps as described in <span class="char_link"><a href="paths_SettingObjectsonPaths.htm"> Setting Objects on Paths</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-24B500AE-DBE8-4A1F-9B21-F41FF6C1E23C"></a></span>When the sequence is played back, the effector translates along the path just like
+                     any other object. However, since the effector is part of a chain, the principles of
+                     IK are applied to the rest of the chain. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_8C1A482B6EBE4B93990E3F173B04DC8B"></a></span><div class="figure-anchor"><img src="../images/GUID-4883DAB9-8849-42E1-A6C0-C0F4B4407E6B-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3E4C750F-D244-4A69-9C9A-2A4DBC3A2D27"></a></span>On the left, the curve is the path. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D3828E80-AE4B-4968-9E12-C0BB6009C50B"></a></span>On the right, the effector is animated along the path. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0029"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-78683FE9-9B93-4F31-8C03-220F7D513DD5"></a></span> Controlling an IK Chain's Orientation
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-03979EDC-5641-4FDA-ABF1-ABEF798CE47F"></a></span>Although the orientation of the chain's plane is set up when you draw a chain, there
+                  are a number of ways in which you can change it to solve certain problems. For example,
+                  you can change a chain's preferred axis from the default Z or use special constraints
+                  to manipulate your chain to prevent flipping. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E25DBC5F-ED7F-4BC7-A32A-4E2B4E165706"></a></span>For instance, you may draw a two-joint arm chain vertically for a character's arms
+                  to swing naturally when it walks. 
+               </p> <span class="anchor_wrapper"><a name="UL_87397A527A1D4A779102CAE317C84FB8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B2170C0C-78B0-4F71-8205-A89F8FB31507"></a></span>If this character raises its arm to point at the sky, the chain will remain oriented
+                        in a vertical plane. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-002A"></a></span> If, however, you want the arm to rotate to another plane, as if the elbow were to
+                        rotate up to achieve a more horizontal orientation, then you need to use a special
+                        constraint to control the joints' orientation. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-D9DC5E04-76BE-4C35-BDED-A3D2BCCFECC6"></a></span>You can control the orientation of a chain to help you avoid problems with the chain
+                  flipping. Chain flipping occurs when the effector of a 2D or 3D IK chain gets close
+                  to the chain root. When this happens, the general orientation of the chain changes
+                  very quickly as the effector crosses the preferred axis. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-35B429DB-0A31-47CD-9972-8A61ABFFB073"></a></span>There are three things you can do to help with this problem: 
+               </p> <span class="anchor_wrapper"><a name="UL_CDC4EEFE72C1480399EDC307A7ACE45C"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F0ABDA99-F141-4579-AE01-44A9E414E3A8"></a></span>Show the chain root's critical zones — see <span class="char_link"><a href="skel_DisplayingChainElements.htm#WSA6148FF52F63AE42885097A8A1DB2837-0032">Displaying Critical Zones for IK Chains</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0245CBD1-5632-466C-BDF1-4A769E960D57"></a></span>Constrain the chain's up-vector (direction), as described in <span class="char_link"><a href="ik_ConstrainingtheChainxd5sUpVectorDirection.htm"> Constraining the Chain's Up Vector (Direction)</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BDBD05B1-FA80-4005-A378-28C713A3428E"></a></span>Constrain the chain's preferred axis of rotation, as described in <span class="char_link"><a href="ik_ConstrainingthePreferredAxisofRotation.htm"> Constraining the Preferred Axis of Rotation</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

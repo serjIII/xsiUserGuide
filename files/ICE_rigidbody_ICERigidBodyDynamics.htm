@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-294E0AE1-D126-4A15-93A6-88EC6C85FD00">
+      <meta name="indexterm" content="rigid bodies: ICE particles">
+      <meta name="indexterm" content="ICE particles: rigid body dynamics">
+      <meta name="indexterm" content="ICE rigid bodies: about">
+      <meta name="indexterm" content="Simulate Rigid Bodies node">
+      <meta name="indexterm" content="ICE rigid bodies: Simulate Rigid Bodies node">
+      <meta name="indexterm" content="Simulate Bullet Rigid Bodies node">
+      <meta name="indexterm" content="ICE rigid bodies: Simulate Bullet Rigid Bodies node">
+      <meta name="indexterm" content="Bullet, ICE node for rigid bodies">
+      <meta name="topic-type" content="concept">
+      <title>ICE Rigid Body Dynamics</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-294E0AE1-D126-4A15-93A6-88EC6C85FD00"></a></span><div class="head">
+            <h1>ICE Rigid Body Dynamics</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-5FDB29CC-B935-4505-84C4-0B0889A829A1"></a></span>Rigid body dynamics let you create realistic motion using particles as rigid body
+               objects (referred to as <em class="mild">rigid bodies</em>), which are objects that do not deform in a collision. This means that the particles
+               in the same point cloud can collide with each other, as well as with other objects
+               that are set as rigid bodies (referred to as <em class="mild">collision objects</em> or <em class="mild">obstacles</em>). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-950E6FD3-1002-4C04-AE06-B4B6F496C677"></a></span>Rigid bodies are collision objects and have physical properties to calculate their
+               reactions in a simulation. These properties include elasticity, friction, and the
+               collision geometry type. You can also set springs and dampers between points on any
+               geometry that is simulated with ICE rigid bodies. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A9F9EB49-0143-44D8-983A-CC1E51A22924"></a></span>ICE rigid body particles are best for creating a large number of small objects that
+               collide. You can create effects that involve many small pieces that collide, accumulate,
+               fall into a pile, are blasted apart, and so on. 
+            </p><span class="anchor_wrapper"><a name="FIG_F5AE647E01554A248D3CED8A714EDD7A"></a></span><div class="figure-anchor"><img src="../images/GUID-15DD2AFA-4756-44B4-8A73-D5C79F20B3D0-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_D4E89DC233844A6F8F984CE2E74C82AB"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DC087027-A436-40EF-82AA-F4AE90C007F7"></a></span>PhysX Dynamics and Bullet Physics Engines
+               </h2>      
+               <p><span class="anchor_wrapper"><a name="GUID-B36CAA42-67E9-4F31-ADCC-E43803EF5D5D"></a></span>There are two ICE nodes in an ICE tree makes all the rigid body action happen: Simulate
+                  Rigid Bodies and Simulate Bullet Rigid Bodies. Either of these nodes allows particles
+                  to collide with each other or with obstacles as rigid bodies. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0F451C80-EF9A-4AA4-BC15-D497B135EA83"></a></span>Each node uses a different physics engines for simulating rigid bodies: 
+               </p> <span class="anchor_wrapper"><a name="UL_88516DBE1D2A4CD68E6222FBF3332E69"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FA714028-9F55-4B5B-A7C2-0FDC94FA4788"></a></span>The <span class="char_link"><a href="ICE_simulation_TheSimulationRegionsandNodes.htm#WS2A020F56F634064C904087E0C75076C7-0008">The Simulate Rigid Bodies Node</a></span> node uses the PhysX dynamics engine for creating ICE rigid bodies. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-19B086A2-6605-415A-9436-57D5BB61746B"></a></span>The PhysX engine is the same one that is used for creating non-ICE rigid bodies -
+                        see <span class="char_link"><a href="rigidbody_RigidBodies.htm">Rigid Bodies</a></span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B718169C-6A2D-4573-9846-96B85DD1BA33"></a></span>Due to PhysX limitations, you cannot have more than 60,000 rigid bodies in a simulation
+                        environment. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2AAC1DD9-37D8-4660-A91F-88DFAD750FF5"></a></span>The <span class="char_link"><a href="iceref_Simulate_Bullet_Rigid_Bodies.htm">Simulate Bullet Rigid Bodies</a></span> node uses the Bullet physics engine for creating ICE rigid bodies. This allows you
+                        to use the actual shape of obstacle objects and convex hulls for rigid body particles,
+                        among other things. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE8B2E643337E5445B9AAF683EB9608B2-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3DB905E5-83F7-437A-B47A-485391D86FBA"></a></span>Rigid Body Attributes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2B4EC554-151F-4FEA-951A-F374F9E0F7C0"></a></span>There are several particle attributes that are used to define rigid body collisions.
+                  These attributes are used in several nodes and compounds that are described in this
+                  section, but you can also use them on their own in an ICE tree by specifying them
+                  in the Get Data and Set Data nodes, as described in <span class="char_link"><a href="ICE_particles_UsingICEParticleAttributes.htm">Using ICE Particle Attributes</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-43CA365B-9F96-4752-94E1-5948B9EA9A26"></a></span>For more information on attributes in general, see <span class="char_link"><a href="iceref_attributes_a.htm">ICE Attributes</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="UL_A4736E0B8DF2429495867561BA831B86"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AE8BB524-9659-404C-B30B-9CA0172BEF12"></a></span> <span class="char_link"><a href="iceref_attributes_AngularVelocity.htm">AngularVelocity</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AE58F113-E15C-4346-89D7-3455A2C1CFFF"></a></span> <span class="char_link"><a href="iceref_attributes_CollisionScale.htm">CollisionScale</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-54997381-166C-4B14-B8A9-C7069594B5B9"></a></span> <span class="char_link"><a href="iceref_attributes_CollisionShape.htm">CollisionShape</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-85DB20E7-9A40-4A3A-8202-C9E4290F57EF"></a></span> <span class="char_link"><a href="iceref_attributes_CollisionSize.htm">CollisionSize</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FA47B1C0-9155-4CAF-B741-F4AECF3B795A"></a></span> <span class="char_link"><a href="iceref_attributes_ConnectionIndices.htm">ConnectionIndices</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-34C9D0E7-E27A-479F-AAA2-57E095A8B32B"></a></span> <span class="char_link"><a href="iceref_attributes_ConnectionMute.htm">ConnectionMute</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8331766E-FC21-4425-8D4D-4105A8ACF183"></a></span> <span class="char_link"><a href="iceref_attributes_DamperCoeffs.htm">DamperCoeffs</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C9A2B2F2-3ACA-4249-B3E1-C647391F23CD"></a></span> <span class="char_link"><a href="iceref_attributes_DynamicFriction.htm">DynamicFriction</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8ABE923A-7CC1-4EC8-B47D-6A747B6410BB"></a></span> <span class="char_link"><a href="iceref_attributes_Elasticity.htm">Elasticity</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C610811C-395D-4505-B9AC-D3130DCC761D"></a></span> <span class="char_link"><a href="iceref_attributes_IsPassiveRigidBody.htm">IsPassiveRigidBody</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E5E7F680-8CC3-4024-848A-6E27CD2B8E2A"></a></span> <span class="char_link"><a href="iceref_attributes_SpringCoeffs.htm">SpringCoeffs</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B9138C2A-943B-4B9D-B019-C99CF7DD7D61"></a></span> <span class="char_link"><a href="iceref_attributes_SpringLengths.htm">SpringLengths</a></span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7F3F3CD7-340A-4580-8105-9F013F61F706"></a></span> <span class="char_link"><a href="iceref_attributes_StaticFriction.htm">StaticFriction</a></span> 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

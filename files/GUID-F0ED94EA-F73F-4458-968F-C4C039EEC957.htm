@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F0ED94EA-F73F-4458-968F-C4C039EEC957">
+      <meta name="indexterm" content="CrowdFX: collision avoidance behavior">
+      <meta name="indexterm" content="CrowdFX: avoiding collisions">
+      <meta name="topic-type" content="concept">
+      <title>Collision Avoidance Behavior for Actors</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F0ED94EA-F73F-4458-968F-C4C039EEC957"></a></span><div class="head">
+            <h1>Collision Avoidance Behavior for Actors</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-87EB8750-1498-4BCD-993D-5D2DD4198A28"></a></span>   
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-D566CDDB-5140-4B4D-860E-291CE9FCD13A"></a></span>In locomotion simulations, actors need to avoid colliding with other actors, as well
+            as walls. In order to do this, they need to have a way of checking for collisions
+            and then calculating whether or not the collision is imminent. This section describes
+            how you can set up the data for the actors, which affects how they behave when avoiding
+            collisions in the simulation. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_A2665BD7FBC64B2B853D600D2CB370ED"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-A367F100-D1D2-4468-AEC9-FADC0074B804"></a></span>How an Actor Checks for Collisions
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-6638AFBA-B880-42E7-B0CB-C7DB9C318B9D"></a></span>So, how does an actor detect a potential collision with another actor? Basically,
+               through its field of view, similar to how a human or animal would see and evaluate
+               potential collisions. You can set the actor's field of view and more with the <span class="MenuCascade" id="GUID-3205139A-7F22-4115-9AC1-C71E55071306">Vision</span> parameters in the <span class="char_link"><a href="iceref_Initialize_Collision_Avoidance.htm"> Initialize Collision Avoidance</a></span> compound that's in the simulation point cloud's Emit ICE tree. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-5D657413-BD9C-43FB-BC29-767508702779"></a></span> To determine potential collisions, a field of view is calculated from the actor in
+               its forward direction. The extent of the actor's field of view is set by the <span class="MenuCascade" id="GUID-FFF07417-9206-48B0-815E-F5135E101B1C">Horizontal FOV</span> angle and the <span class="MenuCascade" id="GUID-1765086D-B8FA-4975-9036-0D7F44589355">Far Interaction Limit</span>. The latter defines how many units ahead the actor can see. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-FEACE01A-B692-4D6B-9A76-08DDCFBDA204"></a></span>If no other actors are detected within the field of view, the actor doesn't change
+               his speed or direction. However, if one or more other actors are detected in the field
+               of view, several factors are calculated during the simulation to determine if a collision
+               is imminent. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-817CAE84-9551-4A82-9C42-CD50443D9ABC"></a></span>If the collision is imminent, the actor slow down or turns away, according to the
+               settings that you make <span class="MenuCascade" id="GUID-3498DA97-1178-440C-B9C5-6B49350BEDF4">Initialize Collision Avoidance</span> compound, as described in <span class="char_link"><a href="GUID-D36B006B-501F-45C8-8655-B1C6535B74E8.htm">Setting Up How Actors Avoid Collisions</a></span>. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-F37D89D2-0BED-49BE-8D12-E6D6DAFBCAEF"></a></span>Those values are initialized and then used during the particle simulation where you
+               can alter the actor's anticipation behavior in the <span class="MenuCascade" id="GUID-F3212670-5A94-4F4A-9B53-8F7D13DA79E6">Simulate Collision Avoidance</span> compound, as described in <span class="char_link"><a href="GUID-360384CF-A620-4DAB-A0CD-578813AC9C09.htm">Anticipating Collisions in the Simulation</a></span>. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C7900D82-6417-4825-9BA2-357073E2479A"></a></span> <img src="../images/GUID-59BA2DC7-E023-4997-97A4-78ECBC7B1D5C-low.png"> 
+            </p> 
+            <div><span class="anchor_wrapper"><a name="GUID-FE183B40-5E67-4DAF-BE9C-10130D5E385D"></a></span><div class="note-note"><span class="label">NOTE:</span>Collision detection for walls is set in a different way than using a horizontal field
+                  of view - see <span class="char_link"><a href="GUID-69D22EF7-7F50-4BBD-9D26-07C29FEBA219.htm">Avoiding Collisions with Obstacles (Walls)</a></span>. 
+               </div>
+            </div> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

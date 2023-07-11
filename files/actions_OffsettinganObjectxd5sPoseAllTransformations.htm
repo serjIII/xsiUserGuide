@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-274EE7FB-96D2-4749-B064-E3A16D593972">
+      <meta name="indexterm" content="offsetting object's pose in animation mixer">
+      <meta name="indexterm" content="action clips: pose offset">
+      <meta name="indexterm" content="pose offsets: on action clips">
+      <meta name="indexterm" content="transformations: offsetting in animation mixer">
+      <meta name="indexterm" content="static kinestate properties: pose offset">
+      <meta name="indexterm" content="pose offsets: and ghosting overlapping clips">
+      <meta name="indexterm" content="ghosting: and pose offsets">
+      <meta name="indexterm" content="action clips: activating items in">
+      <meta name="topic-type" content="concept">
+      <title>Offsetting an Object's Pose (All Transformations)</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-274EE7FB-96D2-4749-B064-E3A16D593972"></a></span><div class="head">
+            <h1>Offsetting an Object's Pose (All Transformations)</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-AA168C5F-B372-4C2B-91BA-6BA66E5F15C9"></a></span>With pose offsets, you can offset all transformations (scaling, rotation, and translation)
+               for an object. All transformations are calculated together as a whole instead of as
+               independent entities, allowing you to easily offset an object in space. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-297B7B80-F310-4453-95B5-E61632AC796E"></a></span>Pose offsets eliminate the need for adding extra offset nulls or other objects or
+               scripts that destructively process character animation to transform it to another
+               space for blending with another clip. For example, you can use a pose offset when
+               you're creating a transition between clips. You match the character's position in
+               space from one clip to the other so that there's no sliding or rotating when the character
+               goes to the next clip. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2C86BF95-9F7B-4F4E-B43A-5DF47DF216DB"></a></span>As with offset effects (see previous section), pose offsets sit "on top" of a clip's
+               animation, so you can non-destructively add a pose offset to an action clip or a compound
+               clip without affecting the action source. As well, the specified transformation offset
+               is applied to the transformation parameters before any other value mapping effect,
+               such as a clip effect or an offset effect. 
+            </p><span class="anchor_wrapper"><a name="FIG_D865644487E648F492C46654879DACE7"></a></span><div class="figure-anchor"><img src="../images/GUID-7A0D381F-B6AB-42E6-9BC0-8FEB333ABFF6-low.png"></div><span class="anchor_wrapper"><a name="TABLE_D5B6620A6129450F8E05AE93591FD32C"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F8CE0A5D-B8A9-4F1A-A471-0F4CB1AD8261"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-43F9ECB9-C106-4461-9DCF-033817C0A353">A</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BAB9B4D7-9100-43D6-AC66-79164DE77465"></a></span><p class="table-body">The character in Top view showing ghosted images in red and green from two poses in
+                           two overlapping clips. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9FD8CE5F-5B53-4CF4-AE65-95F1E57C4BC0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9F6DB692-5487-4623-9548-90C4297D2254">B</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-ECB60562-B6A1-46E5-91B8-90B37734D806"></a></span><p class="table-body">Same poses shown in the User view. </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-30E54F3D-50C9-4431-A140-C29AFFC34B9E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F43AF06D-817B-4D81-8652-E855B7795D2E">C</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E980BEDA-16ED-4823-BDD7-1A0CD49C893E"></a></span><p class="table-body">With a pose offset, the character's rotation and translation parameters are adjusted
+                           so that the two poses match in basic location and direction at the current frame.
+                           
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00D6"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-87E21000-1ADB-484F-99C4-0F00A646E3AB"></a></span>Creating a Pose Offset
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D417F3EF-A455-4BCD-A0F0-8F3CADB420C9"></a></span>Part of the pose offset process is choosing which objects to include in the offset.
+                  The mixer attempts to automatically determine which these objects are and activates
+                  an Xfo option (found in the clip's property editor) for their transformation parameters
+                  when the clip is created from the action source. If you have a specific setup or rig
+                  that's a little different, you can override this and specify exactly which objects
+                  are considered for the pose offset by activating their Xfo option manually. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D50BB65E-94C5-4A32-94CB-08BC74E6DDEF"></a></span>Here's how the mixer determines what to consider for the offset: 
+               </p> <span class="anchor_wrapper"><a name="UL_54543401659B41B180A4C29510FB56A5"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C41C9164-077B-465C-A454-5A9043D306F9"></a></span>The highest-level parent of objects in the clip whose transformations are locally
+                        animated. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-044EDC7E-37FD-462A-999C-B949AAED68B7"></a></span>Any objects in the clip whose transformations are globally animated. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BD71929D-A856-488E-94C3-411F1870D3B5"></a></span>For example, you may have a hand effector that is parented under the character's "torso
+                        root", but is animated in global space (such as if it was imported from SOFTIMAGE|3D).
+                        In this case, the effector would need to have Xfo activated for it, as well as to
+                        its ancestor (the torso root). 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00D7"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9DF9254A-0009-450B-8DE1-04F2CDAF8530"></a></span>To create a pose offset
+                  </h3> <span class="anchor_wrapper"><a name="GUID-F860CFE2-10E1-41E3-9158-9896877D0F4D"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-352420BA-DAD2-4AC4-A3E2-3B35868AF93A"></a></span>Be sure not to have multiple clips overlapping on the clip you want to offset. You
+                           can mute them while you're doing the pose offset — see <span class="char_link"><a href="actions_ModifyingActionClipValues.htm#WSA3B2924969ED704E813291282A376B72-0085">Muting (Deactivating) Parts or All of an Action Clip</a></span>. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-78B263D7-B76F-4DDD-AA3B-BD448DD3E6AD"></a></span><div class="note-tip"><span class="label">TIP:</span>You usually don't need to do the next two steps, but you may want to check which parameters
+                              have had their Xfo <span class="MenuCascade" id="GUID-D585496D-702F-4DF1-80EF-3A240B54F624">option</span> activated by the mixer. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CE63C2CE-D7CA-4895-A4AF-005A674AC102"></a></span>Right-click an action clip or compound clip to which you want to apply an offset and
+                           choose <span class="MenuCascade" id="GUID-664EFF79-8A41-4BF7-9627-ED7E26B98BE0">Clip Properties</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-503B2B35-DF24-4502-96EB-AEF799B29E8A"></a></span>On the Clip Item Information page, select <span class="MenuCascade" id="GUID-055A3525-C199-441F-8FA5-F0E226A59F0B">Xfo</span> (or check) for each SRT parameter you want to include in the pose offset. The Xfo
+                           is actually set per object, not per parameter, so activating Xfo for one parameter
+                           may activate several. The pose offset is applied only to the parameters with Xfo active.
+                           
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-81106360-C125-40CC-B712-4B12C0016655-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0993E03F-D230-437A-A271-ED95FB5D07B1"></a></span>If you have any values set in the Clip Effect column (a clip effect or an offset),
+                           these are applied after the pose offset is calculated. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7794B406-17F0-4ECF-ADBE-DC615CA50EFB"></a></span>Select the clip and choose <span class="MenuCascade" id="GUID-E7911BFD-DDB2-4133-AE6E-BABA67A22E4C">Clip <img src="../images/ac.menuaro.gif"> Select Driven Objects (Pose Offset Only)</span> or right-click the clip and choose this command. This branch-selects all objects
+                           whose parameters have <span class="MenuCascade" id="GUID-96C6DA67-48DA-4E89-836D-FB8C8AE905E7">Xfo</span> selected. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0F053F2C-D92C-417B-8EA4-400DFBE6034C"></a></span>Using any or all of the Scale, Rotation, and Translation tools, transform the objects
+                           the way you want them for the pose. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DA2B8488-5501-4A5B-87B3-D724235D7CF9"></a></span>Right-click the clip and choose <span class="MenuCascade" id="GUID-CE4E4B26-2EDB-4575-975C-CD1B2DD804BB">Set Pose Offset</span>. This calculates the pose using only the parameters that have <span class="MenuCascade" id="GUID-82810F4B-54A3-4953-A9AB-713B5C936D61">Xfo</span> activated for them. It makes the given clip match the current transformation at the
+                           specified time (using key time). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-34EE80BA-96A5-409C-A909-DCD5F03936ED"></a></span>An aqua-colored bar appears above the clip indicating that there is a pose offset
+                           acting upon the clip. If there is also a clip or offset effect on that clip, the bar
+                           turns a bright lime green. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-A4104D2D-688C-47E3-ACAB-AFB7652DFC0F-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-37E342B7-7975-4EF7-AEBA-EC86E29450B2"></a></span>The Pose itself is a nested Static KineState you can see in the clip's property editor.
+                           It contains all transformation parameters that you can edit at any time to adjust
+                           the pose offset that you've saved. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4D6EAF82-6079-4802-804E-C0E9FAF7A41D"></a></span>Right-click the clip with the pose offset and choose <span class="MenuCascade" id="GUID-3D4B453F-E09C-4E05-B1B1-6DAAA4FDD13F">Edit Pose Offset</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BA1DAE8F-66B7-41BA-9204-4BB13099C75B"></a></span>While you don't need to use ghosting for adjusting the pose offset, it can be of great
+                           help in seeing what you're editing if the clips are overlapping. To use ghosting,
+                           see <span class="char_link"><a href="animmixer_GhostingClips.htm">Ghosting Clips</a></span>. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-C7B6CCE5-0721-4987-9CAF-3E2E3CD49947-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-962B7C68-17E4-4F5C-B9C0-E300C2758E02"></a></span>On the left, ghosting shows contribution from the first clip in blue. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1364E9E9-5FD1-4504-B74D-841185D1875F"></a></span>In the middle, the character's current position is a blend between the two clips.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-65C22A25-FA4C-45FF-93E5-A02BBEF92BA1"></a></span>On the right, ghosting shows contribution from the second clip in yellow. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-94C101A4-AD4A-477A-A935-2B751579AAD0"></a></span>Interactively change any of the object's transformation parameters or change the values
+                           of the transformation parameters in the Static KineState property editor that appears.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B7D2FAA3-AE61-4AA8-BDBE-24EC298CB3E3"></a></span>Save the new pose by choosing the <span class="MenuCascade" id="GUID-38ECB9D7-4CB3-4779-9A1F-F1F0A30C4F83">Set Pose Offset</span> command again. This computes the correct offset to apply to make the clip match the
+                           current transformation at the specified time (using current or key time). 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00DB"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CDF54C45-82B8-4369-9CD1-58B54414B801"></a></span>Example
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-31F1EF46-337A-46B2-92BD-CDCA0D9E1FA0"></a></span>To create a smooth transition from overlapping clip A to clip B: 
+                  </p> <span class="anchor_wrapper"><a name="GUID-0DF8E48E-FD43-4411-A7A3-5814F2813326"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-68AC18DF-FBE7-443B-B1E3-C0BE4342D753"></a></span>Ghost clip A's track so you can see where the object should be. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4D5842CF-F56B-47D9-9970-3B9DFAD3DFE7"></a></span>Solo clip B's track. Now the object is fully at the position driven by clip B. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D077149B-C641-4911-8127-0363D178146F"></a></span>Select driven objects (for pose offset). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E572D830-F200-4102-81A0-8862925E8CB9"></a></span>Translate and rotate them to line them up the way you want with clip A's ghost. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AE80A583-A2EA-4019-B1B8-2B885B33B23A"></a></span>Do the pose offset on clip B. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CA91F622-CB0A-4B88-9163-2943BBBAE8AB"></a></span>Now unmute track A and you're done. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-B7D08D6C-ACE7-4CB6-A373-92004D54ACC3-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-72F5B707-E02B-49AB-87A4-15B961063DCF"></a></span>At the transition point between the first and second clip, the character is rotated
+                           and placed in space to match the first clip's pose. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00DD"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-079DFEF0-BBE2-43D5-8DD8-B7C815ACC01E"></a></span>Activating and Deactivating Pose Offsets
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-D2C601CB-F810-42FE-9320-D255367836D5"></a></span>Deactivating a pose offset removes the aqua bar from the clip, but the value map expressions
+                  for it remain so that you can activate it again. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CD211505-B661-4FD1-B417-7A5C2AA975F9"></a></span>Do one of the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_20DA35D247E749F48063B5C2FB72C02C"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AD8CCA41-1E2C-4BA0-8831-BA3A62C57937"></a></span>Right-click the clip and choose <span class="MenuCascade" id="GUID-27B1A175-13D9-48A8-A625-FEF8A3D19E0C">Toggle Pose Offset Activeness</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FFAC0116-CEC4-457C-B49E-1B2234268DE3"></a></span>Right-click the clip and choose <span class="MenuCascade" id="GUID-DBC84950-EE5F-41B0-B0DF-B895E9016E39">Clip Properties</span>. On the Clip Effect page, toggle the <span class="MenuCascade" id="GUID-AC5B9522-AF8E-4F36-A9DE-71B87AF9D5C0">Pose Active</span> option. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00DF"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B6840041-BB53-4B44-9376-149CD3EF57D8"></a></span>Removing the Pose Offset
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F1C2042B-E46A-4AAB-858D-230A1B59327A"></a></span>Removing a pose offset removes its value map expressions. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2220C5F4-0F5D-4D31-83C1-21530DFF9A62"></a></span>Do one of the following: <span class="anchor_wrapper"><a name="UL_69A928AFCA4C47F28B8CA278C868DD06"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C22E9436-1D62-4754-8333-F9FAB5B85C7B"></a></span>Right-click the clip's aqua bar and choose <span class="MenuCascade" id="GUID-A2360337-906E-47BC-A7AE-4CD35CAF038A">Remove Effect</span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7607073E-E529-42AF-81C1-C8E3F7FE612B"></a></span> <em class="mild">or</em> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6CEF4588-32C9-42A8-BBF1-3143329CDE1B"></a></span>Select the clip and choose <span class="MenuCascade" id="GUID-6266EB8E-FE92-4C59-B94F-F6A21D47D67D">Effect <img src="../images/ac.menuaro.gif"> Remove Effect</span> on the animation mixer command bar. This removes all effects on the clip: clip effects,
+                           offset effects, and pose offsets. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

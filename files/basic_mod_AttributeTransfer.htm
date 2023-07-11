@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-9972B334-9B90-495C-AAF3-406EDC8012E2">
+      <meta name="indexterm" content="transferring: clusters and properties">
+      <meta name="indexterm" content="merging: clusters and properties">
+      <meta name="indexterm" content="attributes: transferring and merging">
+      <meta name="indexterm" content="clusters: transferring and merging">
+      <meta name="indexterm" content="properties: transferring and merging">
+      <meta name="indexterm" content="Gator">
+      <meta name="indexterm" content="materials: transferring and merging">
+      <meta name="indexterm" content="UV coordinates: transferring and merging">
+      <meta name="indexterm" content="color at vertices: transferring and merging">
+      <meta name="indexterm" content="weight maps: transferring and merging">
+      <meta name="indexterm" content="envelopes: transferring and merging">
+      <meta name="indexterm" content="shape animation: transferring and merging">
+      <meta name="indexterm" content="user normals: transferring between polygon meshes">
+      <meta name="topic-type" content="concept">
+      <title>Attribute Transfer</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-9972B334-9B90-495C-AAF3-406EDC8012E2"></a></span><div class="head">
+            <h1>Attribute Transfer</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-B717F0B8-154B-4754-BA87-746DBD3D0B77"></a></span>You can transfer and merge clusters with properties from object to object. The cluster
+               properties that you can transfer in this way include materials, texture UVs, vertex
+               colors, property weight maps, envelope weights, and shape animation. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-07079D95-6DC9-4A37-A024-A17C6AB3339A"></a></span>Attributes can be transferred in two ways: 
+            </p><span class="anchor_wrapper"><a name="UL_1753C705DAC24B00BCDE64B09C59F1E9"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-75F8C03F-C878-40F5-885D-66B683C3485C"></a></span>When you generate a polygon mesh object from others, for example using Merge or other
+                     commands, you can transfer attributes from the input objects to the generated objects.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EC66EB3E-3016-402A-A470-BCAE5B74A23F"></a></span>Using <span class="MenuCascade" id="GUID-D5D632AF-0451-46A2-86D7-B955D8ADED1C">Property</span><img src="../images/ac.menuaro.gif"><span class="MenuCascade" id="GUID-1C30DD11-2894-40E0-B3E8-86E57752BF4D">GATOR</span> (Generalized Attributes Transfer Operator), you can transfer attributes from any
+                     set of input objects to a target object or cluster. You can use any combination of
+                     polygon meshes and NURBS surfaces. 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0061"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-49423388-A9D7-47C1-918F-665BBA0E8C1C"></a></span>About Attribute Transfer
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-94A58502-660C-4A19-B444-41C24A94FB5B"></a></span>There are a few things you should be aware of when transferring attributes. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0062"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-66818C7C-99A7-4BA1-98B3-3AA583D00ECB"></a></span>Connection Point
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-300539B4-BA0D-4313-8040-0AE0F5231E1A"></a></span>Transferred attributes can be "read" from the top of any of the construction regions.
+                     When generating polygon meshes, the same connection point is used as for creating
+                     the geometry. However, there are special considerations when transferring attributes
+                     on generated meshes: 
+                  </p> <span class="anchor_wrapper"><a name="UL_C4FFB4527AC04D868FBD46AFC3BC47AF"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-35055EA0-3802-46CB-8206-FEA00280233D"></a></span>When you transfer envelopes and shapes, the connection point is automatically set
+                           to the top of the modeling region. Otherwise, there would be a double deformation
+                           as the deformed inputs drive the generated object's base shape, and then the generated
+                           object is deformed further by the transferred attributes. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A4C66F3F-96D1-482F-8125-016F2B353880"></a></span>If there is shape animation on the inputs and you need to read the source geometry
+                           from above the Modeling construction region, you can mute all shapes to avoid the
+                           double deformation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9011503A-D611-4C8A-8DE2-CF323D647331"></a></span>If you are transferring only materials, texture UVs, color at vertices properties,
+                           or weight maps, then you can set the connection point to any value. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ACB45EE7-1D43-4FF9-91C1-5349E1D45339"></a></span>For more information about the connection point in general, see <span class="char_link"><a href="basic_mod_ModelingRelations.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0050">Choosing the Connection Point</a></span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0063"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D8939D6A-4DA5-47B6-AB68-46E5F1FC616F"></a></span>Modeling Relation
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-915BE405-5186-401C-A00A-B8C15025CDC0"></a></span>The transferred attributes have a modeling relation to the input objects. Any changes
+                     you make to the clusters (adding or removing components) or their properties (texture
+                     UVs, vertex colors, weight maps, envelope weights, or shape sources) of the input
+                     objects are automatically reflected in the target object. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E11ADFEC-B5D3-448A-8672-E2C0937384CB"></a></span>However, some changes are not automatically updated. If you make any of the following
+                     changes, you must re-transfer the attributes to see the effect on the target: 
+                  </p> <span class="anchor_wrapper"><a name="UL_118B5DA436524903A0DB0C85512BD7E8"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-525EF7B5-F0F3-4C88-9FDE-FAD764123608"></a></span>Create new clusters or cluster properties. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ACA0E9FE-1797-412E-8CB6-34969100B7BE"></a></span>Assign new materials. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-88AE239F-D000-4519-8984-E8E27EB43EC5"></a></span>Author new shape sources. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4C328057-DBF3-4C95-8DCA-6EFDB06CBE8B"></a></span>Make any changes to shape clips and shape weights. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0F31D525-ADEA-4F6D-BEF4-F453B402EF39"></a></span>Add new deformers to an envelope. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CE5A0992-FE79-49BF-A5E0-A1AC0A96416C"></a></span>If you freeze the generator or the GATOR operator, the modeling relation is broken
+                     and the attributes no longer update. This allows you to delete the inputs if you no
+                     longer require them in your scene. Note that freezing any of the transferred attributes,
+                     such as texture UVs or envelope weights, is equivalent to freezing the generator or
+                     GATOR node (and all operators beneath it). 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0064"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FAAF955A-0568-4BA1-A616-91CEBD3E72B9"></a></span>Merging Clusters
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FC4D969D-EAB0-43B7-ADCD-270B0425D501"></a></span>When there are multiple input objects, similar clusters and cluster properties can
+                     be merged. This is useful when merging or blending polygon meshes, or when using a
+                     GATOR operator to copy attributes from several objects onto a single target. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-46BB6303-E322-4B19-872F-2A633C82B213"></a></span>If you transfer properties by type, Softimage automatically merges clusters when it
+                     considers them to match, for example, if clusters share the same material. See <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0069">Transferring Attributes by Type</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6E9E06A0-E3A7-4B07-AF95-4124604B1B92"></a></span>If you transfer attributes manually, you have complete control over how clusters are
+                     merged. See <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-006A">Transferring Attributes Manually</a></span>. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0065"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E0A40071-75D7-4A18-A3A7-092C67D89241"></a></span>Transferring Attributes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2243F3EF-E64C-41ED-93D9-1841FBF18604"></a></span>Here is a quick overview of the process of transferring attributes: 
+               </p> <span class="anchor_wrapper"><a name="GUID-4A9585A6-A400-48A4-911B-CB0C3A18D1F9"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B8BA55CA-6DD5-4750-8DAC-1936E5A5D31C"></a></span>If you generated a polygon mesh from others, the attribute transfer controls are in
+                        the generator's property editor. See <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0066">Transferring Attributes When Generating</a></span> for some specific considerations when generating and transferring. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1A345555-08AC-40C8-B878-FFDEB765F0A8"></a></span>Otherwise, you can apply GATOR manually. See <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0067">Applying GATOR</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D32196EF-030E-45B7-B0CF-E6BBFE23F0EC"></a></span>Do either or both of the following: 
+                     </p> <span class="anchor_wrapper"><a name="UL_A1B34F32AB3346789008C3549E9651B0"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-703EB081-4706-47FC-81AD-C1F87C45B838"></a></span>Click either or both of the <span class="MenuCascade" id="GUID-220DB42A-A136-4F5A-AA16-9AE2A9F077B7">Transfer</span> (or <span class="MenuCascade" id="GUID-4045861C-D09F-4CB0-97D9-84C1031BE1BF">Merge</span>) buttons to quickly transfer specific types of attributes. See <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0069">Transferring Attributes by Type</a></span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B6A326A6-8D60-4DA2-958C-AA8F00BB5735"></a></span>If desired, click the <span class="MenuCascade" id="GUID-0BFE3E3E-D093-4D0E-8A60-9EF0D5FBCB5F">Edit Transfer</span> button to transfer attributes manually. This provides more control over which attributes
+                              are transferred and how clusters are merged. You can use it instead of the other buttons,
+                              or to refine the transfer after using the other buttons. See <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-006A">Transferring Attributes Manually</a></span>. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D7EE87F8-3CD2-4646-ADED-C72B1C8F97F4"></a></span>Once attributes are transferred, you can do any of the following: 
+                     </p> <span class="anchor_wrapper"><a name="UL_C2C8C8607DA9463AA70A6062A0E03B55"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3DB192C2-24D0-45D6-85DF-13F94F7B18F9"></a></span>Make changes to the attributes on the input objects. The target object updates automatically.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-02D9B463-4E08-4B80-89E3-DD0110794714"></a></span>Make changes to the attributes on the target object. The changes you make are applied
+                              on top of the base values read from the inputs. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9347BEDB-1D48-4943-A318-F72A14FD9510"></a></span>Freeze the transfer. The target is no longer affected by changes to the inputs. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ol> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0066"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-AB9F6E94-AB82-48A5-AAD9-772B72FEA707"></a></span>Transferring Attributes When Generating
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CB3036C3-E978-434B-9878-A1128BEAB90C"></a></span>When you generate a polygon mesh object from others, you can use the controls on the
+                     generator's property editor to transfer attributes from the inputs to the generated
+                     object. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7EC5C451-85CB-4792-A6D1-34EC8C01872F"></a></span>When transferring attributes to generated objects, discontinuities in texture UVs
+                     and color at vertices maps are always preserved. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-3E7A5243-60B6-4959-9AFB-CD0F0F9952E1"></a></span><div class="note-note"><span class="label">NOTE:</span>Boolean generators have no controls for transferring and merging attributes. However,
+                        you can apply GATOR manually. 
+                     </div>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0067"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B4B2F54C-9AD3-4F04-BCB9-9D328517573E"></a></span>Applying GATOR
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CB6FBA8C-2A1F-4010-9D96-8F8A3A34C68A"></a></span>You can use Softimage Gator to transfer clusters and attributes from any set of input
+                     objects to a target object. This is useful for transferring texture UV coordinates,
+                     envelope weighting, and other data between objects that don't share a modeling relation,
+                     such as high and low-resolution versions of the same character. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3EC79D43-83A8-4256-B880-63B5CAC33CBC"></a></span>Components are mapped based on their proximity in 3D space, so the transfer works
+                     best if the objects are similar in size and shape. If you move the objects, the transfer
+                     gets updated — to avoid this, you can freeze the GATOR node. If you want to see the
+                     transferred attributes on the target object before freezing and the input object is
+                     in the way, you can hide the input or use Object Views. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0068"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-10CFCC9B-2A6F-4696-BD99-857F1DC951AA"></a></span>To apply GATOR
+                     </h4> <span class="anchor_wrapper"><a name="GUID-32870634-2E02-4B95-84A0-164FFB0736BC"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0D34A32F-FC2C-45C3-89D9-8EFF4F15CEC5"></a></span>Select the target object to receive the transferred attributes. Alternatively, you
+                              can select points, polygons, edges, or a cluster. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3797C960-8657-4902-AFAF-6FBA3EB36EEB"></a></span>If desired, you can add the input objects to the selection now, or wait to pick them
+                              later. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FAA68C4D-8C25-4402-A84A-86B50D265751"></a></span>Choose <span class="MenuCascade" id="GUID-A378193B-23EA-4E25-B67E-977CFC1DB704">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> GATOR</span> from any toolbar. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0E8B0C46-EBAC-4C4F-B795-1CFAE974B3FA"></a></span>If you did not select the target and inputs already, you are prompted to pick them
+                              in order now: first the target if necessary and then any inputs. Right-click to end
+                              the picking session. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2E2522CF-33A3-4181-9093-AE90991DCE0E"></a></span>Set the options as desired. See <span class="char_link"><a href="property8064.htm">GATOR Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>] for information about all the parameters. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2142123F-946C-46AE-9C47-49AE2D772852"></a></span>Transfer the attributes as described in the following sections, <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0069">Transferring Attributes by Type</a></span> and <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-006A">Transferring Attributes Manually</a></span>. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0069"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-763156D6-32F3-45C6-9440-BCC46724D4BA"></a></span>Transferring Attributes by Type
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-933F0063-3DE0-45E1-A616-4202B6A10311"></a></span>You can quickly transfer specific types of attributes using the <span class="MenuCascade" id="GUID-6C5E127D-EBF6-40AC-A9C7-5873B813E2F0">Transfer</span> or <span class="MenuCascade" id="GUID-17711914-5CFF-4416-9D9D-5113AAEB2ECA">Merge</span> buttons in the property editor: 
+                  </p> <span class="anchor_wrapper"><a name="UL_9BBEB3BE33134C04B1EDDDEB90616938"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4BB8E165-47F5-4215-A10F-FE13DAD2ABEE"></a></span> <span class="MenuCascade" id="GUID-A0B8FAA3-339A-4C18-A111-859C1164DFA5">Materials, UVs, VertexColors, WeightMaps</span> transfers all surface attributes including user normals (but not envelope weights).
+                           If there are multiple input objects, such as in the case of merging or blending, clusters
+                           and properties from different objects are merged automatically if Softimage considers
+                           them to match, for example, if two clusters share the same material. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4C18D181-54C2-4A48-980F-3A25685C1D66"></a></span> <span class="MenuCascade" id="GUID-910AA884-DA4C-4A3E-BF44-303F386CDDC9">Shape Animation, Envelope Weights</span> transfers animation properties. Envelope clusters are always merged, but shapes are
+                           not merged. See <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-006F">Notes and Tips for Transferring Attributes</a></span> for additional considerations when transferring these attributes. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3D59B057-882C-4B99-A94B-77BBBE78BE09"></a></span>If desired, you can refine how the attributes were transferred and merged as described
+                     in the next section, <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-006A">Transferring Attributes Manually</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0B2F9EE2-7680-467B-8EB0-3D3FA4ACEB91"></a></span>If you later apply new cluster attributes, assign new materials, or add new shapes
+                     to the inputs, you must re-transfer the attributes by clicking the appropriate button
+                     to update the target. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-006A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-49C4CC60-53BF-40B5-9F62-7A52C0CE3B66"></a></span>Transferring Attributes Manually
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CD70085C-16CF-40FF-8E16-A260DED3B757"></a></span>Use the Transfer/Merge Attributes window to control how clusters and cluster properties
+                     are transferred from input objects to the target object. This is useful if you want
+                     to transfer only certain attributes, or if Softimage did not merge attributes the
+                     way you want. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F4C8F2EA-2CB2-49D4-A7EB-693C2CDB124C"></a></span>To display this window, click <span class="MenuCascade" id="GUID-3BC2ECE9-B506-47DF-95BA-B202DFEFFEFE">Edit Transfer</span> under <span class="MenuCascade" id="GUID-14CF673E-A14A-43D2-90B3-07CC3D136165">Specify Properties</span> in a property editor that supports attribute transfer. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_C9EEC98D60964E4FBDA750D0B476BDC3"></a></span><div class="figure-anchor"><img src="../images/GUID-F1BC8F1C-5C0E-42CF-A050-3C78EB169A70-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_1CAC188ED3664AA49E142156CED4E3E8"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="50px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BD932707-74F4-440D-96F1-3D3A6823DA0F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-66B75002-C8DF-498F-9251-9C28C1F6852A">A</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-856A9837-1118-43CC-914B-6B42125B1480"></a></span><p class="table-body">Select the type of property. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3D145D28-AA36-4AAA-8679-CBF7C11B6653"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B9621B9C-149B-4A98-94F5-EFDA4620AAB7">B</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C5830638-1DA7-4D20-9CFE-167189E2FCCA"></a></span><p class="table-body">Clusters and properties on the input objects are shown in the top table. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-65C49380-7275-489E-8251-BD2D7DAD128E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-11B9375F-B59F-4B07-BBD7-ADFC4305D67F">C</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6DEE5151-0F17-443C-9C70-BCD48FA7F9C1"></a></span><p class="table-body">Clusters and properties that have been transferred are shown in the bottom table.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-52FEF7F1-9B3B-4BD1-8FD6-D3DB740029B0"></a></span>The main area of the editor contains two tables. You can resize the columns and rows
+                     by clicking and dragging a border. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FD8323E9-77CB-4F32-84C5-5C1C74A766A9"></a></span>The top table contains a column for each input object. The cells show the ClusterName.PropertyName
+                     for each untransferred cluster property of the type selected from the drop-down box.
+                     The cells are arranged into rows based on Softimage's best guess about which clusters
+                     and properties can be merged. Items in the same row would be merged automatically
+                     if you transferred properties by type instead of manually. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B99438C4-0A1D-4609-BF83-80B49D671E2C"></a></span>The bottom table contains a row for each cluster property of the selected type that
+                     has already been transferred. The first column shows the property name and the second
+                     column shows the cluster name. There is an additional column for each input object;
+                     these show the ClusterName.PropertyName of the input cluster properties that have
+                     been merged into the generated cluster property. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-E7457929-C123-430F-95DF-774431B35657"></a></span><div class="note-tip"><span class="label">TIP:</span>You can resize the columns and rows by clicking and dragging their borders. 
+                     </div>
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-006C"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-08F5AB07-202D-4651-A3EE-EA6E64A4610A"></a></span>To select cells in the tables
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-744DE1C7-46F1-4893-8342-60C2E8899F19"></a></span>To transfer or remove attributes, you must first select the appropriate cells: 
+                     </p> <span class="anchor_wrapper"><a name="UL_5BA296224B764FC2A788878D9DC3B369"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-33998400-9C56-4FC1-B667-120FA5F87D8D"></a></span>To select a single cell, click on it. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-BDFADE10-09FD-45CD-834C-1C9DDA1408E5"></a></span>To add a cell to the selection, Ctrl+click on it. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D18FFF85-BF11-4860-A787-0517635AE01D"></a></span>To select a horizontal, vertical, or rectangular range of cells, you can drag across
+                              them from the beginning of the range to the end. Alternatively, you can select the
+                              first cell and then Shift+click on the last cell. 
+                           </p> 
+                        </li>
+                     </ul> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A12F111E-AC98-4B5E-81A7-7E72C2F80A8F"></a></span>Selected cells are highlighted in lavender. 
+                     </p> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-006D"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-90B6A0C5-2CA7-422B-AD06-6D4456A3BC11"></a></span>To transfer and merge attributes
+                     </h4> <span class="anchor_wrapper"><a name="GUID-B1167F0F-1408-4D51-9E6E-201889481632"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E7C1EA86-0FDA-4616-A9D5-7B373FBA5722"></a></span>Choose the type of attribute from the drop-down list at the top of the editor. For
+                              example, to transfer shapes, choose <span class="MenuCascade" id="GUID-45A5BCC2-FDA5-49D2-B0AC-60050DBF7208">clskey</span> (cluster key). 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-447A0902-651B-49F7-AAD9-3F6C505EFD97"></a></span>In the top table, select the cluster properties to transfer. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B737A47C-9E6F-4925-B2A3-109956DA1B59"></a></span>Clusters and properties are merged according to the following rules: 
+                           </p> <span class="anchor_wrapper"><a name="UL_702C310275E5418E82BDACBDBC765813"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-193B477F-5C21-437F-BF89-99BC9127BE1B"></a></span>If no more than one cell is selected per column, then all selected cluster properties
+                                    are merged. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-AC14955D-13E8-4526-8A4B-11CA821DAF53"></a></span>If multiple cells are selected in any column, selected cluster properties in the same
+                                    row are merged together. Each row with selected cells generates a separate cluster
+                                    property. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3E4494A1-1F9C-406B-A207-F967F450D463"></a></span>Click <span class="MenuCascade" id="GUID-633D351E-96D6-48E7-8835-345331D38C8A">Transfer/Merge</span> at the top of the editor. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4279D1E9-8A18-42BB-A223-F679DC9DD292"></a></span>New rows appear in the bottom table showing the generated cluster properties. The
+                              items that were transferred are removed from the top table. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B7072C90-6961-4DBA-B434-BBC2E299F151"></a></span>Repeat steps 1 to 3 as needed to transfer additional attributes. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-006E"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-AC6FE55D-FC61-4295-8A65-3B69ACF2626A"></a></span>To remove attributes
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5968E820-AD50-4EDF-BAE8-DEE3BCADA02F"></a></span>If cluster properties were incorrectly merged, you can "untransfer" them before re-transferring
+                        and merging them correctly. 
+                     </p> <span class="anchor_wrapper"><a name="GUID-673E5AB1-E87D-491B-AB2A-A5D93EF65AAA"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E707A3CC-B79C-4621-B3EA-135D9602D985"></a></span>Choose the type of attribute from the drop-down list at the top of the editor. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-75A23F17-EC23-45AB-A255-3C305E16C09C"></a></span>In the bottom table, select any cell(s) in the row(s) corresponding to the cluster
+                              properties you want to remove. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0A9D8C40-9ED2-4420-9E6A-2F69674E3E6F"></a></span>Click <span class="MenuCascade" id="GUID-91AB1877-249F-4EF6-8D50-88A724CD782D">Remove Transfer</span> at the top of the editor. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2D3F9C1A-B4B4-4B49-A10B-BD268A1B4200"></a></span>The selected rows are removed from the bottom table, and the untransferred items appear
+                              in the top table. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-006F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9190A8E2-F743-4A9A-9ADA-A7FD3C7F8224"></a></span>Notes and Tips for Transferring Attributes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-FAFCD6D2-60A9-41D2-9738-4725BB6F55CF"></a></span>Here is some information to help you get the best results when transferring certain
+                  types of attributes. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0070"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FE8F275B-6A52-45E2-B583-31010F1664DE"></a></span>Transferring Shapes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CAFC8620-8535-4314-AC75-8C82E3BD4E9B"></a></span>When you transfer shapes using the <span class="MenuCascade" id="GUID-CD484741-5010-48B3-8276-76F54B9028AC">Transfer</span> button under <span class="MenuCascade" id="GUID-AC843980-E941-4F95-A3C0-A0B7973372B4">Shape Animation, Envelope Weights</span>, the following things happen: 
+                  </p> <span class="anchor_wrapper"><a name="UL_9CA1D67FD800451C9663F182139D1375"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3CC9EA55-55AD-4F88-A6EE-D2E5AB2A69A5"></a></span>Any clips of previously transferred sources are removed. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F7CA27F5-17B5-4011-B737-21F537D7B63F"></a></span>Shape sources are copied. Unlike other attributes, shapes are never merged automatically.
+                           If some but not all sources have already been copied, you are asked if you want to
+                           transfer the remaining ones. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C7A89312-1E12-49A1-9199-D43D17CFD6A7"></a></span>Tracks and clips are created and weight fcurves are copied, based on the input objects'
+                           animation. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-811B1AE3-B26C-4E7A-B169-D8477959CFA4"></a></span>When you transfer shapes manually, only the shape sources are transferred. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5E8BE559-987A-4F8C-9410-76DCDDED1CDA"></a></span>The ShapeWeights custom parameter set is never transferred. ShapeWeights is created
+                     automatically when you store and apply shape keys in mixed weight mode, and contains
+                     proxy parameters for the shape weights to help mix them. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-69E5DAC2-85F5-43BD-ADF3-F8C8C6CAF7B3"></a></span>If the target has pre-existing shapes, the transferred shapes are converted to the
+                     appropriate shape reference mode (Local Relative, Object Relative, or Absolute). If
+                     there are no pre-existing shapes, then the mode specified in your Shape Animation
+                     preferences is used. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-61483742-4D5D-401A-821B-AB06628937D4"></a></span>If you modify the shape sources on the inputs, the transferred shapes are automatically
+                     updated on the target. However, if you add a new source or modify the clips and weights
+                     on the inputs, you must click Copy Animation to update the target. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0071"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-992B60A1-7C2E-4C2D-A24C-9A6BE099226C"></a></span>Transferring Envelopes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3EDE9377-CADC-4E38-B9E8-F0C5C97515B3"></a></span>When you transfer an envelope, the weight information is transferred and the target
+                     object becomes deformed by the same set of deformers as the input. If there are multiple
+                     inputs, the list of deformers is combined. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ABB336A7-7703-4CBB-BA91-3352AADCE011"></a></span>If you use multiple GATOR operators to transfer envelopes from multiple objects, each
+                     GATOR operator adds a separate envelope operator. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EEE012AB-8805-40DE-8B46-C3755CB1DFBB"></a></span>If you add deformers to the input envelope, you must "untransfer" the envelope (see
+                     <span class="char_link"><a href="basic_mod_AttributeTransfer.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-006A">Transferring Attributes Manually</a></span>) and then re-transfer it. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FE19B130-F68D-4CF3-A2FF-447CB5C4AA41"></a></span>Note that you cannot transfer weights used for Spine or Cage deformations. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0072"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6E85447C-5401-4CE1-B0C9-A556A3B6C92D"></a></span>Transferring Attributes Between Dissimilar Objects
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-167BAAAD-CE35-4E24-8A2A-349C7CFB05FB"></a></span>Because attribute transfer is based on proximity of points, it works best between
+                     objects that are roughly the same size and shape. But what happens if you want to
+                     transfer attributes between dissimilar objects? For example, you might want to transfer
+                     some facial animation from a kangaroo to a giraffe. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D298153D-E87E-4E03-BF50-0535778A6819"></a></span>In these situations, you have a choice: before transferring the attributes, you can
+                     either deform the source to match the target or deform the target to match the source.
+                     Which technique to choose depends on which is most convenient given the shapes in
+                     question. The exact steps also depend on whether there is an envelope that you want
+                     to transfer. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0073"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-0BAA24FC-76E5-49D9-9AF1-E419D74893F8"></a></span>To deform the source to match the target (with no envelope)
+                     </h4> <span class="anchor_wrapper"><a name="GUID-5530DEFB-28CA-45A7-AACA-942CC45354C6"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-DEEE761D-84E0-44B8-9493-23820C19A679"></a></span>Deform the source into roughly the shape of the target, for example, by tweaking points.
+                              Make sure that corresponding areas are close enough to ensure a good transfer. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-ACC5AE23-B870-445C-9168-FB08530A4DF7"></a></span>Apply GATOR and transfer the attributes. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E55256DA-BAE4-4F05-931A-82F7D809C32B"></a></span>If desired, you can refine the transfer by tweaking the source geometry. Just make
+                              sure that the GATOR node is reading from the source's construction history above the
+                              position in the stack where you are adding tweaks. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-518E1EEA-7F44-4443-808D-FD2C9C4BD647"></a></span>Freeze the GATOR node. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-14501700-E471-4D34-8AD2-7F6100740828"></a></span>At this point, you can delete the source or, if you want to keep it, delete the deformation
+                              operators that you added. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0074"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-B957ED99-3282-420B-8BEE-1DE50011EC18"></a></span>To deform the source to match the target (with an envelope)
+                     </h4> <span class="anchor_wrapper"><a name="GUID-993BD75B-C29F-4A87-8AAE-8515BD90E05A"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D64A6924-F318-4C7B-923C-DF26CD2AFC2E"></a></span>Make sure that both the source geometry and deformers are in their reference poses.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-50629B56-D5E7-4424-AAF3-DBD2316AC54C"></a></span>If you want to keep the source, duplicate it or export it as an external model. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-125CF224-E327-402E-B65E-F6D8F4680F7E"></a></span>Make sure that you are in the Modeling construction mode. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E9939C61-4538-4177-93C6-10547B93992D"></a></span>Choose <span class="MenuCascade" id="GUID-723F953D-AF7A-484B-A2E6-EC128C70421E">Display <img src="../images/ac.menuaro.gif"> Display Options (All Cameras)</span> from the main menu. On the Modes tab of the Camera Display property editor, set <span class="MenuCascade" id="GUID-0C82D572-95A4-49A9-9243-EF6C9EF90B39">Construction Level Viewing Mode</span> to <span class="MenuCascade" id="GUID-B0D5E9B8-5463-4193-A1DB-7569EB6DC38B">Sync with construction mode</span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F97DD411-E098-44AB-AF45-938B768BF8DC"></a></span>Align the target geometry with the source as well as possible by scaling, rotating,
+                              and translating. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1D93FF32-5CF2-40C4-8B2C-E1A8D5D4F5F7"></a></span>Deform the source to match the shape of the target well enough to ensure a good transfer,
+                              for example, by tweaking points. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A239677B-CCB7-42A8-ADAE-D32195B5EF0C"></a></span>Apply GATOR and transfer the attributes. Note that when you transfer the envelope,
+                              <span class="MenuCascade" id="GUID-6E8A6BC9-6376-46A8-AFA0-32F011B8C2B6">Inputs' construction mode</span> is set to <span class="MenuCascade" id="GUID-210270D9-64EF-4651-98DD-94213489CDC4">Modeling</span> — leave it at this value. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-460A0BA1-F9EA-450D-BE49-7E1B9B51516F"></a></span>Freeze the GATOR node. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-93CBCAB8-5D84-48B3-89E4-D6D10DD3C784"></a></span>Delete the source geometry. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-79A164BB-4095-4ED5-B62D-BC6A00384928"></a></span>Adjust the source skeleton to fit the target geometry by transforming bones, setting
+                              the bone length, or using the Move Joint tool. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A8A32783-A03A-425B-A594-2A7B9518166F"></a></span>Select the skeleton objects and reset their reference poses. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9F77BAF3-55C5-41F7-9619-028057175F61"></a></span>Set the <span class="MenuCascade" id="GUID-25063EE7-E700-4159-9D7F-B2FBEDD9C260">Construction Level Viewing Mode</span> back to <span class="MenuCascade" id="GUID-5C7A9085-F4A7-4A4B-86B8-BE5F7E95C61D">Result (top)</span> to see the effect of the weights. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0075"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-99875204-EF54-4D42-8D1F-6D2CFB208AFC"></a></span>To deform the target to match the source (with no envelope)
+                     </h4> <span class="anchor_wrapper"><a name="GUID-FBD4253B-503D-4D16-BFBC-D3990585A7B5"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-35B83A99-727A-4363-84FD-37D322660D31"></a></span>Duplicate the target. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-91D5E4F2-940D-4CC7-9A08-4A0EFFA35AC3"></a></span>Deform the target into roughly the shape of the source, for example, by tweaking points.
+                              Make sure that corresponding areas are close enough to ensure a good transfer. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9D6ADE7F-E520-4DD6-BD9A-4DE0D3A78799"></a></span>Apply GATOR and transfer the attributes. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-602DCC5A-746C-4F86-8FBF-4038A0DB4880"></a></span>Freeze the GATOR node. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-29E0E479-D431-4BAC-B868-DC0635583A1D"></a></span>Return the target to its original shape by selecting the duplicate as a shape key.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-8175D575-AE16-4C83-944C-95BE9059C08F"></a></span>Freeze the Cluster Shape Combiner node in the target's operator stack. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSC78556F0ADFBCD44BD39EA331DC9024D-0076"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-9263489D-0652-4EFE-8D4E-78A182980EAC"></a></span>To deform the target to match the source (with an envelope)
+                     </h4> <span class="anchor_wrapper"><a name="GUID-381F9FED-6EC7-440D-A761-CEC5981BF536"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5776750A-018F-4ADB-B728-719AB2C60579"></a></span>Make sure that both the source and target are in their reference poses. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9E4BA1B8-80B2-4D6A-9BC8-01C268CDACA8"></a></span>If you want to keep the source, duplicate it or export it as an external model. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4E696B56-6E85-495B-A230-7BE196ED1861"></a></span>Duplicate the target. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9A4EB10E-CE4D-4851-ADBE-07A499E00A35"></a></span>Deform the target into roughly the shape of the source, for example, by tweaking points.
+                              Make sure that corresponding areas are close enough to ensure a good transfer. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-088170AA-D18A-4F83-BD0F-E098B3823FF8"></a></span>Apply GATOR and transfer the attributes. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6A669AAB-6F75-434D-B161-350EBAE4F404"></a></span>Freeze the GATOR node. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-AACFCA92-E0C7-4835-9266-04D6502715E6"></a></span>Return the target to its original shape by selecting the duplicate as a shape key.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-28B95139-A627-4E07-9927-1E0983B3037F"></a></span>Freeze the Cluster Shape Combiner node in the target's operator stack. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E25B47B0-5BE4-43E4-860C-3B3B5DF9D536"></a></span>Delete the source geometry. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B96AE33F-69F0-43AA-83AF-78FE7543BADB"></a></span>Mute the target's envelope operator, or set the viewports to display only the result
+                              of the Modeling construction region. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-93C8B5D5-E723-4886-8349-B5819819C298"></a></span>Adjust the skeleton to fit the target geometry by transforming bones, setting the
+                              bone length, or using the Move Joint tool. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7D21D950-E3A8-4097-B5FA-C8FAC29365C8"></a></span>Select both the target geometry and the skeleton, and reset their reference poses.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A08AABE8-8E79-4DB3-B5AC-7D01CFE5C2F3"></a></span>Unmute the envelope. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

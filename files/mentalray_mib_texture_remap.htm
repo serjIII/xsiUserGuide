@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-3C5F9200-E774-4285-97B5-38CADA26B4FC">
+      <meta name="topic-type" content="concept">
+      <title>mib_texture_remap</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-3C5F9200-E774-4285-97B5-38CADA26B4FC"></a></span><div class="head">
+            <h1>mib_texture_remap</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-D90AE4BD-3498-488B-8121-01F89E6C4DF9"></a></span> <em class="strong">Category:</em> mental ray &gt; Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-AC872656-3785-4132-A055-DF64782378EB"></a></span> <em class="strong">Shader Family:</em> Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A049DC1C-B933-4D0C-B9FD-094F149D5079"></a></span> <em class="strong">Output:</em> Vector
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DBCDC2C6-D08D-4410-9D78-9B5735BEF69D"></a></span>This shader accepts a texture vertex and scales, rotates, translates, crops, and joins
+               textures. The order of operations is transform first, then repeat, alternate, torus,
+               and finally min/max crop.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-23BF426E-B01E-4024-8886-C02F172ABF8A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D4D30BB3-168B-42BB-BAEB-A916AD6A5515">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-96044C57-1E0F-4FB5-A20E-4B3BAD165B0D"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6E7DCF9B-A862-477C-BDF1-E30CC5B020FA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F4FDEA2A-0FF0-4931-82EF-7664A6B4FC3B">input</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-877E88A2-12F3-41AC-9CF0-62ADE5198566"></a></span><p class="table-body">A texture vector. <span class="MenuCascade" id="GUID-D660A55B-2294-42C4-92F2-29EED850280F">input</span> can be driven by a generator such as <span class="char_link"><a href="mentalray_mib_texture_vector.htm">mib_texture_vector</a></span> that returns texture vectors.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B2A06DE7-B050-42C9-A702-C28420E0A934"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-368497AF-9E09-48DB-B18C-42A44E677B13">transform</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A43575B7-647E-467C-B398-354A693856F2"></a></span><p class="table-body">A general transformation applied to the texture vector before the remaining parameters
+                           are applied. If transform[3][3] is 0.0, the matrix is ignored (normally transform[3][3]
+                           is 1.0).
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-343F3391-89DA-4216-934F-7C28916FA945"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-341AF12F-EA88-41B4-B0DB-24C6DC01794B">repeat</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AE8DFF05-015A-4140-A49A-A4B4F1D3D0B9"></a></span><p class="table-body">Specifies repetition factors in X, Y, and Z by which the texture vector is multiplied.
+                           A value of 2, for example, shrinks the texture such that it fits twice in the [0,
+                           1] interval. Repeating has no effect outside of this interval. After the multiplication
+                           by the repetition factor, the integer part is removed. This algorithm allows finite
+                           repetition in an interval determined by the transform parameter. A repetition value
+                           of 0 turns off repetition in the corresponding component, as if the value were 1.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9C79344C-0066-4955-A7CF-1E5F454963CB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-533298F7-A230-4FAE-B910-ECA7B954F969">alt_x, alt_y, alt_z</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-39B1886E-FE50-4B29-B541-670555AB1EE5"></a></span><p class="table-body">Specifies whether every other copy of the repetition would be reversed such that successive
+                           copies of the texture are traversed in alternate, back-and-forth directions. Alternate
+                           flags have an effect only if the corresponding repetition component is greater than
+                           1, and also work only in the [0, 1] interval.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-809A7FE8-6A8B-4345-AF54-6163F84F015B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0A3599DB-6864-452A-BCF0-2A75BEAA7155">torus_x, torus_y, torus_z</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E54FDC55-8B07-45C3-8FBD-2769020EF791"></a></span><p class="table-body">Maps the texture space into the range [0, 1] such that values less than 0 and equal
+                           to or greater than 1 are put into this range by cutting off the integer part.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5B1785F6-008B-4EF5-8ED2-026F9B3AA1A9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-58D98FE7-3632-4871-AB74-A7D48AD7DFEA">min, max</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8FA3C7A2-C57C-4B9B-8B8A-B6726ACEFFD3"></a></span><p class="table-body">Crops the image or volume by specifying the range of the texture to be considered.
+                           Portions of the texture outside this range are trimmed off. If repetition is used,
+                           the <span class="MenuCascade" id="GUID-1943AB93-6F7B-41C5-8D50-1DE74FEE4046">max</span>imum point of one copy joins the <span class="MenuCascade" id="GUID-196B05D3-92BB-4A43-89E2-7CECB4388D24">min</span>imum point of the next copy (unless alternation is turned on). <span class="MenuCascade" id="GUID-2884FB02-861C-4DD9-964E-45AE8B75BA47">min</span> is inclusive, <span class="MenuCascade" id="GUID-A04F2C2D-2681-427A-9E08-F4945A7106C7">max</span> is exclusive. If a <span class="MenuCascade" id="GUID-9FE690BB-FC66-4140-9C73-D323C243D47A">min</span> component is equal to the corresponding <span class="MenuCascade" id="GUID-C790172D-067E-4258-8588-0C565F1D030D">max</span> component, both are ignored.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B2494A19-3714-46F1-829B-B3BC0B87085F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3F03EF74-812D-4583-8723-B81277E4AA7D">offset</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-299252C0-9467-4CEC-852D-4B274CB9B4A1"></a></span><p class="table-body">A vector added to the texture vector before the texture lookup.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

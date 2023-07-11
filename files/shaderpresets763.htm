@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-228DC899-5D47-4D9C-8182-07642A478222">
+      <meta name="topic-type" content="concept">
+      <title>Lens Effects</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-228DC899-5D47-4D9C-8182-07642A478222"></a></span><div class="head">
+            <h1>Lens Effects</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-4286BE2F-EDB1-46BB-A3F7-586498C142CB"></a></span>| <span class="char_link"><a href="shaderpresets763.htm#WS8B73F3A56BA07E47A5E27C11F73EBA9F-002F">Render Tree Usage</a></span></p>
+            <p><span class="anchor_wrapper"><a name="GUID-137CF243-2730-423B-A27E-0CB423AE2ED7"></a></span> <em class="strong">Category:</em> Lens
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-96D46B03-4895-46C8-87A7-60B1796FE945"></a></span> <em class="strong">Shader Family:</em> Lens
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-7AB954FA-FBB4-48AE-A269-39EB884715BA"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-60C3A582-2708-411E-A63C-8F4E0910D306"></a></span>The Lens Effects shader allows for a variety of lens-distortion effects useful for
+               simulating distorted perspectives often found in hand-drawn artwork and non-photorealistic
+               rendering.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-002B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-97B36645-1772-417F-887B-26A8640EB4BA"></a></span>Fisheye
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-096BDBAA-9FEC-4BF0-A8A5-86A1A10D565A"></a></span>This fisheye parameters simulate a hemispherical (fisheye) lens capable of rendering
+                  a 180-degree field of view with characteristic hemispherical distortion typical of
+                  real-world fisheye lenses. This shader does not attempt to implement some of the less
+                  desirable (and less predictable) traits of fisheye lenses, such as chromatic and spherical
+                  aberrations; in that sense, this is an "ideal" fisheye lens.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2B0B92BA-1341-42F1-872C-10030B8BB6C9"></a></span>This shader is compatible with the pass camera's lens center offset controls, so it
+                  should be possible to achieve Omnimax style fisheye images (where the lens center
+                  is near the bottom of the screen).
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7CF2B14D-EC6A-4038-A36A-8959BED69063"></a></span>Furthermore, the horizontal/vertical proportions of the lens hemisphere are not coupled
+                  to the camera aspect ratio (with the legacy fisheye lens shader, changing the camera
+                  aspect ratio resulted in a corresponding change in the shape of the lens hemisphere).
+                  Rather, this shader's scale parameters permit independent scaling of the fisheye lens'
+                  X and Y axes.
+               </p> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FF7E75EA-D4B3-4F53-865F-8911AF426C17"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8D9A892F-9156-46C4-A304-665023A48102">Enable</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4EB662FC-55C5-4709-8260-B70C7B017A83"></a></span><p class="table-body">Activates fisheye distortion.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7BF34F4D-1B3C-4D92-86D5-C160636243CF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AA8824E2-F277-4B30-BAFE-1E17A31C79F2">Distortion</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FFF8FE7C-E78A-47D8-B6EA-92A245048574"></a></span><p class="table-body">Adjusts the degree of fisheye distortion. A value of 0.0 effectively "flattens" the
+                              lens, while a value of 1.0 results in completely hemispherical distortion.
+                           </p> <span class="anchor_wrapper"><a name="GUID-7220ED7E-6923-4AA4-B192-6B6EFD9791C1"></a></span><p class="table-body">Distortion is relative to the pass camera's field of view (FOV). Hence, only if FOV
+                              is set to 180 degrees, and Distortion to 1.0, will the lens be truly hemispherical.
+                           </p> <span class="anchor_wrapper"><a name="GUID-D1361920-2FD3-46DD-9C32-ED6A5E1F9346"></a></span><p class="table-body">You can adjust the pass camera's field of view from the Camera property editor.</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-002C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CA8A149F-C9DA-4E77-8088-8D05A09C0B27"></a></span>Scale
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-51A72559-9B5E-4057-AE1D-6421E41B3D69"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B42EC8A5-63DE-4318-A232-59502ADB427C">X/Y</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6FF79FE4-38FA-4EBC-9C5B-5837A3A3C225"></a></span><p class="table-body">Adjust the proportions of the image in X and Y.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9AF5061C-E54C-4CBD-BB24-EFF8B3EC66D3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D935718F-EDF5-40EC-A5E6-931E92256A66">Uniform</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D12809E6-98B9-4E78-8F9D-63B95B5AA424"></a></span><p class="table-body">When activated, the X and Y scale values are kept identical, and changing them zooms
+                              into or out of the image uniformly. Zooming out reveals an undefined (black) area
+                              outside of the area covered by the lens.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-002D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3BC88070-90C6-4743-8753-0E3ABA31C31D"></a></span>Bulge
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-15CD6C7D-7BCE-48B4-86EF-8DA7E26D3764"></a></span>The bulge parameters allow "bulging" of the lens by altering eye-ray direction. The
+                  lens may bulge out (convex, like a fisheye lens) or bulge in (concave). This effect
+                  may vary over the surface of the lens, and is best controlled via the Render Tree.
+               </p> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E3F76277-16BD-4B4B-BDA5-C0BA7A00AE51"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F74A606A-0267-4D15-A020-83E265FC43E6">Enable</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3CF80340-7D66-44C9-8D23-0F936806BEDA"></a></span><p class="table-body">Activates bulge distortion.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B96570D3-FAED-441E-9874-3A05F033EF32"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BAFE0CF4-D717-41C7-9982-D90984CFFF1D">Amount</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B706B388-1AC6-4B33-B3FB-0694CDED15A9"></a></span><p class="table-body">Adjusts the amount of bulge distortion. A value of 0.0 effectively disables the bulge
+                              effect, while a value of 1.0 results in the full effect (as determined by the Magnitude
+                              sliders).
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-002E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-312DEACA-1A55-45E6-9B52-664ED1E77229"></a></span>Magnitude
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-04C745AC-C018-4FAE-B421-62F4E0C562A0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-42669227-CC3B-4828-A435-DD9486271ECA">X/Y</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-36AE115C-2131-4C10-B63A-BDB2D53BB120"></a></span><p class="table-body">Control horizontal and vertical bulge, respectively. Using the Render Tree it is possible
+                              to generate scalar values for these parameters by mapping a procedural texture (GradientGradient_Mixer,
+                              for example) to screen space, using the Texture Space GeneratorPreset node to compute
+                              screen coordinates for each eye ray.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-002F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DF8CBBD6-8980-4702-AEFD-E4D37C727DE0"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0888D7A0-FCD9-4CCA-96BA-DE6EFFC37F27"></a></span>This shader can be applied directly to the camera in the lens shader stack. See <span class="char_link"><a href="cameras_AddingLensShaderstotheCamera.htm">Applying Lens Shaders to Cameras</a></span> [<span class="char_link"><a href="cam_cover.htm">Cameras and Motion Blur</a></span>].
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

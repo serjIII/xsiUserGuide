@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-1D1BA061-DC6C-4719-8C87-C43E912874AC">
+      <meta name="topic-type" content="concept">
+      <title>Get Closest Location</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-1D1BA061-DC6C-4719-8C87-C43E912874AC"></a></span><div class="head">
+            <h1>Get Closest Location</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-02F4"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-200B0A0A-66ED-44E9-9C18-F38C2140FB19"></a></span>Categories
+               </h2> <span class="anchor_wrapper"><a name="UL_0835D2E44B974951B69145E48EB81F90"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2D76A346-1DA1-473B-8633-084A8B7E1AE2"></a></span>Geometry Queries 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-02F5"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-64ED8C7B-78A0-40EE-9522-F0B9CE0A4B15"></a></span>Description
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-724634F1-B475-4214-933E-BE7C38FA96A4"></a></span>Outputs the closest location on a surface, polygon mesh, curve, or point cloud based
+                  on the input position. Locations are "glued" to the surface of a geometry so that
+                  they stay in the same relative position even as the geometry transforms and deforms,
+                  unless you recompute and reset the locations' values at different frames. In the specific
+                  case of a point cloud, this node returns a location that corresponds to the closest
+                  particle and moves with that particle. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FF06D1BF-147A-43C7-8382-32D6765A5B68"></a></span>We strongly suggest, when possible, to use the cutoff distance option for performance
+                  reason. The smaller the cutoff distance, the faster the execution of this node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-698D440E-9153-4B4F-9E63-F0B773782B6E"></a></span>If no location is found within the cutoff distance, a value of Undefined Location
+                  is returned for that element. If you try to get an attribute at Undefined Location,
+                  the value is filtered — subsequent nodes do not process that element of the data set.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-02F6"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3E8D52EA-31D9-4086-852A-CB62203FFC88"></a></span>Parameters
+               </h2> <span class="anchor_wrapper"><a name="TABLE_0CDC12CC88384BAA89104DEE24FD11F0"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-200FAB1E-69B6-495B-8315-BAA8E022E3A0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1FCBBACC-94A3-476A-8E8F-7EB160FD91A1">Proximity Method</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3272820A-9A95-40FC-8714-41E5BC31C759"></a></span><p class="table-body">Method used to compute the proximity: </p> <span class="anchor_wrapper"><a name="UL_F84BCC9B6EBF40E0B7BD58619C7C9678"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-B5E41BAC-5CF8-4364-A978-D391593B94A2"></a></span><span class="MenuCascade" id="GUID-20E97775-47FC-49D9-BB5D-182ED643A3B5">Closest Surface</span> finds the nearest point on the input object's surface. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-558CC44E-F401-4B2C-9BD7-7B4F1B3D8DEA"></a></span><span class="MenuCascade" id="GUID-A09EFD61-655B-4D01-8829-18C8A96A34AD">Closest Vertex or Knot</span> finds the closest vertex on polygon meshes, or the closest knot on curves and NURBS
+                                    surfaces. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-8E2A792D-09E1-4798-8E77-62B9BB76BF0F"></a></span><span class="MenuCascade" id="GUID-F54B4E66-47CA-4F92-85EF-BE027EB67CDE">Closest Smoothed Surface</span> is a variation of Closest Surface that helps avoid stretching at sharp corners and
+                                    other situations. For example, in the image below, the closest location on the smaller
+                                    cube is the same for all points on the cross-section of the larger cube's bevel. This
+                                    method detects such situations and compensates by spreading out the returned locations.
+                                    
+                                 </p> <span class="anchor_wrapper"><a name="FIG_2B61737C882E4D3EA4E7E9328770FE1F"></a></span><div class="figure-anchor"><img src="../images/GUID-75F8A877-4483-4FEF-92DE-4991AF19E240-low.png"></div> 
+                              </li>
+                           </ul> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-02F7"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9AE42FDA-4F8E-4FEF-AAD4-289F216FAEA6"></a></span>Ports
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-02F8"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-338CB4CF-90CE-4242-B5EF-F78CAD46E9ED"></a></span>Inputs
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_87B3E82C29E74B41B566E272B659EE5B"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D367C94B-4D73-4265-B304-0D9876BBC22E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-96CA8135-2231-45A7-8CC8-1CE8A80C04D8">Geometry</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BD0E2B97-3108-46C7-A9B9-35DD82CEBA1E"></a></span><p class="table-body">The geometry on which we want the closest location. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-388138FA-DCEC-4B8E-A083-73912A95DCD7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DE5398FF-2DF6-4C10-A6D3-7E278575CCA0">Position</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0C4298B9-161F-4BA6-935A-9219A2A96FAD"></a></span><p class="table-body">The position from which we want the closest location. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6A209201-0E0F-4552-BBF4-1DE84B793D88"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-385654EA-2319-4A12-B20A-F3E55DA299A4">Enable Cutoff Distance</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-52B8424D-2FDA-45DF-B7B6-CFFE9CEBE8CF"></a></span><p class="table-body">Allows to search only within given distance. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4FF6B542-BFCD-4751-BD1F-006BF81C3496"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B32B8463-915A-485A-A22B-57D336E18326">Cutoff Distance</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-046BC935-5563-41B4-A3B2-E8752A262D56"></a></span><p class="table-body">The distance within which to search when the Enable Cutoff Distance option is turned
+                                 on. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-02F9"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5F3749C0-F184-40A4-9B2B-D4EA7C8E66E4"></a></span>Outputs
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_EE5BBDE9C3334F5682B59EF80EFD976C"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B9FB6E3B-DD7E-4354-BD5A-CC7195E9C04F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B6B83B8D-B61A-46BC-8099-99C6CEC1682F">Location</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C2FAABD0-E9A0-4C91-8105-64853FE4A505"></a></span><p class="table-body">The closest location on the geometry from the input position. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FF670C79-9E51-403A-B9C1-D51F8B9B1007"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7BDD99D5-748C-4A88-ABBB-DF80B259C3EF">Found</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F8327E87-22B5-4682-89E5-B7BCDA26AF57"></a></span><p class="table-body">Returns true if a location was found on the geometry within the cutoff distance (when
+                                 the option is on). 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

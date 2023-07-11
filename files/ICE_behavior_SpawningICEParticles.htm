@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-DC76E54F-131F-422E-AEA8-5F7670A80107">
+      <meta name="indexterm" content="ICE particles: spawning (trails)">
+      <meta name="indexterm" content="ICE particles: cloning (spawning)">
+      <meta name="indexterm" content="cloning: spawning ICE particles">
+      <meta name="indexterm" content="spawning: ICE particle trails">
+      <meta name="indexterm" content="trails: spawned ICE particles">
+      <meta name="indexterm" content="Spawn Particle Trails compound">
+      <meta name="indexterm" content="Spawn on Collision compound">
+      <meta name="indexterm" content="Spawn on Trigger compound">
+      <meta name="indexterm" content="spawning: ICE particles into different point clouds">
+      <meta name="indexterm" content="spawning: adding attributes for spawned particles">
+      <meta name="topic-type" content="concept">
+      <title>Spawning ICE Particles</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-DC76E54F-131F-422E-AEA8-5F7670A80107"></a></span><div class="head">
+            <h1>Spawning ICE Particles</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-158AE087-63C8-4BA0-967C-CEEC8EE654DA"></a></span>Spawning generates new particles (points) from existing particles. These new particles
+               are often referred to as <em class="mild">particle trails</em>. Spawning makes it easy to create effects such as fireworks, laser shots, streams
+               of falling rain, or smoke trails. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9C7393B1-5536-453B-9C4B-39ADC4F84EA0"></a></span>To spawn particles, you can use several different Spawn compounds. You can use these
+               Spawn compounds on their own or as part of a more extensive effect via a State system:
+               
+            </p><span class="anchor_wrapper"><a name="UL_5D88D5747E834733A88B5965DE015981"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-92DD7E8F-3063-40B2-8AA0-B8B55EBF3E6F"></a></span> <span class="MenuCascade" id="GUID-A3D3966F-4C58-49EA-AB30-2BAEC6F75C93">Spawn Trails</span> is the basic spawning compound that creates particle trails — see <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0087">Spawning Particle Trails</a></span> for information. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-78935749-7443-4B98-B0F4-9F6EECC2238A"></a></span> <span class="MenuCascade" id="GUID-4E277B33-3C2D-431B-A5EE-57AE6D37ED72">Spawn on Collision</span> spawns new particles upon collision with an object — see <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-008D">Spawning Particles Upon Collision</a></span> for information. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-89756259-150E-4548-90ED-FADA709FE763"></a></span> <span class="MenuCascade" id="GUID-9DF82CA0-8052-4015-8ACF-A8E71278E3DA">Spawn on Trigger</span> spawns new particles when a defined trigger value is reached — see <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0091">Spawning Particles Upon Trigger</a></span> for information. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_18865AD7C3E847028E2B11B0684C3974"></a></span><div class="figure-anchor"><img src="../images/GUID-FE5D5EC3-0038-4512-BEE9-0C8A14F3F864-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-91B5BE39-272F-4BFC-8B94-9B86C3830A3B"></a></span>Blue particles are spawned in this state system when the particle reaches its age
+                     limit. The red particle trails are also spawned particles. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CB1A155F-B17B-42A7-9F14-AB16025A4E74"></a></span>Each of the Spawn compounds is based on the Clone Point node. This node is responsible
+                     for creating new particles which are an exact replica of the original particles. The
+                     points, including all of their attributes (except ID, which is unique), are copied
+                     from a point cloud and then added to either the same point cloud or to another point
+                     cloud, as you choose. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F005A295-F645-48EA-8016-D5C1BA6B52EF"></a></span>One attribute that is changed, however, is the Age attribute. The Spawn compounds
+                     reset the Age attribute of the spawned particles so that they start at 1 instead of
+                     whatever Age value the original particles had. This way, it's like a new simulation
+                     for the spawned particles. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-0FF2A55D-C3B8-4B0A-84D1-C17474995BCA"></a></span>Of course, you can change the spawned particles attributes so that they are different
+               from those of the original particles — see <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-009A">Setting and Adding Attributes for Spawned Particles</a></span> for more information. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0085"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9ED1E3C7-28A8-4091-ACD1-8451F5FEC1BE"></a></span>Spawning into the Same Point Cloud or a Different One
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-9E1822F4-5F6F-4A2A-9C95-F1CD0E95824B"></a></span>You can spawn new particles into the same point cloud or into a different point cloud,
+                  depending on how much control you want over the spawned particles: 
+               </p> <span class="anchor_wrapper"><a name="UL_E6C414EE9DB443C5913DB9166F1ACBF3"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-52E41DA8-1A0E-4315-91CD-DA8EB06413E9"></a></span>If you spawn particles into the same point cloud, the shaders and forces on the spawned
+                        particles are the same as for the original point cloud. You can, however, add new
+                        attributes to the spawned particles to change their color, size, shape, and so on
+                        (see <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-009A">Setting and Adding Attributes for Spawned Particles</a></span>). Also, be aware that when you spawn into the same point cloud, its size could grow
+                        exponentially and quickly use up all the memory. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-22D1CAD3-FE00-4F82-B0BF-A2F006E6F512"></a></span>Spawning into a different point cloud is similar to creating a new particle emission.
+                        Because the point cloud has a separate ICE tree, you can add nodes to it as you like
+                        to create a completely different particle simulation. You can also use different shaders
+                        for that point cloud, giving you control over the look of the spawned particles. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B0AE2D14-AEC8-4AE9-AB96-024DA95C4553"></a></span>For more information, see <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0095">Spawning Particles into a Different Point Cloud</a></span>. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-59DCA6DE-22C7-49A3-A4B0-305AFFA25090"></a></span><div class="note-tip"><span class="label">TIP:</span>Choose <span class="MenuCascade" id="GUID-6BFF6AAD-0237-4264-8144-1F5519443733">Particles <img src="../images/ac.menuaro.gif"> Model Library <img src="../images/ac.menuaro.gif"> Particle Spawning Fireworks</span> from the ICE toolbar to loads a model of a fireworks simulation that shoots out spawned
+                           particles at random times and with random colors. 
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="FIG_B23E291D4D814E6A8E84AD7E473CB148"></a></span><div class="figure-anchor"><img src="../images/GUID-2BA5F043-2580-47E2-85E8-67FA0AC09A97-low.png"></div> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0087"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EAD05078-E1C1-43CC-B5C8-97AE34CFC6CB"></a></span>Spawning Particle Trails
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-3FE0667B-EDAD-47C9-88EC-5A2E66CDF004"></a></span>Using the Spawn Trail compound, you can emit new particles as trails from existing
+                  particles by cloning them. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BEB58DC4-B3C0-45FB-B067-1AF3F7BCD78A"></a></span>Below on the left, particles are spawned in little clumps; on the right, particles
+                  are spawned as fireworks trails. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3C43460C-0484-4AD3-916E-E6EE8622DDC2"></a></span> <img src="../images/GUID-369F3053-7FA6-4E78-A752-BC0EE0BDFD90-low.png"> <img src="../images/GUID-17BE9EF7-2776-41F9-951C-EC3F62FEE15A-low.png"> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-94761042-0CD4-4DD2-994F-62E3435478A6"></a></span>To spawn particle trails: 
+               </p> <span class="anchor_wrapper"><a name="GUID-A7023FC5-6273-4451-9CDC-8BAD209544E8"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4CC5BCC4-07D8-4E94-A4A1-D0227CE4D21C"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-923CEBB1-5F3A-4221-96D5-3711B9F334E9"></a></span>Choose the <span class="MenuCascade" id="GUID-BFDB2DC4-916C-4D1A-B814-CD121E7D248E">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Spawn Trails</span> command from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-62E07F54-62EA-47AD-98DE-4B1CC4E1F2E3"></a></span>This command adds the Spawn Trails compound to the ICE tree, plugging it into the
+                        Execute port of the Simulation Root compound. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_1ADD27938B0D464DAC0D04E883AD4D01"></a></span><div class="figure-anchor"><img src="../images/GUID-5605810F-94A0-415E-94E8-F8364C5DAFED-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-64154159-7D1D-4ED1-AF47-24E9B8B14D1D"></a></span>You can also plug it into one of the Execute ports of a State compound, if you're
+                        using a state system — see <span class="char_link"><a href="ICE_states_DefiningtheEffect.htm">Defining the Effect That Is Triggered</a></span> for more information. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_A0B52DF2D35F460C9DC605BBCDC4BD40"></a></span><div class="figure-anchor"><img src="../images/GUID-B7092027-AA7C-40A2-AC71-7614EEE904AC-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E017C5B2-B320-4AB1-B369-A193FD41C1FB"></a></span>In the <span class="char_link"><a href="iceref_Spawn_Trails.htm">Spawn Trails</a></span> property editor, you can set the particle rate type, spawn rate, inherit particle
+                        speed, and set the emission direction angles. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CC229D25-1183-4350-B619-FC83F8A3309B"></a></span>In the <span class="MenuCascade" id="GUID-397482AE-8357-48B5-B795-44FB538CC809">Target Cloud Name</span> text box, you can enter <span class="MenuCascade" id="GUID-2A8A168E-1246-4AEA-AE92-E72F30976CE1">Self</span> to spawn new particles into the same point cloud. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-77F9A1A9-810B-406D-B13C-9BF0F820EC86"></a></span>To spawn into a different cloud, specify another point cloud — see <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0095">Spawning Particles into a Different Point Cloud</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-481133A7-03BF-480C-8104-091C2F91289E"></a></span>You can choose which attribute of the spawned particles to change by using the <span class="MenuCascade" id="GUID-E8D0F590-7126-4210-9D20-CBFC8DF821F4">Set Initial Value Reference</span> parameter. By default, Color is the attribute that is displayed for the spawned particle,
+                        but you can change this to another attribute such as Size, Mass, Shape, Orientation,
+                        and so on. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7BAC6285-96E3-462B-8AF9-E5CC35556DD9"></a></span>See <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-009A">Setting and Adding Attributes for Spawned Particles</a></span> for more information. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-008D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8DD57B04-A935-44E7-B820-7E69DD531C36"></a></span>Spawning Particles Upon Collision
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-2A0FA908-99D8-4BB0-BDDA-B808161CEDD1"></a></span>The <span class="MenuCascade" id="GUID-163E72FD-5545-434E-9B6B-1AA94FC023D8">Spawn on Collision</span> command emits new particles from existing particles upon collision with an object.
+                  The spawned particles are emitted at the location of the collision. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-0C524645-19DA-4C35-A113-1B7BF2E7FADE"></a></span><div class="note-tip"><span class="label">TIP:</span>Although this command uses the Bounce Off Surface compound by default, you can substitute
+                     this compound with the <span class="MenuCascade" id="GUID-EDED3AA8-8645-41A7-8118-69B0F880848B">Slide on Surface</span> or <span class="MenuCascade" id="GUID-AADE5C46-EA54-4018-92A9-12546CD44311">Stick to Surface</span> compounds instead to spawn particles upon sliding or sticking to a surface. These
+                     compounds are found in the Surface Interaction group on the Task &gt; Particles tab of
+                     the preset manager. 
+                  </div>
+               </div> <span class="anchor_wrapper"><a name="FIG_8FD82698E86B48DA9EC316B460F2E9BD"></a></span><div class="figure-anchor"><img src="../images/GUID-165BA99E-F5B7-44C3-94D1-78BC43259D43-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-6D1D6C65-E951-4B44-840C-04B22573D9BF"></a></span>Particles are spawned when the original particle (in green) collides with and bounces
+                  off an obstacle (grid). The spawned particles have a different Color attribute. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-008F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-36AFAAA4-D5F9-44F8-90FB-4CCBA7EA8D32"></a></span>To spawn particles upon collision
+                  </h3> <span class="anchor_wrapper"><a name="GUID-D7B006B3-02F1-4E49-8846-55FDFA730F31"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4823A119-9F91-4D2D-B48C-4D7037C3662A"></a></span>Create one or more objects that you want to use as obstacles for the particles. These
+                           objects need to have geometric surfaces, such as polygon meshes or NURBS surface objects.
+                           Make sure that the particles will reach these obstacles at some point in the simulation.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0F8F5A7D-09FA-437A-A7E9-2AC065F02BCA"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B7B5EB78-04AB-4706-AB36-81C5B5C45BAD"></a></span>Choose the <span class="MenuCascade" id="GUID-246D74CC-65B1-490F-8607-308470B67780">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Spawn on Collision</span> command from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-90E34A76-D9C6-4095-98AF-E65698EA8337"></a></span>This command does two things: 
+                        </p> <span class="anchor_wrapper"><a name="UL_00B1C6333D5642EC980120A4D61B4EB5"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B22FB600-8F96-44FE-A068-A01000AE04C3"></a></span>It adds the Bounce Off Surface compound to the ICE tree, plugging it into the Execute
+                                 port of the Simulation Root compound. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A91D5F4C-4CCF-4E28-8AA5-BDD7E8AF76AB"></a></span>It adds the Spawn on Collision compound to the ICE tree, plugging it into the Execute
+                                 on Collide port of the Bounce Off Surface compound. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BAE757FD-5B46-49AB-A6F1-C6927AF1693E"></a></span>Pick one or more objects to use as the obstacles for collision. Each object's Get
+                           data node is then plugged into the Surface port of the Bounce Off Surface compound.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D456AE6D-5672-41CE-A67D-17C7A338E763"></a></span>You can also add more obstacles objects to the ICE tree later — drag each obstacle's
+                           name into the ICE Tree view to create a Get Data node for it, then plug it in as the
+                           other obstacles. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_A1DA41D9B0504C749EFA8BB00E6A9703"></a></span><div class="figure-anchor"><img src="../images/GUID-D8288320-FF2D-4F53-8BD0-3D784C8CFD89-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B39B714B-547B-40E9-A4F5-80A9506F8DBD"></a></span>In the <span class="char_link"><a href="iceref_Bounce_off_Surface.htm">Bounce Off Surface</a></span> property editor, set the parameters as you like for the collision. This affects the
+                           interaction of the particles with all obstacles that are plugged into this compound.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C851C219-75AE-4574-987F-372B4E7926D8"></a></span>In the <span class="char_link"><a href="iceref_Spawn_on_Collision.htm">Spawn on Collision</a></span> property editor, you can set the method and number of spawned particles emitted,
+                           their speed, and their direction. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1FEBE0CC-A4B3-4B29-AE72-28F32DE49DD6"></a></span>In the <span class="MenuCascade" id="GUID-EB2C1537-491D-458F-88DA-7F8C39D584FD">Target Cloud Name</span>, you can enter <span class="MenuCascade" id="GUID-8B43BDF6-96EA-430B-B1BC-04AAE6A7C55B">Self</span> to spawn new particles into the same point cloud. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D423CEFC-36D1-4206-89F2-E226441B4973"></a></span>To spawn into a different cloud, enter the name of another point cloud you have created
+                           or use the <span class="MenuCascade" id="GUID-668B25CF-3F82-48D5-AEC0-BD5DED9983A9">Pick</span> button to select another point cloud. See <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0095">Spawning Particles into a Different Point Cloud</a></span> for more information. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E592A80B-D201-4715-8322-E0FEF796156B"></a></span>You can choose which attribute of the spawned particles to change by using the <span class="MenuCascade" id="GUID-12DB5476-14CF-40F9-B0E3-0E6B3F4E53B8">Set Initial Value Reference</span> parameter. By default, Color is the attribute that is displayed for the spawned particle,
+                           but you can change this to another attribute such as Size, Mass, Shape, Orientation,
+                           and so on. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D74C34B9-22E0-4282-ADD9-83C66D5ECC88"></a></span>See <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-009A">Setting and Adding Attributes for Spawned Particles</a></span> for more information. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0091"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BD40E3D0-8C86-407A-8A85-96FF9A435828"></a></span>Spawning Particles Upon Trigger
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-28A9A793-BE26-4B85-B10B-5B79F0460149"></a></span>The Spawn on Trigger compound emits an explosion of new particles when a Trigger value
+                  is reached for the existing particles. You can set up this trigger system to be within
+                  a state system, or you can simply use an If node to determine the trigger value being
+                  reached. 
+               </p> <span class="anchor_wrapper"><a name="FIG_3657742BE32543DFB62E9F24BDE6C832"></a></span><div class="figure-anchor"><img src="../images/GUID-6160D7BE-293E-4BC1-82AA-746629EF100C-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-25D43509-6FD4-4A9A-97F6-5DF86DAE48DB"></a></span>Different sets of spawned particles are used for creating fireworks in a state system.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0093"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EFFB8770-DD7F-4EBB-8A1D-B6C4D28BA243"></a></span>To spawn particles upon trigger in a state system
+                  </h3> <span class="anchor_wrapper"><a name="GUID-171FD8DA-CD29-44B2-93A4-F4E5AE216D90"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EE5969B0-883B-4341-9C5A-BA1B8AA20B4F"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span> for information. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B495CB0F-7F99-4338-BCF6-82D88F18C811"></a></span>In the ICE Tree, set up a State Machine and State compounds as you like, as described
+                           in <span class="char_link"><a href="ipart_states_CreatingaParticleStateSetup.htm">Overview of Creating a Particle State Setup</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C76EFB17-8E27-4233-87EA-AADAD81399DB"></a></span>Select a trigger compound (Conditionals group) and plug it into a Trigger port of
+                           a State compound. The trigger is the condition upon which the spawning happens. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-322A3016-4B35-42C8-8AD2-89C00CE82D5F"></a></span>For example, you could use the particles reaching their age limit as the trigger for
+                           new particles to be spawned (as is shown in the following tree), creating what's often
+                           referred to as a <em class="mild">death event</em>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D0759F15-B8A6-4490-A08E-C839684BD467"></a></span>Drag the <span class="MenuCascade" id="GUID-67647458-0A6B-4DCF-A26B-BB23104155EF">Spawn on Trigger</span> compound from the Spawning group into the ICE view. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3092BF5B-0561-4A16-B59D-448C02817120"></a></span>Plug its Execute on Trigger output into an Execute on Trigger port of a State compound.
+                           
+                        </p> <span class="anchor_wrapper"><a name="FIG_E0EDEA30981B42358963842BEBDAC74E"></a></span><div class="figure-anchor"><img src="../images/GUID-5B478751-C2D9-4C69-8AA7-EBB9410ADB9E-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3BA30F29-6B83-43DE-A6B5-D41BBD8A8B0A"></a></span>In the Spawn on Trigger property editor, you can set the method and number of spawned
+                           particles to be emitted, their speed, and their direction. You can also choose to
+                           delete the original particle from which the spawned particles were created. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C72A4320-A7F1-483E-A340-15247CCDFE77"></a></span>For more information on the parameters, see <span class="char_link"><a href="iceref_Spawn_on_Trigger.htm">Spawn on Trigger</a></span> [<span class="char_link"><a href="iceref_cover.htm">ICE Reference</a></span>]. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-09A4EB9D-71EA-4015-BC4C-9AC300E0493E"></a></span>In the <span class="MenuCascade" id="GUID-D3CEFC09-F42A-4F6F-AC95-4A39C34671B1">Target Cloud Name</span>, you can enter <span class="MenuCascade" id="GUID-212E3F38-BA7C-4582-A32A-8B0C3548114F">Self</span> to spawn new particles into the same point cloud when the trigger's value is reached.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CBCE0516-1A37-47E0-9C93-99EBA639EE8E"></a></span>To spawn into a different cloud, enter the name of another point cloud you have created
+                           or use the <span class="MenuCascade" id="GUID-773DC7DC-B6A9-4DE7-AAB3-030C0E8A3AF7">Pick</span> button to select another point cloud. See <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0095">Spawning Particles into a Different Point Cloud</a></span> for more information. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F0F4A84E-3E0D-4701-906E-A1CDA4CB6EEB"></a></span>You can choose which attribute of the spawned particles to change by using the <span class="MenuCascade" id="GUID-5E995AC1-BFC1-417E-9FEE-E1FFB18F054A">Set Initial Value Reference</span> parameter. By default, Color is the attribute that is displayed for the spawned particle,
+                           but you can change this to another attribute such as Size, Mass, Shape, Orientation,
+                           and so on. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8CEB8E3F-D850-4553-9983-B775A7CC6E2C"></a></span>See <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-009A">Setting and Adding Attributes for Spawned Particles</a></span> for more information. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3FCF8053-D10A-4B45-9060-93CA8217F345"></a></span>Continue with creating the effect you want with the State compound. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0095"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1E8527AC-6A94-447F-B8AF-46BAF476EFDB"></a></span>Spawning Particles into a Different Point Cloud
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-9314BECA-04D7-407C-B8E3-A5EFDFEB8DF9"></a></span>Spawning new particles into a different point cloud is similar to creating a new particle
+                  emission. Because the point cloud has a separate ICE tree, you can add nodes to it
+                  as you like to create a whole different particle simulation. For example, you can
+                  apply different Force compounds to the spawned particles to control their movement.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8071D4C9-4871-4E01-9882-E84582529B47"></a></span>You can also use different shaders for the spawned particles' point cloud, giving
+                  you control over the look of the spawned particles. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0096"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5EAA26AE-F9DC-4DFA-BDC9-AC55BA813357"></a></span>To spawn new particles into another point cloud
+                  </h3> <span class="anchor_wrapper"><a name="GUID-F91B97A3-B39A-4277-A06E-0603E2948494"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-46DE21E7-6980-4E58-811A-33CC09595E02"></a></span>Create a particle emission and set up its ICE tree for particle spawning using any
+                           of the Spawn compounds as described in this section: 
+                        </p> <span class="anchor_wrapper"><a name="UL_B7CD9EC21B1B42CA97DEFAB0FED74018"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-15CC5170-C0BB-4ABA-AB04-39DAB97039FE"></a></span> <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0087">Spawning Particle Trails</a></span> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-368E740D-1489-4154-ADB5-DD370106DE25"></a></span> <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-008D">Spawning Particles Upon Collision</a></span> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2789287F-869B-4BA8-8874-599890C71007"></a></span> <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0091">Spawning Particles Upon Trigger</a></span> 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-448AB7DD-A344-4260-91C3-5D5F877B105C"></a></span>Make sure that another point cloud exists in the scene, or choose <span class="MenuCascade" id="GUID-8EF03912-890E-4AD6-9F15-9C58F83916A9">Get <img src="../images/ac.menuaro.gif"> Primitive <img src="../images/ac.menuaro.gif"> Point Cloud <img src="../images/ac.menuaro.gif"> Empty Cloud</span> from any toolbar to create an empty point cloud. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-16E84B96-FD01-4DE4-9952-A441889FFAA6"></a></span>This is the point cloud that will be used for the spawned particles. Give it a name
+                           to distinguish it from the original point cloud. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6A81E952-2BF9-45D7-9B74-38A058736A2E"></a></span>In the original point cloud's ICE tree, do one of the following to specify the other
+                           point cloud as the target point cloud for the spawned particles: 
+                        </p> <span class="anchor_wrapper"><a name="UL_8DAF9B42A88F41F380760BA6691F0759"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-BD260771-9CD1-4A0D-9F94-6038C4250EE4"></a></span>In the appropriate Spawn compound's property editor, enter this point cloud's name
+                                 in the Target Point Cloud text box. 
+                              </p> <span class="anchor_wrapper"><a name="FIG_010C3728D9854C5497BF66093831A4FF"></a></span><div class="figure-anchor"><img src="../images/GUID-E94ADBB8-06E1-4660-93EA-DD39D8551B35-low.png"></div> 
+                              <p><span class="anchor_wrapper"><a name="GUID-F1B84D90-C99C-4DB4-A3E3-177296BC1A43"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4AF2C6B9-7062-4C13-A7CD-3913D6A11CA3"></a></span>Click the <span class="MenuCascade" id="GUID-16E73228-A90D-47F9-BBDC-23734598D249">Pick</span> button beside this text box and select the point cloud in the scene. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-1D725E54-400E-44FA-88CB-6BA59CAF2161"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-0AE16A84-88A4-4713-88EC-5B7BCAF4279F"></a></span>Click the <span class="MenuCascade" id="GUID-99E4F708-040B-402C-9793-22A7A3869861">Explorer</span> button beside this text box and select the point cloud from the explorer that appears.
+                                 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9F82E2C5-9269-49A8-84C1-3CB8386ED226"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-952CCEC8-4D83-4982-BA78-8B17BBE12B4F"></a></span>Drag the point cloud's name from an explorer into the ICE Tree work area to create
+                                 a Get Data node for it, then plug its Out Name output into the Target Cloud Name port
+                                 on the appropriate Spawn compound. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A4E1107F-9A1C-420F-B92F-1E4C40CCF997"></a></span>Select the target point cloud and click the Update icon in the ICE Tree view to update
+                           the tree to this cloud. It currently references the original point cloud's ICE tree.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E9DBA3C4-A3AB-4016-A4A6-D9E79719AEBB"></a></span>Choose <span class="MenuCascade" id="GUID-0B7D9706-21DB-439F-9E59-F721D7D2A41B">Create <img src="../images/ac.menuaro.gif"> Simulated ICE Tree</span> from the ICE Tree's command bar to create a separate ICETree node for this point
+                           cloud. As soon as you do this, a new ICETree operator appears in the Simulation region
+                           of the operating stack. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D56DC085-94D7-405E-9F5E-7E128EEBA635"></a></span>Keep the ICETree operator in the Simulation region if you want the spawned particles
+                           to be simulated, or drag it to another region if you don't want the particles to be
+                           simulated (see <span class="char_link"><a href="ICE_simulation_TheSimulationRegionsandNodes.htm">ICE Simulation Regions and Nodes</a></span> [<span class="char_link"><a href="ice_cover.htm">ICE Guide</a></span>] for information). 
+                        </p> <span class="anchor_wrapper"><a name="FIG_51043F07E1714CE8969B6B7EB4055354"></a></span><div class="figure-anchor"><img src="../images/GUID-ED656B3A-8D2B-4628-8C20-C4B28B1B736B-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CBBDA7C5-478B-401A-B056-5028C66A7EE3"></a></span>Select this new ICETree operator in the operating stack and click the Update icon
+                           in the ICE Tree view to display only the ICETree node in the work area. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D561EB6C-DC74-4FC5-AD44-48B85E1C9566"></a></span>Get a <span class="MenuCascade" id="GUID-64B0EA76-63A7-46AC-B719-C71114AFDC52">Simulate Particles</span> node from the Simulation group on the Tool tab in the preset manager and plug it
+                           into a port at the bottom of the ICETree node. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AEBC36FB-F74C-471B-ACE7-BF28F72BBCE2"></a></span>You can now treat the spawned particles as a different point cloud, allowing you to
+                           add any other nodes (such as forces) to its tree to make them act differently from
+                           the original particles. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6EDE8547-8E5B-4EDA-8D3E-187FA1E77871"></a></span>Remember that the spawned particles have inherited all attributes from the original
+                           particles, including velocity. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_AEA082E57D15451EB4BC3B357BBBF434"></a></span><div class="figure-anchor"><img src="../images/GUID-97482E79-642A-4383-87ED-186F96FFE4D5-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FCDA4E99-F334-4EB8-8352-6F42A60789C5"></a></span>Change the attributes of the particles as you like, such as their color, size, shape,
+                           and so on — see <span class="char_link"><a href="ICE_behavior_SpawningICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-009A">Setting and Adding Attributes for Spawned Particles</a></span> below for adding new attributes. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-009A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9116F8E0-D4F5-4BF2-8DE9-F1D0442E67CE"></a></span>Setting and Adding Attributes for Spawned Particles
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-5EB55C67-0310-4322-A3B4-07295F1C56BA"></a></span>Spawned particles are an exact replica (clones) of the existing particles. Cloning
+                  copies the points, including all of their attributes (except ID, which is unique),
+                  from a point cloud and then adds them to either the same point cloud or to another
+                  point cloud, as you choose. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-197AA56E-2050-416A-8B56-2449F3ACC308"></a></span>You can choose which attribute of the spawned particles to change by using the <span class="MenuCascade" id="GUID-173600BE-7C80-4E18-B468-377934129242">Set Initial Value Reference</span> parameter in any of the Spawn compounds. By default, Color is the attribute that
+                  is displayed for the spawned particle, but you can change this to another attribute
+                  such as Size, Mass, Shape, Orientation, and so on. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A7D7E221-B684-4A12-A895-1BCD2F9BC4A0"></a></span>For information on particle attributes, see <span class="char_link"><a href="ICE_particles_UsingICEParticleAttributes.htm">Using ICE Particle Attributes</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="FIG_2961780E0EB147A4A62E43919E6D30EF"></a></span><div class="figure-anchor"><img src="../images/GUID-EE50330E-7182-4A1F-9584-B4D9015D128B-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-3B45A920-EC90-485D-874A-9DDE55CE9076"></a></span>Original particles are orange spheres that spawn particles that are blue points. In
+                  this case, the spawned particles have different Color and Shape attributes. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-009C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-447EB3DA-1A0E-43EF-804F-7BBF8A55892B"></a></span>To change the attributes for the spawned particles
+                  </h3> <span class="anchor_wrapper"><a name="UL_DC1CEA0F13DD42C7A0C9480200CD7FAC"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-401B0546-0997-47B8-A034-405C514A25FB"></a></span>If you know the attribute you want to use, enter its name in the <span class="MenuCascade" id="GUID-02890ECB-1E35-46F6-9020-AA32CCBC1847">Initial Value Reference</span> text box in any of the Spawn compounds. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-527953BE-FACF-471D-AD5E-277694EDC94A"></a></span> <em class="mild">or</em> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A49089E1-5BB0-4CD7-BAC2-9170A72337D4"></a></span>Click the <span class="MenuCascade" id="GUID-8ED04452-4B14-4B86-9174-865F14EC3533">Explorer</span> button to select the attribute name you want from the explorer that pops up. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1CD4D558-3CD9-4A0F-B263-60184D27C54E"></a></span>For example, if the original particle is an instanced object, but you want the spawned
+                           particle shape to be points, select the point cloud's Shape attribute and set the
+                           shape to Points. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_4884B02F32774E348B7D01C4EE2AAFBF"></a></span><div class="figure-anchor"><img src="../images/GUID-EF00C713-3BA5-482A-BD91-2202CAC425E6-low.png"></div> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-009E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A4DBA557-18AA-4E5D-96F2-51BCC3160718"></a></span>To add other attributes for the spawned particles
+                  </h3> <span class="anchor_wrapper"><a name="GUID-45E59F99-0624-459E-8FE2-01EF21B9BEC7"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-681C1F7F-6810-4878-A359-3CD668684929"></a></span>Click on the Initial Value Reference port on any Spawn compound and choose <span class="MenuCascade" id="GUID-FC476E85-AB09-49FB-A3C1-ED3C6647B2A4">Insert Port After</span> to create as many attribute ports as you need. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-71FA9FC2-0918-4105-83A9-C0B1E404B120"></a></span>In the Spawn compound property editor, specify the attributes that you want to use,
+                           as described above. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_47FBB81D7AF742E6B8CECE4D3309A324"></a></span><div class="figure-anchor"><img src="../images/GUID-2AC534A7-2002-442D-A3DA-124BE0D96985-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

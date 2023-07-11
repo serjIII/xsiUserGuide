@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-5E12C462-0E5F-4EE3-BF3E-239F140A958D">
+      <meta name="indexterm" content="caustics: visibility">
+      <meta name="indexterm" content="caustics: caster">
+      <meta name="indexterm" content="caustics: receiver">
+      <meta name="indexterm" content="casters: caustics">
+      <meta name="indexterm" content="receivers: caustics">
+      <meta name="indexterm" content="visibility: photon casting and receiving">
+      <meta name="indexterm" content="global illumination: visibility">
+      <meta name="indexterm" content="global illumination: caster">
+      <meta name="indexterm" content="global illumination: receiver">
+      <meta name="indexterm" content="casters: global illumination">
+      <meta name="indexterm" content="receivers: global illumination">
+      <meta name="topic-type" content="concept">
+      <title>Setting Photon Casting, Receiving and Visibility</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-5E12C462-0E5F-4EE3-BF3E-239F140A958D"></a></span><div class="head">
+            <h1>Setting Photon Casting, Receiving and Visibility</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-A95756CC-7880-4BE3-A362-E3A950DFA774"></a></span>An object's visibility property allows you to set options that control how the object
+               responds to caustic and/or global illumination photons emitted from a light.
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FE7915B4-4430-4D7B-A59F-D33755D428B5"></a></span>The <span class="MenuCascade" id="GUID-FA38B97E-74C9-402A-852E-0B97F31178DF">Caster</span> parameter controls whether the object can cast photons. This means that the photons
+                     bounce off of the object and continue to travel through the scene, picking up some
+                     of the object's color in the process. When the <span class="MenuCascade" id="GUID-6117E3EE-D636-4FAC-91B0-2303EE069723">Caster</span> parameter is off, the object simply absorbs photons.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E6F9E9B8-624E-4232-8DEE-009A93CB3EBE"></a></span>The <span class="MenuCascade" id="GUID-B8DA68A6-8D71-4213-A723-FF3D30BFA635">Receiver</span> parameters control whether the object receives and stores photons. When this parameter
+                     is off, the photon effect will not be visible on the object's surface.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AD7E43C9-5401-4890-B93B-55A412DE1E64"></a></span>The <span class="MenuCascade" id="GUID-F37B5954-5D87-4662-BA5F-C956AD32435B">Visible</span> parameters control whether the object is visible to photons at all. When this parameter
+                     is off, photons simply pass through the object.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B84CF6FE-FD8F-4695-A73C-E3E540475AE5"></a></span>If an object is not visible to photons, it can still be a caster but it cannot be
+                     a receiver. If this is the case, photons will bounce off the object and continue to
+                     travel through the scene, but they will not affect the object's surface.
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-393132E4-3D8A-4EEF-939B-5E2C5FD04E50"></a></span>You can set each of these parameters for caustics and global illumination separately,
+               meaning that, for example, an object can be a global illumination caster, but not
+               a caustics caster, and so on.
+            </p>
+            <div class="figure-anchor"><img src="../images/GUID-7E24A60D-E043-4BEB-9284-955E3E2A02C5-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-6E7FD486-F9BB-4D54-BA34-DFF7C668EFE1"></a></span>In this scene, the glass retort, the bunsen burner, and the stand are all caustics
+               casters and caustic receivers. The floor is only a receiver, the liquid inside the
+               retort is a caster, but not a receiver. All of the objects are visible to caustics.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-37CD0365-E21E-48D8-8DEB-7BF4D6EB26F3"></a></span>For global illumination or caustics to render correctly, you must have at least one
+               caster, and one receiver defined, as well as a photon emitting light (see <span class="char_link"><a href="GIcaustics_DefiningaLightasaPhotonEmitter.htm">Defining a Light as a Photon Emitter</a></span>). If you are missing one or more of these elements, the photon effect will be disabled
+               when you try to render it. A warning will appear, telling you which element is missing.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A37ED872-08C5-498E-9D55-6744BA6BB241"></a></span>Defining casters and receivers is perhaps the most integral step in creating photon
+               effects because it controls where the effect appears.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0018"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E01B1EFC-1A12-4DD1-B12F-3261D0AB4C7A"></a></span>To set an object's photon visibility properties
+               </h2> <span class="anchor_wrapper"><a name="GUID-08A9AC8E-1548-4E75-B482-A8ED64A7F52C"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E2BDFD9D-782D-4D44-B914-3F52036322C1"></a></span>Select one or more objects whose photon visibility properties you wish to set.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-35FA2651-D837-44D9-BF6A-EF3DFB9BFB8E"></a></span>Click the <span class="MenuCascade" id="GUID-90767444-3F9C-49B8-B29C-7F13ECA41BBB">Selection</span> button in the Select panel and click <span class="MenuCascade" id="GUID-0AD34D65-86A6-4EAA-B7C4-791999162D13">the Visibility icon</span> from the explorer that appears. The object's Visibility property editor opens.
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-143DAB51-2873-4ECF-A4F2-6D5AB55422A7"></a></span><div class="note-tip"><span class="label">TIP:</span>If you wish to make several objects (such as four walls, a floor, a ceiling, and a
+                           table) cast and receive photons, you can multi-select every object in a scene and
+                           define them all as casters and/or receivers. Alternatively, you can group them and
+                           set the caster/receiver property using an override (see the next section).
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BFD75D77-B811-4CE4-B196-A0514968FA8F"></a></span>Toggle the appropriate parameters to specify whether you want your object to receive,
+                        cast, or be visible to global illumination photons and/or caustic photons. You can
+                        set any combination of these options.
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-38EFFB73-618E-420A-A086-A81A2DFEF2ED-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-815C1CDE-2942-4DD5-9290-8902A6159979"></a></span>Before you render, you must activate global illumination and/or caustics for the render
+                        pass.
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B15A5057-A01A-45D3-9D81-507231CAA9B5"></a></span>For information about rendering caustic and global illumination effects, see <span class="char_link"><a href="GIcaustics_DisplayingPhotonsintheRenderRegion.htm">Displaying Photons in the Render Region</a></span> and <span class="char_link"><a href="GIcaustics_PreparingGlobalIlluminationandCausticsforRendering.htm">Preparing Global Illumination and Caustics for Rendering</a></span>.
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-001A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-642C06A6-E49C-4F3C-982C-A952F771A87F"></a></span>Partitioning Photon Casters and Receivers
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-52C22F44-DBB2-40C0-82C3-004460E55ED6"></a></span>If your scene contains a lot of objects, photon visibility options can be difficult
+                  to manage on a per-object basis. In complex scenes, it's easier to partition objects
+                  and use overrides to control photon visibility options for all of the objects in a
+                  partition. For example, in scenes that make heavy use of caustics, it is unlikely
+                  that all of the objects will be both casters and receivers, so you might create a
+                  partition for objects that are casters, one for objects that are receivers, and one
+                  for objects that are both. This process is described in <span class="char_link"><a href="passes_DefiningPartitions.htm#WSBDF3789326DBBD4FB2A3C80D3F0ED961-0059">Overriding Rendering Visibility for Objects in Partitions</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>].
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C5A0CE0B-502F-4E3C-AC3C-E3EE1A8B0886">
+      <meta name="topic-type" content="concept">
+      <title>Setting the Simulation's Substeps for Accuracy</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C5A0CE0B-502F-4E3C-AC3C-E3EE1A8B0886"></a></span><div class="head">
+            <h1>Setting the Simulation's Substeps for Accuracy</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-23B0091E-39B0-4DD0-AAC0-8B1DA9CF219E"></a></span>Substeps determine how many times a simulation is evaluated per frame. To set the
+               whole simulation's substeps, set the <span class="MenuCascade" id="GUID-C925DD87-D627-4C27-AC1F-A39B302BF7BD">Substeps</span> value in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5A64A9BB-C2ED-40E3-ABB0-83A4F5B2C1C3"></a></span>As with other simulations, increasing the substeps can help stabilize a simulation
+               and make the solving more accurate in Lagoa simulations. Of course, the payment for
+               increased substeps is increased simulation time, so you need to balance the results
+               of the effect that you need to achieve versus the time that requires.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4394FA57-4C70-4C12-836D-074E3F57A881"></a></span>You will need to increase the substeps with these types of factors in a simulation:
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6BA69D90-760B-472E-810D-DC566E72C534"></a></span>Points are moving quickly from one frame to the next.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BACE89F6-984B-430D-BC41-63B9CBD28C44"></a></span>You are using high elasticity or surface tension values and you want to maintain the
+                     structure between the points.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ACCA1174-163E-4A79-B2DA-615D0051966A"></a></span>You need to increase the accuracy of collisions with objects. The Substeps value determines
+                     the accuracy more than the resolution of the collision object itself.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CEF91FDE-B847-4F09-B02E-8A6684B47074"></a></span>The <span class="MenuCascade" id="GUID-6F4778C8-6A3B-46E3-8FBE-334837491D5F">Resolution Per Unit</span> value in the Lagoa Emit node is very low (which means more and smaller points). For
+                     example, Resolution values such as 0.1 will require more substeps. The number of substeps
+                     necessary for the Resolution value can be approximated using the <span class="char_link"><a href="iceref_Lagoa_Resolution_to_Substeps.htm">Lagoa Resolution to Substeps</a></span> node.
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-8377B262-CD97-48F4-A32B-C00FA75D8590"></a></span>Values of up to 20 or 30 are sometimes required for these types of effects, whereas
+               values of 3 or 4 are fine for many standard fluid simulations.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8979FE1C-C257-4954-BBDE-C880E8B66895"></a></span>Even if a simulation is solved properly with fewer substeps, increasing them can change
+               the results of the simulation quite a lot for some effects; for example, if you want
+               more solid fluid shapes, you can increase this value quite a bit, whereas lower values
+               allow for freer movement.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0057"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5205C723-F507-4D82-B243-251E039DA3FF"></a></span>Displaying Substep Data
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-384A09E9-8A15-401D-A060-54D358DBF86C"></a></span>You can visualize the Substep values using the <span class="MenuCascade" id="GUID-600E41B4-8120-4576-9B9D-A7E6EBB14486">Display Position Substeps</span> or <span class="MenuCascade" id="GUID-23FB2AB9-E232-4980-9B1B-E6D755827C8A">Display Velocity Substeps</span> options in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-4CC1869E-D3FA-4AA0-9FAB-51D24A1E9273-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-43C2F52A-ADBA-49CD-B072-F97A5A7724A5"></a></span>The points' position substeps are displayed in pink with the Display Position Substep
+                  option selected. The Substep value is set to 10, so there are 10 position points visible
+                  for each point.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0059"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D8C7A691-244A-414A-B07C-32E61C088DFF"></a></span>Inelastic and Elastic Substeps
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8FBCE9EA-7C07-45BD-B4C2-4CF5A6CECE0A"></a></span>Using the <span class="MenuCascade" id="GUID-C90547B4-FB15-44BE-AEDB-F0850D1EF9BB">Inelastic Substeps</span> and <span class="MenuCascade" id="GUID-87D30BA0-8BF9-4A6A-8BD9-EC40128137C0">Elastic Substeps</span> parameters in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node, you can set the substeps separately for inelastic (friction) and elastic material
+                  properties. This is useful when these types of properties need a higher substep value,
+                  but you don't want to increase the overall substeps for the whole simulation.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2865B5E4-BF19-47EF-BD0F-E15773533473"></a></span>Having a separate substeps value lets you isolate and test only the inelastic/elastic
+                  properties, which helps you solve behavioral problems such as point/collision object
+                  penetration, friction between points, elastic structure stability, or when the solving
+                  of only these properties is "jittery."
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-822FF4CB-7090-43CA-84D9-94DB45973287"></a></span>For example, if particle penetration is solved once per frame, and a given element
+                  in the simulation reaches half way inside another point, adding more substeps would
+                  make this collision behave more rigidly, solving it perfectly at the surface of the
+                  other element.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E841AB56-3A3A-4F73-9232-AD5DAA785D86"></a></span>Values between 1 and 5 are in a decent range. Values more than 5 do not appreciably
+                  increase the visual accuracy.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

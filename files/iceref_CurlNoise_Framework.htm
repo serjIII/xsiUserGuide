@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6B5CC056-5ED6-4918-B116-1A8BC8EFC1BF">
+      <meta name="topic-type" content="concept">
+      <title>CurlNoise Framework</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6B5CC056-5ED6-4918-B116-1A8BC8EFC1BF"></a></span><div class="head">
+            <h1>CurlNoise Framework</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-A33D77F1-5C52-4749-ADB7-FFA6E6F49E35"></a></span>This compound provides a framework for generating divergent-free velocity fields.
+               This means that particles will move turbulently without accumulating in any location
+               (no "sinks" or "sources"). Curl noise allows you to create all sorts of groovy turbulence
+               effects, from streams of water flowing around rocks to flames flickering around burning
+               logs or buildings. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-57E07670-3093-4198-92E0-CCAA18D3C2C6"></a></span>You can set the main direction flow of the particles using the <span class="MenuCascade" id="GUID-3AE62CD1-4AB0-41E4-A50E-962E456D4DD7">Directional Factor</span> and <span class="MenuCascade" id="GUID-096BAF7E-3B20-4A7D-BDFB-29E1B0FAD849">Direction</span> parameters. On this main motion, you can add some turbulence using the <span class="MenuCascade" id="GUID-B9C516C1-3571-4B63-A1D8-984F876C7DDB">Perlin Factor</span> parameter. This works in a way that is similar to math nodes in a 2D compositing
+               application. You can add as many noises as you want to this noise field, plugging
+               them into the <span class="MenuCascade" id="GUID-D62B42F1-4B45-480C-8FAE-950153B2D4E2">Potential</span> ports. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0141662A-DCD8-4135-A6FD-2538BE4BD206"></a></span>You can also add some boundary objects (obstacles) to the simulation, and the vector
+               field is set to react accordingly in those areas. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-08F0A5F2-767B-4EB6-A556-74BCB3BDD6C6"></a></span><div class="note-tip"><span class="label">TIP:</span>This compound is used in the <span class="char_link"><a href="iceref_Basic_Fire.htm">Basic Fire</a></span> compounds to give the particles some turbulent motion. 
+               </div>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-04BF0367-FF8A-4DDA-9E4D-6ECCDA1CA2F5"></a></span>When this compound is used, the particle's Initial Direction and Speed (usually set
+               in the Emit node) are overridden. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-32B4637E-CB5C-4AD6-9A81-9AAA8D3D2A8E"></a></span>As well, when you use this compound in conjunction with other forces, such as Wind,
+               you will need to increase that force's strength significantly because the curl noise
+               is a very powerful force. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0D969447-BED4-4FF0-84BE-179494E0FFF2"></a></span>Plug this compound's Execute output into the Execute output of the Simulation Root
+               node. You can also plug its output into the Force or Simulate ports, depending on
+               the <span class="MenuCascade" id="GUID-BB4EF39F-53DF-4B4E-ACAC-B0D698AB99A2">Mode</span> you choose below. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-767C1C19-A00C-4C9A-B30E-8F280E3E3736"></a></span>You can also select a point cloud with an ICE tree and choose <span class="MenuCascade" id="GUID-275FD47E-5856-45A9-8F48-1B211FCDF156">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Add Curl Noise</span> from the ICE toolbar to automatically plug this compound into the Execute output
+               of the Simulation Root node. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-BEB30BA5-3B4C-4FB2-BBAE-7A260F1C7360"></a></span> <em class="strong">Tasks:</em> Particles/Curl-Noise 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-843527AC-92C3-4E18-87EE-E437F5A3B1C7"></a></span> <em class="strong">Output Ports:</em> Execute 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6ABBE6194C7F5E40893B6A252BAC1371-0037"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-61DF7090-7522-4CEF-B18F-ED1F0818FCC9"></a></span>Curl
+               </h2> <span class="anchor_wrapper"><a name="TABLE_73B2B6A6F19C4CB995A50F4FD4E7704D"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-76B1C73C-ED80-40B8-A02F-135E3A61DCCF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D74B230F-C664-4034-80E4-E5CD68C63053">Offset</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FDBD3F3B-4602-4224-905D-B4CB2C161D77"></a></span><p class="table-body">Offsets the positions in space in which to sample the noise field in order to calculate
+                              the noise according to the scale of the particle emitter. This value is in Softimage
+                              units. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-D3ECB845-B991-4003-A080-4A0BEB983EBE"></a></span><p class="table-body">If the particles are emitted from an object with a bounding box size of about 10 units,
+                              you don't need to change this offset. However, if the emitter is very small, you should
+                              decrease the offset (like 0.001); and if the emitter is very large (closer to 100
+                              units), you should increase the offset (0.5 or more). 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-060EBC32-7C1D-4C15-B2D0-E0D341015695"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AB92529A-A8B3-4C13-9B70-C5C3D5B31EBF">Mode</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-83856C38-83E7-4B64-90B4-4D5051250207"></a></span><p class="table-body">The way in which you want to use the curl noise to set particle data: </p> <span class="anchor_wrapper"><a name="UL_077E632ED2C94C5780BB57040E3A88B4"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-1A93EDCB-F5AA-413F-A482-DB04E1367C62"></a></span> <span class="MenuCascade" id="GUID-60860FBB-EC1E-4DCA-B7A5-699839487A52">Set Force:</span> Allows you to use the curl noise purely as a force. Plug the compound's output into
+                                    any Execute port of the Simulation Root node, with a Simulate Particles node plugged
+                                    into its Simulate port. This way, you can use other forces in conjunction with the
+                                    CurlNoise compound. 
+                                 </p> 
+                              </li>
+                           </ul>
+                           <p><span class="anchor_wrapper"><a name="GUID-D0398584-05EC-42BE-B49E-D678A4F10523"></a></span>You can also plug the CurlNoise compound's output into the Force port of the Simulation
+                              Root node to use only this compound's force. 
+                           </p>
+                           <ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-4F83D0D7-1D0B-4407-B9D2-A62B65D8A6BC"></a></span> <span class="MenuCascade" id="GUID-F2A9FF72-79B9-4B27-8694-8D19EABC287F">Set Position:</span> Allows you to use the curl noise purely to set the point position. You can plug this
+                                    compound's output into the Simulate port of the Simulation Root node (it sets the
+                                    point position instead of the Simulate Particles node doing the work). This is the
+                                    best way to keep the vector field incompressible. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-FC40D608-2FDF-4F08-AAF0-016E330A0E8E"></a></span> <span class="MenuCascade" id="GUID-56A7B767-EF4D-4C29-96F5-D7E24EBC7F18">Set Velocity:</span> Allows you to use the Curl noise purely to set the point velocity. Plug this compound's
+                                    output into the Execute port of the Simulation Root node. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6ABBE6194C7F5E40893B6A252BAC1371-0038"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3C8FC3A6-250C-4B6F-834B-FF739E8B4B55"></a></span>Main Flow Direction
+               </h2> <span class="anchor_wrapper"><a name="TABLE_59E7F98486334558B2825821605D64A0"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-563A17C5-B315-482A-89E0-E50319857B08"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E8EBBF34-C4D5-4FAE-8494-0A41E760E273">Directional Factor</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6D98E5D3-8F06-44CB-9C65-25DF1035108D"></a></span><p class="table-body">Sets the speed of the noise. The initial speed of the particles is overridden by this
+                              value. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3FFD17C0-7486-435D-81DC-3291368469DD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-63B8D0FD-1816-439E-802C-F9D518C306F8">Boundary Drag</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DC16B376-192F-4F82-810E-0BC7BB908CA1"></a></span><p class="table-body">Adds a drag force to particles that are within the Cutoff distance for the Boundary
+                              object (below). The Cutoff value must be above zero for this drag to have any effect.
+                              It affects both the direction and speed of the particles. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-3835ED26-1A29-4A82-8094-829880352ED6"></a></span><p class="table-body">This drag gives the effect of particles slowing down or stopping as they get close
+                              to the boundary, while particles that are farther away keep or increase their speed.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-33A2FFB0-EA37-48A4-99A7-BBDC6C7CD033"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F46A4CCA-B26E-47FD-BBAA-464E8A54353D">Direction</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BE2E5DD7-423E-40D0-87B0-E0CC680B97FE"></a></span><p class="table-body">Direction of the noise flow in XYZ global coordinates. The initial direction of the
+                              particles is overridden by this value. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-84389A80-6465-43E0-92A6-D86FFF9B42F8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4A9D7720-459E-4D9A-835C-8DDDA314D80D">Use Object</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E959CA1A-9D15-40FF-93D0-DFD32C8E4F1E"></a></span><p class="table-body">Select this option if you are using a controller object to affect the particle flow's
+                              main direction. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6628C6CF-0B8F-4C38-9252-3EB964478F83"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-34A55AC4-7A1B-45E9-83A3-BC3E7F5298A6">Controller Name</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-71DA22E4-8656-48E0-8811-C15AC1608B74"></a></span><p class="table-body">Plug in the Out Name output of a controller object to use as an obstacle around which
+                              the particles flow. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-704FE26E-9D65-4D7F-8593-87D8F8E19CAF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9C93BB1E-5503-4CFE-BAAF-0D5A7089B154">Mode</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0122F4C9-3230-4765-83BD-B9700C6C8848"></a></span><p class="table-body">If you are using a controller object, you can select which space is used for that
+                              object: 
+                           </p> <span class="anchor_wrapper"><a name="UL_07ABA3190374413E8BD71C470E935F0D"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-07F91F2C-E8AE-4E29-96AD-DB4135ABCA03"></a></span> <span class="MenuCascade" id="GUID-EC4E69EE-3C20-4A20-BD73-8689528C982F">Local space:</span> the object's local XZY coordinates. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-9BDF56A2-B22D-421C-891A-8EFF8D55051F"></a></span> <span class="MenuCascade" id="GUID-2083DCE7-273F-408D-8E0E-AC7FC42BA01D">Global space:</span> the object's global XYZ coordinates (if the controller object is parented). 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6ABBE6194C7F5E40893B6A252BAC1371-0039"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9ED1FB08-0D93-4F60-B0DF-BC2EF478AFC0"></a></span>Perlin Noise Base Layer
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F8FED8D2-FE2F-46B5-9416-FA6C6253BE45"></a></span>This is controlled under the hood by the <span class="char_link"><a href="iceref_Perlin_Turbulences.htm">Perlin Turbulences</a></span> compound. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_343A8941FEDD47A4B9282D7856E37B74"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EBC84144-387D-4F07-B116-CA4A66C6AF13"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1309279D-8B61-4067-AB6F-6F227FC607B0">Perlin Factor</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-20DAFEB8-419D-4308-8596-1455E33CF7C2"></a></span><p class="table-body">Perlin noise has spatial coherence, meaning that several different points in roughly
+                              the same location in space tend to have similar noise added to them. It interpolates
+                              between the random values. This allows for the creation of particle "streams" within
+                              a noise field. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-C3F3D086-FD08-49F3-BBBD-DA0AF5CE618B"></a></span><p class="table-body">Perlin noise can help make objects more natural-looking by imitating the controlled
+                              random appearance of elements found in nature; that is, there is structure to the
+                              noise while still appearing fairly random. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FE42CB66-7A55-4AC5-8D4A-0AF72658C3B0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3FA7C468-290A-4C42-9E6F-AFE83C093F0E">Boundary Drag</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-43FC9155-FB78-468C-B359-F76509A174A4"></a></span><p class="table-body">Similar to the Boundary Drag parameter above, this parameter adds a drag force to
+                              particles that are within the Cutoff distance for the Boundary object, but affects
+                              only the movement of the noise field. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-93C0C8A9-991C-408F-AF1F-9E23772D5D57"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-671B5E5A-BDE2-4E97-B759-C8C695E056BC">Seed</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F6B0DF49-B942-4E71-89B4-944745997873"></a></span><p class="table-body">Defines the sequence of random numbers used. If you require that two nodes generate
+                              different sets of values with the same parameters, simply assign them different seeds.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EE879E07-EF1C-426F-A18C-D0BC1E6BFAF4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BD2E16BF-6BA3-418F-B23A-68BA42EDFB95">Time Varying</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-81806D0B-F3E0-418D-8AB5-DA5A861E9BA4"></a></span><p class="table-body">Allows the noise to evolve over time in a continuous manner. This allows for more
+                              variation in the noise pattern. If this is off, the same noise pattern is repeated
+                              throughout the simulation. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-66313E4F-9EB0-4914-9913-B48DC203A32E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D9C5DFC2-195A-44F8-BCEC-152B606D89DF">Time Frequency</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3E12B54E-6B26-4644-B177-91BD2A4DF09E"></a></span><p class="table-body">The speed at which the noise evolves over time (how often the noise pattern is repeated).
+                              You must select the <span class="MenuCascade" id="GUID-844E9846-35E5-42FE-83B3-8B4F298EFBE8">Time Varying</span> option for this parameter to have an effect. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-80B020DD-AAAC-45BB-8287-CE7B5791B602"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-96E43423-5D27-4847-99DD-54F65A055C23">Space Frequency</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B93DF82D-901D-4790-86DC-D26BD9BD0A7A"></a></span><p class="table-body">The granularity of the noise pattern, meaning how often the noise pattern is repeated
+                              in this space. The greater the space frequency XYZ values, the finer the noise. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-52B5A525-7E5C-4811-8CA1-05B5AA195BF7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A9D63721-D02C-4B98-A237-2534B0CFF066">Complexity</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DEC69808-2710-4369-AB40-8525530C5FFF"></a></span><p class="table-body">Defines the number of octaves to be added to the noise. This basically adds a fractal-like
+                              complexity to the noise which increases the level of detail of the noise pattern.
+                              This is useful for adding small-scale complexity to a large-scale noise field. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-A1F52FC1-6127-423B-9BFA-10867C71FCC2"></a></span><p class="table-body">The value of the turbulence is calculated such that for each octave, a noise of half
+                              the amplitude and twice the frequency is added. A complexity of 1 is simple noise
+                              with no fractal pattern. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-23746AE5-CE0E-4E56-88F7-CCBA3FAB6F11"></a></span><p class="table-body">Complexity has an impact on performance. Noise with 2 octaves takes twice as long
+                              to calculate than noise with only 1 octave. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6ABBE6194C7F5E40893B6A252BAC1371-003A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3246A12A-16EB-44DA-B163-C2C2F7AD8BCF"></a></span>Boundaries
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4989A982-50B7-485D-B577-5C4C841E29BE"></a></span>You can use an object to act as a boundary (obstacle) for the particle flow. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_CC6824F071244A04A89DC03BDE31B2FB"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C1853375-C00B-4C56-8522-A7CCA3E4472F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3578CA00-8977-4D01-B28F-9ADFE3306F5E">Boundary</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-67FA38DD-CEF9-41E5-BADA-5207AFABAEFE"></a></span><p class="table-body">Plug in the Value output from a surface object to act as the boundary. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8F8F8897-DA8C-43F5-9E4C-720BF7074862"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-07354189-A5FD-4289-A4C4-A4AA6F0465ED">Cutoff</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-248314B4-0C5B-4E10-A187-2D6670FF477D"></a></span><p class="table-body">The distance in Softimage units at which the particles are affected by the boundary
+                              object. For example, if you set this to 2, a "buffer" of 2 units is set around the
+                              object. Particles that are at this boundary are affected by any Boundary Drag values
+                              that you set above. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-562F0D44-D3C7-4700-A713-59C1A353C47F"></a></span><p class="table-body">For example, if you want particles to slow down or even stick as they get closer to
+                              the boundary, you can set the Boundary Drag value. The Cutoff value must be above
+                              zero to use Boundary Drag. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-178D46A8-E416-43D5-A7C9-C0BDFF597F7F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7374BEB2-E05C-4F9A-AC63-3F072B4FAB94">Profile Curve</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F14F0375-55BA-49E2-B73A-54D0D2438986"></a></span><p class="table-body">Controls the falloff of the Cutoff value. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-258D454D-3FED-4F15-A08A-0647264F38E4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A88BBF7C-A66D-4FCC-B463-032C7F000FD4">Potential</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8B8CA967-8889-4D77-B480-F0AC40509AFD"></a></span><p class="table-body">The gradient potential for more noise fields. You can plug in the Perlin Turbulence
+                              node here in which you can define an additional noise field to be combined with the
+                              existing one. You can add as many noises as you want to this noise field. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-4FA95571-38DF-4287-AC51-A3A2DA82461A"></a></span><p class="table-body">For example, if you have a large-scale noise field created with the Curl-Noise Framework
+                              compound, you can create several smaller-scale noises with the Perlin Turbulence node
+                              to add further complexity to the large-scale noise. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

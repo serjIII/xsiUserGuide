@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-7703F672-3756-4AA1-A316-9F4695EBD178">
+      <meta name="indexterm" content="ICE particles: forces">
+      <meta name="indexterm" content="forces: ICE tree">
+      <meta name="indexterm" content="Add Forces compound">
+      <meta name="indexterm" content="ICE simulations: applying forces">
+      <meta name="indexterm" content="ICE particles: gravity">
+      <meta name="indexterm" content="gravity: ICE particles">
+      <meta name="indexterm" content="ICE particles: attraction to an object">
+      <meta name="indexterm" content="attraction force: ICE particles to an object">
+      <meta name="indexterm" content="Surface force compound">
+      <meta name="indexterm" content="wind force: ICE particles">
+      <meta name="indexterm" content="ICE particles: wind force">
+      <meta name="indexterm" content="ICE particles: attraction to a null">
+      <meta name="indexterm" content="Null Controller force compound">
+      <meta name="indexterm" content="attraction force: ICE particles to a null">
+      <meta name="indexterm" content="ICE particles: attraction to neighboring particles">
+      <meta name="indexterm" content="attraction force: ICE particles to each other">
+      <meta name="indexterm" content="Neighboring Particles force compound">
+      <meta name="indexterm" content="ICE particles: drag force">
+      <meta name="indexterm" content="drag force: ICE particles">
+      <meta name="indexterm" content="ICE particles: coagulate force">
+      <meta name="indexterm" content="coagulate force, ICE particles">
+      <meta name="indexterm" content="attraction force: ICE particles to a point in space">
+      <meta name="indexterm" content="Point force compound">
+      <meta name="indexterm" content="ICE particles: attraction to a point in space">
+      <meta name="topic-type" content="concept">
+      <title>ICE Forces</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-7703F672-3756-4AA1-A316-9F4695EBD178"></a></span><div class="head">
+            <h1>ICE Forces</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-C88D1E59-9BDA-411A-BFD7-174CE572AFF3"></a></span>Forces make things move. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-940FA064-5B54-4C02-BEA8-569AF648876C"></a></span>In the case of an ICE tree, forces make particles and simulated deformed objects move
+               according to different types of forces that imitate nature. Each particle cloud or
+               simulated object can have multiple forces applied to it. 
+            </p><span class="anchor_wrapper"><a name="FIG_1B1518C4F78E40B1848BFAAD85241174"></a></span><div class="figure-anchor"><img src="../images/GUID-0F7BFC4A-B9FE-40DA-BDBC-431C1FA9FDB2-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0015"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B950EF5D-C789-471E-A0EB-2341B9A4EF45"></a></span>Physics for ICE Trees
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-354C5C6B-54F3-40B3-8F16-4E4F9E3BD8A7"></a></span>Although anything is possible in the world of 3D, Softimage needs to use physics based
+                  on the real world in order to calculate forces properly. As a result, the forces that
+                  are used in the ICE Tree are based on Newtonian physics. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-400A20EA-744D-4E3D-ACBD-CFB9F1547B2F"></a></span>You can, of course, bend the laws of physics to your own animation needs, which are
+                  not always restricted to the real world. Cartoons often break most conventional physics
+                  to achieve their effects. You can create your own force or simulation compounds using
+                  the nodes found within ICE. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8BC68E05-69F2-4052-9571-2BED021C80A5"></a></span>Meanwhile, here are some of the main concepts that forces in the ICE Tree use: 
+               </p> <span class="anchor_wrapper"><a name="UL_E625F3D6E62F431F8B213E089C30CB6C"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-30268A3A-1C32-4D41-A736-B349EBE5F318"></a></span> <span class="MenuCascade" id="GUID-C906A132-EE8F-447E-BAD9-1FDD7EFD7956">Velocity</span>: the speed and direction of an object, or its rate of change in position. This is
+                        a vector. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-33043720-A76F-45A8-B46F-157E04C53239"></a></span> <span class="MenuCascade" id="GUID-B235F28C-3BF7-426B-A084-A82441DF1577">Speed</span>: the amplitude of the velocity (the length of the velocity vector) but without the
+                        direction that velocity has. This is the ratio of the distance an object moves versus
+                        the time it takes. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BFA88E92-8164-47BB-A0F0-B2EBEDB5BB56"></a></span> <span class="MenuCascade" id="GUID-57885E5B-2DF9-4B9C-B3A3-F191EE3155C4">Acceleration</span>: the rate of change of velocity. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-829180CE-1156-423B-B0E3-A597C06F96D3"></a></span>For more information on velocity, speed, and acceleration, see <span class="char_link"><a href="ICE_particles_ICEParticleSpeed.htm">ICE Particle Speed</a></span> [<span class="char_link"><a href="ipart_cover.htm">ICE Particle Simulations</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C4EF4B9F-8B77-4F89-A244-37FC0CD2C5B7"></a></span> <span class="MenuCascade" id="GUID-47AF7F02-33E8-4F8D-969E-5EB68F790111">Force</span>: a push on an object that infers a change in velocity. It is also a vector that indicates
+                        the direction of the push. Its length determines the strength of the push. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5C0B81CC-3ED0-49EB-A6BC-57209ADFBF4A"></a></span>Force is a vector that gets applied to an object to change its velocity, and the object's
+                        mass is taken into consideration (Force = Mass * Acceleration). The Force is calculated
+                        by the change in velocity multiplied by the mass. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0D9210A4-0BF2-4FB4-ACCF-301856D014BF"></a></span>When the Simulate Particles node applies force to a particle's position, it takes
+                        into account the particle mass. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BC5838D5-E09D-4576-9CD5-AFA81A42C53E"></a></span> <span class="MenuCascade" id="GUID-39B2A2CB-A8C2-4397-9048-7FC56BE831F5">Mass</span>: the quantity of matter of an object. The mass determines how quickly objects react
+                        to the forces applied to them and how they react in a collision with an obstacle.
+                        Objects with a higher mass tend to keep their velocity when exerting forces on them.
+                        Therefore, to make a change in an object's motion, you need to apply stronger forces
+                        to an object with more mass than to one with little mass. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AAA8C1A9-7DAC-444A-BFE9-FB7A5A85BB48"></a></span>For more information, see <span class="char_link"><a href="ICE_particles_ICEParticleMass.htm">ICE Particle Mass</a></span> [<span class="char_link"><a href="ipart_cover.htm">ICE Particle Simulations</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4149371A-9F9D-4A8E-8374-47F8C54D4517"></a></span> <span class="MenuCascade" id="GUID-425D32ED-8F1C-4807-9D4B-CAF4BF70BFBC">Gravity</span>: the attraction between all objects that have mass. Earth's gravity is a downward
+                        acceleration exerted on objects. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-040414F3-9580-4E1B-9326-A76C2096FA3F"></a></span>For more information, see <span class="char_link"><a href="iceref_Gravity_Force.htm">Gravity Force</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CFE5FA7B-3A6D-4B51-A807-36E8B75DDEDC"></a></span> <span class="MenuCascade" id="GUID-B0B86D30-CA08-49E3-9CEF-DCC46A828204">Drag</span>: a force applied by a fluid on a solid object in the opposite direction to its velocity.
+                        The force depends on the velocity of the object and its size, and on the density of
+                        the fluid. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-98A8E41B-2D6F-4097-8230-EE23BD8AD3DA"></a></span>For more information, see <span class="char_link"><a href="iceref_Drag_Force.htm">Drag Force</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0016"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FB636C75-EF06-4782-A973-B29E04E37E4B"></a></span>Using Forces in the ICE Tree
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1B910A33-8A33-4530-9A3F-DF917CCC279C"></a></span>To use forces in the ICE tree, you can access forces from within the ICE tree or from
+                  any toolbar in Softimage. Each represents a different set of forces, but you can use
+                  both sets in the ICE tree. 
+               </p> <span class="anchor_wrapper"><a name="UL_AC1F961C3C154AE9820B5FC7552CBC35"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7C744C44-85A7-4973-9645-D1D7F6AB62B1"></a></span>ICE forces: Choose any of the commands from the <span class="MenuCascade" id="GUID-8E3419FB-12ED-4907-961A-DD3CF7C520E7">Particles <img src="../images/ac.menuaro.gif"> Forces</span> menu on the ICE toolbar — see <span class="char_link"><a href="ice_simulation_ICEForces.htm#WS2A020F56F634064C904087E0C75076C7-0019">Creating and Applying ICE Forces to ICE Simulations</a></span>. Each of the Force compounds used by these commands are found in the Forces group
+                        on the Task &gt; Particles tab in the ICE tree view's preset manager. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6DC7190B-CFF3-47DD-AF95-3F70D3D3C3EE"></a></span> <em class="mild">or</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2E5A9AFB-DBBE-422B-BD7F-28D3E5B5C58F"></a></span>Non-ICE forces: Choose them from the <span class="MenuCascade" id="GUID-81307574-A592-40A5-B9F3-446151EF49C3">Get <img src="../images/ac.menuaro.gif"> Forces</span> menu on the Simulate toolbar or the Get &gt; Primitive &gt; Control Object menu on any
+                        other toolbar — see <span class="char_link"><a href="ice_simulation_ICEForces.htm#WS2A020F56F634064C904087E0C75076C7-001E">Creating and Applying Non-ICE Forces to ICE Simulations</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0017"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C761C6BD-C1B2-4A7D-86F9-F03C1B029046"></a></span>Force Attributes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F590FC26-C297-4B89-8401-87F0BE891247"></a></span>There are several attributes that are used to define forces that are used in a simulation.
+                     These attributes are used in several compounds that are described in this section,
+                     but you can also use them on their own in an ICE tree. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EB0ECA77-52F3-41F6-BAD7-E843D28A0668"></a></span>You can use any of these attributes by specifying them in the Get Data and Set Data
+                     nodes, as described in <span class="char_link"><a href="ICE_particles_UsingICEParticleAttributes.htm">Using ICE Particle Attributes</a></span> [<span class="char_link"><a href="ipart_cover.htm">ICE Particle Simulations</a></span>]. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EBD550C0-3120-4255-962F-32FEBD0C71D7"></a></span>For more information on attributes in general, see <span class="char_link"><a href="iceref_attributes_a.htm">ICE Attributes</a></span> [<span class="char_link"><a href="iceref_cover.htm">ICE Reference</a></span>]. 
+                  </p> <span class="anchor_wrapper"><a name="UL_62B00DEDE39F40CD916388E2AC686A95"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F0C6C3BD-7D37-426B-81CB-251C1F4F4414"></a></span> <span class="char_link"><a href="iceref_attributes_Init_Force.htm">Init_Force</a></span> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2D30C30E-F9F2-4CAF-AEFE-497EF98FC585"></a></span> <span class="char_link"><a href="iceref_attributes_Force.htm">Force</a></span> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0A75ADB9-CCB0-4295-97A3-386EEF2D39C7"></a></span> <span class="char_link"><a href="iceref_attributes_DragCoefficient.htm">DragCoefficient</a></span> 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0018"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9510EDF2-E426-495B-B6D0-A18BBC92B1E0"></a></span>About the Add Forces Compound
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-B31ED08B-149D-4913-87E5-26D9C356BB29"></a></span>To use any force compound inside the ICE tree, you need to first have an Add Forces
+                     compound plugged in to the Forces port of the Simulation Root compound, or into a
+                     port on the ICETree node. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CD70EBB6-4AFF-4153-B569-7AAFA9705A8C"></a></span>The <span class="char_link"><a href="iceref_Add_Forces.htm">Add Forces</a></span> compound is a hub for the forces in your ICE tree: it adds up and blends the effect
+                     of all forces that are plugged into it, then applies it to the simulated objects.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7D12263F-E66D-4E29-B2A2-D32E7292B9F7"></a></span>If no other force is plugged into the Add Forces compound, you can open its property
+                     editor and create a simple velocity force in any global direction (XYZ). 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0019"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-93218123-C37A-4905-B308-311A192D2EB4"></a></span>Creating and Applying ICE Forces to ICE Simulations
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-A12D9EF1-0DB9-4D83-8E89-83BE996E528E"></a></span>Each point cloud or deformed object can have multiple forces applied to it. As well,
+                  you can have the same force applied to a number of point clouds or objects in a scene.
+                  <span class="anchor_wrapper"><a name="GUID-4E3BF413-A932-4EED-9F19-B8DD2C763E5C"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4335F119-925E-4929-BCC0-D9859474F398"></a></span>Create an ICE deformation or particle simulation — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-199F743D-A8D5-46CE-8987-331E0073F5BF"></a></span>Choose any of the <span class="MenuCascade" id="GUID-5C77C1EE-2E71-422F-98A9-4C9EB1F200FD">Particles <img src="../images/ac.menuaro.gif"> Forces</span> commands from the ICE toolbar: <span class="MenuCascade" id="GUID-5F168E6C-4532-4CE2-B17D-32D6FFC145FD">Gravity</span>, <span class="MenuCascade" id="GUID-64421910-73CB-40C9-B047-C23F9F29B90E">Drag</span>, <span class="MenuCascade" id="GUID-B992349C-6D47-4E67-B513-D8707A246424">Wind</span>, <span class="MenuCascade" id="GUID-BB45851D-C6F0-40AD-92F0-1992F44D1815">Point</span>, <span class="MenuCascade" id="GUID-E650B2F4-F7B0-414E-ADCC-568C6B404EA5">Coagulate</span>, <span class="MenuCascade" id="GUID-A69DD9A1-3890-48E9-8A4D-5E4A4BC147B4">Neighboring</span>, and <span class="MenuCascade" id="GUID-9821D905-0D97-4430-A32C-B109A404C034">Null Controller</span>. See <span class="char_link"><a href="ice_simulation_ICEForces.htm#WS2A020F56F634064C904087E0C75076C7-001C">Types of ICE Force Compounds</a></span> for information on each one. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-829E1B05-EA3B-435F-A676-F90AF40B5151"></a></span>Each of these commands does two things: 
+                        </p> <span class="anchor_wrapper"><a name="UL_153B8809B4434FFF9DEEF9A5DC389877"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-6E47EFCA-058A-418F-B2B9-8B3117D7BFC4"></a></span>It adds the <span class="char_link"><a href="iceref_Add_Forces.htm">Add Forces</a></span> compound to the ICE tree (if not already present), plugging it into the Forces port
+                                 of the Simulation Root compound. This compound is a hub for the forces in your ICE
+                                 tree: it adds up and blends the effect of all forces that are plugged into it, then
+                                 applies it to the simulated objects. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-AEA8C086-BCA6-4220-9E65-84BFF79A2582"></a></span>It adds the command's corresponding Force compound to the ICE tree, plugging it into
+                                 the Force port of the Add Forces compound. See <span class="char_link"><a href="ice_simulation_ICEForces.htm#WS2A020F56F634064C904087E0C75076C7-001C">Types of ICE Force Compounds</a></span> for a description of each compound. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EB935702-C2F8-4C1B-8B2D-1DF85B0FCB93"></a></span>If you selected the <span class="MenuCascade" id="GUID-6AB4EF93-0E7F-41A0-B71F-D05D0C5FE9A2">Particles <img src="../images/ac.menuaro.gif"> Forces <img src="../images/ac.menuaro.gif"> Null Controller</span> command, you must pick a null object you want to use to control the particles. This
+                           object's Get data node is then plugged into the Null Name port of the Null Controller
+                           Force compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0C6C7EF9-11A1-4C84-83DC-FBDCA577F17B"></a></span>In the Force compound's property editor, set the parameters as you like. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BB3CC28A-613B-4374-8745-8790C21DBDAB"></a></span>You can continue to add more forces in this way: any additional forces are simply
+                           plugged into the existing Add Forces compound. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-57C8402A-BC6B-4060-AE07-54A1730A0AA3"></a></span>The order in which the forces are plugged into the Add Force compound is not important
+                           because they are simply added together. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-8D481E89-953F-4107-AF5C-E4972AD7ACB1-low.png"></div> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-001C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F539D792-564D-4888-97CB-7B456B3247E5"></a></span>Types of ICE Force Compounds
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-91DC1A57-7C49-4949-ADE3-753BCE99ABB1"></a></span>The ICE force compounds can be found in the Forces group on the Task &gt; Particles tab
+                  on the preset manager in the ICE tree. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-35D8BE4A-7030-4512-A30D-4E3B36B109D5"></a></span>There is a standard procedure to use all of these forces in the ICE tree — see <span class="char_link"><a href="ice_simulation_ICEForces.htm#WS2A020F56F634064C904087E0C75076C7-0019">Creating and Applying ICE Forces to ICE Simulations</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="FIG_2D98DFF7FFE946BBBD53FB655273C2A0"></a></span><div class="figure-anchor"><img src="../images/GUID-E88FFF58-B42E-4DDF-9DA3-B8DC42626D16-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_015068F4F4AD4940BA830FFDBE6356E2"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="9.438009438009438%" align="left">
+                        <col width="90.56199056199056%" align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-91403345-B58E-4344-BB1A-F308A18A6A10"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-75655D8F-A7F4-4A24-8EDF-C45A2F59B549">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-46AAE321-C8AF-4469-8C17-86D24BFEB7A3"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Gravity_Force.htm">Gravity Force</a></span> compound applies a force that defines an acceleration over time. Gravity is the same
+                              for all objects regardless of their mass. However, everything changes at the moment
+                              there is air resistance/friction or when the object collides with another: that's
+                              where mass, energy, and momentum play a major role. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-28ABC0E8-C5A0-443F-B0CA-6636E92C1452"></a></span><p class="table-body">   </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-35257C75-CF96-4366-B227-BAFF0043EB22"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4B5B8BE9-8AA5-4CBD-97D5-AAFE8850F77E">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">    <span class="anchor_wrapper"><a name="GUID-9A9D6D2C-D55D-4008-AB2C-B4B897EF70F4"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Surface_Force.htm">Surface Force</a></span> compound attracts particles/objects to or repels them from an object's surface, much
+                              like a magnet attracts/repels iron filings. This makes it easy to produce effects
+                              such as those created by magnets, black holes, or gravity. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D60DCEF4-C189-4B74-9BC0-C808550B5E06"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F1D51EE0-1C84-4A42-BDC1-7691A30C86D5">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">   <span class="anchor_wrapper"><a name="GUID-1ADB0248-0A97-4C75-AD10-27646817247E"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Wind_Force.htm">Wind Force</a></span> compound generates a force that speeds up particles or simulated objects to a target
+                              velocity. This is a directional force with velocity and strength. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3A52DB9B-42EB-4969-B9B0-C4E4D547141D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C637BF4F-965D-4C04-82F0-89EDED5AC4A7">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">    <span class="anchor_wrapper"><a name="GUID-82F46B30-5BEA-4D0F-A456-989F276BB74B"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Null_Controller_Force.htm">Null Controller Force</a></span> compound uses the location and shape of a null to control the center, direction,
+                              and size of the force. The points are either attracted to or repelled from this null
+                              in a manner that is similar to how particles move toward or away from a goal object.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F0014B67-8DFB-4A2A-9809-6E97CF77984B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6CFD5A3D-BA19-4EEA-BD9A-0C3647B3611D">E</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">    <span class="anchor_wrapper"><a name="GUID-D83EEF6C-1EBA-4403-AEED-4D14EB2DA8AA"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Neighboring_Particles_Force.htm">Neighboring Particles Force</a></span> compound attracts particles to each other when they get within a certain range, in
+                              a manner similar to the Coagulate force. However, there is no friction between the
+                              particles so they don't stay clumped together as with the Coagulate force. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E88A9D70-29D7-4A25-80BA-441BDD335760"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F5D8C834-3600-40C4-859A-C0D31D328F32">F</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">   <span class="anchor_wrapper"><a name="GUID-49D799A0-1940-45BC-AA5E-81DE9E79A8D7"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Drag_Force.htm">Drag Force</a></span> compound adds flow resistance to the movement of an object in the opposite direction
+                              to its velocity, as in a fluid. This force give a more direct level of control when
+                              you want to slow down simulated objects. For example, you could create the effect
+                              of particles moving under water using the drag force or create a slow-motion effect
+                              of particles as they are being emitted. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DB4D43B8-08BA-40D0-A21E-8907B8FA29C4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-89854AAD-B32F-448A-B592-4A435809D0CB">G</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">   <span class="anchor_wrapper"><a name="GUID-AACBA66B-75FE-43A7-97A2-44AAD2EF9002"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Coagulate_Force.htm">Coagulate Force</a></span> compound attracts points toward their neighbors to form clumps. Once the points get
+                              within a certain range of each other, the friction (drag) slows them down. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-B2A96A1D-91F8-42AE-A645-8165F040BE3A"></a></span><p class="table-body">This force is useful for blood splatter, mercury or liquid metal forming, water droplets.
+                              You may want to try using this force with the particle shape set as blobs to create
+                              these types of effects. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D0C8E905-4D6A-4F36-AB6F-7B63FD76757C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-631C4D84-3397-4091-8640-4AB93DF47B5E">H</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left">    <span class="anchor_wrapper"><a name="GUID-673A0DF6-376D-45CE-8A82-048E5C15BD6F"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Point_Force.htm">Point Force</a></span> compound attracts particles/objects to or repels them from a position in space that
+                              you define. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-001E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-01420869-247C-40E2-B5DB-59B329DA4A67"></a></span>Creating and Applying Non-ICE Forces to ICE Simulations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D02968BB-7E04-4F62-855B-0B756E724F97"></a></span>In addition to the ICE force compounds, you can use non-ICE forces in ICE simulation
+                  trees. These are the simulation forces that have been available for previous versions
+                  of Softimage — see <span class="char_link"><a href="forces_TypesofForces.htm">Types of Forces</a></span> [<span class="char_link"><a href="sim_cover.htm"> Simulation and Effects</a></span>]. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AD6E01A9-8B82-4BB9-8408-3C7982EECD16"></a></span>You may want to work with these forces if you're used to them, or also because each
+                  force is represented in the scene by its own control object. The control object lets
+                  you select, transform, rotate, and scale the force. <span class="anchor_wrapper"><a name="GUID-F475D67A-1222-4BB6-A3A0-B52C40A312FD"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-289A7698-8DEF-42FE-8159-F7E6D5442FCA"></a></span>Create an ICE particle or deformation simulation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-29C9EB51-EB54-41A5-A954-9906465CC2F8"></a></span>Choose <span class="MenuCascade" id="GUID-B6E80AD5-1759-4042-B8EC-779574F6FFAC">Get <img src="../images/ac.menuaro.gif"> Force</span><em class="mild"> <span class="MenuCascade" id="GUID-18B7A74B-5635-4930-B1F6-118DACEDC05B">force name</span> </em> from the Simulate toolbar or <span class="MenuCascade" id="GUID-E06BF3AB-D022-4E54-82BE-269205015874">Get <img src="../images/ac.menuaro.gif"> Primitive <img src="../images/ac.menuaro.gif"> Control Object</span><em class="mild"> <span class="MenuCascade" id="GUID-73FBE745-74F1-4099-9FBF-4824969CDBB2">force name</span> </em> from any other toolbar to create a force object in a viewport. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-A129158A-BC88-43CD-8DDB-2E6338D33879-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-36ECEA9D-EDB0-4134-AC24-83EFE20E4A7B"></a></span>From an explorer, drag the force's name into the ICE Tree to create a Get Data node
+                           for it. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-47C8CBBC-3772-4A25-87D0-1180FAC7CE06-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2F02F45F-1ED9-4C70-98E0-E7E8B6833043"></a></span>In the ICE tree, drag the <span class="MenuCascade" id="GUID-84C15047-2290-4A09-BA6A-F698B149C313">Add Forces</span> compound from the Forces group into the ICE view. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A7603B10-DF5C-40A2-BFDA-9F5DAF23C183"></a></span>Plug the Add Forces compound's Execute output into a port on the ICE Tree node, above
+                           the Simulate Particles (or Simulate Rigid Bodies) node. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1E55466F-802E-44B9-8220-D935C067714F"></a></span>You can also plug this into a State compound's Execute port, if you're using a state
+                           system. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1F47F1F2-07A8-4D1D-ABCD-E07E993FED0D"></a></span>Plug each force node's Force output into a Force port on the Add Forces compound.
+                           The force's output is a 3D vector representing the force which is based on the PointPosition
+                           attribute of the element. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-97B53FC5-D65A-46F2-A512-33B902C8C3AD"></a></span>The order in which the forces are plugged into the Add Force compound is not important
+                           because they are simply added together. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-32B50309-A65C-4D2A-B537-7E5E0BF42F3A"></a></span>You can continue to create and apply forces to a simulation in this way. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-8D481E89-953F-4107-AF5C-E4972AD7ACB1-low.png"></div> 
+                     </li>
+                  </ol> 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0023"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-37AD10F2-AF39-4DEF-86CB-C068482500A1"></a></span>Applying Non-ICE Forces in a Group
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-88ACDACF-0482-4A0C-8995-A21E303A4507"></a></span>You can create a group that includes several non-ICE forces, then bring the group's
+                     node into the ICE tree and plug it into the Add Forces compound. This way, you can
+                     add forces to, or remove forces from, the group without needing to change any connections
+                     in the ICE tree: the group node remains connected and is updated by the Add Forces
+                     compound. <span class="anchor_wrapper"><a name="GUID-8692EC70-7959-479F-81C2-4B918EFF17D9"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2A55BA72-AD91-4160-B1E6-0E644089FA36"></a></span>Create and select several forces from the <span class="MenuCascade" id="GUID-DF7A5416-9D5A-4D13-9CE0-5EED91D26698">Get <img src="../images/ac.menuaro.gif"> Force</span> menu on the Simulate toolbar (or from Get &gt; Primitive &gt; Control Object on any other
+                              toolbar) 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A6C06B6B-FFE9-4825-A89E-01260E4A4657"></a></span>Create a group (press Ctrl+G) that includes the forces you want to use in the ICE
+                              tree. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B5178D81-3F7F-490E-A6F9-D2ED724C8FB2"></a></span>By default, there is a Forces group that is created in the current simulation environment.
+                              Standard forces are automatically added here when they are created. Select either
+                              the <span class="MenuCascade" id="GUID-766C4DF6-8FFA-4AFE-B32B-BEA6FF66F711">Environments</span> or <span class="MenuCascade" id="GUID-2EE73314-6DF8-45E9-AD28-C4D1D6F687D6">Curr. Envir</span>. scope in the explorer to see the simulation environment. See <span class="char_link"><a href="ICE_simulation_TheICESimulationEnvironment.htm">The ICE Simulation Environment</a></span> for information. 
+                           </p> <span class="anchor_wrapper"><a name="TABLE_ADDB5DD8EF0043BBBCE5B181270D5A06"></a></span><div class="table_Ruled">
+                              <table cellpadding="0" cellspacing="0" class="ruled">
+                                 <colgroup>
+                                    <col width="12.829682610639248%" align="left">
+                                    <col width="87.17031738936075%" align="left">
+                                 </colgroup>
+                                 <tr class="ruledOddRow">
+                                    <td class="table-body">&nbsp; <img src="../images/GUID-18E854D1-46F2-4CBA-A480-50B96940DF08-low.png"> 
+                                    </td>
+                                    <td class="table-body" align="left">&nbsp; <img src="../images/GUID-4200E95C-B28C-4E5D-B5B1-1FE35EA87C86-low.png"> 
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0DDFA5B8-CB34-4357-9622-208D3851635E"></a></span>Drag the Forces group name from an explorer into the ICE tree to create a Get Data
+                              node for it. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E5D9DAE7-BC6F-4657-9D94-48167706269F"></a></span>In the ICE tree, click the Tool tab and drag the <span class="MenuCascade" id="GUID-7D6BBB5F-0B4C-4386-8DF8-418F2E198C5A">Get Array Sum</span> node from the Array group into the ICE view. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2B9E6E40-CAA5-4EF7-8EEF-A8BA96239D90"></a></span>You are adding this node because the output from the Forces Group node's Value output
+                              is an array: it considers multiple objects, but the Add Forces compound can only take
+                              3D vectors as an input. This node acts like a converter in that it takes the array
+                              value and then outputs a single value, which can be a 3D vector. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6C0CE2A8-42EF-4EF2-8394-BA12BA373871"></a></span>Plug the Forces Group node's Value output into the Get Array Sum's Array port. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D61E4B99-F3F6-4D47-8111-24EA5E393A90"></a></span>Plug the Get Array Sum's Result output into a Force port on the Add Forces compound.
+                              
+                           </p> 
+                           <div class="figure-anchor"><img src="../images/GUID-717F8B77-508E-4952-BAD9-9106BD4D409E-low.png"></div> 
+                        </li>
+                     </ol> 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

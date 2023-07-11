@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-DBA8DCDC-393D-4FED-AF64-2D6B613E0436">
+      <meta name="indexterm" content="CrowdFX: shape keys on actor envelope">
+      <meta name="indexterm" content="shape keys: on CrowdFX actors">
+      <meta name="topic-type" content="concept">
+      <title>Modifying the Actor's Envelope with Shape Keys</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-DBA8DCDC-393D-4FED-AF64-2D6B613E0436"></a></span><div class="head">
+            <h1>Modifying the Actor's Envelope with Shape Keys</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-38FAC7F6-0765-4598-8B48-2EB972D0C09B"></a></span>   
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-8934FF8E-9775-4413-8CA5-FE0D5CC2B65A"></a></span> In crowd simulations, you don't usually want all the actors to look the same, but
+            you also don't want to import lots of different actors in order to get that variation.
+            One way to create variation is to keep the same actor, but use modified geometry for
+            some of the actor instances using shape keys. These shapes are not simulated, so they
+            can be applied to the actor's envelope after the simulation has been calculated. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-1ACBD3DC-0F06-4293-8236-C75C98E2471B"></a></span>It's best to create the shape keys for the source model before you import it as an
+            actor into a crowd simulation so that the ICE trees are set up for you. You can add
+            more shapes after importing, but it requires a bit more work. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-7CAB941A-FF2E-4334-8F36-ABA02FC6A547"></a></span>In the image below, each actor has a shape applied with a random weight value, making
+            some of them a bit pudgier or stronger than normal. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-DE837E7F-6979-4053-8987-77A5BD833D74"></a></span> <img src="../images/GUID-D36B3DE6-0A63-4B78-8FF6-8760D185A987-low.png"> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-5E2CFAF1-D5E4-44F5-A00B-E136A19627E7"></a></span>To use shape keys on actors: 
+         </p><span class="anchor_wrapper"><a name="OL_A49FA0B42DBB4916A5745EA821718840"></a></span><ol type="1" start="1">
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-642FDAA9-74C0-43FC-9119-274E9E5ADA9F"></a></span>Deform the original source model's envelope in some way and store shape keys for one
+                  or more states - see <span class="char_link"><a href="shape_cover.htm">Shape Animation</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-56019FDC-D016-4756-B90E-EC1813A6A930"></a></span>Here, two shapes are defined on the source model: Fat and Strong. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-99E8EA36-FA14-4E28-8FE0-CC5D4871CC5E"></a></span> <img src="../images/GUID-29F4ED39-54C2-496A-BFB7-05B72A755B1B-low.png"> <img src="../images/GUID-C0DDA4AD-27AD-4132-9DBF-59D12801498F-low.png"> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E2245300-3225-4FD0-A241-C01C715DA668"></a></span> Up to five shapes can be used be default, but you can add more later (see the section
+                  below). 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-9CCA9D1A-9485-473F-BE57-EBD25B5841CC"></a></span>Import the model as an actor in the crowd simulation as usual - see <span class="char_link"><a href="GUID-AF081E95-A70E-4BA6-A1DC-856C05C35A46.htm">Loading Actors for the Crowd Simulation</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-627E89D7-97F9-4828-8492-AC76E9D78DDC"></a></span> In the Mesh Proxy object's Set Mesh Proxy compound, the <span class="MenuCascade" id="GUID-AD2A26A4-561B-4915-8FFA-57B41FDAFA58">Copy Shape Keys</span> option is enabled by default so that the source model's shape keys are automatically
+                  copied and available to use on the actors in the crowd who are instantiated from this
+                  source model. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-820EB2DB-14B9-4764-BC1B-B48D390C1E6E"></a></span>Create a new ICE tree for the simulation point cloud and put it in the Post Simulation
+                  region. Give this ICE tree a name, if you like. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-718E312C-9910-4D54-9756-4C2DA8FAF3C2"></a></span> <img src="../images/GUID-B9861030-A02C-4B95-A834-389EEE451C08-low.png"> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-0406F36B-0696-4E52-BA9A-44E0839DB14A"></a></span> Get a <span class="char_link"><a href="iceref_Set_Actor_Shape_Key_Weights.htm">Set Actor Shape Key Weights</a></span> compound and plug it into this ICETree node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A9CCA209-A416-40F7-AB34-F9C8996795F0"></a></span> You could also plug this compound below the Set Locomotion or Set Stadium Animation
+                  compound in the Skeleton Simulation ICE tree, but the shapes aren't evaluated until
+                  the second frame of the simulation. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-326AC7DE-3199-4BF4-AADA-34ED45F2291E"></a></span>In the <span class="MenuCascade" id="GUID-AD76D272-8540-4A23-A2F4-ADD668FBBDA0">Set Actor Shape Key Weights</span> compound, set the <span class="MenuCascade" id="GUID-33B29915-2587-419B-8FDA-BE18E69C7B29">Weight</span> value that corresponds to each of the shapes you have loaded. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-540C19DF-AF5F-47E0-8180-25AA43DB91A2"></a></span>You can see the order in which the shape keys are imported in the Mesh Proxy object's
+                  <span class="MenuCascade" id="GUID-84FFAB85-DF51-4400-BBA4-A013540D3345">Get Shape Keys</span> compound, as shown in the next section below. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1DBAF1E5-DD8F-4460-92CD-D5095E8E12FC"></a></span>You may want to randomize the Weight value so that each actor instance uses a different
+                  weight for the shape. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D0F0F79C-BB03-4BB8-AE2B-B01F701D9571"></a></span>In this image, a random probability value is set as the condition for which actor
+                  instance will use the shape key or not. If the actor instance uses a shape key, its
+                  weight is then randomized within a range of set values (0 - 1). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AF712E9A-C8CA-46CF-AA72-BF1789AF14FF"></a></span>Make sure to turn off the Animated option in the Randomize compound. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-92C67EC1-59AD-46D4-BE00-EE60310DBA20"></a></span> <img src="../images/GUID-6EFE647F-AAA0-485E-B722-20404D139739-low.png"> 
+               </p> 
+            </li>
+         </ol>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_AF5471DD53EA458FB67A3C288F9BB60A"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-DAAEB147-83BD-4DB7-965F-D57CD400A66B"></a></span>Adding Shapes After Importing the Actor 
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-1545F626-E6FC-4438-9A9A-EE100639EB92"></a></span>If you want to add more shapes to an actor after you have imported it, follow these
+               steps: 
+            </p> <span class="anchor_wrapper"><a name="OL_5F7CA58964414636B4A77D48C8015A84"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C1BA4ED6-05D8-4B21-A9A6-4DC809DBEAFA"></a></span>Select the original source model's mesh (envelope) and open its Set Mesh Proxy ICE
+                     tree. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A56E76AB-F185-4F23-B2F0-D821047CD195"></a></span> <img src="../images/GUID-187D70DD-E8BA-4831-A9F3-22B4F7A91D25-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4BCD95A5-1F3C-4854-9CFB-230EE7055E62"></a></span>Open the <span class="MenuCascade" id="GUID-505796EA-A23C-4B6B-9412-1226843B48C7">Set Mesh Proxy</span> compound for editing. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2FC40A9F-ED53-4D65-B526-F546EC7573BB"></a></span>Open the <span class="MenuCascade" id="GUID-07F6464D-ACA3-4DFA-922C-113AE98A4585">Get Shape Keys</span> compound for editing. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8D6B3B53-9389-4C71-B866-F56C39A2FA31"></a></span> <img src="../images/GUID-CFDD1697-2F34-4E28-9460-DCC081B3EC7F-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5F11F7E1-6741-4CE0-97EE-FE5DBAC240E2"></a></span>Create another branch with the three nodes highlighted below for each shape you want
+                     to add. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3B939E38-9C87-4BC7-80B1-9ECC3F5821D7"></a></span>In the <span class="MenuCascade" id="GUID-E81F5128-CBB3-4126-B4D2-1F62D597EC11">Get Data</span> node, specify the name of the shape key to use. Make sure to use the correct syntax
+                     for the cluster name, shape key name, and <em class="strong">positions</em> attribute (such as <em class="strong">cls.Shape.Skinny.positions</em>). 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-31C04A65-8CC2-4CCD-9A22-C76FE382ACBC"></a></span>In the <span class="MenuCascade" id="GUID-67607D12-620D-49AF-829E-6763BBAA8A3B">Set Shape Key</span> node, update the <em class="strong">_CrowdFX_ShapeKey_<em class="mild">n</em></em> value to the next number in the sequence (1 in this case because it's the second
+                     shape and the values begin at 0). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F8E5FF96-6F82-4A9C-B8CC-4D4A0D20FCD7"></a></span> <img src="../images/GUID-D0393C45-649D-4714-8D34-480C5B2D2739-low.png"> 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_35B6F304296C4745B6119CB552F3B075"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-DC599C45-CA1D-4C06-823B-C3BA1B2D3C74"></a></span>Using More than Five Shape Keys 
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-2CB3B0F6-55F0-4494-A795-2C1AD7253062"></a></span>If you want to use more than five shape keys, you need to do some work by editing
+               nodes in the ICE tree for the Skeletons Cloud object in the Crowd model (see <span class="char_link"><a href="GUID-B28743FA-33EC-4DA3-877B-FA7E7FD97F68.htm">Anatomy of a Crowd Simulation</a></span>). 
+            </p> <span class="anchor_wrapper"><a name="OL_F0818871986248EAACDB3B6926B6C306"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2C9CB353-A918-4ABE-B31A-6D888442FCC0"></a></span>Follow the steps in the <span class="char_link"><a href="GUID-DBA8DCDC-393D-4FED-AF64-2D6B613E0436.htm#GUID-DAAEB147-83BD-4DB7-965F-D57CD400A66B">Adding Shapes After Importing the Actor</a></span> section above to add one or more shape keys. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F6BDB566-8696-4A17-AA6F-6C609F4E40B9"></a></span>In an explorer, select the Skeletons Cloud object in the Crowd model and open its
+                     Create Actor Cloud ICE tree. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-626253D7-F716-4B90-B422-142B5E01BF22"></a></span>Open the <span class="MenuCascade" id="GUID-12278EC5-1FCF-4DD8-AA4B-A18F8CFF932E">Create Actor Cloud</span> compound for editing. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DC92A237-92E8-45B1-9946-E56307C6B46D"></a></span>Open the <span class="MenuCascade" id="GUID-87420CC0-9927-4103-9256-985B0CE815D5">Mesh Proxy Point Positions</span> compound for editing. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-53CA7AEC-3BAA-4479-81C2-5A29DF3F7A05"></a></span> <img src="../images/GUID-187F11B9-891C-4387-8FA5-1FC4D034C693-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C039D1E1-D238-4A62-859F-723720862654"></a></span>For each shape you have added, create another <span class="MenuCascade" id="GUID-DDF42A22-33E4-4511-8ED2-EFCAB6B28911">Get Shape Key</span><em class="mild">n</em> and <span class="MenuCascade" id="GUID-8165CE04-8F99-4DE2-921A-37FC6BACFD33">Get Weight</span> compound and plug them into the next available <span class="MenuCascade" id="GUID-BA409736-0934-4312-9236-C48A4894BC3A">Value</span> and <span class="MenuCascade" id="GUID-3268FEA9-855E-496D-A0E2-540458CB4D6C">Weight</span> ports at the bottom of the <span class="MenuCascade" id="GUID-443D857D-D46B-4579-AD9D-A248A13D1CAD">Blend</span> compound (see the image below). 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-24915744-E842-4766-8671-7CB046CA80A6"></a></span>Update the values inside both the <span class="MenuCascade" id="GUID-00041322-E0E4-45BD-9A30-482C6EFE634E">Get Shape Key</span><em class="mild">n</em> and <span class="MenuCascade" id="GUID-F96F563E-FD0C-497F-A0B5-5E8606C11B33">Get Weight</span> compounds to the next number in the sequence (5 in this case because it's the sixth
+                     shape and the values begin at 0). This value refers to the value in the <span class="MenuCascade" id="GUID-6E656EF9-89F7-4C04-AE8E-FC6AC5A8DD9A">Set Shape Key</span> node that you set in the Mesh Proxy object. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-83E2C93D-F621-4AE6-A29F-D7F4C274E80E"></a></span> <img src="../images/GUID-6656809F-999B-413E-949B-621E8411FA55-low.png"> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-19B6C978-8BC1-49ED-AA53-D1E55BF2C043"></a></span>On the simulation point cloud, open the <span class="MenuCascade" id="GUID-26AFE598-5A09-4CD5-9374-43CB7164D4C6">Set Actor Shape Key Weights</span> compound for editing. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0684376F-2C2D-4253-B704-C734AB0C2EA7"></a></span>For each shape you have added, create another branch of <span class="MenuCascade" id="GUID-42EF410C-D3BB-4950-A67B-21D71C828096">Set in Array + Integer</span> nodes, setting the shape number to the next available value (5 in this case). Plug
+                     in the new nodes as shown in the image below. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9A34FAB5-3830-44AC-8CAF-968415C782E2"></a></span>Do this for each shape you have added. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F0A68788-CAF2-4052-82C0-3554A0069744"></a></span>Expose an new <span class="MenuCascade" id="GUID-49B5CF1B-A376-458E-8F2D-CB691B9BD63C">Weight</span><em class="mild">n</em> input port in this compound for each shape key you have added. See <span class="char_link"><a href="ICE_compounds_EditingCompounds.htm">Editing Compounds</a></span> for information on creating ports. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D91B9435-1529-4898-BC7C-C28201F0155B"></a></span> <img src="../images/GUID-4E51D3BD-2B3B-4258-A5AB-16EB6BD53AA9-low.png"> 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

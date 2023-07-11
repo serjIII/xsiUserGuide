@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-3ECA95AC-8FB2-465C-90F4-3B8DD454D052">
+      <meta name="indexterm" content="shrinkwrap: about">
+      <meta name="indexterm" content="deformations: shrinkwrap">
+      <meta name="indexterm" content="shape animation: and shrinkwrap">
+      <meta name="indexterm" content="curves: projecting onto surfaces">
+      <meta name="indexterm" content="modeling relations: and shrinkwrap">
+      <meta name="indexterm" content="shrinkwrap: projection types">
+      <meta name="indexterm" content="shrinkwrap: toward inner object">
+      <meta name="indexterm" content="shrinkwrap: toward center">
+      <meta name="indexterm" content="shrinkwrap: along axis">
+      <meta name="indexterm" content="shrinkwrap: follow vertex normals">
+      <meta name="topic-type" content="concept">
+      <title>Shrinkwrap</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-3ECA95AC-8FB2-465C-90F4-3B8DD454D052"></a></span><div class="head">
+            <h1>Shrinkwrap</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-3EDAD29E-380E-4EFB-9FA2-22A57D2450D9"></a></span> The shrinkwrap deformation projects a wrapper object onto the surface of a target
+               object. You can completely engulf the target, thereby giving the wrapper the same
+               overall shape, or you can apply the wrapper onto the target like a decal. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C8BA8CBC-E8C7-4DC2-AB20-7A9D48394484"></a></span>You are not restricted in the type of objects that you can shrinkwrap. You can shrinkwrap
+               any combination of surfaces, surface meshes, polygon meshes, and curves onto other
+               like objects. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-DF4122D0-590A-4BEC-BEC3-AD1F7022F230"></a></span><div class="note-note"><span class="label">NOTE:</span>Shrinkwrapping surface mesh objects with multiple subsurfaces may be slow to process.
+                  
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0070"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3CB780CB-C47C-4615-BDEB-EBA874FF5A8D"></a></span>Sample Uses of Shrinkwrap
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1E7D85B5-AEF2-4C14-AE61-C97C9E94A66B"></a></span>Among many things, the shrinkwrap deformation can be used to: 
+               </p> <span class="anchor_wrapper"><a name="UL_28361C65569F43C1943D216489903E44"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C524614E-5A42-41BD-A7C9-54A8DA26CD8E"></a></span> Create a metamorphosis between two dissimilar objects by shrinkwrapping an object
+                        like a sphere onto one of the two objects, saving a shape key, and then repeating
+                        for the other object. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-95BCED45-1133-4D9F-B545-F10BD710CF77"></a></span> Project a curve onto a surface. For example, you can project a path onto uneven terrain
+                        or use a shrinkwrapped curve as a modeling aid. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-036D8996-2E59-4EF0-821E-4934CD27D7AD"></a></span>Shrinkwrap surfaces onto a high-resolution polygon-mesh object to capture detail.
+                        
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0071"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AFB304E5-EDC9-4363-A411-7119AF489693"></a></span>Shrinkwrap and the Modeling Relation
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-70BAD1FE-5D8E-417A-86C1-2E1A67B61DFB"></a></span>The shrinkwrap deformation maintains a modeling relation. This means that if you transform
+                  or deform the target (or the inner object, depending on the type of projection) after
+                  you have applied the deformation, the shape of the wrapper is altered accordingly.
+                  
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-B2FA0962-60FE-48FB-94E4-E15E4F451DD2"></a></span><div class="note-important"><span class="label">IMPORTANT:</span>If you freeze an object or work in immediate mode, the operator stack is lost. For
+                     more details about the operator stack in general, see <span class="char_link"><a href="basic_mod_OperatorStack.htm">Operator Stack</a></span>. 
+                     <p><span class="anchor_wrapper"><a name="GUID-5CA95403-1219-4331-9D32-21718C83D72A"></a></span>You must freeze the shrinkwrapped object before deleting the target or the inner object.
+                        Otherwise, the deformation no longer has any effect. 
+                     </p> 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0072"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0E292337-4AA2-4212-BBB4-E0300CE45BB8"></a></span>Applying Shrinkwrap
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-86811DA2-9613-42DC-AA2B-7BB18FC8D18C"></a></span>When shrinkwrapping, there are several choices for how each point of the wrapper is
+                  projected onto the target: 
+               </p> <span class="anchor_wrapper"><a name="UL_BC9013098B924F0C971F53735F78A0A0"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F7D630D6-EAAC-4348-9909-5722D31908E7"></a></span>Toward an inner object until they hit the surface of the target. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-69FDF579-5E14-4357-BB25-DAB315237DAF"></a></span>Toward the center of the target. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1A76A2AF-9E0F-4AE9-B3E3-4C88AABC7B3B"></a></span>Along an axis. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0AE7CCD6-EB6B-48DA-B8E3-172B5DC792D0"></a></span>Following the normals of the predeformed wrapper. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-843AD3D2-7DD4-4BDF-848B-B29EA0542BDB"></a></span>To the closest vertex or surface of the target. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-35D548D9-4716-46A3-8AA9-9F967AE0ECCA"></a></span>If any points of the wrapper do not hit the surface of the target using the selected
+                  projection type, they are not affected by the shrinkwrap deformation unless you activate
+                  Closest surface if no target. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0073"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-415F99CE-E60A-44BA-A937-7C85AE4F7391"></a></span>Shrinkwrapping toward an Inner Object
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-7CD46DD4-941D-4239-84D4-AC7FA9F8B588"></a></span>To shrinkwrap toward an inner object, you need three objects: 
+                  </p> <span class="anchor_wrapper"><a name="UL_FDCB8FB45B59491F8DEE2470C1834EBB"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C7C47E74-EE05-4875-AAD5-746E16EB3E27"></a></span> <span class="MenuCascade" id="GUID-AB829B7A-40B7-43A2-83E3-672042146ED0">A wrapper</span>: the object that becomes deformed. Normally it should be outside the target object.
+                           If you want, the wrapper can completely surround the target. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BB077D75-9CC1-43C2-B745-E6173EC82376"></a></span> <span class="MenuCascade" id="GUID-8DAD9F1C-C56B-42FC-B4ED-1958DD8019DE">A target</span>: the object around which the wrapper is shrunk. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9FEAB9DD-BD70-4C50-99A9-79038CA5AB3E"></a></span> <span class="MenuCascade" id="GUID-266246C1-0770-4570-8CA0-D8FB6A9B057B">An inner object</span>: the object toward which the wrapper is projected until it hits the target. It must
+                           have the same number of points as the wrapper — each point on the wrapper is projected
+                           toward the corresponding point on the inner object. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A6EC4421-6A0B-469D-829A-7ACA89735FC6"></a></span>The easiest way to create an inner object is to duplicate the wrapper, then scale
+                           the duplicate down and move it inside the target. If desired, you can deform the inner
+                           object so that there is more geometry near areas where you want high detail. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-750929C5-E3C9-4ADA-89B9-2AFE4FAE2A83"></a></span>Once you have created and positioned your three objects, follow these steps. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0074"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-EC27E20E-D4A9-42D2-8E5E-EF46048719DD"></a></span>To shrinkwrap toward an inner object
+                     </h4> <span class="anchor_wrapper"><a name="GUID-06108FB0-BAB7-419A-A3A0-4BA7C6C099CA"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-DCF326DF-1A53-4221-BFA1-0CBBC93F9F46"></a></span>Select the wrapper object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0529492B-3877-40E6-AEAA-22B5ED2CC194"></a></span>Choose <span class="MenuCascade" id="GUID-F3C5FD5B-425D-4964-BC1B-2B6D968DD667">Deform <img src="../images/ac.menuaro.gif"> Shrinkwrap</span>. This command is available under Modify on the Model and Simulate toolbars, as well
+                              as under Deform on the Animate toolbar. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-8C07F279-CF3C-4840-A113-FCAFD9700E87"></a></span>Pick the target object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E752F79A-BBF3-406E-8713-1ECF68567167"></a></span>Pick the inner object. The Shrinkwrap property editor opens. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5DFCA1A4-5DE3-4CE2-8058-00B391804764"></a></span>In the property editor, make sure that <span class="MenuCascade" id="GUID-5AB7DF66-A41C-4A21-994C-78474155B536">Toward Inner Object</span> is selected and set the other parameters as desired — for information about other
+                              parameters, see <span class="char_link"><a href="deforms_Shrinkwrap.htm#WS3CD0299C9A553C42AA0D9499D69A994D-0085">Other Shrinkwrap Controls</a></span>. 
+                           </p> 
+                        </li>
+                     </ol> <span class="anchor_wrapper"><a name="TABLE_DC889EC3F1B94F5CB86FD27D30F4A2B5"></a></span><div class="table_NotRuled">
+                        <table cellpadding="0" cellspacing="0" class="not-ruled">
+                           <colgroup>
+                              <col>
+                              <col>
+                              <col>
+                           </colgroup>
+                           <tr class="not-ruledOddRow">
+                              <td class="table-body">&nbsp; <img src="../images/GUID-2DB01AC5-5193-4AF4-A1C0-194E2FD73866-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-1B0F77D3-C490-4D57-9EF3-9335611DD3E7-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-B4521E85-7581-4098-9A0E-061A7F923C9D-low.png"> 
+                              </td>
+                           </tr>
+                           <tr class="not-ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D086A837-7771-4F0C-A3B5-7DF096E860A4"></a></span><p class="table-body">The wrapper, target, and inner object </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5FB7B14B-8767-4635-B55A-B79C39A0CFFF"></a></span><p class="table-body">Using a modified inner object to help the shrinkwrap </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1457F5A8-58FE-494B-99D8-B014A827CC2F"></a></span><p class="table-body">Final result </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0078"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-446AF0B3-8000-425E-95B9-B09F0FA7253B"></a></span>Shrinkwrapping toward the Target's Center
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-6DC0CD13-4F27-41A8-A3FF-08844F426E35"></a></span>When you shrinkwrap toward the target's center, each point of the wrapper object is
+                     projected toward the target's center until it hits the target's surface. In this case,
+                     you require two objects: 
+                  </p> <span class="anchor_wrapper"><a name="UL_0C3640DF07194A19BA13D0D83005930B"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2E38AA19-8695-455B-A0FA-5A972BD981D2"></a></span> <span class="MenuCascade" id="GUID-169C1747-7F89-4B79-81EA-7E298EBB9EA1">A wrapper:</span> the object that becomes deformed. Normally, it should be outside the target object.
+                           If you want, the wrapper can completely surround the target. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-31518312-5F78-4E30-907B-691825E28E2A"></a></span> <span class="MenuCascade" id="GUID-05CE497C-D994-4AA8-B745-8A3CF9267578">A target:</span> the object around which the wrapper is shrunk. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9C4357BC-596B-4F29-B443-9BBDA690933E"></a></span>Once you have created and positioned both objects, follow these steps. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0079"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-8A632ACC-DCEE-40BA-973F-7D149F2044C8"></a></span>To shrinkwrap toward the target's center
+                     </h4> <span class="anchor_wrapper"><a name="GUID-E928BB16-11C7-43EF-91E2-1204E473E37E"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-62FE36E0-C34E-4544-8A38-77979FFD66EE"></a></span>Select the wrapper object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FB8A8D43-B1A5-45C2-B1AF-1F0739CEB3D7"></a></span>Choose <span class="MenuCascade" id="GUID-56DF3151-E44B-4F56-ADBC-DCF9B54BD7B7">Deform <img src="../images/ac.menuaro.gif"> Shrinkwrap</span>. This command is available under Modify on the Model and Simulate toolbars, as well
+                              as under <span class="MenuCascade" id="GUID-F587AE11-59D2-4B86-9776-651383825106">Deform</span> on the Animate toolbar. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-996850A7-EE14-46E6-A4CE-EFD257C245A0"></a></span>Pick the target object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A31CDCF8-2D09-4FF2-ABF4-6D6A630F141B"></a></span>Right-click in a geometry view to end the picking session. (When shrinkwrapping toward
+                              the center, you do not need to pick an inner target.) 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3A59D7D1-CCE3-4388-9177-09B9C91EDEE4"></a></span>In the Shrinkwrap property editor that opens, make sure that <span class="MenuCascade" id="GUID-3E621FE0-26FD-49B2-8670-E49D88B1C3D4">Toward Center</span> is selected and set the other parameters as desired: 
+                           </p> <span class="anchor_wrapper"><a name="UL_CFFBA2D8C738499B876979F1E6B5F290"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-95163630-7F60-43DA-BA5F-340EDD6A392D"></a></span> <span class="MenuCascade" id="GUID-44870298-CDE7-47A5-B5A8-9CD6B30C4AAE">If Bounding Box Center</span> is off, the points of the wrapper are projected toward the center of the target's
+                                    local coordinate system. You can move the target's center in Center mode and the wrapper's
+                                    shape is altered accordingly. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-5F76B7F1-737C-4989-AC1D-36F03ECCDD54"></a></span> <span class="MenuCascade" id="GUID-599F2DE9-3432-4199-AD08-AF7CB30315EA">If Bounding Box Center</span> is on, the points of the wrapper are projected toward the center of a bounding box
+                                    containing the target. You can use Center mode to move the center of the target's
+                                    local coordinate system without affecting the wrapper's deformation. 
+                                 </p> <span class="anchor_wrapper"><a name="TABLE_9E94920C7568439FB13522046AF0EA8A"></a></span><div class="table_NotRuled">
+                                    <table cellpadding="0" cellspacing="0" class="not-ruled">
+                                       <colgroup>
+                                          <col>
+                                          <col>
+                                       </colgroup>
+                                       <tr class="not-ruledOddRow">
+                                          <td class="table-body">&nbsp; <img src="../images/GUID-6D394AA7-183D-4554-A572-3A023E1EADE8-low.png"> 
+                                          </td>
+                                          <td class="table-body">&nbsp; <img src="../images/GUID-2A8B4544-1035-4AE0-AA4C-EC1ABF41F8E0-low.png"> 
+                                          </td>
+                                       </tr>
+                                       <tr class="not-ruledEvenRow">
+                                          <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E2460E00-97AF-491C-87E3-71550A11533D"></a></span><p class="table-body">The wrapper (sphere) and target (apple) </p> 
+                                          </td>
+                                          <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F5E20E30-5514-4563-992D-1AA0BFE67C48"></a></span><p class="table-body">Result of shrinkwrapping the sphere toward the apple's center </p> 
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </div> 
+                              </li>
+                           </ul> 
+                        </li>
+                     </ol> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6A7177DD-A0A7-4DB0-B749-40071D2CAFF9"></a></span>For information about other parameters, see <span class="char_link"><a href="deforms_Shrinkwrap.htm#WS3CD0299C9A553C42AA0D9499D69A994D-0085">Other Shrinkwrap Controls</a></span>. 
+                     </p> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-007C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BDB86BB9-4286-4B21-A9F6-BAA8FF341206"></a></span>Shrinkwrapping along an Axis
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-1C4FC5AA-E7BC-4F75-80B2-FBC2567A0734"></a></span>When you shrinkwrap along an axis, each point of the wrapper object is projected parallel
+                     to an axis until it hits the target's surface. As with shrinkwrapping toward the center,
+                     you require two objects: 
+                  </p> <span class="anchor_wrapper"><a name="UL_42EC4A0200F94782AE11D84B34A04088"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7F24A0CC-5759-4C39-B5CD-EA5F85A68EDE"></a></span> <span class="MenuCascade" id="GUID-AC5B394A-5389-46DF-83C0-B074FDC60CDD">A wrapper</span>: the object that becomes deformed. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-52007591-A05E-49AB-ACD9-A95B34B2B095"></a></span> <span class="MenuCascade" id="GUID-87CA6888-4521-4C4A-8C96-3E3B1FD2EFD0">A target</span>: the object around which the wrapper is shrunk. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-748CDB28-E8FC-454F-8AF6-A248B53D992F"></a></span>Once you have created and positioned both objects, follow these steps. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-007D"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-ACDD9947-009B-4E92-AB8B-39F654B6BA9E"></a></span>To shrinkwrap along an axis
+                     </h4> <span class="anchor_wrapper"><a name="GUID-42F3725D-8E1F-4030-B035-3401786D465C"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A9AAEDCF-97B6-4FFB-9325-E7DFC83F5404"></a></span>Select the wrapper object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FAC092A6-BFC6-45FC-8647-FF9254AD4E7E"></a></span>Choose <span class="MenuCascade" id="GUID-875F4F7E-41DB-422A-B8AE-DDBD639F3380">Deform <img src="../images/ac.menuaro.gif"> Shrinkwrap</span>. This command is available under <span class="MenuCascade" id="GUID-07C612CF-414A-4D38-8EAC-73AEAEF4059A">Modify</span> on the Model and Simulate toolbars, as well as under <span class="MenuCascade" id="GUID-43539248-3C77-4750-98AF-9F62590B3C35">Deform</span> on the Animate toolbar. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-720E438C-74AD-41D1-AB98-8A58B4C364A3"></a></span>Pick the target object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1A7C86FE-0FC7-4E3B-9CD0-70767A7C6B2C"></a></span>Right-click in a geometry view to end the picking session. (When shrinkwrapping along
+                              an axis, you do not need to pick an inner target.) 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-501B78E5-606E-4A61-A0DE-86036BD183A6"></a></span>In the Shrinkwrap property editor that opens, select <span class="MenuCascade" id="GUID-5A7882DA-200E-44A2-B914-A9FC6E4BBB6F">Parallel to Axis</span>, select a Reference for the coordinate system (<span class="MenuCascade" id="GUID-798C0491-5916-4319-8437-9835D6AEEF1A">Target object, Deformed object, or Global</span>), and then select an axis (<span class="MenuCascade" id="GUID-25F45181-09D7-4EDE-A929-5ACF628D290F">Along X, Y</span>, or <span class="MenuCascade" id="GUID-E1DF40C6-02BA-4FBF-9C72-414A1C73C222">Z</span>). Set the other parameters as desired — for information about other parameters, see
+                              <span class="char_link"><a href="deforms_Shrinkwrap.htm#WS3CD0299C9A553C42AA0D9499D69A994D-0085">Other Shrinkwrap Controls</a></span>. 
+                           </p> 
+                        </li>
+                     </ol> <span class="anchor_wrapper"><a name="FIG_075350BCD49C4AB0A90F5A26F985150B"></a></span><div class="figure-anchor"><img src="../images/GUID-8AF64FA3-4793-4C97-8AB9-8868FDCB62CC-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B36C1E3D-242A-48C4-ADE3-28943CA368E9"></a></span>Shrinkwrapping a curve along the Y axis onto a surface 
+                     </p> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-007F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A0A2F9FF-12BE-4260-AD59-56B139A9145C"></a></span>Shrinkwrapping Along the Normals
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-FCF6EC41-612D-43B1-AB6F-E6748C384D35"></a></span>When you shrinkwrap along the normals, each point of the wrapper object is projected
+                     along the inverse of its normal direction until it hits the target's surface. This
+                     lets you, for example, shrinkwrap a belt onto a character without worrying about where
+                     the objects' centers are. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CDEA6CB0-12E1-4236-80DA-6FFA1131508D"></a></span>As with shrinkwrapping toward the center or along an axis, you require only two objects:
+                     
+                  </p> <span class="anchor_wrapper"><a name="UL_B869CE0F693645A4BF235570221C3928"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-856D1B41-C136-4219-A6B2-138711D3EE23"></a></span> <span class="MenuCascade" id="GUID-1E513618-8310-4673-BEEB-B0E541CE6B58">A wrapper:</span> the object that becomes deformed. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3A467585-C513-4EAA-89EB-C2B28370A8B8"></a></span> <span class="MenuCascade" id="GUID-CBF9EC55-91AE-4C42-B4AD-CCFC35022506">A target:</span> the object around which the wrapper is shrunk. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EE9DD274-45D2-4321-B3BC-0171A4A78F4F"></a></span>Once you have created and positioned both objects, follow these steps. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-C2B76EE7-B1C6-4B57-A415-B7A1772F0512"></a></span><div class="note-note"><span class="label">NOTE:</span>Shrinkwrapping does not use user-defined normals. 
+                     </div>
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0080"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-59CBC8C8-5D03-43A3-9779-FAE61CBD01AF"></a></span>To shrinkwrap along normals
+                     </h4> <span class="anchor_wrapper"><a name="GUID-FEB5593A-2919-462B-90DC-8BBB48A8E48D"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-722B29EC-EB81-4C5B-9B19-258BDC680641"></a></span>Select the wrapper object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-51928C97-C1A0-4EBB-A66F-298D76929AC6"></a></span>Choose <span class="MenuCascade" id="GUID-00BE2678-ADEB-45ED-9234-04D22BD24428">Deform <img src="../images/ac.menuaro.gif"> Shrinkwrap</span>. This command is available under Modify on the Model and Simulate toolbars, as well
+                              as under <span class="MenuCascade" id="GUID-63FFCC02-BCAF-4C17-B4BC-478ED66E3F0D">Deform</span> on the Animate toolbar. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3B877BB5-169F-4780-890C-5340A32FADA3"></a></span>Pick the target object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-354F78E5-CDBD-4349-B6BF-36E907136959"></a></span>Right-click in a geometry view to end the picking session. (When shrinkwrapping along
+                              the normals, you do not need to pick an inner target.) 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2F87140F-7400-4CAA-B242-C243E6ABFCF9"></a></span>In the Shrinkwrap property editor that opens, select <span class="MenuCascade" id="GUID-D272BC5C-8D36-4CD8-B761-FEBD47782FCC">Follow Vertex Normals</span>. Set the other parameters as desired — for information about other parameters, see
+                              <span class="char_link"><a href="deforms_Shrinkwrap.htm#WS3CD0299C9A553C42AA0D9499D69A994D-0085">Other Shrinkwrap Controls</a></span>. 
+                           </p> 
+                        </li>
+                     </ol> <span class="anchor_wrapper"><a name="TABLE_A04AAA470411443FB4D83142FBF28672"></a></span><div class="table_NotRuled">
+                        <table cellpadding="0" cellspacing="0" class="not-ruled">
+                           <colgroup>
+                              <col>
+                              <col>
+                           </colgroup>
+                           <tr class="not-ruledOddRow">
+                              <td class="table-body">&nbsp; <img src="../images/GUID-519F8B27-5C9D-4493-9C2A-9DBE269F3F76-low.png"> 
+                              </td>
+                              <td class="table-body">&nbsp; <img src="../images/GUID-7F553C62-82E8-4369-AF14-A0797806631C-low.png"> 
+                              </td>
+                           </tr>
+                           <tr class="not-ruledEvenRow">
+                              <td class="table-body" colspan="2"> <span class="anchor_wrapper"><a name="GUID-7BBD28D9-7644-41C0-9426-3AEE5990476E"></a></span><p class="table-body">Shrinkwrapping along the normal of each vertex </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0083"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FB11685E-692F-4209-96D7-E706CF71435C"></a></span>Shrinkwrapping to the Nearest Component
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F68549B9-08CE-4CEA-85D7-E91151931297"></a></span>You can shrinkwrap to the nearest vertex on the target object, or to the nearest location
+                  on the surface of the target. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F591FBC7-9304-47D3-B4E3-791B9214C4FC"></a></span>Shrinkwrapping towards components involves two or three objects: 
+               </p> <span class="anchor_wrapper"><a name="UL_88199B304363416BA05E9DFBC07C7700"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9A8CD7F6-EC97-43DF-B0BC-6B2EBB8C7D79"></a></span> <span class="MenuCascade" id="GUID-47F70192-70F7-4E22-905F-C1B194640571">A wrapper:</span> the object that becomes deformed. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-05C53ABC-11DC-4B67-8A04-961564DCC545"></a></span> <span class="MenuCascade" id="GUID-2E68D37A-F96E-49DE-BCE0-BDEE4BF90F0E">A target:</span> the object around which the wrapper is shrunk. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1B825623-DFE1-413B-BEC9-1F67D019C8B6"></a></span>An optional <span class="MenuCascade" id="GUID-A939C8C4-C17C-4D98-86B0-675CB491B60B">reference</span>: the object used to determine the closest component. Having separate target and reference
+                        objects is useful when the target is animated. The reference and target must have
+                        the same topology. If you do not specify a reference, the target itself is used as
+                        the reference. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-B420C2A8-E6F8-455F-BB19-C14F4B68D7B0"></a></span>Once you have created and positioned both objects, follow these steps. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0084"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DD470AA3-1889-4E4D-94B7-84CF43B8CF10"></a></span>To shrinkwrap towards components
+                  </h3> <span class="anchor_wrapper"><a name="GUID-1054C918-5CD1-48ED-97F3-E94B0755CAB7"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A7A93772-AF26-430D-BD84-9C37C3408D77"></a></span>Select the wrapper object. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-27C0786B-0796-4818-B518-8B8DA46523DC"></a></span>Choose <span class="MenuCascade" id="GUID-1EB9CC02-15CA-4B0B-ADEB-4766D187D089">Deform <img src="../images/ac.menuaro.gif"> Shrinkwrap</span>. This command is available under Modify on the Model and Simulate toolbars, as well
+                           as under Deform on the Animate toolbar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-749A7762-C3CF-413B-A75F-BF5F53F4E74D"></a></span>Pick the target object. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3132D8D7-B0AA-484C-AD39-619B3CE8C410"></a></span>If desired, pick the reference object. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B1C1CB94-5A68-406E-B8CF-7E7C819EA9F9"></a></span>Otherwise, right-click in a geometry view to end the picking session. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A92EBAFF-7E8F-4D1F-A5E6-568D81636C32"></a></span>In the Shrinkwrap property editor that opens, select one of the following options:
+                           
+                        </p> <span class="anchor_wrapper"><a name="UL_D665B34E18494A6C8BD5C2F4881B89EF"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-51D392E6-431E-419E-9EF7-9ECB7F7B2028"></a></span> <span class="MenuCascade" id="GUID-6FD568E2-6805-491C-B742-C9141C23241F">Closest Vertex</span> snaps each point of the wrapper object to the nearest vertex on the target object.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CA62F2E5-51D0-44D6-A686-D3F2B0EEE214"></a></span> <span class="MenuCascade" id="GUID-9E9ACC62-ED40-4B7F-BCB3-3008CB6E3F2E">Closest Surface</span> projects each point of the wrapper onto the nearest location anywhere on the surface
+                                 of the target. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DFD9A93F-E26E-4BF2-9643-05F261D16818"></a></span> <span class="MenuCascade" id="GUID-1A8DB54C-4FF1-401B-9C0F-8E5BBBED83BC">Closest Surface (Smoothed)</span> is a variation of Closest Surface that avoids collapsing multiple points to the same
+                                 location, especially near sharp edges. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-20A779DA-30CA-4CF1-90E6-701D6CA0B96E"></a></span>Set the other parameters as desired — for information about other parameters, see
+                           <span class="char_link"><a href="deforms_Shrinkwrap.htm#WS3CD0299C9A553C42AA0D9499D69A994D-0085">Other Shrinkwrap Controls</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0085"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1D50BF7F-6BC9-49AA-BDCB-A3D0A7E2CC8D"></a></span>Other Shrinkwrap Controls
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C036DC01-31EC-4390-81E6-8B21C41566BD"></a></span>There are several options that apply to all or most types of projection. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0086"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0E5BEB34-26BE-47DA-97B4-5D6F26663422"></a></span>Reverse Projection
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C94173B5-EFE5-42C8-AC70-6CFE5676C9AE"></a></span>The Reverse Projection option in the Shrinkwrap property editor controls the direction
+                     in which the points of the wrapper object are projected. When on, points are moved
+                     in the opposite direction. For example, you can project the wrapper along an axis
+                     in the negative direction instead of the positive direction. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0087"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-33F52304-1C03-4B8D-B8E5-DCBF5E4F66A9"></a></span>Bidirectional
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BD6E5EF2-2751-488D-AD41-9D9470CD5F05"></a></span>The Bidirectional option in the Shrinkwrap property editor projects the points of
+                     the wrapper object both backwards and forwards to see whether they hit the target
+                     object. If a point hits the target in both directions, the shortest distance is used.
+                     
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0088"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-03E8A2DD-CAA6-41C4-AE9B-3AB5B8F3E2F4"></a></span>Amplitude
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-95EE64CB-46DA-4130-9C77-FBAD56DEA661"></a></span>The Amplitude parameter in the Shrinkwrap property editor controls how far the points
+                     of the wrapper object are moved toward the target: 
+                  </p> <span class="anchor_wrapper"><a name="UL_92FE0819819A4416B27B8E4778697507"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6771BB70-91B1-4698-9483-3FBF40AFDB36"></a></span>When the Amplitude is 1, the points of the wrapper object are deformed to the surface
+                           of the target. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-924CB5DD-70E4-417C-9276-C8049ADCBB92"></a></span>Between 0 and 1, the points are deformed between their original positions and the
+                           target. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E9703FBA-0978-446C-9AA4-04DC91454279"></a></span>At 0, the object is undeformed. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2732444C-8485-421F-96E8-ACC0A27C7729"></a></span>Below 0, the points deform away from the target. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B3E67C0D-F416-4FF1-86C1-73AB50115936"></a></span>Above 1, the points overshoot the surface of the target. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BA01BD74-7599-428D-8ED4-442F8916121E"></a></span>You can use a parameter map to modulate the amplitude of the shrinkwrap effect across
+                     the surface of the wrapper object. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_2EC9C20E9741492198F9194D104165B1"></a></span><div class="figure-anchor"><img src="../images/GUID-A002D668-0566-4AE0-8657-2CCD687E5954-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F72DCF9D-42BA-48DD-9FD8-0EED316B925F"></a></span>Effect of different Amplitude values on a grid shrinkwrapped to a sphere 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-008A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C87625BF-B7DF-465A-8833-822A6EFEBEA9"></a></span>Closest Surface If No Intersection
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F8E33456-F47C-422E-9E37-D2409D5CA216"></a></span> <span class="MenuCascade" id="GUID-F4F1F73E-808B-47B1-982C-A0AAD2E910CF">Closest surface if no intersection</span> uses the Closest Surface projection method for points that do not hit the target
+                     object when using the selected projection. This ensures that all points of the wrapper
+                     object are deformed to the target. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

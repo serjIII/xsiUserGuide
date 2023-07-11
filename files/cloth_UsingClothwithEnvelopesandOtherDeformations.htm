@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-16A350F5-89D1-4B4A-91A3-38FA38B997E0">
+      <meta name="indexterm" content="soft body: with envelopes and other deformations">
+      <meta name="indexterm" content="cloth simulation: envelopes and">
+      <meta name="indexterm" content="envelopes: combining with cloth or soft body">
+      <meta name="topic-type" content="concept">
+      <title>Using Cloth or Soft Body with Envelopes and Other Deformations</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-16A350F5-89D1-4B4A-91A3-38FA38B997E0"></a></span><div class="head">
+            <h1>Using Cloth or Soft Body with Envelopes and Other Deformations</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-3318F1B3-9B9D-4DF5-8521-97437C5F267D"></a></span>If you want to use cloth or soft body on an envelope or use it with another type of
+               deformation, you should apply cloth or soft body to the envelope or object <em class="mild">before</em> you apply the envelope to a skeleton or use another deformation.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9B00E097-94FF-4409-92FD-C2FAFE849807"></a></span>This is because of the order of operators for the object: if cloth or soft body is
+               applied after the envelope, it doesn't know that the envelope exists (the Cloth or
+               SoftBodyOp operator is above the Envelope operator in the stack) so it won't deform
+               properly.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C834201E-9ABE-4BFF-895E-B52845B5DD83"></a></span>Of course, if you do apply cloth or soft body after the envelope, it's still simple
+               to move the operators in the construction history to get the correct results.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0051"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CF585B29-116E-4CAC-BBF5-9BEE8C4005AB"></a></span>Applying Cloth or Soft body Before the Envelope
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0052"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-030A63F8-3165-49D8-8BFF-B921F88A4095"></a></span>To apply cloth before envelopes or other deformations
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6CD4580A-CFE2-45B5-8658-A1D319D682D7"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B18A20BC-9A31-4B04-A4FA-848A82515528"></a></span>Parent the object you want deformed to the bone (or deformer) that matches the movement
+                           that you want the cloth or soft body object to inherit.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E4047B2E-F6A9-43EA-9A52-0A1312963B48"></a></span>Select <span class="MenuCascade" id="GUID-1ABF8435-3400-4343-8D2B-02EFF380F540">Animation</span> from the <span class="MenuCascade" id="GUID-CC48FAA9-65F1-4C96-9607-66143B03E5C9">Construction Mode</span> list on the main menu bar at the top of the interface.
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-AECE2A54-3CB0-4E87-B520-E3492E54E87D-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6C987755-8FC7-4232-AC6B-A82B28560867"></a></span>This keeps the ClothOp or SoftBodyOp operator in the object's Animation region in
+                           its construction history so that Softimage knows you want to use the cloth or soft
+                           body as an animated deformation.
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9EDDF659-B875-46C7-9A69-0C476CEB560A"></a></span>For general information on construction modes and the viewing options related to these
+                           modes, see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0016">Construction Modes and Regions</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>].
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F9158424-E834-4B08-BF7E-A333771C5E2E"></a></span>Apply cloth or soft body to the object.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1D329528-3282-4C71-914D-CAF93AD81CB6"></a></span>Keeping in Animation mode, apply the envelope or deformation to the cloth or soft
+                           body object.
+                        </p> 
+                        <ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B73E7834-CADC-4AAA-B2E0-1194036C1705"></a></span>For more information on envelopes, see <span class="char_link"><a href="char_envelopes.htm">Envelopes</a></span> [<span class="char_link"><a href="char_cover.htm">Character Animation</a></span>].
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-164215EA-6A7E-486E-9010-A412DBDF0591"></a></span>For information on deformations in general, refer to <span class="char_link"><a href="modef_deforms.htm">Deformations</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>].
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0054"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1BF8EB58-8C19-47F9-ABEF-FFA8A46ACE5C"></a></span>Applying Cloth or Soft Body After the Envelope
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F7C3D38A-9D2E-4CC1-A40E-FB2D154857E1"></a></span>If you apply cloth or soft body <em class="mild">after</em> the envelope is applied to the skeleton, or after another deformation is applied,
+                  the envelope or object doesn't deform properly because of its order in the object's
+                  construction history. If the envelope or deformation is applied after cloth or soft
+                  body, then the cloth or soft body operators don't know that it exists.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0F589BAD-FC9F-4429-AB94-E31547697493"></a></span>To fix this, simply drag the Envelope or other deformation operator in the explorer
+                  so that it's above the ClothOp or SoftBodyOp operator, as shown below. If you do this,
+                  the envelope or other deformation is applied first, and then cloth or soft body can
+                  be calculated in relation to it.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-3694A1A5-8863-4A94-9B98-7D10CF5B2A69-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-EE600286-4486-4FED-95E4-8B799A0893B5"></a></span>Another useful thing to do is to disable any operators above the current one. To do
+                  this, open an explorer, right-click on the lowest envelope or deformation operator
+                  you want to disable, and choose <span class="MenuCascade" id="GUID-90DA4E93-E8E3-4C2A-B968-AA22CFD25A60">Disable from Here</span>. The operator and everything above it no longer affect the object.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A94BC5A1-36D7-4AE1-8692-28533675991D"></a></span>For more information about using the operator stack, see <span class="char_link"><a href="basic_mod_OperatorStack.htm">Operator Stack</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>].
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-AB889F60-BF52-40BE-A7D6-95AB149EB955">
+      <meta name="indexterm" content="deformations: by spine">
+      <meta name="indexterm" content="spine deformations: about">
+      <meta name="indexterm" content="deformations: spine">
+      <meta name="indexterm" content="spine deformations: modifying weights">
+      <meta name="indexterm" content="weight maps: spine deformation">
+      <meta name="topic-type" content="concept">
+      <title>Spine Deformations</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-AB889F60-BF52-40BE-A7D6-95AB149EB955"></a></span><div class="head">
+            <h1>Spine Deformations</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-222AB3D3-CDAB-4187-BF53-373265004754"></a></span>Deformation by spine lets you change an object's shape using curves as deformers,
+               similar to the way that you can deform envelopes by moving bones in a chain. Each
+               curve defines a cylinder of influence with an associated radius and object points
+               within a curve's influence are assigned to that curve. If an object point is close
+               to two or more curves, it is weighted between them. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0048"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8972A632-CD3F-4CF1-83C8-CAB66880C766"></a></span>Spine Deformations and Construction Modes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1DFE45DB-9605-403D-9120-BEA0906123C1"></a></span>Spine deformations use a "rest" shape of the spine curve to determine how to modify
+                  the deformed object. Any deformations you apply to the spine on top of this rest shape
+                  affect the deformed object as well. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A3D194B8-59A9-41B2-B401-4BBCAE0EADF5"></a></span>When you apply a spine deformation, the rest shape is defined by the current top of
+                  the modeling construction region in the spine curve's geometry operator stack. The
+                  spine-deformed object is affected by any new deformations above this point in the
+                  modeling region, as well as in the other regions. If the spine curve already has deformations
+                  above the modeling region, the shape of the spine-deformed object changes as soon
+                  as you apply the spine deformation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D4E92BEC-4B63-4267-8F46-C6AFC9E85A79"></a></span>The rest shape can be affected by modifications you make to the spine curve. If you
+                  freeze all or part of the spine curve's modeling region and "bake" the position in
+                  the stack where the deformation reads the rest shape, then the bottom of the stack
+                  becomes the rest shape. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BF593106-3CFD-4F8D-BA37-F044A74AA7D6"></a></span>When you set the <span class="MenuCascade" id="GUID-E4F896A1-C306-4503-8843-5C12F2950D1E">Construction Mode Display</span> of 3D views to <span class="MenuCascade" id="GUID-AE7FDAEF-48FA-45BB-ACDF-429DFE8AD46A">Sync with current mode</span>, you may or may not see the effect of the spine deformation depending on which region
+                  of the spine-deformed object contains the Deform by Spine Operator. However, if the
+                  effect is visible, then the deformed object is always affected by all operators on
+                  the spine curve no matter what region they are in. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-72D74054-2DF7-4477-ABA4-B8AFDCE363D8"></a></span>For more information about construction modes in general, see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0016">Construction Modes and Regions</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0049"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7B2C4C73-D2AB-4F61-BDBC-47656165FDD3"></a></span>Applying Spine Deformations
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-004A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-04B808AF-DD0C-448D-919D-A0D88D9F2814"></a></span>To deform by spine
+                  </h3> <span class="anchor_wrapper"><a name="GUID-E7E10CE5-C975-4E5F-BA19-A7E732385BA7"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4F8A79D2-53CB-4031-9EF4-7DDA27D4489D"></a></span>Create the curves for deforming the object. The curves should be as close to the object's
+                           surface as possible; otherwise, points on the object's surface may fall outside the
+                           curve's radius of influence. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-08CF7384-40C5-4294-A543-3203CE5EF733"></a></span>Also, note that the closer the curves' points are to the object's points, the more
+                           closely the deformation of the object's surface will follow the curves' points as
+                           you move them. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-F070E2AA-ABDC-417B-AB6D-058B40830FE6-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B15E7689-37F3-4F86-9D31-32FFB8C2D72F"></a></span>Surface and curve 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-3F393D3D-236D-4A5E-8D77-8012371BFD53"></a></span><div class="note-tip"><span class="label">TIP:</span>You can use the Shrinkwrap deformation to project curves onto the object's surface.
+                              Don't forget to freeze the shrinkwrapped curves before using them with Deform by Spine.
+                              For more information about Shrinkwrap in general, see <span class="char_link"><a href="deforms_Shrinkwrap.htm">Shrinkwrap</a></span>. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B9906D43-1CB6-4F0D-B750-E656E7E852B6"></a></span>Select the object you want to deform. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-27894F6A-AFE2-4A6D-BE96-C26C1DD29B86"></a></span>Choose <span class="MenuCascade" id="GUID-59236712-7D79-4BEF-9337-525CBAB842A7">Deform <img src="../images/ac.menuaro.gif"> By Spine</span>. This command is available under Modify on the Model toolbar as well as under Deform
+                           on the Animate toolbar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-38A6B452-3777-4B60-A036-0861F9AADD26"></a></span>Pick the curves you want to act as deformers. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A8FA9CA6-4E9A-4EAE-BBF0-DA4422E61D40"></a></span>When you have finished picking curves, right-click in a geometry view. Clusters are
+                           created and colored according to the deformer and the <span class="char_link"><a href="property6015.htm">Deform by Spine Property Editor</a></span> appears. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-3BF06213-C099-4994-AC30-97428301ABB0-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0D1E951D-E5C1-4F64-B676-D9C04794E163"></a></span>Clusters on the surface 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2811FAAA-6740-41E7-B722-88466B33501E"></a></span>Adjust the values as desired: 
+                        </p> <span class="anchor_wrapper"><a name="UL_35A86A0A65774FC4A3C923CFE4BD3200"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-171AF49A-747A-400E-8D56-34B807D70B2C"></a></span> <span class="MenuCascade" id="GUID-11C3901D-22EF-4C79-A418-14E3E6A121D9">Amplitude Falloff Profile</span> controls the modulation of the deformation along the radius of influence from the
+                                 curve to the edge of the effect. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-17AE90AE-C7CE-4B54-8056-E50CCC5AF313"></a></span> <span class="MenuCascade" id="GUID-7874BA54-76AC-4AB2-B8A9-BD26642D347B">Radius</span> controls the base width of the cylinder of influence in SOFTIMAGE units. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-EFF13C23-36F1-434C-8415-85A1379D4E83"></a></span> <span class="MenuCascade" id="GUID-1B4F6E8B-08FD-48B0-92D7-D2AE91AD704F">Longitudinal Radius Profile</span> controls the actual width of the cylinder of influence as a fraction of the base
+                                 Radius along the percentage length of the curve. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4D616DD8-FFA9-4BA7-84F6-19C705297C7C"></a></span>Select a curve deformer and use it to change the shape of the object. Any change you
+                           make to a curve deformer is reflected in the shape of the object. For example, you
+                           can: 
+                        </p> <span class="anchor_wrapper"><a name="UL_DFDD7F16149F458A9622047808168DDE"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3D55E795-40BA-4B5E-A0C1-456C60148D29"></a></span>Translate, rotate, or scale the curve. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-5F005D30-A18D-453E-AAC3-316392C74F07"></a></span>Move points, either using the Move Point tool or by selecting points and transforming
+                                 them with the SRT tools. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-004AA2FB-A709-4C5F-B35E-4BCC74A8B5EF"></a></span>You can also add points to the curve for finer control. For more information, see
+                                 <span class="char_link"><a href="curves_ModifyingCurves.htm">Modifying Curves</a></span> [<span class="char_link"><a href="nurbs_cover.htm">Surface and Curve Modeling</a></span>]. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-97D3A5E4-8E9D-4375-AB70-0808E6BF20F4"></a></span>Apply deformations like Twist and Bend to the curve. 
+                              </p> 
+                              <div class="figure-anchor"><img src="../images/GUID-D851C007-C1F6-4C71-A145-C44DF10FD9CB-low.png"></div> 
+                              <p><span class="anchor_wrapper"><a name="GUID-04013717-8D77-44F5-8260-D5198F2BA1B0"></a></span>Move the curve to pull the points. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-004E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F937822A-201F-4E78-A1CD-669DC059A99E"></a></span>Modifying Spine Weights
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-EF4700CF-4589-45C9-8CAE-0CEF441CB3ED"></a></span>Spine deformations use the same mechanism as envelopes for weighting points to deformers.
+                  You can modify the weights of points in a spine deformation either manually or by
+                  painting. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DCF4275A-370E-4DBA-8B86-10DF6EC811A7"></a></span>Each point on an envelope has a total weight of 100%, which is divided between the
+                  deformers to which it is assigned. For example, if a point is weighted by 75% to deformer
+                  A and 25% to deformer B, then A pulls three times as strongly as B on the point. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4F8D0216-83A4-43D4-9E32-6CC3001DD70A"></a></span>The Deform by Spine node is available under the Envelope_Weights property of the corresponding
+                  cluster. It allows you to modify the initial point weighting to the spine deformers.
+                  
+               </p> <span class="anchor_wrapper"><a name="FIG_063F6AD8F7D1414C8876077C295CFBD2"></a></span><div class="figure-anchor"><img src="../images/GUID-4E8DDAFC-9A38-4207-AF37-B7589C61858E-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_6BF6E3E6D7BE4302A16104E4C8F94D02"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-11B87ECC-81F0-45E9-A297-8147F08B4F95"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-741905BF-52D5-4495-9465-51D19AE8D870">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-36E1B17F-669E-4FF6-A5BB-29DF22B47AF9"></a></span><p class="table-body">Mute or unmute the spine deformation. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EF6D3A4F-9707-443C-8383-2DC378610F9A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D2C28293-C140-4C34-AB52-8000F46B4BCD">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-176959CD-561C-4825-BA34-A1706792B828"></a></span><p class="table-body">Adjust the initial weighting to deformers. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-E7FF0B4C-5967-4B28-B006-9A73CF7A0775"></a></span>You can modify the way points are weighted to the curves in exactly the same way as
+                  for envelopes: by painting or by editing numerically. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DD086E6E-CA0E-44CE-B322-419E3057D263"></a></span>When you modify the weighting, your changes are added to the Envelope_Weights operator
+                  stack, similar to the geometry operator stack. Once you are satisfied with the deformation,
+                  you can freeze the weights to improve performance. After you have frozen the weights,
+                  you can still make modifications, but Softimage cannot recalculate the initial assignment.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D2BE3870-2293-4644-9D73-DFEB35938CCC"></a></span>For a complete description, see <span class="char_link"><a href="weighted1.htm">Modifying Envelope Weights</a></span> [<span class="char_link"><a href="char_cover.htm">Character Animation</a></span>]. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

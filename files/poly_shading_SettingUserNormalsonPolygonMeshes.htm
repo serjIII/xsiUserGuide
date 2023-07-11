@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-7650A1DC-71AC-4629-9678-8DC0890EB76A">
+      <meta name="indexterm" content="normals: user">
+      <meta name="indexterm" content="normals: explicit, see user normals">
+      <meta name="indexterm" content="user normals">
+      <meta name="indexterm" content="explicit normals, see user normals">
+      <meta name="indexterm" content="user normals: about">
+      <meta name="indexterm" content="normals: modifying, see user normals">
+      <meta name="indexterm" content="user normals: deformations and">
+      <meta name="indexterm" content="deformations: user normals and">
+      <meta name="indexterm" content="user normals: envelopes and">
+      <meta name="indexterm" content="envelopes: user normals and">
+      <meta name="indexterm" content="user normals: freezing">
+      <meta name="indexterm" content="tweaking: user normals">
+      <meta name="indexterm" content="user normals: tweaking">
+      <meta name="indexterm" content="normals: tweaking">
+      <meta name="indexterm" content="user normals: symmetry and">
+      <meta name="indexterm" content="symmetry: user normals and">
+      <meta name="topic-type" content="concept">
+      <title>Setting User Normals on Polygon Meshes</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-7650A1DC-71AC-4629-9678-8DC0890EB76A"></a></span><div class="head">
+            <h1>Setting User Normals on Polygon Meshes</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-F9329440-5279-4646-8997-95CF86AE803D"></a></span>Instead of relying on the automatically generated normals, you can specify custom
+               normals to use for shading. These custom normals are called <em class="mild">user normals</em>, or <em class="mild">explicit normals</em> in some other programs including 3ds Max. User normals allow you to create things
+               like a box with rounded corners using a minimum number of polygons. 
+            </p><span class="anchor_wrapper"><a name="FIG_381C4F3DCAB348AAA284552C38DBD71D"></a></span><div class="figure-anchor"><img src="../images/GUID-827CC50A-CB83-4BFB-8967-5BD4FCDC87FA-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-02386A74-3150-4C77-97DB-2A44D796D90B"></a></span>On a cube with beveled edges, the interpolation of the automatic normals creates a
+               gradation in the shading across the large, flat sides. 
+            </p><span class="anchor_wrapper"><a name="FIG_58999EC9F2814A51BDD14196BA4A09E9"></a></span><div class="figure-anchor"><img src="../images/GUID-A58C1349-46BC-4B52-9449-2575B5712C5E-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-C605C8AD-D3EF-44A7-BD6F-A2598EAD0D30"></a></span>To create the illusion of a box with rounded corners, you can set user normals so
+               that their interpolation produces the correct shading. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3A7761E3-DCDB-4B3E-B928-7A26D0AD8D66"></a></span>You can edit user normals interactively with the Tweak User Normals tool as described
+               in <span class="char_link"><a href="poly_shading_SettingUserNormalsonPolygonMeshes.htm#WS38F0AE68D135C747BDD6874E27C67E45-0034">Tweaking Normals Interactively</a></span>. Alternatively, you can set them to specific values using commands on the <span class="MenuCascade" id="GUID-E55B60FF-BD4B-4161-9EDE-F6E7A511E798">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals</span> submenu as described in <span class="char_link"><a href="poly_shading_SettingUserNormalsonPolygonMeshes.htm#WS38F0AE68D135C747BDD6874E27C67E45-0041">Setting User Normals with Commands</a></span>. The preferences that control how the tool and commands work are described in <span class="char_link"><a href="tools_pref_TweakNormalsPreferences.htm">Tweak Normals Preferences</a></span> [<span class="char_link"><a href="prefref_cover.htm">Preference Reference</a></span>]. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0032"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-79F5F339-0A30-4394-8FEF-FB8AF035CEC0"></a></span>About User Normals
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-769A029F-DFA1-46AD-AC9D-B62AD291854D"></a></span> User normals are stored relative to object space. They do not update when the object
+                  is deformed. The exception is envelope deformations. In the case of envelopes, the
+                  user normals are deformed along with the geometry and then renormalized. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7B7ABD08-15FE-4B61-B05C-AC3E12AB824B"></a></span>User normals are stored on the polynodes (also known as polygon nodes or texture sample
+                  points). There is one polynode for every corner of a polygon. At a vertex, there are
+                  as many polynodes as there are adjacent polygons. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E05C7EDE-2D9A-42C7-AA05-F09C063198DA"></a></span>A polygon mesh can have a mixture of auto and user normals. As soon as you edit a
+                  normal, the corresponding polynodes are automatically added to the User_Normal_Cluster.
+                  If a polynode has a user normal (that is, if it's in the User_Normal_Cluster), then
+                  its user normal will automatically be used for viewing and rendering instead of the
+                  auto normal. In particular, user normals take precedence over hard edges, automatic
+                  discontinuity, and other ways of controlling auto normals. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FE5CD185-E8DE-415C-A854-BBAC4927D62C"></a></span> As you edit user normals, operators are added to the User_Normal_Property's construction
+                  stack. You can freeze this stack by selecting the property and clicking <span class="MenuCascade" id="GUID-0D0AE51B-213A-4912-8978-2B50AB6A3874">Freeze</span> on the Edit panel of the MCP, or you can freeze from a particular operator down by
+                  selecting it and clicking <span class="MenuCascade" id="GUID-A088D7C4-6255-4C64-82A7-1890C02DCF91">Freeze</span>. Note that freezing all or part of this stack also freezes any operators that are
+                  below it in the object's main construction stack, including the generator. Likewise,
+                  freezing the object's operator stack or its modeling region also freezes the User_Normal_Property's
+                  stack. For more information about freezing operator stacks, see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0037">Freezing the Operator Stack</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]. 
+               </p> <span class="anchor_wrapper"><a name="FIG_E5589B327F5C443B98335D28B3938534"></a></span><div class="figure-anchor"><img src="../images/GUID-B0E132E3-D0D7-4ECE-ACD3-C8D7F9DD79B5-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-45BDB047-30BB-4A48-A4AC-BC1ACAF8C428"></a></span>Multiple sets of user normals on the same object are not supported. Although it is
+                  possible to duplicate the user normal cluster with its user normal property, only
+                  the first one can be edited. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0034"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AE0A7485-4E54-44C9-B86B-4AA3B0886558"></a></span>Tweaking Normals Interactively
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-51839776-76FD-42D8-A4D7-3548B0540D62"></a></span>The Tweak User Normals tool allows you to interactively rotate user normals at polynodes,
+                  vertices, edges, and polygons. It works in a similar manner to the Tweak Component
+                  tool (see <span class="char_link"><a href="sculpting_UsingtheTweakComponentTool.htm">Using the Tweak Component Tool</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]). You can use it in two ways: 
+               </p> <span class="anchor_wrapper"><a name="UL_FEFB056FE3434C3E9A947BD97A4045DD"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4263EA44-C9E0-4872-AC90-F5228B6DA627"></a></span>For a fast, uninterrupted interaction, simply click-and-drag. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-657A72DB-5D5F-460F-B0D2-67B6E64175DE"></a></span>For a more controlled interaction, select one or more components and then use the
+                        manipulator to rotate the corresponding normals. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-1A9E4461-57F7-40BC-8647-53A384D9F577"></a></span>When using the Tweak User Normals tool, the normals of polynodes that have user normals
+                  (that is, that are already in User_Normal_Cluster) are drawn with a solid line, and
+                  the normals of polynodes that still use auto normals are drawn with a dashed line.
+                  
+               </p> <span class="anchor_wrapper"><a name="FIG_344C2EA493AB499ABDF2014A6C0472A1"></a></span><div class="figure-anchor"><img src="../images/GUID-F212CB19-D98C-475A-A595-C43CB838BAEB-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-F66C9078-B530-4B97-BCF1-2749C0ED47B5"></a></span> The Tweak User Normals tool supports symmetry (<span class="MenuCascade" id="GUID-8D8DD2B1-AEDA-4E9C-926A-91D6FF44D887">Sym</span> mode on the Transform panel). For more information about symmetry, see <span class="char_link"><a href="sculpting_ManipulatingComponentsSymmetrically.htm">Manipulating Components Symmetrically</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0036"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F1B8A92E-8D87-4298-AA26-0DDAB5C15E42"></a></span>To use the Tweak User Normals tool
+                  </h3> <span class="anchor_wrapper"><a name="GUID-7B25038B-3995-4D40-94B7-2A93D288ACB7"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-89DB5F9D-1CFE-41FB-AB27-375E38560E7B"></a></span>Select a polygon mesh object. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-153310B2-E11B-4883-A37A-984FAECE4722"></a></span>Activate the Tweak User Normals tool by choosing <span class="MenuCascade" id="GUID-FA371F6E-630D-4455-AF19-DBD2F30EBB19">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Tweak User Normals Tool</span> from the Model toolbar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6742EEDA-D095-4D9A-80C8-87E0996E4B4F"></a></span>Move the mouse pointer over the object in any geometry view. As the pointer moves,
+                           the component under the pointer is highlighted. 
+                        </p> <span class="anchor_wrapper"><a name="UL_19C3E41B5EE74383A47999D59BE456E7"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-0EBF0FE9-EF1B-4452-B0E6-91500104D613"></a></span>If you click on a polynode bisector (one of those little purple lines), only the normal
+                                 at that polynode is affected. You can control the display of polynode bisectors in
+                                 your Display preferences (see <span class="char_link"><a href="userprefs522.htm">Display Preferences</a></span> [<span class="char_link"><a href="prefref_cover.htm">Preference Reference</a></span>]). 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-25BEC689-EFD8-41C2-88BE-FB20A8B0A5BD"></a></span>If you click on a vertex, the normals of all polynodes at that vertex are affected.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-FBD1C012-E1A2-4E9A-BBCA-3035ED2A7CD4"></a></span>If you click on an edge, the normals of the four polynodes that share the edge are
+                                 affected (two for each of the two polygons that share the edge). If Bleed Edge/Polygon
+                                 Selection is on, then the normals of all polynodes at the two vertices that share
+                                 the edge are affected. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-820C631C-E3A2-4096-A7E0-EF3E6D996DD0"></a></span>If you click on a polygon, the normals of all of the polynodes owned by the polygon
+                                 are affected. If Bleed Edge/Polygon Selection is on, then the normals of all polynodes
+                                 at all vertices of the polygon are affected. 
+                              </p> 
+                           </li>
+                        </ul> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CFFF86DC-5F3C-46C7-993B-0F87E01A4242"></a></span>You can toggle Bleed Edge/Polygon Selection on or off in your preferences. See <span class="char_link"><a href="tools_pref_TweakNormalsPreferences.htm">Tweak Normals Preferences</a></span> [<span class="char_link"><a href="prefref_cover.htm">Preference Reference</a></span>]. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A1FACB68-F460-40F2-ABDD-9B28AE9C42CB"></a></span>When there are multiple types of components within the picking radius, priority is
+                           given first to vertices, then to polynodes, then to edges, and finally to polygons.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ECD7FBBE-44DB-4CE0-938B-21610EF0F0A3"></a></span>Do one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_BB66202B5427431699F513A1853071C1"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4698F655-D31B-4DCC-9489-95477F6F4B8D"></a></span>Click+drag to rotate the normals in viewing space. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-495EAC38-B13E-419A-A30B-C008650C6C33"></a></span>Click and release the mouse button to select the highlighted component. A manipulator
+                                 appears (unless you've toggled it off). You can use the manipulator to rotate the
+                                 selected normals, or if you prefer you can first modify the selection, change the
+                                 pivot, and set other options. 
+                              </p> 
+                           </li>
+                        </ul> 
+                        <p><span class="anchor_wrapper"><a name="GUID-893C1400-E901-4EF1-9DB2-498D7CBDA67D"></a></span>The Tweak User Normals tool uses the Ctrl, Shift, and Alt modifier keys with the left
+                           and middle mouse buttons to perform different functions — look at the mouse/status
+                           line at the bottom of the Softimage window for brief descriptions, or read the rest
+                           of this section for the full details. The right mouse button opens a context menu.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5B3995B4-C5E8-4564-9C47-4B1C08ABDB86"></a></span>The Tweak User Normals tool remains active, so you can repeat steps 3 and 4 to manipulate
+                           other components. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-04890480-6EF6-4036-92E9-A9D28A0E1D7A"></a></span>When you have finished, deactivate the tool by pressing Esc or activating a different
+                           tool. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0037"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3B40616D-0CB7-4325-A0CE-28065AD820F2"></a></span>Setting Manipulation Modes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A739190D-75AE-40F0-9BC7-76A0D0B80B1C"></a></span>If you are using the manipulator, you can use the manipulation modes on the Transform
+                     panel (Global, Local, View, Object, Ref, and Plane) to control the location and orientation
+                     of the manipulator. For a description of these modes, see <span class="char_link"><a href="sculpting_AboutComponentManipulation.htm#WS58ABD0045DE2F44DA7E2BF76E1451085-0005">Component Manipulation Modes</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6182D448-F9A7-4C6B-8964-0BF83000DC03"></a></span>If you are not using the manipulator, the normals are rotated in View mode. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0038"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C3C46F80-649D-49BD-B154-3F22D03A4147"></a></span>Activating Axes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D65C14C4-188F-4F27-BE81-68C736B21044"></a></span>If you are using the manipulator, you can activate or deactivate axes on the Transform
+                     panel — see <span class="char_link"><a href="sculpting_AboutComponentManipulation.htm#WS58ABD0045DE2F44DA7E2BF76E1451085-001F">Specifying Axes</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3D07C7C1-CFDA-4CFB-B056-CAFDDCF06169"></a></span>Alternatively, you can activate a single axis by double-clicking it on the manipulator.
+                     Double-click on the same axis again to re-activate all axes, or on a different one
+                     to activate it instead. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0039"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-37BF0DBB-A6B3-4FE3-B1DD-ECC3BD9EF2A8"></a></span>Selecting Components
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-57185D02-6030-40C2-8F15-8556262805CC"></a></span>The Tweak User Normals tool lets you select components in a similar way to the standard
+                     selection tools, but there are some differences. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B7491539-8B8A-4731-B40A-B725DBAEDD3E"></a></span>Note that selection with the Tweak User Normals tool is not affected by the <span class="MenuCascade" id="GUID-4ACA8452-4C03-40D7-944D-37D3981335D2">SI|3D Selection Model</span> or <span class="MenuCascade" id="GUID-E4D7058A-779A-44F9-855A-F489F0E9BB20">Extended Component Selection</span> settings. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-003A"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-ECDAA13A-D0B5-406B-9D2D-DA03BC260BF6"></a></span>Selecting, Deselecting, and Extending the Selection
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0AF535E2-852E-45DA-AEE9-AB670A42FD3F"></a></span>Use the following keyboard and mouse combinations for selection: 
+                     </p> <span class="anchor_wrapper"><a name="UL_4FEC20B5E0E34E4DBB33DE92C08C7BC9"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-92B3BE3E-5ED4-4F7D-BCDD-28CDAF8729BB"></a></span>Click a component to select it. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7E50E2CA-BA8F-4C07-9405-B12321C79EAE"></a></span>Shift+click a component to add it to the selection. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5CF48660-A051-4C5A-82DB-615BA79768DF"></a></span>Shift+middle-click to toggle-select a component. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-23BA8BCD-A679-4DCA-B64C-1D48363A0A88"></a></span>Ctrl+Shift+click to deselect a component. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-58EAD2DB-9F06-408D-9C94-866A2DACABBC"></a></span>To quickly deselect all components, click outside the object. By default, you need
+                              to click 20 pixels away from the object, but you can control this with <span class="MenuCascade" id="GUID-ACF284A7-EEED-40F3-9F33-8BF8396FEEEE">Boundary Pick Size</span> in your Tools &gt; Tweak Normals preferences (see <span class="char_link"><a href="tools_pref_TweakNormalsPreferences.htm">Tweak Normals Preferences</a></span> [<span class="char_link"><a href="prefref_cover.htm">Preference Reference</a></span>]). 
+                           </p> 
+                        </li>
+                     </ul> 
+                     <p><span class="anchor_wrapper"><a name="GUID-00885816-A758-4D36-948D-BF6A5BB77F0C"></a></span>Note that you can only multi-select components of the same type. You cannot select
+                        a heterogeneous collection of polynodes, points, edges, and polygons. 
+                     </p> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-003B"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-03362868-AECF-4F81-8B69-8BD8258B4EEC"></a></span>Selecting Loops and Ranges
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5AE013D3-FC34-40F0-8B6E-5337782B91F7"></a></span>Use the Alt key to select loops or ranges of components. You can select loops and
+                        ranges of points, edges, and polygons. This procedure does not work with polynodes.
+                        
+                     </p> <span class="anchor_wrapper"><a name="GUID-ED788228-7DFF-42E5-BA08-1D5F1AC95B63"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7DAF5B7C-C105-4C27-AA74-F93745D659A5"></a></span>Click to select the first or "anchor" component. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C0D63FF0-B9A7-4D62-9848-A7D50F119683"></a></span>Do one of the following: 
+                           </p> <span class="anchor_wrapper"><a name="UL_D067899A3AA946EE905C24A2670968E9"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-11AC8A41-6639-41C0-926F-4F658B1C98C3"></a></span>Alt+click on a second component to select all components on a path between the two
+                                    components. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-B38E3285-3F3F-4DEC-8D6C-58881942115A"></a></span>Alt+middle-click on a second component to select all components in the loop that contains
+                                    both components. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B30729ED-1F15-4BC7-BB1D-85B80F58CFFA"></a></span>To select additional loop or ranges, use Shift+click to specify a new anchor and then
+                              Alt+Shift+click for a new range or Alt+Shift+middle-click for a new loop. 
+                           </p> 
+                        </li>
+                     </ol> 
+                     <p><span class="anchor_wrapper"><a name="GUID-39EBFF20-896F-4A0C-816E-C6865EE12E44"></a></span>Note that for edge loops, the direction is implied so you can simply Alt+middle-click
+                        on an edge to select the loop and then Alt+Shift+middle-click to select additional
+                        loops. However, to select parallel edge loops, you still need to specify two components
+                        as described above. 
+                     </p> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-003C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D212D0B2-344C-4967-933F-5537FE482893"></a></span>Selecting by Type
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-52951538-2361-4A63-88C7-63FC7E3BA8E7"></a></span>The Tweak User Normals tool allows you to manipulate the normals at polynodes, points,
+                     edges, and polygons, but you can limit it to a particular type of component if you
+                     desire. Use the context menu to activate <span class="MenuCascade" id="GUID-BA1C0B9D-06B4-4BCD-9084-36D65EF84281">Tweak All</span>, <span class="MenuCascade" id="GUID-3EBDD50E-F9D0-4CC9-99E7-E56EC976C3EC">Samples (polynodes)</span>, <span class="MenuCascade" id="GUID-933BCD1B-05B1-4AB4-A399-30851937C2A4">Points</span>, <span class="MenuCascade" id="GUID-4A0AFCD5-DD48-4479-B163-4113A1227882">Edges</span>, <span class="MenuCascade" id="GUID-CC5C1FF4-D728-4A59-8FEA-A7A074D0C80F">Polygons</span>, or <span class="MenuCascade" id="GUID-739E3DAA-D642-4DEA-8E68-389FC1297A24">Points + Samples</span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-003D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-65631264-E7EF-40E2-AD1A-D132A391CB0F"></a></span>Setting the Picking Radius
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8AE6560A-CADB-450C-A298-F48BA84DA421"></a></span>The Tweak User Normals tool uses a preference for determining how far away a component
+                     can be to be considered "under" the mouse pointer. You can change the size in pixels
+                     by adjusting <span class="MenuCascade" id="GUID-E60BAA99-F0CD-493D-8066-9A5CACB4CA64">Pick Size</span> in your Tools &gt; Tweak Normals preferences. See <span class="char_link"><a href="tools_pref_TweakNormalsPreferences.htm">Tweak Normals Preferences</a></span> [<span class="char_link"><a href="prefref_cover.htm">Preference Reference</a></span>]. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-003E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FE6ED692-B719-49EA-BC17-1038BA5EC162"></a></span>Setting the Pivot
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6CC221D0-A8CB-44E5-8850-157DD6F85E7E"></a></span>You can quickly set the pivot by middle-clicking on a component. For example, to rotate
+                     a polygon's normals about one of its edges, simply click to select the polygon and
+                     then middle-click to specify the edge as the reference. The manipulator does not react
+                     to middle-clicks, so you can pick a component even if the manipulator is covering
+                     it in a view. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6310B616-4D27-4B3A-B139-84624A33D9A3"></a></span>Middle-clicking temporarily switches to Ref manipulation mode. As soon as you select
+                     a new component, the previous manipulation mode is restored. If you want to keep the
+                     same pivot for multiple tweaks, you should manually switch to Ref mode and then middle-click
+                     to specify the reference. In this way, the reference frame does not revert to the
+                     previous mode when you select a new component to manipulate. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-003F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EE7FD303-C32D-4EC5-975F-F4FFC8EF6E49"></a></span>Hiding the Manipulator
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F5A533C1-489C-43C2-812D-2489DDD65B99"></a></span>If you don't like working with the manipulator, you can hide or unhide it by clicking
+                     the on-screen button at the bottom of the view or by choosing <span class="MenuCascade" id="GUID-489B1872-7198-42F4-8B4C-5D147A5AE171">Toggle Manipulator</span> from the context menu. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_8D1C0F9474424BD5BDAEEB325F8BFCC5"></a></span><div class="figure-anchor"><img src="../images/GUID-FA22511A-039B-47CD-8F44-9AC0FC671516-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-99FCAAB3-8F67-4A11-A1C2-C806C50445CE"></a></span>Toggle Manipulator button 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2B616FC3-E199-4FEE-AFF7-9929331E14E7"></a></span>When the manipulator is off, the Tweak Component tool is always in click-and-drag
+                     mode. This means that you cannot select multiple components and tweak all their normals
+                     simultaneously. In addition, manipulation is always in View mode. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8EDBFFD0-859B-49B1-997A-A7C4DBF56E70"></a></span>You can also assign a hotkey to Toggle Manipulator in the Tweak Normals Tool group
+                     (see <span class="char_link"><a href="GUID-B012A223-0037-4382-B498-A39E6769716D.htm">Keyboard Shortcuts</a></span> [<span class="char_link"><a href="custom_cover.htm">Customizing Softimage</a></span>]). It acts like a supra key — press and release quickly to turn the manipulator on
+                     or off, or press and hold to temporarily toggle the current state. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0041"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DDC576C7-FB44-47C1-B0F0-592439473167"></a></span>Setting User Normals with Commands
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7B45FF83-B9A6-4B33-9D7C-BF87AE66500A"></a></span>You can affect the normals at selected components by selecting them and applying "one-shot"
+                  commands. These commands can be used to set user normals to various values, or to
+                  control which components have user or auto normals. You can also copy a normal and
+                  paste it onto other components. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A7690014-4213-4C66-A24D-A24E962B20D6"></a></span>The general procedure is the same for all commands: 
+               </p> <span class="anchor_wrapper"><a name="GUID-8AEFB131-41C3-4727-887F-0A15216F094C"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6310F7B3-E2FE-4C7B-89CF-D350592019CB"></a></span>Select a polygon mesh object or some of its components. You can select samples (polynodes),
+                        vertices, edges, or polygons. 
+                     </p> <span class="anchor_wrapper"><a name="UL_76BD577D9CEC46F6AF49BD5E1EC30452"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-43A716F7-75FF-4823-AF96-E54537017DBD"></a></span>Selecting a vertex is equivalent to selecting all polynodes at that vertex. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-61A94DA1-E72F-461E-92E4-695A69F1517A"></a></span>Selecting an edge is equivalent to selecting the four polynodes that share the edge
+                              (two for each of the two polygons that share the edge). If Bleed Edge/Polygon Selection
+                              is on, then it is equivalent to selecting all polynodes at the two vertices that share
+                              the edge. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9BAD5E3D-F68C-4A83-8589-2EDBFD546A31"></a></span>Selecting a polygon is equivalent to selecting the polynodes at all of its corners.
+                              If Bleed Edge/Polygon Selection is on, then it is equivalent to selecting all polynodes
+                              at all vertices of the polygon. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-61F30E02-F213-4A89-A3FD-21AC3C0E4DAC"></a></span>Selecting an object is equivalent to selecting every polynode on the object. 
+                           </p> 
+                        </li>
+                     </ul> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F9201177-4A7F-4EB8-8CB0-0F7C76EB1F7F"></a></span>You can toggle Bleed Edge/Polygon Selection on or off in your preferences. See <span class="char_link"><a href="tools_pref_TweakNormalsPreferences.htm">Tweak Normals Preferences</a></span> [<span class="char_link"><a href="prefref_cover.htm">Preference Reference</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-17B5E247-CC7D-4C37-BA69-BC53B216703F"></a></span>Select a command from the <span class="MenuCascade" id="GUID-4673EF47-737B-4F25-B8B7-A2289DE689C6">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals</span> submenu on the Model toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5EE7B742-B723-4DE7-9D86-E65A33DE1DBF"></a></span>These commands are also available from the context menu when using the Tweak User
+                        Normals tool. 
+                     </p> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-E7FFA0B1-B838-443F-9D89-6D119846EB91"></a></span>The sections below describe the effect of each of these commands. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0042"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7D62609E-53F1-43A9-9041-245856F5CA42"></a></span>Average
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3C535CB6-DBA6-4694-925B-587E1055C7FC"></a></span>The <span class="MenuCascade" id="GUID-1165E619-5F3C-4A0F-AB0E-820A7D7E64BD">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Average</span> command sets the normal of each polynode in the selection to the average of the current
+                     normals of the selected polynodes at the same vertex. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7AE51693-1741-4719-A994-A1E3138D99C0"></a></span>This can be useful for smoothing the shading across a selected edge or selected adjacent
+                     polygons. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6642777E-CAEC-4E73-930D-DD6298C2D44B"></a></span>This command uses the <span class="MenuCascade" id="GUID-117A41C3-2E37-4BE5-8904-1932AB57F4C0">Average Distance Threshold</span> to determine which components to use when calculating the average. Setting this parameter
+                     to a value above 0.0 allows you to smooth across disconnected edges. See <span class="char_link"><a href="tools_pref_TweakNormalsPreferences.htm">Tweak Normals Preferences</a></span> [<span class="char_link"><a href="prefref_cover.htm">Preference Reference</a></span>]. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0AE2FA4C-AD1F-4779-8786-7258AF8682CD"></a></span>This command has no visible effect on a single selected polygon unless Bleed Edge/Polygon
+                     Selection is on. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0043"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E115C65F-EB12-4692-A1CF-04E2E26AC5EF"></a></span>Vertex
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5B4557E8-8310-4B6A-95CF-E3976306BEBF"></a></span>The <span class="MenuCascade" id="GUID-4DA2AEB7-C8F7-46BD-8E1B-CA82B43E0EE4">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Vertex</span> command sets the normal of each polynode in the selection to the normal at its corresponding
+                     vertex. This would be the same as the automatic normal for shading if automatic discontinuity
+                     was turned off and there are no hard edges defined. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0044"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8A70DCF6-19EA-449D-B4FC-A8B2E29CD398"></a></span>Polygon
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8EB69EA6-FAA9-4581-BA82-5F5F18EB7AD7"></a></span>The <span class="MenuCascade" id="GUID-F2F5990F-1C3B-45EC-890A-E53A6F25ABE2">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Polygon</span> command sets the normal of each polynode in the selection to the geometric normal
+                     of the polygon that owns it. This is useful for creating a faceted appearance. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F40D7D0B-0168-4A3A-8A2D-E2EF5C285EAC"></a></span>If Bleed Edge/Polygon Selection is on, all polynodes at the vertices of a selected
+                     polygon are set to its geometric normal. When there are multiple adjacent polygons
+                     selected, the normal is set to the average geometric normal of the selected polygons
+                     that share the vertex. This makes it easy to create flat or smooth areas with rounded
+                     corners between them. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_F105592B3EF346B2B590E4A259BDF790"></a></span><div class="figure-anchor"><img src="../images/GUID-A6322B39-DB76-49AE-8C3F-EFD33E2FED04-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-357EBCA9-FF5C-479C-AAB9-8B84D64CD1BF"></a></span>Result of setting normals to Polygon with Bleed Edge/Polygon Selection on. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0046"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-68B44C04-7330-4241-8C93-AC2D4F185B01"></a></span>Invert
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4034CF93-448B-40F6-8FB0-F1AD3D15245B"></a></span>The <span class="MenuCascade" id="GUID-BC4B6CAC-896A-40CA-A7E5-2B877853A2FB">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Invert</span> command inverts the normal of each polynode in the selection. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-46C27B72-E9F3-4563-A105-A882E8198BFD"></a></span>Note that the <span class="MenuCascade" id="GUID-BAF4A1BD-6C43-4F2C-A4B8-A6FE3CE84B84">Modify <img src="../images/ac.menuaro.gif"> Poly. Mesh <img src="../images/ac.menuaro.gif"> Invert Polygons</span> command has no effect on user normals. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0047"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-4AE8B9BD-53B2-403B-9B5F-5099EF1CB94E"></a></span>Normalize
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-16BB0C81-5B7C-41E3-9E14-27891E863D91"></a></span>The <span class="MenuCascade" id="GUID-9FF605BB-BF3B-4575-96F3-AF327B1C08F3">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Normalize</span> command sets the length of the normals at the selected polynodes to 1.0 without changing
+                     their directions. Normals are always 1.0 unit in length by convention but may become
+                     shorter or longer if you use the Set Value command with the Normalize checkbox turned
+                     off. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0048"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7A5362F4-84CE-44DA-8CA9-E46F03C7625D"></a></span>Set Value
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A095747C-348C-4820-A843-2A8738F5944D"></a></span>The <span class="MenuCascade" id="GUID-4CD4A077-1049-459F-9B39-E5654F5185BA">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Set Value</span> command allows you to set the normals of the selected polynodes numerically. Enter
+                     values in the XYZ boxes, or use the preset buttons (X, Y, Z, -X, -Y, -Z) for unit
+                     vectors along the axes. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-0049"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-1279977B-639F-4019-ACAA-9116F93DBD71"></a></span>Normalize
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-44F4F88B-CE63-4FAF-A4BB-89A14013B155"></a></span>Automatically adjusts the values you enter so that the resulting normal has the same
+                        direction but is 1.0 units long. 
+                     </p> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-004A"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-B44F79A2-2868-4188-9619-1D555B9E8F40"></a></span>World Space
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0A1626DF-09E1-4645-9E86-ED63F1369C3E"></a></span>Allows you to enter values relative to the global reference frame. If this option
+                        is off, values are interpreted in object space (relative to the object's center).
+                        
+                     </p> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-004B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9E2F3FBA-E50E-4C3C-85E6-89E98542B4A5"></a></span>Copy
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-507CA043-7E47-4CD0-8173-71E24473DEB1"></a></span>The <span class="MenuCascade" id="GUID-2825C529-47EA-4BC9-9B74-D63C5462211D">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Copy</span> command copies the normal of the selected polynode so that you can select other polynodes
+                     and paste it onto them. You can copy only one normal at a time. As an alternative
+                     to choosing this command from a menu, you can press Ctrl+C while the Tweak User Normals
+                     tool is active. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-004C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7622955D-CDC6-433B-8ECD-9456F63B7A5A"></a></span>Paste
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1C91F18C-D908-4FDB-93A5-ADF8177EAA13"></a></span>The <span class="MenuCascade" id="GUID-FEA94FEF-0A09-4D3E-93C1-52BC04A78CD2">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Paste</span> command pastes the previously copied normal onto all selected polynodes. As an alternative
+                     to choosing this command from a menu, you can press Ctrl+V while the Tweak User Normals
+                     tool is active. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-004D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0CE36680-024B-449C-B247-FE6BCD9B5295"></a></span>Reset
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-82A246A7-99AE-46D9-8B33-49D41681BECF"></a></span>The <span class="MenuCascade" id="GUID-E30C78B8-36BE-4ED4-9DC1-DEFDD7C8E037">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Reset</span> command sets the normal of each polynode in the selection to the automatic shading
+                     normal, including the effects of automatic discontinuity and hard edges. Note that
+                     the result is still a user normal, although it has the same value as the auto normal.
+                     
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-004E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-17E14A13-DA3A-4B06-9149-CEF62103C81E"></a></span>User
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0F9B493F-C563-40DA-9584-A9C6C590078F"></a></span>The <span class="MenuCascade" id="GUID-CD4157BA-A431-4B80-8BB1-4A86FCA4E78D">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> User</span> command adds all selected polynodes to the User_Normal_Cluster, if they are not already
+                     members. The user normals of new members of the cluster are set to their current automatic
+                     shading normals, including the effects of automatic discontinuity and hard edges.
+                     The user normals of existing members of the cluster are not changed. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38F0AE68D135C747BDD6874E27C67E45-004F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2C5F52F2-CFE2-4778-9C31-D22E8D8106F8"></a></span>Auto
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F50EAA25-2063-4F85-B531-FD4E70173A17"></a></span>The <span class="MenuCascade" id="GUID-9D39229F-5FE2-4293-B2C3-650E1EABE828">Modify <img src="../images/ac.menuaro.gif"> Component <img src="../images/ac.menuaro.gif"> Set User Normals <img src="../images/ac.menuaro.gif"> Auto</span> command removes the selected polynodes from the User_Normal_Cluster. The shading
+                     normals of the affected polynodes revert to their auto normals. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

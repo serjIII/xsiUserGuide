@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-FFB7DF72-A672-411B-B38B-309DE156FED1">
+      <meta name="indexterm" content="initial state: ICE particle simulations">
+      <meta name="indexterm" content="ICE simulations: initial state">
+      <meta name="indexterm" content="initial state: ICE simulations, resetting">
+      <meta name="topic-type" content="concept">
+      <title>Creating an Initial State for ICE Particle Simulations</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-FFB7DF72-A672-411B-B38B-309DE156FED1"></a></span><div class="head">
+            <h1>Creating an Initial State for ICE Particle Simulations</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-C1F4C6AF-C15F-4F74-ADC7-3FFC6D0DD492"></a></span>By default, the initial state of a simulation is the result of the construction stack
+               regions below the Simulation region on the first frame that the simulation environment
+               is active. While the simulation is active, the lower regions are not re-evaluated.
+               Because the first frame of the simulation is the initial state, if you are emitting
+               particles in the Simulation region then they will appear on the next frame. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2F555376-070C-455E-8C92-68EC84B4E1CB"></a></span>When you're working with ICE particle or rigid body simulations, you often need to
+               have a certain state of the simulation be the first frame of the simulation, such
+               as a candle already burning or rigid bodies already in a settled state. Instead of
+               computing a pre-roll simulation to arrive at the correct state for the beginning,
+               you can select any frame in an existing simulation and use that as the initial state.
+               The initial state includes the number of particles that are already emitted at the
+               start of simulation along with their properties. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-36A9A429-675A-4F98-A7A2-3DD8BA887A7A"></a></span>An initial state is set for this candle so that it is already burning at the first
+               frame of the simulation. 
+            </p><span class="anchor_wrapper"><a name="FIG_47CC4B02CFFE4CBD9AFBF7791882B7C6"></a></span><div class="figure-anchor"><img src="../images/GUID-BE97B59E-8715-4B63-9B48-66E4DF13CE6F-low.png"></div>
+            <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-F5C2D4B4-A14D-4103-B5B2-6AD3F93B3600"></a></span><div class="note-note"><span class="label">NOTE:</span>You cannot set initial states for ICE-simulated deformations, including Lagoa deformations
+                  or Syflex ICE Cloth/Curve deformations. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0030"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3911B5DE-61D4-490B-B52D-9BC4A697DF4B"></a></span>Setting the Initial State
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-494AE8BB-9110-4BD0-BFF8-559A1C5F7025"></a></span>To create an initial state, you must first create a simulation and set it up to your
+                  liking. Then you can go to any frame of the simulation and capture it to be the initial
+                  state of that simulation. That state is stored and used as the beginning of the simulation
+                  the next time you play it. The rest of the simulation continues from that point as
+                  it did in the original simulation time frame. 
+               </p> <span class="anchor_wrapper"><a name="GUID-19DC487B-B460-49CE-B771-9BA39CB9E7A0"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-280614B6-5DAE-4CE0-A53C-4466BA5AC6FD"></a></span>Create an ICE particle or rigid body simulation as you like. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AE81C0C8-DADB-4A1E-A32A-4BF2E17CAFB2"></a></span>Go to the frame that you want to set as the initial state. This will be the frame
+                        that is played <em class="mild">before</em> the first frame of the resulting simulation when played back. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BE83D2EE-D8DA-47F6-852F-8EDE2126AFF1"></a></span>Select the point cloud and choose <span class="MenuCascade" id="GUID-017CCE1F-BBB6-4D60-AAA0-35D8ABADB497">Particles <img src="../images/ac.menuaro.gif"> Simulation <img src="../images/ac.menuaro.gif"> Set Initial State</span> from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-23706A1F-843B-4274-911E-AE714E6252C4"></a></span>The Set Initial State command sets the initial state of a simulation by disconnecting
+                        the Simulated ICETree node so that it is not a part of the construction stack anymore,
+                        freezing the stack (which deletes all operators in the stack), and then reconnecting
+                        the Simulated ICETree node back into the Simulation region in the stack, all without
+                        you seeing anything. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D04DEAE3-3789-40A7-962A-980913D7A7C6"></a></span>This state is stored and used when the simulation starts instead of the top of the
+                        Animation region. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6A4D27ED-4F73-415C-AE80-2BDC2247ED6A"></a></span>You can repeat these steps to change the initial state using different frames. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C5EC87AF-1CF4-4E9F-9626-F6C68CC6854F"></a></span>Play the simulation. The frame that you set as the initial state is not used as the
+                        first frame of the resulting simulation, but is actually the frame <em class="mild">before</em> the first frame. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8404B6DE-8F79-406B-9FFB-D8477E6F372F"></a></span>For example, let's say that you create a simulation starting at frame 1, then stop
+                        it at frame 50 and set that frame as the initial state. Then when you play back the
+                        simulation (using the initial state) and go to frame 1, you will see a little simulation
+                        step between the frame you set as the initial state (frame 50) and frame 1. Frame
+                        1, in this case, is the frame that is one step <em class="mild">after</em> the initial state frame you set. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0032"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-15FA13BE-A2AD-4F37-8A65-7D38603D8657"></a></span>Removing the Initial State
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-344DB0EE-3C01-462B-A96F-3657FA95A46A"></a></span>Once you've set an initial state, you can just as easily remove (reset) it. <span class="anchor_wrapper"><a name="GUID-F2F01142-3505-46EC-B530-A2CA6F1B2FA8"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E2EDE678-FCD8-40BB-8E3F-C974F52BE71C"></a></span>Select the point cloud with the initial state set. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3BF69D43-6626-405C-A2D2-6C291C10A581"></a></span>Go to the first frame of the particle simulation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0DE63B26-A69C-4D5A-962D-5ACFBB52A718"></a></span>Choose <span class="MenuCascade" id="GUID-2D9F29DB-5355-4422-9A6A-A159EED397C9">Particles <img src="../images/ac.menuaro.gif"> Simulation <img src="../images/ac.menuaro.gif"> Remove Initial State</span> from the ICE toolbar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-54A31BAE-BC80-4789-83A2-A6630C84E1F2"></a></span>Play the simulation and see that your original (pre-initial state) simulation has
+                           returned. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

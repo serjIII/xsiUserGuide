@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-29F92337-8A8D-4C22-A7BF-3105F5EF474C">
+      <meta name="topic-type" content="concept">
+      <title>Ray Switch Advanced</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-29F92337-8A8D-4C22-A7BF-3105F5EF474C"></a></span><div class="head">
+            <h1>Ray Switch Advanced</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-CB194EFC-C1E1-4AEC-9AF5-3C6697115A10"></a></span><em class="strong">DEPRECATED.</em> This shader is unsupported, but it may still get installed with Softimage to provide
+               compatibility with older scenes that use it. It is recommended that you replace unsupported
+               shaders in your scenes with equivalent shaders from the current Softimage shader library.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4B65A688-29A4-4756-AEC9-75E85D02D769"></a></span>| <span class="char_link"><a href="shaderpresets4.htm">Color Interpolate</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-974167A7-0381-446F-8577-BD766D1E40D3"></a></span> <span class="MenuCascade" id="GUID-6EEBC1E1-D77F-483A-8A16-44191F436F00">Shader Type:</span> Texture 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-AEA9748F-2A81-4CB8-93B6-9138F0C48707"></a></span> <em class="strong">Output:</em> Color (RGB) value 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0DE04FB6-0176-46B2-87FE-3099D29A6769"></a></span>The Ray Switch Advanced (mip_rayswitch_advanced) and <span class="char_link"><a href="tex-mentalimages_shaders_RaySwitch.htm#WS5789C281264187428443E3E0DECD3926-01E7">Render Tree Usage</a></span> (mip_rayswitch) utility shaders allows different types of rays to return different
+               results. There are many cases in which this can be useful, including but not limited
+               to: 
+            </p><span class="anchor_wrapper"><a name="UL_3A0E1E11D9EB484A8B6454592E29AD81"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-25197411-D1F8-4FB5-8B30-BBDF0C19F29B"></a></span>Separating primary and secondary rays into calls to other shader. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EE5F1A0E-C321-4B88-AF80-EF68789B5FE5"></a></span>Returning a different environment to eye rays (such as a photographic background plate
+                     for a screen background), reflection rays (such as a spherical high resolution environment
+                     to be seen in reflections) and final gather rays (a filtered environment suitable
+                     for lighting the scene). 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2027981A-F257-4504-A332-510A5CF1A227"></a></span>Limiting time-consuming shaders where they are nearly invisible. For example avoiding
+                     a complicated secondary illumination or ambient occlusion shader in the refractions
+                     seen through frosted glass. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-A98C3A69-0499-4ADC-B90E-CF4645EEE8BF"></a></span>The Ray Switch Advanced shader works very much like the simple Ray Switch shader,
+               but instead of accepting inputs of type "color", it accepts inputs of type "shader".
+               While this does not allow you to assign fixed colors directly, you can set fall-through
+               defaults. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-01EB"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B938B62C-5043-465F-AEED-2751A0D4E4C6"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1FD765D7-AE1D-4589-BA27-9A1EF6FE506C"></a></span>Each of the parameter inputs works in a similar way: eye is the shader for eye rays,
+                  transparent for transparency rays, reflection for reflection rays, refraction for
+                  refraction rays, and so on. 
+               </p> <span class="anchor_wrapper"><a name="FIG_FB32EC7A3F34451D8AC503D6C9BCCB38"></a></span><div class="figure-anchor"><img src="../images/GUID-E2C35E12-83E4-4062-85AB-EDF3D7E09B78-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-01DD18BC-1ED2-438B-9B73-3A38EF70FDA6"></a></span>The difference is that if one of these shaders is not specified, one of the fall-through
+                  cases takes over. For example, if none of the secondary ray type shader inputs are
+                  specified, and a ray of that type arrives, the <span class="MenuCascade" id="GUID-FE25B198-FFDE-4164-AADB-E90E98638DD0">any_secondary</span> input acts as a catch-all for any secondary ray types not explicitly set. Similarly,
+                  the <span class="MenuCascade" id="GUID-BF4182C0-2631-4FFB-AE4B-85C5B603FB77">default</span> parameter input works as a catch-all for every unspecified shader above it. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

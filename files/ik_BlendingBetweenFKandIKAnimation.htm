@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-0FCAD628-F5BF-4763-8D60-B921A745D5E2">
+      <meta name="indexterm" content="FK/IK blending: about">
+      <meta name="indexterm" content="IK/FK blending FK/IK blending">
+      <meta name="indexterm" content="forward kinematics: blending with inverse kinematics">
+      <meta name="indexterm" content="inverse kinematics: blending with forward kinematics">
+      <meta name="indexterm" content="chains: blending forward and inverse kinematics (FK/IK blending)">
+      <meta name="indexterm" content="blending: between forward and inverse kinematics on a chain">
+      <meta name="indexterm" content="kinematics: blending between forward and inverse">
+      <meta name="indexterm" content="FK/IK blending: plotting animation">
+      <meta name="indexterm" content="plotting: IK/FK blend on chains">
+      <meta name="indexterm" content="FK/IK blending: with constraints">
+      <meta name="indexterm" content="constraints: blending with chain's IK/FK blend">
+      <meta name="indexterm" content="motion capture data: blending with inverse kinematics">
+      <meta name="indexterm" content="FK/IK blending: motion capture data">
+      <meta name="indexterm" content="FK/IK blending: ghosting FK/IK states">
+      <meta name="indexterm" content="ghosting: forward and inverse kinematics blend (FK/IK) on chains">
+      <meta name="topic-type" content="concept">
+      <title>Blending Between FK and IK Animation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-0FCAD628-F5BF-4763-8D60-B921A745D5E2"></a></span><div class="head">
+            <h1>Blending Between FK and IK Animation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-AA3C61CA-E77B-43CD-8D61-F09D8EBF7D6F"></a></span>When you're animating a skeleton, you may need to use both FK (bone orientation) and
+               IK (effector position) animation methods on the same chain. For example, arms bend
+               at the elbow like hinges when you use IK, but to get a proper swing from the shoulder,
+               you need to use FK. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-07476DF4-DA0E-46DF-81E9-DFA347DF0FA9"></a></span>In Softimage, there are two main ways in which you can have both IK and FK: 
+            </p><span class="anchor_wrapper"><a name="UL_6FC3E78E16F246E08E40B4408DEF10AB"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A82ED3ED-CC6C-4EDB-AACA-3046F3340277"></a></span>Build two skeletons or rigs: one animated with IK, the other with FK. Store one action
+                     for the FK animation and one for the IK animation, then load them on separate tracks
+                     in the animation mixer. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2562D955-2B19-4036-BB3E-9A2AD50B0025"></a></span>By weighting one against the other, you can decide how much influence at any time
+                     FK or IK has for controlling the character. See <span class="char_link"><a href="char_rig.htm">Character Rigging</a></span> for general information on setting up rigs. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-56256EFB-B6CE-41AB-AFBB-B56A06048136"></a></span> <em class="mild">or</em> 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BF0D608D-B4E2-40CB-A333-CB38CDF23410"></a></span>Blend between FK and IK using the <span class="MenuCascade" id="GUID-98B17714-F186-4684-B12B-B9FADEFC14CA">FK/IK Blend</span> slider, as described in this section. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8B7EA8FD-795B-4F19-86F5-88050F2D4F1F"></a></span>This is the simplest way of blending between IK and FK animation. This slider controls
+                     the influence that IK and FK both have on a chain, blending smoothly the results of
+                     bone rotation and effector translation to give you the best of both worlds. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-AC63F071-DA9D-4DB7-A7D0-34383049DC63"></a></span>You can use FK/IK blending for: 
+            </p><span class="anchor_wrapper"><a name="UL_E38C8562F4ED4A5C9FA4CEC759542150"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B4B42AE2-9151-4D96-B112-C7D9182B4CE3"></a></span>Animating with rotations to get a good "whip" effect (FK), and then blending in specific
+                     grabbing/punching/kicking (goal-oriented IK) movements. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2CE3B7A3-334E-4CFA-B92A-7A86AD6FFEAE"></a></span>Mixing goal-oriented movements against motion capture. The motion doesn't maintain
+                     the "jitter" of the underlying animation because that's what it is intended to do:
+                     precisely reach a point in space. 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-002D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-481B5C05-F8CD-46BF-A26C-BF1748E89D99"></a></span>How Does FK/IK Blending Work?
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1CA00D5B-D401-4658-847F-0626E3BFF599"></a></span>The FK is calculated and the bone orientations (preferred angles) from that solution
+                  (A) are used to calculate the IK to give a solution (B). The Blend FK/IK parameter
+                  then interpolates between solutions A and B in quaternion space to come up with a
+                  new set of bone orientations. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1D26BDE3-D9D3-451D-8A11-3EBB83C70E4A"></a></span>Keep in mind that if you pass through a critical zone with the FK, then the chain
+                  is likely to flip (not necessarily related to the blending). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A32B5B57-514D-4351-93F0-1AACE8173DC9"></a></span>Up-vector constraints are taken into account for the IK component of the solution
+                  that is blended. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-002E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9C549285-7012-45CB-A0D2-144F058A66B6"></a></span>Blending FK and IK Animation
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-002F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F61549F5-FCA1-40AB-A0A7-530DFD6FA4AE"></a></span>To blend between FK and IK animation on a chain
+                  </h3> <span class="anchor_wrapper"><a name="GUID-170C944B-318E-4496-AB42-AC683FA318DB"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F103FC51-9C3C-4ECB-83A1-E1D7C6163145"></a></span>Animate the chain in FK (key the bone's rotation parameters), as well as in IK (key
+                           the effector's position parameters or use a position constraint, for example). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-65505A6D-7FA9-485F-BE35-55C466BD5055"></a></span>Open the chain's Kinematic Chain property editor (select any chain element and press
+                           Ctrl+R). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-559A525D-DA9F-4AFC-863B-37FE6D71C7E0"></a></span>Drag the <span class="MenuCascade" id="GUID-5742DD04-5274-4E18-A550-488CE9C554D3">FK/IK Blend</span> slider to set the value you want between FK (0) and IK (1). A value of 0 is 100%
+                           FK, while 1 is 100% IK. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-52E01632-3826-4559-B0EE-D935824B7B73"></a></span>As you move the slider back and forth, you can see the smooth interpolation between
+                           the IK position and the FK-driven chain. You can then decide where you want the blend
+                           to start and finish by setting keys for this parameter. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D2E77332-0DA2-4A78-B78B-F42A438D9718"></a></span>Set keys for the <span class="MenuCascade" id="GUID-6CCC7D90-77F5-418C-B4ED-BDCE9463B141">FK/IK Blend</span> slider's values at the appropriate frames where you want the blend to start and finish.
+                           
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-CE1F5580-97BA-4FCF-B0FD-96D651A15CC4-low.png"></div> 
+                        <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-953C2D8D-71F3-479F-8C4D-B986E1036581"></a></span><div class="note-tip"><span class="label">TIP:</span>If you have <span class="MenuCascade" id="GUID-61CBA38B-45C1-4752-ACF4-91F59F6B71C2">Affected By Last Bone</span> selected for the effector's orientation (see <span class="char_link"><a href="ik_SettingandBlendingtheEffectorxd5sOrientation.htm#WSF4D645293765AE498C69174E3D6620E4-0048">Setting the Effector's Orientation Inheritance</a></span>), you can select <span class="MenuCascade" id="GUID-4B0D30FA-9A7A-4A4F-B9E7-6BBE731EF966">Link with IK/FK Blending</span> (see <span class="char_link"><a href="ik_SettingandBlendingtheEffectorxd5sOrientation.htm#WSF4D645293765AE498C69174E3D6620E4-004B">Blending and Linking the Effector's Orientation</a></span>). This option ties the effector's FK/IK blend with the chain's overall FK/IK blend
+                              you set here. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0031"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-51B02209-2891-4059-BD3C-8C785F60D837"></a></span>Plotting FK/IK Blending
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-3845F4E7-C19C-4989-8839-C1E5B3BB9A4C"></a></span>If you want to plot the blended FK/IK animation on a chain, you need to do the following:
+                     
+                  </p> <span class="anchor_wrapper"><a name="GUID-69314B86-F0E4-4A1E-83B0-51DAA8261126"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-471209E1-3633-4E38-80AA-BEDD6B1A6DBD"></a></span>Mark the correct parameters to get the correct results: 
+                        </p> <span class="anchor_wrapper"><a name="UL_616386899213456FBD47E649E697704B"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-488D04BC-33E8-4621-BE46-C26683801CA7"></a></span>To plot FK, mark the bones' local <span class="MenuCascade" id="GUID-4184D51F-8325-439A-A422-8FB27215E438">rotation</span> parameters. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-58ADCD0F-4DEB-4755-8F9D-87A5F6F4D698"></a></span>To plot IK, mark the effector's local <span class="MenuCascade" id="GUID-C2901FA3-1052-435C-B237-DF6A3091467A">position</span> parameters. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5B877EEE-C2A7-46E1-B9A5-AA2204EFC097"></a></span>Choose <span class="MenuCascade" id="GUID-8551C92D-6CE1-47CE-A664-A7390C5B80D8">Tools <img src="../images/ac.menuaro.gif"> Plot <img src="../images/ac.menuaro.gif"> Marked Parameters</span> from the Animate toolbar. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F2F6DC36-79FE-4660-9936-57DA2763FE4A"></a></span>See <span class="char_link"><a href="ani_proc_PlottingAnimation.htm">Plotting (Baking) Animation</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>] for more information. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-1ADA2EBD-8BDA-44C6-B39C-45EA8EBE11B4"></a></span><div class="note-tip"><span class="label">TIP:</span>You can create marking sets on the bones' rotation and effector's position parameters
+                        to make it faster to plot the animation repeatedly — see <span class="char_link"><a href="ani_proc_MarkingParametersforAnimation.htm"> Marking Parameters for Animation</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+                     </div>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0032"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9EE95E36-6CFA-4B60-ABEF-66D29B3B4A53"></a></span>Blending and Constraints
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-83667852-7F50-4B9B-AAEB-650D2602D79B"></a></span>FK/IK blending works in conjunction with constraint blending, allowing you to blend
+                  the FK/IK against multiple constraints. These constraints could be blended themselves,
+                  so you can create fairly complex behaviors. 
+               </p> <span class="anchor_wrapper"><a name="UL_AF81EAF0089B40509D79EFA3A093722A"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3AB7D3EB-1DE6-4DDA-AF1E-55177EF43FCA"></a></span>On the effector, you can combine FK/IK blending with constraints that are also blended.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B449D840-FEF0-42DD-9F61-32DA78BCBE83"></a></span>You cannot use FK/IK blending if you use constraints to control a bone's orientation
+                        with other objects: the bone's orientation must be directly controlled with either
+                        fcurves or expressions. You can work around this by rigging with expressions from
+                        an object. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-EB197DB9-EBF9-4B97-9930-6F212A5A0B09"></a></span>See <span class="char_link"><a href="constraints_BlendingConstraints.htm">Blending Constraints</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>] for more information. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0033"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D6DF46FA-DF3D-4838-A0D8-F6B902F1B243"></a></span>Blending IK with Motion Capture Data (FK)
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-F40981FA-36F5-4BBB-BA08-26C36DE1668B"></a></span>If you are using motion capture data, it is almost always in FK because FK records
+                  the full motion of the bones. Instead of combining the worlds of IK and FK with a
+                  special blending rig (one rig for IK, one for FK, and a blend set of controls to a
+                  third target rig), you can use the <span class="MenuCascade" id="GUID-3D1D560A-0E12-4EF0-8365-F34B80F28FFE">FK/IK Blend</span> slider, saving you a lot of time and effort. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3F068611-27BD-4773-9A8B-079E3078A7BE"></a></span>You load the motion capture data either directly driving the bone rotations or as
+                  an action source in the animation mixer where you can manipulate it. Then you can
+                  move and key the effectors (or whatever drives the chain in IK). Usually, you want
+                  to key the blend to make a smooth transition from 100% FK to the IK correction, and
+                  back again. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0034"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A86D2E63-D3E8-4D29-A1A8-2A0EDA25016D"></a></span>Example
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-62D6F235-32FC-4DB6-B8D6-D255F189227F"></a></span>This example shows how you can author new IK on top of FK, which is a fairly common
+                     case, but you can also do the reverse: take existing IK animation and create new FK
+                     moves to blend against. However, with this method, remember that you need to set FK
+                     poses at the start and end of where you want to blend the FK in and out from the IK
+                     to avoid any pops. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-E7E62F08-DB60-4232-9DCE-14244AC03D4C"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7372B987-327A-486C-B056-569F32B9BFAB"></a></span>Load a standard character and make a simple FK animation on the character's arm (see
+                           <span class="char_link"><a href="char_intro_UsingReadymadeCharacters.htm">Getting Started with Ready-made Characters</a></span> for these). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1449D9C0-CC58-4ABE-B802-961460D08CF9"></a></span>Change the position of the hand effector at some point: position-constrain the effector
+                           to a target, and then alter the <span class="MenuCascade" id="GUID-0CC9C31E-F69B-49E6-8290-3B30A8323C66">FK/IK Blend</span> value (on the chain's Kinematic Chain page) to see it blend between IK (constrained)
+                           to the FK (full motion from the preset clip). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E887DD49-86C9-47C0-87CA-9FD30FD8FB0F"></a></span>Key the <span class="MenuCascade" id="GUID-BAA2200E-72B0-4319-B177-FC7CD255B80D">FK/IK Blend</span> value at 0 (full FK) where you want to start the transition to IK, then key it at
+                           1 (full IK) where you want to end the transition. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F69F0307-066E-4A91-B28B-949A73FA3401"></a></span>In this way, you are using IK to alter the effect of an existing FK motion, and blending
+                           to avoid any snaps. Similarly, you can key the transition back from IK to FK. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-0D0CCD8B-5F0E-469C-805F-E0B314F25A51-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_11608C6BB95E4D88AD760D50A6A9659E"></a></span><div class="table_Ruled">
+                           <table cellpadding="0" cellspacing="0" class="ruled">
+                              <colgroup>
+                                 <col align="left">
+                                 <col align="left">
+                              </colgroup>
+                              <tr class="ruledOddRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-42CFE65A-72B2-4731-8C55-593F1D32ED01"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2B7E224A-B902-4A84-A9A4-3D7EF91ADE79">A</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DB99043F-6D21-48A9-BA8C-0AE6F2AA4B03"></a></span><p class="table-body">Position constraint is set on right arm's effector to the cube (with a slight offset).
+                                       The FK/IK Blend slider is set to 0 (100% FK). 
+                                    </p> 
+                                 </td>
+                              </tr>
+                              <tr class="ruledEvenRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D8E92668-2672-4802-B7CA-7F48B965A1FB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2CDA5C29-07CC-4BC2-AFAF-FD5E98073819">B</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C789C698-2FF8-471A-8CD0-3DEC018F2380"></a></span><p class="table-body">FK/IK Blend is at 0.5. </p> 
+                                 </td>
+                              </tr>
+                              <tr class="ruledOddRow">
+                                 <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-69DA37F9-EF8E-4929-BF57-A2AB2F6A278A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C1A396ED-B6A0-4DF4-A537-B7527CDE6107">C</span> 
+                                    </p> 
+                                 </td>
+                                 <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0009681A-59D8-4437-8B32-5A6BC2B497AD"></a></span><p class="table-body">FK/IK Blend is set to 1 (100% IK). </p> 
+                                 </td>
+                              </tr>
+                           </table>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0036"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ABC4EB93-4390-403D-B118-1146B707E26E"></a></span>Ghosting FK/IK Blending
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-2E26F90A-2D95-4CFB-B579-331C1D78CDFA"></a></span>To help you see the how the chain is blending between its IK and FK states, you can
+                  use ghosting. Ghosts are shown for the full FK and full IK positions of the chains.
+                  
+               </p> <span class="anchor_wrapper"><a name="FIG_0E490BDEE89E4F2F9D608B61F9977B87"></a></span><div class="figure-anchor"><img src="../images/GUID-4033F50D-833B-4D6E-891E-DA2A96AC3308-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_58DD90F4820040CAB71CE968164482DF"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C08DE93A-5F3F-470D-957E-6F01919D4AD9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BDD49BE3-5C91-4720-A079-914580B28116">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8D461D48-326B-4246-95E2-504ED52A52D7"></a></span><p class="table-body">The blue ghost above the arm shows the chain at full FK (FK/IK Blend value of 0).
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-051EA76B-B451-41D9-9FA9-F24995E79DC1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B10A385D-83AF-4BE7-808F-9AA8FCF7E262">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-32F6BD56-EAC2-4E86-8165-95512B043EA0"></a></span><p class="table-body">The arm chain in the middle has the FK/IK Blend value set to approximately 0.5. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-93F9661C-F3B2-481C-ABF0-8F00CC42A461"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AC4C9A22-8FB4-4394-BC11-F2E9C6FFAD7A">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2C74348B-4598-4032-AA1B-81F6F65C9C39"></a></span><p class="table-body">The red ghost between the arm and the body shows the chain at full IK (FK/IK Blend
+                              value of 1). 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-EA07D745-E5AB-4BEB-B178-6AFFBC01E3A3"></a></span>For more information on animation ghosting in general, see <span class="char_link"><a href="ani_proc_GhostingAnimatedObjects.htm">Ghosting Animated Objects</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0038"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1BC6581E-4FCA-4B49-BD96-BA26BB9B13B9"></a></span>To ghost the chain's FK and IK states
+                  </h3> <span class="anchor_wrapper"><a name="GUID-DAB23ABF-6760-4163-A4E6-FBED5E0378C1"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-09AC34CF-C927-4AB3-8578-6E3D8EAD2B2F"></a></span>Select the chain that has FK/IK blending on it and open its Kinematic Chain property
+                           editor (press Ctrl+R). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8A3BB1CF-7798-4DE9-8739-A9491AC856E2"></a></span>Select a ghost display type from the <span class="MenuCascade" id="GUID-9BA6A540-DA13-401E-9B12-458E404D5A16">FK/IK Ghosting</span> list: 
+                        </p> <span class="anchor_wrapper"><a name="UL_C3169A607B1346499509CD58C3577227"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-01975DEB-B08D-42C3-A13E-462274E103F3"></a></span> <span class="MenuCascade" id="GUID-4F7A67A9-84BC-4B55-8BF5-1E573225F651">Chain</span> ghosts the chain's root, bones, and effector. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-13EF4F69-41FD-488C-B20E-2C2E0CBB7D2D"></a></span> <span class="MenuCascade" id="GUID-EAE84A0C-08F2-4573-BE00-28E382A1D4C6">Branch</span> ghosts all children of the chain root. 
+                              </p> 
+                              <div class="figure-anchor"><img src="../images/GUID-2AE3DD0D-AABC-476B-B88E-BC1609D253CC-low.png"></div> 
+                              <div class="figure-anchor"><img src="../images/GUID-70695579-CBEE-4DD6-BE09-78FA0141FB99-low.png"></div> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3B99283C-9B7B-4120-BB41-222467FB16A1"></a></span>Do one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_24E493D0F29640FAAA9041822050555A"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7D04CAEE-CC2A-49D6-89C6-E8B45CD24810"></a></span>Choose the <span class="MenuCascade" id="GUID-4042D393-95D4-4176-B4A1-0A8D15E3414E">Skeleton FK/IK Ghosting</span> command in the Display Mode menu in any 3D view. 
+                              </p> 
+                              <div class="figure-anchor"><img src="../images/GUID-69528179-4CFE-4BED-9415-979BB0E5DAE0-low.png"></div> 
+                              <p><span class="anchor_wrapper"><a name="GUID-57606D51-54B0-4BDC-9D79-8BCF77D8A0A0"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-5EF97A43-43FE-4939-894C-B61813B4892C"></a></span>Choose <span class="MenuCascade" id="GUID-6C7E3E49-003E-4B21-BBEB-7E86BDCF00DD">Display Options</span> in the Display Mode menu to open the Camera Display property editor. Then click the
+                                 <span class="MenuCascade" id="GUID-21FD79E3-3CDD-4DE0-9290-3DD185583D8E">Ghosting</span> tab and select <span class="MenuCascade" id="GUID-224826F1-CAB6-4F52-B4CB-216FB913DAE5">Enable Skeleton FK/IK Ghosting</span>. 
+                              </p> 
+                              <div><span class="anchor_wrapper"><a name="GUID-7AD2E9F8-5D5B-460D-A55F-B22FDD532282"></a></span><div class="note-tip"><span class="label">TIP:</span>If you activate ghosting in a 3D view but still don't see the ghosts, check that ghosting
+                                    is active for the scene layer to which the objects belong — see <span class="char_link"><a href="ani_proc_GhostingAnimatedObjects.htm#WS79D98F401944364D82F573BD6DA35BD8-002B">Activating Ghosting for Scene Layers and Groups</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+                                 </div>
+                              </div> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-90E20FD8-4CBE-4B44-B962-C574B0218F0D"></a></span>On the Ghosting page in the Camera Display property editor, set the ghost colors using
+                           the <span class="MenuCascade" id="GUID-9E599EFD-54E6-4960-AAB1-E6B6CEC420E2">Before Color / FK Color</span> and <span class="MenuCascade" id="GUID-4BA511B2-44D1-4B53-B957-9419FD93F361">After Color / IK Color</span> controls in the Keyframe Options group. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-63FC3024-D279-444B-A54D-8DBC10412264-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

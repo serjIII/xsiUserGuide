@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-93EA1DBE-0A76-4E41-AC7E-01D44494BAA3">
+      <meta name="indexterm" content="ICE compounds: versioning">
+      <meta name="topic-type" content="concept">
+      <title>Versioning Compounds</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-93EA1DBE-0A76-4E41-AC7E-01D44494BAA3"></a></span><div class="head">
+            <h1>Versioning Compounds</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-98D4EDCB-2DD4-498B-B35A-C4332BA03526"></a></span>Softimage uses a built-in versioning system to manage updates to exported compounds.
+               The major and minor version numbers are stored in the .xsicompound file. 
+            </p><span class="anchor_wrapper"><a name="UL_AF8B4FAAC3514D80A2F64300617EB063"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8D7EE46E-DCB1-46AD-BC86-D779ADA840E1"></a></span>Update the major version for changes in functionality, such as additional exposed
+                     ports. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1A199796-5036-4FAF-BC91-1E62E6D7D275"></a></span>Update the minor version number for bug fixes. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-64D2A0F6-A5E5-4DB0-9536-DA5C9B317B2C"></a></span>You should not rename .xsicompound files manually. Instead, use Softimage's built-in
+               versioning. Otherwise, you may end up with multiple compounds that share the same
+               name and version. If this happens, Softimage logs a warning message telling you the
+               locations of the file that will be used and the files that will be ignored. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5115FDADD976BD418C0DD1375D5E8437-003E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F5F79B8C-A72E-471B-911E-E49692A7B93C"></a></span>How Softimage Uses Version Numbers
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C81B4DF6-5EDA-473E-8C6D-3408B36955E0"></a></span>Compounds are identified by name. If you add a compound to an ICE tree and there are
+                  multiple versions available, Softimage uses the highest major.minor version available
+                  in any of the user, workgroup, and factory locations. If that compound contains references
+                  to another exported compound, and there are multiple version of the second compound
+                  available, then Softimage uses the highest minor version of major version specified
+                  in the first compound. The reason is that if you fix a bug in the referenced compound
+                  and increase the minor version, then you probably want the fixed version used when
+                  you import the compound that contains it. On the other hand if you change the functionality
+                  and increase the major version, then you might not want the new version used until
+                  you update the compound that contains it to take the new functionality into account.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5115FDADD976BD418C0DD1375D5E8437-003F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AC36F85E-B656-4413-8659-51F6917B4192"></a></span>Modified Compounds
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CB93B1D6-5346-44E1-AB9C-55A5266F1C96"></a></span>Modified compounds are identified by asterisks in the ICE tree. 
+               </p> <span class="anchor_wrapper"><a name="FIG_3CC103C3AEC64F2B997ACA4ABAF9B9CC"></a></span><div class="figure-anchor"><img src="../images/GUID-96587022-F0F8-4A60-B6DF-0C1DAD6E42F7-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-DC8DEDC8-73A7-4A54-8826-CED3704C36B2"></a></span>A compound is considered to be modified if: 
+               </p> <span class="anchor_wrapper"><a name="UL_4A596E1A337043E2A7B30414D38D1CA1"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4CF96805-8C23-49BD-8C2B-D7249A397E85"></a></span>Internal nodes have been added or removed. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8FA38421-432A-471A-AF72-24C73492C47B"></a></span>Internal connections have been added or removed. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2B7FBB12-4D20-4B72-9070-78F5B596BAB6"></a></span>Exposed ports have been created or removed. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C5D1BB3D-7261-4685-944D-9A1B036F6489"></a></span>Unexposed values have been changed. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-CDF12E67-8E9F-444C-AD81-090D85F15756"></a></span>A connection is not considered to be modified if only: 
+               </p> <span class="anchor_wrapper"><a name="UL_28248EE4B3AB41BDBA683C20A8B6A297"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EF041C11-7188-483C-B271-04638E9BCCC2"></a></span>Exposed port values have been changed. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9C1F60AA-96C8-49C7-8206-2F7273EF8E77"></a></span>Multi-instance ports have been instantiated, in other words, you connected something
+                        to New (portname) and a port was added. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5115FDADD976BD418C0DD1375D5E8437-0041"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EBA9C9B9-A1A1-45B4-9D47-78C3F4486F66"></a></span>Re-exporting Updated Versions of Compounds
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-AF5143B4-37DB-4F8F-8EC9-6E7B3CEC0396"></a></span>For complete control over a compound's version numbers, modify the version numbers
+                  in the compound's properties and re-export it. Alternatively, if you have made only
+                  bug fixes to a compound, you can quickly re-export it and any modified nested compounds
+                  that it contains using <span class="MenuCascade" id="GUID-8BB2DDB2-5963-48A2-A037-696533D19BBA">Increment Version and Export All Modified Compounds</span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5115FDADD976BD418C0DD1375D5E8437-0042"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1E58E782-4C09-42E6-9884-395EE6A9F94F"></a></span>To re-export a modified compound
+                  </h3> <span class="anchor_wrapper"><a name="GUID-FF006404-3CA0-4C9A-A4BA-309376CD95DE"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C3C16D21-9CF2-4BDB-BF74-3CA4D55E8581"></a></span>Open the compound's properties as described in <span class="char_link"><a href="ICE_compounds_SettingCompoundProperties.htm">Setting Compound Properties</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7ED3DABD-2317-42CC-83FA-AD55500069DC"></a></span>Increase the major or minor version number as appropriate. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-433283DE-C952-45DF-877D-B4CEFB8D3BFB"></a></span>If desired, enter a Version Tag. This is a character string that you can use to describe
+                           the version as you wish. It is displayed in the Compound Version Manager and the Versions
+                           menu. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2EBC8F8E-83DD-4530-A2DF-8A4C29A918FD"></a></span>Export the compound as described in <span class="char_link"><a href="ICE_compounds_ExportingCompounds.htm">Exporting Compounds</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5115FDADD976BD418C0DD1375D5E8437-0043"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A3F4831C-3267-486E-A449-782CC3E8ACDD"></a></span>To automatically increment the minor version and re-export all nested modified compounds
+                  </h3> <span class="anchor_wrapper"><a name="UL_80F619135E7F44A39E5A708E0D1CAE04"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CB7AC49F-37A7-4101-83F2-E4DDD6A0F8D1"></a></span>Right-click on a modified compound and choose <span class="MenuCascade" id="GUID-E3564846-E95D-4748-A27E-97D9E0F2994F">Increment Version and Export All Modified Compounds</span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AF512525-CC91-47A0-9F30-9BC476FA9F23"></a></span>You are prompted to specify a file name and location for each modified compound. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5115FDADD976BD418C0DD1375D5E8437-0044"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-373DA2F8-F665-47BC-9203-2FC26E6AAB40"></a></span>Updating Compounds Already in a Scene
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-FD5FD11B-2EDA-4EB8-B15E-DB2C4963D4BF"></a></span>Compounds that already exist in a scene are not updated automatically even if new
+                  versions are available. You can update them individually, or by using the Compound
+                  Version Manager. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5115FDADD976BD418C0DD1375D5E8437-0045"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-066D861E-3C49-47F5-BD36-008E9193A4B5"></a></span>To update compounds individually
+                  </h3> <span class="anchor_wrapper"><a name="GUID-CC7ACFF1-8CFA-4AD6-A9ED-2173A2CDFB4A"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3004BC3A-0B01-4DCD-A28F-553EED4C467D"></a></span>Right-click on a compound in the ICE tree (not over a port). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-91204A76-0071-4D53-8BF5-8F88E7EA47D6"></a></span>If multiple versions of the compound are available, the context menu contains a <span class="MenuCascade" id="GUID-8A2A57A0-6C86-4683-A3A3-5425F1F9B9BE">Version</span> submenu. Select the desired version. The current version is displayed with a checkmark.
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5115FDADD976BD418C0DD1375D5E8437-0046"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5D4F51B1-6414-4A29-A871-DF52AE50A965"></a></span>To update multiple compounds using the Compound Version Manager
+                  </h3> <span class="anchor_wrapper"><a name="GUID-B7E4D483-7389-4131-9BF9-D1EF4BF1F7A9"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-00FD4868-7843-4F22-8018-A2A51DB35B58"></a></span>Open the Compound Version Manager by choosing <span class="MenuCascade" id="GUID-B8248364-CFBC-4D07-AF88-A06380082C06">Compounds <img src="../images/ac.menuaro.gif"> Compound Version Manager</span> from the ICE tree view. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-81E36250-BC8D-49AB-9161-27ED549A4F08"></a></span>The compounds in the scene are displayed in a grid. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-FC48120B-BF5E-4825-9071-3C0B07ABA2E0-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-72EDF189-F60E-4652-AD9F-1C2B41876678"></a></span>As desired, either click <span class="MenuCascade" id="GUID-6FF4001A-96B4-4593-896A-0E599033D7E6">Sort by Terminal Node</span> to arrange the compounds according to the ICE trees they belong to, or click <span class="MenuCascade" id="GUID-C4B3AC66-75C7-4A2E-A462-186F10EC600F">Sort by Classname</span> to sort the compounds according to their type (name). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2A024C35-1C98-4094-AB36-85359B2404C6"></a></span>When multiple versions are available, a triangle appears in the Version column. Click
+                           the triangle to open a menu that allows you to make changes to the grid data. The
+                           menu for an individual compound affects only that instance, the menu for an ICE tree
+                           affects all compounds of all types in that tree (Sort by Terminal Node), and the menu
+                           for a type of compound affects all compounds of that type (Sort by Classname). Different
+                           menu items are available depending on whether the row corresponds to an individual
+                           compound, an ICE tree, or a compound type: 
+                        </p> <span class="anchor_wrapper"><a name="UL_B88B49E15D284BEE86514A81EBD4C4F1"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-1E2C7925-1EBD-431C-A2D8-5C07AA06413C"></a></span> <span class="MenuCascade" id="GUID-D43829F3-1176-4E35-A9F1-63CEA9C913E7">No Change</span> dismisses the menu without changing the grid data. Note that previous changes to
+                                 the grid data are not reverted. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-494C8576-4AE1-46C3-924D-C54E49ECF1A1"></a></span> <span class="MenuCascade" id="GUID-A2E324D3-9920-40E9-9933-7A1D16F7464A">Revert to Current</span> updates the grid data with the version currently used in the scene. Note that it
+                                 does not revert changes that have already been applied. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A2F7E811-71F2-4FB2-9612-E4FFBC960BAD"></a></span> <span class="MenuCascade" id="GUID-7B40B670-5F1D-4EB3-A57E-872329C5F02D">Latest Minor</span> sets the grid data to the highest available minor version of the major version specified
+                                 by all compounds in that tree (available for ICE trees only). 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-6408BF8C-9C01-4B71-A92C-FD149694F30A"></a></span> <span class="MenuCascade" id="GUID-4497EC8B-48E4-4C7E-ADFB-4E7A1927654F">Latest</span> sets the grid data to the highest available version for all compounds in that tree
+                                 (available for ICE trees only). 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3A3A8BB8-EAFD-4049-B1B3-340F80167505"></a></span>A specific version number sets the grid data to that version. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ADE6F47F-A34B-45F6-97DA-5D7F2975C5C0"></a></span>Click <span class="MenuCascade" id="GUID-79242E63-39DA-44A3-B213-105F46F38D6B">Apply</span> to apply the grid changes to the scene. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-517F6269-0E84-4418-A99C-E06D3E127077"></a></span>Repeat steps 3 to 5 as desired. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-759ADC7E-0FAC-4CF3-AFC3-2F6C8878A8E9"></a></span>If you make changes to the scene while the Compound Version Manager is open, click
+                           <span class="MenuCascade" id="GUID-D266F0FF-4E56-4728-9B28-1E9C8A388063">Update</span> to refresh the grid. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-A68930D1-C1C8-486A-9464-6FA9B93BF112-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-8953C9D2-53CD-4443-B388-5E60156B57DD">
+      <meta name="indexterm" content="CrowdFX: constraining a deformer's orientation">
+      <meta name="indexterm" content="CrowdFX: orientation constraint">
+      <meta name="indexterm" content="CrowdFX: constraining a deformer's scale">
+      <meta name="indexterm" content="CrowdFX: scale constraint">
+      <meta name="indexterm" content="CrowdFX: pose constraint">
+      <meta name="topic-type" content="concept">
+      <title>Constraining the Orientation, Scale, or Pose</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-8953C9D2-53CD-4443-B388-5E60156B57DD"></a></span><div class="head">
+            <h1>Constraining the Orientation, Scale, or Pose</h1>
+         </div><span class="anchor_wrapper"><a name="FIG_C40D4D5C1C314232A8C50E63C4A3CDFF"></a></span><div class="figure-anchor"><img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-208F8AEE-10A0-4C67-96D7-12F095D38AE4"></a></span>Using several different compounds, you can constrain the scaling, orientation, or
+            whole pose of a deformer in the actor's proxy rig. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-A0B52384-9A53-4A3B-A17F-3A2DDC33F853"></a></span>The hierarchy of the rig proxy matters when you want to constrain multiple deformers
+            in a branch, such as an arm, leg, or the upper body. Make sure that the deformers
+            are parented correctly in the rig proxy, then you can constrain the parent deformer
+            to affect that branch. See <span class="char_link"><a href="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4.htm">Modifying the Actor's Rig</a></span> for more information. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-84D18808-483C-42FB-8EC9-130BF87A4F53"></a></span> If you want to control specific deformers based on conditions you set, you can use
+            constraints within an action state system - see <span class="char_link"><a href="GUID-EFC969AB-C37B-4BE0-BEA9-71DDE25457FA.htm">Modifying Deformer Transformations for the Animation States</a></span> for more information. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_2E0CE65CD3054BA78111B881A97125C0"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-BD03C89B-45CB-4501-B072-A58AA2F09EFE"></a></span>Constraining a Deformer's Orientation
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-99FC7298-51E5-428D-95E6-93FF62C1D4E4"></a></span>   
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-AF9CC85B-BB4E-4036-A27F-1F1E8AA361F1"></a></span> Using the Crowd Orientation Constraint compound, you can constrain the rotation of
+               a deformer in an actor's rig proxy to angles that you define. For example, you could
+               rotate the actor's torso deformer, which is the parent of the upper spine, arms, and
+               head, to make the actors bow down as shown in the crowd below. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-51CBA27E-C0A6-4B4F-895F-44B8FF105043"></a></span> <img src="../images/GUID-62BAC594-1EBA-4CB7-909C-E3E43B4B38B3-low.png"> 
+            </p> <span class="anchor_wrapper"><a name="OL_346A9438CDAB49C3BFA5CC663FA4B74C"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B2EF99E9-004E-4A69-A91B-29B9F5A4D54F"></a></span>In the simulation point cloud's Animation Definition node of the Animation_Blending
+                     ICE tree, get a <span class="char_link"><a href="iceref_Crowd_Orientation_Constraint.htm">Crowd Orientation Constraint</a></span> compound. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2FFA2F9B-8C21-49C7-84EB-4FA9E33FBFFF"></a></span>In a <span class="MenuCascade" id="GUID-2CD08ED3-EDCD-460C-8B93-F0CA4AB71816">Get Data</span> node, set the reference to the deformer you want to constrain. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1A59DFD4-D03C-44EF-80FE-B12200DC4D28"></a></span> You can display the rig proxy as described in <span class="char_link"><a href="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4.htm">Modifying the Actor's Rig</a></span> to help you find the correct deformer. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FA88E0F4-55FA-407D-92A4-73071561F166"></a></span>Plug the Get Data node's Out Name output into the <em class="strong">Proxy Deformer Name</em> port of the <span class="MenuCascade" id="GUID-055FA70E-C3AD-4BE9-84B1-7DBD866E8245">Crowd Orientation Constraint</span> compound. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-19CE0E12-58A5-4309-B4C6-3401D17648EC"></a></span>If you are constraining a parent deformer, make sure that the <span class="MenuCascade" id="GUID-16E9BF6F-4BC5-4234-9F73-4A72ACFB9D00">Child Transform Compensation</span> option is off in the <span class="MenuCascade" id="GUID-85F29B5C-ADF0-4343-AA28-19792C94CBD0">Crowd Orientation Constraint</span> compound's property editor so that the child deformers are also affected by the constraint.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-52F9ABAF-B1D5-4F18-B247-32EBD82A8F4E"></a></span>Set the <span class="MenuCascade" id="GUID-3270D865-E5D5-48DD-B9BB-4F536102FCFB">Rotation</span> XYZ axis values in the <span class="MenuCascade" id="GUID-109BFBEC-3E64-49E4-B066-12327BCE6591">Crowd Orientation Constraint</span> compound. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3AD4F5B6-87BD-49E0-ACD8-BD8DB4C5D5DC"></a></span>In this example, the Rotation is being driven by random values within a defined range.
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_F01EEB245F8A431AA415B60281922A2C"></a></span><div class="figure-anchor"><img src="../images/GUID-4E537898-646C-4E4F-A58E-05AF1CCA3454-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F91D8DE9-A913-43E9-A1EF-77B9DD76DB9B"></a></span>Set the <span class="MenuCascade" id="GUID-193B83FE-5DB6-4ED9-8D1E-E7331789F1AE">Blend</span> value in the constraint compound to blend between the weight of the original simulation
+                     (value of 0) and the new rotation value you're defining (value of 1). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-44790E32-6BB2-4059-8F6C-1D46898BEC80"></a></span>You can animate this value to change the rotation, such as making the actors bow down
+                     and then return to their original upright position. 
+                  </p> 
+               </li>
+               <li>Connect the Execute output port in the <span class="MenuCascade" id="GUID-26CC6355-FAF4-4B16-91E7-913C8758675C">Crowd Orientation Constraint</span> compound to the <span class="MenuCascade" id="GUID-A3889E22-7703-4CA7-A776-FC5A36A858A9">Pose Modifier</span> port in the <span class="MenuCascade" id="GUID-1546F5D3-5630-4578-AB10-B2AD4C7F2625">Define Animation State</span> node. 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_BDAF1D5CE69A4D41BAFE709977BD00C8"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-5C7F6F93-AFF7-4124-B314-608709CA5B53"></a></span>Constraining a Deformer's Scale
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-D7F89E20-49A5-4BEB-87C7-98DDFE57E536"></a></span>   
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-B344395D-0829-4FDB-AC66-16641531C3AC"></a></span> Using the Crowd Scaling Constraint compound, you can constrain the scaling of a deformer
+               in an actor's rig proxy in its local space on any or all of its XYZ axes. This is
+               handy for making adjustments to actors who use the same rig, but need different proportions,
+               or to simply add randomization to the actors in the crowd. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-A4271286-0A88-45A6-BD41-1C17BA843C9A"></a></span>If the deformer is a parent of other deformers, you can scale the whole branch, or
+               just the parent. For example, you can constrain the scaling of the actor's upper body
+               by scaling the torso deformer, which is the parent of the upper spine, arms, and head,
+               as shown in the crowd below. 
+            </p> <span class="anchor_wrapper"><a name="FIG_02FD8454F4FD402ABD087C67EC29D3FC"></a></span><div class="figure-anchor"><img src="../images/GUID-73365230-C1CC-498A-AEFB-7C5E06DEA106-low.png"></div> 
+            <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-058BD134-9A36-4AC7-8472-7034DD8E7106"></a></span><div class="note-note"><span class="label">NOTE:</span>You can also scale the whole actor at emission by setting the particle's <span class="MenuCascade" id="GUID-E0390B8B-74E8-44F9-9C3B-90599342B9EB">Size</span> and <span class="MenuCascade" id="GUID-D6D09ADF-7016-4D58-AA7E-DCD8A1B2AFA1">Scale</span> values — see <span class="char_link"><a href="GUID-95B5FEE8-6205-4F72-ACE5-40A7C9474C5C.htm">Setting Up the Crowd Particle Emission</a></span>. This allows the actor's legs and feet to properly detect the terrain. 
+               </div>
+            </div> 
+            <p><span class="anchor_wrapper"><a name="GUID-2F37493D-7FB1-4577-AB25-7B189CEEB460"></a></span> <span class="anchor_wrapper"><a name="OL_1E5497B2A63B49639CB599A813885C03"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E019472E-2442-4FDC-9A13-7C8F9F0E3053"></a></span>In the simulation point cloud's Define Animation node of the Animation_Blending ICE
+                        tree, get a <span class="char_link"><a href="iceref_Crowd_Scaling_Constraint.htm">Crowd Scaling Constraint</a></span> compound. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-92279738-78CB-4065-B5B6-E9CF2828C607"></a></span>In a <span class="MenuCascade" id="GUID-10C32D12-68D8-4719-BC35-2CC4E9D742BC">Get Data</span> node, set the reference to the deformer you want to constrain. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BB869EDB-0407-42C0-947A-51D5C43CCD27"></a></span> You can display the rig proxy as described in <span class="char_link"><a href="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4.htm">Modifying the Actor's Rig</a></span> to help you find the correct deformer. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-432191FD-700C-426A-8496-DF20FCE7FD64"></a></span>Plug the Get Data node's Out Name output into the <em class="strong">Proxy Deformer Name</em> port of the <span class="MenuCascade" id="GUID-54FB276D-44C6-4CCB-9785-638F6D9F5A23">Crowd Scaling Constraint</span> compound. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-39D3FEF7-BC85-49AE-92DF-E427FB488AA7"></a></span>If you are constraining a parent deformer, make sure that the <span class="MenuCascade" id="GUID-D3C15BF2-A2DE-4265-AE9B-DAD5BF81ABDD">Child Transform Compensation</span> option is off in the <span class="MenuCascade" id="GUID-018A892F-AEEF-41C2-8241-118F305BE0C3">Crowd Scaling Constraint</span> compound's property editor so that the child deformers are also affected by the constraint.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-796CA4D3-E6DD-4378-B6F9-BAE2854F61D9"></a></span>Set the values for any or all of the <span class="MenuCascade" id="GUID-0853F0EA-F550-4AFA-BA2A-58A4C063FEAB">Scaling</span> XYZ axes in the <span class="MenuCascade" id="GUID-2E520AFD-7BFC-461B-BB43-FE2062CA6D5B">Crowd Scaling Constraint</span> compound. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6D3C5F03-0387-4DCF-ABC9-0F6ED65B779F"></a></span>In this example, the Scaling on each axis is being driven by random values within
+                        a defined range. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_23A88C3DB54D42AC8D3589D6F3AF2FD5"></a></span><div class="figure-anchor"><img src="../images/GUID-B651F111-9D62-47DD-BD82-DA74EF984402-low.png"></div> 
+                  </li>
+                  <li>Connect the Execute output port of the <span class="MenuCascade" id="GUID-46B2B764-34F3-4007-A30D-7ACFFDBA8176">Crowd Scaling Constraint</span> compound to the <span class="MenuCascade" id="GUID-BE27966F-5CC3-4079-B687-8E758B564B33">Pose Modifier</span> port in the <span class="MenuCascade" id="GUID-C9F43521-CAA7-4C55-B78E-A7F4E01EED6B">Define Animation State</span> node. 
+                  </li>
+               </ol> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_D4D5679B01FC4EA6881267260CE5EA43"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-60E88DD2-6638-4307-AEE1-3D8309BA4036"></a></span>Constraining a Deformer's Pose
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-A9EE55F0-96FF-462C-8C26-C32716EEB1E6"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-08BBC2E2-3B32-4ADD-BCF1-C498CA370D04"></a></span> Using the <span class="char_link"><a href="iceref_Crowd_Pose_Constraint.htm">Crowd Pose Constraint</a></span> compound, you can constrain all three transformation types (scaling, orientation,
+               and position) of a deformer in an actor's rig proxy using only one constraint. Of
+               course, you can constrain only the transformations you want. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-D65694EE-5B7F-4E5B-86B1-40D93BA752E1"></a></span>The procedure for using this compound is the same as for the Crowd Orientation Constraint
+               or Crowd Scaling Constraint compound above, except that you can set the XYZ axis values
+               for any or all of the Scaling, Rotation, and/or Translation parameters in the Crowd
+               Pose Constraint compound. 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

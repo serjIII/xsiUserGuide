@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-AEFC79B7-3187-4770-A7AA-70DF80EBFD80">
+      <meta name="topic-type" content="concept">
+      <title>Photographic Exposure (mia)</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-AEFC79B7-3187-4770-A7AA-70DF80EBFD80"></a></span><div class="head">
+            <h1>Photographic Exposure (mia)</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-468B52BA-0FDF-4224-8C7F-A2D476EEC5FF"></a></span>| <span class="char_link"><a href="lens_shaders_PhotographicExposure.htm#WS8B73F3A56BA07E47A5E27C11F73EBA9F-0016">Render Tree Usage</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-76957301-F0D1-43B2-B1F7-8277789255D0"></a></span> <em class="strong">Category:</em> Lens 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-43D491A2-730A-4371-933E-78FB4B65FFAF"></a></span> <em class="strong">Shader Family:</em> Lens 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8AD920CD-4F79-4C03-B9D1-5DAA664021A3"></a></span> <em class="strong">Output:</em> Color 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F4681353-4906-471F-89B9-B9E5B05EB8C4"></a></span> <span class="MenuCascade" id="GUID-AD30A72F-7754-4070-AAA3-274B1726D138">Related mental ray shader:</span> <span class="char_link"><a href="mentalray_mia_exposure_photographic.htm">mia_exposure_photographic</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D82D214F-181B-4B66-A2ED-1CB4D31E948E"></a></span>This shader is a tone mapper that converts actual pixel luminances (in candela per
+               square meter) into image pixels as seen by a camera, applying camera-related parameters
+               (such as f-stops and shutter times) for the exposure, as well as applying tone mapping
+               that emulates film and camera effects. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A1AF4CD2-7E2F-4D8E-B2F8-E8BBC39DC811"></a></span>The shader has two basic modes: 
+            </p><span class="anchor_wrapper"><a name="UL_2CC0E04CD6F24B1F9D3C43C079301BED"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8CBFA22F-A22D-443E-B650-6405DCC02EE0"></a></span> <span class="MenuCascade" id="GUID-353B7291-0B25-4ACF-AE25-A4F605CE55E6">Photographic</span> mode assumes that the input values are (or can be converted to) candela per square
+                     meter. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8E9E6B00-0A0D-4FEF-8664-43307F7974B9"></a></span> <span class="MenuCascade" id="GUID-1A0A8EB2-D892-4E4C-8223-F9D96BF102D6">Arbitrary</span> mode assumes that scene pixels are not in any particular physical unit, and are simply
+                     scaled by a factor to fit in the display range of the screen. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-EEB83712-C294-44F4-9ACC-38CB4D8865A9"></a></span>If the Film Speed (ISO) parameter is non-zero, the photographic mode is used, and
+               if it is zero, the arbitrary mode is used. 
+            </p><span class="anchor_wrapper"><a name="TABLE_0567BDB78B134251AA08090C19E98123"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-01E9E4AB-68DF-44B6-A4CD-63B59C1A129A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-984AB138-CD5C-45D0-8E86-37028CFAAF03">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6C2BA938-42D9-4A53-B857-116EF72D9E33"></a></span><p class="table-body">The shader's name. Enter any name you like, or leave the default. </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-265DB934-F868-4AA0-8F70-828129713955"></a></span>Film Settings
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7715AFF8-2164-450F-9D00-C0E4D144DE1C"></a></span>In photography, the film speed (the ISO value), the aperture (f-number) and shutter
+                  time all interact to define the actual exposure of the camera. Therefore, to modify
+                  the exposure you could modify each of them to achieve the same result. For example,
+                  to make the image half as bright, you could halve the shutter time, halve the ISO
+                  of the film, or change the aperture one "stop" (for example from f/16 to f/22). In
+                  a real world camera there would be subtle differences between these different methods,
+                  but with this shader they are mathematically equivalent. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_6D030B2C7BE3430AB01773EA4C382F4D"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A69233C3-273B-414D-B499-0777D0EBC216"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AB979B97-5C39-41CB-93A7-8FBC8DF5CF33">Film Speed (ISO)</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E305EF4B-F22E-427B-84C2-BC75ADE906D2"></a></span><p class="table-body">Specifies the ISO number of the film, also known as "film speed". </p> <span class="anchor_wrapper"><a name="GUID-EFF62F07-CBC1-4F2A-BC3C-434F33DAB366"></a></span><p class="table-body">As described above, if this is set to zero, the arbitrary mode is enabled and all
+                              color scaling is then strictly defined by the value of <span class="MenuCascade" id="GUID-3954386C-BC2F-4831-AAC4-AAFD4960C4B9">cd/m^2 Factor</span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AB7E4C0B-E9E2-494D-87CF-AEC6E5B69D76"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9B680186-3728-4C80-90CA-570FE03DEEDB">Shutter Time Ratio</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-76681D09-64BE-44F9-BFCA-42531448A9E8"></a></span><p class="table-body">The camera shutter time to be expressed in fractional seconds. For example, the value
+                              100 means a camera shutter speed of 1/100. This value has no effect in arbitrary mode.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BAFA549F-6684-486E-BC02-73A2DEC5D205"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BFE3C80B-2B66-4B5B-A678-9BF3A82FED46">f-Stop Number</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-347E1C39-0B58-4311-99FD-8592E2ED9DE1"></a></span><p class="table-body">The fractional aperture number. For example, 11 means an aperture of f/11. </p> <span class="anchor_wrapper"><a name="GUID-94FFA700-B91C-4BF7-A8C5-D87BEB4F76B6"></a></span><p class="table-body">Aperture numbers on cameras are expressed in specific standard series: f/8, f/11,
+                              f/16, f/22, etc. Each of these are referred to as a "stop" (from the fact that aperture
+                              rings on real lenses tend to have physical "clicks" for these values) and each such
+                              "stop" represents half the amount of light hitting the film at each increased "stop".
+                              It is important to note that this shader doesn't count "stops", you must give it the
+                              actually f-number for that stop. This value has no effect in arbitrary mode. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-826FA3B1-AB63-4A99-8284-2D84F8056075"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2E27E601-D5DF-4266-9C29-DF461D4F595A">Whitepoint</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B9C7CEEB-A6F1-42EE-BCA6-D9E005FE2212"></a></span><p class="table-body">A color that will be mapped to "white" on output. For example, an incoming color of
+                              this hue/saturation will be mapped to grayscale, but its intensity will remain unchanged.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-39EE9AEE-AE1A-4C2A-8A53-611CDFA1CE5C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1EB546FD-D77E-4FCC-BB22-F92CF74C5510">Vignetting</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1D29EF02-7E72-4DAE-8858-2EFBC59A8B1C"></a></span><p class="table-body">In a real camera the angle with which the light hits the film impacts the exposure,
+                              causing the image to go darker around the edges. The vignetting parameter simulates
+                              this effect. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1D737D4B-8635-4201-ABD0-17750A178F02"></a></span><p class="table-body">When 0.0, vignetting is off, and higher values cause stronger and stronger darkening
+                              around the edges. Note that this effect is based on the cosine of the angle with which
+                              the light ray would hit the film plane, and it is affected by the field-of-view of
+                              the camera, and will not work at all for orthographic renderings. A good default is
+                              3.0, which is similar to what a compact camera would generate. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FFFC4D3A-F55D-46A0-9BF3-24B1ED91E9B0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4B021FCF-0572-4DA9-AFD3-CD6C4FEBEA38">cd/m^2 Factor</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0953180F-8280-42A6-898E-74D21E1C430E"></a></span><p class="table-body">In photographic mode (a non-zero film speed) this is the factor used to convert between
+                              pixel values and candela per square meter. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-0AD90283-2338-46AC-B91C-C6DBAD3F87CC"></a></span><p class="table-body">In arbitrary mode (a zero film speed), this factor is a multiplier applied when scaling
+                              rendered pixel values to screen pixels. This is analogous to the Gain parameter of
+                              the <span class="char_link"><a href="lens_shaders_SimpleToneMapping.htm">Simple Tone Mapping (mia)</a></span> shader. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-65A3A412-B39C-4991-BFFB-8104D6A9A7CA"></a></span>Tone Mapping
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F6260623-4181-4C53-9607-409E256A8BF9"></a></span>The parameters Allowed Overexposure and Allowed Underexposure guide the actual "tone
+                  mapping" of the image. That is, they specify exactly how the high dynamic range imagery
+                  is adapted to fit into the black-to-white range of a display device. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-759BE6F6-8D61-447F-BAFD-05B6C1D72E4B"></a></span>If Allowed Overexposure is one and Allowed Underexposure is zero, the transfer is
+                  linear and the shader behaves like a simple linear intensity scaler only. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_B4399CB3779A4AFF854A2DE0033FA05D"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C82CFA5F-5A85-4D0B-8338-05C6B26EB626"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9AC7470A-62A0-4B4A-A698-2B258A5C6AB7">Allowed Overexposure</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3BF59143-37E2-49A3-95E6-8DD578506BFC"></a></span><p class="table-body">Defines how much over-exposure is allowed. </p> <span class="anchor_wrapper"><a name="GUID-4250F6F9-E3F5-4A4C-9B7A-B6CFCFB87EFB"></a></span><p class="table-body">As it is decreased from 1 towards 0.0, high intensities will become more and more
+                              "compressed" to lower intensities. When it is 0.0, the compression curve is asymptotic,
+                              which means an infinite input value maps to a white output value, and overexposure
+                              is no longer possible. A good default value is 0.5. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F6FB17AE-D7BD-4551-B3D4-710C577D7AE0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A4180D4A-7988-4371-B13D-36A1AFD6E291">Allowed Underexposure</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-81D33409-66FF-499E-A08F-B469D7F44DB1"></a></span><p class="table-body">When the upper part of the dynamic range becomes compressed it naturally loses some
+                              of its former contrast, but you can get some of that "punch" back into the image by
+                              using the Allowed Underexposure parameter. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-F7EFB9B3-5508-4A8D-B410-84E525EB5FAA"></a></span><p class="table-body">When 0.0, the lower intensity range is linear, but when raised towards one, a strong
+                              "toe" region is added to the transfer curve so that low intensities gets pushed more
+                              towards black, but in a gentle (soft) fashion. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-68552877-5237-49BE-AAE3-058D7544A87F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-924CFC80-7CD7-4957-A8B9-141830DE7177">Saturation</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-820574F1-5A3E-4BA0-B8FC-6AABF5B95C1C"></a></span><p class="table-body">Compressing bright color components inherently moves them towards a less saturated
+                              color. Sometimes, very strong compressions can make the image look unappealingly washed
+                              out. The Saturation parameter provides artistic control over the final image saturation.
+                              1.0 is the standard unmodified saturation, higher values increase the saturation and
+                              lower values decrease the saturation. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-36BD9A74-A1D3-43C8-BB24-7CE97E444AC2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8C16F6AF-87B6-4373-A70B-8733168B7E96">Gamma</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-732DC4A2-7846-4702-8D9C-AFD58787FF1F"></a></span><p class="table-body">Applies a display gamma correction. Be careful not to apply gamma twice in the image
+                              pipeline. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CB97708B-3FFB-446C-A4F5-AED55E6E7322"></a></span>Side Channel
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-84B5A6BF-126A-413F-BAC9-1A828547AAFF"></a></span>Supports the case where you want to insert an output shader prior to the conversion
+                  to "display pixel values". 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-80FFBC3C-42C9-44A1-A62B-232217198DDC"></a></span>This is accomplished by applying two copies of the shader, one as lens shader, the
+                  other as an output shader. The two shaders communicate via the "side channel", which
+                  is a separate floating point framebuffer that needs to be set up prior to rendering.
+                  See <span class="char_link"><a href="render_channels.htm">Render Channels &amp; Framebuffers</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_3408DB2D77804DDD859F3D53F1E26EEC"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CC8BA5E6-D629-4E7D-8E30-C2B57F52E3FF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-01D29DB5-C5AE-4773-AF52-AC33C0E91D73">Side Channel Mode</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="UL_B59DE2C254384CBBB452DF1AB54DE38A"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-3D2C1D2A-7458-4867-84BB-AB9EC6789EB8"></a></span> <span class="MenuCascade" id="GUID-1C50DC0A-F69F-43E2-94A1-D12F47293590">Normal (No side channel):</span> The shader is run normally as a lens shader. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-D5558845-303E-49B5-AC5A-CA60398FFE6A"></a></span> <span class="MenuCascade" id="GUID-178F6A33-A3AE-40DA-ACEA-D63245684F63">Process side channel in output shader:</span> The lens shader saves the un-tonemapped value in the side channel framebuffer. Then
+                                    the output shader re-executes the tone mapping based on the data in the side channel,
+                                    not the pixels in the main framebuffer. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-8BE0765F-BFFD-4936-8C64-B14437BF20FD"></a></span> <span class="MenuCascade" id="GUID-F2FB6493-D645-40D3-A12D-7207F7CC9DBA">Process side channel into main buffer in output shader:</span> The lens shader saves the un-tonemapped value in the side channel framebuffer. Then
+                                    the output shader reads the pixels from the side channel framebuffer back into the
+                                    main framebuffer. This is useful when you want to run a third party output shader
+                                    that only runs on the main framebuffer. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-73352AE9-DF3C-469E-A64D-C4CABA8D93AC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7C5D8C0C-08F2-423D-B1E7-18D4DF5CFF7B">[side channel]</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3A74DDA9-B971-4177-B03E-4FC17CABAC79"></a></span><p class="table-body">Select a custom render channel to act as the side channel. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0C689CB3-36D3-45D5-8032-2910DDEA3816"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5FBE07CE-0991-46FC-8E56-FC0F0D92C6FC">Add...</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-94CEA665-8872-4009-9353-D9EACC452654"></a></span><p class="table-body">If you have not created a custom render channel yet, then click the <span class="MenuCascade" id="GUID-40D721A3-8BC3-41AC-ADDA-11D0DC126979">Add</span> button and enter a name for the render channel. The render channel is automatically
+                              added to the scene's Available Channels grid using the appropriate data type for the
+                              output. See <span class="char_link"><a href="renderchannels_RenderingCustomChannels.htm#WSC3E5E55625BD5A41A60AC47CADE8610F-000D">Creating a Custom Render Channel for the Scene</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-0F8A199F-AD54-4F83-8DF9-AC3536EF86B0"></a></span><p class="table-body">You will also have to add the render channel to the pass and set the pass options
+                              in order to render the output. See <span class="char_link"><a href="renderchannels_RenderingBuiltInandPresetChannels.htm#WSC3E5E55625BD5A41A60AC47CADE8610F-0007">Adding a Render Channel for the Pass</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-0015"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ACA2AB60-5141-4B3B-A6EE-37FEB17B879F"></a></span>Preview
+               </h2> <span class="anchor_wrapper"><a name="TABLE_4BBE915C31104B14B6059CECE6BCC4C9"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2607674B-DF1E-4061-AE34-A1D79613A0C9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6BDAB945-3C25-4848-A5BA-A399F0840141">Use Preview</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2E5F94CF-8193-4BC7-9B64-B99C485D96FF"></a></span><p class="table-body">Makes the process of tweaking the tone mapper more interactive by allowing you to
+                              preview the results. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-72CB8CA0-FB92-4B7D-8A3B-866BD2E3548C"></a></span><p class="table-body">To tweak the tone mapping using a preview image, do the following: </p> <span class="anchor_wrapper"><a name="GUID-A1719F6C-7229-4983-B4D6-99C9AAAAF4A4"></a></span><ol type="1" start="1">
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-DC30FD72-5F0C-42F0-866A-A59C0B194523"></a></span>Disable the Photographic Exposure shader. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-0DADC1B9-2198-451E-83A3-A5AF3CAC4C9C"></a></span>Render the image to a file in an HDRI capable format (such as *.exr, *.hdr, etc.)
+                                    and name it, for example, preview.exr. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-9D546B79-CB66-44C8-9DCE-17E6BFB06E36"></a></span>Add the preview image to the scene as an image clip and source. For more information,
+                                    see <span class="char_link"><a href="tex_clip_source_LoadingCreatingSourcesandClips.htm#WS268DA51328BC334380524F8F66369EBF-0012">Creating Sources and Clips</a></span>. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-B297CBC2-2633-4608-8A99-58675105E24F"></a></span>Enable the Photographic Exposure shader again. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-B9690893-B29D-4E24-887E-55C2FBDF8F4D"></a></span>In the render tree, get the preview image from the Clips menu and connect it to the
+                                    shader's <span class="MenuCascade" id="GUID-3DB42732-AA52-4432-AC2B-ED74CB3FD005">preview</span> input port. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-A2CF6771-5176-4D81-9D06-271156907DC0"></a></span>Select the Use Preview checkbox. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-7C6F509E-27F4-462F-BC75-003F4468801E"></a></span>Disable any photon mapping or final gathering. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-44F86AE3-60FF-4D6E-BC86-7B25564A623E"></a></span>Re-render. The rendering will be nearly instant, because no actual rendering occurs
+                                    at all: the image is read from the preview file and is immediately tone mapped to
+                                    screen. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-08D42C23-F306-48B0-B7C9-9843B4EDBD57"></a></span>Tweak the parameters and render again until you are satisfied with the results. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-B1447872-6049-4907-9069-2B1719BE49B6"></a></span>Re-enable any photons or final gathering. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-808AAD9F-5B36-4B49-B557-17C987C03A6D"></a></span>Turn off Use Preview. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-6983930B-36A7-476B-859C-89D8EF9EA494"></a></span>The shader is tuned and ready for final output. 
+                                 </p> 
+                              </li>
+                           </ol> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8B73F3A56BA07E47A5E27C11F73EBA9F-0016"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E03121E6-E811-44F5-966B-11AC3E88E7BD"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1CB75CCB-9A45-4C5D-88B1-26B0D65FFA8D"></a></span>This shader can be applied directly to the camera in the lens shader stack. See <span class="char_link"><a href="cameras_AddingLensShaderstotheCamera.htm">Applying Lens Shaders to Cameras</a></span> [<span class="char_link"><a href="cam_cover.htm">Cameras and Motion Blur</a></span>]. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-24FE776A-D01E-406D-B28D-5F308A19B9D1"></a></span>It is also used with the Physical Sky and Physical Sun shaders when you run the Initialize
+                  Sky Shader plug-in — see <span class="char_link"><a href="environment_shaders_PhysicalSky.htm#WSDB911DA6DE2BCE449A3C7AF04BA6CCDA-0023">Creating the Physical Sky Shader Setup</a></span> for more information. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

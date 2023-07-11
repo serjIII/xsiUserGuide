@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-A43D19E4-8697-49C4-811D-E8FDB415BEE7">
+      <meta name="indexterm" content="cloth simulation: stiffness">
+      <meta name="indexterm" content="cloth simulation: spring nets">
+      <meta name="indexterm" content="spring nets for cloth">
+      <meta name="indexterm" content="cloth simulation: resistance to deformation (shear, bend, stretch)">
+      <meta name="topic-type" content="concept">
+      <title>Controlling the Stretch with Spring Nets</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-A43D19E4-8697-49C4-811D-E8FDB415BEE7"></a></span><div class="head">
+            <h1>Controlling the Stretch with Spring Nets</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-F47B0811-ECF9-4F27-A2E2-D63317C33F79"></a></span>Cloth deformation is controlled by a virtual "spring net." Springs are distributed
+               onto the cloth surface and connect the vertices of the model according to a specific
+               rule. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-1E986AD3-23D5-4F88-A946-A73B43E3DD3A"></a></span>There are three different types of springs that constitute the spring net, each controlling
+               a different kind of deformation: 
+            </p><span class="anchor_wrapper"><a name="UL_165BD1139B0B4EA3ADEDCF6C07CFDD02"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-14CE4D46-D897-42A3-BE8C-5C7BCD242B6C"></a></span> <span class="MenuCascade" id="GUID-7E45E548-FDC3-4413-B7CF-139D45DFFF7C">Stretch springs</span>, which connect adjacent vertices of polygons or quads. They correspond to the visible
+                     edges of the wireframe model. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A96FDE4E-1DE1-4903-BF6B-A89592434AD0"></a></span> <span class="MenuCascade" id="GUID-5A25D954-CE25-461D-B251-C28594E4DCBF">Shear springs</span>, which connect non-adjacent vertices of the same polygon or quad. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C356E239-2E39-4A7F-ACDD-4B8D3A4A1DEC"></a></span> <span class="MenuCascade" id="GUID-1FEBF5A5-5DA4-479F-A20E-5E91D63D24D9">Bend (flex) springs</span>, which are the same as Stretch, but connect every other vertex, skipping the adjacent
+                     ones. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-9B589BBE-423A-4BC7-B895-27A8796A5F0B"></a></span>This illustration shows how cloth is applied to NURBS surface objects: 
+            </p><span class="anchor_wrapper"><a name="FIG_010136CCE10848338B4C447DD72F776A"></a></span><div class="figure-anchor"><img src="../images/GUID-B43C6252-CE4C-476A-8B26-D6A51B5DFD68-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-002F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2E8EBE27-4A01-40EE-A1B1-C89431EBD51E"></a></span>Shear, Bend, and Stretch Resistance (Stiffness)
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-D8FFCF4A-4D2C-4C05-9619-574E12E67E4F"></a></span>The elastic constant values associated with these springs are the <span class="MenuCascade" id="GUID-08CECFDD-55C3-4748-B0E7-B32AF3387B50">Stiffness</span> parameters found on the <span class="char_link"><a href="property7004.htm">Cloth Property Editor</a></span>. They define how soft or rigid a fabric is, such as the difference between silk and
+                  leather. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-BA678F7E-8DE2-4226-ACE6-4620B4F72D9F"></a></span><div class="note-tip"><span class="label">TIP:</span>Most of these parameters are mappable (ones with a connection icon beside them), meaning
+                     that you can use weight and texture maps on them to modulate their value. For more
+                     information on this, see <span class="char_link"><a href="scel_parametermaps.htm">Parameter Maps</a></span>. 
+                  </div>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-C72AA0E5-096B-4CBC-8FCD-CA38D28CC482"></a></span>To help reduce that stretchy, "rubbery" look when a cloth drapes over an obstacle,
+                  use high values for all the <span class="MenuCascade" id="GUID-3E07B177-B877-40A4-905B-9515A7669403">Stiffness</span> parameters. Low values (no resistance) allow the cloth to deform without resistance.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8F31E5BF-3720-49D2-AF35-7369D0FE9918"></a></span>You can set the cloth's <span class="MenuCascade" id="GUID-AD45812F-51B0-4512-908C-2C76BAF7D041">Initial Tension %</span>, which gives an initial tension to the cloth by stretching or compressing the springs
+                  used to simulate the fabric. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DB9C5C9E-353B-4910-883F-102747AB774F"></a></span>And setting a <span class="MenuCascade" id="GUID-0F4A40E2-2650-47AF-8172-F784D2192A46">Stretch Limit</span> can help stabilize a cloth simulation. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_96971A451ADE455DA7109A7ACF8B03DD"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-2D5B7BD2-E2A1-4385-8431-EB1A870DF581-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-89D516E4-FFB0-4D54-ABF2-9B83595145E1-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D254470A-0EB3-4C05-9823-880BE1BB1456"></a></span><p class="table-body">Shear Resistance value of 1 on Silk cloth preset. </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-07E3B011-8C4D-4985-9FC2-1942EBA6661E"></a></span><p class="table-body">Shear Resistance value of 100 on Silk cloth preset. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> <span class="anchor_wrapper"><a name="TABLE_2548185FE4414E028142864482CFC69B"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-FAAC5AA4-510C-4389-A9D9-531886E2FB60-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-D8265755-EF80-4BAF-BBA1-8BB400588E5C-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F8775DE3-7189-48E2-8468-67905CD824F0"></a></span><p class="table-body">Bend Resistance value of 1 on Silk cloth preset. </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EC579B1F-640C-4660-B7EE-E999F567F121"></a></span><p class="table-body">Bend Resistance value of 300 on Silk cloth preset. </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-1622253A-0C05-4512-AC5B-592F028097DE-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-7A0D70AF-0D36-425C-AA45-4817DBE9674F-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-717504BD-5795-4417-85D7-51778E8B41B0"></a></span><p class="table-body">Stretch Resistance value of 1 on Silk cloth preset. </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-35162F2D-A317-4472-B7C9-3BD897913FDB"></a></span><p class="table-body">Stretch Resistance value of 500 on Silk cloth preset. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

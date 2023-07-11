@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-343B143C-C594-4001-853E-EA7CFC9FA0AC">
+      <meta name="topic-type" content="concept">
+      <title>Authoring Effects Files with the Realtime Shader Wizard</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-343B143C-C594-4001-853E-EA7CFC9FA0AC"></a></span><div class="head">
+            <h1>Authoring Effects Files with the Realtime Shader Wizard</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-2953402D-DC1F-48DD-AD06-1BBBABDE0B8E"></a></span>| <span class="char_link"><a href="rt_cgfx_hlsl_rtshaderwiz.htm#WS4F13F53798BA3F4FA5B9631E4DB3180B-0006">Information</a></span> | <span class="char_link"><a href="rt_cgfx_hlsl_rtshaderwiz.htm#WS4F13F53798BA3F4FA5B9631E4DB3180B-0009">Parameters</a></span> | <span class="char_link"><a href="rt_cgfx_hlsl_rtshaderwiz.htm#WS4F13F53798BA3F4FA5B9631E4DB3180B-000E">Entry Functions</a></span> | <span class="char_link"><a href="rt_cgfx_hlsl_rtshaderwiz.htm#WS4F13F53798BA3F4FA5B9631E4DB3180B-0012">Matrices</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E52A2D98-789A-410E-9923-757CE7760AF2"></a></span>Although you can author effects files using any number of third-party programs, you
+               can just as easily code and prototype .cgfx and .fx files directly within Softimage
+               using the RTShaderWizard available from the shader code editor. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-76A404D9-1440-49E7-BD60-D69BB445E6BF"></a></span>The wizard doesn't generate code that can be immediately used as is, you still have
+               to provide the implementation for the vertex and/or fragment functions, as well as
+               any techniques for drawing the effect. However, a significant portion of the shader
+               code structure can be put in place quickly when you use the realtime shader wizard.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A4AFD91B-4841-4FDF-96F8-334E9769E027"></a></span> <span class="MenuCascade" id="GUID-1779CC59-18A8-4061-952D-5DC0CECCD5DD">To display the realtime shader wizard:</span> 
+            </p><span class="anchor_wrapper"><a name="GUID-DDE7EA6F-80EC-43C8-9905-F7C8A3CDB8FB"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7EC1BCB4-D818-48A0-AF22-340723202BFC"></a></span>Choose <span class="MenuCascade" id="GUID-B53A6405-EC22-4C70-8A7C-88B5E62DD3DD">View <img src="../images/ac.menuaro.gif"> Rendering/Texturing <img src="../images/ac.menuaro.gif"> Shader Code Editor</span> from the main menu. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AE4AC7E2-9104-4042-A22A-D416E249B1FD"></a></span>Click the <span class="MenuCascade" id="GUID-0996E8A4-DDBD-47B7-B984-928E8B4DAA06">New Shader...</span> button. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3B48CF28-B462-4EC9-829D-2D03614F5B48"></a></span>The realtime shader wizard opens, where you can set the parameters for your effects
+                     file. 
+                  </p> 
+                  <div class="figure-anchor"><img src="../images/GUID-B0506A83-A4C2-4358-9327-25C6698C5C52-low.png"></div> 
+               </li>
+            </ol>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-80FCEF09-C8B0-4FCB-BF30-6306EE9E73B6"></a></span>Information
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-0007"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6E5B5475-C6F6-41B1-93D2-685728799193"></a></span>Shader
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_6A8A1F67A83F4AAE85E4F32116097333"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EBDD830D-358E-42C4-9AED-8DF928AD253C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8CB30804-4034-4D91-BC7A-BA38154C203C">Name</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-467F77FA-5A60-45A2-9F1F-725C5691434E"></a></span><p class="table-body">Specifies the name of the shader. </p> <span class="anchor_wrapper"><a name="GUID-2D0A1B08-E91C-4EA1-BDE0-E1561EF7A238"></a></span><p class="table-body">This is the name used to save the effects file on-disk, as the display name of the
+                                 shader in the preset manager and the Nodes menu, and as the default name of the shader
+                                 node in the render tree. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-D83256BD-EF3B-476F-9F30-DBE286542748"></a></span><p class="table-body">You can change the name of the actual shader node in the render tree, but this will
+                                 not affect the name of the shader as registered in the system. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-17D32847-C576-4261-B641-AE0C45C2DD99"></a></span><p class="table-body"> <em class="strong">Category</em> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C0A7000B-CC96-4377-A822-D93C6821A456"></a></span><p class="table-body">Specifies the category and subcategory where your shader is displayed in the preset
+                                 manager and the Nodes menu. You can define your own category and subcategory by entering
+                                 text for each separated by a forward slash. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-F7444873-6769-47F4-9C09-8A685822091B"></a></span><p class="table-body">Realtime@200/CgFX and Realtime @200/HLSL are the default category and subcategory
+                                 settings for all Softimage-provided CgFX and HLSL shaders. You can choose to display
+                                 your custom shaders in the default categories if you wish. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-A6A6ECC7-6496-4A27-A9F1-7188AC8A0576"></a></span><p class="table-body">If you do not specify a category, the effects shader will appear in the default Realtime
+                                 category in the preset manager. For more information, see <span class="char_link"><a href="rt_cgfx_hlsl_CategorizingEffectsShadersinthePresetManager.htm">Categorizing Effects Shaders in the Preset Manager</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-0008"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B2BF3777-43E0-4598-A8AA-E8156A8093CF"></a></span>Plug-in
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_1D5DEB27AAE84350AC09A1ADE494F3AD"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4B6247AD-EF8D-4773-AF63-572DA7EECAC3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B0387A0A-3490-4BC4-99BC-1E0E88ED76AC">Author</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BA01B592-26E4-44CA-8415-79BB9A12A390"></a></span><p class="table-body">Enter any name you wish. This string is appended to the boilerplate comments generated
+                                 at the beginning of every effects file created by the realtime shader wizard. 
+                              </p> 
+                              <div class="codeBlock"><pre>
+// MyCgFXToon
+// Initial code generated by Softimage Realtime Shader Wizard
+// Executed Tue Dec 1 01:32:47 EST 2009 by baynej</pre></div> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CF32EED2-724E-401F-8431-1634282BD9C2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-592A9A88-8B5D-4F55-89C1-693A6D2C5610">Coding Language</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8091F2FB-F4AF-41E0-8FED-3C95B85E1CBC"></a></span><p class="table-body">Select CgFX to generate and save a *.cgfx file or HLSL to generate and save a *.fx
+                                 file. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F0C67066-C237-4972-ABC9-66FACD525BC6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9FA91092-D570-4A9C-82A9-AE19CF295219">Ouput Directory</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B56F23E1-021B-42DA-ACA7-B79B066E3FA5"></a></span><p class="table-body">Saves your effects file to the specified output directory. You should store your effects
+                                 files in your user, workgroup, or factory locations under the Application/cgfx or
+                                 Application/hlsl folders. Textures should be placed in Application/fxtextures. For
+                                 more information, see <span class="char_link"><a href="rt_cgfx_hlsl_EditingFxFiles.htm">Loading Existing Effects Files in the Preset Manager</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-0009"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-19507EBD-992B-43CC-BFF7-07270E7D4394"></a></span>Parameters
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-000A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-437DEA0F-053C-4C0C-B977-85A253E314D0"></a></span>UI Parameters
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9F477E05-9ED4-4D87-8CB7-5B1F29CD82BB"></a></span>These options allow you to build "tweakable" parameter declarations. These values
+                     can be modified with user interface controls that are automatically generated in the
+                     property editor of the resulting effects shader. For more information, see <span class="char_link"><a href="rt_cgfx_hlsl_CreatingUserInterfacesforEffectsParameters.htm">Creating User Interfaces for Effects Parameters</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-663E2B95-154C-40F6-9196-AD1212E401E3"></a></span>Parameter declarations are of the general form: 
+                  </p> <span class="code">type name &lt;annotation_list&gt; = value ;</span> <span class="anchor_wrapper"><a name="TABLE_1274FE6947AD4FE9BD22C2BF6D94156E"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2B969CA3-2C26-439B-987A-0B352829AF61"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-70109F23-A88B-4738-ACCD-71A57A4D3BA7">Name</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-78D0C2EF-3FAB-40F4-841F-D6332867B700"></a></span><p class="table-body">Declares the name of the variable. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1D1F4ED5-6C76-46EB-833D-6B8F93D0A72C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FCA59948-362B-4337-AED9-D4766AAC01B7">Type</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-343486F9-B449-4C0C-BF6D-EE3FD202BF9E"></a></span><p class="table-body">Sets the data type for the variable. Each data type displays the necessary controls
+                                 for you to enter values. These same controls are automatically generated and displayed
+                                 in the property editor of the resulting effects shader. 
+                              </p> <span class="anchor_wrapper"><a name="UL_E7B558311CB943D5A567645C062D9840"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-7B36C028-B1A2-4C02-9F73-AD9442248FD8"></a></span> <span class="MenuCascade" id="GUID-BA2D5E8E-AE70-417B-A595-82FB2C309BA1">bool:</span> Creates an input that corresponds to a 0 or 1 (On/ Off or True/False). 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-810E399B-90F4-451E-8CAA-1351C974E88C"></a></span> <span class="MenuCascade" id="GUID-C8DEAE56-7E9C-4AEF-A38D-2E0C0D18E6C8">int:</span> Creates an input for a single integer (such as 2, 73, or 300). 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-40D60E89-E5BB-4D77-AAE0-62DD68E88A7D"></a></span> <span class="MenuCascade" id="GUID-29E935DD-B046-4763-B080-467F748241A7">float:</span> Creates an input for a single floating-point number. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-B7C3E8F0-BF80-4DA3-8D6D-17D999A81BE9"></a></span> <span class="MenuCascade" id="GUID-8230A710-07C1-4047-8895-00713BABFD84">float2:</span> Creates X and Y inputs for two floating-point numbers. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-72175931-F298-4BA7-823F-A606866E87ED"></a></span> <span class="MenuCascade" id="GUID-BC3105D8-85BA-4414-8F79-D64079EADADD">float3:</span> Creates X, Y, and Z inputs for three floating-point numbers. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-DE9303D3-19CA-4082-A368-A41732527867"></a></span> <span class="MenuCascade" id="GUID-AC4591B5-0661-40EB-AE38-3C8496EDE35D">float4:</span> Creates X, Y, Z, and W inputs for four floating-point numbers. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-71370F98-DB0C-4C4A-A159-0477C2DCDD0C"></a></span> <span class="MenuCascade" id="GUID-04C1E1D3-7E84-4814-86F6-2908DFDA5B4D">Color3:</span> Creates a float3 (RGB) color widget where you can specify values for the Red, Green,
+                                       and Blue channels. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-46F53C55-A055-42A7-9376-FE1F4AC84645"></a></span> <span class="MenuCascade" id="GUID-C56029B0-CA17-45B7-967B-F6298E148F3C">Color4:</span> Creates a float4 (RGBA) color widget where you can specify values for the Red, Green,
+                                       Blue and Alpha channels. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-7FA66696-44F7-423A-951A-BD6296212AAC"></a></span> <span class="MenuCascade" id="GUID-EDB4BD25-6B62-44E9-A631-F5CE2F04521F">texture2d:</span> Creates 2D texture and sampler code that references an on-disk texture image that
+                                       you specify. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-6303A084-6F2A-42CD-B77A-4CF943FE43C3"></a></span> <span class="MenuCascade" id="GUID-FF8BA9EE-04D2-4ED6-A148-BB4C1F61BFB1">texture3d:</span> Creates 3D texture and sampler code that references an on-disk DDS volume texture
+                                       that you specify. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-7B64ED36-DBE7-4A92-8154-ED362968F4BC"></a></span> <span class="MenuCascade" id="GUID-8AE218FD-97AD-4000-B2B0-4D231CD8E575">textureCUBE:</span> Creates cubic texture and sampler code that references an on-disk texture image that
+                                       you specify. Vertical and horizontal strips and crosses are automatically detected
+                                       according to the image height and width ratio. 
+                                    </p> 
+                                 </li>
+                              </ul> <span class="anchor_wrapper"><a name="GUID-A073F7DD-E9AA-4EFF-9FC1-5F3FA9A1EBC2"></a></span><p class="table-body">In all cases, textures must be located in your user, workgroup, or factory locations
+                                 under the Application/fxtextures folder. See <span class="char_link"><a href="rt_cgfx_hlsl_CreatingUserInterfacesforEffectsParameters.htm#WS4F13F53798BA3F4FA5B9631E4DB3180B-0028"> Texture Clip Control for On-Disk Images</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-55B1D228-9561-4D78-9C5D-3438D9CAE6A1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A4B5AD48-24C0-4BE2-BB04-8CFD09C19848">UI Name</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E8DA99B4-2252-4DB8-8292-98330F0712C4"></a></span><p class="table-body">Specifies a label for the user interface control displayed in the property editor
+                                 of the resulting effects shader. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F01A85FB-7B9F-4323-86A3-4B5A3EAFEE04"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A05491D2-5F9C-441E-A8C6-0D9D6BE0025C">UI Min</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C4C9254D-6939-412D-8FD8-41119B365AF4"></a></span><p class="table-body">Sets a minimum value for the parameter range. Only available with int and float data
+                                 types. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-23D09FAA-7869-4014-B8B3-CF98A7ACA167"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-49238E0E-9CD5-48B4-B63D-ED839319338E">UI Max</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3955C933-372F-49A8-9064-6E593B6D305B"></a></span><p class="table-body">Sets a maximum value for the parameter range. Only available with int and float data
+                                 types. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D08C3E8E-C184-4BBC-994F-457E36323A00"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AA3641FC-FC26-4B70-A8EC-0E0E2ACE4C11">Default Value</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8BDF7799-FA75-494E-A9E5-4EE5976F0B3D"></a></span><p class="table-body">Sets an initial value for the parameter. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-918D0AB3-5D5C-48FB-9BB7-255FBC09AB82"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-02CCA814-3119-4102-966B-C7C4CB9B6607">Add</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D66929B2-28A5-41F9-8AD4-7FA20674D5F4"></a></span><p class="table-body">Commits the UI parameter declaration to the parameters list. The entries in this list
+                                 are used to generate the code. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C50C7964-4153-4E60-84FB-31CA8430E908"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ADC597B1-41EF-41B1-BC97-2E025EBC8AAC">Remove Selected</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-822F1556-A46D-4232-B5C5-5492C06225D3"></a></span><p class="table-body">Deletes the selected UI parameter declaration from the parameters list. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body" colspan="2" align="left"> <img src="../images/GUID-80EC034F-5EA4-419A-8F10-B9308FDECCC7-low.png"> <span class="anchor_wrapper"><a name="GUID-772EEB42-6C48-4524-9277-8C8997F01503"></a></span><p class="table-body">Each row in the grid represents a UI parameter declaration. To select a row, click
+                                 the empty cell at the beginning of the row. Selected rows are highlighted in green.
+                                 You can also do any of the following when selecting rows: 
+                              </p> <span class="anchor_wrapper"><a name="UL_7D5412C8E3A9400AB2215236E2C974B9"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-CAF7629F-D49E-4868-8CAE-28BB4159044C"></a></span>Click to select a single parameter declaration (row) and deselect any others. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-BFD35794-B808-4904-8120-95272AD36986"></a></span>Crtl+click to add a parameter declaration (row) to your selection. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-94B4F4E6-AC5C-459D-B30D-94E8E8FAC524"></a></span>Shift+click to add a range of parameter declarations (rows) to your selection. 
+                                    </p> 
+                                 </li>
+                              </ul> <span class="anchor_wrapper"><a name="GUID-3A4D110F-E36A-446C-8322-0BF3287CADDC"></a></span><p class="table-body">To edit the value in a cell, click inside the cell (with the exception of the empty
+                                 cell at the beginning of a row). 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-000C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A04B4DEA-FC01-4399-9AC7-76AE4ABA8EE7"></a></span>Semantic Parameters
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BD835575-94F6-4CEC-A4F8-BC13DE97E1DC"></a></span>These options allow you to build semantic parameter declarations for when you need
+                     to specify semantics for binding to Softimage objects. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_D80A04C36A0B45B4BF60AB41265BFD29"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-70B1CC70-B9BD-4681-9774-F929E53A5570"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A6A204E4-0A98-479F-A57D-B6D843ED554B">Name</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F48E3CC6-803B-4114-BD18-E2A682205908"></a></span><p class="table-body">Declares the name of the variable. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AB523520-CFFE-4ADF-B6AE-359D51F86033"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8B8828C9-FAAC-45B9-9E3C-C84399509E60">Type</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4C655102-4079-40BE-867F-F601C230C920"></a></span><p class="table-body">Specifies a semantic for binding to Softimage objects (including camera and light
+                                 binding semantics). 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F3F7FFB8-99F4-4478-8321-C58C49F4BA7C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D8B46218-D3CF-4988-9F48-C3118830B032">Add</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4D86142F-0A40-413B-9098-C87FB4813432"></a></span><p class="table-body">Adds the semantic parameter declaration to the parameters list. The entries in this
+                                 list are used to generate the effects code. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-08296211-26DA-43F7-B0D4-537438A2F55D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CC76060B-0C8D-49CC-BBD6-D911A6C4D687">Remove Selected</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-022D4503-740D-4889-8372-F31F2545263A"></a></span><p class="table-body">Deletes the selected semantic parameter declaration from the parameters list. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body" colspan="2" align="left"> <img src="../images/GUID-F7E52557-0C39-447A-97D5-FF7DA62307D0-low.png"> <span class="anchor_wrapper"><a name="GUID-9C111152-FD29-46A4-ACB3-929473F0771F"></a></span><p class="table-body">Each row in the grid represents a semantic parameter declaration. To select a row,
+                                 click the empty cell at the beginning of the row. Selected rows are highlighted in
+                                 green. You can also do any of the following when selecting rows: 
+                              </p> <span class="anchor_wrapper"><a name="UL_05E24D98687441998AEE4DD3911590B0"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-1717E30B-9E75-48C1-AD17-FF3B420D96FB"></a></span>Click to select a single parameter declaration (row) and deselect any others. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-6F816D7D-1E2E-4C08-9368-10B3485193C3"></a></span>Crtl+click to add a parameter declaration (row) to your selection. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-A70429FE-8E39-445F-8239-FCFFE11A7950"></a></span>Shift+click to add a range of parameter declarations (rows) to your selection. 
+                                    </p> 
+                                 </li>
+                              </ul> <span class="anchor_wrapper"><a name="GUID-2EE6F6B9-8561-4727-8D2C-4500276D2FCD"></a></span><p class="table-body">To edit the value in a cell, click inside the cell (with the exception of the empty
+                                 cell at the beginning of a row). 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-42BB0362-764A-42A0-BB90-344B8D3215B1"></a></span>Entry Functions
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-000F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9B852A0E-D293-45DD-81A6-EC12059CE7FF"></a></span>Vertex Shader
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2DB048D4-2B02-4776-A03F-58334F15DC0B"></a></span>Vertex shaders are executed for every vertex of the shaded object. They take input
+                     parameters, process them, and generate output data to be sent to a pixel shader. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_A50D896914494205B4A93C62BB085FC2"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-45867B72-5E65-4822-A009-F8CE56292A2C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EC2C5139-641D-4CE3-A7A5-322C50A5C168">Function Name</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BDDA6DEE-BECE-41B6-93AE-8A5FAAC4EA3B"></a></span><p class="table-body">Indicates the function entry point for the vertex shader. This is the function that
+                                 is called for each vertex in the current primitive when this shader is active. It
+                                 can be used for computations that are performed per vertex, such as transformation
+                                 from world space into clip space, or for per-vertex lighting. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-484CADE6-052C-45BD-A603-6B1782044AA5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-299AD257-F806-4FC0-97E2-62EE7E650C6D">Profile</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A0912AF8-8309-4F0C-BB66-903A93BACE33"></a></span><p class="table-body">Select a vertex program profile. A compilation profile specifies whether certain optional
+                                 language features are supported. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-68F998F6-0FBE-419D-B6FF-9F243F1DE73A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B13EE010-8459-49B4-B12F-ECB3AB4A8731">Input Data</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-03D39CEB-6E7D-48DD-AEEE-629DF6CE4972"></a></span><p class="table-body">Specify the hardware semantics to be used for the vertex input data. </p> <span class="anchor_wrapper"><a name="GUID-E2EFC2DE-B8E4-44D8-AA91-DDDE0F1220D4"></a></span><p class="table-body">A vertex attribute control is automatically created in the effects shader's property
+                                 editor for each vertex shader variable that is bound to semantics such as COLOR[n],
+                                 TEXCOORD[n], TANGENT, and BINORMAL. For more information, see <span class="char_link"><a href="rt_cgfx_hlsl_CreatingUserInterfacesforVertexShaderInputs.htm">Creating User Interfaces for Vertex Shader Inputs</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E38A6E2F-D7FD-4C96-91AA-6A4F0F21037A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F670DBEC-AA47-4B3C-84B8-44FC09242AEF">Output Data</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-ADA00856-02BB-457B-A543-AD87266BEF13"></a></span><p class="table-body">Specify the hardware semantics to be used for the vertex output data. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-0010"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BDB4E971-AD70-4EF8-A280-44B070E88463"></a></span>Fragment Shader
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9C86D970-5194-411E-BBBE-5AEEFB11F151"></a></span>Pixel shaders (also known as <span class="MenuCascade" id="GUID-9F739668-75BA-43B4-A2D0-C16235DA807D">fragment</span> shaders) are executed for every pixel generated of the object. They take input parameters
+                     from vertex shaders, process them, and generate output data to be sent to the blending
+                     core of the GPU before going to the frame buffer. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_28B3C502A0AC4B9D87C76148CCA0CADA"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-76EF3FDC-F74F-492B-85DD-3E86C83872D4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-27FBB531-8BCC-4299-82EC-344F5C14061A">Function Name</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FE143082-FE50-4944-9535-E99EB328E6E0"></a></span><p class="table-body">Indicates the entry point for the pixel shader. This is the function that is called
+                                 for each rasterized pixel in the current primitive while this shader is active. It
+                                 is used for per-pixel computations, such as texture mapping or per-pixel lighting.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9D78ACE9-7BCB-4657-8532-17DD540AC39A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8E5EF498-204F-4BF2-9BFA-A90425A2BAB4">Profile</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B7EF2F65-682C-4B22-A672-544B8AF26AA4"></a></span><p class="table-body">Select a fragment program profile. A compilation profile specifies whether certain
+                                 optional language features are supported. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-0011"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-12981E32-8D2F-4C5B-BBC9-54E582DE05FD"></a></span>Technique
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_F408D88BCCA845F1B0167619F80BE94C"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DDB50C7A-F9C1-4F14-A38A-D842B97E24C1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4EDAA638-05AD-448D-A6B5-31D551FB5A39">Name</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A30E47BC-B0BB-4042-9B0E-5AAFE23D7A07"></a></span><p class="table-body">Sets the name and code structure for a single-pass technique including compile statements.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-6ABD00E6-CD22-492F-A4C7-56872C42913E"></a></span><p class="table-body">If you wish to add more techniques or create a multi-pass technique, you will have
+                                 to add them yourself after generating the code. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-7BA1FF89-3B7D-4A0F-8AE2-F32EBAE29945"></a></span><p class="table-body">A drop-down list for selecting your techniques is automatically generated and displayed
+                                 in the property editor of the resulting effects shader. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3932EB9D-53A2-49D8-A7F0-C66A1C6D3AAF"></a></span>Matrices
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-67ED252D-2C09-494F-A5DD-7E445E8A80CB"></a></span>These options allow you to build matrix transform declarations. Once bound, these
+                  parameters are "untweakable". 
+               </p> <span class="anchor_wrapper"><a name="TABLE_D444A55BF36E4068B40C57D6E87CB3FF"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-58F0DCA3-C2C8-46A1-8494-B15976D57B07"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-22425C2A-95BC-4458-84EC-101FE717183E">Name</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-617F83E1-CF13-45A5-9079-E7FDFC256228"></a></span><p class="table-body">Declares the name of the variable. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7C2A7ABB-121D-4B32-BF0D-C5C62BBC8439"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ACA72315-FD79-44DF-9263-261C939C65C0">Type</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EFC4FEBC-8073-49C1-9879-F9586F17832E"></a></span><p class="table-body">Specifies a matrix transform semantic to be bound to the variable. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A2B77BCB-A6DA-406B-9208-B0D8F7468099"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C21BC94F-009E-4B0D-98EA-8B7C9FBF5BC3">Add</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6B98B46B-424B-406C-AACA-342F5A57A815"></a></span><p class="table-body">Commits the matrix transform declaration to the parameters list. The entries in this
+                              list are used to generate the code. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4D51B5A4-FDAD-466C-B006-7BF21A5B0EAD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C58C1F76-31DA-4B72-B0D9-7AD2D22A783F">Remove Selected</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-44C42B68-8FA9-478D-A2E6-371C8FDC247C"></a></span><p class="table-body">Deletes the selected matrix transform declaration from the parameters list. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body" colspan="2" align="left"> <img src="../images/GUID-B7CF5D95-D8B2-402A-9EAC-73ADE26C9147-low.png"> <span class="anchor_wrapper"><a name="GUID-2434542C-F049-42E7-B963-DB2206A2032D"></a></span><p class="table-body">Each row in the grid represents a matrix transform declaration. To select a row, click
+                              the empty cell at the beginning of the row. Selected rows are highlighted in green.
+                              You can also do any of the following when selecting rows: 
+                           </p> <span class="anchor_wrapper"><a name="UL_A45EC15325CF4BEA83AE239355597C58"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-4F119FBC-793E-4097-99F6-3FD29DCFABAF"></a></span>Click to select a single matrix transform declaration (row) and deselect any others.
+                                    
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-0E36EE6C-C800-41FC-9FC7-D2CA95B033A3"></a></span>Crtl+click to add a matrix transform declaration (row) to your selection. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-2EFA3014-BF44-40B1-AB5C-5CE2F6A67F8C"></a></span>Shift+click to add a range of matrix transform declarations (rows) to your selection.
+                                    
+                                 </p> 
+                              </li>
+                           </ul> <span class="anchor_wrapper"><a name="GUID-AE749157-D17E-4ED0-8AC7-2E450C7A21C7"></a></span><p class="table-body">To edit the value in a cell, click inside the cell (with the exception of the empty
+                              cell at the beginning of a row). 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

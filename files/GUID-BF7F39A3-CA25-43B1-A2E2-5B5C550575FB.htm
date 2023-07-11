@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-BF7F39A3-CA25-43B1-A2E2-5B5C550575FB">
+      <meta name="indexterm" content="CrowdFX: actor ID used for simulation">
+      <meta name="indexterm" content="CrowdFX: target speed for locomotion">
+      <meta name="indexterm" content="CrowdFX: switching between locomotion states">
+      <meta name="indexterm" content="CrowdFX: minimum speed for switching states">
+      <meta name="indexterm" content="CrowdFX: duration of switching between states">
+      <meta name="topic-type" content="concept">
+      <title>Controlling the Actor's Animation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-BF7F39A3-CA25-43B1-A2E2-5B5C550575FB"></a></span><div class="head">
+            <h1>Controlling the Actor's Animation</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-7D588881-B88D-43F2-925D-A9C6B549E78B"></a></span>After you've loaded action sources for an actor and created a crowd simulation, this
+            animation data is initialized so that it can be used in the simulation. How the animation
+            data is used depends on which type of simulation you've created. For example, pedestrian
+            (locomotion) simulation. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-F580ED39-E369-462A-89BB-167E785275E1"></a></span>For locomotion simulations, you set the target speed for how fast you want the actors
+            to move. Then you set the speed at which to switch to each pose state and how long
+            the transition takes between pose states. See the sections below for information.
+            
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_615F247754B041218EF4D32B9BD52D5E"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-B77F2A03-75DB-409A-BCDF-A90812513875"></a></span>Selecting the Initial Pose State for the Simulation
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-B768E340-4173-4416-894A-2B2EB79E16F9"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-2826E82F-007B-4679-BE73-724D889489E8"></a></span>By default, the animation state with an ID of 0 is set as the <span class="MenuCascade" id="GUID-F58402C0-E89E-4282-A9BF-4CAC383EEC9B">Source</span> value in the <span class="char_link"><a href="iceref_Initialize_Move_Locomotion_Data.htm">Initialize Move Locomotion Data</a></span> compound in the Emit_and_Initialize ICE tree. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-0CA09C2A-2526-494B-932C-A2EFBE13B01E"></a></span>The first animation state used is often a neutral or idle animation; however, you
+               can select a different animation state to start the simulation, such as to have all
+               actors walking or running. This may be useful so that you don't need to create a pre-roll
+               for your simulation if you want all the actors to be in a certain state from the beginning
+               of the simulation. <span class="anchor_wrapper"><a name="FIG_E62C086A762846F082D62FFCFB9875B0"></a></span><div class="figure-anchor"><img src="../images/GUID-ECB10E50-919B-4787-B285-43DDCFE72078-low.png"></div> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-3380AC41-3D70-41EB-8457-CB23FE81F3DC"></a></span>You could also randomize the actor ID value so that each actor instance doesn't have
+               the identical starting pose for the simulation. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_FF791035E36B418B979FBE7B3B14A0A2"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-B4FD2E22-A5A6-4DD1-8213-E0A7C3EA2D21"></a></span>Setting the Actor's (Particle's) Target Speed for Locomotion
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-A3B37253-2C0F-448F-A3E1-2CA2EDF40131"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C1407399-59FB-44B2-BE37-66499BC94824"></a></span>In a locomotion-type crowd simulation, the actor's velocity is determined by the speed
+               of its COG (center of gravity) deformer in the Z direction (its horizontal speed).
+               The actors (particles) are always trying to reach this Target Speed value over the
+               course of the simulation. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-8B0BD494-F3A1-4631-B55E-0DB685CFF51E"></a></span>To set the target speed: 
+            </p> <span class="anchor_wrapper"><a name="OL_AC7C2F4CF6FD4565ABD6F4D8DE645E80"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CFA7AE7A-BC59-4D4E-ACC4-016FF1FE5EF9"></a></span>Open the <span class="char_link"><a href="iceref_Set_Velocity_Using_Collision_Avoidance.htm">Set Velocity Using Collision Avoidance</a></span> compound in the Behavior ICE tree. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A122F92F-F261-4D83-968D-DC9C5ACD3496"></a></span>Set the <span class="MenuCascade" id="GUID-0A487DCD-2713-4A7E-86D3-4B2C5938F018">Target Speed</span> value, which is the number of Softimage units per second the particle travels. 
+                  </p> 
+               </li>
+            </ol> 
+            <p><span class="anchor_wrapper"><a name="GUID-7F18C422-AB47-41D6-B0F5-0FB627E86644"></a></span>The actor's speed is a combination of the <span class="MenuCascade" id="GUID-3867F985-F924-48A0-AD23-A64FEDEBF33E">Target Speed</span>, the <span class="MenuCascade" id="GUID-9FBBB7EF-891B-47EB-8DF1-10FE36046A47">Maximum Acceleration</span>, and <span class="MenuCascade" id="GUID-60CB8E3D-1D06-4453-97FB-EC45536F2F81">Max Deceleration</span> (both set in the <span class="char_link"><a href="iceref_Initialize_Collision_Avoidance.htm">Initialize Collision Avoidance</a></span> compound). For example, the faster the acceleration to the target speed, the sooner
+               the final locomotion state (see below) is reached. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-940C678C-CEDA-4CF4-9563-479E08116EEB"></a></span>The Target Speed can also determine whether or not a locomotion state is reached or
+               not. For example, if the Target Speed is set to 10, and the "Running" state's minimum
+               speed is 20, that state will not be reached because the actor never reaches the minimum
+               speed. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-29976619-0375-4A4D-B2F6-43ADC9CCC355"></a></span>Although the Target Speed is the actor's ultimate speed goal, the actor's speed is
+               also affected by potential collisions with other actors or walls (see <span class="char_link"><a href="GUID-F0ED94EA-F73F-4458-968F-C4C039EEC957.htm">Collision Avoidance Behavior for Actors</a></span>). Actors will slow down to avoid collisions, but then their speed is resumed after
+               the threat of collision is over. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_A8CB1A23ED134CF4AFBD73E598E962B3"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-D5351C5F-37C2-4CA3-A787-384FEB0AB64F"></a></span>Switching between States For Locomotion Simulations
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-8A7FF762-2663-4480-BB58-5744C2E14C25"></a></span>    
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-578DEF11-4000-4AE0-85A9-6383F6B78C42"></a></span> For pedestrian simulations, three basic states of locomotion are set in order of
+               their speed in the Initialize Locomotion Data compound: Idle, Walk, and Run. Of course,
+               you can have different types of action sources loaded than idle, walk, and run, but
+               these three "speed states" give you a standard base to work with. 
+            </p> <span class="anchor_wrapper"><a name="FIG_1D0AA179CD89442A9661FA7AFCB7A305"></a></span><div class="figure-anchor"><img src="../images/GUID-08958C1D-3045-4805-A656-E8131D31CBD3-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-494B6477-F867-4A9B-8073-0A5E3D9A221F"></a></span>The trigger that determines when one state switches to the next is when the actor's
+               current speed is greater than the <span class="MenuCascade" id="GUID-642A4B48-40F3-431B-8E43-FC00C683FF2B">Min Speed</span> set for each state (see below). 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-49993522-2A37-4897-8B79-AA8CFAB9B084"></a></span>To set each state's minimum speed and transition duration: 
+            </p> <span class="anchor_wrapper"><a name="OL_F166790F3CD94D4C9459BCEA3567366F"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-813688DA-54A1-47EA-9DE8-4CA78912B54E"></a></span>In the simulation point cloud's Emit_and_Initialize ICE tree, open the <span class="char_link"><a href="iceref_Initialize_Move_Locomotion_Data.htm">Initialize Move Locomotion Data</a></span> compound's property editor. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F5A5BA4A-97C6-4531-8340-AA52BCF1D710"></a></span> If you don't have the ICE Tree view open, choose the <span class="MenuCascade" id="GUID-433AB0B3-4AD1-4D1C-ADA8-92DE5D0FB240">CrowdFX <img src="../images/ac.menuaro.gif"> Simulation <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> Inspect Init. Animations</span> command from the ICE toolbar to open this property editor. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E6E7A8B5-BEEF-426E-8A33-C5412E0CEA1C"></a></span>Set the <span class="MenuCascade" id="GUID-1DFC6B9A-6772-4C42-87D3-476AA18EB6BC">Min Speed</span> value for the Walk and Run states. This is the minimum speed (in Softimage units
+                     per second) at which the actor switches to that state. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3A5270EF-FFB9-4973-B7AF-A79A22D7AC8A"></a></span>These are just states whose speed applies to whatever action source you have loaded
+                     for ID 1 and ID 2: they don't have to be walk and run action sources. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5DB6A93C-D263-439A-887A-B79E3B580C5C"></a></span>Remember to set the <span class="MenuCascade" id="GUID-9FA4A4C2-145E-4E77-8DA2-FD96D3240CEA">Min Speed</span> values in accordance with the <span class="MenuCascade" id="GUID-C9BF2B8B-D3BA-4D6D-8B72-4928BC73A6DD">Target Speed</span> value for the simulation; that is, make sure that the Target Speed is at least 1
+                     value higher than the Run state's Min Speed value if you want the actors to reach
+                     the Run state during the simulation. If you have the same value for the Target Speed
+                     as the Min Speed for the Run state, the actor's animation will flicker between the
+                     Walk and Run states. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CC826B8D-EF74-4448-93B0-C50A3E3936F5"></a></span>Set the <span class="MenuCascade" id="GUID-AE6A5B77-8215-430E-8A8A-BC9EE30D1442">Transition Duration</span> for each state, which is the number of frames over which the transition (blending)
+                     from the previous state into this pose state happens. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D1155CAF-6D8C-4A89-A3CB-9D911B75DC0F"></a></span>When you play back the simulation, the animation from each pose state is cycled over
+                     as many frames as the actor is within that state's speed range. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B24B876E-4004-4CAE-A693-E187B0503542"></a></span> For example, if an actor slows down to avoid collision with another actor or a wall,
+                     he may switch to another state that matches his speed, such as switching from running
+                     back to walking. When there is no risk of collision anymore, the actor tries to reach
+                     the target speed again and switches states again. 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

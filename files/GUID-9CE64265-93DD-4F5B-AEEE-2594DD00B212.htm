@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-9CE64265-93DD-4F5B-AEEE-2594DD00B212">
+      <meta name="indexterm" content="CrowdFX: viewing the actor instances">
+      <meta name="indexterm" content="CrowdFX: mesh proxy object">
+      <meta name="indexterm" content="CrowdFX: actor copies object">
+      <meta name="indexterm" content="CrowdFX: viewing in OpenGL display mode">
+      <meta name="indexterm" content="CrowdFX: viewing mesh proxy object">
+      <meta name="indexterm" content="CrowdFX: GLSL Actor Envelope shader">
+      <meta name="indexterm" content="GLSL Actor Envelope shader: viewing CrowdFX actor instances">
+      <meta name="indexterm" content="OpenGL realtime shaders: viewing CrowdFX actor instances">
+      <meta name="topic-type" content="concept">
+      <title>Viewing the Actor's Envelope</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-9CE64265-93DD-4F5B-AEEE-2594DD00B212"></a></span><div class="head">
+            <h1>Viewing the Actor's Envelope</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-927A8AE8-B9EF-44F7-A062-C4A5DA60AD0E"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-4D5F7468-DAE1-43E7-9545-9D13FC57CC01"></a></span>After you assign a source model as an actor, its envelope mesh is identified as the
+            geometry that will be instanced on each particle as an actor in a crowd simulation.
+            
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-BF00CAC7-9DB4-459C-92C5-47E0C9057D01"></a></span>So how does this happen? There are a couple of objects involved, as described below.
+            
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-93CCFF40-16DD-423B-89D8-C5626BD994B2"></a></span> <img src="../images/GUID-FF828005-7186-4DD5-A95B-80644C8DB701-low.png"> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-9EE45787-D251-4869-A444-59E59F2D619C"></a></span> <em class="strong">The Mesh Proxy Object</em> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-2E463F3C-43F3-46D8-A52A-8BF680BE13E3"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-85219379-B04B-4EC0-8EE7-D55F3963BAC1"></a></span>CrowdFX makes a copy of the original model's polygon mesh and calls it the <em class="strong">Mesh Proxy</em> polygon mesh. This object is hidden by default, but you can see it when you're viewing
+            the crowd simulation in the OpenGL display mode (see below). 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-E5241162-3DB2-4E24-A391-91B0AD0FEC24"></a></span>The Mesh Proxy object is a copy of the original mesh's base pose (such as the T-pose),
+            envelope weights, shape keys, materials, and textures in the <span class="MenuCascade" id="GUID-2FFEE584-FA9F-4981-BCD3-4A3F8168371B">Set Mesh Proxy</span> compound in its Set Mesh Proxy ICE tree in the Modeling region. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-98D358EE-0D5D-4745-8685-0C3069F472C3"></a></span>In the <span class="MenuCascade" id="GUID-0488D04D-1DEA-4BF7-BD1C-85AF81A1FF40">Shape Instance Skinning</span> compound, the envelope skinning data that is used to display the mesh proxy in an
+            OpenGL display mode is set. This display mode uses the GLSL_Actor_Envelope shader
+            that is in the mesh proxy's Material, when that shader is enabled. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-85FD1EDD-1C09-4D3F-A111-C1C4382E32CC"></a></span> <img src="../images/GUID-9A8125D1-FC5A-4DB6-89BB-D31DE1F7BC69-low.png"> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-A6C7D13C-A860-42F8-A954-23F1310DDFDB"></a></span> <em class="strong">The Actor Copies Object</em> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-C3247C4E-E926-41B6-A403-1C7974E4EF3E"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-EE85175F-65FB-4464-8A34-2613C39F57BE"></a></span>CrowdFX also creates the <em class="strong">Actor Copies</em> polygon mesh, which is a single object that contains the envelope geometry of all
+            instances of an actor proxy in the crowd simulation. The Actor Copies mesh is the
+            usual object that you see representing the actors' envelopes in the 3D views unless
+            you override its display to use the Mesh Proxy mesh as the particle shape for the
+            simulated point cloud, as described below. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-761CBE49-4BC7-4950-885C-EEBF241F4408"></a></span>The Actor Copies mesh contains these two ICE trees: 
+         </p><span class="anchor_wrapper"><a name="UL_D72AE65A0E9F48A194FC243D8EA4CEE6"></a></span><ul>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-AC6874E9-96F9-46E9-B579-888079C831FA"></a></span>The <em class="strong">Duplicate Actor Geometry</em> ICE tree in the Modeling region gets topology data from the Mesh Proxy object and
+                  duplicates it for creating the actor's mesh per-particle instance in the crowd simulation.
+                  Each actor instance's material and texture projection is also set here. The number
+                  of particles data is gotten from the Skeletons Cloud. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FF1F01F9-E5F9-43AA-9010-F37EEBFB8755"></a></span> <img src="../images/GUID-74590E72-A5FD-46E0-8A4B-7E28DF259088-low.png"> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-E4AA5D1A-7188-485E-820A-19535E210AF8"></a></span> The <em class="strong">Crowd Skinning</em> ICE tree in the Post-Simulation region calculates the envelope deformation for each
+                  actor instance based on the global transform and point position data from the Skeletons
+                  Cloud. Basically, it checks how the actors are being animated in the simulation and
+                  where they are in the scene, then deforms the envelope accordingly. 
+               </p> 
+            </li>
+         </ul>
+         <p><span class="anchor_wrapper"><a name="GUID-12235CA6-32D2-4CB6-A41C-C54187130985"></a></span> <img src="../images/GUID-C031A04C-0E78-4495-AE67-9B981CB68C17-low.png"> 
+         </p>
+         <div><span class="anchor_wrapper"><a name="GUID-EC1D4F62-01CA-4D01-AC33-9926C72DB825"></a></span><div class="note-note"><span class="label">NOTE:</span>You can toggle the visibility of the Actor Copies mesh of the current crowd with the
+               <span class="MenuCascade" id="GUID-AE413A6B-B394-4F56-ADC3-4A1A53C2F05C">CrowdFX <img src="../images/ac.menuaro.gif"> Crowd <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> Show/Hide PolyMesh Copies</span> command on the ICE toolbar. 
+            </div>
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_2278DFD038A34E2F9373B4511CA4369E"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-24A6EEB2-2510-4BDF-B07B-08E12A2CA7AE"></a></span>Displaying the Crowd in OpenGL with a Realtime Shader
+            </h2>      
+            <p><span class="anchor_wrapper"><a name="GUID-2F0C38E4-2480-4F59-BE55-4A26D9E0CC70"></a></span>If you need to preview a crowd simulation without waiting for the generation of the
+               Actor Copies mesh on the first frame, you can view the actors in an OpenGL display
+               mode. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-F87E49D7-4F90-4D03-B7D1-111AD452049B"></a></span>To do this, you enable the GLSL Actor Envelope realtime shader compound that is defined
+               in the Mesh Proxy object's material. This shader uses the Mesh Proxy mesh instead
+               of the Actor Copies mesh as the envelope for each actor instance when previewing in
+               the OpenGL display mode. Using data from the Mesh Proxy object, this shader determines
+               the envelope's deformations, material, and textures used for each actor instance during
+               simulation. 
+            </p> 
+            <div><span class="anchor_wrapper"><a name="GUID-ED1A096D-833E-4455-8B4C-6007D3046D83"></a></span><div class="note-note"><span class="label">NOTE:</span>Shape keys are not displayed on the mesh proxy in the OpenGL display mode. 
+               </div>
+            </div> 
+            <p><span class="anchor_wrapper"><a name="GUID-1A9CC174-7752-4A0E-A8D2-90698DFC66AA"></a></span> <img src="../images/GUID-8C52515F-F152-4CF2-B737-6D55B3DDBD97-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-DCB9A017-8C14-4053-8C47-171AEF82ECEE"></a></span>To view the instanced actors' envelopes in an OpenGL display mode with this shader:
+               
+            </p> <span class="anchor_wrapper"><a name="OL_92641473B67B49D4A0C27C5951834AFA"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AD2361CD-06BF-4F7C-A5CB-B6D1AC535213"></a></span>In a viewport or Object view, switch to the <span class="MenuCascade" id="GUID-90F326D8-1252-404F-9048-F6EDD00FE0A0">Realtime Shaders <img src="../images/ac.menuaro.gif"> OpenGL</span> display mode. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-789C3B5A-EA5C-434A-B7C6-828EA1B3C76A"></a></span>Select the simulation point cloud and open its Shape Instance Skinning ICE tree in
+                     the Post-Simulation region. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CFFD07A5-D17B-49E0-ADC0-B35F88499E87"></a></span>Select the <span class="MenuCascade" id="GUID-1FDA4ADA-B791-4E57-959C-BF914DA8AA06">Enable</span> option in the <span class="char_link"><a href="iceref_Set_Shape_Instance_Bones.htm">Set Shape Instance Bones</a></span> compound. This temporarily overrides the viewport visibility of the Actor Copies
+                     mesh so that you see only the Mesh Proxy object in this view as shaded by the GLSL
+                     Actor Envelope shader. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0E29CBD9-4BD0-498C-8741-9C8DA7E4BB25"></a></span>In non-OpenGL displays, the mesh proxy is instanced, but you don't see the proper
+                     deformation, material, or texture is applied because the GLSL Actor Envelope shader
+                     is not supported. 
+                  </p> 
+               </li>
+               <li>Select the display options in the <span class="char_link"><a href="XSIRTCOMPOUND_GLSL_Actor_Envelope.htm">GLSL Actor Envelope</a></span> shader. 
+               </li>
+            </ol> 
+            <p><span class="anchor_wrapper"><a name="GUID-87C9AD22-1144-4A8A-8643-10AB3C15EDB5"></a></span>Note that this shader is used for previewing only: this isn't the geometry, material,
+               and textures that are rendered. 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

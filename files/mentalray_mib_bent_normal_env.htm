@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-57E2F39F-4CB1-49F8-9ADD-BADF5C6E87A5">
+      <meta name="topic-type" content="concept">
+      <title>mib_bent_normal_env</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-57E2F39F-4CB1-49F8-9ADD-BADF5C6E87A5"></a></span><div class="head">
+            <h1>mib_bent_normal_env</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-9069224C-9F16-4019-BD49-7A98AD1C31EF"></a></span> <em class="strong">Category:</em> mental ray &gt; Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8A49390F-483D-443A-B5F5-F1F016CAF63F"></a></span> <em class="strong">Shader Family:</em> Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-86724C56-D5D0-45E5-9DF0-121600D50877"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B82C1EAD-2A23-4BD8-A477-13E28873C91E"></a></span>"Bent normal" is a term used for the average unoccluded direction vector from a surface
+               point. For completely unoccluded surfaces, this is the same as the normal vector,
+               but for surfaces occluded by other geometry, this points in the direction in which
+               the least amount of occluding geometry is found. Bent normals are used as an acceleration
+               technique for ambient occlusion, allowing for rendering that looks like global illumination
+               or final gathering lit by an environment, but at a small fraction of the rendering
+               time.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8CF2A8F4-EF21-4F69-B622-1FC3097767DA"></a></span>Ambient occlusion as done by the <span class="char_link"><a href="mentalray_mib_amb_occlusion.htm">mib_amb_occlusion</a></span> shader is a raytracing technique that casts potentially large numbers of probe rays
+               to determine to which extent a surface point is occluded. The speed of this operation
+               depends on the number of rays (<span class="MenuCascade" id="GUID-EF85919D-E3F9-4D1C-8D5A-D132E87755D6">samples</span>), the reach of the rays (<span class="MenuCascade" id="GUID-44591E70-1957-4B79-8DB0-52C4F4E26B86">max_distance</span>), and the complexity of the scene.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0BB5D2D2-B074-4A24-93B9-298E36FD0221"></a></span>When rendering an animation (or multiple views of the same scene), any object that
+               does not move, does not change shape, or has no moving occluding object nearby yields
+               the same result for every frame. Therefore, you can "bake" (render to a file) the
+               ambient occlusion solution once in a first rendering pass, and then reuse this result
+               in subsequent rendering passes for any number of frames, with potentially huge performance
+               gains. If you also bake the average unoccluded direction (the bent normal) to a texture,
+               the entire process of lighting the object based on an environment is moved to this
+               second rendering pass, without having to trace a single ray.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-FC264011-EA98-423E-97DB-D2C18349D018"></a></span>By setting the <span class="MenuCascade" id="GUID-AE0F9D41-D9B7-4FEC-A192-635550320959">output_mode</span> parameter to 2, 3, or 4 on the <span class="char_link"><a href="mentalray_mib_amb_occlusion.htm">mib_amb_occlusion</a></span> shader, bent normals are returned, with the vector being encoded as a color where
+               X is red, Y is green, and Z is blue. If <span class="MenuCascade" id="GUID-06D0B63E-8AC3-479A-BF4D-F481A29AB2DA">occlusion_in_alpha</span> is enabled, the scalar occlusion value is returned in the alpha channel. This color
+               can be baked into a texture, such as by connecting <span class="char_link"><a href="mentalray_mib_amb_occlusion.htm">mib_amb_occlusion</a></span> shader to the <span class="char_link"><a href="mentalray_mib_lightmap_write.htm">mib_lightmap_write</a></span>'s input parameter and then rendering it.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F00B6797-F924-45C2-BDFA-C487ABFA7178"></a></span>Once the texture file is generated, you can assign the mib_bent_normal_env shader
+               to a surface shader, such as to the ambient parameter of <span class="char_link"><a href="mentalray_mib_illum_phong.htm">mib_illum_phong</a></span>, to look up an environment to light the object based on the baked bent normal texture,
+               which is connected to the <span class="MenuCascade" id="GUID-3065B9EF-137D-433A-B378-7AA1FFB715BB">bent_normals</span> parameter in the mib_bent_normal_env shader.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-40ABC015-52F6-4660-A131-9399CA04CFBF"></a></span>This allows for a very "low-cost" simulation of global illumination-like effects for
+               rigid objects and is especially suitable for animations. The technique does not work
+               on deformable objects since their occlusion, shape, and normals can vary from frame
+               to frame. For deformable objects, it is better to apply the occlusion shader directly,
+               without baking its output.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0277D4D7-DB3D-4CD6-9B74-8D933344DF27"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B55525F3-28C4-4DBE-95BB-44AE7D3D2CFA">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3A4A2A80-0D7B-4B25-AD2D-786657FE4EE1"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3778E4A4-638D-4614-A00B-CCB11443B341"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C1598935-6C30-4650-9FD2-1F391EC8204F">bent_normals</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BCC939C9-5E6A-41DF-A96E-5D5E502A3C15"></a></span><p class="table-body">The bent normal data output by the occlusion shader. It should be baked to the object.
+                           This is usually attached to a node that does the texture lookup, such as <span class="char_link"><a href="mentalray_mib_texture_lookup.htm">mib_texture_lookup</a></span>. The texture mapping used for generating the texture must match with the one used
+                           for lookup.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-273AD2A1-EF54-4745-A12D-2042AD79EF41"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-19E01363-CC49-4D61-BD31-A3DDFB1A380B">occlusion_in_alpha</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5F29D1DC-1743-4915-A715-0088B2D6A2D8"></a></span><p class="table-body">Specifies whether the scalar occlusion value is already baked into the alpha channel
+                           of the "bent normals" pass. This uses slightly less memory, but many "bake to texture"
+                           functions of software integrations of mental ray do not bake the alpha channel.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D2DD8DCC-B888-4628-8CF0-C919646CFC3A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-55B15BDA-4628-4FD5-98A4-E2C25DBEF748">occlusion</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8ECA4F33-9C01-477F-AB42-9A08031CF617"></a></span><p class="table-body">The separate occlusion channel to be used if it was not already baked into the alpha
+                           channel.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BD0FDB2D-DE92-4902-AB15-651C2CBECF67"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0E905913-212E-4B85-8997-7E7CC5194F4E">strength</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5DD293C7-6AA9-4066-9567-BDA9D2710202"></a></span><p class="table-body">A simple scalar multiplier for the effect.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FFAE6BA8-8639-448D-A42F-D632EF02718A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-83FA1979-E70A-4405-B276-2A3C25962896">environment</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BE031063-F1E7-47BB-8AE8-C712B89FBF54"></a></span><p class="table-body">The environment shader to look up. If none is provided, the environment from the material
+                           is used. To avoid image noise, you may want to use a separate, highly-blurred environment
+                           map with no high-resolution detail.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-387209A8-C707-46B3-8608-3FF2D4E50BED"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B680A7B3-77E9-4E58-B67C-B1DC9D1BD788">coordinate_space</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C4AC1B04-7AA1-4CBD-A63F-BE7243091D0D"></a></span><p class="table-body">Defines the coordinate space of the bent normal:</p> 
+                        <ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DFA86074-7023-4EEE-994B-92EB0C8B0A28"></a></span>0 is unmodified. The bent normal data is in internal space.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-34236C1A-3349-4434-9AC5-1A8B902B7F33"></a></span>1 is "by matrix". The bent normal data is transformed with the passed transformation
+                                 matrix.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8DF298D8-1FBA-4EA7-8620-BDBE429AA9E2"></a></span>2 is world space.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-AC504C54-515F-4060-ACDD-32D1B1462C2E"></a></span>3 is camera space.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-43BD575F-5FCC-460A-A4DF-D5B9366FD100"></a></span>4 is object space. This is often the most useful mode. If the map is both created
+                                 and used in object space, it automatically follows the object as it moves through
+                                 an animation.
+                              </p> 
+                           </li>
+                        </ul> <span class="anchor_wrapper"><a name="GUID-19365491-85F6-42E3-AEF0-06F4F3B82EF6"></a></span><p class="table-body">The coordinate space numbers match the <span class="MenuCascade" id="GUID-75971619-A1CD-4733-89E4-21ABDACEA70A">output_mode</span> parameter values of the <span class="char_link"><a href="mentalray_mib_amb_occlusion.htm">mib_amb_occlusion</a></span> shader, where 2 is world space, 3 is camera space, and 4 is object space.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A8941E86-E801-4B73-AEAE-3215A7089F86"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E051B338-4CFE-4F31-AC2E-47D5CA7B2C8B">env_samples</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0DDC71C1-04FA-4BD6-ADEB-BAB8360F32CA"></a></span><p class="table-body">The number of samples to take from the environment map. Normally, a highly-blurred
+                           environment map is used where only one sample is sufficient, but you can multi-sample
+                           the environment map by setting a non-zero value.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6573A7E8-17ED-4D8D-BCA4-15A10FF7CD7B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-841CE9D5-85A7-44F8-AA39-6D9E158090E3">samples_spread</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-19B7516A-8A93-4C26-BC5A-6790DE168603"></a></span><p class="table-body">The spread factor for each individual environment sample. The range is from 0.0 (infinitely
+                           thin rays — a single sample) to 1.0 (the entire hemisphere is sampled).
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-341EA350-7E11-49DD-9743-691D7D6D57C6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F5A14016-C2F7-42DE-8DAB-22D4240B1E69">matrix</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-55EA66A4-E29E-4782-A5CC-8CBAFB7E30B3"></a></span><p class="table-body">An explicit transformation matrix applied to the normal data when the <span class="MenuCascade" id="GUID-19B594BC-A68A-46F2-99C7-8BDDEF912C0F">coordinate_space</span> value is 1. This allows arbitrary transformations.
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

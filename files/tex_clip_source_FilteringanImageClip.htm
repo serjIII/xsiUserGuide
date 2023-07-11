@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-938C4BB3-CFC9-49CB-9588-420B2FD675F9">
+      <meta name="indexterm" content="image clips: filtering">
+      <meta name="indexterm" content="moiré effect, removing">
+      <meta name="indexterm" content="elliptical filtering">
+      <meta name="indexterm" content="filtering: elliptical">
+      <meta name="indexterm" content="pyramid mapping">
+      <meta name="indexterm" content="textures: mipmapping (pyramid)">
+      <meta name="indexterm" content="mipmapping">
+      <meta name="topic-type" content="concept">
+      <title>Filtering Image Clips for Rendering</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-938C4BB3-CFC9-49CB-9588-420B2FD675F9"></a></span><div class="head">
+            <h1>Filtering Image Clips for Rendering</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-B89CDEFB-C429-4CC6-8D93-FD2742DE4ED6"></a></span>When using an image clip as a surface texture, you can define if and how it will be
+               filtered when rendered. There are two ways to filter the image: 
+            </p><span class="anchor_wrapper"><a name="UL_EB838E2279EA44E4A7964DAADDBB47F9"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CA3FE398-5A0D-4FE8-8E7F-3D5C054EEFDC"></a></span>In the Image shader, you can specify elliptical filtering. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4BA653CA-7396-4B77-93D5-88B0BC0DC918"></a></span>In the Image Clip property editor, you can specify Multi-Resolution Mapping. 
+                  </p> 
+               </li>
+            </ul><span class="anchor_wrapper"><a name="TABLE_10E220AA43784F0187C77CC5807C6965"></a></span><div class="table_NotRuled">
+               <table cellpadding="0" cellspacing="0" class="not-ruled">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <tr class="not-ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-3945CBF4-A630-4FC7-90AE-932AD88EFB29-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-CDC91F5E-AF95-45F6-856D-243520BE5FB2-low.png"> 
+                     </td>
+                  </tr>
+                  <tr class="not-ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FFA68599-F731-410D-9CCA-C21356ECBB1D"></a></span><p class="table-body">There is no filtering on this checkerboard image. As a result, the moiré effect at
+                           the far end of the grid is obvious. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-CAC696B5-837F-4378-ABA0-60E65194930A"></a></span><p class="table-body">This (usually unwanted) effect is caused by imprecise sampling of a dense and varied
+                           texture. 
+                        </p> 
+                     </td>
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CCECB481-19DB-444F-B463-40E856CB779A"></a></span><p class="table-body">This checkerboard uses elliptical filtering to smooth the moiré effect. </p> <span class="anchor_wrapper"><a name="GUID-3B2A2F12-3BCC-46C1-AB3F-42A14C5A5603"></a></span><p class="table-body">Although this result could be achieved using antialiasing, this option is much less
+                           memory intensive and produces comparable results. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00AB"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DFFC5D3D-4F9C-4917-B7CB-F5AEE3A613FA"></a></span>Elliptical Filtering
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-4B815C42-941C-4975-8AE7-3851F0EFC4CB"></a></span>Elliptical filtering is usually used on high-detail textures that are moving near
+                  or far from the camera. This filtering process is much less memory-intensive than
+                  using antialiasing in the render options. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-735F872B-7015-4E44-8960-C8C275D77D9C"></a></span>Elliptical filtering projects an ellipse onto the object's surface. The circle is
+                  elliptical (hence the name of the filtering process) so that it can cover all of the
+                  texture's pixels, which are then looked up and computed when a color value is returned
+                  for all the pixels in the circle. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1C0DE8FE-38EB-4424-8468-679752A8FB10"></a></span>You can find the elliptical filtering options on the Filtering tab of any Image shader
+                  property editor. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00AC"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-28CB498F-9A73-46AB-9DBB-6BFA64BBA634"></a></span>Using MipMaps (Pyramidal Mapping)
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-8219F365-6293-44C7-AC17-F949632FF7E1"></a></span>You can use pyramidal mapping — or <em class="mild">MipMapping</em> — to smooth textures when rendering. Mipmapping mapping performs a pre-blurring of
+                  a texture that is far from a camera. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0673D651-3F41-4E0F-90A8-68D033D32480"></a></span>The classic example is a very long checkerboard texture that seemingly goes off into
+                  infinity, but starts near the camera. As the grid gets farther away, the texture flickers
+                  and breaks up as the renderer samples only a single, far-away pixel. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FD2EC04A-17D9-467E-98AE-B66EA91A1E56"></a></span>This can be corrected with antialiasing, but it may become very time-consuming when
+                  rendering. Pyramid mapping blurs the distant texture so the render doesn't return
+                  a specific pixel color; instead, it returns an interpolation of several distant pixels.
+                  This solution is less time-consuming than antialiasing and yields excellent, realistic
+                  results. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF3670244173DE845B36001FAA69DB62C-00AD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-41E85AAD-5928-47EF-954C-4E379D448731"></a></span>To use mipmapping
+                  </h3> <span class="anchor_wrapper"><a name="UL_DE34140AA7D048B2B4E376B0BDD466EF"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B5BF1BD0-AB75-418B-9620-140B8DCC303B"></a></span>Enable <span class="MenuCascade" id="GUID-4B36D2D6-A2C1-4992-8EE4-2C2283DC9C6B">Generate MipMaps</span> on the Texturing tab of the <span class="char_link"><a href="property3509.htm">Image Clip Property Editor</a></span>. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-29B5ACED-7413-442F-BFFF-01135B5DC445"></a></span>You can specify how a texture is pre-blurred when it is far from or near the camera
+                           using the <span class="MenuCascade" id="GUID-756B46E6-D1A7-4A0C-88EE-EF6B9E415B43">Texture Minification Filter</span> (when a texture is far from the camera) and <span class="MenuCascade" id="GUID-6528DE10-B1F5-4699-8C3D-B7041B8C1EE7">Texture Magnification Filter</span> (when a texture is near the camera) parameters. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

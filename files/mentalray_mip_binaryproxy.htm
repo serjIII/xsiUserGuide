@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-960D27DE-4A8F-489F-8D4D-86DAAAF418CA">
+      <meta name="topic-type" content="concept">
+      <title>mip_binaryproxy</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-960D27DE-4A8F-489F-8D4D-86DAAAF418CA"></a></span><div class="head">
+            <h1>mip_binaryproxy</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-779791A5-03F6-4B4A-A3F5-82AC77A54BB3"></a></span> <em class="strong">Category:</em> mental ray &gt; Geometry 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-EF329B14-3C27-473D-8849-E545DC725441"></a></span> <em class="strong">Shader Family:</em> Geometry 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-00A1B0E2-96B5-4622-8E42-328F27BE6D51"></a></span> <em class="strong">Output:</em> Custom 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DC10FF7C-9868-4B58-9ED1-AF453B1952A5"></a></span>This shader provides a very fast way to load geometry on demand. Its main goal is
+               performance, since it skips over any form of translation or parsing by writing directly
+               to a binary file format which can be pulled directly into RAM at render time. There
+               are other methods in mental ray to load geometry on demand (assemblies, file objects,
+               geometry shaders, etc.), but they generally involve parsing or translation steps that
+               can impact performance. 
+            </p><span class="anchor_wrapper"><a name="TABLE_046F3EE6A540453BBA83AFCC0ADB462F"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BB3A3C6E-A314-4651-AB1C-4FC564DC90A8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4B681B3B-9AE9-4655-B53D-2C97605A22E6">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-614A4E77-6AD5-4B5F-B51F-0195DB199064"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A31ABEB0-20FB-468B-BD93-B502DA536EE3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-05FB5FAD-D03F-4D6B-AA05-5CD98BFD2F7B">object_filename</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-15B4F668-498A-4BF9-8F90-92EA43C384D1"></a></span><p class="table-body">The file name to read (or write). By convention, the file extension is .<span class="MenuCascade" id="GUID-089D26F8-E5A2-4154-9B35-B53FC86D4ACE">mib</span>. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-35170E1B-A4ED-4405-9940-3802A455BFB8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E0AA9A2D-2CF1-4F36-990F-E9F6AF90C06F">write_geometry</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9B25AF29-2E6A-4B3D-9B2A-AF03694C7061"></a></span><p class="table-body">The shader has a read mode and a write mode: </p> <span class="anchor_wrapper"><a name="UL_C69CCC9BA9BF45C3B71CA3F4E5B51892"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7E32806E-B862-45B1-839D-E49FA58B1112"></a></span>When write_geometry is on (write mode) and the <span class="MenuCascade" id="GUID-F404E5A8-F115-4884-8CBA-B9577D36B8AB">geometry</span> parameter points to an instance of an existing scene object, this object is written
+                                 to the .mib file defined by <span class="MenuCascade" id="GUID-367B8D37-88CA-4833-9820-F0FF543C729B">object_filename</span>. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-204000BA-C01D-48D4-91AF-44BD549AF214"></a></span>When write_geometry is off (read mode), the <span class="MenuCascade" id="GUID-2C79D8C5-4B0A-4E5F-BBB0-AC1C31407113">geometry</span> parameter is ignored (not used). Instead, the shader creates a mental ray placeholder
+                                 object which contains a callback that loads the actual geometry from the file on demand.
+                                 This generally happens when a ray hits the object's bounding box, although mental
+                                 ray may load it for other reasons at other times. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0F9613CB-6EC9-48AA-83DE-6489E0E5C098"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D30FCDEC-DC3F-4494-989B-FCCFFF121B3E">geometry</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8207703E-CF9A-4E87-9AC4-2DC179DD7019"></a></span><p class="table-body">An object to be written (by <span class="MenuCascade" id="GUID-6175F12E-3F16-45E6-B1E2-0B79E02C5C78">write_geometry</span>) to the .mib file defined by <span class="MenuCascade" id="GUID-586D35A7-FEBA-4AE6-A50E-94DEE452052C">object_filename</span>. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-62EB51E0-39DA-4AC9-ADA4-978F665D51EB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ED356F66-F1A6-4ABD-9892-61906E5C383F">meter_scale</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FA803D99-02E9-4CBC-9C71-B231FE9CE434"></a></span><p class="table-body">Allows the object to be interpreted in a way that is independent of units. If this
+                           value is 0.0, the parameter is not used. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-2605CD6A-7AD5-49D9-A773-70474A9CA780"></a></span><p class="table-body">When used, the value should be the number of scene units that represent one meter;
+                           for example, if scene units are millimeters, this value would be 1000. 
+                        </p> <span class="anchor_wrapper"><a name="UL_BA337924DFBD430ABA18FA713B9CD251"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3AFC7109-9C6A-47C1-AD48-69E7446E310A"></a></span>When writing (<span class="MenuCascade" id="GUID-C044A690-7D12-4FA1-971A-7C9F70B52CAE">write_geometry</span> is on), this value is simply stored as meta data in the .<span class="MenuCascade" id="GUID-E8433ABC-DE7C-4B9B-8FD4-9796679902F0">mib</span> file. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2B93778D-925C-4131-8B4C-888BCB047CE6"></a></span>When reading (<span class="MenuCascade" id="GUID-5D181BE2-BABB-40D2-AAC7-A73C650215A4">write_geometry</span> is off), the object is scaled by the ratio of the value stored in the file, and the
+                                 value passed at read time to account for the difference in units, if any. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C3562824-2474-4052-BD05-D147B0F3F8E0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BDFC4144-A83A-4288-997A-884F77F23B3B">flags</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-64BEE693-90F7-4097-B0DF-C73DD9514BBB"></a></span><p class="table-body">A bit flag with each bit having a specific meaning. This parameter is used for algorithm
+                           control, and should remain at 0 in most cases. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-7936288F-547A-4DC5-9B15-CAE152D86A10"></a></span><p class="table-body">Currently used values are: </p> <span class="anchor_wrapper"><a name="UL_DA8317CCBA05410FA59159FEF5C2CB29"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3D49CCEE-36AD-4E9F-B6DC-967E16F16523"></a></span>[1] Forces the use of assemblies rather than placeholders. These are two slightly
+                                 different techniques that mental ray uses to load objects on demand. See <span class="char_link"><a href="renderoptions_ExportingtoMI2Files.htm">mi Archives and Stand-ins</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>] and <span class="char_link"><a href="geoshader_AboutGeometryShaders.htm">About Geometry Shaders</a></span> for more information. Note that assemblies work only with BSP2 acceleration, and
+                                 that multiple instances of the same assembly cannot have different materials or object
+                                 flags applied. This limitation does not exist for placeholders. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A1C10A0B-4FA5-4297-A21B-463F1B8039D1"></a></span>[2] Auto-assemblies mode. The shader uses assemblies if BSP2 acceleration is used,
+                                 and placeholders if it's not used. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-52387588-6D21-473E-9800-FF355D46F10E"></a></span>[4] Does not tessellate the object before writing it. The object is written in its
+                                 raw format. The object must already be a mental ray primlist (miBox) for this to work.
+                                 When this bit is set, displacement is not baked to the file. When it is not set (the
+                                 default), displacement is baked. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-50E107E6-9333-491D-B712-3C4B943CB0CC"></a></span>Note that when baking displacement, a view-dependent approximation cannot be used.
+                                 This is because there is no view set up at the time when this shader executes, so
+                                 the resulting tessellation will turn out poorly. 
+                              </p> 
+                           </li>
+                        </ul> <span class="anchor_wrapper"><a name="GUID-B4AFF89C-BF34-4456-90BF-532041727473"></a></span><p class="table-body">All other bits should be kept zero, since they may become meaningful in future versions.
+                           
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

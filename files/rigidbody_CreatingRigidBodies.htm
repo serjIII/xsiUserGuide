@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C0CD1635-0442-4674-9803-62BBF38BBC8F">
+      <meta name="indexterm" content="rigid body: creating">
+      <meta name="indexterm" content="rigid body: applying to objects">
+      <meta name="indexterm" content="rigid body: parenting rigid bodies">
+      <meta name="indexterm" content="rigid body: compound shapes">
+      <meta name="indexterm" content="compound: rigid bodies">
+      <meta name="indexterm" content="rigid body: cloning">
+      <meta name="indexterm" content="rigid body: active and passive">
+      <meta name="indexterm" content="rigid body: on animated objects">
+      <meta name="indexterm" content="rigid body: muting properties for object">
+      <meta name="indexterm" content="rigid body: removing from simulation">
+      <meta name="topic-type" content="concept">
+      <title>Creating Rigid Bodies</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C0CD1635-0442-4674-9803-62BBF38BBC8F"></a></span><div class="head">
+            <h1>Creating Rigid Bodies</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-DACE3F39-21B2-4686-8882-778BA4415ABD"></a></span>Rigid bodies are objects which do not deform upon collision. You can make an object
+               a rigid body by simply selecting it and choosing a <span class="MenuCascade" id="GUID-4E442120-D464-4897-855F-ED3D6597E688">Create <img src="../images/ac.menuaro.gif"> Rigid Body</span> command from the Simulation toolbar. This command applies rigid body properties to
+               that object, which include the object's physical and collision properties, such as
+               mass, elasticity, and friction. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-09661897-BD92-4E7C-A1AB-26E9718DDCD9"></a></span>These properties are used by the dynamics operator to calculate how the rigid body
+               is affected by forces and reacts to collisions with other rigid bodies in its environment.
+               
+            </p><span class="anchor_wrapper"><a name="FIG_6680DE50B4B64319AC64A3BD2BD90FDC"></a></span><div class="figure-anchor"><img src="../images/GUID-C289A84E-DEAC-4084-A56B-9FBBE64946F4-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-4268EB33-F881-4749-A15A-41CC7437D158"></a></span>The table, its pockets, and the balls are all rigid bodies. The balls are active rigid
+               bodies, while the table and its pockets are passive rigid bodies. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-325089C8-54A1-4CAC-9C83-33390D64F6F8"></a></span>When you apply rigid body to an object, a simulation environment is automatically
+               created (if there isn't already one in the scene) and that object is added to its
+               Rigid Body group (see <span class="char_link"><a href="rigidbody_TheSimulationEnvironment.htm">The Simulation Environment</a></span>). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-FF006982-E926-4850-9477-BDFE960E8992"></a></span>If there are already one or more environments in the scene when you create a rigid
+               body, that object is added to the current environment's Rigid Body group (see <span class="char_link"><a href="rigidbody_TheSimulationEnvironment.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0031">Setting the Current Environment</a></span>). 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-C98707A8-9B85-48F4-B306-5578EB0744F9"></a></span><div class="note-note"><span class="label">NOTE:</span>Due to PhysX limitations, you cannot have more than 60,000 rigid bodies in a simulation
+                  environment. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-003B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D95BD270-B498-4CA0-A911-374825B29280"></a></span>What Can Be a Rigid Body?
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D1FC98F9-FF18-4D01-BE59-B9D807D6CDB3"></a></span>You can apply rigid body properties to almost any object in Softimage, such as a polygon
+                  mesh, NURBS surface object, subdivided surface, implicit object, lattice, or even
+                  a camera. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-1E3A00D7-8E6E-482B-8048-604CC3FBBACB"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_90B792A1FA954948AC52B062ECEB5704"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-28BEDA47-4C8F-499D-89B4-98D67992A824"></a></span>You cannot apply rigid body to an object that is deformed by quick stretch. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-351EDF45-AB71-4720-BDA1-94E2351899D3"></a></span>The direction of an object's normals is important to consider for rigid bodies: make
+                              sure that they are facing in the proper direction. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-003C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-00C5114E-C0AC-4715-B625-EE310CF64B1A"></a></span>Parenting Rigid Bodies
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-985FC4B5-E6A9-4889-BC48-A874095606FF"></a></span>You can apply rigid body properties to objects in a hierarchy. You can have: 
+                  </p> <span class="anchor_wrapper"><a name="UL_5BC31BEECEC54C7E830E4BCCAAACFB0C"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-47441460-125F-4A05-B1C3-C3B812C51863"></a></span>Both parent and children rigid bodies (see below for the variations of behavior) to
+                           create compound rigid body shapes. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7DE3646C-8622-498F-B95C-E3A4CD98D763"></a></span> <em class="mild">or</em> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A7B77B30-F96D-49C6-98E5-B7990FF92EC8"></a></span>A non-rigid body parent with rigid body children to keep the rigid bodies in a hierarchy
+                           for animation and general organizational reasons. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-859A6B22-87B6-41FA-9D8A-01F48716AC7F"></a></span>For example, you could parent the rigid bodies to a null and have them move whenever
+                           you move the null, just like any other animated object. However, during simulation,
+                           the active rigid bodies are affected by forces and collisions and move independently
+                           from the parent. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-003D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-923F704D-161D-477D-9475-6EB11EFC5D23"></a></span>Compound Rigid Bodies
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-BF933E80-BF37-44E0-A72F-756BE23868DD"></a></span>Rigid bodies can take hierarchical structure into account when both the parent and
+                     children are rigid bodies. This lets you create compound rigid body shapes, where
+                     the whole hierarchical branch is used for the simulation instead of individual objects
+                     within the branch being simulated separately. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D011D164-0440-4811-8ABC-0B0B51C6A0AB"></a></span>This is how compound rigid bodies work (see <span class="char_link"><a href="rigidbody_CreatingRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0043">Active or Passive?</a></span> for more information): 
+                  </p> <span class="anchor_wrapper"><a name="UL_B40278F51ABD49C08463687D1F328F9F"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B4256217-274C-4BB0-B93E-42AC6230BC8F"></a></span>If both parent and child are passive rigid bodies, the child always follows the parent,
+                           meaning that they both remain stationary during simulation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BB82BF3B-DF6D-49D5-908A-87F00A98BCCE"></a></span>If both parent and child are active rigid bodies, the child follows the parent only
+                           when manipulating the parent. Both objects move independently during simulation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6FF6ABEE-396C-4A21-A3BC-A240AF3DA7F9"></a></span>If the <span class="MenuCascade" id="GUID-365AEBCB-C604-4289-BEB5-B7E1F62C2878">parent is a passive</span> rigid body and the <span class="MenuCascade" id="GUID-2AC2A1B1-72B8-4165-BEF0-682575BBEC02">child is active</span>, the child follows the parent only when manipulating the parent. During simulation,
+                           the child moves independently and the parent is stationary. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D0C5C958-F0B0-4611-B9D6-92D87086FBFD"></a></span>If the <span class="MenuCascade" id="GUID-843207DB-851B-4B6E-8EAA-4B275D028637">parent is an active</span> rigid body and the <span class="MenuCascade" id="GUID-397A347B-3714-4A62-9242-76024A19FDD8">child is passive</span>, the child follows the parent during simulation and inherits the parent's mass. However,
+                           there is an option to there is an option to have the parent ignore the child's mass
+                           (see <span class="char_link"><a href="rigidbody_SettingtheRigidBodyxd5sInertialProperties.htm">Setting the Rigid Body's Mass or Density (Inertial Properties)</a></span>) so that the child remains stationary. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-F15B3804-AC5B-408F-8C18-C4DCA2F3B9D4"></a></span><div class="note-tip"><span class="label">TIP:</span>Although you cannot apply rigid body to chains (skeletons), you can build a skeletal
+                              rig ("rag doll") by linking several rigid bodies together as limbs with hinge or ball-and-socket
+                              constraints. 
+                              <p><span class="anchor_wrapper"><a name="GUID-1957EC14-C739-441D-BFA5-DE9B57C7B4F9"></a></span>See <span class="char_link"><a href="rigidbody_ApplyingRigidBodiestoObjectsasChains.htm">Constraining Rigid Bodies as a Chain</a></span> for more information. 
+                              </p> 
+                           </div>
+                        </div> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-003E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F7F4C5DE-2257-4975-AEBD-508A49EF679B"></a></span>Cloning Rigid Bodies
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-DDAE3EAE-2C01-45C6-82DE-505893CBF745"></a></span>Because the simulation time rises exponentially with the number of rigid bodies being
+                     calculated, you may want to use clones for the rigid bodies. This is obviously useful
+                     when you have many identical objects that you want to set as rigid bodies in a collision,
+                     such as bricks or marbles. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5F8F2070-02D9-4821-83BD-EC28B0E622E8"></a></span>The easiest way to create clone rigid bodies is to apply rigid body properties to
+                     the master object, then create the number of clones you want. Each clone get its own
+                     rigid body properties, which you can then set individually as you like. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-866CB523-1191-4A98-9AB4-56E004A6AD50"></a></span>For information on cloning, see <span class="char_link"><a href="objects_DuplicatingandCloningObjects.htm">Duplicating and Cloning Objects</a></span> [<span class="char_link"><a href="scel_cover.htm">Scene Elements</a></span>]. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_1CDB8ED88DD542EB8CE7D7E640D4AE7A"></a></span><div class="figure-anchor"><img src="../images/GUID-075B2B8E-E7AF-4BAC-A225-1A127EC9D358-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2A05A113-6122-4C3F-9DE3-BD9FDBCCE067"></a></span>These cherries are clones so that the simulation calculations are not slown down by
+                     the number of objects involved. Each clone has its own set rigid body properties that
+                     you can adjust as you like. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0040"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3645CC51-1B6D-4EC8-9D32-3F346DBD5DEA"></a></span>Making Objects into Rigid Bodies
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0041"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B8538ADA-89A6-4FAC-8DC8-186CAAB2DC63"></a></span>To apply rigid body properties to objects
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6C0621EF-784A-48A6-BC2E-D65F5A9B55F2"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6E020099-9385-42C9-87E4-0BA745D632EE"></a></span>Select one or more objects to apply rigid body to that object. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6687D91A-2392-4729-92FF-16C3F7B4DB4A"></a></span>Do either of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_C7F5EE196C034901ADF446D8D0FD782F"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8757523D-B1CA-4A38-8D18-61254490DAE5"></a></span>Choose either <span class="MenuCascade" id="GUID-4CD82E72-C2F9-4162-B00C-734C2CA77389">Create <img src="../images/ac.menuaro.gif"> Rigid Body <img src="../images/ac.menuaro.gif"> Active Rigid Body</span> or <span class="MenuCascade" id="GUID-EC85738B-74A8-4592-8266-416D7B5E0ECE">Passive Rigid Body</span> from the Simulate toolbar (see <span class="char_link"><a href="rigidbody_CreatingRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0043">Active or Passive?</a></span> for information). 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-82D7F3D1-CAE3-4041-9751-358B5DBE9CB3"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-50B3A0F5-C5EF-4447-BBBA-266B532AC359"></a></span>In the explorer, drag and drop the objects into the Rigid Body group within an existing
+                                 environment. 
+                              </p> 
+                           </li>
+                        </ul> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1A1D3ABC-6454-41E9-9402-254BBA75AEE0"></a></span>When you make an object into a rigid body, a few things happen: 
+                        </p> <span class="anchor_wrapper"><a name="UL_0EA32EB4D7254AACBDCF03D31D10AC2A"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-FA935170-3B6D-4DF6-9DEC-EB69F262F0A1"></a></span>A property editor opens up with these pages so that you can edit the properties. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-431FAC79-D0C5-4B13-BEA7-06182837C4F6"></a></span>If there is no simulation environment in the scene, one is automatically created and
+                                 the objects are added to its Rigid Body group. If there is already one or more simulation
+                                 environments in the scene, the rigid bodies are added to the current environment.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-98E78C13-F9B0-4F94-88A7-9645F4639DA7"></a></span>Rigid body properties, inertial properties, a force controller, and an initial state
+                                 are all applied to the rigid bodies. The initial state is set with the object's current
+                                 position. As well, the rigid body is connected to the dynamics operator. 
+                              </p> <span class="anchor_wrapper"><a name="FIG_27AD9F651ACE48D686F5C7A02CFBAA5D"></a></span><div class="figure-anchor"><img src="../images/GUID-9ED7E6F4-CA94-4954-A450-7F5EA644809F-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_1005A45A275049A681AE37AACD2CAB99"></a></span><div class="table_Ruled">
+                                 <table cellpadding="0" cellspacing="0" class="ruled">
+                                    <colgroup>
+                                       <col align="left">
+                                       <col align="left">
+                                    </colgroup>
+                                    <tr class="ruledOddRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9208D95F-CB23-4B6C-9FBD-8A9C7E957F14"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-18F02445-BEBE-444F-8B4D-C1269A14751D">A</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EC906C91-BDBB-42C0-9880-8F5D2D0F646F"></a></span><p class="table-body">Group for rigid bodies </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledEvenRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F8AA2B21-0AB3-4D07-9516-D345DE3F0993"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-447F0232-01DC-4693-8A02-350D2825E106">B</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DE649EA5-8B41-4328-97E1-2529D1C75DBF"></a></span><p class="table-body">Rigid body object </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledOddRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E687C99E-470D-4AD5-8DE1-31EC3D93B29A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4F21A0EA-D51C-44EB-9180-22A19F530793">C</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-12D7DFC6-E5CF-48A7-BE4D-AFA5C2510DEA"></a></span><p class="table-body">Initial state of object for dynamics </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledEvenRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-45324A67-3316-4649-AF09-B0F2261C58ED"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-908AB208-01C0-493F-8495-0A39CCFAF7FD">D</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F41527D3-66A9-4025-9223-1503BBCF230A"></a></span><p class="table-body">Controls effect of forces on object </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledOddRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9ACD9F2C-36E8-458D-BA6C-092425E88AEB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DC88805C-7ECA-4F4B-9528-F5BC666C2AB4">E</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CDC2B1C4-3C86-40DC-9CB0-976EC2D82C32"></a></span><p class="table-body">Mass/density and center of mass of object </p> 
+                                       </td>
+                                    </tr>
+                                    <tr class="ruledEvenRow">
+                                       <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F76EFE9A-9386-45F5-97BC-2ED420B49719"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9B257111-6360-4CE5-9455-F3D1B0D090AF">F</span> 
+                                          </p> 
+                                       </td>
+                                       <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C40B9513-BBAB-426E-B341-8D5C02757007"></a></span><p class="table-body">Active/passive state and collision properties of object </p> 
+                                       </td>
+                                    </tr>
+                                 </table>
+                              </div> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-372A880D-9328-4342-9E1B-7C19B4625BE4"></a></span>Depending on whether the rigid body is animated or not, you can either apply a force
+                           to it or use its animation as its initial state — see <span class="char_link"><a href="rigidbody_CreatingRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0048">Animated or Not?</a></span> for more information. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1DB05AD9-BC56-42F3-B18F-6EB9F07471AA"></a></span>Do either or both of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_44BB8DF2AA924D90B8EA0438FC8D1899"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DD5EE415-D19E-43DF-902C-F0D55D344D39"></a></span>Have two or more rigid bodies collide. For best results, you should set up the rigid
+                                 bodies so that their geometries don't interpenetrate at the initial state of the simulation.
+                                 See <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm">Collisions with Rigid Bodies</a></span> for more information. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9E26BABA-9D4F-4677-B0DA-A52C6A7B1A3B"></a></span> <em class="mild">and/or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3D5BF27A-34D8-42DF-B78E-D3DC4E316D5C"></a></span>Create constraints between two (or more) rigid bodies. See <span class="char_link"><a href="rigidbody_cnst_RigidBodyConstraints.htm">Rigid Body Constraints</a></span>. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0043"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6271A90C-96AC-4F9E-9457-0488713D80F0"></a></span>Active or Passive?
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-C6382466-AA5E-4876-899B-9A3B553CF29B"></a></span>Rigid bodies can be either active or passive: 
+               </p> <span class="anchor_wrapper"><a name="UL_3377911BBA2D4691A7342810842AE9F8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AF566D4D-85E3-461F-949F-6AE2EE9B3BF2"></a></span>Active rigid bodies are affected by dynamics, meaning that they can be moved by forces
+                        and collisions with other rigid bodies. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C9815C62-A355-4A78-B8B3-9D0849D8A3F4"></a></span>Passive objects are part of the simulation but are not affected by dynamics; that
+                        is, they do not move as a result of forces or collisions with other rigid bodies.
+                        They can, however, be animated. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-088D8536-8597-4BC6-9DEF-1A5F828C17A9"></a></span>You often use passive objects as stationary collision objects (see <span class="char_link"><a href="rigidbody_CreatingCollisionswithRigidBodies.htm">Collisions with Rigid Bodies</a></span>) or as stationary objects in conjunction with rigid body constraints (see <span class="char_link"><a href="rigidbody_cnst_RigidBodyConstraints.htm">Rigid Body Constraints</a></span>). 
+                     </p> 
+                  </li>
+               </ul> <span class="anchor_wrapper"><a name="FIG_8004FADCA36B4D788EB6C957FB5018FB"></a></span><div class="figure-anchor"><img src="../images/GUID-4526F917-CBD8-4336-A6D6-C7D5E4FD60A0-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-9EA9FA05-FC65-44DE-8620-F55391BD9EFE"></a></span>The pool table is a passive rigid body, while the white ball is an active rigid body
+                  with the gravity force applied. The ball rebounds off the table but the table does
+                  not move as a result of the collision. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0045"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-4CA0CE7D-EE98-44EC-A58E-6716E60EC1AB"></a></span>Switching between Active and Passive States
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D283925A-0289-4937-9ED2-AA3DC9CD6AF8"></a></span>You can easily change and animate the active/passive state of a rigid body to achieve
+                     various effects. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0B75A6C4-F4D3-4E64-88DD-9FAD19CD19CD"></a></span>This is especially useful when you are using rigid bodies that are animated and want
+                     to toggle between their animation (rigid body is passive) and simulation (rigid body
+                     is active). For example, you can animate a ball rolling along a table in its passive
+                     state, then make it active and apply gravity to the ball to make it fall. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B451DA7B-3EB7-48D4-92BA-354763CC9BFA"></a></span>To save calculation time, you should consider whether all rigid bodies have to be
+                     active at all times. For example, if you want to make a brick wall composed of 1000
+                     bricks being hit with a wrecking ball, there is no need to simulate the wall standing
+                     there doing nothing before it is hit. You could make all the bricks passive until
+                     the frame before the wrecking ball hits, then make them active for the remaining frames.
+                     Clever use of animating the Passive and Mute options can speed up complex simulations
+                     enormously. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0046"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-01841EEE-2092-46F3-B307-03C57B69B19D"></a></span>To change the rigid body's state
+                     </h4> <span class="anchor_wrapper"><a name="GUID-3C40EC82-82E0-43C6-A4B8-3DA1FE7E699A"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0DFE241A-8294-42E9-A048-32D5922EAE0E"></a></span>Select the rigid body. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-DDB6ED31-3754-4CC1-BCB3-745D6A8B112C"></a></span>Open its Rigid Body Properties property editor and toggle the <span class="MenuCascade" id="GUID-693046C4-637C-4F40-A024-E62B0ED88CE2">Passive</span> option. 
+                           </p> <span class="anchor_wrapper"><a name="FIG_AD1D208430084036A074C2ACEC1DBE5D"></a></span><div class="figure-anchor"><img src="../images/GUID-89877CC5-7345-43E3-B922-150B35001191-low.png"></div> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0048"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-79BB0713-7AF0-4ACC-A674-D739230B63E1"></a></span>Animated or Not?
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-B4829F1F-94A5-452B-8EF4-7B5F0AC57E82"></a></span>You can apply rigid body dynamics to objects that are already animated or not: 
+               </p> <span class="anchor_wrapper"><a name="UL_6B7DD21A5AC74D67AC10A58ABCE47552"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4FFBE6CC-4BBB-4FA7-B0D7-B486D2AFC204"></a></span>If the rigid bodies are <span class="MenuCascade" id="GUID-F57D4077-5A06-4D02-B67D-ECEC0B2A7C4F">not animated</span>, you need to apply a force to make them move. Only active rigid bodies are affected
+                        by forces (see <span class="char_link"><a href="rigidbody_ApplyingForcestoRigidBodies.htm">Applying Forces to Rigid Bodies</a></span>). 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-351837E7-BC4F-4B40-AFFE-E045D0319CF4"></a></span>You can also set the unanimated object's initial velocity for its initial state (see
+                        <span class="char_link"><a href="rigidbody_SettingaRigidBodyxd5sInitialState.htm#WSA1B6EFC221254041A441258FAB7C7AE4-00BE">Setting an Initial State for Animated Objects</a></span>). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1B1B068B-09B8-48B9-8868-2E0CD79E94FB"></a></span>If the rigid bodies are <span class="MenuCascade" id="GUID-1F8F304E-A558-4B8D-B58F-06483C3FDC87">animated</span>, you can use the object's animation (position, rotation, and linear/angular velocity)
+                        for the initial state of the simulation (see <span class="char_link"><a href="rigidbody_SettingaRigidBodyxd5sInitialState.htm#WSA1B6EFC221254041A441258FAB7C7AE4-00BE">Setting an Initial State for Animated Objects</a></span>). 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-32A94349-773D-4A1F-9351-F2BE103205F6"></a></span>If you apply a force to an animated object, it takes over the object's animation at
+                        the first frame of the simulation. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-3DD75964-8523-42CC-99C0-D27273481C76"></a></span>For example, you could animate an object moving quickly, make it a rigid body, and
+                  then use its position and velocity from its animation at the beginning of the simulation
+                  as it collides with another rigid body. See <span class="char_link"><a href="rigidbody_SettingaRigidBodyxd5sInitialState.htm">Setting a Rigid Body's Initial State</a></span> for more information. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6312A369-1294-48C6-BD3B-FB27A25FFF22"></a></span>When you apply a force to an animated rigid body, the force takes over the object's
+                  movement as soon as the simulation starts. If you want to switch between the animation
+                  and simulation of a rigid body, simply animate the rigid body's Passive option — see
+                  <span class="char_link"><a href="rigidbody_CreatingRigidBodies.htm#WSA1B6EFC221254041A441258FAB7C7AE4-0045">Switching between Active and Passive States</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="FIG_88D851547BB2482CBC48BC5811FE9743"></a></span><div class="figure-anchor"><img src="../images/GUID-715E448A-2F3A-496D-B333-2BE91217EE69-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-F29E0A1E-141E-4FF7-9D12-9F99EB12D15F"></a></span>The billiard ball is a passive rigid body whose rotation and translation is animated
+                  to make it move to the table's edge (A). A gravity force has been applied to the simulation
+                  environment. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0F29EAC6-B7F3-4161-8C74-9F6E6DCAD73B"></a></span>When the ball reaches the edge of the table, the ball's state is switched from passive
+                  to active, the simulation takes over, and gravity makes the ball fall down (B). 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-004A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-89F5B03D-01AB-4B3D-B053-73E6CDF1BC92"></a></span>Editing Rigid Body Properties
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B2518361-30F1-424F-ACE8-4D9E5B9D103A"></a></span>There are different ways in which you can open a rigid body's property editors to
+                  edit it. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-004B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A24B7EFB-3B29-46C0-8345-F44DF48216A6"></a></span>To edit the rigid body's properties
+                  </h3> <span class="anchor_wrapper"><a name="UL_269AF708B1104F398F2C2607FF62F0A2"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-86BC12C3-730D-4E03-AD5C-9ECE85A7EF4D"></a></span>Select one or more rigid bodies and do one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_A0127F2AA09847DEBE3B0FEE2CB26E04"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-EB4B087E-A654-4EA8-B470-1A84AE1FAD38"></a></span>Choose <span class="MenuCascade" id="GUID-F32B4DC4-D2A3-4E63-B58B-902CC6711811">Modify <img src="../images/ac.menuaro.gif"> Rigid Body <img src="../images/ac.menuaro.gif"> Edit Rigid Body</span> from the Simulate toolbar. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-017FFA07-8569-4390-9933-3D2AE41E8620"></a></span>This opens the Rigid Body, Inertial Property, Dynamics Initial State, and Force Controller
+                                 property editors. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8CED4BE6-3608-4F99-A0FF-5AA523A3A93A"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-910380A5-EFF8-41F5-84C1-60EF4A83FDDB"></a></span>In an explorer (press <span class="MenuCascade" id="GUID-52DB7EF3-63D7-484D-9399-ADD42F0CAC34">F3</span> to open a pop-up explorer), expand the rigid body's node and click the appropriate
+                                 icon (such as Rigid Body) to open <em class="mild">only</em> that property editor. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-004C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1E1928F1-FF60-4CD6-B786-DD4932A23941"></a></span>Muting Rigid Body Properties
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-1833741D-06D0-4325-BD8E-729628F73767"></a></span>You can temporarily disable a rigid body as part of the simulation by muting its properties.
+                  When you do this, the rigid body returns to its original pre-simulated state. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0BA33992-EE39-47C0-9407-4034A35171BF"></a></span>Muting is useful if you have several rigid bodies in a simulation and you want to
+                  test the results of each one independently. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-004D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E9F96D8A-4A72-4C1A-B758-ADC6760A738A"></a></span>To mute the rigid body properties
+                  </h3> <span class="anchor_wrapper"><a name="GUID-71AE0C31-82C9-4217-A5A5-43986FD8ECC1"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8F66B508-50F5-43DE-B489-6BA3D5EBDDC5"></a></span>Select the rigid body. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F88CA315-2968-4104-A24E-49A3DADA138B"></a></span>Open its Rigid Body property editor and select the Mute option. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-004E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B5576105-1077-42C6-8A3D-6F7795D23BE2"></a></span>Hiding Rigid Bodies
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F303DFDA-8EFC-46FD-A8F2-8F239394B942"></a></span>As with other hidden objects in Softimage, hidden rigid bodies are also invisible,
+                  but they still participate in the rigid body simulation. A hidden rigid body may cause
+                  instabilities in the simulation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8B9D3E5B-B7DB-4A44-BA06-FDDA88A6100A"></a></span>Make sure to mute the hidden rigid bodies if you don't want them to participate in
+                  the simulation. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-004F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-4A575EC8-38AD-486E-878F-1284A5AB48A8"></a></span>To toggle the display of the rigid body constraint object
+                  </h3> <span class="anchor_wrapper"><a name="UL_965B46204D0446009978F1B91E496118"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1DC5BD5A-BA26-4386-B62C-A00EB8943625"></a></span>Select the rigid body you want to hide and press H. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FF41F317-D6AC-4337-ADE8-F3B2598FFBF4"></a></span>To display the rigid body again, select it in the explorer and press H again. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0050"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3EDB0575-4FC2-42B4-ABDC-FBA01EEAFA4E"></a></span>Removing a Rigid Body from the Simulation
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-481C4DBD-93AA-4E99-A267-E8792EA7CE19"></a></span>When you remove a rigid body from the simulation, it is removed from the Rigid Body
+                  group in the simulation environment, but still retains all its rigid body properties.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0051"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-276527CC-82EA-46BC-8BC4-DE1129A02EA9"></a></span>To remove the rigid body from the simulation
+                  </h3> <span class="anchor_wrapper"><a name="UL_79660152FF284164AD16EB195CC6C4D2"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-771EA9A2-784B-4281-A5B9-6B1ECCF61812"></a></span>Do either of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_3983C5BE314046A9AD6869B0A1F1E38B"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-517D4E51-6265-4072-B9C0-6580A4C63D97"></a></span>In the explorer, right-click a rigid body in the environment's Rigid Body group and
+                                 choose <span class="MenuCascade" id="GUID-03EF47AA-2E25-4910-83AF-2D6F7DFC1D57">Remove from Group</span>. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DB815C51-16BD-4BBA-B434-F025C9338208"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9F79B905-BF21-4718-A953-C20C72A8E38B"></a></span>Select a rigid body and choose <span class="MenuCascade" id="GUID-7800CBE8-D443-4DC3-925F-05DF2A19F426">Modify <img src="../images/ac.menuaro.gif"> Rigid Body <img src="../images/ac.menuaro.gif"> Remove Rigid Body</span>. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-DE0986CB-BD73-4144-A6B8-689FC060497B">
+      <meta name="indexterm" content="antialiasing: also aliasing">
+      <meta name="indexterm" content="antialiasing: tips &amp; tricks">
+      <meta name="indexterm" content="aliasing: motion blur and">
+      <meta name="topic-type" content="concept">
+      <title>Antialiasing, Sampling, and Filtering Tips &amp; Tricks</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-DE0986CB-BD73-4144-A6B8-689FC060497B"></a></span><div class="head">
+            <h1>Antialiasing, Sampling, and Filtering Tips &amp; Tricks</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-FCBEC6AE-0F4B-4338-A9B0-B75F782EC3BC"></a></span>Here are a few tips &amp; tricks to help you set antialiasing, sampling, and filtering
+               options correctly. 
+            </p><span class="anchor_wrapper"><a name="UL_CB871DD3CE3D4A0FBDDD232A76BEC7FB"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-00EE6FBF-0489-4EB5-BE9A-B9246F3C53AE"></a></span>Avoid adding antialiasing when you render a texture map that fills up the screen because
+                     its edges aren't visible anyway. If the texture map itself is already antialiased,
+                     you don't need to add more antialiasing when you render. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-95698C64-D5BC-4D00-BA58-EC017ED83462"></a></span>Before adding antialiasing to improve the quality of motion blur, try fine-tuning
+                     the motion samples value instead. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-653E8595-BE2A-4A7E-B130-00D5C62D17CA"></a></span>Motion samples can increase the quality of your motion blur without substantially
+                     affecting render performance, and usually without adjusting the antialiasing settings.
+                     For more information, see <span class="char_link"><a href="cam_motion_blur_mentalrayRenderingSettings.htm#WS0AC5395ABA99F943A3A67CB5D68478D4-001D">mental ray Rendering Settings</a></span> [<span class="char_link"><a href="cam_cover.htm">Cameras and Motion Blur</a></span>]. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0D83CE09-B955-4AC4-9661-92C717CCE594"></a></span>The minimum and maximum sampling values should never be set to identical positive
+                     values, as this defeats the purpose of adaptive sampling. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-02A9EEBB-7CED-48B0-B5EE-3D1FCC418D8E"></a></span>Too much sampling is done in areas that don't need it, which slows down rendering.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-25A6DED5-7355-404D-90E0-6C16E85DCA0B"></a></span>Identical negative values, on the other hand, are useful for rough previewing since
+                     they limit the number of samples and speed things up. For example, rendering with
+                     values of -1/-1 is faster than with settings of -1/0. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D08B376E-6ECA-4E17-B460-3667157B5BEC"></a></span>Before raising the sampling value, try lowering the sampling contrast values. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-564E1C04-4799-47E4-86A2-14BA7BED9997"></a></span>This can increase the quality of the rendered image with less of an impact on rendering
+                     performance. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-48F134B0-76D5-400C-BE17-AE888E91289E"></a></span>Using sampling contrast values of less than 0.05 can lead to unnecessary oversampling
+                     and slow down rendering. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CBB8E387-ECE9-4EC8-8482-D2D5EAE07350"></a></span>Use triangle filtering when you need to preserve image sharpness. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C27F3ADF-4805-4420-A473-BFB1F6659AB1"></a></span>Use Mitchell or Lanczos filtering for a final render. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C3D975CF-4591-44C6-ADDF-857BBC82A8B4"></a></span>This will increase rendering time, but the quality of antialiasing will be much higher.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9B05F9C3-7C14-46D9-B780-20454059C773"></a></span>Turn on jitter for images with a slow transition between colors. This will increase
+                     rendering time. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A056DDCA-B03B-4A2A-9FE4-8491F947FE96"></a></span>You can also turn on dithering to prevent banding. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E22BA6AB-D71A-401C-B442-570D0557CF18"></a></span>Sometimes, changes to the sampling pattern from frame to frame can cause flickering
+                     in a rendered sequence. You can reduce this flickering by activating the <span class="MenuCascade" id="GUID-1D2A7477-A3F9-49CA-9264-9409A18FB347">Framebuffer <img src="../images/ac.menuaro.gif"> Sample Filtering <img src="../images/ac.menuaro.gif"> Use Same Sampling Pattern for All Frames</span> option. 
+                  </p> 
+               </li>
+            </ul>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

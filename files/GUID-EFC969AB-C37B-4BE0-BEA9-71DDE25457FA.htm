@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-EFC969AB-C37B-4BE0-BEA9-71DDE25457FA">
+      <meta name="indexterm" content="CrowdFX: modifying deformer animation with animation states">
+      <meta name="indexterm" content="CrowdFX: using constraints with animation states">
+      <meta name="topic-type" content="concept">
+      <title>Modifying Deformer Transformations for the Animation States</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-EFC969AB-C37B-4BE0-BEA9-71DDE25457FA"></a></span><div class="head">
+            <h1>Modifying Deformer Transformations for the Animation States</h1>
+         </div><span class="anchor_wrapper"><a name="FIG_4924F5F995E441139562176CCBF0B77B"></a></span><div class="figure-anchor"><img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-BD728878-3F4E-48C5-AF5D-AD2F0D208854"></a></span>   
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-0DA40D5F-D08D-4572-B716-943F956873CB"></a></span>The Animation_Blending ICE tree contains Animation Definition that includes all the
+            Animation States required for the crowd simulation. You can modify the deformers for
+            each animation state to create a crowd simulation that you want. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-C8527783-9869-40CB-9372-4A51F71B2215"></a></span> You must use the deformers and attach them to the <span class="MenuCascade" id="GUID-9EB2EB04-73C3-4581-B49E-6CD77BB7BF4D">Pose Modifier</span> port of the <span class="MenuCascade" id="GUID-6703C0E3-EBE5-40D8-A11F-E1BE2FB43122">Define Animation State</span> node. For example, to drive the orientation of an arm to make it wave or scratch
+            the actor's head. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-EDA1EAF8-03A8-45E6-82E8-260CBAB77C0D"></a></span>The following example shows a simple way in which you can use animation states to
+            modify deformer transformations. In a nutshell, here's what happens in this crowd
+            simulation: The actors are in a walk cycle with the Left and Right arms are deformed
+            with orientation constraint. When an actor instance (particle) reaches the cube as
+            he's walking, his Spine is scaled, the Left and the Right arm will be back to the
+            default pose. When he walks a bit farther ahead in Z, his arm rotates back down into
+            its normal position in the walk cycle. 
+         </p><span class="anchor_wrapper"><a name="FIG_B867739E846F454899397F2CA6E97AC1"></a></span><div class="figure-anchor"><img src="../images/GUID-06DF8F46-DC26-4057-96F4-76C44C53207B-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-9E1B18FD-655B-4EA8-9843-356C9207614E"></a></span>And here's what's happening with the animation states in the ICE tree. Each of the
+            numbers in this image corresponds to the steps following it: 
+         </p><span class="anchor_wrapper"><a name="FIG_4C3A7789857C41609DC9A5925E160970"></a></span><div class="figure-anchor"><img src="../images/GUID-FF343346-A1EA-44AE-A1B4-DA894D1B7D55-low.png"><p class="figure-title">Scaling and Orientation Constraints in the Animation_Blending ICE Tree</p>
+         </div><span class="anchor_wrapper"><a name="FIG_AF0AD235C5C146C387BF94AC8786106B"></a></span><div class="figure-anchor"><img src="../images/GUID-EBAAE3AF-FC5D-41E6-99C9-82A67C6BB5A9-low.png"><p class="figure-title">Using the Animation States in the Behavior ICE Tree</p>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-385A83E5-34D4-4FC3-A07A-DA9933F02566"></a></span>Using this example as a base, here are the basics of what you need to do: 
+         </p><span class="anchor_wrapper"><a name="TABLE_BBAA49DF2BD04A30ADB2E5103CAD5E0B"></a></span><div class="table_Ruled">
+            <table cellpadding="0" cellspacing="0" class="ruled">
+               <colgroup>
+                  <col width="15.789473684210526%" align="left">
+                  <col width="84.21052631578947%" align="left">
+               </colgroup>
+               <tr class="ruledOddRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5F1B9486-24B9-4D6B-8C13-B8274EAF806B"></a></span><p class="table-body"> <em class="strong"> 1</em> 
+                     </p> 
+                  </td>
+                  <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-105E0441-5C84-4C04-8630-41DE2B81B807"></a></span><p class="table-body">In the Define Animation node of the Animation_Blending ICE tree, add Define Animation
+                        State nodes and connect them to the Execute node. 
+                     </p> 
+                  </td>
+               </tr>
+               <tr class="ruledEvenRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-41FFFF8D-6608-4B0F-93C1-76549F3E1110"></a></span><p class="table-body"> <em class="strong"> 2</em> 
+                     </p> 
+                  </td>
+                  <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C836967A-655C-45F7-A49E-9276AF5812BA"></a></span><p class="table-body">Add the <span class="MenuCascade" id="GUID-9358B4E6-6AD0-46B6-B3EC-34E72752C31F">Crowd Scaling Constraint</span> and <span class="MenuCascade" id="GUID-74DEF054-4AB1-4039-A355-36AB0230BCD8">Crowd Orientation Constraint</span> compounds to constrain the Spine, Right, and Left arms. 
+                     </p> 
+                  </td>
+               </tr>
+               <tr class="ruledOddRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A72EE503-D6D7-444C-9229-853C7DB341B7"></a></span><p class="table-body"> <em class="strong">3</em> 
+                     </p> 
+                  </td>
+                  <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9F9EB3C2-851C-4A42-8D7E-6C7F6DA78224"></a></span><p class="table-body">Get each actor rig proxy deformer that you want to constrain or animate. </p> <span class="anchor_wrapper"><a name="GUID-99911335-F0DE-4210-8D11-FD1DE5893FBB"></a></span><p class="table-body">In this example, the Spine is scale constrained and the Left and the Right Arm are
+                        Orientation constrained. 
+                     </p> 
+                  </td>
+               </tr>
+               <tr class="ruledEvenRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FC51A05E-8278-4139-BC9F-B8A9652D2B24"></a></span><p class="table-body"> <em class="strong">4</em> 
+                     </p> 
+                  </td>
+                  <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6DFEA82A-6669-41A9-BE36-0AC1B02FD924"></a></span><p class="table-body">In the Behavior ICE tree, create the logic for the condition in which to use the animation
+                        states. 
+                     </p> 
+                  </td>
+               </tr>
+               <tr class="ruledOddRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A568D1FE-36DE-4109-9CEB-2ECFEDFB7C1D"></a></span><p class="table-body"> <em class="strong">5 </em> 
+                     </p> 
+                  </td>
+                  <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7EF8F806-EE44-45F5-8233-E6349112D302"></a></span><p class="table-body">Create a condition in the Behavior tree to determine which animation state to use
+                        and from where the constraint is affected. 
+                     </p> 
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

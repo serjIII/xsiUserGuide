@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-56E27D38-96A0-4F30-9B81-625E4B4B023E">
+      <meta name="topic-type" content="concept">
+      <title>About ICE Kinematics</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-56E27D38-96A0-4F30-9B81-625E4B4B023E"></a></span><div class="head">
+            <h1>About ICE Kinematics</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-00A3F8DE-E7FE-47BD-9C08-9DEDFF92E19E"></a></span>ICE kinematics allows advanced riggers and TDs to create custom rigs using a minimal
+            number of control objects. A rig can be composed of simply the manipulators and the
+            deformers. There is no need for complex hierarchies of helper objects — instead, an
+            ICE tree can implement complex behaviors for the deformers' transformations based
+            directly on the manipulators's transformations. This can greatly simplify and speed
+            up very elaborate rigs. It also allows for more portability and reusability.
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-12D4AA75-3692-4B5F-A0DE-7AE43B0621B8"></a></span>Using ICE in this way can become very complex, especially if you are not familiar
+            with the mathematics underlying transformations and kinematics. Typical animators
+            are unlikely to create their own rigs in ICE — instead, they'd use any of a variety
+            of rigs built by expert riggers for specific purposes.
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-0004"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-AE503668-1E0E-431A-975E-78C17ED3CADD"></a></span>The Rules of ICE Kinematics
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-7859C631-D4EA-4FCB-994B-1DC8131AF82D"></a></span>The main thing that makes ICE kinematics different from using ICE to control particle
+               simulations or geometry deformations is that it involves setting the transformations
+               of objects. Almost everything else, including connections, context, data types, and
+               so on, is exactly the same as in the rest of ICE.
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-956A4794-5195-4668-8204-C94646F1D899"></a></span>However, there are some specific rules when setting objects' transformations:
+            </p> 
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C24A1B07-72EC-4529-A43D-6DEDD3898FC2"></a></span>You can write only to kine.global, not kine.local. However, you can get either matrix
+                     and use it in your calculations.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-063C991C-C4C8-4548-8432-E050E5BC89CC"></a></span>You can write only to the whole kine.global matrix, not to components like pos or
+                     posx. However, you can still get components like pos or posx directly — you don't
+                     need to get the whole matrix and decompose it in your ICE tree.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3BEC524D-8885-4921-BBBE-9A4B33A51A51"></a></span>You can write to kine.global only once per object per tree. If you set an object's
+                     kine.global property and then get it later in the same tree, the original values from
+                     before the tree started to evaluate are returned. To workaround this, you can either
+                     use a second tree above the first one in the stack, or store intermediary transform
+                     values as a custom ICE attribute and then set kine.global at the end of the tree.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D5CF82B6-6EAD-4ECE-85FD-E3F77EB80EB9"></a></span>ICE writes transformations at the same priority level as constraints, so ICE kinematics
+                     takes precedence over other forms of animation such as fcurves, expressions, and mixers.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9BD72FEF-D969-4C85-841C-D679FB7DE74F"></a></span>You need to be very careful about which ICE trees get and set data on which objects
+                     to avoid complex interdependencies that do not evaluate properly.
+                  </p> 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WS8F6B3156C107E34084E5D0ABDF9AD1BF-0005"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-729136FF-8836-460B-A2FD-341AF2A935E9"></a></span>ICE Kinematics Sample Content
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-E0F0E583-A765-4379-BA4F-EA1544B64AF7"></a></span>For some examples of scenes that use ICE kinematics, look at the Kinematics_* scenes
+               in the ICE subfolder of the Scenes folder of the XSI_SAMPLES project. For some compounds
+               that you can use when building your own scenes, use the plug-in manager to connect
+               to the ICE_Kinematics workgroup located in the Application/Workgroups folder of the
+               Softimage installation location (see <span class="char_link"><a href="custom_basics_CreatingandUsingWorkgroups.htm#WSE9C602CD3033954D92C2399D1A5D34D5-000E">Connecting to a Workgroup</a></span> [<span class="char_link"><a href="custom_cover.htm">Customizing Softimage</a></span>]). After you have connected to the workgroup, the compounds can be found under ICE
+               Kinematics on the Tasks tab of the preset manager.
+            </p> 
+            <div class="figure-anchor"><img src="../images/GUID-AF5714F5-2153-4990-AFC9-658FDCDCDDE6-low.png"></div> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

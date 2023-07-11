@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-8A984218-4DEC-4EC8-8730-20298EA8D363">
+      <meta name="indexterm" content="cloth simulation: motion blur">
+      <meta name="indexterm" content="cloth simulation: optimizing performance">
+      <meta name="topic-type" content="concept">
+      <title>Tips for Using Cloth and Soft Body</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-8A984218-4DEC-4EC8-8730-20298EA8D363"></a></span><div class="head">
+            <h1>Tips for Using Cloth and Soft Body</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-E6E2476E-22FA-4FD2-A42A-1C5D43FABCB4"></a></span>The following is a list of tips to consider for optimizing cloth or soft body performance.
+               
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0062"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-891CCECF-BD31-40A5-A5A7-A74360BE9E44"></a></span>Using Motion Blur on Cloth or Soft Body
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-64F5C3E7-BA43-4B74-AEA4-7D1B7ABE6780"></a></span>If you want to use motion blur when rendering a cloth or soft body scene, make sure
+                  to select <span class="MenuCascade" id="GUID-04AC31C0-8998-4C9E-AA5C-6602E73DD76F">Deformation Blur</span> in the object's Motion Blur property editor <em class="mild">and</em> make sure that the <span class="MenuCascade" id="GUID-189927DF-DB9D-41F7-A9D1-5FB47C62E50C">mental ray <img src="../images/ac.menuaro.gif"> Motion Steps <img src="../images/ac.menuaro.gif"> Deformation</span> option in the Render Manager has a value over 0. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2A209B68-6E2D-47C2-8115-31F5C29CA168"></a></span>For more information on this, see <span class="char_link"><a href="cam_motion_blur_mentalrayRenderingSettings.htm#WS0AC5395ABA99F943A3A67CB5D68478D4-0021">mental ray Rendering Settings</a></span> [<span class="char_link"><a href="cam_cover.htm">Cameras and Motion Blur</a></span>]. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0063"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0ECB99B1-7C60-447C-82EE-42C9ABAEDF77"></a></span>Setting an Initial State for Cloth
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0E0187EA-B749-4E7A-AD78-7F824B5D11C3"></a></span>While you can't directly set an initial state for cloth (that is, have it start the
+                  simulation at a certain deformed state), here's a trick that may work: 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-ADCF0621-84AF-44A3-A18E-1D9C3F1C2B0F"></a></span>Freeze the cloth at the frame where it's at the state you like, then reapply the Cloth
+                  operator. The drawback of this is that you need to reapply forces and obstacles to
+                  the cloth, but they do keep their properties so you don't have to set them up again.
+                  
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0064"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D30AD694-9610-4D64-A98B-62F93BEFB06E"></a></span>Tips for Optimizing Cloth or Soft Body Performance
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-48546F7B-CFF1-4366-9F92-1BD0D26FA17C"></a></span>Here are some useful tips to help prevent sluggish performance from cloth or soft
+                  body simulations: 
+               </p> <span class="anchor_wrapper"><a name="UL_5641207B3D9B4C36859E2B7AB13A0EF4"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-364370D3-F934-4855-849F-C6B79B7286A8"></a></span>Before you apply cloth or soft body to an object, check if the object has any unnecessary
+                        operators in its geometry stack. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3FE94EE3-D26E-4E97-891C-D8249D86373A"></a></span>For example, you may have some modeling operators (move component, extrude, etc.)
+                        that you no longer need. If you can, freeze the object before applying cloth or soft
+                        body. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7746387A-CE16-420D-ABB7-EC91E82893E1"></a></span>Use wildcard selection like *.clothop, *.softbodyop, or *.obstacleprop to find relevant
+                        simulation objects in your scenes. You might be surprised at what you find. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-53CF5353-FE82-469C-B9A7-2912D95A2593"></a></span>Remove any unnecessary obstacles and natural forces (gravity, wind, etc.). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-53BC5E08-F524-4005-944E-29BF6EBE5DD3"></a></span>For obstacles, turn off <span class="MenuCascade" id="GUID-586BEF21-EC79-4CAF-98F5-9FC131F001E2">Animatable Deformations</span> unless it's really needed. It is only needed if the geometry is actually deforming
+                        over time. It incurs some memory cost. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D3FA60D5-EECB-4B15-A34C-6228D71A4124"></a></span>If you don't need <span class="MenuCascade" id="GUID-66F0B462-2E15-4D7F-A4D5-FBDBABADE9F5">Double face collision</span>, make sure to turn it off in the Obstacle property editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-25B97C2C-C1DE-4EC4-825D-70DD029415EC"></a></span>If you are using primitive shapes for obstacles, such as spheres, grids, and boxes
+                        (or geometries with close enough approximations to these shapes), use the bounding
+                        shape rather than <span class="MenuCascade" id="GUID-D38BBCA5-19FB-47A9-B937-0457351B2C2F">Actual Shape</span>. This can save lots of memory. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-48B100C3-3242-4E2A-A19B-B1E0834E6E62"></a></span>If you need more precise collision detection (with "actual shape"), consider using
+                        (hidden) low-res objects you've built to "stand in" for the high-res visible geometry.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E895E6D3-3A56-422A-8EE5-CC0182A92C38"></a></span>Turn down the <span class="MenuCascade" id="GUID-EC92A8B3-74D7-4E5A-9C35-A46F0EA9AB96">Iterations per Frame</span> as much as you can while preserving the look you want (this requires some tweaking
+                        — see <span class="char_link"><a href="cloth_CreatingaClothSimulation.htm#WSE1C045C7AF7B3A4BA3ECAD303D087181-001B">Setting the Precision of the Cloth Simulation</a></span> or <span class="char_link"><a href="softbody_StabilizingaSoftBodyDeformation.htm">Stabilizing a Soft Body Deformation</a></span>). 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2434F9E0-3A89-4E4B-B7DD-F547E3C9ED4F"></a></span>Try out a scenario from your scene with only one or two objects being simulated, and
+                        start with low inter-frame iterations, and bring it up until you get the realistic
+                        simulation look you want. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4D713295-235E-49B5-BDC8-018C297A481D"></a></span>In some cases, you can get away with low settings like 2. Tune each cloth or soft-body
+                        object differently — they probably won't use the same settings. This is highly dependent
+                        on the properties you've set, like stiffness and mass. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E301EBB6-53DF-49FD-87FD-3008A8C2237B"></a></span>Use the smallest possible range of simulation you can. If you know that objects won't
+                        start colliding until frame 107, don't start the simulation until around then, and
+                        stop it as soon as you can (such as if the objects go out of view). Don't use the
+                        full scene time range unless absolutely necessary. This will save some memory to cache
+                        the results of the simulation (but is not as important as the issues mentioned above).
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-11CFF4DD-FFA3-47A5-A53B-4DA77077AF96"></a></span>Self-collision detection takes more time with complex cloth geometry. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-11D0733F-3486-40CD-9DEE-653A395E25A6"></a></span>Lower the soft body's <span class="MenuCascade" id="GUID-0240C7C5-A5E8-4D11-B088-AF92B35CC2E7">Sampling</span> to as low a level as possible while still maintaining the right look. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1AEA505F-DA7B-430C-A7CB-9D9A2275192F"></a></span>Save the simulation after it's calculated (when you save the cloth scene or click
+                        <span class="MenuCascade" id="GUID-715F415C-E759-4752-A57F-170AC2186E46">Save Simulation</span> in the SoftBodyOp property editor before you save the scene) so you don't have to
+                        recalculate every time you open the scene. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

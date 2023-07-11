@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-72BB31A3-57CD-4029-9F4F-36FC8F15A9B8">
+      <meta name="indexterm" content="quaternion rotations: linking a parameter to an object's orientation">
+      <meta name="indexterm" content="linked parameters: linking a parameter to an object's orientation">
+      <meta name="indexterm" content="orientation: linking to a parameter">
+      <meta name="indexterm" content="linking: driving a parameter with an object's orientation">
+      <meta name="indexterm" content="l_interpOri expression for orientation linked parameters">
+      <meta name="indexterm" content="linked parameters: l_interpOri expression">
+      <meta name="topic-type" content="concept">
+      <title>Linking to an Object's Orientation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-72BB31A3-57CD-4029-9F4F-36FC8F15A9B8"></a></span><div class="head">
+            <h1>Linking to an Object's Orientation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-BF05A08D-55AE-44EC-8A1D-2C14C4889B3D"></a></span>As well as linking a parameter to multiple parameters, you can link a parameter to
+               the orientation of an object. When you link to an object's orientation, you link to
+               the "complete" orientation of an object that is calculated in quaternion space; that
+               is, you don't link to the object's individual Euler X, Y, and Z rotation parameters.
+               See <span class="char_link"><a href="ani_xform_AnimatingRotations.htm">Animating Rotations</a></span> for information about quaternion rotation.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-07EE9B74-11CB-48C0-98C3-DC9EF1F55E4A"></a></span>The same interpolation technique used for linking to multiple parameters is also used
+               for linking to an object's orientation — see <span class="char_link"><a href="linkparams_LinkingtoMultipleDrivingParameters.htm">Linking to Multiple Driving Parameters</a></span>. The interpolator for multi-linked parameters computes "how far" it is from one of
+               its relative values by using a distance metric; for orientation, the interpolator
+               uses the orientation (quaternion) distance.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA14DC93AD29D8542AA30B3635CA314C5-0032"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B8A147D1-8079-4F33-95B3-43ACB669FFEC"></a></span>To link a parameter to an object's orientation
+               </h2> <span class="anchor_wrapper"><a name="GUID-2CFAFAB6-8C22-40E3-A381-930CDDA5AB58"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5697C85B-9B74-4119-AA3B-3FA6BB3C2EDC"></a></span>Do one of the following to select the parameters to which you want to link the orientation
+                        of an object:
+                     </p> 
+                     <ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0F3715DB-B328-4721-BC6A-EBB27126C77A"></a></span>In a property editor or the explorer, right-click the animation icon of a parameter
+                              and choose <span class="MenuCascade" id="GUID-5DB21369-4F97-4DFE-9A55-3E947E1CE2DD">Link With Orientation</span>.
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6986A820-D461-48A8-95B5-6D78D64D9F7F"></a></span> <em class="mild">or</em> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6D5D3A7B-5167-4A63-BF0E-7F98804FAF28"></a></span>Select the object and mark the parameters that you want to link and choose <span class="MenuCascade" id="GUID-F14ECA6C-F809-44FD-9C64-29DE71A1C1A0">Link With Orientation</span> from the Animation menu on the Animation panel.
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6D293981-D13D-4418-91D2-6851D7FF7019"></a></span>Pick the object whose orientation you want to drive the linked parameter. Right-click
+                        to end the picking session.
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-405492B1-2921-4FCA-818F-CB557A2ABEB3"></a></span>After you have set up the link, an expression (<span class="MenuCascade" id="GUID-96A2E510-6674-4E0B-88F8-A3D739A4A40D">l_interpOri</span>(<span class="MenuCascade" id="GUID-365FA9AD-E095-408B-9130-DA94FFF5793E"> local.rotx, local.roty, local.rotz</span> )) is set on the linked parameter.
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-46B34907-4D19-4C81-88F0-57C50D69DDB5"></a></span><div class="note-tip"><span class="label">TIP:</span>If you change the parameters in this expression, the linking will not work any more.
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-78378BE8-5A9C-491F-8085-8312D96EA525"></a></span>Set the object's orientation, then set the linked parameter's value relative to the
+                        orientation, as described in <span class="char_link"><a href="linkparams_LinkingtoMultipleDrivingParameters.htm#WSA14DC93AD29D8542AA30B3635CA314C5-0029">Setting Relative Values for Multi-Linked Parameters</a></span>.
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6F1EA147-09D6-4BC7-8895-0A81C5CE7FCE"></a></span>Setting relative values maps the object's complete orientation (not the individual
+                        Euler angle values) to the linked parameter's value.
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E6FC6F51-D1DE-49E4-A7D5-768B2EC241CF"></a></span>Now when you change the orientation of the object, the linked parameter changes as
+                        well.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-73DD64EB-87AE-4C99-8964-C7110E427B55"></a></span>After you have set the relative values, you can edit the falloff, as described in
+                        <span class="char_link"><a href="linkparams_LinkingtoMultipleDrivingParameters.htm#WSA14DC93AD29D8542AA30B3635CA314C5-002C">Editing the Falloff</a></span>.
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

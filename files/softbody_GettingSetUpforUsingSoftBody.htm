@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-BBD951DD-3233-499A-BD89-817ABDEBAE7E">
+      <meta name="indexterm" content="soft body: choosing geometry">
+      <meta name="indexterm" content="soft body: on clusters">
+      <meta name="topic-type" content="concept">
+      <title>Getting Set Up for Using Soft Body</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-BBD951DD-3233-499A-BD89-817ABDEBAE7E"></a></span><div class="head">
+            <h1>Getting Set Up for Using Soft Body</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-427E5D8D-1426-403F-9B42-3BEF5B1C5C05"></a></span>Before you get started with soft body, you need to choose which type of geometry to
+               use for both the soft-body object as well as the obstacles. As well, you need to set
+               the appropriate resolution of the geometry to get the desired soft body collision
+               effect.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBFBB0580C45EDD4BB75F9950DB8EA5EA-000C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F188F66D-C266-4092-912C-19C64CC9BC4B"></a></span>Polygons or NURBS Surface Objects?
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-50CDA697-4A9F-48F1-93A3-155509AB378D"></a></span>You can use either polygon or NURBS surface objects with soft body, but you may find
+                  that polygon objects give a slightly more accurate deformation because their points
+                  lie directly on their surface, unlike NURBS surface objects (see <span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span> for more information on object geometry).
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A2E5AC73-7996-4BE1-A9E9-A30B033E98EF"></a></span>You can also use high-resolution models: because soft body is practically resolution
+                  independent (in terms of time performance), what is more important is the resolution
+                  of the lattice (as defined by the <span class="MenuCascade" id="GUID-F5E5C12F-1C94-4991-9CCD-5523E301ABF6">Sampling</span> parameter).
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-AFA689F0-8CC7-4444-9634-FA25D4B5D60B-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-484EB1CB-686A-4132-A420-AF9CA4FE5C89"></a></span>On the left, a polygon mesh sphere has points directly on its surface.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-17AC445E-F312-4DDE-90F8-ABA333B96472"></a></span>On the right, a NURBS surface sphere has its points away from the surface.
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-F48A9EFC-79D3-42F0-808D-F634A2B7EF74"></a></span><div class="note-note"><span class="label">NOTE:</span> 
+                     <ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-BA66D0DE-14D3-4A67-90E3-EB08D083E7D1"></a></span>You can apply soft body to multiple objects, in a hierarchy or not, but the deformation
+                              is applied to each object individually, not in a hierarchical way. That is, if you
+                              apply soft body to a parent, it is not propagated to its children to create a "global
+                              deformation" of the hierarchy.
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6E2C1E22-9CFB-45DD-A454-E452FEF44BF0"></a></span>You can apply soft body to individual objects in a group, but not to the group itself.
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-030AA1C1-CD74-46DB-840E-722E92F7BF53"></a></span>You cannot apply soft body to a lattice.
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBFBB0580C45EDD4BB75F9950DB8EA5EA-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7E6AB653-A481-47AC-9A58-996A97C4C631"></a></span>Applying Soft Body to Clusters
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-573229BC-1E68-48C5-9F4D-175FE40ED89F"></a></span>You can use soft body on clusters (such as points and polygons), allowing only part
+                  of that object to be deformed by soft body. For example, you can have just the cluster
+                  of points of a character's belly be deformed by soft body for some jelly-like fun.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9D29C037-DA64-45D1-B553-13835A7690E5"></a></span>Although soft body is applied to the cluster, the SoftBodyOp operator is stored directly
+                  under the object's geometry node, not the cluster itself. However, a reference to
+                  the cluster is displayed under the SoftBodyOp node.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-640A510F-3E58-4E2C-A6EF-A1672F819336-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-66A82FCD-8990-43C6-BBF0-0941288654D1"></a></span>When you set an obstacle for collisions with the soft-body cluster, make sure to first
+                  select the soft-body object, not the cluster. This is because collisions can happen
+                  only with objects, not clusters.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBFBB0580C45EDD4BB75F9950DB8EA5EA-0010"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A7DF0EF9-C90A-44B1-B3E6-8D9C6834A486"></a></span>High or Low Geometry Resolution?
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-83D86C4A-BF8F-43C8-B892-1BB85EC76B22"></a></span>Make sure that the soft-body object has a high enough resolution to give the effect
+                  you want. However, high-resolution objects are costly to calculate.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BA047C47-CDEE-43AD-937D-EF2E98DBD248"></a></span>Generally, the soft-body object must not be too low for two reasons:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FC72BAB4-9201-462F-83D9-526EFF03752A"></a></span>You need a sufficient number of vertices for getting a satisfactory collision response.
+                        Edges may penetrate some polygons of the obstacle even if the vertices are well managed.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-59862DFE-8433-4487-B515-A6E8CC15A673"></a></span>Subdivision not only adds new vertices but also moves the original ones, so you may
+                        violate the obstacle constraints.
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-160FC79A-1424-4A69-AF02-60A74969F3E9"></a></span>As with all simulations, the trick is to find the lowest resolution acceptable for
+                  the results you want. One way to accomplish this is to use an acceptable low-resolution
+                  "stand in" model while you're setting up the basic simulation and collisions. Then
+                  when you're done that, swap in the high-resolution model and tune the parameters accordingly.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

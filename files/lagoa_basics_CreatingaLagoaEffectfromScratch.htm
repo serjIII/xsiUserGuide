@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-E74243B9-A729-4882-9811-21CF8FB035C8">
+      <meta name="indexterm" content="Lagoa: setting up the ICE tree">
+      <meta name="topic-type" content="concept">
+      <title>Creating a Lagoa Effect from Scratch</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-E74243B9-A729-4882-9811-21CF8FB035C8"></a></span><div class="head">
+            <h1>Creating a Lagoa Effect from Scratch</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-3479A97A-B6DA-46F1-8E95-181A231A0D08"></a></span>While you can create Lagoa simulation effects easily using any of the Model Library
+               or Create commands on the ICE toolbar, you can also go the "do-it-yourself" route
+               by following the steps in this section. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-000C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E931E578-9046-4601-AF4F-46611173D73D"></a></span>Workflow Overview for Creating a Lagoa Simulation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E399C61D-18E7-4ECE-82F8-2ED8EFE7983A"></a></span>The following workflow shows an example of a fluid effect, but similar basic steps
+                  can be followed for creating a deformation effect. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9E1B18FD-655B-4EA8-9843-356C9207614E"></a></span>Each of the numbers on the nodes in this image corresponds to the steps following
+                  it: 
+               </p> <span class="anchor_wrapper"><a name="FIG_DB045DB511744F7F8ECE742138A579AE"></a></span><div class="figure-anchor"><img src="../images/GUID-15603713-18C0-413A-9D89-8DD6641E828A-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_BBAA49DF2BD04A30ADB2E5103CAD5E0B"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="9.55223880597015%" align="left">
+                        <col width="90.44776119402985%" align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5F1B9486-24B9-4D6B-8C13-B8274EAF806B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-29C4E4F2-F4B0-4C13-8ED5-5EB26167E03A">1</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DE01CAB1-D869-4680-9EA2-35F336C9E07D"></a></span><p class="table-body">Create either a point cloud for particle effects, or a polygon mesh for deformation
+                              effects. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-41FFFF8D-6608-4B0F-93C1-76549F3E1110"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C33028BE-67A5-489F-975E-00101C3A6C40">2</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2FB4FC28-E57D-489A-8679-40E236D53604"></a></span><p class="table-body">Create one or more emitter objects for particle effects. Put multiple emitter objects
+                              in a group. See <span class="char_link"><a href="lagoa_basics_SettingUpEmissionsinLagoaSimulations.htm">Setting Up Emissions in Lagoa Simulations</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A72EE503-D6D7-444C-9229-853C7DB341B7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-772D033B-543C-40FE-84E7-0CFD7444B7C5">3</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D812E724-ECA1-4D9E-9F74-B7A59AD401C1"></a></span><p class="table-body">Create one or more collision objects. Put multiple collision objects in a group. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FC51A05E-8278-4139-BC9F-B8A9652D2B24"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2DC63323-C61A-4213-A3D6-71E222455552">4</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7F3D5C10-CC7F-4E19-B300-4F8DCB9803E2"></a></span><p class="table-body">Create a simulated ICE tree for the point cloud or polygon mesh. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A568D1FE-36DE-4109-9CEB-2ECFEDFB7C1D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BA6C3F4D-8193-47EB-923C-D1ABEC2C5EE4">5</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5DB3A0BE-1B77-4F44-9347-19E60C1A9B6B"></a></span><p class="table-body">Add the basic Lagoa nodes to the ICE tree, plugged together as shown in <span class="char_link"><a href="lagoa_basics_CreatingaLagoaEffectfromScratch.htm#WSDB3F18AD46880645A866AC65C658D203-000F"> Anatomy of a Basic Lagoa ICE Tree</a></span> below. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9B5BC092-07AF-4960-B0D5-AAE4DE6ECF9D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0DCDFEA9-EAF5-4FD1-BAAD-30B4CC6620BD">6</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C8B361CE-0520-44B8-9AF7-481854077D3D"></a></span><p class="table-body">Play the simulation, then tweak the parameters, mostly in the Lagoa Emit and Material
+                              nodes — see <span class="char_link"><a href="lagoa_basics_LagoaMaterialProperties.htm">Lagoa Material Properties</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4F8C9900-A1C0-4E2B-BA23-0437D40248F6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B5562CFE-9058-42C5-B56A-B5165DD5EA3D">7</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7407F76C-51B1-402A-936A-D4218E659459"></a></span><p class="table-body">Set up collisions with the collision objects — see <span class="char_link"><a href="lagoa_basics_SettingUpCollisionsforLagoaEffects.htm">Setting Up Collisions for Lagoa Effects</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-0186CA07-94F0-4981-8783-1DD0CCAA2867"></a></span>Once you have an ICE tree set up, you can add other Lagoa nodes, or use most ICE nodes
+                  as you would normally. See <span class="char_link"><a href="iceref_compounds_lagoa.htm">Task Tab - Lagoa (Fluids and Deforms)</a></span> for a description of each Lagoa node. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-000F"></a></span> Anatomy of a Basic Lagoa ICE Tree
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1358B67B-BCFF-4FAF-B566-C84B1462CBCA"></a></span>These nodes are the ones that you need as a base for any Lagoa simulated effect. See
+                  the table following this image for an explanation of each node. 
+               </p> <span class="anchor_wrapper"><a name="FIG_552EE0F5D0774CE8A393396821556909"></a></span><div class="figure-anchor"><img src="../images/GUID-7E792847-085C-4E1E-9168-3ED8DAC188E4-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_BC03D6B4B7504CAF8EB8FB46B411446B"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="9.774436090225564%" align="left">
+                        <col width="90.22556390977444%" align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B801934A-1A33-4133-8B03-72A6C7A27E60"></a></span><p class="table-body"> <em class="strong"> A</em> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-01B65FE5-D683-49A5-94C6-99FA9B9531AE"></a></span><p class="table-body">The <span class="MenuCascade" id="GUID-8BDFF1D2-F3C3-485C-BC23-E0200879B704">ICETree</span> node is the main node in any ICE tree. At each frame, the ICETree node processes
+                              all nodes and compounds that are connected to its ports, from top to bottom. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-24C7E359-D958-4E84-8EEF-AE64D2897886"></a></span><p class="table-body">See <span class="char_link"><a href="ICE_simulation_TheSimulationRegionsandNodes.htm">ICE Simulation Regions and Nodes</a></span> [<span class="char_link"><a href="ice_cover.htm">ICE Guide</a></span>] for more information. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E6AACD01-34E7-4E21-B5F5-161F999102FC"></a></span><p class="table-body"> <em class="strong"> B</em> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D9A44815-0038-46EC-B36C-E717DBCC2E05"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Simulation_Root.htm">Simulation Root</a></span> node is "central station" for ICE simulation nodes. It needs to be plugged into the
+                              ICETree node. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-68C8BF75-5995-40DF-8685-C693535BE8D0"></a></span><p class="table-body">This node gives you easy access to many ports in which you can plug in nodes that
+                              are often used in simulations. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-18D1F610-DE8E-4F19-978C-F4CC0D19C63D"></a></span><p class="table-body">To use the commands on the ICE toolbar, you need to have this node plugged into the
+                              simulated object's ICE tree. 
+                           </p> 
+                           <div><span class="anchor_wrapper"><a name="GUID-529E141A-798B-4F4A-B0C1-73EF233DBD03"></a></span><div class="note-note"><span class="label">NOTE:</span>Make sure to right-click on this node and choose <span class="MenuCascade" id="GUID-315C0097-04E2-4C77-9D14-1EAD372EA05C">Version <img src="../images/ac.menuaro.gif"> 1.0 (No State Machine)</span> before you start connecting the rest of the Lagoa nodes. Lagoa works only with V1.0
+                                 of this node. 
+                              </div>
+                           </div> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1A365E64-8410-43DF-909C-3458789F84B8"></a></span><p class="table-body"> <em class="strong">C</em> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8152372C-F36B-4D68-8CCD-000CCB6F86B8"></a></span><p class="table-body">The Lagoa Emit node is responsible for creating and emitting the particles. At every
+                              frame, it adds points and sets their attributes such as size, color, velocity, mass,
+                              shape, etc. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-54FCBF7B-8571-470D-BEED-981373DEF17F"></a></span><p class="table-body">Emit compounds are usually plugged into the top of the Simulation Root node in a particle
+                              simulation because you need to emit the particles before anything else can happen
+                              to them. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-411741ED-565D-4076-BB20-37D28FA1EAB1"></a></span><p class="table-body">See <span class="char_link"><a href="lagoa_basics_SettingUpEmissionsinLagoaSimulations.htm">Setting Up Emissions in Lagoa Simulations</a></span> for information. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F2EB0D86-2540-4A26-8DA1-657F9E5D35C5"></a></span><p class="table-body"> <em class="strong"> D</em> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DF1102C4-46AF-462B-9553-82275EE0B5C7"></a></span><p class="table-body">A <span class="MenuCascade" id="GUID-1536D206-74DB-4C28-8A92-8A212C734FC5">Get Data</span> node represents the particle emitter object in the ICE tree and gets data from it
+                              so that it can be used in the ICE tree. In this case, the node is called <span class="MenuCascade" id="GUID-12467B71-A015-4A6B-A6AA-A1EDC71C357A">Get null</span> because that's the name of the emitter object. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-10D5BEDF-F336-4D6A-A1D8-3204E67E2B36"></a></span><p class="table-body">For multiple emitters, put them in a group, then plug the group's Get Data node into
+                              the Null Name or Emitter Name port on the Lagoa Emit node. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9D5A441F-B280-4401-ADF5-757759A98A88"></a></span><p class="table-body"> <em class="strong"> E</em> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9751CF86-35F5-4893-81C1-43AB2191B01A"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Lagoa_Air_Density.htm">Lagoa Air Density</a></span> node is a hub for other forces to be connected into it. It adds up the values of
+                              all those forces and then outputs a single vector value to the ICETree node. It sets
+                              a gravity and air density force by default. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-FD6CD914-B14F-4225-897D-3C41151F73BC"></a></span><p class="table-body">See <span class="char_link"><a href="lagoa_basics_SettingUpForcesforLagoaEffects.htm">Setting Up Forces for Lagoa Effects</a></span> for information. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BDCE8945-FBFF-4014-8D67-B066E83A8B35"></a></span><p class="table-body"> <em class="strong"> F</em> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-97C52139-0A6C-465D-972F-BBB1B8889886"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Lagoa_Phase.htm">Lagoa Phase</a></span> node determines which phase the particles are in, rather like a physical state. You
+                              can use multiple phases with different materials, and then decide to switch between
+                              them. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-35F2739F-AE53-40C6-B2E3-BE79E945A874"></a></span><p class="table-body">See <span class="char_link"><a href="lagoa_basics_CreatingPhasesforLagoaEffects.htm">Creating Phases for Lagoa Effects</a></span> for information. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FBE3562C-26CC-4CAB-8318-E7799982708F"></a></span><p class="table-body"> <em class="strong"> G</em> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6D22B0AB-6740-461C-BD3B-934727ECE061"></a></span><p class="table-body">The Lagoa Material node sets the material properties of the particles or polygon mesh,
+                              such as elasticity, inelasticity, surface tension, and so on. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-516960EB-C0FD-4CE1-AE1F-49218854646F"></a></span><p class="table-body">The materials are calculated by the Lagoa Simulate Multiphysics node (see <span class="MenuCascade" id="GUID-F9EFBB83-FFC3-4EB4-A702-D756BD1A6092">H</span>): make sure that the corresponding material options are activated in that node. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-7DA7C0E7-53E2-4941-9E96-182BC9DACC16"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span> node is the base material node upon which all other Material Type nodes are created.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-15CC7EC2-78A3-4C5A-ABCF-0DC05878D4B8"></a></span><p class="table-body"> <em class="strong"> H </em> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1B8A479B-261C-44AE-A9D9-2E014425E020"></a></span><p class="table-body">The <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node does all the simulation calculations. It drives the simulation in the same way
+                              that the Simulate Particles node drives typical particle simulations. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-6B99EC84-175C-43BD-9542-6DBEAB860657"></a></span><p class="table-body">This node takes all information from the compounds that are plugged in above it and
+                              then uses that information to update each point at each frame. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-30F2A7A9-E027-44CB-AA52-AAC4F18D43B7"></a></span><p class="table-body">It also acts as a control for activating the material and collision properties. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8B8B38C2-E30B-4FFB-9BCC-3C171915F1EA"></a></span><p class="table-body"> <em class="strong"> I</em> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BDD3CC48-147C-4E6C-8305-3C2A2F02BE16"></a></span><p class="table-body">A <span class="MenuCascade" id="GUID-C7047A22-6F8D-4FF5-91D9-202DB2F33E9B">Get Data</span> node represents a collision object for the simulated points. This can be a single
+                              object or a group of objects. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1C8F97FD-9AAC-4261-8050-63EE53656B32"></a></span><p class="table-body">See <span class="char_link"><a href="lagoa_basics_SettingUpCollisionsforLagoaEffects.htm">Setting Up Collisions for Lagoa Effects</a></span> for information. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

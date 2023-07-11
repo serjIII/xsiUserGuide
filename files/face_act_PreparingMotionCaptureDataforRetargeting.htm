@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-EA9729EA-174F-409F-93D7-F35BF5C6B7AC">
+      <meta name="indexterm" content="Face Robot: preparing mocap data for retargeting">
+      <meta name="indexterm" content="C3D mocap data files: Face Robot">
+      <meta name="indexterm" content="Face Robot: C3D mocap data files">
+      <meta name="indexterm" content="Face Robot: name maps (nmap)">
+      <meta name="indexterm" content="Face Robot: face maps (fmap)">
+      <meta name="indexterm" content="Face Robot: stabilized mocap data">
+      <meta name="topic-type" content="concept">
+      <title>Preparing Motion Capture Data for Retargeting</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-EA9729EA-174F-409F-93D7-F35BF5C6B7AC"></a></span><div class="head">
+            <h1>Preparing Motion Capture Data for Retargeting</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-07B16B22-7D7E-45A1-9DAD-810ACA4B3317"></a></span>Retargeting allows you to use motion capture data on any size or proportion of face.
+               This is especially useful when you want to animate different characters with the same
+               movements and expressions in mocap data files. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2FBA733B-E17B-4FD2-87AA-42C3EB7C3B3B"></a></span>Face Robot uses C3D data files for motion capture animation, which is a standard optical
+               marker-based file format used predominantly for facial capture. The C3D format is
+               a public domain, binary file format that is used in Biomechanics, Animation, and Gait
+               Analysis laboratories to record synchronized 3D and analog data. It is supported by
+               almost all 3D Motion Capture System manufacturers, as well as other companies in the
+               Biomechanics, Motion Capture, and Animation Industries. For more information, see
+               www.c3d.org. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF468A8297860DD449B69C7615D16EBA9-0027"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AFA8F8CF-55E5-4178-A725-C28F4EFDDE08"></a></span>Getting Set Up for the Mocap Data
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E0D0B2D4-2BFB-4174-B320-D8770ADF33FE"></a></span>Before you can use the mocap data from these C3D files on a solved head in Face Robot,
+                  you must prepare the data from each mocap session. This involves loading the zero
+                  (base) pose C3D file into Face Robot and creating name and face map files. These files
+                  map the mocap data to the face in Face Robot. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6E92C4A7-E5D0-4493-935D-930E9A4B5D08"></a></span>You must prepare the mocap data in Stage 1: Assemble when your scene is empty. Once
+                  you've prepared the mocap data, it's ready to be used at any time and on any character
+                  in Face Robot. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-15829D62-B33B-4611-990A-A1AFB940DCD8"></a></span>To do all of this, follow the steps in the procedure in the section below. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF468A8297860DD449B69C7615D16EBA9-0028"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C81010E8-98D2-4AA9-B12C-5D001CD1D40B"></a></span>Creating Name Maps and Face Maps
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-D6D78294-0903-4864-9323-B7BBFD7EB4D2"></a></span>Name map and face map files let you map the mocap data to the face in Face Robot.
+                  
+               </p> <span class="anchor_wrapper"><a name="UL_B183287394054B928027D14403F0F558"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FC84B4F0-32AB-444A-BB98-5E6C34564972"></a></span>A name map (nmap) creates links between the marker names in the C3D mocap data file
+                        and the corresponding control names on the solved head in Face Robot, like a name-mapping
+                        template. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D0307382-B230-4EC8-A15A-1FCCFBF986C2"></a></span>A face map (fmap) provides a reference of the proportion of the face of the actor
+                        from whom you captured the mocap data. The face map takes a snapshot of the position
+                        of the mocap markers on the actor in a neutral pose (expressionless) which allows
+                        Face Robot to map that data onto a solved head. You cannot retarget mocap data without
+                        a face map. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-CFCC1FBD-4AF7-4245-8D4B-4389EEDD2A9D"></a></span>When you do a mocap session with the same actor and markers, the marker names will
+                  be the same for all C3D files captured in that session and the face proportions will
+                  all be the same. This way, you need to create only one name map and one face map that
+                  will apply to all the C3D files from that session set. The only requirement is that
+                  all the motion capture files exist in the same folder as the generated face map. If
+                  so, Face Robot then uses a single fmap to calibrate all the mocap data in the folder.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-432BB920-C6D7-4AF5-B98A-64EE6F321DD3"></a></span>If you are using the same actor but across different mocap sessions (so the markers
+                  are removed and reapplied in between), you will need to generate a separate fmap for
+                  each session. This is to account for any slight position shifts of the markers between
+                  sessions. As well, if you are using different actors, each one would require their
+                  own face map for calibration. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8CB288F4-975B-452B-8739-51D3D9E866EE"></a></span>It is probably best if the person who placed the mocap markers on the model or supervised
+                  the mocap marker placement does the name mapping in Face Robot. This is because they
+                  will know the correlation between the mocap markers on the actor and the animation
+                  controls in Face Robot. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-06FF6C1F-88A9-46F3-8297-E1163C2B76CB"></a></span>This person usually creates a "cheat sheet" of the marker placement on the actor to
+                  help them (or somebody else) figure out which marker is which when the mocap data
+                  is loaded into Face Robot. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF468A8297860DD449B69C7615D16EBA9-0029"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B3BEC2F8-1B83-4993-8D69-86103096322C"></a></span>To create a name map
+                  </h3> <span class="anchor_wrapper"><a name="GUID-10EE6B28-E166-48C8-B19F-04D7F8626CCD"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A8C3B545-DD90-4BE3-98CD-64F126A528B7"></a></span>Start with an empty scene in Face Robot. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-76B6084D-65D6-4EB4-B013-5F26C52ED4DE"></a></span>On the Stage 1: Assemble panel, click the Tools &gt; Face tab and then click the <span class="MenuCascade" id="GUID-75C1B499-3EA7-4734-AA40-63039C60A689">Mocap</span> button. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_91B2D62EAC97441395F208540A5DD0B3"></a></span><div class="figure-anchor"><img src="../images/GUID-49DEB070-360B-4329-9BA7-31ADDEBBA420-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B9D43F9F-1477-4FCF-A744-D3683568D403"></a></span>In the Facial Mocap Tools property panel that appears, click the <span class="MenuCascade" id="GUID-1A450E1C-448D-45C5-9B9C-2CADF44616B9">Load C3D</span> button to load a mocap file. This should be the zero or base pose that has no particular
+                           expression, which makes retargeting the mocap data easier to do. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_8781BD324CA04C1C832D7FF52278FECA"></a></span><div class="figure-anchor"><img src="../images/GUID-992A2840-8570-4040-B53D-1609D9873D0E-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2C8B3E3F-2CB7-486A-9A70-CDC4A536DAF3"></a></span>A set of blue sphere-shaped markers in the shape of a head is loaded into the viewport.
+                           Each of these markers represents a mocap marker that was on the actor's head during
+                           the capture session. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_3A55193DF1454877BCA870DD6117227B"></a></span><div class="figure-anchor"><img src="../images/GUID-4D808DD3-D6E8-4BB2-92CE-4F0A02E7FCEB-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-15B9AFE0-D53A-4519-AFBB-49FA7ED51BE8"></a></span>Blue sphere markers appear in the vague shape of a head in the viewport when you load
+                           a C3D file. Make sure to have a reference sheet of the mocap marker names on the actor
+                           to make mapping easier! 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-89CD13AC-FC88-4CC1-8056-22958CED762E"></a></span>Click the <span class="MenuCascade" id="GUID-87A3E397-882B-470C-9127-801AFC901A6A">Create Name Map</span> button in the Facial Mocap Tools property panel. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B5053B01-3BE6-4B9E-BF47-0D8F5FE12245"></a></span>This brings up a Name Map Wizard property panel with a list of all the Face Robot
+                           animation controls (buttons) to which you must pick the corresponding marker in the
+                           mocap data. These correspond to the naming convention that you used when you created
+                           the mocap files: you should have corresponding markers for each animation control.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-648A3711-6308-4C7C-95AD-E816A38EC547"></a></span>If you have an existing name map file you want to use, click the <span class="MenuCascade" id="GUID-B61EED6D-A89B-411E-805E-B9E6E3BDD769">Load</span> button in this property panel to open the browser and load the file. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B664482F-DF53-4031-B717-43F970913AAF"></a></span>Select a blue sphere marker on the C3D data in the viewport, then click the corresponding
+                           animation control button on the page. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-85B8C86F-1CEB-4DE4-BD6C-C8735745B2B1"></a></span>The picking session uses symmetry so that you only have to select the marker on one
+                           side of the face for markers that have a left and right equivalent. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_DE7781964EA14562B81CEA7528951419"></a></span><div class="figure-anchor"><img src="../images/GUID-506F58FC-E00C-447D-9F6B-F1ED59AC0110-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6122A7B9-3687-4E0C-A981-8373704C3DAD"></a></span>Select a blue sphere marker on the C3D data in the viewport, then click the corresponding
+                           animation control button on this page. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-746B4468-6ECF-4BF9-A382-BFFD64377CA2"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_6CA798298169448AAC16C79D1B86E764"></a></span><ul>
+                                 <li>The <span class="MenuCascade" id="GUID-C118C713-014C-408E-9830-47BE91DDC439">Global Motion</span> controls map to the nose bridge, and left and right forehead mocap markers. These
+                                    markers represent the head's general (global) rotation and translation movements.
+                                    
+                                 </li>
+                                 <li>If you're using stabilized (extracted) mocap data, use the buttons on the Extracted
+                                    Motion tab in this property editor. See <span class="char_link"><a href="face_act_PreparingMotionCaptureDataforRetargeting.htm#WSF468A8297860DD449B69C7615D16EBA9-002E">Using Extracted Motion Data (Stabilized Mocap)</a></span> for information. 
+                                 </li>
+                              </ul> 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9D5082E3-0AF8-43A9-87D9-458DFCDA3734"></a></span>When you're done, click the Save button in the property panel to save the name map
+                           (<span class="MenuCascade" id="GUID-310FF6C3-50C5-4FC4-BE5B-F1B4433D03DF">.nmap</span>) file in the same folder as you have the C3D files. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1E3FF71D-6E9B-48B7-8FE0-59DF1A3DB342"></a></span>Now you need to create a face map, which takes a snapshot of the proportion of the
+                           actor's face in a neutral pose (expressionless) so that it can be mapped onto a solved
+                           head in Face Robot. 
+                        </p> 
+                     </li>
+                  </ol>
+                  <p><span class="anchor_wrapper"><a name="GUID-93871B35-3064-4C94-9D66-8CF951279647"></a></span> <em class="strong">To create a face map:</em> 
+                  </p>
+                  <ol type="1" start="6">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7C2B9D14-760F-436B-9E09-530045D91221"></a></span>Make sure that the C3D file you're using is the base pose. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-420DB00E-17E2-4279-B6C5-ECB1608DB4A6"></a></span>The neutral pose doesn't need to be at the start of the animation sequence: simply
+                           find any frame in which there is a good expressionless pose. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7565B35C-1E9B-498A-A502-5AED8869C7F2"></a></span>In the Facial Mocap Tools property panel, click the <span class="MenuCascade" id="GUID-F63B3EA1-3956-46EF-BA08-E2007595199A">Create Face Map</span> button. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9434E56B-23E4-43A4-8070-BDB923ADA137"></a></span>Enter a name for the face map file (<span class="MenuCascade" id="GUID-D509430F-FE30-4250-9312-15F314175FB6">.fmap</span>) and save it in the same folder as the name map and C3D files. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF468A8297860DD449B69C7615D16EBA9-002E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-74464FC1-822E-4803-A6BD-A8B896AF6D04"></a></span>Using Extracted Motion Data (Stabilized Mocap)
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-203422BE-E23C-44B6-BFD3-57087CE5790C"></a></span>In some motion capture sessions, the head's general (global) rotation and translation
+                  movements are saved in a separate file so that they don't affect the facial animation.
+                  This is known as stabilized mocap or extracted motion. By keeping the general head
+                  movements separate from the actual facial expressions created by the face's soft tissue,
+                  the data from the facial expressions can be purer and more stable. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1A792E8C-292D-4BCA-BC6F-4EA3323F3AD2"></a></span>If you are working with this type of mocap data, you can create a name map as described
+                  previously, except that you click the <span class="MenuCascade" id="GUID-13BFDB48-0F32-42CA-9544-51C813729481">Extracted Motion</span> tab in the Name Map Wizard property page and map <em class="mild">only</em> the <span class="MenuCascade" id="GUID-FE506578-482A-454D-9995-185C97057B0B">Global Motion</span> nose bridge, left forehead, and right forehead controls to the corresponding mocap
+                  markers. Then create a face map in a base pose as usual. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-59C291B1-2E8D-4C4C-B537-00168B783C68"></a></span><div class="note-tip"><span class="label">TIP:</span>When working with stabilized motion, you should deselect the <span class="MenuCascade" id="GUID-11B0E798-2824-4467-AD62-87653D98097D">Head Controls <img src="../images/ac.menuaro.gif"> Enable Rotation</span> option in the Face Adjust property page so that global rotation on the head is not
+                     activated — see <span class="char_link"><a href="face_act_AdjustingtheRetargetedMocapData.htm">Adjusting the Retargeted Mocap Data</a></span>. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF468A8297860DD449B69C7615D16EBA9-002F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-52C4DF9B-3705-4DD2-9143-BFCBE53F97C4"></a></span>Preserving the Pre-Stabilized Motion Capture Data
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-062AE6B1-A879-42F0-9490-65B068E25A04"></a></span>If you have pre-stabilized motion capture data, you may want to keep that data intact
+                     to preserve any subtleties in the motion. However, by default, when you apply the
+                     mocap data in Face Robot, it uses its own stabilization algorithms in an attempt to
+                     recreate that work. Because certain adjustments are made to the motion in Face Robot
+                     with this algorithm, small artifacts may be introduced. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-45E36500-01D1-4868-90C4-2D916E969ECE"></a></span>If you want to keep the stabilized mocap data intact, make sure to turn off this option
+                     before you apply the mocap data and retarget it. <span class="anchor_wrapper"><a name="GUID-3DC0988A-EF9B-4662-8221-CC9B1CAA0081"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3EDCA7D2-ECA6-4B5D-AE40-D320329E8D54"></a></span>From the main menu, choose <span class="MenuCascade" id="GUID-A43B8F1C-1E4F-4E47-8695-74DD437D2FD4">File <img src="../images/ac.menuaro.gif"> Preferences</span> and then select <span class="MenuCascade" id="GUID-08D11393-8453-470C-820F-03DB9AC8DFF8">Face Robot</span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-30E60818-29EE-4BD3-A015-6B948265B5F5"></a></span>Deselect the <span class="MenuCascade" id="GUID-FCCA492A-598F-448D-A1F9-C62941EF7C64">Stabilize motion on retargeting</span> option in the Face Robot Preferences property editor. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-071FA49A-BBE2-446A-A51C-7AC8F2EF73F1"></a></span>Now you can apply the mocap data and retarget it. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

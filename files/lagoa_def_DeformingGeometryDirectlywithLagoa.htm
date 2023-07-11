@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-069AB8EA-DA4C-46C9-836E-5CBA98A1E121">
+      <meta name="indexterm" content="cloth: Lagoa deformation">
+      <meta name="topic-type" content="concept">
+      <title>Deforming Geometry Directly with Lagoa</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-069AB8EA-DA4C-46C9-836E-5CBA98A1E121"></a></span><div class="head">
+            <h1>Deforming Geometry Directly with Lagoa</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-6093F6F8-6A94-417B-B965-54F57D01673E"></a></span>You can use Lagoa Multiphysics to deform a mesh by simulating its vertex positions
+               directly as if they were particles. This is the technique to use if you simply want
+               the object to interact with one or more colliders, as in a cloth or soft-body simulation.
+               
+            </p><span class="anchor_wrapper"><a name="FIG_86E506DF5E93469588DF4697C541F89E"></a></span><div class="figure-anchor"><img src="../images/GUID-D75E0212-AC20-484E-A085-C60110884275-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-BA8B2E3E-9F52-4A3B-B9DA-602E375C3689"></a></span>For best results, the simulated geometry should be as uniform as possible, with all
+               polygons and edges being roughly the same size as each other. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B89E7392-3222-46FA-9611-F4A267C1D10C"></a></span>A quick way to set up a Lagoa-based simulated deformation is to apply a cloth simulation,
+               and then modify the Lagoa material or replace it with another preset. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D170480C-4894-4F34-B325-4AF281EEA9B3"></a></span>Because all forces are in the local reference frame, you should freeze an object's
+               transformations before deforming it with Lagoa. See <span class="char_link"><a href="transforms_FreezingTransformations.htm"> Freezing Transformations</a></span> [<span class="char_link"><a href="xfo_cover.htm">Working in 3D Space</a></span>]. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS46BC6A7250C41945B93F1AE8B15418A8-0007"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D6015B5F-D56D-46E6-9588-81D4290EDA92"></a></span>Anatomy of a Lagoa-based Deformation
+               </h2> <span class="anchor_wrapper"><a name="FIG_C52076567D2D47CB9EA0A043C267E025"></a></span><div class="figure-anchor"><img src="../images/GUID-33F25010-55DD-4E6A-81BB-D9D584EB2F4B-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_6923A9CC31164BF39BC392AB09EF31BF"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="3.64963503649635%" align="left">
+                        <col width="96.35036496350365%" align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F484BA4B-08A9-4ED8-8226-E8DF74351DBC"></a></span><p class="table-body"> A </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F7C6AB44-54E7-436A-BD8C-11D9897345D3"></a></span><p class="table-body">Lagoa Init Geometry sets the basic attributes used by the simulation. It includes
+                              many of the attributes set on emission in Lagoa particle simulations, plus some that
+                              are specific to geometries. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EE1C9443-F0AC-43D8-BC04-15B4966FFD0A"></a></span><p class="table-body"> B </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D94DA8A6-0AE2-4655-9858-226A06F62BCF"></a></span><p class="table-body">Lagoa Add Forces controls the forces acting on the geometry. See <span class="char_link"><a href="lagoa_basics_SettingUpForcesforLagoaEffects.htm">Setting Up Forces for Lagoa Effects</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4939F8B6-20C2-45A8-B3F7-2104C350BE57"></a></span><p class="table-body"> C </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9129D796-213A-4CF5-9D92-487FC94B8C76"></a></span><p class="table-body">The Lagoa material is plugged into a Lagoa Phase node. It sets the attributes that
+                              define how a material behaves in various circumstances, such as compression, bending,
+                              stretching, and so on. You must enable the corresponding aspects of the simulation
+                              in the Lagoa Simulate Multiphysics node. See <span class="char_link"><a href="lagoa_basics_LagoaMaterialProperties.htm">Lagoa Material Properties</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F45A6A81-33B4-4F0D-A84C-0FF8620B8EC3"></a></span><p class="table-body"> D </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D8C0A498-4473-443F-82E0-4EAF4F01A20A"></a></span><p class="table-body">The collision object's name is plugged into the Lagoa SImulate Multiphysics node.
+                              If you want to use multiple colliders, you must put them in a group and use the group's
+                              name. Each collider should have a tree with a Lagoa Set Collision Data node, or else
+                              default values will be used for friction and other attributes. See <span class="char_link"><a href="lagoa_basics_SettingUpCollisionsforLagoaEffects.htm">Setting Up Collisions for Lagoa Effects</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5B93ED56-60E1-4CFF-A6D7-B4E963D36CC0"></a></span><p class="table-body"> E </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CE100F84-C803-4FC3-A26F-C69234D8FE4B"></a></span><p class="table-body">Lagoa Simulate Multiphysics performs all the calculations for the simulation and updates
+                              point positions. You can enable and disable various aspects of the simulation, depending
+                              on the effect you want to achieve. See <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> [<span class="char_link"><a href="iceref_cover.htm">ICE Reference</a></span>]. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS46BC6A7250C41945B93F1AE8B15418A8-0009"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-715B8C63-C1E3-4E77-BBB0-E1D3A5BF1A1E"></a></span>Applying a Cloth Simulation
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-706AB336-A23D-4B6B-97DB-451230C1720A"></a></span>Lagoa Cloth is based on the same framework as Lagoa fluids. It can give very good
+                  results for simple draping cloth, but it is not designed for clothing on moving characters
+                  (although clothing on a melting character would work great). 
+               </p> <span class="anchor_wrapper"><a name="GUID-7E44BE90-6948-4D90-940F-5E246B01C643"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-22DE89AC-7DB1-4145-8960-74B83A234B93"></a></span>If you want to use multiple collision objects, add them all to a group. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EB091A3A-6BA9-480D-B053-AD96283C3D73"></a></span>Select the object that you want to simulate as cloth. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-25B31388-20EC-4BE3-B950-9727D8118C84"></a></span>Choose <span class="MenuCascade" id="GUID-17412896-6758-4172-AC19-302BFE3B160E">Deform <img src="../images/ac.menuaro.gif"> Simulate <img src="../images/ac.menuaro.gif"> Lagoa Cloth</span> from the ICE toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DE28C034-1E88-4EA6-866A-6424ABDA087A"></a></span>Pick a collision object or group. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-39391A42-2167-4AAE-9749-CC5679EE1C48"></a></span>If you right-click to cancel picking, a default collision object is created. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5989CD85-AB89-415E-8433-EA7B91512480"></a></span>An ICE tree is created and the Lagoa Setup Cloth Mesh is applied. The object's transformations
+                        are automatically frozen first, but note that you may need to freeze them again if
+                        you move the object later. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-13AB787D-3B30-4C95-A7AD-CE4348ECF299"></a></span>An ICE tree is also created on each collision object, and the Lagoa Set Collision
+                        Data compound is applied. If you want to add additional collision objects later, see
+                        <span class="char_link"><a href="lagoa_basics_SettingUpCollisionsforLagoaEffects.htm">Setting Up Collisions for Lagoa Effects</a></span>. Note that when using the <span class="MenuCascade" id="GUID-6AF0A4EA-C135-459F-842C-521D83E16D94">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Lagoa Collision <img src="../images/ac.menuaro.gif"> Add Passive Body</span> command to add collision objects for geometries that are deformed directly, you should
+                        have the corresponding ICE tree open in the ICE tree viewer. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8E96243D-C98F-43B1-A01C-3D4B6AEAFC3A"></a></span>Open the ICE tree view, or refresh it if it is locked. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-231F6490-B840-428F-884C-CAC6B8479795-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4F0E7E17-1F73-44C5-9CBA-ADA7EFF52CFB"></a></span>Select the Lagoa Setup Cloth Mesh compound and choose <span class="MenuCascade" id="GUID-94915D20-01BA-44ED-A121-BB7185C25D82">Compounds <img src="../images/ac.menuaro.gif"> Explode Compound</span> to expose its inner nodes. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B806DA4C-F7FD-48DE-84B5-4A920D440751"></a></span>Alternatively, you could edit the inner nodes directly, but in that case make sure
+                        that you do not export the compound without first giving it a new name or else the
+                        modified compound in your user location will take precedence over the factory compound.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-870E1A1F-3C1E-45D2-AEC8-2F11B45FDC21"></a></span>Play back the scene, adjust settings, and repeat until you are satisfied with the
+                        effect. In particular: 
+                     </p> <span class="anchor_wrapper"><a name="UL_95CEA6C251094CBF9B9398E0F0F7929F"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1955E387-08CF-401F-AD06-435C1285A9ED"></a></span>If the cloth falls through the collision object, increase the <span class="MenuCascade" id="GUID-FFB9666E-D36C-4E81-935D-AA90BD50BCE8">Time Step</span> values in Lagoa Simulate Multiphysics. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7AED1D73-E86A-446E-985F-A7726B77EE59"></a></span>To stop the cloth from sliding off the collision object, you may need to adjust the
+                              friction values in the Lagoa material as well as in Lagoa Set Collision Data on the
+                              collider. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-88247D8E-5940-48A2-B780-5CB45260532D"></a></span>To prevent the cloth from self-penetrating, you may need to set <span class="MenuCascade" id="GUID-6C2169DC-4794-4988-BFDF-CB157BB85977">Resolution Map</span> to Manual and adjust <span class="MenuCascade" id="GUID-CD9D85F3-07E6-442D-B20A-6F8676D53A7C">Thickness</span>. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

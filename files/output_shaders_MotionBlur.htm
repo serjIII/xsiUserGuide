@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-53652C04-1DEB-4A66-9D94-D326E7C9B72C">
+      <meta name="indexterm" content="motion blur: mip_motion_blur shader">
+      <meta name="topic-type" content="concept">
+      <title>2D Motion Blur</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-53652C04-1DEB-4A66-9D94-D326E7C9B72C"></a></span><div class="head">
+            <h1>2D Motion Blur</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-708F0E94-44F2-406E-B8D6-E643B3409B19"></a></span>| <span class="char_link"><a href="output_shaders_MotionBlur.htm#WS2E892A21A7DBDF4FA9E9713AF0DE8D59-0003">Settings</a></span> | <span class="char_link"><a href="output_shaders_MotionBlur.htm#WS2E892A21A7DBDF4FA9E9713AF0DE8D59-0006">Alternative Channels</a></span> | <span class="char_link"><a href="output_shaders_MotionBlur.htm#WS2E892A21A7DBDF4FA9E9713AF0DE8D59-0007">Render Tree Usage</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-440A2DA7-09EE-416B-836D-C44CFB582256"></a></span> <em class="strong">Category:</em> Output 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-7FB03977-13EA-456D-8F22-7B73E7C33CF8"></a></span> <em class="strong">Shader Family:</em> Output 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-881C9820-97DB-406C-B7F5-36DEB999CA61"></a></span> <em class="strong">Output:</em> Color 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-43AA24D1-C5D8-49C9-A177-8CAA8E389432"></a></span>Related mental ray shader: <span class="char_link"><a href="mentalray_mip_motionblur.htm">mip_motionblur</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-739BFD40-A46E-4978-BE28-E442D7151400"></a></span>The mental ray production Motion Blur shader is an output shader for performing 2.5d
+               motion blur as a post process. The process is referred to as "2.5d" because the shader
+               also takes the z-depth relationship between objects into account. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2E892A21A7DBDF4FA9E9713AF0DE8D59-0003"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-177B6B22-6449-4F54-A224-7D81FF876525"></a></span>Settings
+               </h2> <span class="anchor_wrapper"><a name="TABLE_985029EBF4254456A36C7CC6DAD8EF93"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0DEBDEC7-176E-470F-B557-F49FEC0E5CAD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A13D171F-997B-4AE8-90C8-4776179BA39C">Shutter</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-88C98DD2-8F4B-425B-8CDC-AB12064AD5FB"></a></span><p class="table-body">The amount of time the shutter is "open". In practice this means that after the image
+                              has been rendered the pixels are smeared into streaks in both the forward and backward
+                              direction, each a distance equal to half the distance the object moves during the
+                              shutter time. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-272E8FE5-931E-4A0A-AFB1-ADC269530D0F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-66305D66-150F-4FEB-9905-DF290E9ED3D0">Shutter Falloff</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DAE9F0BD-CFA2-41B2-8E19-C7EB723D4B97"></a></span><p class="table-body">Sets how quickly the smear effect fades out to transparent. Essentially, the Shutter
+                              Falloff option allows you to tweak the "softness" of the blur. 
+                           </p> <img src="../images/GUID-2F9EF5C4-4C60-4525-939A-863D54BD4427-low.png"> <span class="anchor_wrapper"><a name="GUID-C4404287-465D-4932-85F6-E39698E60089"></a></span><p class="table-body">Shutter Falloff=1.0 (A), Shutter Falloff=2.0 (B), and Shutter Falloff=4.0 (C) </p> <span class="anchor_wrapper"><a name="GUID-A2388C84-2CF4-422B-A902-AEF16B24677B"></a></span><p class="table-body">You will notice that highlights are streaked into an almost uniform line in the first
+                              image, but taper off much more gently in the last image. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-155188B6-0D1B-45C2-9222-1241DA4D36AB"></a></span><p class="table-body">As a general rule, the perceived length of the motion blur diminishes with increased
+                              falloff, so you may need to compensate for this by increasing the Shutter length slightly.
+                              
+                           </p> <span class="anchor_wrapper"><a name="GUID-FA8E9E72-EE4C-46B9-98F3-C185C7ACBD6C"></a></span><p class="table-body">Shutter Falloff is especially useful when you want to create a convincing effect of
+                              "streaking" over-bright highlights. To do this, set an inflated Shutter length (above
+                              the cinematic default of 0.5) and a higher Shutter Falloff. If you want to ensure
+                              that the shader preserves and streaks over-brights (colors whiter than white) the
+                              color framebuffer must be floating point, otherwise it can be plain RGBA. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-D36C418B-8CD7-4743-8292-733607D898C1"></a></span><p class="table-body">For a fairly standard looking blur use Shutter of 0.5 and a Shutter Falloff of 2.0.
+                              For a softer looking blur increase the Shutter to 1.0 and the Shutter Falloff to 4.0.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5A8DA4B9-A0AB-40BF-88E0-E224ED5292F5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B074CAF2-5AE1-4C2F-AB2D-337C58EA8A7F">Blur Environment</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F604850F-5C77-4707-9ED8-92F25BEC09C5"></a></span><p class="table-body">Specify whether the camera environment (for example, the background) should be blurred
+                              by the camera's movement or not. When on, pixels from the environment will be blurred,
+                              and when off they will not. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-9F12A4AA-6DB7-4F11-942E-3D3E80522375"></a></span><p class="table-body">If the background is created by geometry in the scene, this setting does not apply,
+                              and the background's blur will be that of the motion of said geometry. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-49A23CC5-5BA7-4EA6-807F-08AE8C0F5610"></a></span><p class="table-body">This option does not work if the scanline renderer is used. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7F634DFA-633A-497D-9421-5F21A2A47905"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-34594763-08F8-4F41-A64F-2363915A7CFA">Calculate Gamma</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6BDBAACC-D212-4078-93BF-EE3830709FAC"></a></span><p class="table-body">Defines in what gamma color space blur calculations take place. Since mental ray output
+                              shaders are performed on written framebuffers, and these framebuffers (unless floating
+                              point) already have gamma correction applied, it is important that post effects are
+                              applied with the appropriate gamma. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-D8CFE695-4D3E-402E-8BE7-57AFE6325B6A"></a></span><p class="table-body">If you render in linear floating point and plan to do the proper gamma correction
+                              at a later stage, set this option to 1.0, otherwise set it to the appropriate value.
+                              
+                           </p> <span class="anchor_wrapper"><a name="GUID-A9C9A6D3-EA9B-4F87-9161-AFFCB2E14D44"></a></span><p class="table-body">The Calculate Gamma setting can also be used to artistically control the "look" of
+                              the motion blur, in which a higher gamma value favors lightness over darkness in the
+                              streaks. 
+                           </p> <img src="../images/GUID-DC40870E-9371-4195-A886-389E5CEDF6C7-low.png"> <span class="anchor_wrapper"><a name="GUID-634CCB98-D879-4865-A748-DC36B74FC52C"></a></span><p class="table-body">Notice how the low gamma examples seem much darker and how the blur between the green
+                              box and red sphere looks questionable. The higher gamma values cause a smoother blend
+                              and more realistic motion blur. However, it cannot be stressed enough, that if gamma
+                              correction is applied later in the pipeline the Calculate Gamma parameter should be
+                              kept at 1.0, unless you really want to create brightness in the blur as an artistic
+                              effect. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-343D1A37-AEE4-4C75-9759-F6B6DF27CAF2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B99DD6EA-E3DE-4826-9A93-A7D3CADBAD4B">Pixel Threshold</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AA428B45-9D9E-4504-8DC5-EBD7BBFD8549"></a></span><p class="table-body">Sets the minimum motion vector length (measured in pixels) an object must move before
+                              blur is added. If set to 0.0 it has no effect, and every object even with sub-pixel
+                              movement will have a slight amount of blur. While this is technically accurate, it
+                              may cause the image to be perceived as overly blurry. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1B0C4599-9DB2-474B-BFD0-5B58464A212B"></a></span><p class="table-body">For example, a cockpit view from a low flying jet plane rushing away towards a tropical
+                              island on the horizon may still add some motion blur to the island on the horizon
+                              even though its movement is very slight. Likewise, blur is added even for an extremely
+                              slow pan across an object. This can cause things to look slightly out of focus, which
+                              is undesirable. You can solve this by setting the Pixel Threshold to 1.0 (for example),
+                              which in effect subtracts one pixel from the length of all motion vectors and hence
+                              causes all objects moving only one pixel (or less) between frames to not have any
+                              motion blur at all. Naturally, this value should be kept very low (in the order of
+                              a pixel or less) to be anywhere near realistic, but it can be set to higher values
+                              for artistic effects. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-006E26B8-C89A-4125-B7D6-4047DBCA4137"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8DDE3A5F-B3E0-4922-97F8-F16E92885E10">Background Depth</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-01547FBE-910A-4487-B590-CAE5944DF44B"></a></span><p class="table-body">Sets a distance to the background, which helps the algorithm figure out the depth
+                              layout of the scene. The value should be about as large as the scene depth, such that
+                              anything beyond this distance from the camera would be considered "far away" by the
+                              algorithm. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-577F00BF-A776-4314-98C6-C348C8982A0B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2AF8861A-7A78-4ECC-BA4F-01E7E6CBFAED">Depth Weighting</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AAB32AD3-1D53-4EE3-8BBE-37AE63C95843"></a></span><p class="table-body">When off, a heuristic algorithm is used to depth sort the blur of objects. Sometimes
+                              this algorithm can cause the blur of distant objects to impose on the blurs of nearby
+                              objects. Therefore an alternative algorithm is used when Depth Weighting is on. This
+                              alternative algorithm causes objects that are nearer to the camera than <span class="MenuCascade" id="GUID-D5FB484B-3445-45EE-8605-F33A522340E4">Background Depth</span> to get an increasingly opaque blur than objects that are farther away. That is, the
+                              blurs of closer objects are much more likely to "over-paint" the blurs of farther
+                              away objects. Since this may cause near-camera object blurs to be unrealistically
+                              opaque, this option is off by default. This mode is most useful when there is a clear
+                              separation between a moving foreground object against a (comparatively) static background.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4A2B8C97-F9AA-4777-9565-6F44D09A6C7D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-43AA6888-DFDA-4651-A35B-99BA9BE8B4CA">Use Coverage Channel If Available</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-23336A03-DF6C-4A88-A418-F5D22A710361"></a></span><p class="table-body">When on, uses information in the Pixel Coverage render channel rather than the alpha
+                              channel when deciding how to utilize edge pixels that contain an antialiased mix between
+                              two moving objects. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2E892A21A7DBDF4FA9E9713AF0DE8D59-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-34633205-3F11-42F4-A320-F9396D9C2757"></a></span>Alternative Channels
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4FFAEF86-C39B-461D-84D1-CECD21F07139"></a></span>The following options allow you to specify alternative render channels for motion
+                  vector, depth, and blur data. The referenced channels must be defined and activated
+                  for the pass you are rendering in order for this output shader to be able to use them.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-439AED08-599C-4E3E-AEC4-5529FFA44BC1"></a></span>For information on how to work with render channels in general, see <span class="char_link"><a href="render_channels.htm">Render Channels &amp; Framebuffers</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C1135138-5E31-4989-9B00-DB8A07EA0CAD"></a></span>For a description of the available render channels and their data types, see the <span class="char_link"><a href="rendering_props_SceneRenderOptionsPropertyEditor.htm">Scene Render Options Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_DDA83159639F4F4EA12D7B5F5286DF0A"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C67FB925-F53B-4753-8EE2-19B3FD6F1372"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F013D4CC-574B-4241-A758-F2ED1D6659A4">Motion</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-553AD3E8-5116-4B07-93B7-C6E5F8E613E3"></a></span><p class="table-body">Sets the render channel from which to obtain motion vector information. </p> <span class="anchor_wrapper"><a name="GUID-27345786-52BC-4A15-9898-3A31522A55EB"></a></span><p class="table-body">&lt;None&gt; signifies that the built-in mental ray Motion render channel will be used.
+                              The render channel specified must be defined as having a vector data type. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-010B43A6-57EB-4970-8083-3E7CD51772C9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4447D2FB-1812-40A3-99D4-0079EA0D7189">Depth</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7D34DFE2-84E7-4850-91EE-03FB2F5A95D4"></a></span><p class="table-body">Sets the render channel from which to obtain depth information. </p> <span class="anchor_wrapper"><a name="GUID-DE48A2BC-2612-4871-BBC9-2F672966ACF4"></a></span><p class="table-body">&lt;None&gt; signifies that the built-in mental ray Depth render channel will be used. The
+                              render channel specified must be defined as having a depth data type. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DFFB48CD-93A4-41F4-B09E-D6A5154C8558"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8F7D4B1D-F3AB-42F8-BBE7-3C859294A4FA">Blur</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F0F08F29-95E2-4C29-9923-AF3E34238561"></a></span><p class="table-body">Sets the render channel to be blurred. </p> <span class="anchor_wrapper"><a name="GUID-7592470A-0869-45B2-87B4-730BB5FE287E"></a></span><p class="table-body">&lt;None&gt; signifies that the built-in mental ray Main render channel will be used. The
+                              render channel specified must be defined as having a color data type. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2E892A21A7DBDF4FA9E9713AF0DE8D59-0007"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1933F99D-1455-4C9B-A50C-33590DCB66B7"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-431E848E-5F6A-48D0-BA4C-544A708CE9BA"></a></span>This output shader isn't used directly in the render tree; rather, it is applied using
+                  a pass's shader stack. For more information, see <span class="char_link"><a href="passes_DefiningPartitions.htm#WSBDF3789326DBBD4FB2A3C80D3F0ED961-005A">Applying Shaders to Partitions</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

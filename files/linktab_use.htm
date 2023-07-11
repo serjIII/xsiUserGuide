@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-87B62040-550E-4A3B-82E2-2DBB5F64CD5A">
+      <meta name="indexterm" content="linktab file: about">
+      <meta name="indexterm" content="linktab file: translating path references">
+      <meta name="topic-type" content="concept">
+      <title>How Softimage Uses the linktab.ini File</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-87B62040-550E-4A3B-82E2-2DBB5F64CD5A"></a></span><div class="head">
+            <h1>How Softimage Uses the linktab.ini File</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-4F37745D-F577-4268-B597-1192A4297841"></a></span>You must define a <span class="MenuCascade" id="GUID-C83D2C7C-3E9F-4C30-BFA2-A11CF20250A9">linktab.ini</span> file on both the Windows side and the Linux side. The linktab file is used to translate
+               paths only when the scene is read. So even if you have a <span class="MenuCascade" id="GUID-4500B492-7A20-4FD2-8C2F-24743A48E39D">linktab.ini</span> on the Windows side, you'll also need one on the Linux side to be able to read scenes
+               written by Windows.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3BA0E0E4-5AB4-482A-B319-0DBFA86EA8FC"></a></span>When Softimage finds a <span class="MenuCascade" id="GUID-B25D7239-4C74-44E6-8315-EEC9E4A53D9F">linktab.ini</span> file, it uses it to ensure that scenes will remain compatible across platforms in
+               this way:
+            </p><span class="anchor_wrapper"><a name="GUID-81CFE20B-DB91-4856-ACCC-B32442F89338"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DAA8EF28-1E11-4F66-A070-7ABBDC78BAA2"></a></span>When Softimage is launched it looks for the <span class="MenuCascade" id="GUID-43D06F9F-5732-4DF7-89E8-696FBE542E3F">linktab.ini</span> file in the directory specified by the <span class="code">SI_LINKTAB_LOCATION</span> environment variable
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A7D4ED1B-2167-4A45-BD73-2CCBE56EBA57"></a></span>If it finds the file, it builds an internal table of path translation (Windows to
+                     Linux and Linux to Windows).
+                  </p> 
+               </li>
+            </ol>
+            <p><span class="anchor_wrapper"><a name="GUID-107CBFEF-8225-48DD-A8C8-2430E3DCC2F9"></a></span>Internally, Softimage builds the list of all network drives currently connected to
+               the Windows machine as well as the associated mount point. This list in conjunction
+               with the <span class="MenuCascade" id="GUID-D92C5B56-6B2D-4BFD-95A0-7BC2640AC2DD">linktab.ini</span> file provides the necessary information to translate paths from and to Linux.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledHeading">
+                     <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-CFF2A275-DFD7-4C8C-A622-48417A7D5331"></a></span><p class="table-heading">When...</p> 
+                     </th>
+                     <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-8CFFC11C-0DE1-45E6-9879-011E96A6AA69"></a></span><p class="table-heading">Softimage translates path references in this way...</p> 
+                     </th>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D9230A03-F444-4DE8-A6FD-830B7B2CF5AA"></a></span><p class="table-body">Loading a scene</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4C874E29-478C-4CAE-A3FF-117C37A4A858"></a></span><p class="table-body">Linux paths are translated (if possible) to the equivalent mount point and then to
+                           the corresponding network drive letter.
+                        </p> <span class="anchor_wrapper"><a name="GUID-7F9C5709-920F-4B97-8215-2D4E6E1BA98F"></a></span><p class="table-body">UNC references are translated to the corresponding network drive letter</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-998DF0E0-68F8-4F9A-B0B4-3205A0A7D9D6"></a></span><p class="table-body">Saving a scene</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AAD529F0-A5CA-4B38-83AE-D69929C0F25A"></a></span><p class="table-body">Network drive letters are translated to the given UNC mount point and then to the
+                           corresponding Linux path (if an entry is found in the linktab.ini table)
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS06BCDE1D9181124FB9FC4189006F1CA9-0009"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-99D6FE24-0410-47CF-B786-C07D3B31CAC3"></a></span>Example: using the linktab.ini file to translate path references
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-84AB6BD4-A5FE-4C57-8AC5-1D20DEB86E69"></a></span>For example, user1 and user2's accounts on Linux are <span class="filePath">/home/user1</span> and <span class="filePath">/home/user2</span> which are in fact a logical link to <span class="filePath">/mnt1/allusers/user1</span> and <span class="filePath">/mnt1/allusers/user2</span>.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-447C0DF0-6F4A-4FA2-8244-1E7CE620FC8D"></a></span>On the Windows machine, a network drive is connected (using NFS) to <span class="filePath">lin1:/mnt1/allusers</span> and drive <span class="code">h:</span>.
+               </p> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-BF06C8E3-A38B-4F78-AC50-53F816A73D48"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0F983F84-C0E4-4304-B540-F23173DA3F5B"></a></span><p class="table-body"> <span class="code">lin1:/mnt1/allusers!user1 /home/user1</span> 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body">&nbsp; <span class="anchor_wrapper"><a name="GUID-D3304531-5DBB-405A-9425-FC51E81599BE"></a></span><p class="table-body"></p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-85A6E0DA-DFFF-4066-AAE5-6309A0531378"></a></span><p class="table-body"> <span class="code">lin1:/mnt1/allusers!user2 /home/user2</span> 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4F5EE61D-D501-45AE-9630-9CE2D3B105D9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-361E9EE0-2F58-4B6C-B15B-2D97B49B69AA">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3AC71925-5305-45B8-8585-614C9F823A56"></a></span><p class="table-body"> <span class="code">lin2:/usr/people/user3 /usr/people/user3</span> 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-68777B7E-54C3-4A16-AB1F-ECAEED3650CC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F807D5CF-349D-4470-9CFB-672502C93705">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3CC6D6D3-406B-4524-813B-431FBF734B3F"></a></span><p class="table-body"> <span class="code">\pc_server1\share_location /pc_server1</span> 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-166BB6DB-7565-4AB0-8013-118966DC5D03"></a></span>The first path argument of each line is the Windows path while the second path argument
+                  on each line is the Linux equivalent.
+               </p> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-17FA055C-C48B-4912-9377-C540D064C75A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5E28F205-C8E8-4DFD-BDA2-BCDEC3054D10">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E3E2C8CF-EF42-463D-AC80-0688040F38F6"></a></span><p class="table-body">This line indicates that this path (<span class="filePath">/usr/people/user3</span>) comes from machine <span class="code">lin2</span> at the same location
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A7FD8C4E-052E-4AE5-A4DF-0D1708429281"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-47DCD8BC-D089-435C-B464-5E2747EC7836">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E8707041-3DFE-411C-BCEF-2BC2F27DF1E5"></a></span><p class="table-body">This line indicates that on Linux machines, references to files located on the <span class="code">pc_server1</span> remote file server should be kept using the Linux path (<span class="code">/pc_server1</span>)
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-BFD861DE-1D10-4543-A3BF-A8CCCC78ABE9"></a></span>When Softimage encounters the path <span class="filePath">/home/user1/...</span> when loading a scene, it translates it to <span class="filePath">h:/user1/...</span> which is the equivalent Windows path. In this example, the true mount point is <span class="filePath">lin1:/mnt1/allusers</span> and the exclamation mark indicates that only that portion of the path should be looked
+                  up in the current list of NFS network drive.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9E96389A-FDCF-4AF8-9F3E-8786353F9142"></a></span>When saving the scene, the path will be re-translated to the proper Linux path <span class="filePath">/home/user1/...</span> which allows scenes to remain accessible from both platforms.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

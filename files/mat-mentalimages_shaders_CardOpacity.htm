@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-9AA48EC3-6851-4DBD-8FA0-651C9C5204C5">
+      <meta name="topic-type" content="concept">
+      <title>Card/Opacity (mip)</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-9AA48EC3-6851-4DBD-8FA0-651C9C5204C5"></a></span><div class="head">
+            <h1>Card/Opacity (mip)</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-BED971B5-EA1D-46A1-8F78-4BE7E0DB2CB5"></a></span> <em class="strong">Category:</em> Illumination
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-739FB370-5B42-4DBB-933F-699E8E5ADC98"></a></span> <em class="strong">Shader Family:</em> Surface Material
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-26B55151-F6D1-4214-BC47-C3AD1F8263CA"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-03B65A7E-D171-4D40-A019-1C81154A696C"></a></span>When doing rendering that requires no form of post production, transparency requires
+               no special consideration: you simply add a transparency shader of some sort, and mental
+               ray will render it correctly.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-22B7DFF6-25E6-4E15-980E-2C86439CCD72"></a></span>However, as soon as you begin performing post production work on the image, and rendering
+               to multiple framebuffers, even if using mental ray's built-in depth and motion vectors
+               framebuffers, special thought must be put into how transparency will be handled.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B7CCEF68-BCB6-4C2A-B08B-821CBC701352"></a></span>In general, mental ray collects its framebuffer data from the eye ray: the ray shot
+               by the camera that hits the first object. Therefore, the z-depth, motion vector, etc.
+               will come from this first object.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2FF08EA6-960D-451C-A1D5-9757B6FBA0C7"></a></span>So what happens if the first object hit is completely transparent? Or maybe it is
+               transparent in parts, such as an image of a tree mapped to a flat plane and cut out
+               with an opacity mask, standing in front of a house? (Using flat images to represent
+               complex objects is known as putting things on "cards", hence the name of the shader.)
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C7324B15-3F9D-4924-9753-12DDBF8C0B2B"></a></span>When using other transparency related shaders it is most likely that even though a
+               tree is quite correctly visible in the final rendering and you can see the house between
+               the branches, the z-depth (and other framebuffers) will most likely contain the depth
+               of the flat plane. For most post processing work, this is undesirable.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0A611573-F6D2-4E75-8E47-2605C7BDA3FF"></a></span>To solve this problem the mental ray API contains a function called mi_trace_continue
+               which continues a ray as if the intersection with the first object hit never happened.
+               The Card/Opacity (mip_card_opacity) shader uses this function internally, and switches
+               between "standard" transparency and using mi_trace_continue to create a transparent
+               object at a given threshold.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3DADE6F8-909E-4520-824B-E20DF39E0615"></a></span>The shader's <span class="MenuCascade" id="GUID-9F1E2F6D-2B9C-45F9-87D7-7DF95DD1C240">input</span> parameter port is the color of the object.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ACEEF459-B573-4DEA-9E0E-970E1CB03F21"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-13FD105B-7591-4F7A-BC9A-BBC51309C166">Opacity in Alpha</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-145C22A5-A129-47A6-89B7-D957E3554E33"></a></span><p class="table-body">When enabled, the alpha component of the input color is used as the opacity.</p> <span class="anchor_wrapper"><a name="GUID-1805E66D-5FA8-4F81-BC7B-2F95B775D2E8"></a></span><p class="table-body">When disabled, the opacity parameter is used as the opacity.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-349CC94C-0880-4AC7-A47D-625FD8CA9AE7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FED1D8A4-9996-4119-A525-F9165341EFCD">Opacity</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3C1C7419-4D37-40BB-9205-3950CD1294D8"></a></span><p class="table-body">The opacity value.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5EF12329-D92E-4CC6-A369-4F2AEF078BB6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E7B03F3A-C332-4F7A-B717-47EEE968FBAF">Opacity is Premultiplied</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-879E1B52-A9D0-422F-8A79-D353A628A37A"></a></span><p class="table-body">When enabled, the input color is assumed to already be premultiplied with the opacity
+                           value. When disabled, the input color will be attenuated (multiplied by) the opacity
+                           value before being used.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-75061DBA-97A4-4EDE-B743-9638E71A2037"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-17B52966-41FB-4A57-A8F1-48B8AEE4E19E">Opacity Threshold</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1541EF63-E7B0-4103-A31F-5A4F9350F556"></a></span><p class="table-body">Sets the opacity level where the shader switches from using standard transparency
+                           to becoming "completely transparent". Generally this should be kept at 0.0, because
+                           only totally transparent pixels are treated as "not even there", but if you raises
+                           this value more and more "opaque" pixels will be considered "not there" for framebuffers.
+                           Note that the actual visible rendered result is identical, only the contents of framebuffers
+                           other than the main color framebuffer is affected by this.
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

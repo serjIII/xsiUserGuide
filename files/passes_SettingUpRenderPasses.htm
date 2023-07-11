@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C6CF9FD4-5A8F-4300-AD75-1A7280F1FC3D">
+      <meta name="indexterm" content="passes: creating">
+      <meta name="indexterm" content="passes: custom">
+      <meta name="indexterm" content="passes: current pass">
+      <meta name="indexterm" content="cameras: render pass">
+      <meta name="indexterm" content="rendering: cameras">
+      <meta name="indexterm" content="cameras: active camera">
+      <meta name="indexterm" content="passes: active camera">
+      <meta name="indexterm" content="active cameras">
+      <meta name="indexterm" content="lens shaders: pass shader stack">
+      <meta name="indexterm" content="shaders: passes">
+      <meta name="indexterm" content="passes: applying shaders to">
+      <meta name="indexterm" content="overrides: on global renderer options">
+      <meta name="indexterm" content="passes: presets (saving)">
+      <meta name="indexterm" content="passes: duplicating">
+      <meta name="indexterm" content="passes: deleting">
+      <meta name="topic-type" content="concept">
+      <title>Defining Render Passes</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C6CF9FD4-5A8F-4300-AD75-1A7280F1FC3D"></a></span><div class="head">
+            <h1>Defining Render Passes</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-EC30D545-F059-40EC-B314-A44CD366C813"></a></span>If you want to isolate and render particular aspects of your scene that are not defined
+               by any of the preset passes — matte, shadows, highlights, or others — then you can
+               create your own render passes. Your scene can contain as many render passes as you
+               need. Each new pass is independent of the original Default_Pass (also known as <span class="char_link"><a href="render_passes_UsingPresetRenderPasses.htm#WSBDF3789326DBBD4FB2A3C80D3F0ED961-0010">The Beauty Pass</a></span>). The new pass automatically becomes the current pass and any further pass or partition
+               commands are applied to this pass until you select another pass to be the current
+               pass. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0022"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B59AE397-B5EA-496B-B8D5-8936443418DC"></a></span>Creating Custom Render Passes
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-DEEE834F-AC9B-48BB-ABD5-0563A7709662"></a></span>You can create a custom render pass in several ways: 
+               </p> <span class="anchor_wrapper"><a name="UL_95A8408F419E43A1822A627142D25B67"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-53FA71B8-9E28-43A6-9B56-CA9DA7913F03"></a></span>Choose <span class="MenuCascade" id="GUID-47EC8153-C7F0-47E1-A070-1B6F40463D74">Pass <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> New Pass <img src="../images/ac.menuaro.gif"> Empty</span> from the Render toolbar. This not only creates an empty new pass named "Pass," it
+                        also creates empty background partitions. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F01E723F-6863-4380-8C78-22473DC9DA8B"></a></span>Choose <span class="MenuCascade" id="GUID-A900B7C9-C991-4ACA-A700-49B51E2D5A66">Pass <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> New Pass <img src="../images/ac.menuaro.gif"> Based on Layers</span> from the Render toolbar. This creates a new pass and a partition for each layer you
+                        have defined in the Scene Layer Manager. For more information about using layers,
+                        see <span class="char_link"><a href="scel_layers.htm">Scene Layers</a></span> [<span class="char_link"><a href="scel_cover.htm">Scene Elements</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-03606363-01BA-4A3D-87CA-EA339440E38D"></a></span>Keep in mind that you can also load a preset pass and customize it to fit your particular
+                        needs. For more information, see <span class="char_link"><a href="render_passes_UsingPresetRenderPasses.htm">Using Preset Render Passes</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-F8B41C94-AA21-4756-AF58-431D1BC412AA"></a></span>After you have created a new render pass, you can define its objects and light partitions
+                  as described in <span class="char_link"><a href="passes_DefiningPartitions.htm">Defining Partitions</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0023"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3F9610E8-8F4B-4E45-8C07-487E5F08D2E4"></a></span>Setting the Current Pass
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-5671C098-962E-4A20-AF23-8D94C0AB1E55"></a></span>When you create a scene, it has a single pass named Default_Pass. This is a "beauty"
+                  pass that is set to render every element of the scene as is. It is also the current
+                  pass for the scene and its name appears in the pass text box on the Render toolbar.
+                  
+               </p> <span class="anchor_wrapper"><a name="FIG_E3D458E0768E47FCBEAD08AA9B4092B7"></a></span><div class="figure-anchor"><img src="../images/GUID-28466D8F-9B8E-4A5F-BBED-3E20475F788B-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-227B88E4-71AC-4AF6-BA6A-E8F6BF80FA51"></a></span>The current pass is the pass to which all pass and partition properties are applied.
+                  Every time you create a new pass, it immediately becomes the current pass. The current
+                  pass is also the pass displayed in a 3D view when the <span class="MenuCascade" id="GUID-7060FE5E-7D4A-4BDB-ADC1-8B94A7ADE388">Render Pass</span> Camera view is set for the viewport. 
+               </p> <span class="anchor_wrapper"><a name="GUID-101B8A26-D5F4-4351-AE12-003C710CA592"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7AD33A6D-CF91-4495-BA3B-3DC04C454019"></a></span>Click the arrowhead beside the Pass Selection menu on the Render toolbar to display
+                        the pass list. The list contains all available passes defined for the scene. The Pass
+                        Selection menu is also available from the main menu bar. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_5967503F88C349A9878E7D377FCD2370"></a></span><div class="figure-anchor"><img src="../images/GUID-90771CB1-A4CD-40C0-8C18-EA471BC0A4AC-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B5446612-04D9-4371-B818-64A0A17AB818"></a></span>Choose the render pass you want to set as current. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-17316A80-99AA-41D3-9C9D-8EBFD23BE87C"></a></span>The Pass commands on the Render toolbar to set the camera for the pass, add a partition,
+                        or delete the current pass, etc. are all applied to the current pass. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-ACE21980-7B50-4877-9C32-84A215BD17C3"></a></span>To make a change to another pass, set it as the current pass. 
+                     </p> 
+                  </li>
+               </ol> 
+               <div><span class="anchor_wrapper"><a name="GUID-17153704-793E-4578-A663-71EFAE890BEC"></a></span><div class="note-note"><span class="label">NOTE:</span>The order of passes in the Pass Selection menu is determined by the general sort order
+                     set in the explorer, for example, Alphabetical, None (creation), and so on. You can
+                     modify the creation order using the Reorder tool in the explorer. See <span class="char_link"><a href="3dexplorer510.htm#WS048B4B56E6774847810BFA5D3F1134D0-0051">Sorting and Reordering Elements in the Explorer</a></span> [<span class="char_link"><a href="ui_windows.htm">Windows and Views</a></span>]. 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0026"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D31B2EEF-D998-4B70-9893-9D7A528F3D78"></a></span>Setting and Showing the Render Pass Camera
+               </h2>      
+               <p><span class="anchor_wrapper"><a name="GUID-0794E4AF-49A4-45D9-AFFC-2ACA4C79B447"></a></span>You can specify the camera (or group of cameras) you want to use for a render pass.
+                  The camera provides the viewpoint from which the pass is rendered. You can add new
+                  cameras to your scene and associate them to a render pass as needed. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CC106BAD-4A6C-452A-9121-B8052C141AB5"></a></span>In the explorer, a Pass Camera node appears as a sub-node of each render pass. This
+                  doesn't signify that a new camera is created with each pass: the Camera node represents
+                  the camera used for that pass only. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0027"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-504BACBE-C8B0-4C16-9D94-876F040BC8A2"></a></span>To set the render pass camera
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6D4F8285-1793-4BA0-BC10-E131B79185A6"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3F9C8782-0628-438F-B5A6-271C6541116E"></a></span>Open the <span class="char_link"><a href="property4501.htm">Render Pass Property Editor</a></span> for the current pass: choose <span class="MenuCascade" id="GUID-2AA7CCC5-D8D7-411F-82A4-8E04D48287B2">Pass <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> Edit Current Pass</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-05E208E5-0A7F-4943-A7D1-8529AB789C4B"></a></span>Click the <span class="MenuCascade" id="GUID-FB5508F8-3831-4647-B5F4-3B79768EEF3D">Output</span> tab and select from the <span class="MenuCascade" id="GUID-71BCCD64-5E71-4575-9AE1-F8E1F06CB502">Pass Camera</span> menu which camera you want to render your pass. The menu lists all of a scene's cameras.
+                           You can also choose to render from a group of cameras as described in <span class="char_link"><a href="cam_cameras_RenderingwithMultipleCameras.htm">Rendering with Multiple Cameras</a></span> [<span class="char_link"><a href="cam_cover.htm">Cameras and Motion Blur</a></span>]. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0028"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-40DDA804-6162-4985-9FF3-EC8DFE9DA06E"></a></span>To show the current pass from the point of view of its camera
+                  </h3> <span class="anchor_wrapper"><a name="UL_1817FBE10B714EC68A24D5F249753947"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4DDDACC6-2BB9-4B16-B3DF-E1CD7146D3E5"></a></span>Choose <span class="MenuCascade" id="GUID-F0C6135F-59A4-4475-91C8-DD6EC85B7CE6">Cameras <img src="../images/ac.menuaro.gif"> Render Pass</span> from any 3D viewport's Views menu (on the left side of its title bar). This will
+                           set the viewpoint to that of the camera for the current pass. 
+                        </p> 
+                     </li>
+                  </ul> <span class="anchor_wrapper"><a name="FIG_74EC528D8CAD4A788CCA153C52064379"></a></span><div class="figure-anchor"><img src="../images/GUID-F5BCDF87-99BD-4ACF-B80C-8039F9A21AC3-low.png"></div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-002A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DF6B32CE-A5FC-4E3A-9557-5F38E5AF4E48"></a></span>Applying Shaders to Passes
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-B1292BC3-60D9-4A06-ACCE-5327CD3B9862"></a></span>You can apply environment, output, volume, and lens shaders directly to a render pass
+                  using its pass shaders stack. Different sets of these shaders can be defined for every
+                  pass in your scene. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A19C5446-7D61-4234-9E24-58ADD48A2C39"></a></span>The pass shaders stack allows you to modify the order in which the different shaders
+                  are evaluated, thereby changing the results of the final effect. Since you can also
+                  apply lens shaders to a camera, you can decide which of the two shader stacks to use,
+                  what order they will execute in, or whether or not the pass lens shaders will overwrite
+                  the ones in the camera stack. For more information, see <span class="char_link"><a href="cameras_AddingLensShaderstotheCamera.htm">Applying Lens Shaders to Cameras</a></span> [<span class="char_link"><a href="cam_cover.htm">Cameras and Motion Blur</a></span>]. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-002B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8DB48459-B645-439B-A353-C476F51D1D3A"></a></span>Adding Pass Shaders Using the Render Pass Property Editor
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9C7AF704-F6AB-4B0F-961A-D40CEF502C76"></a></span>You can apply environment, output, volume, and lens shaders to the pass shaders stack
+                     from within the <span class="char_link"><a href="property4501.htm">Render Pass Property Editor</a></span> on the <span class="MenuCascade" id="GUID-583876B1-E453-4474-9916-FEF0F06243AE">Pass Shaders</span> tab. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_D090B72EAF8840BFBAA1F04393BE6E85"></a></span><div class="figure-anchor"><img src="../images/GUID-EAC1695D-6868-402F-AFCD-E1DBFEA2FDA1-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_BF2D90AA3A924787A87E4C5C14A7B6EC"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0C1ECBAF-D65A-4B47-9998-39235C429F79"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ACDCAE9C-5EB8-42F1-BAFC-14D54D877C19">Add</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EBA6E79A-AFB0-46D1-8F54-8F6D9C150008"></a></span><p class="table-body">Adds a shader entry to the pass shaders stack. </p> <span class="anchor_wrapper"><a name="GUID-F4EF4F6C-24B5-4C73-98A0-DFAFE661266B"></a></span><ol type="1" start="1">
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-7C2A04CA-FA34-4BE4-8956-905EC56434FB"></a></span>Click the <span class="MenuCascade" id="GUID-D6D546A0-3DB8-4093-8870-EC7EBA684BA1">Add</span> button. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-0F97E4A7-6971-418F-BBB4-31FF908735AC"></a></span>An entry named "Nothing" is added to the pass shaders list and a pop-up menu opens.
+                                       
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-9F3F08B3-D7F7-4365-933D-FED1CC884DB4"></a></span>Choose a shader from the pop-up menu, or select <span class="MenuCascade" id="GUID-EB48E54E-03B6-49B6-9ADD-44892AD11488">More...</span> to locate other shaders. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-14ADD0D7-EC62-43BC-AACD-2BFB03C9CD1B"></a></span>Once a shader is chosen, its property editor opens where you can modify its parameter
+                                       values. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-42AC4F27-0A2D-4FDD-97B8-775B19938167"></a></span>Click the Add button again to apply another shader to the pass shaders stack. You
+                                       can add as many shaders as required for the effect. 
+                                    </p> 
+                                 </li>
+                              </ol> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0B3696BA-B554-4FE2-86B2-D14AF3E76FF4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FDEE6F81-FF5D-46D7-B8BF-28A1B781F3A5">Remove</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-90B5D1CC-31BE-4F05-A421-D0375E61FD8E"></a></span><p class="table-body">Deletes the selected shader from the pass shaders stack. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9579EE9D-4CA4-421D-80BD-23A4385A630E"></a></span><p class="table-body">[<span class="MenuCascade" id="GUID-D6F1D889-62A8-45A8-8EC1-968517267C8D">shaders list</span>] 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8E31D8D5-A152-4587-9811-3B00587A8D15"></a></span><p class="table-body">Lists the names of the environment, output, or volume shaders that are applied to
+                                 the pass shaders stack. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-05166308-5D77-4D6B-9887-C2E414F17D01"></a></span><p class="table-body">Shaders are displayed in their order of execution. Click the Edit Array Item icon
+                                 (the " blue socket") to change the order. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-D426BC71-7009-4217-B825-A29A3E79FE29"></a></span><p class="table-body">Double-click a shader entry in the list to open its property editor. You can also
+                                 click the Connection icon (the "red plug") to edit a shader's properties. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FC275BAE-23F5-4D36-B7AF-D6B6639C9D8B"></a></span><p class="table-body">[<span class="MenuCascade" id="GUID-695A32E4-5F1F-448D-BC9F-9A13DA0BF627">lens shaders list</span>] 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-10B619C2-4812-48CF-A3A9-1CC14843B18D"></a></span><p class="table-body">Lists the names of the lens shaders that are applied to the pass shaders stack. </p> <span class="anchor_wrapper"><a name="UL_15CD7DB0B88A4F239EC6F821D0475E6A"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-46D021B7-8621-4738-8CE7-A345FD8D562C"></a></span> <span class="MenuCascade" id="GUID-F38B81CF-9C04-4076-A618-7ABC7F76644C">Use Only Camera Lens Shaders</span> does not allow you to specify lens shaders for the pass. The pass uses the lens shaders
+                                       applied to the camera, if any. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-A27A6E66-7535-4D2C-A48F-0D6DC846B188"></a></span> <span class="MenuCascade" id="GUID-751BB01B-A981-40C0-8979-506DACD402D9">Add After Camera Lens Shaders</span> applies the lens shaders you define here after any lens shaders applied to the camera.
+                                       
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-38A3D9AF-0219-4085-B109-067C927FA2EB"></a></span> <span class="MenuCascade" id="GUID-9BB8B8F3-13D7-4763-9199-50A32ADD6749">Add Before Camera Lens Shaders</span> applies the lens shaders you define here before any lens shaders applied to the camera.
+                                       
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-74C93EAD-48DE-4A52-B1E8-2FB6D6B0B127"></a></span> <span class="MenuCascade" id="GUID-B5CE198B-25B4-4E74-8222-B3684487F270">Overwrite Camera Lens Shaders</span> applies the lens shaders you define here instead of any lens shaders applied to the
+                                       camera. 
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-FFC252BA-C7A8-4AFD-8291-03332D6B7C42-low.png"> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0D50F391-F3C6-46F4-AF72-2642D7725D63"></a></span><p class="table-body">Select a shader entry and click the <span class="MenuCascade" id="GUID-DFC0E6FD-11AC-4B5A-B5A4-8663DD996793">Edit Array Item</span> icon (the " blue socket") to open a pop-up menu with the following commands: 
+                              </p> <span class="anchor_wrapper"><a name="GUID-7A078402-5CFB-4C8C-9C1F-1D9F43674FEB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F3E18E08-0A3F-4EE1-AEEF-FF521B86C0DF">Remove:</span> Deletes the selected shader from the pass shaders stack. Once a shader is removed
+                                 from the list, it no longer influences the effect. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-68847443-AC3B-40DF-919E-A78C5658338C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FB887ED0-8D5A-4D4E-8717-038956939FC3">Move Up/Move Down:</span> Promotes or demotes the selected shader in the pass shaders stack. The position of
+                                 a shader in the stack indicates its order of evalution. Changing the evaluation order
+                                 can impact the results of the final effect. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-B5CF9EFE-407F-4565-A3E3-F3EEB7DA04FB-low.png"> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-83816D27-21AB-4829-AEC4-AE50392BAB7C"></a></span><p class="table-body">Click the <span class="MenuCascade" id="GUID-ED4A97BE-7712-4796-8CA7-C75E1625B29B">Connection</span> icon (the "red plug") to open the selected shader's property editor where you can
+                                 modify its parameter values. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-9040B380-006B-4F5B-8CD7-195BF689368E-low.png"> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-064F6C21-2F52-4213-827F-B7CBA2D2A322"></a></span><p class="table-body">Click the <span class="MenuCascade" id="GUID-C1F153F0-318B-40B9-8061-98154EBA424E">Connection</span> icon (the "grey plug") to open a pop-up menu of shaders that you can apply to the
+                                 pass shaders stack. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-435526F8-D0BC-4463-A503-A7135C18C5C8"></a></span><p class="table-body">For more information, see <span class="char_link"><a href="ShaderBasics_ApplyingShaders.htm#WS4119D6A883BE8447A3B634DC3527230A-0031">Connection Icon Status</a></span> and <span class="char_link"><a href="ShaderBasics_ApplyingShaders.htm#WS4119D6A883BE8447A3B634DC3527230A-003B">Working With Conversion Shaders</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0030"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2F35636E-9CF1-449F-840D-3CEB451D9377"></a></span>Adding Pass Shaders Using the Render Tree
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-487A2A1E-FCE5-433F-80AC-119DDEECBB47"></a></span>You can apply environment, output, volume and lens shaders to the pass shaders stack
+                     directly from the Pass node in the render tree. You do not have to open the <span class="char_link"><a href="property4501.htm">Render Pass Property Editor</a></span> to access the shaders stack. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-B66E7DCC-7F60-43AA-95BF-D9D68DD35AF3"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-64E1C84B-E8FE-4865-B395-8BF76D5944CA"></a></span>Select a pass (from an explorer for example) and press 7 to open the render tree.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6E565B6E-E7E7-410D-A4EA-4A8B24556167"></a></span>The Pass node is displayed in the render tree workspace. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_6DC7646412E34C95AF7B110FD0F46F95"></a></span><div class="figure-anchor"><img src="../images/GUID-DC5A3881-9673-43B4-9EB7-F37D8F21B75F-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-99BADCF7-E03C-4D60-832A-323703FC0D2D"></a></span>Set the node to its fully expanded state. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_CBD48B4371414C9EAD2F500E7EF0C099"></a></span><div class="figure-anchor"><img src="../images/GUID-9A503245-F656-4C08-876E-5B47B1CE3A5C-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0663B2D6-29DA-4BAE-A25D-A3A0175D4E64"></a></span>Right-click one of the <span class="MenuCascade" id="GUID-4A8509F1-071D-42B8-B2BE-833AFFEF8F26">Shaders</span> port groups and select <span class="MenuCascade" id="GUID-41C18898-4C0F-4FF0-8BD3-7737356C87E3">Add Item</span>. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_E97137E15B854E4594454D3ECEE49A01"></a></span><div class="figure-anchor"><img src="../images/GUID-1E972596-55A4-4393-99B4-85EA70A53F7B-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7919DCE9-6F0A-4EFA-B543-C9F2277BAB75"></a></span>A port named "<span class="MenuCascade" id="GUID-AB99C56A-4DCE-44FA-9EEF-D6FEA5498F03">Item</span>" is added to the port group. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_64F0D36BB37A4B13A8D32A0D3C0A1AAA"></a></span><div class="figure-anchor"><img src="../images/GUID-8B119F30-6870-44AC-AC69-92844ACC2F3C-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5F395FB8-CE6A-41F7-904A-1B449551A286"></a></span>Right-click the port and select a shader from the pop-up menu, or select <span class="MenuCascade" id="GUID-6C793C2F-B2C1-4C32-997B-19AE19D0A97D">More...</span> to locate other shaders. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_03D5250D67B04E528FF38D3657EACDEF"></a></span><div class="figure-anchor"><img src="../images/GUID-C8CBDB8B-2008-492D-867D-57DFA34BCECC-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C90BB885-4508-4513-A573-76954588639A"></a></span>Repeat this task to add as many ports and shaders as you require for your effect.
+                           
+                        </p> <span class="anchor_wrapper"><a name="FIG_D99ACA74F984471FA5EA23C5326C6BCD"></a></span><div class="figure-anchor"><img src="../images/GUID-2F2BE7A3-CF40-472C-8377-B75EA61A7EFB-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-948A2111-2D9F-4CEE-9170-C570AA576F61"></a></span>To change the order of evaluation for a shader in the pass shaders stack, right-click
+                           its port and select <span class="MenuCascade" id="GUID-974D1A84-7B86-492F-B696-D09CD7A8F05D">Move Up</span> or <span class="MenuCascade" id="GUID-26C89117-3923-440F-B6B2-629C4ECD2A33">Move Down</span>. Changing the evaluation order can impact the results of the final effect. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_BEE1AB2A5F114A9DB5AC98403BEF5934"></a></span><div class="figure-anchor"><img src="../images/GUID-0804B451-A240-4E1A-ACAD-277A93ACDDFA-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-93D96FFB-1C50-4F75-B903-BF90CE436BB3"></a></span>To delete a shader (and its port) from the pass shaders stack, right-click its port
+                           and select <span class="MenuCascade" id="GUID-CFFEBAE3-FB52-4EDF-A32E-19FB794689AE">Remove</span>. Once a shader is removed from the list, it no longer influences the effect. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0038"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B11C07B4-4089-49A2-BDBA-9017BFC63A0A"></a></span>Overriding Global Renderer Options for a Pass
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-598DD6E8-0F7D-428D-BACD-E0A326D81EA5"></a></span>If your global renderer options are set exactly as you like them, but you need to
+                  make a few minor parameter tweaks for a specific pass: create an override containing
+                  only those renderer options and then modify them just for that pass. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5C53D1D7-C9C4-491F-AB2E-DC932AD3B48B"></a></span>You can create a pass override by marking the parameters in the global renderer options
+                  property editor. The parameter marking method for overriding renderer options is only
+                  available from the render manager. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D2B23D65-6D9C-4B93-BECA-DE4C799FAE3B"></a></span>You can also create property overrides by using the Get &gt; Property &gt; Override command
+                  on the Render toolbar: the result is the same, so it is just a matter of how you like
+                  to work. For more details about working with overrides in general, see <span class="char_link"><a href="properties_OverridingProperties.htm">Overriding Properties</a></span> [<span class="char_link"><a href="scel_cover.htm">Scene Elements</a></span>]. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0039"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-13C8CF80-2A3C-4858-B9DD-4769E6F9D076"></a></span>To add parameters to the override by marking
+                  </h3> <span class="anchor_wrapper"><a name="GUID-D869027D-8B4D-4206-BB0A-C86E063D4453"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0E1D04B6-8571-4F91-9A00-6C64355ED600"></a></span>Open <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C78B4A65-7A1E-48B2-986C-DFCA058B5815"></a></span>In the explorer view, expand the pass node that uses global renderer options for which
+                           you want to create an override. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-863E1013-B532-4B20-9024-894859DB011F"></a></span>When you expand the Pass node, its renderer is displayed in <em class="mild">italized</em> letters indicating that it is a global property. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1043BCC3-BC34-46EC-9387-532F62F5BFDD"></a></span>Select either mental ray or Hardware Renderer. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-61F93216-56CC-469D-80E4-592F171241CE"></a></span>In the right panel, the Global Renderer options are displayed. Mark (by selecting)
+                           the parameter names of each parameter you want to override. Marked parameters are
+                           highlighted in yellow. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_18779E8869E342B2AD6B4D7955086EE6"></a></span><div class="figure-anchor"><img src="../images/GUID-D592ED75-EC6A-4C72-B319-9F20A587174E-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B32759F2-7526-4AB2-89F1-FD8E89F04458"></a></span>When selecting you can do any of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_3F33315E6AE743019D77C34E1F94FC2D"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D6140E62-6772-4D78-8850-9349382D692E"></a></span>Click to select a single parameter and deselect any others. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-44701859-D28F-4604-AA95-C0480DF87C72"></a></span>Shift+click to add a parameter to your selection. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CE56E153-47E9-4BF0-A044-D598BA0BE04B"></a></span>Ctrl+click to toggle a parameter. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-648FBA30-5582-44B6-A07D-F63D7DCB142C"></a></span>Ctrl+Shift+click to deselect a parameter. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-89438BC5-04BC-46D0-BA16-B1E09DD62838"></a></span>When you have finished your selection, choose <span class="MenuCascade" id="GUID-88379418-50C7-45B8-AEB1-548E10B8911A">Edit</span><img src="../images/ac.menuaro.gif"><span class="MenuCascade" id="GUID-005BC90D-A07A-4268-93CB-1240B0AE53D9">Override Marked Pass Parameters</span> from the render manager's menu buttons. The selected parameters are added to the
+                           PassOverride property editor and a PassOverride node is displayed under the pass node.
+                           
+                        </p> <span class="anchor_wrapper"><a name="FIG_17395571BC854301AB4221F99F2D6954"></a></span><div class="figure-anchor"><img src="../images/GUID-485B562A-34FC-461C-BDA9-19919B387D95-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F86F5F05-FB8C-49A9-B85E-EE8CC5B07E0D"></a></span>You can use the controls in the override property editor to change the values of the
+                           overridden parameters. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-003C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0BB68834-8336-4F8F-9F2D-0C6F9EAC558B"></a></span>Creating Pass Presets
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-CE485049-B1E5-4A4E-AD7E-EAEAB95B3646"></a></span>When saving a pass preset, you are actually saving its render options and any shaders
+                  applied to the pass's shader stack. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-003D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-63F3CA3D-21D3-4D87-978A-DA5B64181776"></a></span>To save a pass preset
+                  </h3> <span class="anchor_wrapper"><a name="GUID-53D20C19-5DD9-4C64-A84B-585EBB288CBD"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C2B1DE53-38C1-48C4-934F-5D9C86E73A75"></a></span>Open an explorer and set the scope to <span class="MenuCascade" id="GUID-FBD05F94-F370-4806-833E-E9F0503C88CB">Passes</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B495284F-7714-4D76-8DC9-B34AB6AB5A59"></a></span>Click the icon of the pass that you want to save to open its property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5CE2C850-A1E8-4F32-95D3-01914319A61F"></a></span>Click the <span class="MenuCascade" id="GUID-D39BFA69-0128-4406-89B1-C5427193D718">Save</span> icon at the top of the property editor to save the pass's render options and the
+                           shaders applied to its shader stack. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0C4D62C9-BAC6-4458-97CC-4A2E588E916F"></a></span>The <span class="MenuCascade" id="GUID-7F091C8F-2B27-4B59-BCD4-8F5F1D8878B0">Save Pass Preset</span> browser is displayed. Enter a file name for the preset and click OK. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-7EDF7BE4-C940-42A2-9242-71BE2877691C"></a></span><div class="note-note"><span class="label">NOTE:</span>By default, the pass preset is saved to the User path in the <span class="filePath">\Data\DSPresets\Groups</span> directory. You can, however, save it to any other directory. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-003E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2861C679-221B-4618-AD0E-4BD2E5C705B7"></a></span>To load a pass preset
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-053FE066-5C61-4E54-8250-E0BCCEEA8230"></a></span>If you do not want to use any of the predefined pass presets, you can easily load
+                     your own. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-8F10235A-3B3B-4CB0-AF09-41A57DD9D702"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F80343FC-7215-450C-971A-45D9F5869569"></a></span>Choose <span class="MenuCascade" id="GUID-4F45A93F-4D8D-4384-94B8-B3D03E55F274">Pass <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> New Pass <img src="../images/ac.menuaro.gif"> More</span> from the Render toolbar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BF0B9D90-70E9-4FA3-88ED-81D0853438AF"></a></span>In the browser, navigate to a folder in which you have a saved preset pass. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DF147DF0-F9C8-4028-BEE4-A26DC88E919B"></a></span>Click OK to load the preset. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BF772F28-C085-4C02-8C60-D98FE658A01B"></a></span>You can also drag a preset pass from the browser or custom toolbar and drop it directly
+                     on the Render Passes root in the explorer. The preset pass appears as a subnode under
+                     the Passes node. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-003F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A8FFEC3C-46B9-472D-801C-AA77E0707415"></a></span>Duplicating a Pass
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-AE7535D2-67A3-49F2-A09B-0FB6C8A597A2"></a></span>As you add passes to your scene, you may find that many of them use a similar structure
+                  or have partitions that contain mostly the same objects or lights. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1E866395-DB00-4182-B363-E2079180173B"></a></span>In cases like these, it's often easier to duplicate a render pass and modify the duplicate
+                  than it is to create several similar passes from scratch (or by modifying presets).
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0040"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-90D18892-AB3D-4070-BB48-42182EBDD7AE"></a></span>To duplicate a pass
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6BE31FB8-B4BC-4C7A-8036-7895F54E6BA5"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-661248A1-A740-43BC-8374-8F375F6BA7C3"></a></span>Open an explorer and set the scope to Passes (press P). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-73F288D1-12D2-4F91-A33C-5D39431EB6B0"></a></span>Select the pass that you want to duplicate. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-04C5B368-BDFF-4304-AE0A-7F4307F10120"></a></span>From the edit panel in the main command panel, choose <span class="MenuCascade" id="GUID-B6E251BC-21C6-4EA9-B4DF-FF06FA678457">Edit <img src="../images/ac.menuaro.gif"> Duplicate Single</span> duplicate the pass. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A19F6EF6-8C53-4DA6-94F8-077D7C3B0530"></a></span>The duplicate pass is added to the pass list, but does not become the current pass.
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0041"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BC79627E-135E-4694-B9E0-F607A576C9C0"></a></span>Deleting a Pass
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-09C90A2E-6875-4F55-BF3C-0DFFA7274CFE"></a></span>Deleting an unwanted pass is a simple operation. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0042"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A8A522F3-7639-4735-A968-A5A4F5F8F28C"></a></span>To delete the current render pass using the Render toolbar
+                  </h3> <span class="anchor_wrapper"><a name="GUID-273CAFE3-20ED-4545-BCDE-23B6B4E3221D"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E2C84437-B921-40D8-83FF-79A941D9778A"></a></span>Make the render pass you want to delete the current pass. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AC268857-E274-4A18-A9F0-0AA12019E144"></a></span>Choose <span class="MenuCascade" id="GUID-AFD58451-C893-4B2E-98B7-9A4CF666CF3F">Pass <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> Delete Current Pass</span> from the Render toolbar to delete the current pass. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBDF3789326DBBD4FB2A3C80D3F0ED961-0043"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A033BD24-76DD-49D6-96ED-A22E98442DBE"></a></span>To delete a pass using the explorer
+                  </h3> <span class="anchor_wrapper"><a name="GUID-5B9C07F2-4F39-45D5-AE34-272D5D1AACA7"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A4EABE4E-8971-4166-958C-4FEC81DE4EA0"></a></span>Open an explorer and set the scope to Passes (press <span class="MenuCascade" id="GUID-F89A4A27-F2D2-44BC-9DFD-AAE904DD630C">P</span>). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0BCF01D5-C32B-4D42-AD0E-10B1DABCCA10"></a></span>Select the pass that you want to delete. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E484C80C-9567-4DBA-B694-9113B8E6BA2D"></a></span>Press the Delete key on your keyboard. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

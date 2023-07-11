@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-2D32AECE-2193-4351-92DE-8B8D5752C8D3">
+      <meta name="topic-type" content="concept">
+      <title>misss_physical_phen</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-2D32AECE-2193-4351-92DE-8B8D5752C8D3"></a></span><div class="head">
+            <h1>misss_physical_phen</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-612E650F-AB08-4DAA-A8F0-852794D9335C"></a></span> <em class="strong">Category:</em> mental ray &gt; Material Phenomena
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D5A9C9F2-9FA5-42DA-9F93-9271784F3BC8"></a></span> <em class="strong">Shader Family:</em> Material Phenomenon
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6DC60C62-8598-4E6F-8861-409264DCDCD3"></a></span> <em class="strong">Output:</em> Custom
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6BD3118C-213B-4BA4-BECB-A5F19A2A97EC"></a></span>In the real world, many materials are translucent to some extent, and do not immediately
+               reflect light at their surface. Instead, light penetrates the surface, and is scattered
+               inside the material, before it is either absorbed or transmitted. This effect, called
+               "subsurface scattering", greatly enhances the realism of a wide variety of rendered
+               materials, even when used sparingly.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-350DF62C-2689-45B5-A8A8-78D8A3BEE9A0"></a></span>The misss_physical_phen shader simulates subsurface scattering in a physically correct
+               way by using a simplified version of the real-world subsurface scattering process.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A7923C1E-076F-4D48-A6F2-AC0035589B35"></a></span>For subsurface scattering to work correctly, your scene must meet the following basic
+               conditions:
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E8680C3D-CAE0-4748-8106-B0FD1DB00578"></a></span>Raytracing must be activated in the Render Options and/or View Render Options property
+                     editor.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5CCFE87E-BB53-44AB-A9EC-790C94B8C689"></a></span>At least one scene light (ideally a spotlight focused on the shaded object) must be
+                     set as a caustic and/or global illumination emitter. The number of emitted photons,
+                     as well as the energy value must be set.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F2DC406B-2DD4-44C3-B4DA-BA7EDA747CC0"></a></span>Caustics and/or global illumination must be activated in the Render Options and/or
+                     View Render Options property editor.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7DDB0D61-C36E-49F3-A31E-DA0A3BFB79B3"></a></span>The subsurface scattering shader should be connected to the Surface and Photon inputs
+                     of the shaded object's Material node.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B7650217-7D80-485D-B652-5515B3787D84"></a></span>The shaded object should be set as a caustics and/or global illumination receiver
+                     and transmitter.
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WS12B73D9A1D144B479954181E33EF9138-000F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-90991F33-41FD-43CA-9347-C675333C08E9"></a></span>Light Scattering and Absorption Coefficients
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledHeading">
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-324383DF-A523-4D43-9909-3507D3C6BC0F"></a></span><p class="table-heading">Material</p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-14375B65-6F72-4EDD-96CD-8A54A106EB05"></a></span><p class="table-heading">scattering_coeff</p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-5BABE493-1828-42EC-8FBA-7E2C5F8FE3EA"></a></span><p class="table-heading">absorption_coeff</p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-C9CE115D-981D-4787-931F-CAE592E0B3A0"></a></span><p class="table-heading">ior</p> 
+                        </th>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F1A416E4-28B0-473E-8941-230FD74A7799"></a></span><p class="table-body">Jade</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B4C50B58-F9B2-4941-BDAD-A41B9143E53B"></a></span><p class="table-body">0.657 0.786 0.9</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D61982AE-165C-457B-8799-BE370485FD18"></a></span><p class="table-body">0.00053, 0.00123, 0.00213</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E662B435-69EA-4618-839E-81F4D56636C2"></a></span><p class="table-body">1.3</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E45CB553-3FB3-4828-9A84-6D5331937321"></a></span><p class="table-body">Ketchup</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-860F8A2A-A775-4451-BE96-28B192B1CAAF"></a></span><p class="table-body">0.18 0.07 0.03</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7DC652D7-2BE9-4A9D-BBC5-830FAE458ABA"></a></span><p class="table-body">0.061 0.97 1.45</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F7AC90B2-8AB9-4B12-AF61-0ECB50713277"></a></span><p class="table-body">1.3</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-232B9BF7-2128-480B-A99B-0150EC5A1159"></a></span><p class="table-body">Marble</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-42BD3EF4-9F71-4B82-B3CA-9AD95A5643C1"></a></span><p class="table-body">2.19 2.62 3.00</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-29427FE9-DF52-42E9-88B4-1903F8FCA35F"></a></span><p class="table-body">0.0021 0.0041 0.0071</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FEDB5546-990A-4DD7-9697-78E6568DBBF2"></a></span><p class="table-body">1.55</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7006856C-1941-49BB-983C-7DD7D47145C7"></a></span><p class="table-body">Skim milk</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EE0E2307-1C8E-4814-83FE-C9B6B19649B5"></a></span><p class="table-body">0.70 1.22 1.90</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2842D935-149F-48DE-9716-76D6A85E248A"></a></span><p class="table-body">0.0014 0.0025 0.0142</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AC54FE1B-D748-4A29-BEE4-DBC709B97FF9"></a></span><p class="table-body">1.3</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9D198ACB-B2FA-450E-BB51-3F75583EBE07"></a></span><p class="table-body">Whole milk</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-296EEAE8-D3D2-460C-AE56-8C990E0BCB9C"></a></span><p class="table-body">2.55 3.21 3.77</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-07E09D1A-0ABB-4835-B7E7-3EEF61CA72B9"></a></span><p class="table-body">0.0011 0.0024 0.014</p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6A7B495A-3CF3-4D6A-8D68-8D266EF1AE0A"></a></span><p class="table-body">1.3</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body" colspan="2"> <span class="anchor_wrapper"><a name="GUID-E885EE5B-266C-4393-90E2-E4A0B2B07C7C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1D597907-86E1-405D-A2C7-124245B0352D">Optical Properties:</span> The optical properties controlling the subsurface scattering shader are surface color,
+                              transmission color, refractive index, scattering and absorption coefficients, and
+                              the actual scattering function.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BCCDF174-F4D1-424A-9B0E-84638907E6A7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2D92A2B5-A1ED-4E36-B8C0-5179510A78CA">Name</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F2DD934C-413A-4B53-B878-1D713D18D753"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                              or leave the default.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-08D6062E-D8D9-4D2E-A226-C192B4D79DA8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DAA2DC7B-1A80-41E1-95DB-CF7F4A84B142">material</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-19E5327A-534B-4902-9DD9-956AB6679815"></a></span><p class="table-body">Defines the surface color of the shaded object. You can connect other shaders, like
+                              surface shaders (Phong, Blinn, etc.) or texture shaders, to this parameter to modify
+                              the object's shading, surface color, and so on.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-27BADD90-C42D-4B3C-AB83-41DCA7379F2E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D0A860D1-3610-48C4-B696-5D7BDE87B7A4">transmission</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D44C9D5D-02C4-4F7A-978E-1E9EEE397AFB"></a></span><p class="table-body">Defines the transmission color that filters light as it enters the object. Connecting
+                              3D texture shaders to this parameter allows you to modulate the way light is filtered
+                              as it enters the object.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-47256C67-0957-4603-B535-98F6F4528B54"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-307A51FF-0448-477D-9B33-EE1D2109ABE0">ior</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3A7190FB-5E19-4726-B05A-5F2E772170E7"></a></span><p class="table-body">Controls the bending of light through a transparent material. The index of refraction
+                              varies according to the nature of the material.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-88DF9727-A221-4CC1-BAAA-45CE580D853F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D182D501-9C72-4FA8-8C79-52D57FDFB899">absorption_coeff</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A3070078-FA69-483F-ACBD-3E2791A8E710"></a></span><p class="table-body">Defines the absorption coefficient, which controls, on a per-channel basis, the fraction
+                              of light absorbed per unit of distance as it passes through the shaded object's volume.
+                           </p> <span class="anchor_wrapper"><a name="GUID-E2203563-3214-4716-9E07-952C406807D7"></a></span><p class="table-body">Real-world absorption coefficient values for different materials can usually be found
+                              in any good optics textbook. You should use these values to accurately recreate the
+                              desired material's surface characteristics using this shader. See <span class="char_link"><a href="mentalray_misss_physical_phen.htm#WS12B73D9A1D144B479954181E33EF9138-000F">Light Scattering and Absorption Coefficients</a></span>.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4D33012D-D3D7-46D2-AF83-6279A6DD25DB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0E670976-418D-4611-A02F-970D026C38B8">scattering_coeff</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-54C2DCF8-60D9-42F0-96C0-09E1B74CBE54"></a></span><p class="table-body">Defines the scattering coefficient, which controls, on a per-channel basis, the fraction
+                              of light scattered per unit of distance as it passes through the shaded object's volume.
+                           </p> <span class="anchor_wrapper"><a name="GUID-273EA4D0-2F40-4152-824E-881712F9842C"></a></span><p class="table-body">Real-world scattering coefficient values for different materials can usually be found
+                              in any good optics textbook. You should use these values to accurately recreate the
+                              desired material's surface characteristics using this shader. See <span class="char_link"><a href="mentalray_misss_physical_phen.htm#WS12B73D9A1D144B479954181E33EF9138-000F">Light Scattering and Absorption Coefficients</a></span>.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6343C077-7629-42D0-938D-C5D5945AE85D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-45AB7685-E0A8-463F-A995-A1F5BA226313">scale_conversion</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8F4AF9D4-C820-4116-BCC4-2BC9C949259F"></a></span><p class="table-body">Specifies the conversion between millimeters (which are generally used to express
+                              absorption and scattering coefficient values) and scene units. For example, if your
+                              chosen scene unit is inches, the correct setting for this parameter is 25.4 (mm per
+                              inch).
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-07E8F264-A2C8-477B-A865-BC56730DD8BF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-98CB77EE-9E7D-4D76-A1AD-6F3CB62E61FC">scattering_anisotropy</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A6796E63-26D4-4A33-BD28-F7823196745A"></a></span><p class="table-body">Controls the degree of scattering, since most materials do not scatter light uniformly.</p> <span class="anchor_wrapper"><a name="GUID-19487266-E8FB-444C-B56E-4B2927CEB9EA"></a></span><p class="table-body">Values for this parameter range between -1 and 1. A value of -1 results in backward
+                              scatter only, a value of 1 results in forward scatter only, and a value of 0 results
+                              in uniform scattering in all directions.
+                           </p> <img src="../images/GUID-A2A1F6C6-AC96-467D-9DD0-30B955804BD5-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body" colspan="2"> <span class="anchor_wrapper"><a name="GUID-CF80BEB2-360E-4A4E-B5CF-182629F0AE8C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-09A4D1C1-DCCD-490D-BE7B-8E5023620096">Algorithm Control:</span> The following properties control the quality and complexity of the rendering. The
+                              subsurface scattering calculation is broken into three components: single scatter,
+                              multiple scatter, and diffusion.
+                           </p> <span class="anchor_wrapper"><a name="GUID-363172FB-8CE4-47BE-BF0C-A09F46E5C37E"></a></span><p class="table-body">Depending on the optical properties of the material, the contributions of each component
+                              may dominate or be negligible. For example, single scattering is dominant under low
+                              scattering conditions, whereas multiple scattering and diffusion are dominant under
+                              high scattering conditions, such as those where the scattering coefficient is much
+                              larger than the absorption coefficient.
+                           </p> <span class="anchor_wrapper"><a name="GUID-BF6D42B6-1021-4BFF-9C69-026122A96C62"></a></span><p class="table-body">Each component can be turned on or off as desired, though in most cases it is advisable
+                              to leave all components on.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-23BC355A-1DAD-4AC9-9F9E-57A63B0C3DED"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2779A217-C56D-4F3C-8499-F44F367A6995">depth</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-ED56D11D-A7C1-4443-99FA-D73B7EA4333B"></a></span><p class="table-body">This shader uses two different ways to scatter photons. After a certain number of
+                              scatterings a photon is scattered less precisely, but more quickly.
+                           </p> <span class="anchor_wrapper"><a name="GUID-286FFF7F-208A-427D-81BD-AA1581594BE9"></a></span><p class="table-body">This parameter specifies the number of scattering events done using the precise scattering,
+                              also called "shallow layer". Once this number is reached, the less precise "deep layer"
+                              scatterings begin.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-59CE66D9-FB9D-4076-A140-99932EB2F631"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2CD73D1B-B5E9-4608-A380-D55808ABC063">max_samples</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FE2FE34A-7526-4E76-9236-DB8AEB31572B"></a></span><p class="table-body">The maximum number of samples evaluated by the single and multiple scatter components.
+                              Typical values range between 10 and 30.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E93B96AF-2D0A-4452-B578-F15DC9E634D3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-14CCAEA8-02EF-4411-A9E1-D84E23E4265C">max_photons</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-610E81CE-0362-4162-A5B7-5CE21BF0A316"></a></span><p class="table-body">The maximum number of photons to sample per lookup. This is similar to the global
+                              illumination Accuracy parameter. Typical values range between 100 to 1000. Values
+                              up to 5000 are useful for scenes with uneven photon distribution.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BFFB5804-0021-4D74-B9E0-F8CF4EEA5972"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-08C1C099-54CE-4186-8616-3987979359DB">max_radius</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EB8B625E-A0CC-4398-9543-76F78323ABF3"></a></span><p class="table-body">The maximum radius within which a sphere centered at a sample point will collect photons.
+                              It is similar to the global illumination Radius parameter. Typical values are a small
+                              percentage of the total size of the object.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-712574A8-6165-4511-A6C2-94A8738E232D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-819CFA18-C1A7-4DD5-A5B9-70A738563BE3">approx_diffusion</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3BFD7042-DAC8-4911-BEDF-DF52B37BF43D"></a></span><p class="table-body">Turns the diffusion component of the calculation on or off. Usually it should be on.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BED3A35A-0FC2-470F-B54F-E6A72B38B865"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C75C0DE3-7605-465A-94FE-3A42BA9DFF3E">approx_single_scatter</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C9B93962-366E-45C1-A213-FB4CECB31AF0"></a></span><p class="table-body">Turns the single scatter component of the calculation on or off. Usually it should
+                              be on.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-77D87B07-DC57-4169-9788-B874674CBE50"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BD3A85F9-C091-418F-B5C6-7519D6EB24FF">approx_multi_scatter</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A54FF51E-9E59-4D5C-B7C2-898306E4223B"></a></span><p class="table-body">Turns the multiple scatter component of the calculation on or off. Usually it should
+                              be on.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS12B73D9A1D144B479954181E33EF9138-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F9614668-3BF4-4752-AF2C-92D3A5976C37"></a></span>Lights
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D68EDC2F-8CDF-4DC0-8EEF-8D699E5E1D8E"></a></span>Creates a light list to specifiy which lights should produce the effect. For more
+                  information, see <span class="char_link"><a href="dir_lights_UsingLightLists.htm">Using Light Lists</a></span> [<span class="char_link"><a href="dir_lights_cover.htm">Direct Illumination</a></span>].
+               </p> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6E267E62-4C02-4E19-897F-21D8C3EB170A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8EB92C1A-6943-498D-BB82-96CB8B711CCE">mode</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4F18C9D7-13DC-4711-9ECE-E9906CDCDB52"></a></span><p class="table-body">The mode selector for the light list. For more information, see <span class="char_link"><a href="dir_lights_UsingLightLists.htm#WSA59A7FAEF78253428BAE4814A930B7F3-003C">Setting the Light List Mode</a></span> [<span class="char_link"><a href="dir_lights_cover.htm">Direct Illumination</a></span>].
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

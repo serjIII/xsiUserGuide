@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-94BCCC4C-91AA-48AB-999B-E0511092CA9E">
+      <meta name="indexterm" content="shadow maps: about">
+      <meta name="indexterm" content="Z-depth: depth-mapped shadows">
+      <meta name="indexterm" content="depth-mapped shadows shadow maps">
+      <meta name="indexterm" content="shadows: shadow maps, creating">
+      <meta name="indexterm" content="shadows: rendering shadow maps">
+      <meta name="indexterm" content="shadow maps: rendering">
+      <meta name="topic-type" content="concept">
+      <title>Creating Shadow-Mapped Shadows</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-94BCCC4C-91AA-48AB-999B-E0511092CA9E"></a></span><div class="head">
+            <h1>Creating Shadow-Mapped Shadows</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-77FDE63D-CF96-432B-8400-3C9818A24A28"></a></span>Shadow mapping, also known as <span class="MenuCascade" id="GUID-CF7C0056-9D89-451E-9EE1-EF18015D451A">depth-mapped shadows</span>, uses a modified z-buffer (depth) algorithm to create shadows more quickly but less
+               precisely than those created with raytracing. 
+            </p><span class="anchor_wrapper"><a name="FIG_042551E6C86643B2885F40135A6851EC"></a></span><div class="figure-anchor"><img src="../images/GUID-D535985A-8971-4466-94D9-4FCEDAAF7640-low.png"></div><span class="anchor_wrapper"><a name="TABLE_BE2D39BA90484DF6B7856918BE2C0E70"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-990A6D10-FBA3-4423-91FD-50B19DFACEF1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0BC2EDC1-351D-424D-A24E-69C07A56BB72">A</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DC9AF4E1-4FD0-41B6-ABA1-165D918E25D4"></a></span><p class="table-body">Normal point source light has sharp shadow edges. </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E2C8A5CD-FC62-4250-8120-EE58C23FFA4B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B2CDFAC6-A18B-4788-B56A-AE6B41C6F530">B</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CC8140DE-3B50-4F40-8058-77267272F34A"></a></span><p class="table-body">Shadow-mapped shadows blur with distance. </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-297D2063-3482-45CD-A12D-2260936FF8DE"></a></span>This algorithm calculates color and depth (z-channel) information for each pixel,
+               based on its surface and distance from the camera. Before rendering starts, a shadow
+               map is generated for the light (if one does not already exist). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D3E57FD7-C6D3-40F5-878D-62D92B972E61"></a></span>This map contains information about the scene from the perspective of the light's
+               origin. The information describes the distance from the light to objects in the scene
+               and the color of the shadow on that object. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-7241ACA9-4867-4FE7-8B95-8575CF074959"></a></span>During the rendering process, the light will be cut off at the distances specified
+               by the depth map. This saves a tremendous amount of rendering time because the renderer
+               needs only to check the depth map to determine which parts of a surface are shadowed
+               and which aren't. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-15C2C258-46A7-40D2-879B-1CB4A7EF330A"></a></span>Keep in mind that the more lights used to generate shadows, the longer the render
+               times. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-7B02737B-4662-498A-9583-A4180338FDF3"></a></span><div class="note-important"><span class="label">IMPORTANT:</span>Avoid using area lights at the same time as shadow-mapped shadows. Artifacts may occur
+                  within your scene. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS263B05D40863684384BE4CD05BD2BD6B-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-59001FB9-30E6-4F6D-9797-AAD5C04668D0"></a></span>To create shadow-mapped shadows
+               </h2> <span class="anchor_wrapper"><a name="GUID-7EE9B399-C4F7-4930-B1F4-5639C442439C"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-28576546-E42D-4310-B10C-A1700FBF0B0F"></a></span>Select a light and open its property editor by choosing <span class="MenuCascade" id="GUID-07624EF5-FEE9-49BD-B5EF-EF21F4F484C5">Modify <img src="../images/ac.menuaro.gif"> Shader</span> on the Render toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0DB50B43-B6CD-44EE-B8E5-617D0435D5DD"></a></span>In the Light property editor, click the General tab and select <span class="MenuCascade" id="GUID-4E3448CA-48D9-4D8D-BC32-1AE2BAAF844A">Shadows Enabled</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6A5C6E7F-EFEC-475F-87A7-AD506C75E2D7"></a></span>To use shadow maps, click the <span class="MenuCascade" id="GUID-0E2671CC-D289-4546-944A-CE6DA1A8BF2C">Shadow Map</span> tab and select <span class="MenuCascade" id="GUID-253F2011-6E6D-4A5B-9A3F-C9E711A61167">Use Shadow Map</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EF41E6BB-E280-41C3-917A-F72BBF65A3D6"></a></span>Set the <span class="MenuCascade" id="GUID-7B6719E9-CCE5-4C81-8368-30A30B24DF74">Resolution</span> to determine the quality of the shadow map (width and height of the map buffer).
+                        A high-resolution setting increases memory usage and rendering time. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-35ED7671-9395-40E4-A7C4-4838A0D89D94"></a></span>Raising the shadow map resolution should not be the first thing you do to solve shadow
+                        problems, such as artifacts. Try adjusting the Bias parameter, which does not add
+                        to your rendering time. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-765C45F9-11EC-4947-BC73-D46E378FB677"></a></span>Set the <span class="MenuCascade" id="GUID-9E3BE49A-9761-45E2-B8F3-0DBAE5DBAEDE">Bias</span> to control the distance offset to add to the shadow map. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FE21DBB0-A6A1-4658-9E5C-0EC4E343C19C"></a></span>Bias is a number that gets added to each distance measurement in the shadow map. Essentially,
+                        it pushes the shadow's start-distance further out from the light. Increase the bias
+                        to slide the shadow further away from the surface casting the shadow, for cases where
+                        the shadow starts too soon. Modifying the Bias helps to eliminate shadow overrun (self-shadowing)
+                        or shadow artifacts if the shadow map algorithm fails to generate the depth value
+                        accurately. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-66BCE960-DA02-4709-BB0E-2B4BCC2F9C47"></a></span>Generally, a scene built on a larger scale might need a higher bias, and a scene built
+                        on a very small scale might need a lower bias. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D072FF2C-A53E-4E9B-A27F-44200851FDF6"></a></span>Set the <span class="MenuCascade" id="GUID-CE7B669A-BF37-48A8-A606-66DD8C33C612">Softness</span> to determine the type of shadow. A value of 0 results in hard-edged shadows. Higher
+                        values create longer, smoother shadows, but take longer to render. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-67A1AC7F-4CA4-4231-BB19-228751796012"></a></span>Set the <span class="MenuCascade" id="GUID-43D68C53-97BD-4BA8-8895-3336BDE4FF3C">Samples</span> to adjust the shadow's resolution. High sample values yield a higher render quality,
+                        but increase rendering time. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-62164BA0-25AB-43A8-BCD3-54EE5777BABA"></a></span> Before rendering, choose <span class="MenuCascade" id="GUID-9480AC6D-2047-4C76-8855-AF7098D0EB0A">Render <img src="../images/ac.menuaro.gif"> Renderer Options</span> from the Render toolbar to open the <span class="char_link"><a href="property4502.htm">mental ray Render Options Property Editor</a></span> for the current render pass and set the following options: 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B81532E4-CE1D-44AC-9F03-085CC621CA57"></a></span>On the Optimization tab, set Primary Rays to <span class="MenuCascade" id="GUID-AC036A42-B143-4B0C-8A9F-FB05DDB8A127">Scanline</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DC0CAE6F-DC4C-45A9-95C8-452D9CF52203"></a></span>On the Shadows tab, select <span class="MenuCascade" id="GUID-A64AC883-A83B-4B44-9066-A24B82FAA825">Enable</span> to activate shadow maps. If your scene has motion blur, you may want to enable the
+                        <span class="MenuCascade" id="GUID-8391F85D-0446-42DC-8F92-484A869DA176">Motion Blur</span> option. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3E555CAB-901A-4CC1-A607-A7808EFE3C62"></a></span>Select the objects whose shadows you want to cast and display their <span class="MenuCascade" id="GUID-A24FB37F-12E6-47BC-90D7-31A358EB9CB9">Visibility</span> property editor. Click the Rendering tab and make sure that <span class="MenuCascade" id="GUID-FEA51E74-FF6E-46F2-8155-FF25AB61DA7A">both Shadow Caster</span> and <span class="MenuCascade" id="GUID-1A066D82-3D78-40DE-BDA4-7D2DF2517320">Receiver</span> options are enabled. For more information, see <span class="char_link"><a href="dir_shadows_ShadowCastersandReceivers.htm">Shadow Casters and Receivers</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6A11F7C3-68DC-45B5-BFE0-8199D0D86A3F"></a></span>To view the shadow map in the render region, draw a region (press Q), choose <span class="MenuCascade" id="GUID-04CEBD68-0426-4219-821D-4FFEE9EB1A65">Render <img src="../images/ac.menuaro.gif"> Regions <img src="../images/ac.menuaro.gif"> Active Viewport Options</span> and select <span class="MenuCascade" id="GUID-EAECBAED-6E37-4F00-912C-6A53A7AA8058">Use Current Pass Options</span>. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

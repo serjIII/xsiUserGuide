@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C4CC8A8F-5FF0-40A1-B990-63F71A97FC65">
+      <meta name="indexterm" content="RenderMap: about">
+      <meta name="topic-type" content="concept">
+      <title>About Baking Surface Attributes</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C4CC8A8F-5FF0-40A1-B990-63F71A97FC65"></a></span><div class="head">
+            <h1>About Baking Surface Attributes</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-9B07E523-52AC-4833-BFB4-4E4219D00C54"></a></span>You can "bake", or precompute, surface attributes and store them in a texture image
+               file using RenderMap, or you can store them in a vertex color property using RenderVertex.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F7B9BD0A-9375-41AB-A4F2-CCF8B2E42B31"></a></span>As an alternative to using RenderMap or RenderVertex, you can bake the results of
+               a render tree to file using the Color Sampler shader.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-FC265BB9-33FF-40BD-8029-E3FBB3406608"></a></span>To bake surface attributes from a high-resolution object onto a low-resolution one,
+               see <span class="char_link"><a href="tex_transfer.htm">Transferring Surface Attributes (Ultimapper)</a></span>.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8D9080EF-19A0-4643-9D2C-89FB831931B8"></a></span>About RenderMap and RenderVertex
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-2087A7FC-B5CB-4846-9714-9B42A0D5654D"></a></span>RenderMap and RenderVertex let you bake various surface attributes and storing them
+                  in an image file or vertex color property. For example, you can create a surface and
+                  illumination map that considers the effect of multiple materials and textures on a
+                  single polygon mesh; calculates the diffuse, specular, ambient, and shadow values;
+                  and stores them in a single texture that can be applied to the object.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A978CFE9-6D2F-480E-B372-516BF5AE5715"></a></span>The RenderMap property specifies which types of map to generate and which surface
+                  attributes to consider. By changing an option in the RenderMap property, you can store
+                  values in a vertex color property (RenderVertex) instead of a bitmapped image file
+                  — for more about vertex colors, see <span class="char_link"><a href="scel_vertexcolor.htm"> Vertex Colors</a></span> [<span class="char_link"><a href="scel_cover.htm">Scene Elements</a></span>].
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FA5D2EB3-FA9F-4484-9210-CF5A7691028F"></a></span>You can use RenderMap or RenderVertex for a multitude of tasks, including:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-876CBCE9-38C7-47E3-843F-9E644A6054FC"></a></span>Creating a single texture from two or more blended textures.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2EA893AC-61DF-40B6-AD6A-45AAFF8B023F"></a></span>Creating a 2D texture from a 3D procedural texture.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-852D878A-B21E-45C7-BF48-48B7E825CC52"></a></span>Blending a texture with a light effect or with shadows that are cast on an object's
+                        surface.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-79CCEEF8-6652-4BF4-988E-7ED7DEBDD8EE"></a></span>Creating an illumination map.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7A023A4D-2A8C-4A68-A5EB-51EDD1DDF7C2"></a></span>Creating maps of surface information, like normal maps, U and V basis maps, texel
+                        coverage maps, and surface position maps.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-29C0C757-7429-453C-BE65-F704352A9548"></a></span>Creating sprites.
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-0AF48043-9777-4C25-A645-6E74B57CCD67"></a></span>The following example shows how you can use RenderMap to create a single texture (which
+                  includes lighting information) out of a complex render tree.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-9BB437F5-7E63-4D01-B1E7-5F2031FA5AA7-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-386638D4-757F-4034-9EA2-2FA23BEB2C6C"></a></span> <span class="MenuCascade" id="GUID-CA78DBA2-1180-4B96-9C1F-EA8CF9BCFDA6">Before RenderMap</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C4BCE820-F3E2-498D-BA1D-AEE64A4BEE03"></a></span>The disembodied hand was textured using a combination of several images mixed together
+                  in a complex render tree, and lit using two infinite lights. The result is a highly
+                  detailed surface that incorporates color, bump, displacement, and lighting information,
+                  and takes a fair amount of time to render.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-95D2BB59-1F70-4CF2-ABF5-BBFA9A3D3127-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-378138A0-8FE9-48DE-9B7F-37BC735DB2ED"></a></span> <span class="MenuCascade" id="GUID-C84BA9E1-0CC8-4318-B07D-1F3DF9E3D869">After RenderMap</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1DCFEA66-8EC9-44D0-BF4B-4FCEC4DF37C1"></a></span>RenderMap was used to bake everything into a single image. The resulting texture image
+                  was then applied directly to the Surface input of the hand's material node. Finally,
+                  the scene lights were deleted, producing this result — a good approximation of the
+                  hand's original appearance. Because the hand's illumination is baked into the rendermap
+                  image, you can get this result without using lights or an illumination shader.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS300B74AA30F7724DADB761C00818E7A8-0009"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-45A1328F-348E-4FBD-92D4-01442C81B5FD"></a></span>About the Color Sampler Shader
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-EBBBACAF-1F48-452E-8521-4D7062B9E29E"></a></span>Instead of baking surface properties, the Color Sampler shader evaluates a render
+                  tree and saves it as a texture file. This technique can have its advantages in some
+                  situations. For information about using the Color Sampler shader in general, see <span class="char_link"><a href="lightmaps_UsingtheColorSamplerShader.htm">Baking Render Trees with the Color Sampler Shader</a></span>. In particular, to know when this must be useful instead of RenderMap, see <span class="char_link"><a href="lightmaps_UsingtheColorSamplerShader.htm#WS300B74AA30F7724DADB761C00818E7A8-003E">Color Sampler Shader vs. RenderMap</a></span>.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

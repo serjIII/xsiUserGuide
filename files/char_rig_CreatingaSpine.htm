@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-EB64AB34-BCB4-4650-81C6-FE98684B9477">
+      <meta name="indexterm" content="spines: creating for skeleton">
+      <meta name="indexterm" content="skeletons: creating spines">
+      <meta name="indexterm" content="bones: creating spines">
+      <meta name="indexterm" content="IsnerSpine">
+      <meta name="indexterm" content="spines: quaternion rotation">
+      <meta name="indexterm" content="quaternion rotations: spine for skeletons">
+      <meta name="indexterm" content="spines: scaling">
+      <meta name="indexterm" content="spines: depth for curve">
+      <meta name="indexterm" content="spines: rolling">
+      <meta name="indexterm" content="spines: crunching">
+      <meta name="topic-type" content="concept">
+      <title>Creating a Spine</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-EB64AB34-BCB4-4650-81C6-FE98684B9477"></a></span><div class="head">
+            <h1>Creating a Spine</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-774B3490-704E-48CC-AB08-080F03106D14"></a></span>Creating a simple and functional spine is often a daunting task in any character setup
+               because of the nature of the spine's movement. There are different ways of solving
+               this problem, but creating a spine with the <span class="MenuCascade" id="GUID-94AE490F-5952-4292-8C9B-22839F5D9E15">Create <img src="../images/ac.menuaro.gif"> Skeleton <img src="../images/ac.menuaro.gif"> Create Spine</span> command is the best and easiest way. With it, you can create a quaternion-blended
+               spine for controlling a character the way you like. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-17D2ACB6-955E-4B25-ADC6-C7B93E152CE0"></a></span>This spine is made up of cubes that act as vertebrae, with the top and bottom vertebrae
+               attached to hip and chest control objects that you create. The simplest way of visualizing
+               a spine is a bridge that starts at the hip and extends to meet the chest. Its orientation
+               matches the hip where its starts and the chest where it ends. The vertebrae roll between
+               these two orientations and bank along the path of the spine. 
+            </p><span class="anchor_wrapper"><a name="FIG_B488E691EC664EC680800F7916CF542E"></a></span><div class="figure-anchor"><img src="../images/GUID-2190A235-B4CB-4D8A-B7FA-3C2390AC628B-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-AB0BCF41-9789-4BA7-B007-986540227718"></a></span>The spine is a mixture of path constraints (to keep it on a spline), distance constraints
+               (to hold the spine together more like a chain than a spline), and up-vector constraints
+               (to keep the orientation to the spine but the roll to the quaternion blend between
+               the chest and hip). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-1B9CD0A1-DEEF-4B84-B81C-69469ACB1A25"></a></span>As well, the spine uses a scripted operator to control its movement. As a result,
+               you should not use the <span class="MenuCascade" id="GUID-7FDAD7BB-2190-403B-94AF-A620127BC8C4">Remove Animation <img src="../images/ac.menuaro.gif"> from All Parameters</span>, <span class="MenuCascade" id="GUID-D8809CE3-FCAD-4878-85D0-86358D9FE23E">Any Animation Type</span> or any of the <span class="MenuCascade" id="GUID-39E9EC21-29C8-478C-B096-ED0E547C1148">Remove Animation <img src="../images/ac.menuaro.gif"> from Transforms</span> commands from the Animation panel when deleting animation from the spine. This will
+               remove the scripted operator on the up-vector parameters of the path constraint from
+               the vertebrae, causing the spine to be incorrectly oriented when you rotate the character.
+               
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-62089A11-9B59-4F69-B1F7-C847BE93C578"></a></span><div class="note-tip"><span class="label">TIP:</span>This spine is available as the quaternion spine option for the biped, biped dog leg,
+                  and quadruped rigs that you can create in Softimage — see <span class="char_link"><a href="char_rig_GettingStartedwithPredefinedRigs.htm">Overview of Using the Predefined Rigs</a></span>. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5D48B5B647943543B227A1CC537A0647-007B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-11EDDF8B-0183-4B64-8057-9E422E44C107"></a></span>To create a spine
+               </h2> <span class="anchor_wrapper"><a name="GUID-8D2B0616-2B00-44B0-B4AC-C66BBB4F8428"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-25A6A5B0-CA87-49EC-910C-A4C5C5618A30"></a></span>Create two objects to use as the hip and chest controllers. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-02B615B5-7F7F-41F5-994B-3ABC38296D70"></a></span>Orient the positive Y axis of the hip and chest controllers so that they will both
+                        be pointing along the axis of the spine. This is very important to do to get a straight
+                        spine, and avoid unexpected results when you animate. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-1F5279F2-2B2B-4B86-83E9-76DC66F83857-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B3023E6E-3B34-47EB-9EC1-266DFC69772F"></a></span>Choose <span class="MenuCascade" id="GUID-4FE80189-3B05-43D9-83C9-BA02CFF8CE75">Create <img src="../images/ac.menuaro.gif"> Skeleton <img src="../images/ac.menuaro.gif"> Create Spine</span> from the Animate toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2F61DA55-751F-4EC5-A037-4C3441863A2F"></a></span>Pick the object that is to act as a hip controller (the base of the spine), then pick
+                        the object (middle-click) that is to act as a chest controller (the top of the spine).
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AC1CD53E-3117-49C9-AC3B-6BBAD486E83D"></a></span>In the Spine Maker dialog box that appears, define the number of vertebrae in the
+                        spine. The spine is generated using this information. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FD3B0BD8-2144-46F0-A7FB-8B25287AE7C9"></a></span>If you can select <span class="MenuCascade" id="GUID-7DA0C50F-2487-41FB-BB64-B007EDEF05AB">Implicit Vertebrae</span>, the cubes that represent the vertebrae are created from implicit cubes instead of
+                        polygon mesh cubes. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1187A05C-6C6A-493E-B368-456AB047A1C1"></a></span>Parent the spine into your skeleton or rig setup the way you want. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9D9CBDC0-7CEE-4716-9799-6F0BE796E6B2"></a></span>To animate the spine, set keys on the position and rotation of the hip and chest controllers.
+                        The spine maintains a fixed length and will reach towards the chest as much as it
+                        can. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-E83B118A-24B6-4AB4-AE46-889D2605CFAA-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5D48B5B647943543B227A1CC537A0647-007E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2F3DFCC8-E176-41A8-A8A2-9E5D8DB6F2FD"></a></span>Stretching and Squashing the Spine
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-7ABAFF82-B192-4486-BF78-411396F27C1F"></a></span>You can "squash and stretch" the spine to fit it into a number of different character
+                  setups, or to adjust to a new animation to which you've retargeted the character (such
+                  as with Motion Deform — see <span class="char_link"><a href="ik_ConvertingaBipedxd5sMotiontoDeformableTracks.htm">Converting a Biped's Motion to Deformable Tracks</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A6169B9C-E3F5-45F8-A1CF-927C06B51337"></a></span>The scale of the spine doesn't change as you move the chest controller, but it can
+                  be scaled with the <span class="MenuCascade" id="GUID-447D459F-2DF6-4D97-A052-F2D395E63EB7">Scale</span> slider that appears when you create the spine, and is located in the Spine Control
+                  custom parameter set beneath the spine curve object. 
+               </p> <span class="anchor_wrapper"><a name="FIG_B638FEB2A5D344708B7B99A8766E4030"></a></span><div class="figure-anchor"><img src="../images/GUID-39176523-9829-4AE4-87AE-B892BA408588-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-92731CD3-3908-414E-A57D-D4452412A15C"></a></span>This means that every component can be scaled or animated in proportion from the bones
+                  to the spine. 
+               </p> <span class="anchor_wrapper"><a name="FIG_9724822FCE3040C5922B58362E70FB73"></a></span><div class="figure-anchor"><img src="../images/GUID-EE674BAA-21EB-416E-9E41-3E3D85B3567E-low.png"></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5D48B5B647943543B227A1CC537A0647-0081"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-00DFAD84-8FDE-42A3-B6A2-768EDB00185D"></a></span>Adjusting the Depth
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-C6A8AF67-05CC-46FB-94B1-D9CDA8C9FFFB"></a></span>Both the chest and the hip have nulls that represent depth, called ChestDepth and
+                  HipDepth, respectively. These nulls are created as children of the chest and hip control
+                  objects. The depth affects how the spine deforms in position and rotation, such as
+                  to give the spine a more natural curve. 
+               </p> <span class="anchor_wrapper"><a name="FIG_3ACFBC6CF5CE4898A9461E7A41BE3287"></a></span><div class="figure-anchor"><img src="../images/GUID-3090DDE0-7A5A-4195-A6AE-09E88667A7B1-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_F5F52D02310E42E0A8450DDB599DAC42"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D8086F01-1C27-4E66-84FC-C2BA657AAEB7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-23D6D77B-B1F4-4D88-9EA6-1E4F783B9527">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-51067E43-B560-4E06-BCA2-B63239C2A135"></a></span><p class="table-body">Chest depth null </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5456D275-5DFF-4221-9D41-402AA30D68F1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-23089271-8B5B-453F-81DB-C662383414A3">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FC299F82-6D06-42E1-BB18-3580C45A0DC0"></a></span><p class="table-body">Hip depth null </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-533B0D2E-C299-4257-9816-2C2D42D64FE5"></a></span>If you want to modify the depth on the spine, position these nulls in Constraint Compensation
+                  mode (click the <span class="MenuCascade" id="GUID-9EC08393-C490-4C43-8FFA-5D4E14D89079">CnsComp</span> button on the Constrain panel). You can also key in them if you want to animate the
+                  depth variance. The depth of the spine is set only through parenting, so the chest
+                  and hip objects might move independently from the depth nulls if you have <span class="MenuCascade" id="GUID-B837E399-8CC4-451B-8958-C6A8773D22D2">Child Transform Compensation</span> mode on (the <span class="MenuCascade" id="GUID-61B33394-3026-4F99-857A-D5C00F4FBCBF">ChldComp</span> button). 
+               </p> <span class="anchor_wrapper"><a name="FIG_D02F16E663F04F5E91C5E700232083D2"></a></span><div class="figure-anchor"><img src="../images/GUID-097DA832-4BA1-4EB4-B5C4-34CC8B42DBE1-low.png"></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5D48B5B647943543B227A1CC537A0647-0084"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FB3A3FB1-2C39-4474-BA77-12A7C08BB832"></a></span>Rolling the Spine
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-02145B36-39C1-4C6F-A88B-63639CF1CAAE"></a></span>You can roll the spine between ranges of 360û to -360û (a full 720û) which makes it
+                  useful for dynamic spine motion, tentacles, dinosaur necks, and many other character
+                  setup scenarios. 
+               </p> <span class="anchor_wrapper"><a name="FIG_94C236C8A5384A88B3AF2AEE3DC54EC8"></a></span><div class="figure-anchor"><img src="../images/GUID-C5EFBD0A-A812-449B-BA6E-4452B628D2CC-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-368D5BEF-DA1A-4B60-BF8A-F508D1FA01A8"></a></span>In a regular quaternion blend, you will never interpolate a rotation blending path
+                  greater than 180 degrees. You can visualize this by picturing two points on a sphere.
+                  No matter where you position the two points, the shortest path will always represent
+                  an angle 180 degrees or less. 
+               </p> <span class="anchor_wrapper"><a name="FIG_52EAA70C0BAD4FD0888542FF0A0E923F"></a></span><div class="figure-anchor"><img src="../images/GUID-7E2D45F2-5FC4-4660-A936-CC9A9C7CBEA2-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-EB41B5C5-C8DA-4729-AFFB-15E7B83FB556"></a></span>Consider Sphere 1 above where you are blending between Object A and B. As B moves
+                  away from A the distance you will be blending through increases. In diagram 1, the
+                  blend will be between 0û (A position) and 130û (B position). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-115326AF-1A56-49B1-8443-9ED6396073A1"></a></span>Now if you consider Sphere 2, B has moved beyond 180û to a position 220û away. But
+                  at this point the best blend found by a slerp algorithm ends up being from the other
+                  side of the sphere, shown in Sphere 3. The angle being blended between will be 140û.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E3153742-0DB9-4A0F-9420-DB3ACC9C0837"></a></span>For this reason you will never have a blend angle greater than 180û and less than
+                  -180û. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5D48B5B647943543B227A1CC537A0647-0087"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F7A08945-E017-4392-BF31-ED9398523401"></a></span>Tips for Using the Spine
+               </h2>  <span class="anchor_wrapper"><a name="UL_21F4A0E5BC4246CEA11F797A43982FB4"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0F2093A3-68DC-4144-B745-C2477B1CD37D"></a></span>You can use the spine as a tool for taking the animation from a simple chain and making
+                        it seem as if it was done with many more bones. For example, create a simple chain,
+                        constrain the spine to it, and then constrain a secondary chain with more bones to
+                        the spine. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-6A4B7F40-531F-4D59-9A8E-D5C7960EB101-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7D9A6FE3-CDDD-4FFF-85DC-B1B7D6B6DA23"></a></span>The end of the spine will push out to avoid crunching. This also is useful for keying
+                        the spine's translation with fewer keys. As shown in the illustration below, the chest
+                        controller in yellow is keyed at moves between positions A and B. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0C76E2BB-5788-4BBF-BC62-636EB1579D7E"></a></span>However, this motion will end up crunching the spine at position C. The spine's end
+                        vertebra (small box in green) will push out to avoid the crunch, giving a smooth animation
+                        in this case with out any extra keying to correct the movement. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-5B1AD374-2190-43A2-AD08-6A26845BA7BB-low.png"></div> 
+                     <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-1B708396-8291-447C-B206-ED259DB41AD1"></a></span><div class="note-tip"><span class="label">TIP:</span>If you plan on crunching a lot, keep a shallower chest depth. 
+                        </div>
+                     </div> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

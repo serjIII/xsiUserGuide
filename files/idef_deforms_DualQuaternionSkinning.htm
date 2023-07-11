@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-1F6DB4E9-AC24-4D9B-B565-626685009A39">
+      <meta name="indexterm" content="envelopes: dual quaternion skinning">
+      <meta name="indexterm" content="dual quaternion skinning">
+      <meta name="topic-type" content="concept">
+      <title>Dual Quaternion Skinning</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-1F6DB4E9-AC24-4D9B-B565-626685009A39"></a></span><div class="head">
+            <h1>Dual Quaternion Skinning</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-FACD9138-C007-486A-B8A8-15134C8C74A4"></a></span>Dual quaternion skinning is an alternative to the standard method of calculating envelope
+               deformations, which is known as "linear blend". The Dual Quaternion Deformation compound
+               lets you use dual quaternion skinning, or interpolate between dual quaternion and
+               linear blend skinning. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-78D45173-97C7-4DA7-9EA1-00C25F8F596C"></a></span><div class="note-note"><span class="label">NOTE:</span> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8EAC2740-1480-4D62-AAF5-BA421BF11638"></a></span>Dual quaternion skinning has some limitations: 
+                  </p> <span class="anchor_wrapper"><a name="UL_9E657F7AE6FC48AE9BE3B3FD97C966E8"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EDE00D8F-D06B-4DA5-BDA6-04C9BEE4E259"></a></span>Changing bone length is not supported. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D8E90E61-A6BD-47EB-B196-43B357F138D7"></a></span>Twisting a chain of deformers by more than one complete revolution can give unpredictable
+                           results. However, you can spin the entire chain as many times as you want without
+                           problems. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-55CAA850-9584-452C-BE24-FD1E39BB10C0"></a></span>The inverse of the envelope is not calculated when storing shapes in Secondary Shape
+                           Modeling mode. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5BEF7ED4F5DCEA44ABA9080671F0A970-0020"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-54DFF787-A8D9-4638-933A-A079AC4DFBF2"></a></span>Dual Quaternion versus Linear Blend
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-69FCF062-C9DA-4A44-93AC-07945DEF4478"></a></span>Linear blend skinning has been the standard way of calculating envelope deformations
+                  since the Jurassic era of computer animation. However, it doesn't always give desirable
+                  results. In particular, there can collapsing and loss of volume when deformers are
+                  twisted or extremely bent. Dual quaternion skinning gives a better-looking result
+                  in these cases. 
+               </p> <span class="anchor_wrapper"><a name="FIG_C78D2BDFBB0C4A7D81D289477A7FA567"></a></span><div class="figure-anchor"><img src="../images/GUID-5595EA02-DD2C-40CD-BCFD-7793B604B0D1-low.png"><p><span class="anchor_wrapper"><a name="GUID-2E1F9DD8-7BB8-4B62-8DCE-B49531C68915"></a></span>Loss of volume with linear blend skinning (A) versus dual quaternion skinning (B).
+                     
+                  </p>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D473F780-86B1-42F1-884A-6933CE7A7C64"></a></span>On characters, a particular problem area for linear blend skinning is the shoulders,
+                  which can collapse when the arms go behind the back. 
+               </p> <span class="anchor_wrapper"><a name="FIG_04A67C92327146B4BC6DD802EAC11B0D"></a></span><div class="figure-anchor"><img src="../images/GUID-85688A73-119B-4100-9DC6-9CC16123B830-low.png"><p><span class="anchor_wrapper"><a name="GUID-293F18D9-8D25-4F59-A9CA-BC914B7BA814"></a></span>Shoulder collapsing with linear blend skinning (A) versus dual quaternion skinning
+                     (B). 
+                  </p>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-88111372-3426-409F-A723-A4B062FE84F0"></a></span>However, dual quaternion skinning is not always the best solution. For example, it
+                  can create unnatural protrusions on the knees and elbows when they bend. In these
+                  areas, linear blend skinning, or an interpolation between linear blend and dual quaternion
+                  skinning, may be preferable. 
+               </p> <span class="anchor_wrapper"><a name="FIG_61B8E49AE87F4AF6A4C49C0C813D37DF"></a></span><div class="figure-anchor"><img src="../images/GUID-3DE4E4A6-CE90-4565-AEE6-A5C970FD369D-low.png"><p><span class="anchor_wrapper"><a name="GUID-76B4DE49-FB93-4939-9E16-5CF705FA38BE"></a></span>Knee protrusion with linear blend skinning (A) versus dual quaternion skinning (B).
+                     
+                  </p>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5BEF7ED4F5DCEA44ABA9080671F0A970-0024"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-88EEFDB6-BE4F-4CC9-83FA-822667481421"></a></span>Overview of Applying Dual Quaternion Skinning
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2F8A7C8B-89A0-40EC-AB4F-42412333BA26"></a></span>Here's a quick overview of the steps involved in using the Dual Quaternion Deformation
+                  compound. 
+               </p> <span class="anchor_wrapper"><a name="GUID-00396C3A-44B1-4B89-85E5-F64281446233"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E4DF3C7D-93C1-4E55-A806-D63CCFCC06EA"></a></span>Apply a standard envelope deformation, making sure to use a group for the deformers.
+                        The envelope operator is required to define the point weights. See <span class="char_link"><a href="char_envelopes.htm">Envelopes</a></span> [<span class="char_link"><a href="char_cover.htm">Character Animation</a></span>]. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_6B4B2A1BBAF640EBADDD2C4634148D63"></a></span><div class="figure-anchor"><img src="../images/GUID-3FFFA38C-ED9E-478F-A786-F3D20C6C7323-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3F2DFB13-D0FC-4D2C-94BF-DDA0760FAE27"></a></span>Mute the envelope operator so that it does not affect the mesh. See <span class="char_link"><a href="deforms_MutingDeformations.htm">Muting Deformations</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_6A224EF85860487F97AFAB950612B925"></a></span><div class="figure-anchor"><img src="../images/GUID-857DCA35-2984-4614-BA4A-2CDD9FBC24DC-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-271DD390-3591-448E-B8B9-8F78BACDCBE2"></a></span>Create an ICE tree in the animation region above the envelope operator, and add the
+                        Dual Quaternion Deformation compound. See <span class="char_link"><a href="idef_deforms_DualQuaternionSkinning.htm#WS5BEF7ED4F5DCEA44ABA9080671F0A970-0029">Applying the Dual Quaternion Deformation Compound</a></span>. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_2C5C28CC8E8F4B0ABD0D59B8B57AC120"></a></span><div class="figure-anchor"><img src="../images/GUID-346D64A8-BB66-44B4-8EB3-32A64A9B75B9-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BF512BBC-3021-4AA2-BB94-E4FFFA78AE7B"></a></span>If desired, use a weight map to control the blend between dual quaternion and linear
+                        blend skinning. See <span class="char_link"><a href="idef_deforms_DualQuaternionSkinning.htm#WS5BEF7ED4F5DCEA44ABA9080671F0A970-002A">Blending Between Skinning Methods with a Weight Map</a></span>. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_22C0CDCACDFB41049D5358105DF84743"></a></span><div class="figure-anchor"><img src="../images/GUID-F407FD9E-1EAF-467A-8141-8BBAF4366F18-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5E4FEFB3-E80F-4056-AE4D-8DDDAC3CB82B"></a></span>You can continue to modify envelope weights in the usual way, and the deformation
+                        will update automatically. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5BEF7ED4F5DCEA44ABA9080671F0A970-0029"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-549381B7-72DF-4A09-BC0C-E10E3E06A0C6"></a></span>Applying the Dual Quaternion Deformation Compound
+               </h2> <span class="anchor_wrapper"><a name="GUID-D737506A-2772-4E82-A52F-0D833D974CB3"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-66BD1822-8E68-484B-8A0B-4D544FC6EF66"></a></span>Make sure that Animation Construction Mode is active (see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-001B">Setting Construction Modes</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]) and that the envelope operator is muted. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8B43D818-CFE5-43E0-8CCA-78E43CE8E942"></a></span>Note that if you accidentally create an ICE tree in the wrong construction region,
+                        you can move it later as described in <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0030">Changing the Order of Operators</a></span> [<span class="char_link"><a href="modef_cover.htm">Data Exchange</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E439BCA2-E1D1-4D1C-A74F-3E40EC192A3A"></a></span>Select the envelope mesh. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-176C5C91-930F-4B42-835A-F6F190E757A7"></a></span>In the ICE tree view, choose <span class="MenuCascade" id="GUID-729C9526-6FD5-4708-A61F-501F2846BBE6">Create <img src="../images/ac.menuaro.gif"> ICE Tree</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A3A88885-548B-41EB-ABAD-BEF13C7C55DB"></a></span>Add the <span class="char_link"><a href="iceref_Dual_Quaternion_Deformation.htm">Dual Quaternion Deformation</a></span> compound from the Skinning group of the Deformation task of the preset manager to
+                        the ICE tree, and connect it to the root. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-839B0E2A-2607-409D-AA94-CBA1E3F794A4"></a></span>Use a Get Data node to get the group that you used for the envelope deformers, and
+                        plug its Out Name output into the Dual Quaternion Deformation node's Bones Group Name
+                        input. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-201C0C7D-094F-45AD-9C0C-3370F17351EC"></a></span>If you didn't use a group for the deformers originally, you can create one now by
+                        selecting the mesh, choosing <span class="MenuCascade" id="GUID-2576C98C-BCE8-4DE9-B6AD-08472EFE7773">Deform <img src="../images/ac.menuaro.gif"> Envelope <img src="../images/ac.menuaro.gif"> Select Deformer from Envelope</span> from the Animate toolbar, and finally clicking <span class="MenuCascade" id="GUID-924F2D3D-672C-4E22-8BEC-B579DC674599">Group</span> on the Edit panel. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3054B090-F2CE-40A3-BFC6-97DDCFA4556C"></a></span>Use the Deformation Method parameter in the Dual Quaternion Deformation's property
+                        editor to toggle between Dual Quaternion Skinning and Linear Blend Skinning as desired.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D6FEA3B3-BE9D-4D6F-B6DE-140B6F6373F5"></a></span>Alternatively, set Deformation Method to Use Blend Input and then use Blend Input
+                        to interpolate between the two methods. A Blend Input value of 0.0 uses linear blend
+                        skinning, a value of 1.0 uses dual quaternion skinning, and values in-between use
+                        a weighted average. You can also use a weight map as described in the next section
+                        <span class="char_link"><a href="idef_deforms_DualQuaternionSkinning.htm#WS5BEF7ED4F5DCEA44ABA9080671F0A970-002A">Blending Between Skinning Methods with a Weight Map</a></span>. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5BEF7ED4F5DCEA44ABA9080671F0A970-002A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CC907331-4D29-4F57-A8CE-B0B920ADEB21"></a></span>Blending Between Skinning Methods with a Weight Map
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-ACB7C3DF-487F-4086-B593-42757FA9EA5A"></a></span>When you set Deformation Method to Use Blend Input, you can use a weight map to paint
+                  the areas where you want to use dual quaternion skinning or a mixture of the two methods.
+                  
+               </p> <span class="anchor_wrapper"><a name="GUID-F25ACED9-6318-4C08-8405-B460D53505A7"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8DEF5133-61F5-4982-B9F9-9550998A61CF"></a></span>Apply a weight map to the enveloped mesh. For more information about this and weight
+                        maps in general, see <span class="char_link"><a href="weightmaps_WeightMaps.htm"> Weight Maps</a></span> [<span class="char_link"><a href="scel_cover.htm">Scene Elements</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EADA8494-43E1-4389-9DDE-4CB5062F7CBF"></a></span>Set Deformation Method to Use Blend Input. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-26629F8A-0EF0-4A37-B345-EA5B22D4EFF0"></a></span>In the ICE tree, use a Get Data node to get the map's weight values: <span class="MenuCascade" id="GUID-B396B968-341D-4173-A177-90D95B90B4CD">(mesh name).cls.(cluster name).(map name).Weights.</span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-02CA6C3B-418A-432F-B6B6-972BC21BE500"></a></span>Connect the Get Data node's Value output to the Dual Quaternion Deformation compound's
+                        Blend Input port. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-08E2794E-CD27-479A-9029-911636B9DB32"></a></span>Paint the areas where you want to use Dual Quaternion Skinning. 
+                     </p> 
+                  </li>
+               </ol> 
+               <div><span class="anchor_wrapper"><a name="GUID-76085BEC-DC58-4194-BB87-8FDF7AE30099"></a></span><div class="note-note"><span class="label">NOTE:</span>If an object has more than one paintable property then you may need to select the
+                     desired property before painting on it, for example by choosing <span class="MenuCascade" id="GUID-2D7FE2C6-B663-46B0-B8DA-E6A6445769A2">Explore <img src="../images/ac.menuaro.gif"> Property Maps</span> on the MCP. 
+                  </div>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

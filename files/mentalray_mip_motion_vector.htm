@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-CD612167-4400-43D8-BA65-61F45D931925">
+      <meta name="topic-type" content="concept">
+      <title>mip_motion_vector</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-CD612167-4400-43D8-BA65-61F45D931925"></a></span><div class="head">
+            <h1>mip_motion_vector</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-BDE5B6FF-4889-4DEE-A7E6-25B41CA449CA"></a></span> <em class="strong">Category:</em> mental ray &gt; Output 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-56F97E76-6245-46DB-B56A-DC68328EC07D"></a></span> <em class="strong">Shader Family:</em> Output 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DA564943-5F2F-4C3E-B037-A584E408E8E5"></a></span> <em class="strong">Output:</em> Color 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-30AD8E91-AFDA-4882-9006-DF0CE7B9D418"></a></span> <span class="MenuCascade" id="GUID-49A70A2A-D417-47B4-A891-2067772BD9C0">Related Softimage shader:</span> <span class="char_link"><a href="output_shaders_MotionVector.htm">Motion Vector (mip)</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2A02FF0C-6578-4B35-9866-898B5336AE0A"></a></span>Sometimes you want to do compositing work before applying motion blur, or maybe you
+               want to use a specific third-party motion blur shader. For these reasons you can use
+               mental ray production Motion Vector (mip_motion_vector) shader to export motion in
+               pixel space (mental ray's standard motion vector format is in world space) and encoded
+               as a color. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-64D6A504-5025-4E1B-B006-60BF52187AFA"></a></span>Most third party tools expect the motion vector encoded as colors where red is the
+               X axis and green is the Y axis. To fit into the confines of a color (especially when
+               you are not using floating point and a color only reaches from black to white) the
+               motion is scaled by a factor (called Maximum Movement) and the resulting -1 to 1 range
+               is mapped to the color channels 0 to 1 range. 
+            </p><span class="anchor_wrapper"><a name="TABLE_A93374672580488A9BD2D49693F71D91"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0F066CC2-B170-4AA2-A86A-837314B04146"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3A042FCD-2292-4ADD-9300-0D673AAB6A92">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-34A6B45C-580C-45AB-9B1A-A4BAD59C2D5D"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DBB515BF-4B52-4CAC-B30B-EF9D3E8C1433"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-599C2FDA-E359-4F1E-8AC0-9367BB9F6CC4">max_displace</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4F7896ED-B6FA-4674-AF24-811C52DBC24A"></a></span><p class="table-body">Sets the maximum encoded motion vector length, and motion vectors of this number of
+                           pixels (or above) will be encoded as the maximum value that is possible to express
+                           within the limit of the color (for example, white or black). 
+                        </p> <span class="anchor_wrapper"><a name="GUID-51C61972-2BC1-45C5-9A21-25547BF2CCD5"></a></span><p class="table-body">To maximally utilize the resolution of the chosen image format, it is generally advised
+                           to use a max_displace of 50 for 8 bit images (which are not really recommended for
+                           this purpose) and a value of 2000 for 16 bit images. The shader outputs an information
+                           statement of the maximum motion vector encountered in a frame to aid in tuning this
+                           parameter. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-1A622A70-0AA4-4A12-93A5-59CF80790F2B"></a></span><p class="table-body">If the max_displace is zero, motion vectors are encoded relative to the image resolution.
+                           As an example, for an image 600 pixels wide and 400 pixels high, a movement of 600
+                           pixels in positive X is encoded as 1.0 in the red channel, a movement 600 pixels in
+                           negative X is encoded as 0.0. A movement in positive Y of 400 pixels is encoded as
+                           1.0 in the blue channel, etc. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7F6836C1-A122-4C66-8B9E-1CF69CFAFE2F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5B1A90E8-02B5-40B1-9A48-498D2A88A8EF">blue_is_magnitude</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4DA69CD7-7C4C-4079-B50A-860398AB0E30"></a></span><p class="table-body">When on, the blue color channel represents the magnitude of the blur, and the red
+                           and green encode the 2d direction only. When off, the blue channel is unused and the
+                           red and green channels encode both direction and magnitude. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F86C93DB-D9B9-4B27-ACF6-632DD968CA3F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-79126608-3153-4233-89FB-4451D681A2A3">floating_point_format</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="UL_6F8971345D52417A82059700AA40275C"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-54ADDE95-D0C7-4BEF-8530-7D0B98E04AFB"></a></span> <span class="MenuCascade" id="GUID-D2E0C839-9FF7-4502-A2C7-CA9225991DFB">Off:</span> the shader will write true, floating point motion vectors into the red and green
+                                 color channels. They are not normalized to the Maximum Movement length, nor are they
+                                 clipped, and they will contain both positive and negative values. The Maximum Movement
+                                 and Blue is Magnitude options have no effect. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E5761486-C9AC-4E01-B9AD-FB1261DE7819"></a></span> <span class="MenuCascade" id="GUID-6B5E298D-470E-48AF-AA0A-8E944E1F264B">Raw:</span> The actual pixel count is written as-is in floating point. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-95C7997F-2981-4050-8986-E8497C52DE3D"></a></span> <span class="MenuCascade" id="GUID-AF38BA3E-3824-4CF5-863C-890B24DF082F">Toxik:</span> The pixel aspect ratio is taken into account such that the measurement of the distance
+                                 the pixel moved is expressed in pixels in the Y direction, the X component will be
+                                 scaled by the pixel aspect ratio. This option is compatible with Autodesk Toxik. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D353930A-75E4-4690-B19B-9407D6E9F4B0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1F84F6C7-24C3-4286-9B9B-A0691BDFBE91">blur_environment</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7953D091-4F01-4218-B4AD-FCB314C726F9"></a></span><p class="table-body">Specify whether the camera environment (for example, the background) should be blurred
+                           by the camera's movement or not. When on, pixels from the environment will be blurred,
+                           and when off they will not. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-DDA2545D-6C32-4DC3-947F-857BE45F0C1F"></a></span><p class="table-body">If the background is created by geometry in the scene, this setting does not apply,
+                           and the background's blur will be that of the motion of said geometry. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-18BFEE64-520C-4780-B803-931D6C0E0A9F"></a></span><p class="table-body">This option does not work if the scanline renderer is used. </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E063DB16-28FC-42D3-A68D-73D5D0564160"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-275542FF-6E9E-490E-9845-5198EDC1F096">pixel_threshold</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DCB9268E-72BC-40A3-819D-A47FB9BFC3E5"></a></span><p class="table-body">The minimum motion vector length (measured in pixels) that an object must move before
+                           a blur is added. In practice, this length is simply subtracted from the motion vectors
+                           before they are exported. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body" colspan="2"> <span class="anchor_wrapper"><a name="GUID-7B3A4638-E112-44CF-BF2F-6B8AEB27F155"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9120A757-F6B5-4DCF-B58B-D4DCD442BBF6">Alternative Channels:</span> The following options allow you to specify alternative render channels for motion
+                           vector and depth data. The referenced channels must be defined and activated for the
+                           pass you are rendering in order for this output shader to be able to use them. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-9359F963-66E2-457E-B6C4-EF90A827D4A3"></a></span><p class="table-body">For information on how to work with render channels in general, see <span class="char_link"><a href="render_channels.htm">Render Channels &amp; Framebuffers</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-AB2D56C7-5594-4EB0-857E-C223BE31D29C"></a></span><p class="table-body">For a description of the available render channels and their data types, see the <span class="char_link"><a href="rendering_props_SceneRenderOptionsPropertyEditor.htm">Scene Render Options Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-45BAC2CE-DDD2-4313-ACD3-7E12095C1B3C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BA2203F2-6227-4784-B849-C24B9D3BA8A0">result_fb</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-430085F5-E084-40E0-9948-2F498EC3B793"></a></span><p class="table-body">Specifies the render channel to which the result is written. </p> <span class="anchor_wrapper"><a name="GUID-5E26F241-2919-4CFE-B51C-4D9D8C552639"></a></span><p class="table-body">&lt;None&gt; signifies that the built-in mental ray Main render channel will be used. The
+                           render channel specified must be defined as having a color data type. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E6855C5A-2D08-4B3C-AF63-484D7E36E126"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-15AD0AC6-F6F3-49AA-9C6B-50DCAC0FE0F0">depth_fb</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C50E8A86-608C-4AAA-A660-ED4C70A1FA86"></a></span><p class="table-body">Sets the render channel from which to obtain depth information. </p> <span class="anchor_wrapper"><a name="GUID-29EE9069-F4BC-47A7-88C3-A703169265B6"></a></span><p class="table-body">&lt;None&gt; signifies that the built-in mental ray Depth render channel will be used. The
+                           render channel specified must be defined as having a depth data type. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3AF65092-DD5B-40B2-8F6B-EF363153B1DB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C83CFA48-E77C-4F11-A9C8-0F725E6CD330">motion_fb</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DF51261A-6E91-48FF-B5FF-177274428A88"></a></span><p class="table-body">Sets the render channel from which to obtain motion vector information. </p> <span class="anchor_wrapper"><a name="GUID-F8EE74A4-9683-4018-918D-D500D4F81B55"></a></span><p class="table-body">&lt;None&gt; signifies that the built-in mental ray Raster Motion render channel will be
+                           used. The render channel specified must be defined as having a vector data type. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-756468F2-1D1D-497C-B652-D4E96B45C16D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FA801599-0E5A-4529-9DCB-64CAE0A371C1">use_coverage</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E87C10D6-6FAB-4770-B063-24E39C95922E"></a></span><p class="table-body">When on, uses information in the Pixel Coverage render channel rather than the alpha
+                           channel when deciding how to utilize edge pixels that contain an antialiased mix between
+                           two moving objects. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB8D45CD4F0ABE24AABDA0BEBD9341524-0015"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D0BB3448-F408-4F67-8391-EF9E4523D0A8"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-72E618FB-FA1D-431D-A90D-8DC66FFF574C"></a></span>This output shader is applied using a pass shaders stack. For more information, see
+                  <span class="char_link"><a href="passes_DefiningPartitions.htm#WSBDF3789326DBBD4FB2A3C80D3F0ED961-005A">Applying Shaders to Partitions</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

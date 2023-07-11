@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-3CA1D302-88C3-4273-AD8F-5DA17E1A5C11">
+      <meta name="topic-type" content="concept">
+      <title>Volume Cigarette Smoke</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-3CA1D302-88C3-4273-AD8F-5DA17E1A5C11"></a></span><div class="head">
+            <h1>Volume Cigarette Smoke</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-B596234E-20E3-4D1C-BD87-700A76429AF4"></a></span><em class="strong">DEPRECATED.</em> This shader is unsupported, but it may still get installed with Softimage to provide
+               compatibility with older scenes that use it. It is recommended that you replace unsupported
+               shaders in your scenes with equivalent shaders from the current Softimage shader library.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-463CBA79-FF36-47F0-A180-0D15A29A7C91"></a></span>| <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-017F">Fractal</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-017F">Fractal</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-0183">Turbulence</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-0184">Column Shape</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-0185">Animation</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-0186">Marching</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-0187">Bounding Box</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-0188">Proximity</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-0189">Scattering</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-018A">Lights</a></span> | <span class="char_link"><a href="shaderpresets201.htm#WS5789C281264187428443E3E0DECD3926-018C">Volume Cigarette Smoke</a></span> | <span class="char_link"><a href="shaderpresets53.htm">Dusty</a></span></p>
+            <p><span class="anchor_wrapper"><a name="GUID-0CEC280C-7847-41FF-803F-99522360C9EB"></a></span> <span class="MenuCascade" id="GUID-C115E248-FEF6-473A-87AA-05F0526D96BC">Shader Type:</span> Volume
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-863B3F68-F00B-43A0-9B34-CA8DCD8C332C"></a></span> <em class="strong">Output:</em> Color (RGB) value
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DC08BF96-2811-43EB-9E82-428C95547379"></a></span>Simulates a cloud of small particles. Each ray that passes through the volume is broken
+               down into steps, and at each step point the density function is evaluated. The density
+               function returns separate R, G, and B components, which represent the individual densities
+               of particles scattering only the respective color components.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-04FBEBC8-9E4A-4C6C-ACB1-B6960CE71EF0"></a></span>The density function simulates a smoke column. A hollow column is swirled and a rising
+               current of turbulence is added to it. The column springs into existence at Y = 0 and
+               Time = 0. As it moves higher, the turbulence is added to it in progressively increasing
+               amounts.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-017D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A5FB4277-EE92-475A-8738-AAB707C7F2DD"></a></span>Tips:
+               </h2> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7F0845F8-E578-4418-8875-8BBAC1CECB4A"></a></span> <span class="MenuCascade" id="GUID-1F56B0EF-6AAB-4AEF-880A-906B495ABFF4">Stepsize and Recursion:</span> Keep your "max stepsize" as large as possible. Most often it is sufficient to have
+                        it about half the feature size of your density function. Unless you get spatial aliasing
+                        (strange plywood type effects), don't lower it. Aliasing can also be combated with
+                        the Jitter parameter.
+                     </p> 
+                  </li>
+               </ul>
+               <p><span class="anchor_wrapper"><a name="GUID-115C24AE-BF7D-4058-BD13-2AE861527275"></a></span>For testing, keep the recursion depth at 0 and increase it only as necessary.
+               </p>
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CE1BF8CC-1DCE-47C0-BDB8-B41D18269E8F"></a></span> <span class="MenuCascade" id="GUID-6F295038-056F-4A5C-8DEE-55E28BEEC643">Density function:</span> The fractal is fairly fast, but it slows down significantly when you request too
+                        many iterations. For test purposes, keep them low. And if you want the shader to be
+                        uniform, turn the fractal off altogether by setting "max iterations" to 0.
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-546F61ED-5A6C-4E32-BD84-C2E4D3758347"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B11B0A7B-24CB-4FC0-8C47-133810FCD08A">Name</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CCD491C3-20CC-4486-BC08-B9A6F78BBF03"></a></span><p class="table-body">The shader's name. Enter any name you like, or leave the default.</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-017E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-27C1C6F9-1713-4843-A8E1-3A1C9E9D35F2"></a></span>Colors
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5A2835DD-9907-4976-8399-68DAB44ADE35"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C4D3796B-C59C-4D5C-8E61-E4A97465199C">Color</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BCD3D597-D32F-4045-B78B-8E8282DF462E"></a></span><p class="table-body">Defines the Red, Green, Blue, and Alpha channels that make up the smoke's color.</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-017F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5CA4A85D-5234-48F7-BC58-952BD19D7F7E"></a></span>Fractal
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FE367307-42A8-4054-8376-03DE20579EC4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6750B3F5-07CC-4FBC-9147-88B30D6AFFCA">Noise Type</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5CD019F3-0D62-4E92-A191-308028376AD7"></a></span><p class="table-body">Offers two noise functions to build the fractal: Perlin and Recursive.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B6C7CEFB-1BE1-4212-9D91-59879354C774"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-456D16E4-EA7C-4D6A-875B-91316A0355BC">Absolute</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-80BC801A-2F2A-431F-9026-0438A27CE5F3"></a></span><p class="table-body">Uses the absolute value of the noise for the fractal. This creates interesting discontinuities
+                              that produce a turbulence effect. A side effect is that the fractal value is always
+                              positive.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CFD4A91D-D98E-49D9-A0EA-458D9C288A4B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1202AEE0-5D77-4526-AD1F-4C1BA5B4EC8D">Maximum Iterations</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0E79614C-3D63-4D80-AB28-B8E7E4871EBD"></a></span><p class="table-body">Defines the maximum number of noise iterations. It works with the Minimum level in
+                              defining the complexity of the fractal. The more constraining of the two limits is
+                              used.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-823F1EBE-7964-40F0-B8AF-4026C122FA2A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-920C18C0-E985-4FF3-9ACA-1A79330EB855">Minimum Level</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-84A3EA36-75C4-40E2-A294-012C44615788"></a></span><p class="table-body">Defines the minimum amplitude at which iteration will occur. It controls how often
+                              the shader calls the noise function. For a value of 0.1, the noise of amplitude less
+                              than 0.1 will not be added to the fractal, and iteration stops there.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-299570D9-0411-49C4-AFE4-1221BE562C1F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4A77DC06-1735-4536-8672-99EDA0D9F0FD">Decay</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E8F2BD6D-A4EE-4AC2-9A12-CBCCFA0E0166"></a></span><p class="table-body">Defines the amplitude decay of the fractal iterations. It is defined as the ratio
+                              of the amplitude as the frequency doubles. Thus, if the Freq. mult (see next parameter)
+                              is 2.0, the amplitude of every subsequent iteration is multiplied by this value.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E47A800C-0BD1-4715-99AE-10AFEE36743E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ED8E68C1-5D0E-4AC4-892F-F0212F5DE5B4">Frequency Multiplier</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-84DA98B8-6D5A-4145-A9B2-1738B0A22A23"></a></span><p class="table-body">Defines the frequency multiplier for subsequent iterations. Frequency is really just
+                              the inverse of scale. As doubling frequency is the same as scaling down by a factor
+                              of 0.5, every subsequent fractal is scaled by the value 1/Frequency.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0180"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-30023455-9283-4202-9937-BFE0685BA0DD"></a></span>Deformation
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0181"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B2E93A28-D1A3-4233-9821-8E5566AF046A"></a></span>Swirl
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AE7193AC-4F2F-4163-881C-DE81E3CF4178"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-306BDB65-6FD8-4FE7-BE09-96803B709EC8">Amount</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DCD01557-C266-4ADF-87AD-7DCD675AB6AB"></a></span><p class="table-body">Defines the amount of swirl applied. 0 = no swirl (and a dull-looking smoke).</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8998248F-56AF-4C00-8943-FE1BC0D754F4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-007DC8C4-6F20-4997-8604-9FBD9EBC080B">Change Rate</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F1F3EFCA-AEA2-4F0C-8EA1-86FE7A38A2EE"></a></span><p class="table-body">Defines the rate at which the swirl pattern changes. 1 = one "change" per second.</p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A185998A-98E7-49E0-8F6B-04ADA9CAAE17"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-094D9847-B117-4164-934A-231738232632">Scale</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DC56F833-33C0-40CA-AED4-C7A16DEFED63"></a></span><p class="table-body">Defines the size of the swirl patterns. For large smoke columns, increase this value
+                                 to make the swirl large as well.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0182"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-28670411-7C9B-4675-9F10-967028A5A645"></a></span>Wind
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C81B7A5C-EBF6-4D65-92B2-B29216C84A7C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B42AE732-6D83-40BA-A19D-818FEF93B68D">Speed</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4D9DC38B-5AF9-4CED-8F05-DD3E672CB8E2"></a></span><p class="table-body">Defines the wind's speed. This parameter controls how much the smoke bends before
+                                 the wind; it actually controls the curve shape and is independent of Rise Speed.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8884CB0B-298F-41E6-A5E0-99F42DD1C7A1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F9308F45-0DF9-4F1E-849A-E87F4883C855">Altitude</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-79573F30-CDD6-4089-9D1F-C62B85D13C30"></a></span><p class="table-body">Defines the maximum height of the smoke effect.</p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0183"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3DA1FBD2-F314-47BF-956E-AFBFFE2E9FB6"></a></span>Turbulence
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A14B1596-963E-493E-9D9A-BFD2DD36A901"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B9967E06-5330-4F86-9D9A-737E69BBCF83">Altitude</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-96A48B52-2D74-467E-96F4-0AA2C47D44F0"></a></span><p class="table-body">Defines how high the smoke rises. Turbulence starts out with none at Y = 0 and reaches
+                              amount at Y = Altitude. This makes the smoke start out smooth but gradually turn more
+                              turbulent.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ED38AD20-7BF5-4351-BCE2-0EB403A81937"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-708BBA01-35AA-44BD-902B-A17DBD5BE818">Amount</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9BA7C729-9945-4595-9803-EFE406D280B0"></a></span><p class="table-body">Defines the maximum amount of turbulence reached at altitude.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-993A0608-9C1D-4D5A-A66B-805CB43160AD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9E42F073-BA51-4813-8179-66DF9E4B0231">Bias</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2BE5F9A0-ADB8-4229-8821-33FDF914DBDE"></a></span><p class="table-body">Controls the shape of the turbulence amplitude curve. When close to 0, the amplitude
+                              stays low until the last few units up to Altitude. 0.5 = a linear increase; a high
+                              value (close to 1) = changes to a high value right at the beginning.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B3370AD6-7F7B-46EE-A221-377AD1C5FE82"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DF34E638-5A09-40F7-A080-72B51AA7B997">Scale</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F2B52EAF-1957-4282-B03E-21F91E7319DB"></a></span><p class="table-body">Defines size of the turbulence pattern. If the smoke is very large, it is necessary
+                              to increase this value to keep the same size ratio between the smoke and its turbulence.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0184"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2855D2E8-8A16-4A4E-844D-D0D60817AC76"></a></span>Column Shape
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BD5B64C4-ADE6-4581-A4BA-02CA520EF2F3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3C65250F-917E-45DD-BE67-E12D4EAFAE2F">Radius</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-60781F3E-032D-4669-B794-38E02341C9D9"></a></span><p class="table-body">Defines the radius of the basic smoke cylinder that is subsequently swirled and mutated
+                              using the Turbulence parameters.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0A701AB4-BA14-4877-80D2-8A56818F7841"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D0283038-14E9-4131-9928-11B45B4B21A7">Thickness</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BF3BDBC7-B760-47E1-97AA-452574D12B89"></a></span><p class="table-body">Defines the thickness (as a fraction of the radius) of the column walls.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-49A8DDAC-044A-4C49-B900-304143392F6B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-75530440-B4FA-46A6-A3C8-2A549B7F8EC2">Start Length</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-77FC246D-A32E-4FCD-85A4-4BD93DF31693"></a></span><p class="table-body">Defines the distance the smoke takes to appear within the smoke column. At time 0,
+                              the smoke starts at Y = 0. When the smoke has risen to the Start Length value, it
+                              is completely revealed. For a Start Length of 2 and a Rise Speed time of 1 unit per
+                              second, it takes 2 seconds for the smoke to be completely visible.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C8445F72-6E36-4D14-BCC9-4C895AD97B81"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3A2973D0-135C-45D9-9EC0-9D24622675DC">Amplitude</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-506D71F4-6019-457A-B9D7-BD2AD72D8A86"></a></span><p class="table-body">Gives some variation to the smoke-column thickness around its perimeter. If left at
+                              0, the column appears entirely smooth. This parameter defines the radius of the basic
+                              smoke cylinder that is subsequently swirled and mutated using the Turbulence parameters.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0185"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FF5E4B55-585E-4FD2-9868-34ABD2EE2BA1"></a></span>Animation
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A58BCBC5-EA88-4807-9B7C-A6FA82ABB095"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6627A5EC-EAFC-456B-983D-25109ED6BB31">End</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EA32E40F-DB03-4770-8E99-A33668BED747"></a></span><p class="table-body">The highest Y level that the smoke reaches. It is safe to set the Y max value of the
+                              ray marcher's Bounding Box to this value. The smoke gradually fades out from Altitude
+                              to End.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8FD31355-6FB5-4C49-978B-B44068AFFA56"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2EC82C51-2E10-4644-AC5B-A48E9C0D1B92">Bias</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-57788F65-A5E2-48BF-A504-866FE4BFCA2B"></a></span><p class="table-body">Controls the shape of the fade-out curve.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4EAC8D73-7827-4962-B20B-F5AE74E15B11"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9B668EAA-FDBD-4C39-BF1F-06B15F0D9088">Rise Speed</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E07D6835-70F0-4836-9C4A-65A1D7D9C530"></a></span><p class="table-body">Defines the speed at which the turbulence is moved upward.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5AF6A4F2-8B6D-492B-9D87-A828CECB6DB4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DA1A2ED7-E45B-4FFD-A39F-733A78C75C9B">Time Offset</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0691D776-6D43-41F9-88A9-6A0910B16AF4"></a></span><p class="table-body">Offsets the shader's timing. The default ensures that the smoke column is visible
+                              at time = 0 (the first timeline frame). Setting it to 0 makes the smoke emerge at
+                              that point (see the Start Length parameter).
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0186"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-55A4EE68-DB3A-4A0C-81AC-B72705F6A92D"></a></span>Marching
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D688591E-C16C-489D-B09C-B362F6E93BF4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9BB41C47-4DC7-46FF-A5E3-E8710AC7FBC0">Step Size</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DBB7C319-9127-4A35-BD1C-E8F1FD7259D7"></a></span><p class="table-body">Defines the maximum length of the steps taken during ray marching.</p> <span class="anchor_wrapper"><a name="GUID-6EF2B3D1-2C37-4B55-A5F7-7BB9271127B0"></a></span><p class="table-body">This parameter does not have to be fixed, as each point may be randomly jittered.
+                              Furthermore, according to a certain contrast limit, each step may be subdivided up
+                              to a certain point. This makes the ray marcher able to focus on features such as edges
+                              or umbra boundaries.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-71A711B7-7953-499F-93B1-842A36E2C76E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-27D6FE15-FE56-4DD7-A68A-A11AA8A92E32">Maximum Subdivision</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-242C0321-16DD-49F8-A0AB-5407D165A24D"></a></span><p class="table-body">Defines the maximum number of recursions made during ray marching.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-36092A71-8D00-4F4D-8BE4-8E840093AA00"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6BF19BE7-E951-46AA-A274-EDE66374EDEC">Maximum Difference</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E42B1878-9988-4015-AAAF-EE2D2AC7B0D4"></a></span><p class="table-body">Defines the difference in density or density intensity at which a recursive subdivision
+                              of the marching step is made.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6A32B351-0713-4D3A-BE52-2700C38724A9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-512A1F82-01B7-475C-8583-293CC7040E81">Jitter</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E20EC831-89B8-4D7D-AD63-70D6909F4132"></a></span><p class="table-body">Defines the amount that each sample point is randomly permeated from its calculated
+                              position. At 0 there is no jitter; at 1, the point is jittered so much it may touch
+                              its neighbor. This can be used to hide spatial aliasing artifact and replace them
+                              with noise.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0187"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-095A15BB-C05F-429C-B5F8-8FEF465A30BA"></a></span>Bounding Box
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-827ADB3D-6702-4762-9CC9-3F0C3AEBABB4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6A5B696D-E988-4496-9EE4-46FA0520A80E">Always Honor</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4F32FFAC-6B01-4A08-AB29-380352ADCE78"></a></span><p class="table-body">If the shader is being applied to an object (volume shader), this parameter selects
+                              whether to honor the box or not. For a global shader, it is always honored. If infinite
+                              rays are encountered, the far side of the box is used to truncate.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0848058E-E1C0-4BD5-93B5-A9DC8D786F21"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EFE1AF63-0AFE-4D3A-9723-D4723EDD06D8">Minimum, Maximum X</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-236B48D5-FF0F-4CA1-B1B6-409290BC8D9F"></a></span><p class="table-body">Defines the X parameters of the boundary box.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0BEC8E7B-169E-4663-BAEA-F9E7F4AA2CD0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AC79A6E5-DF69-4550-AAC1-5E4F6B0E6EC0">Minimum, Maximum Y</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-36184F32-5908-42C0-8384-8B72F37AA155"></a></span><p class="table-body">Defines the Y parameters of the boundary box.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2E5CFB08-8104-4F21-B474-230F3639865F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3DB46F08-0939-41C5-88CF-2473259109A4">Minimum, Maximum Z</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B35056B4-32CA-49F8-9073-46385C752D57"></a></span><p class="table-body">Defines the Z parameters of the boundary box.</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0188"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F93D5757-E4A1-47F5-8FBC-D9CA16A47A03"></a></span>Proximity
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E8F0BD54-A802-45D3-9978-F1DB18F6312D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1ECB79E6-3D24-4831-B8C2-932AE59DAAFD">On</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8058E1C0-A3E3-488E-A006-833DC23D33AB"></a></span><p class="table-body">Activates proximity calculations.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-26BD2EA3-7A0F-4C92-B183-F7E8E45F4486"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3E3EACE7-76E1-447A-92C0-5B79EE6A8C1C">Cone Angle</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CF5DAF9E-93E6-40F9-88A7-B4E97C545ABF"></a></span><p class="table-body">For correct proximity calculations, enter the angle of the spotlight you are modifying.
+                              For a point light shining in all directions, enter 360.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4744C13E-F87E-45B1-A3BD-5E890D5B944A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0B79162C-5078-4F04-864B-C4F8CB48BC81">Intensity Scale</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-869CF08E-B5B1-4DC5-B34F-7AC3AB913A7D"></a></span><p class="table-body">Controls the overall intensity of the lights.</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-0189"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5D930653-3CE0-442D-A63D-CCEE044B8AA9"></a></span>Scattering
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4A184C9B-5526-46F0-B575-F6F2B992DCC8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9CBB9248-C456-4D8E-9333-DF3385D5C0A1">Ambience</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5C7A0373-ACCA-4FFB-BA32-169FF8662B8D"></a></span><p class="table-body">Simulates an ambient light source illuminating the cloud.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1FF92C19-6890-4954-AC05-F66417CB8000"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-626DF11D-CDBA-4DFE-A35C-C84A09E81B39">Absorption</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-89447374-4274-491A-9694-E9EA1F3B9405"></a></span><p class="table-body">Controls how much of the light that falls on the particles is absorbed. For air or
+                              steam, keep this at 0; for dark smoke or soot, make it higher (about 1).
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C69B32E8-DEFF-4748-B291-A38E44A868A6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6E8F623D-7832-4ADF-9CAF-D6445210A849">Assymetry</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9EA01537-BB0C-45B8-9607-0EDDBD752435"></a></span><p class="table-body">Controls the scattering behavior of the shader. At 0, the same amount of light is
+                              scattered back as well as forward; this is the case with small particles, such as
+                              air. Higher values make the scattering ever more forward biased, as with larger particles
+                              such as smoke or dust.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-115625C5-2542-4541-AE5E-2FCCF860E8C4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AE9A083B-2CE7-4F7B-84CD-A2C55CDDED50">Uniform</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-49450818-14C3-41B7-99C1-142BAA4A1FF2"></a></span><p class="table-body">Makes the light scattering uniform in all directions, much as with the ambient light
+                              that follows. However, light lookup is still performed, and self shadowing may occur
+                              (see Shadowed lights).
+                           </p> <span class="anchor_wrapper"><a name="GUID-6E8F2C9E-24B1-415E-BA11-9FE5945E58FB"></a></span><p class="table-body">If you select Scattering Lights (uniform_scatt), the ray marcher uses them to determine
+                              light scattering at that point. Optical depth is accumulated and used to calculate
+                              the occlusion of both scattered light and transmitted light.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7BE3627D-E4B6-44D0-9C6B-10CB4CF3E995"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-89262707-8937-458E-8B23-A625798F140B">Density Scale</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-461F277C-83A6-4D02-BEE2-507ACD680613"></a></span><p class="table-body">Scales the density of the cloud. It is an overall scaling factor: if the cloud/hypertexture
+                              appears too dense, you can lower this value instead of having to meddle with the density
+                              function on the right part of the dialog box.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3C123129-A1B8-4E19-B324-2FF9979DA009"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-931659AE-9FA0-420D-A9E8-B515AF985555">Volumic Density</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5BDA70AD-C2AC-4106-A452-AF912D100B3E"></a></span><p class="table-body">When the volume shader is applied to an object, this parameter makes the density automatically
+                              change according to the scaling of the object. E.g.: If you scale the object down
+                              ten times in the XYZ dimensions, the density of the texture will increase a thousandfold.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4C3F5287-254E-41E6-9985-7765077EDE09"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-980B38EB-532A-4419-A212-285D5D7D2D99">Transparent</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DB021364-913F-48F1-B8B9-84BAD6FBA16C"></a></span><p class="table-body">Makes the texture invisible; i.e., it doesn't block light at all, and the shader becomes
+                              a glowing transparent gas, much like neon.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-018A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3E953C52-8B33-4278-8DD9-7425E5C15170"></a></span>Lights
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-EEBAA7DE-D37E-40CB-9BD9-806F64445331"></a></span>If you have scattered lights, it slows down the rendering somewhat because each light
+                  lookup can be quite time consuming, particularly if you've selected an area light.
+                  If you select the same light as both scatter light and shadow light, each light call
+                  will result in a ray marching from the current position to the light -- so rendering
+                  time may be almost squared! Do this only if you have either a large step size or you
+                  have a very dense material (hypertexture).
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-E007B4AE-384D-4432-BB9B-EA63544B4672"></a></span><div class="note-note"><span class="label">NOTE:</span>The self shadow is calculated for all the distance to the light, even if the light
+                     is outside the bounding volume. Therefore, volumetric lights should be within the
+                     bounding volume.
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-018B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A6BF487F-047C-474E-9EF2-73BD87F0E91B"></a></span>Lights
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-247086B3-6FED-4D76-88A9-468D28CF6173"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-199477F4-F297-4A38-83F7-802EBDF7AB1E">Scatter Lights</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A4D8D63B-C61B-448F-946E-53A86B26392B"></a></span><p class="table-body">Lets you define a scatter light in your scene that will be used to compute the fast
+                                 lens effect.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-018C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-97361BE9-429D-4B0F-9BC6-36D5EBBDF634">Shadow Lights</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3688ECB6-5CF1-403A-8DF9-9D6BBB30BAE8"></a></span><p class="table-body">Lets you define a shadow light in your scene that will be used to compute the fast
+                                 lens effect.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS5789C281264187428443E3E0DECD3926-018D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5AE2FA86-9D53-4A5F-8B28-B0ACAB093480"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D9E98498-D388-4165-B0AB-4C201A7FC980"></a></span>To apply this volume effect to an object (as opposed to a scene) connect this shader
+                  to the Volume input of the Material node. Volume shaders cannot be expanded or built
+                  upon in the render tree.
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-33C1B8DF-6667-4AC3-9C7D-69A96FC97385">
+      <meta name="indexterm" content="cage deformations">
+      <meta name="indexterm" content="deformations: by cage">
+      <meta name="topic-type" content="concept">
+      <title>Cage Deformations</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-33C1B8DF-6667-4AC3-9C7D-69A96FC97385"></a></span><div class="head">
+            <h1>Cage Deformations</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-8FEB1315-E371-43D1-8C99-4ADD982DA28A"></a></span>Cage deformations allow you to use a low-resolution geometry to drive the deformation
+               of a high-resolution object. They are similar to arbitrarily shaped lattices. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6DE0F161-C922-4737-85AA-B1973A12565B"></a></span>Each point on the deformed object is weighted to the points or polygons on the cage,
+               similarly to how an envelope's points are weighted to its deformers. However, you
+               cannot paint the weight assignments nor adjust them manually. You can also have multiple
+               cage deformations on the same object, unlike envelopes. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0042"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9FA2B7B4-AF3F-4ECF-8B03-243CD2CE9058"></a></span>Cage Deformations and Construction Modes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-841EB8CF-D3FB-44F6-BC8F-29B040E554BD"></a></span>Cage deformations use a "rest" shape of the cage object to determine how to modify
+                  the deformed object, as well as how points on the deformed object are weighted to
+                  the points or polygons of the cage. Any deformations you apply to the cage on top
+                  of this rest shape affect the deformed object as well. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-16638450-A06C-41F0-AF08-80102BFBCAA9"></a></span>When you apply a cage deformation, the rest shape is defined by the current top of
+                  the modeling construction region in the cage object's geometry operator stack. The
+                  cage-deformed object is affected by any new deformations above this point in the modeling
+                  region, as well as in the other regions. If the cage object already has deformations
+                  above the modeling region, the shape of the cage-deformed object changes as soon as
+                  you apply the cage deformation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-13220AD4-60A5-42E0-A5D7-9C10041BB6B8"></a></span>The rest shape can be affected by modifications you make to the cage object. If you
+                  freeze all or part of the cage object's modeling region and "bake" the position in
+                  the stack where the deformation reads the rest shape, then the bottom of the stack
+                  becomes the rest shape. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-389CDA17-0138-4521-9F33-CF2A211A8368"></a></span>When you set the <span class="MenuCascade" id="GUID-60B70C3B-B23C-4F49-9739-D62E353CB71A">Construction Mode Display</span> of 3D views to <span class="MenuCascade" id="GUID-83F39248-865B-43A8-A90B-4F3D57B5C15E">Sync with current mode</span>, you may or may not see the effect of the cage deformation depending on which region
+                  of the cage-deformed object contains the Cage Deform Operator. However, if the effect
+                  is visible, then the deformed object is always affected by all operators on the cage
+                  object no matter what region they are in. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-265CEC79-C2ED-4255-9BE6-0790A3078FF8"></a></span>For more information about construction modes in general, see <span class="char_link"><a href="basic_mod_OperatorStack.htm#WSC78556F0ADFBCD44BD39EA331DC9024D-0016">Construction Modes and Regions</a></span>. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-32253F6D-C3CB-4842-9559-94E70786CB88"></a></span><div class="note-important"><span class="label">IMPORTANT:</span>If you apply a topology operator to the cage object, the cage deformation no longer
+                     works. It is not possible to calculate the deformation if the final topology is different
+                     from the rest shape. 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0043"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0CC19723-1D91-44AE-989F-621EFB146873"></a></span>Applying Cage Deformations
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0044"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C3ADE45A-55FF-4C84-9E3D-A876BD1FDAA3"></a></span>To apply a cage deformation
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6C7D4F5F-910A-4CDD-B8DD-C2904C0D4BCF"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-53946289-C1E4-49D9-B512-C3F325574EE3"></a></span>Select the objects, branches, groups, models, clusters, or points to be deformed.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6B22E735-CA84-4443-B020-2F767BE00B49"></a></span>Choose <span class="MenuCascade" id="GUID-7F104E2C-5743-4DE2-8BFE-2750AF8A3EEA">Modify <img src="../images/ac.menuaro.gif"> Deform <img src="../images/ac.menuaro.gif"> by Cage</span> from the Model toolbar. This command is also available on the Animate and Render
+                           toolbars. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-38BA270A-D744-433E-A3D1-575F7FEE7B6C"></a></span>Pick one or more objects, branches, or groups to act as cage deformers. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E4B84279-D035-4355-9DB3-DBC521AD3E9A"></a></span>Note that you cannot use point cloud objects as cage deformers. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4BC9BB49-B9C0-4CEA-86E4-F3EB186AC08A"></a></span>When you have finished picking deformers, right-click in a 3D view to finish. The
+                           <span class="char_link"><a href="property8044.htm">Automatic Cage Assignment Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>] opens. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E25B55A5-7E56-4CBB-98CE-C840022DCE9D"></a></span>Set the parameters as desired. These parameters control how the points on the deformed
+                           object are weighted to points or polygons on the cage. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-B4D8202C-4FEA-4529-992D-43AA3F86AD88"></a></span><div class="note-note"><span class="label">NOTE:</span>When you pick an object as a cage deformer, its Render Visibility is turned off in
+                              its Visibility property and its display mode is set to Wireframe in its Display properties.
+                              
+                              <p><span class="anchor_wrapper"><a name="GUID-3AD67309-9D68-49DA-95CA-1C7A19F59D8E"></a></span>To see the effect of the display settings in non-wireframe views, make sure that <span class="MenuCascade" id="GUID-C2AA41E8-0034-4762-A3D0-AFD213E6838E">Override Object Properties</span> is off in the Display Mode menu. See <span class="char_link"><a href="view_viewing_ChoosingHowtoDisplaySpecificObjects.htm">Choosing How to Display Specific Objects</a></span> [<span class="char_link"><a href="view_cover.htm">Basics</a></span>]. 
+                              </p> 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS3CD0299C9A553C42AA0D9499D69A994D-0045"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-985706F6-E4D4-4CC6-AB12-5462A2B04EF6"></a></span>Cage Deformation Tips
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-23408F7F-F2B2-4F6C-88F8-6E6B40B7E6D9"></a></span>Cage deformations can involve a large amount of data. Here are some tips for making
+                  them as fast as possible: 
+               </p> <span class="anchor_wrapper"><a name="UL_1A7C842C499B479EAA545941D2112060"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5913DDEA-E4D3-4C04-AE1B-ED501EC12DE2"></a></span>Make sure that your cage has the fewest points or polygons necessary for the effect
+                        you want to achieve. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C2D802BC-1CB6-4BEB-9114-E39138026F32"></a></span>When modeling the cage, keep it as close as possible to the geometry you want to deform.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5DE572DB-C48E-4100-8929-4E9D7C28B14D"></a></span>Assign cage objects locally to clusters if possible. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-92DE9B44-F0A4-413C-9451-D57B960401C7"></a></span>When you are satisfied with the cage assignment, freeze the cage weights (that is,
+                        the Envelope_Weights operator under the CageWeightCls cluster). 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

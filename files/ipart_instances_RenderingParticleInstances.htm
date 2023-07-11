@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D6F465E5-E97D-4BC8-80FA-5137FAB1E7C2">
+      <meta name="indexterm" content="ICE particle instances: rendering">
+      <meta name="indexterm" content="ICEparticle instances: ShapeInstanceTime attribute">
+      <meta name="indexterm" content="ICE particle instances: stand-ins for rendering">
+      <meta name="indexterm" content="stand-ins: using for ICE particle instances">
+      <meta name="indexterm" content="ICE particle instances: using lights and cameras">
+      <meta name="topic-type" content="concept">
+      <title>Rendering Particle Instances</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D6F465E5-E97D-4BC8-80FA-5137FAB1E7C2"></a></span><div class="head">
+            <h1>Rendering Particle Instances</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-D3910DD4-D889-471A-82DE-68BA5826AE2F"></a></span>There are several issues surrounding the mental ray renderer assemblies that are used
+               for rendering particle instances. This section provides some solutions to the different
+               issues. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-002C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C6B73938-E408-42D6-B43A-CCE0AB916565"></a></span>The ShapeInstanceTime Attribute
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CB744E45-917F-420B-99B1-08F6DB52A3FA"></a></span>The <span class="char_link"><a href="iceref_attributes_ShapeInstanceTime.htm">ShapeInstanceTime</a></span> attribute is used in the Set Instance Geometry, Set Particle Instance Animation Time,
+                  Control Instance Animation, and Control Displacement Instance Animation compounds.
+                  This attribute defines the "local" time of animated particle instances, and is used
+                  to control the shape animation on particle instances. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5F7953C3-4153-4387-9E9B-B1C4E7D460D1"></a></span>The ShapeInstanceTime attribute implements instances using assemblies when rendering
+                  with mental ray. Assemblies write each instanced geometry to disk and then load them
+                  for rendering. Because this process is memory-intensive, it may cause memory problems
+                  while rendering many animated particle instances. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-047368B9-AB41-477F-94BC-DECC4BA9FA8E"></a></span>As well, assemblies can render only geometry, not lights or cameras. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9E6BCC37-844B-4458-BE4E-9CFB726122EF"></a></span>So, what's the solution? Use the Instance Shape node in each of these situations:
+                  
+               </p> <span class="anchor_wrapper"><a name="UL_6EA9F0D77DED4993A6A508A8F3D70F49"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D05B46FE-953F-49BA-8383-42474582481D"></a></span> <span class="char_link"><a href="ipart_instances_RenderingParticleInstances.htm#WSE366BC828DD84A479387FB556A4F61C5-002D">Using Stand-Ins for Rendering Animated Instances</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-95D75108-8315-4420-965E-9D6A8855295E"></a></span> <span class="char_link"><a href="ipart_instances_RenderingParticleInstances.htm#WSE366BC828DD84A479387FB556A4F61C5-0031">Rendering Animated Instances Using Duplicates in a Group</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B88206BB-C008-4B27-83BF-120399D936B8"></a></span> <span class="char_link"><a href="ipart_instances_RenderingParticleInstances.htm#WSE366BC828DD84A479387FB556A4F61C5-0033">Using Lights and Cameras as Instanced Objects</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-002D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F1ED6D60-6B15-4E88-9C98-06B924862BB1"></a></span>Using Stand-Ins for Rendering Animated Instances
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-1FADAD2C-398C-4E2D-BF13-C0724AAC1A9E"></a></span>Stand-ins provide a method of offloading assets such that they can be loaded and unloaded,
+                  on-demand, at render time — see <span class="char_link"><a href="renderoptions_ExportingtoMI2Files.htm">mi Archives and Stand-ins</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7330954F-258C-405F-95F5-B26229EFDEA1"></a></span>Using stand-ins for rendering animated instance objects can greatly increase their
+                  rendering efficiency. In this case, the mental ray assembly basically finds the stand-ins
+                  file name and uses it directly. This gives you full control over the contents of the
+                  instances and the life-cycle of the assemblies because the original instanced object
+                  doesn't have to be a part of the scene. You can export all the frames of the animation
+                  that you want for the instanced object and ensure that no re-generation occurs. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-88AF4BDE-213F-43C0-86DC-83A0E89048EE"></a></span>The only limitation for using stand-ins as instance objects is that a stand-in object's
+                  children won't be rendered. However, you can put all objects under a single parent
+                  or a model. You can then select (make sure to branch-select) the top-most node for
+                  export and all of the children objects will be contained in the stand-in. 
+               </p> <span class="anchor_wrapper"><a name="FIG_8C65BE6AB00946B4AE15DD8214E275FD"></a></span><div class="figure-anchor"><img src="../images/GUID-5043D38C-A439-49D3-A2EF-F2423D9779CE-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-E9C32BB8-D6E6-4684-BF56-D93C8067955E"></a></span>Animated club-bot model is archived as a stand-in, then imported and used as the instanced
+                  object. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-884068D3-5F78-4F82-AB2C-52D78DCF995C"></a></span>To use stand-ins, you need to first create a stand-in of the animated geometry to
+                  be used for the instance. Any object that you can export through <span class="MenuCascade" id="GUID-8EADCEB3-92E3-44EC-B10C-8FA2311205B1">Render <img src="../images/ac.menuaro.gif"> Export <img src="../images/ac.menuaro.gif"> Selected Object</span> is supported (this doesn't include lights and cameras). Then you import the stand-in
+                  into your scene and specify it as the instance object to use. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-002F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E7DB6E79-72C3-4CCB-961D-A7C987CE4826"></a></span>To use stand-ins for rendering animated instances
+                  </h3> <span class="anchor_wrapper"><a name="GUID-E082E0B6-456C-4A5E-BD39-5EA6158D9317"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-79F894C2-2B17-4707-B7BB-9FACE78C67E3"></a></span>Create a stand-in using the animated object to be used for the particle instance,
+                           then import it into the scene — see <span class="char_link"><a href="renderoptions_ExportingtoMI2Files.htm#WS3AD8CB3118B018428EECABE18AC72826-0037"> Exporting Objects to Object Render Archives for Use as Stand-ins</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>] for information on how to do this. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-73A4C561-BF39-4B74-860C-ABB6ADC8850F"></a></span>Set up the point cloud's ICE tree for creating particle instances using the Instance
+                           Shape node — see <span class="char_link"><a href="ipart_instances_CreatingParticleInstances.htm">Creating Particle Instances</a></span>. You can also plug in the Control Instance Animation compound to control the instances'
+                           animation offsets. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-1ED4DA86-1319-4403-B397-44829664BAB9-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F136FE57-89B9-420A-B804-6294075A9274"></a></span>In the Instance Shape node's property editor, pick the stand-in as the instanced object
+                           to use. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-703366D2-A203-4C97-9F3C-D8A38DC23237"></a></span>Select <span class="MenuCascade" id="GUID-337E44C6-80CA-4C82-ACAF-CD5611C4548B">Object Only</span> from the <span class="MenuCascade" id="GUID-BC553C17-D8D4-4D15-99E6-10D4624C8BFA">Hierarchy Mode</span> list. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-21EA18FE-4AF3-4F4D-8A96-05FD3FABB083"></a></span>If you select Object+Children, and the stand-in has children, then the stand-in is
+                           ignored because nested assemblies are ignored at render time. Only the non-stand-in
+                           children of the stand-in will be rendered in that case. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-0031"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-003C016A-53E1-4E76-8602-F9F696AF5581"></a></span>Rendering Animated Instances Using Duplicates in a Group
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8729B22E-0DEB-4990-9177-282920157ACA"></a></span>If you have a large number of animated instances, you may want to use stand-ins to
+                  render animated instances. However, you can also avoid rendering problems with offset
+                  animated instances in a simpler way: duplicate the animated instanced object as many
+                  times as you need for variation, then put those objects in a group to be used as instances.
+                  The reason you need to do this is because mental ray uses assemblies for rendering
+                  offset animation, even if you're using the Instance Shape node. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-0032"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-AD38AAE5-CB84-4F0E-B694-9925115435FB"></a></span>To offset the instance animation with the Instance Shape node
+                  </h3> <span class="anchor_wrapper"><a name="GUID-4AAC6E85-829B-45FC-A95A-66DFEDF6D46B"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-346C0470-044B-4C57-8A6D-5EFB29C4CFB9"></a></span>Duplicate the animated instanced geometry for as many variations as you want to use.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D76AAF79-561A-4C22-BC58-28D908B96F7C"></a></span>Offset each variation in the timeline so that each one has a different starting point
+                           for its animation sequence. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4D2E03FF-31A9-4A37-A0E1-E22D67BE22E0"></a></span>Create a group that includes all the versions of the instanced geometry. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5173B190-FDF1-419B-AA6D-2EC616E1717E"></a></span>Plug the Instance Shape node into your ICE particle tree. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6F9BE850-C680-4FF5-AC30-CF568D5A7E9B"></a></span>In the Instance Shape node's property editor, pick the group as the instanced object
+                           to use. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B41CF152-16C2-46A4-B9CB-3EE39B380F64"></a></span>Select <span class="MenuCascade" id="GUID-02C18F7A-776D-4A58-8BAB-726DF9050A08">Object Only</span> from the <span class="MenuCascade" id="GUID-18AA0D61-8BCC-4795-8BDE-D6D1A0CD0FEA">Hierarchy Mode</span> list. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-14E9EC85-9179-471C-9D31-7284EAF3B4CF"></a></span>The objects in the group are used according to their creation order, as shown in the
+                           explorer — see <span class="char_link"><a href="ipart_instances_UsingGroupsofMasterObjects.htm">Using Groups of Master Objects</a></span> for more information. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-0033"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E2881934-BF3D-4CAB-B107-790BBE9708A9"></a></span>Using Lights and Cameras as Instanced Objects
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-8002D435-5EEC-4273-A705-4AC12E2B26C4"></a></span>Rendering lights and cameras using the Set Instance Geometry compound is not possible
+                  because they are not supported by mental ray assemblies, as described above. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-415FCEA4-79A0-488B-BB60-ECD5441BD15E"></a></span>However, you can use lights and cameras as instanced geometry with the Instance Shape
+                  node. Just make sure that there are no compounds in the ICE tree that are using the
+                  ShapeInstanceTime attribute (see <span class="char_link"><a href="ipart_instances_RenderingParticleInstances.htm#WSE366BC828DD84A479387FB556A4F61C5-002C">The ShapeInstanceTime Attribute</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4C3EB170-EC2B-49A1-88AE-26F9ABD935B9"></a></span>Remember that the color and rendering attributes come from the instance master's shader,
+                  not the particle's shader. The instance's Position, Velocity, Orientation, and Size,
+                  however, do come from the particle, so make sure to set these attributes appropriately.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-342AFF41-AB97-4866-9B42-BEA82F7F5F5E"></a></span>You may want to create a group of lights, then reference that group as the master
+                  object in the Instance Shape node, using <span class="MenuCascade" id="GUID-83098019-3527-48A8-AA81-D7909E0C501B">Object Only</span> as the <span class="MenuCascade" id="GUID-76665FA3-C6BF-4C30-BC06-BDB05882D4E1">Hierarchy Mode</span>. 
+               </p> <span class="anchor_wrapper"><a name="FIG_C4E646A37204454D8193779DE743EE85"></a></span><div class="figure-anchor"><img src="../images/GUID-5F2552AF-1FEE-4214-9E79-ECD24D26B72C-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-B7C02BD0-6AD4-48FE-BDB4-318FD3307FA6"></a></span>Three colored lights were placed in a group, then the group was referenced from the
+                  Instance Shape node. A Randomize node was plugged into the node's Index port to randomly
+                  reference each of the lights. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

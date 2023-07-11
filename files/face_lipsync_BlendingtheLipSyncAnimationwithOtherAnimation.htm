@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C58DCDAF-C4A1-4647-9CF3-76DD37A83483">
+      <meta name="indexterm" content="lip sync animation: blending with other animation in the mixer">
+      <meta name="topic-type" content="concept">
+      <title>Blending the Lip-Sync Animation with Other Animation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C58DCDAF-C4A1-4647-9CF3-76DD37A83483"></a></span><div class="head">
+            <h1>Blending the Lip-Sync Animation with Other Animation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-4D12B487-20B7-4B0E-B344-1D3474AA9ACE"></a></span>Lip-sync animation is implemented as a special type of action clip (the Speech Action
+               clip) in the mixer, but in every other respect it acts like a normal action clip and
+               can be treated as one as far as mixing goes. 
+            </p><span class="anchor_wrapper"><a name="UL_BB311B281DF24AEB82BD404B67406A8F"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E66EA41C-83FE-4315-B378-7B5548E9E200"></a></span>You can blend the weight of lip-sync animation in the speech clip with motion capture
+                     and/or keyframe animation that is on the same animation controls. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-27638F1E-4A1D-48BE-9A88-E8A43BB084A5"></a></span>You can add action clips of head movements, eye blinking, etc. to the animation mixer
+                     on different tracks, then have that animation running at the same time as the lip-sync
+                     animation that's in the Speech Action clip. 
+                  </p> 
+               </li>
+            </ul><span class="anchor_wrapper"><a name="FIG_14FE2A2A77F6454B88E99F95D9F65EAE"></a></span><div class="figure-anchor"><img src="../images/GUID-CBC48E64-A1BA-4FBB-9D85-E618A5C25AFA-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS415EFE3C9E1CC94591B6F66DE666B8F6-00CC"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3038DFE8-42AA-4274-AA99-6C97438BFF18"></a></span>Blending Lip-Sync Animation with Mocap
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0EB8C2E7-F4CF-4628-BADE-54D370729490"></a></span>If you want to blend lip-sync animation with mocap data, it's best to do the lip sync
+                  first. Then when you add the mocap, its data is driven by the retargeting operators
+                  so that it's still "live". This allows you to adjust the mocap using the options in
+                  the <span class="MenuCascade" id="GUID-AF42153C-4257-43C1-A623-CFD1F25D9E85">Adjust</span> panel (see <span class="char_link"><a href="face_act_AdjustingtheRetargetedMocapData.htm">Adjusting the Retargeted Mocap Data</a></span>) while editing the lip sync at the same time.The different types of data will each
+                  affect the animation controls as they should. You can then control the amount that
+                  each type of animation contributes to the result. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CBB45D17-4A43-4271-8FA0-00BE774F0C9C"></a></span>In the image below, mocap animation on head is blended with lip-sync animation on
+                  the mouth controls. 
+               </p> <span class="anchor_wrapper"><a name="FIG_E8C82B77DA7E4F769EA5A1550A2ED19C"></a></span><div class="figure-anchor"><img src="../images/GUID-02D3B87D-AEBC-436A-8B80-71D40FFCEBBD-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-019B7EE8-B55A-4985-839D-473B3E9A494A"></a></span>The mocap and the lip-sync animation each contribute equally to the result, but what
+                  you usually want is to use the mouth animation from one source and the jaw animation
+                  from the other. To do this, you can have either source controlling the animation as
+                  you like: 
+               </p> <span class="anchor_wrapper"><a name="UL_A34B5A11654A4DD09904C80BE34D39AD"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F67E830D-9EDD-4654-A1E3-C0922195B088"></a></span>To have the lip-sync animation drive the animation, you can open the <span class="MenuCascade" id="GUID-14AAA999-8A8C-4183-AC85-8C332DD39379">Adjust</span> panel and reduce the weight of the Upper Lip, Lower Lip, and Jaw channels in the
+                        Global Controls group. Setting these values to zero means that the lip-sync operator
+                        (SpeechBlend) is the only thing affecting those animation controls. Of course, you
+                        can set these values to any number and even animate them. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-404B1726-4EA9-45EA-8DF8-2EA6401C4AE7"></a></span>To have the mocap drive the animation, you can reduce the weight of the Lip, Jaw,
+                        and Tongue channels in the Speech Blend property editor (see <span class="char_link"><a href="face_lipsync_WeightingtheLipSyncAnimation.htm#WS415EFE3C9E1CC94591B6F66DE666B8F6-00A9">Weighting the Lips, Jaw, and Tongue Globally</a></span>). As with the Adjust controls, you can set these values to any number you like and
+                        animate them. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7A510D0B-47A7-46AE-AB01-CD6C0CEA0DFE"></a></span>You may also choose to use only parts of the lip sync with the mocap. For instance,
+                        you can disable the lips and jaw channels of the lip sync so that you are using only
+                        the tongue lip-sync animation with the mocap. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4BDEDA73-6780-4A05-9228-687FB670F247"></a></span>You can also decouple the corrective shapes from the lips channel as a way to automate
+                        this work (see <span class="char_link"><a href="face_lipsync_CreatingandBlendingCorrectiveShapesfortheVisemes.htm#WS415EFE3C9E1CC94591B6F66DE666B8F6-00C0">Decoupling the Corrective Shapes from their Viseme Poses for Mocap Animation</a></span>). 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_E81B332A728B469C8817ABD1569D7F1A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C95B2016-3066-4342-8A36-09AD28F8CD66"></a></span>Plotting the Mocap
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6EEBD51A-6C3D-4252-90CF-645A34A1D81A"></a></span>Once you've finalized the mocap, you can plot it and apply it to the face, which prevents
+                     any more adjustments to be made to it (see <span class="char_link"><a href="face_act_PlottingtheMocapandKeyframeData.htm">Plotting (Baking) the Mocap and Keyframe Data</a></span>). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7621F773-0691-453A-B91A-E6F530B98534"></a></span>However, you can then blend the weighting of the mocap clip with the lip-sync animation
+                     clip in the mixer. See <span class="char_link"><a href="animmixer_MixingandWeightingClips.htm">Mixing and Weighting Clips</a></span> for more information. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS415EFE3C9E1CC94591B6F66DE666B8F6-00CE"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4D2F8D7C-A36B-4DD6-B901-5DB944399213"></a></span>Blending Lip-Sync Animation with Keyframes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-EFFB8ED7-5ABF-4451-A237-B0A0559ECE72"></a></span>Lip-sync animation works in conjunction with keyframe animation. You can set keys
+                  on the animation controls using animation layers (see <span class="char_link"><a href="ani_layers.htm">Animation Layers</a></span>), store that animation as a clip in the mixer (see <span class="char_link"><a href="actions_StoringActionSources.htm">Storing Animation in Action Sources</a></span>), or key the animation controls directly. 
+               </p> <span class="anchor_wrapper"><a name="UL_52A7B2AB35224E278F4D040457B897DD"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8F23A8EA-6CA1-4BC0-AF1C-7ACAB199FDEF"></a></span>To add keyframes on top of the lip-sync animation, add an animation layer and set
+                        keyframes in that layer. These are considered to be an offset from the base layer
+                        of animation (the lip-sync animation). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C20FA42F-269B-4332-8185-AB426DBA7532"></a></span>If you store the keyframe animation in a clip, you can blend between it and the Speech
+                        Action clip as you would normally blend between clips in the mixer - see <span class="char_link"><a href="animmixer_MixingandWeightingClips.htm">Mixing and Weighting Clips</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A67B32B6-227F-49C7-A026-CCDE74DAA8A7"></a></span>If you key the lip, jaw, or tongue animation controls directly, the speech operator
+                        (which drives the Speech action clip) will override this animation because clips in
+                        the mixer always override other animation at the same frames. However, you can set
+                        the mixer options to allow this clip to blend with the fcurves - see <span class="char_link"><a href="actions_MixingFcurveswithActionClips.htm">Mixing Fcurves with Action Clips</a></span> for more information. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

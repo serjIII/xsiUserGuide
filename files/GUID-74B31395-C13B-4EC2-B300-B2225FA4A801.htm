@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-74B31395-C13B-4EC2-B300-B2225FA4A801">
+      <meta name="indexterm" content="Syflex ICE: collisions with simple bounding objects">
+      <meta name="topic-type" content="concept">
+      <title>Creating Collisions with Bounding Shape Objects</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-74B31395-C13B-4EC2-B300-B2225FA4A801"></a></span><div class="head">
+            <h1>Creating Collisions with Bounding Shape Objects</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-C88615C6-66C3-4127-8A61-6B82CD632CD1"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-A4EAC126-1466-4FF7-A6A2-F9E3E6F8031B"></a></span>Bounding shapes provide a quick solution for cloth collisions when shape accuracy
+            is not an issue for the collision object. Since a simulation continuously calculates
+            the positions of objects while checking for collisions, using a bounding shape can
+            save a lot of time. For example, if a cloth is colliding with many collision objects,
+            you may want to use bounding shapes instead of actual polygon mesh collision objects.
+            
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-E11FC57F-A4F4-498A-A82B-4AF49F3983B9"></a></span>Bounding shapes are computed around a null object that you select. The null's translation
+            and rotation values affect the bounding shape because its location and orientation
+            is based on the null's center. You can also animate the null's translation and rotation
+            values. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-885CEBF4-B974-4527-9538-CF2BDE8F0BCE"></a></span>The null's Size and Icon shape parameters don't matter to the bounding shape that
+            is created; for example, if you are using the Syflex Collide Capsule node to create
+            a bounding capsule as the collision object, as shown below, you can set the null's
+            Icon shape and Size to be anything you like. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-08F4C319-1881-44CD-BCD3-8BD165BD44DE"></a></span> <img src="../images/GUID-AA818E52-418D-455D-B5DC-DDDD39A814FA-low.png"> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-9E89FDD1-DBBD-46F6-8ACA-63669A70A93F"></a></span>For the Syflex Collide Plane node, an infinite-sized plane is created, regardless
+            of the null's size or shape. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-10935A63-358B-432F-807B-CEC9002F561F"></a></span> <img src="../images/GUID-9A5273FF-EB67-472F-8789-8684C13C46AE-low.png"> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-D8B9CB29-846B-4011-BFB8-A528CCC26330"></a></span>For the Syflex Collide Sphere node, the Icon shape used doesn't matter, but the null's
+            Size value is used, so changing it changes the size of the bounding sphere accordingly.
+            As well, changing the scale (transformation) values affects the size used for the
+            bounding sphere, but only if you use uniform scaling. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-59D3C215-EE73-4A14-98BF-003B2E5185B5"></a></span> <img src="../images/GUID-5B924F97-9143-4A1E-A3B9-AA3FDC9B431C-low.png"> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-3E7121C3-31FA-4570-A737-44658AB18F17"></a></span>To create bounding shape collision objects for simulated cloth or curves: 
+         </p><span class="anchor_wrapper"><a name="GUID-EBFE58EE-AF00-4647-A948-48D7335AD958"></a></span><ol type="1" start="1">
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-3486F4A4-5791-42F6-A9E0-C7384A97A5AF"></a></span>Create a Syflex ICE cloth or curve simulation - see <span class="char_link"><a href="GUID-60BCC277-A58B-490F-9550-6FDD7DF3C145.htm">Creating Syflex ICE Simulations</a></span>. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-65B7825C-80AE-4732-879B-3C6EF0C28407"></a></span>Create one or more null objects to use a base for the collision object. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-1609E8D5-6A77-41CB-99E7-5F8CD4BCADCD"></a></span>Do either of the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_48145A553D854860BFDABC68814C9774"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E80578A9-9905-4785-8734-6DC4C11753C3"></a></span>Choose the <span class="MenuCascade" id="GUID-DB5EB4DA-068B-4F93-83AC-5BBB4AAD6964">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Syflex <img src="../images/ac.menuaro.gif"> Add Collide Capsule/ Add Collide Sphere/ Add Collide Plane</span> command from the ICE Tree toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CCA4ED07-68B1-4619-AA15-AB2F2555BC9F"></a></span>Then pick one null object to use as the base for the bounding shape collision object.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-64BCC49A-BFD3-46EE-841C-0DCE06690DBE"></a></span>This updates the Syflex ICE tree with the Syflex Collide Capsule/Sphere/Plane node
+                        and a Get Data node for the collision object. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EA0BCD2D-60A3-4AE3-B419-13A1725F632A"></a></span>In the ICE Tree view, drag the <span class="MenuCascade" id="GUID-1B9B3705-006D-4ABE-AE5C-E62D139B3A7F">Collisions <img src="../images/ac.menuaro.gif"> Syflex Collide Capsule/Sphere/Plane</span> compound from the Task &gt; Syflex tab in the preset manager and plug it into a Force
+                        port on the Syflex Cloth or Syflex Curve node. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DDD3903C-CCA4-4B4B-8B8C-6631482AF313"></a></span>Then drag the name of the null used for collision object from an explorer into the
+                        ICE tree to create a Get Data node for it. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6F18636F-802F-4A72-98A5-9993EDB208E1"></a></span>Plug the null object's Out Name output into the Null port on the Syflex Collide Capsule/Sphere/Plane
+                        node. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_CED13D444AD343F98A999DF40319360B"></a></span><div class="figure-anchor"><img src="../images/GUID-C0C8646F-DDEA-4792-8D7C-590828A62FE6-low.png"></div> 
+                  </li>
+               </ul> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-C1174C96-FD9F-4B3B-AC06-E1B6E24ACC52"></a></span>Add a Syflex Collide Capsule/Sphere/Plane node and Get Data node for each null you
+                  want to use as a collision object. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0046"></a></span> Set the parameters in the <span class="char_link"><a href="iceref_Syflex_Collide_Capsule.htm">Syflex Collide Capsule</a></span>/ <span class="char_link"><a href="iceref_Syflex_Collide_Sphere.htm">Syflex Collide Sphere</a></span>/ <span class="char_link"><a href="iceref_Syflex_Collide_Plane.htm">Syflex Collide Plane</a></span> property editor. 
+               </p> 
+            </li>
+         </ol>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

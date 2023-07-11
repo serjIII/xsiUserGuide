@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-FDEDC562-524F-4399-83A2-8FF285AA41FB">
+      <meta name="indexterm" content="realtime shaders: vertex attributes">
+      <meta name="indexterm" content="vertex shader input semantics (effects shaders)">
+      <meta name="indexterm" content="realtime shaders: vertex shader input semantics (effects shaders)">
+      <meta name="indexterm" content="semantics: vertex shader input semantics (effects shaders)">
+      <meta name="topic-type" content="concept">
+      <title>Creating User Interfaces for Vertex Shader Inputs</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-FDEDC562-524F-4399-83A2-8FF285AA41FB"></a></span><div class="head">
+            <h1>Creating User Interfaces for Vertex Shader Inputs</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-EE10B777-C7AF-436F-AEAA-BABEDB7BACAF"></a></span>Variables declared as input to a vertex shader are often bound to predefined names
+               (POSITION, COLOR0, COLOR1, TEXCOORD0, etc.) that are referred to as <span class="MenuCascade" id="GUID-EDE12ACB-F83B-4F54-AF0C-F7E5E1994FB2">binding semantics</span>. These predefined names implicitly specify the mapping of the inputs to particular
+               hardware registers. Depending on the semantics that you use, either Softimage or your
+               vertex program must supply the data for each of these variables. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-39FE7248-77D0-4B1B-88CB-63A06F3C55D8"></a></span> <span class="MenuCascade" id="GUID-153BC609-7C41-4622-BF83-FA0CB8446B00">A vertex attribute control</span> is created in the property editor for each vertex shader variable that is bound to
+               semantics such as COLOR[n], TEXCOORD[n], TANGENT, and BINORMAL. A vertex attribute
+               control is not created for all binding semantics. If, for example, a variable is bound
+               to the POSITION or NORMAL semantic, it will not generate a vertex attribute widget
+               because these semantics are automatically bound by Softimage. For a list of the supported
+               semantics, see <span class="char_link"><a href="rt_cgfx_hlsl_CreatingUserInterfacesforVertexShaderInputs.htm#WS4F13F53798BA3F4FA5B9631E4DB3180B-002E">Vertex Shader Input Semantics</a></span>. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-1FADEA06-C88D-4261-9E34-B5330B6CC7EC"></a></span>Note that per-vertex variable data can be bound to a TEXCOORD semantic even when it
+               is not a texture coordinate. This gives you the freedom to connect a texture projection
+               in a COLOR register or a vertex color in a TEXCOORD register (it's as you wish). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-ABCFB130-0653-4C05-8FB6-33B1DA614640"></a></span>The members of a <span class="MenuCascade" id="GUID-24AB7025-969B-4E04-8B77-08CF676EB4A8">struct</span> have semantics specified, which connect the variables in the shader code to the underlying
+               graphics system (OpenGL/DirectX). The input structure identifies the data from the
+               vertex buffer that will provide the shader inputs. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B2C9DFFB-DD73-46DF-A978-3B385422110D"></a></span>The following snippet of CgFX code maps the position, normal, tangent, binormal and
+               texture coordinate data from the vertex buffer into vertex shader registers. 
+            </p>
+            <div class="codeBlock"><pre>
+struct VS_Input {
+ float3 Position	: POSITION;
+ float4 UV	: TEXCOORD0;
+ float4 Tangent	: TEXCOORD1;
+ float4 Binormal	: TEXCOORD2;
+ float4 Normal	: NORMAL;
+};</pre></div><span class="anchor_wrapper"><a name="FIG_5BCDAE5A8D554562A2D8BF753A4E6E1A"></a></span><div class="figure-anchor"><img src="../images/GUID-DF6F5FC9-4D22-43BB-A907-3A42B83AA2A6-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-ADAA275D-A544-442A-9027-5D80C5F412BC"></a></span>The binding semantics dynamically generate vertex attribute widgets as displayed in
+               this CgFx shader's property editor. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3865EC30-FBCB-481C-82B7-10D852D2453A"></a></span>The following snippet of HLSL code maps the position, normal, tangent, binormal and
+               texture coordinate data from the vertex buffer into vertex shader registers. 
+            </p>
+            <div class="codeBlock"><pre>
+struct VS_Input
+{
+	float4 Position : POSITION;
+	float3 Normal : NORMAL;
+	float3 Tangent : TANGENT;
+	float3 Binormal : BINORMAL;
+	float2 TexCoords : TEXCOORD0;
+};</pre></div><span class="anchor_wrapper"><a name="FIG_4324C017594C44B1A8B40FEE10FE7E63"></a></span><div class="figure-anchor"><img src="../images/GUID-9BD88E38-2EFF-48FB-8BED-DB95BAA5E0DF-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-6C376934-E8B0-4EC7-AFFE-0B7764480CC7"></a></span>The binding semantics dynamically generate vertex attribute widgets as displayed in
+               this HLSL shader's property editor. Note that for HLSL, the vertex attributes must
+               be used in the shader code, otherwise they will be culled by the compiler and not
+               available in the property editor. 
+            </p><span class="anchor_wrapper"><a name="TABLE_2CC28E26470940AD881443E6D5DB24AA"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="16.666666666666668%" align="left">
+                     <col width="83.33333333333334%" align="left">
+                  </colgroup>
+                  <tr class="ruledHeading">
+                     <th class="table-heading" colspan="2" align="left"> <span class="anchor_wrapper"><a name="GUID-D8BEFA19-C600-48D3-8BAB-02409FB20F56"></a></span><p class="table-heading">Vertex Attribute Control </p> 
+                     </th>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-83ABCC0D-D071-4BEB-9230-0DBC370748EE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-181294D2-87F1-4ACF-9190-255BFAB4B437">A</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AFB47FE0-7BEB-432C-A600-23E5E2AD3DCD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1CE90B6D-3308-4798-9BD7-69108FA4E953">CgFX:</span> The vertex attribute widget is labeled as <span class="MenuCascade" id="GUID-D42E9D05-D448-4FDD-8B40-7939AF2BFE99">_IN_VariableName.</span> 
+                        </p> <span class="anchor_wrapper"><a name="GUID-46EECE93-D4F1-42FA-AF9E-FE3F56DBCF85"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C6FBA907-00A2-4B09-97C2-D7F33A422AC7">HLSL:</span> The vertex attribute widget is labeled according to the semantic to which it is bound.
+                           For example, the TEXCOORD semantic generates a widget that is labeled <span class="MenuCascade" id="GUID-5C239254-0864-48B5-8A17-4A0B4D7E0682">texcoord.</span> 
+                        </p> <span class="anchor_wrapper"><a name="GUID-A37744A6-E0B7-48A2-AFC7-181982540E81"></a></span><p class="table-body">For more information, see <span class="char_link"><a href="rt_cgfx_hlsl_CreatingUserInterfacesforVertexShaderInputs.htm#WS4F13F53798BA3F4FA5B9631E4DB3180B-002E">Vertex Shader Input Semantics</a></span>. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AA522105-FF0F-47DD-89F6-05267FEE511A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8813F639-CAE2-4608-861F-E8D19B10D342">B</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5EF07CC0-F849-4A37-B7A7-3183EB67BD25"></a></span><p class="table-body">The vertex attribute widget provides a drop-down list where you can select any 0D
+                           component, including any ICE attribute, that exists or can be created on a mesh or
+                           point cloud and pass it into the specified vertex input register. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0A824023-2530-44EC-9DBB-DAB571CBDCE9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B4FCD931-6A7B-49AE-8BBE-C8AF325060FA">C</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-79327F4A-D977-46A6-A961-8229BAE02B6B"></a></span><p class="table-body"><img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"> The <span class="MenuCascade" id="GUID-1E9076B8-0D0F-4247-8BBE-A4B0D153CACB">Edit</span> button opens the property editor for the associated attribute so that you can edit
+                           its parameters. For example, if you have set tangent data to be passed to the input
+                           register, pressing Edit will open the TangentOp3 operator property editor. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3A805D2D-5FF4-4E1E-BFAF-669DAB84EDAE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E1C72D06-56DF-4BC0-A077-B387FCE655F3">D</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7286901D-38B9-479A-9B1F-012FF91587FA"></a></span><p class="table-body">The <span class="MenuCascade" id="GUID-EF797540-C0E0-49FE-A0DE-711B323F1A24">New</span> button lets you create a new texture projection, color at vertices, or weight map
+                           cluster property on the selected object and sets it as the data to be passed into
+                           the specified vertex input register. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-002D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1BC30A9D-A023-4882-8016-481C38003E34"></a></span>Automatic Tangents and Binormals
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7F4ABB4D-8F0E-48BA-82EE-AA81D2C1E33C"></a></span>You can have Softimage automatically create tangents and binormals on-the-fly. This
+                  can give faster playback and interaction in Realtime Shader display modes than using
+                  the operator-based Tangent and Binormal properties. To use the automatic tangents
+                  and binormals, just don't specify a Tangent or Binormal property as the vertex attribute
+                  input in the effects shader's property editor (leave it empty). See <span class="char_link"><a href="tex_tangents_binormals_AutomaticTangentsandBinormals.htm">Automatic Tangents and Binormals</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-30A2D9D9-8CFD-414E-AC1A-A3B986075FE6"></a></span>However, keep in mind that if you already have normal and tangent data, it is not
+                  optimal to have Softimage generate the binormals. Instead, you should calculate the
+                  binormals on-the-fly in the vertex shader. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-002E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1DCD1176-B4EA-44A6-8CCF-117417BC6B37"></a></span>Vertex Shader Input Semantics
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-A8E8B022-0CB7-4C7D-9B7E-AE2F3AE0017C"></a></span>An input register is bound to vertex data using vertex shader semantics. Vertex shader
+                  input semantics describe the per-vertex data (for example: position, normal, texture
+                  coordinates, color, tangent, binormal, etc.) to be loaded from a vertex buffer into
+                  a form that can be consumed by the vertex shader. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-34A5A8FA-4D91-47A0-9759-6E3190235B9E"></a></span>The input registers consist of 16 four-component floating-point vectors, numbered
+                  from 0 - 15. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9C5A9C95-5269-40BC-B497-A15E0567AED2"></a></span>Vertex shader variables bound to specific input semantics dynamically generate a user
+                  interface. You can use the vertex attribute widget to customize the per-vertex attributes
+                  that are passed to the effect. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-050A9D80-8692-4700-A6B2-2714C0072CB7"></a></span>The following table shows the supported input semantics for vertex shaders defined
+                  in effects files. The [n] notation indicates an optional index. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FB97EFB5-A5CA-4EC5-A0AD-F79CBCC3F521"></a></span>For information on how to use effects shaders in the render tree, see <span class="char_link"><a href="rt_cgfx_hlsl_SettingUpEffectsShadersintheRenderTree.htm">Setting Up Effects Shaders in the Render Tree</a></span>. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_7B13E8A81071459A96340697CFE0380D"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="20%" align="left">
+                        <col width="66.66666666666666%" align="left">
+                        <col width="13.333333333333334%" align="left">
+                     </colgroup>
+                     <tr class="ruledHeading">
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-53D1F79F-E35D-4B77-B90E-97518F39D66A"></a></span><p class="table-heading">Input </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-E74C27F8-5168-4C22-BFF2-CB8194FBFBEF"></a></span><p class="table-heading">Description </p> 
+                        </th>
+                        <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-4C3DD244-BA04-48C1-8EC9-E2459CEEC1B2"></a></span><p class="table-heading">Type </p> 
+                        </th>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-64743DF1-B52F-4E1A-9CF7-8110DA3E855D"></a></span><p class="table-body">BINORMAL[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-710606DB-7478-4A2F-8237-FD7F6A3EDFB2"></a></span><p class="table-body">Binormal. </p> <span class="anchor_wrapper"><a name="GUID-B5FBFF05-FFD4-4B56-88AD-C359A83683E4"></a></span><p class="table-body">This semantic generates a vertex attribute widget where you can specify and edit the
+                              data you are passing to the vertex shader. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-AD1E89C5-DE66-4EA5-BE93-D6DCA531447B"></a></span><p class="table-body">The widget is labeled as follows: </p> <span class="anchor_wrapper"><a name="GUID-319A077D-23E2-432F-86C3-86DC6A036D63"></a></span><p class="table-body">_IN_VariableName (CgFX) </p> <span class="anchor_wrapper"><a name="GUID-6419B51F-73FC-4D11-881C-2AA17E4B8F47"></a></span><p class="table-body">Binormal (HLSL) </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-04A4AE88-FB43-4130-8C76-E4FF00C2C3A4"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7A755154-B15D-474B-9663-0C5B773AFA43"></a></span><p class="table-body">BLENDINDICES[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-329AEA27-F2F8-4D13-B98E-842060D81968"></a></span><p class="table-body">Blend indices for skeletal blending. </p> <span class="anchor_wrapper"><a name="GUID-2FCBE547-4B81-4907-B469-7B03480DF404"></a></span><p class="table-body">Softimage does not supply the data for variables bound to this semantic. It is up
+                              to the vertex shader program to calculate the required values and supply them as input.
+                              
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-95C79990-EA6B-4504-8912-8337352AB31E"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-07CE0CD1-AA23-42D8-92E4-829E1993A8E1"></a></span><p class="table-body">BLENDWEIGHT[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-01D1446C-BFA0-40B2-8A17-5416E5A8DBCB"></a></span><p class="table-body">Blending weights for skeletal blending. </p> <span class="anchor_wrapper"><a name="GUID-04BF28E8-8BE4-4091-8DFB-73694236454E"></a></span><p class="table-body">Softimage does not supply the data for variables bound to this semantic. It is up
+                              to the vertex shader program to calculate the required values and supply them as input.
+                              
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-02E76F9E-4C23-478F-93C0-431B25B8CA0F"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-418FF975-46EC-45D0-A564-9AC071018DC6"></a></span><p class="table-body">COLOR[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-007406B1-5E55-404E-8B09-EDE3EC919D3D"></a></span><p class="table-body">Color. </p> <span class="anchor_wrapper"><a name="GUID-6803A9D1-10F1-4774-A605-22EFE553CDA6"></a></span><p class="table-body">This semantic generates a vertex attribute widget where you can specify and edit the
+                              data you are passing to the vertex shader. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-6024F99C-C446-4211-B079-AFA3204034BD"></a></span><p class="table-body">The widget is labeled as follows: </p> <span class="anchor_wrapper"><a name="GUID-87BFF8B1-20A5-41A7-B61C-C40B763AD117"></a></span><p class="table-body">_IN_VariableName (CgFX) </p> <span class="anchor_wrapper"><a name="GUID-2E54B6CC-384D-42C6-ADBE-2FCD3DEFFF6E"></a></span><p class="table-body">Vertex_Color (HLSL) </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1E32DEB5-1F55-4E32-BAEC-34C043458340"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CAFC4659-1290-475D-85EB-5A1EE7B17ADF"></a></span><p class="table-body">DIFFUSE0 </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-78DF57A2-3B52-42D2-8031-36859BC9BCB2"></a></span><p class="table-body">Diffuse color. </p> <span class="anchor_wrapper"><a name="GUID-73BD781A-36E4-48AF-B7FA-F763D5B7DAC9"></a></span><p class="table-body">This semantic generates a vertex attribute widget where you can specify and edit the
+                              data you are passing to the vertex shader. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9C80EB03-DD8C-475B-A0D5-16F18631546F"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A7D1AF67-67CF-4459-9DDA-8DA1E6CCB220"></a></span><p class="table-body">NORMAL[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-83810AA4-2D25-45E3-BCE7-FF7C1EE674DC"></a></span><p class="table-body">Normal vector. </p> <span class="anchor_wrapper"><a name="GUID-6770D935-8DAC-4877-8BE9-207E9AE5E67C"></a></span><p class="table-body">This semantic is automatically bound by Softimage. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3224772B-E7BB-434C-9243-629769B071AA"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6FD011ED-C4B2-40EA-8706-0E53CEA49BCF"></a></span><p class="table-body">POSITION[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B1C298A8-F97B-4973-9EC6-9DDB04B5F93C"></a></span><p class="table-body">Vertex position in object space. </p> <span class="anchor_wrapper"><a name="GUID-0D4CD2B2-F33B-412F-BEEE-3363AB40C7E5"></a></span><p class="table-body">The position variable (bound to the POSITION semantic) is required, as it is used
+                              for rasterization. It is the only variable that is required as an input to the vertex
+                              program. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-A2FA49B8-3816-4F0F-84E6-909E2762AB8A"></a></span><p class="table-body">This semantic is automatically bound by Softimage. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C0ECE36D-3F2C-4452-B77B-73A2085E29C5"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D9F0BF46-4463-4A10-86B9-30F8E530E686"></a></span><p class="table-body">POSITIONT[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A19333A8-20C2-40E6-A19A-9104F34283AC"></a></span><p class="table-body">Transformed vertex position. </p> <span class="anchor_wrapper"><a name="GUID-723CB9A4-9E1C-4055-9155-9F7F98758C6A"></a></span><p class="table-body">This semantic is automatically bound by Softimage. </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4A91D3B5-AAA7-48A2-8EB6-69433A252F9E"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E427436A-6DFD-4283-9775-166D60F7AEB8"></a></span><p class="table-body">PSIZE[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B6D6271C-C18A-4E27-8E8F-17632E3CDD1B"></a></span><p class="table-body">Point size. </p> <span class="anchor_wrapper"><a name="GUID-76F8BF8F-4667-439D-B18C-DBA1BFB8589F"></a></span><p class="table-body">This semantic generates a vertex attribute widget where you can specify and edit the
+                              data you are passing to the vertex shader. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DFDF9FAE-04CC-497A-9506-8B604EE56B04"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-753CB333-AB44-42FF-89EE-64FB0D7131B1"></a></span><p class="table-body">SPECULAR0 </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EE187099-9867-4846-95F9-448B11E7C7E6"></a></span><p class="table-body">Specular color. </p> <span class="anchor_wrapper"><a name="GUID-9152C2A7-B2D5-4810-A1FD-5908223BE082"></a></span><p class="table-body">This semantic generates a vertex attribute widget where you can specify and edit the
+                              data you are passing to the vertex shader. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2346C724-7A5E-4A98-909C-B1718066D3FE"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5D52E7A2-F78F-460B-A63D-474CDB4463EB"></a></span><p class="table-body">TANGENT[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-34677EEA-1D3B-4F57-AE4A-31E8229D72FB"></a></span><p class="table-body">Tangent. </p> <span class="anchor_wrapper"><a name="GUID-2E99CD65-93BC-430A-8805-4D1015A5FEAC"></a></span><p class="table-body">This semantic generates a vertex attribute widget where you can specify and edit the
+                              data you are passing to the vertex shader. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-F40332EE-8B7D-474A-9B0D-33DB7078A39C"></a></span><p class="table-body">The widget is labeled as follows: </p> <span class="anchor_wrapper"><a name="GUID-E962424A-ABEF-4007-840A-C2FA87ED82BA"></a></span><p class="table-body">_IN_VariableName (CgFX) </p> <span class="anchor_wrapper"><a name="GUID-9EF01151-D023-4FB0-9152-19E311E7C09C"></a></span><p class="table-body">Tangent (HLSL) </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C2B2AEDA-999B-4687-BD6E-EC929362382F"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BF2578E8-3910-4172-890A-E3F5657F10F7"></a></span><p class="table-body">TESSFACTOR[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B0B3B715-15BE-479C-9EE5-F3FF590863AE"></a></span><p class="table-body">Tessellation factor. </p> <span class="anchor_wrapper"><a name="GUID-5F0BBF90-AA81-445A-8C11-AE59FCBCE8CD"></a></span><p class="table-body">This semantic generates a vertex attribute widget where you can specify and edit the
+                              data you are passing to the vertex shader. 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-497F5B2F-0297-41CE-B70D-DCF165596A1B"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7A06761D-31EC-467F-86A4-34E40528E59D"></a></span><p class="table-body">TEXCOORD[n] </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1542C85E-9F00-438C-B810-8443D56B38B6"></a></span><p class="table-body">Texture coordinates. </p> <span class="anchor_wrapper"><a name="GUID-2E0A841D-3244-48C9-9FA5-E1124F305C70"></a></span><p class="table-body">This semantic generates a vertex attribute widget where you can specify and edit the
+                              data you are passing to the vertex shader. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-08907F19-B2A4-408C-99E9-B0638BE3ED12"></a></span><p class="table-body">The widget is labeled as follows: </p> <span class="anchor_wrapper"><a name="GUID-C9DE8089-6CE2-418E-A848-6928EA144FCB"></a></span><p class="table-body">_IN_VariableName (CgFX) </p> <span class="anchor_wrapper"><a name="GUID-BB2387D7-309F-497C-8F65-829E48115D2C"></a></span><p class="table-body">Texcoord (HLSL) </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-021641D5-3F96-4E07-9195-B4ABD9F3FD66"></a></span><p class="table-body">float4 </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

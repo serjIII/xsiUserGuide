@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F1629B9E-C99E-4DEF-9DB2-45BDA7B6AC41">
+      <meta name="indexterm" content="reflective occlusion">
+      <meta name="indexterm" content="occlusion: reflective">
+      <meta name="topic-type" content="concept">
+      <title>Reflective Occlusion</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F1629B9E-C99E-4DEF-9DB2-45BDA7B6AC41"></a></span><div class="head">
+            <h1>Reflective Occlusion</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-C58F2976-203E-448F-8A5B-A3973A6D5C8D"></a></span>The Ambient Occlusion shader is also capable of reflective occlusion. When reflective
+               occlusion is activated, the shader changes the sampling pattern in order to distribute
+               samples around the direction of reflection, rather than the direction of the surface
+               normal (or bent surface normal). This is most useful for adding detail to environment-only
+               reflections created using environment maps. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A5C53467-0564-4539-9938-36E4C1F360C4"></a></span>You can create reflection occlusion for individual objects, but it is easiest to do
+               it a the render pass level, as shown in the following example, where an environment
+               map shader has been added to the current pass' shader stack: 
+            </p><span class="anchor_wrapper"><a name="FIG_E7CCF31BDF944480A26E41E550E7D316"></a></span><div class="figure-anchor"><img src="../images/GUID-540FA602-029F-49AB-9971-8780235BDA17-low.png"></div><span class="anchor_wrapper"><a name="FIG_BF33D73F44D84DD69D59AE9663A3090C"></a></span><div class="figure-anchor"><img src="../images/GUID-18FCB750-F52B-4917-AA68-087C56E1933F-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-F8DB487E-C07A-49CB-BCFC-180BEC934636"></a></span>The cube, sphere and grid are all reflective, but the reflection type is set to Environment
+               Only, meaning that they reflect only the environment map (a sky texture) that has
+               been applied to the current render pass. Since no raytraced reflections are done,
+               the objects do not reflect the floor grid, or one another. 
+            </p><span class="anchor_wrapper"><a name="FIG_DF87DB50BAA742F084D1BE621B9BD8EB"></a></span><div class="figure-anchor"><img src="../images/GUID-CF4EA9A0-D95C-43F4-A4E2-49086006A3BF-low.png"></div><span class="anchor_wrapper"><a name="FIG_BF9B02490BD145D9B90D6333D64A48DD"></a></span><div class="figure-anchor"><img src="../images/GUID-22E5BA10-6BFA-4857-B936-3B4FB024880D-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-EFFC7612-958D-434E-895B-6AB76EAAE176"></a></span>Here, the Ambient Occlusion shader is connected to the Pass Material's Environment
+               Shader Stack port. The environment map itself is driving the Ambient Occlusion shader's
+               bright color, so that the reflected environment appears where the objects are unoccluded.
+               The dark color (red in this case) is filling in the occluded areas, which adds the
+               outline of the occluding objects to the (still non-raytraced) reflections. Note that
+               the Spread is set to 0, so the occlusion is very sharp. This adds detail, if not realism
+               to the scene's reflections. 
+            </p><span class="anchor_wrapper"><a name="FIG_D1677717AE1A41AABEDE94B8A7887FB9"></a></span><div class="figure-anchor"><img src="../images/GUID-94913421-DDB7-452B-8DC3-EF81E8E12190-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-1A01E44B-4748-48B3-9A89-425D3219FCF7"></a></span>Note that the <span class="MenuCascade" id="GUID-F0E47633-16AC-4A6E-87CE-8A5EE9DBAF56">Reflective</span> parameter must be turned on in the Ambient Occlusion shader's property editor. This
+               ensures that occlusion takes place where reflections, rather than ambient occlusion,
+               should appear. 
+            </p><span class="anchor_wrapper"><a name="FIG_C92D49F260444AEBBB3A41FB8BB4859A"></a></span><div class="figure-anchor"><img src="../images/GUID-FEEA15D1-DF7B-4050-B645-5D7EA90DF69B-low.png"></div><span class="anchor_wrapper"><a name="FIG_EAB98D6EB0C94FD290C53F641CD8962B"></a></span><div class="figure-anchor"><img src="../images/GUID-632C9DF3-FA11-4890-827D-8AD73601187E-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-8C5B68F1-10A6-49E0-87BC-C279A4E37AB1"></a></span>Finally, a Reflection shader is added, to drive the Ambient Occlusion shader's dark
+               color. This allows raytraced reflections to be calculated for the occluded areas only,
+               adding realism to the reflections. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4C638F9C-A166-4854-89C8-C42373739DB2"></a></span>For more information about environment maps, see <span class="char_link"><a href="tex_maps_CreatingaReflectionEnvironmentMap.htm#WS9825820158CC6F408FB52FB16A0CCEBF-0039">Using Environment Map Shaders</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. For more information about pass-level shaders, see <span class="char_link"><a href="passes_DefiningPartitions.htm#WSBDF3789326DBBD4FB2A3C80D3F0ED961-005A">Applying Shaders to Partitions</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS26D671275BFF8445B9D89309308439A7-0030"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FB9C39F0-B343-4919-86FE-CCFEE4B78CD7"></a></span>To apply scene-wide reflective occlusion via a render pass
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3127F191-8C70-4029-8E6E-5D6308A179E2"></a></span> <span class="MenuCascade" id="GUID-FED2A683-E16E-405E-B186-DCBDDA82C0DD">Before you start:</span> this procedure assumes that the scene contains reflective objects whose surface shaders
+                  (or other reflection shaders) have their <span class="MenuCascade" id="GUID-F24709FF-FACF-446B-B221-C5A7F024434E">Reflection Mode</span> parameter should be set to <span class="MenuCascade" id="GUID-3031C59C-8D8C-4450-8F41-25443A5FE883">Environment</span> only 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D4372A24-33CF-4785-84EA-F0F008481384"></a></span>For more information about reflectivity, see <span class="char_link"><a href="surface_shaders_ReflectivityTransparencyandRefraction.htm#WS7D985BEF981BDE48B9AC95D870745C5C-0019">Reflectivity</a></span>. For more information about environment maps, see <span class="char_link"><a href="tex_maps_CreatingaReflectionEnvironmentMap.htm#WS9825820158CC6F408FB52FB16A0CCEBF-0039">Using Environment Map Shaders</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+               </p> <span class="anchor_wrapper"><a name="GUID-0A9F133A-EBC7-43C6-A4EA-C4358511B547"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C31B1938-3B8C-420B-B996-6F4574C06936"></a></span>Open an explorer (press <span class="MenuCascade" id="GUID-3E886DC5-FCA0-42C2-AC40-EE8943490D81">8</span>) and press <span class="MenuCascade" id="GUID-9294BD79-6338-4851-9154-40068D966FFF">P</span> to set the scope to passes. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A6A27F4E-B54C-43BC-B52C-8F4F265F57DA"></a></span>Select the pass in which you want to create the reflective occlusion effect and press
+                        7 to open the render tree. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9783C5D4-BC13-4DF4-A7B1-1352E4CB2EFD"></a></span>From the render tree's Nodes menu, get the following shaders: 
+                     </p> <span class="anchor_wrapper"><a name="UL_62A1A43B831E4E199C7DDC8387A63BC7"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A6B7B8BE-844A-4747-8B2F-2DAF6072F21D"></a></span> <span class="MenuCascade" id="GUID-34D0C045-C01C-4986-8223-4E1F0BBBF66F">Environment <img src="../images/ac.menuaro.gif"> Environment</span> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-71FE2850-AED4-4FB0-9011-19A24C2A26BB"></a></span> <span class="MenuCascade" id="GUID-0554C8F7-133D-4484-A308-39E81F6F5288">Illumination <img src="../images/ac.menuaro.gif"> Ambient Occlusion</span> 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-026DDCEE-F413-4623-A8DB-A8A731F85325"></a></span>Connect the Ambient Occlusion shader to the Material node's <span class="MenuCascade" id="GUID-D87CB20D-1F07-48AE-A384-93DC1E2F64E8">Environment Shader Stack</span> port. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DE5A2577-61C0-4A94-B29D-8C0624BE72BD"></a></span>Connect the Environment node to the Ambient Occlusion shader's <span class="MenuCascade" id="GUID-D082FCBD-71E8-4268-9247-922932A2D6EB">Bright Color</span> port. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-91A7E34D-5196-4C47-82CD-7C6A9004C746"></a></span>Edit the Environment node's properties to choose the image you wish to use as an environment
+                        map. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-64C945CE-2DB9-4C2E-B45C-70FB2C0BEF4A"></a></span>Edit the Ambient Occlusion node's properties and make sure to set the following: 
+                     </p> <span class="anchor_wrapper"><a name="UL_EFFE5C3BBB834964B8B2BB3BA7F4493A"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7EEBAC05-1936-4817-88DF-99CDA53532A0"></a></span>Turn the <span class="MenuCascade" id="GUID-E49A2C25-A11E-4BA5-9D43-496ADEF971C6">Reflective</span> parameter on. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A4B1D8AC-8FA6-4533-9053-749E94455D09"></a></span>Reduce the <span class="MenuCascade" id="GUID-0D3FA7BE-C0FA-4EEE-ABF8-ED1EA42156D6">Spread</span> value to sharpen the occlusion in the object's reflective surface. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EB2F8364-5CE3-423B-BE8B-51FCEDE68AF5"></a></span>Continue to tune the ambient occlusion parameters as needed. See <span class="char_link"><a href="lights_AO_SettingtheAmbientOcclusionShaderOptions.htm">Setting the Ambient Occlusion Shader Options</a></span> for details. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS26D671275BFF8445B9D89309308439A7-0031"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E39B8C9E-4C6A-4EF9-93D4-C25BA69A25A6"></a></span>To apply reflective occlusion to an object
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-A5FAC549-0BCF-416B-BEB1-3E5A2B31446F"></a></span> <span class="MenuCascade" id="GUID-2354924C-F4D2-4D83-9C4E-F7F51086B466">Before you start:</span> this procedure assumes that the object in question is reflective, meaning that it
+                  has a surface shader, or other reflection shader controlling its reflectivity. Furthermore,
+                  the surface shader's Reflection Mode parameter should be set to <span class="MenuCascade" id="GUID-8B618CA7-EA56-4B87-8CF3-6A98779275BC">Environment</span> only. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-30D57618-C73E-4F4D-BCE5-EB67CD19B91E"></a></span>For more information about reflectivity, see <span class="char_link"><a href="surface_shaders_ReflectivityTransparencyandRefraction.htm#WS7D985BEF981BDE48B9AC95D870745C5C-0019">Reflectivity</a></span>. For more information about environment maps, see <span class="char_link"><a href="tex_maps_CreatingaReflectionEnvironmentMap.htm#WS9825820158CC6F408FB52FB16A0CCEBF-0039">Using Environment Map Shaders</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+               </p> <span class="anchor_wrapper"><a name="GUID-27A650E4-F661-43AC-BB8A-1BB69A758CDF"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F066E980-D1E6-4F8A-8A9E-15CFDFC09E1B"></a></span>Select the object for which you want to create the reflective occlusion effect and
+                        press 7 to open the render tree. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BDF2EB43-B965-4B04-9882-497A2E85EDE9"></a></span>From the render tree's Nodes menu, get the following shaders: 
+                     </p> <span class="anchor_wrapper"><a name="UL_E30EBB69A6DF41CF8F673FFAD80A5723"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-24242A02-406E-4413-A200-648EB8AD3B09"></a></span> <span class="MenuCascade" id="GUID-91F8DE51-693A-4E6F-BC15-835373334792">Environment <img src="../images/ac.menuaro.gif"> Environment</span> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-840E036B-67F5-45DC-80CE-CD9CB65ED105"></a></span> <span class="MenuCascade" id="GUID-40AC6CDB-4F0C-4793-82C2-D23BC20B0148">Illumination <img src="../images/ac.menuaro.gif"> Ambient Occlusion</span> 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8C77E026-00EB-4DD9-8A75-0EDCE54D9ABB"></a></span>Connect the Ambient Occlusion shader to the Material node's <span class="MenuCascade" id="GUID-D06DA7AE-99E6-45BB-A03A-31FF9BAFC4F6">Environment</span> port. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-18F831BD-488F-41FC-B4C6-A0EC955151EB"></a></span>Connect the Environment node to the Ambient Occlusion shader's Bright Color port.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-45201F68-6EE2-4295-832F-616FC9D662DE"></a></span>Edit the Environment node's properties to choose the image you wish to use as an environment
+                        map. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F3918E85-DED8-4308-BF73-4F27F30D27B5"></a></span>Edit the Ambient Occlusion node's properties and make sure to set the following: 
+                     </p> <span class="anchor_wrapper"><a name="UL_FF9D681E29D54129BE8951A3FA8279EC"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B11845F7-D240-4C26-A6A3-80467C19286C"></a></span>Turn the <span class="MenuCascade" id="GUID-D0151C6B-8384-457B-A969-22DD57C6B740">Reflective</span> parameter on. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-52D9404A-1660-4EA8-92DA-C704FEEE7976"></a></span>Reduce the <span class="MenuCascade" id="GUID-E0ECF258-6ACA-4B9D-B4B1-DD47CD980C5E">Spread</span> value to sharpen the occlusion in the object's reflective surface. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-06485C7E-6F98-4D26-8A81-F58710F0B95C"></a></span>Continue to tune the ambient occlusion parameters as needed. See <span class="char_link"><a href="lights_AO_SettingtheAmbientOcclusionShaderOptions.htm">Setting the Ambient Occlusion Shader Options</a></span> for details. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

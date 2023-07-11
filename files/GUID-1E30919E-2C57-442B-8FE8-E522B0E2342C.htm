@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-1E30919E-2C57-442B-8FE8-E522B0E2342C">
+      <meta name="indexterm" content="user motion">
+      <meta name="indexterm" content="motion blur: user motion">
+      <meta name="indexterm" content="motion blur: custom vectors">
+      <meta name="topic-type" content="concept">
+      <title>User Motion</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-1E30919E-2C57-442B-8FE8-E522B0E2342C"></a></span><div class="head">
+            <h1>User Motion</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-AF768007-2719-48D0-8CD3-0D2A0C00D3A2"></a></span> Instead of relying on Softimage to calculate motion vectors for blur, you can specify
+            custom user motion vectors. You can use any vectors you want — in fact, you can blur
+            an object even if it's not actually animated. User motion vectors can be useful in
+            a variety of situations, especially with fast rotational movement or curved paths.
+            
+         </p><span class="anchor_wrapper"><a name="FIG_908424298515449DA962CB0DA680F433"></a></span><div class="figure-anchor"><img src="../images/GUID-1DFABAE9-5D21-4BB3-89EC-8DDBD5514C91-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-7C95EF3A-AA4D-4CF0-BF88-434D1F91DAC8"></a></span>There are two ways to apply user motion vectors: <span class="anchor_wrapper"><a name="UL_AA04954F1DBA4DF9969506AA78718372"></a></span><ul>
+               <li>By applying <span class="MenuCascade" id="GUID-B3BEF336-7895-4DF8-A9B4-C965DEA870B9">User Motion</span> cluster properties. With this technique, you must set the property values somehow,
+                  for example, by using a script, custom operator, or ICE. 
+               </li>
+               <li>Using ICE to set the <span class="MenuCascade" id="GUID-09DDACB3-334D-4D95-BEAA-C63BC622CCDD">PointUserMotions</span> attribute. 
+               </li>
+            </ul>If one or other of these exist on an object, it is used for deformation blur instead
+            of the object's actual deformation. It gets blended with blur calculated for the object's
+            animated transformations. If you want to use only user motion and ignore the effect
+            of the object's transformation, then you can apply a Motion Blur property to the object
+            and disable Blur as described in <span class="char_link"><a href="motion_blur_CreatingaMotionBlurProperty.htm">Creating a Motion Blur Property</a></span>. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_8433EF8785C84B8A8AFC9846B93D85E2"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-16F135F5-C7D7-4FFE-82B9-3E95C7955186"></a></span>Considerations for User Motion
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-EA30EC0B-E9B2-4B0A-A1F6-A6A94B8EBF54"></a></span>No matter which method you use to specify user motion, here are some things you should
+               know: <span class="anchor_wrapper"><a name="UL_B2D4D5B23BE340798EEDEF266874DC44"></a></span><ul>
+                  <li>User motion data consists of one or more vectors from each point's position to a position
+                     along the desired motion path, in the object's local reference frame. <span class="anchor_wrapper"><a name="FIG_EAC422677A234E1398A0089B6D05F8C5"></a></span><div class="figure-anchor"><img src="../images/GUID-28C99F5B-59F9-415B-876A-9AB496864E63-low.png"><p class="figure-desc">User motion vectors for a point along a curved path. </p>
+                     </div> 
+                  </li>
+                  <li>You must enable motion blur in the scene or pass render settings. If you want to see
+                     the effect in the render region, don't forget to enable motion blur in the region
+                     settings too. 
+                  </li>
+                  <li>The motion blur settings <span class="MenuCascade" id="GUID-448E5993-18FE-453E-9672-BB4DE96B8109">Speed</span> and <span class="MenuCascade" id="GUID-230F6714-4557-44FB-A7D9-155FB0691EFE">Offset</span> have no effect, except that a <span class="MenuCascade" id="GUID-D98A6023-E2CD-4005-9C3E-D8D5AAC4FC93">Speed</span> value of 0 disables motion blur. 
+                  </li>
+                  <li>The on-frame options have no effect. Instead: <span class="anchor_wrapper"><a name="UL_D13371B0487F4ED487B0A78C8068D03E"></a></span><ul>
+                        <li>To get the effect of <span class="MenuCascade" id="GUID-097B5F9A-994F-42AA-855B-FE45A78DFE36">End on Frame</span>, use vectors pointing towards the object's previous positions. 
+                        </li>
+                        <li>To get the effect of <span class="MenuCascade" id="GUID-45E39F8C-FBB3-4E6C-AF06-0090B5BE5B79">Start on Frame</span>, use vectors pointing towards the object's future positions. 
+                        </li>
+                        <li>To get the effect of <span class="MenuCascade" id="GUID-BAF0AA02-7B79-46A8-A86E-4362FBA9547A">Center on Frame</span>, use vectors pointing in both directions. 
+                        </li>
+                     </ul> 
+                  </li>
+               </ul> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_8B0A29ED6208427288C3B7A4B1A07D6D"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-06C966DF-A0F1-4886-B3F1-727903D2E708"></a></span>Applying User Motion Properties
+            </h2> <span class="anchor_wrapper"><a name="OL_F95461EC8C554E1181943AF66A669BCE"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0B0130A2-74C6-4188-8EAD-9BD6F9869DFC"></a></span>Select an object. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-511B61A6-7308-436F-9B28-2C581F89372D"></a></span>Choose <span class="MenuCascade" id="GUID-2CB8084F-BF7D-4B36-BE7B-5D7C919DDC13">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> User Motion</span> from the <span class="MenuCascade" id="GUID-DA21979A-732B-4503-A7EC-7BC7D74C8F38">Render</span> toolbar. Repeat for as many motion samples as you want per frame. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-587B001B-CE51-4CBA-A002-886F059848DF"></a></span>A cluster named <span class="MenuCascade" id="GUID-27F28D15-6C79-409F-81BD-26DFD73252BF">UserMotionCls</span> is created, and properties named <span class="MenuCascade" id="GUID-FAA3A5A6-D796-47AE-A8A4-52C85E137848">UserMotion</span>, <span class="MenuCascade" id="GUID-45115FE2-90B7-47B4-82B9-A1902D871A45">UserMotion1</span>, <span class="MenuCascade" id="GUID-1432A22F-879E-433E-9308-5BF12CFA60E7">UserMotion2</span>, etc., are applied. 
+                  </p> 
+               </li>
+               <li>You must set the values for each property. One way to do this is to use ICE to set
+                  <span class="MenuCascade" id="GUID-002CE2BD-BB26-4D78-8660-4B760681E422">.cls.UserMotionCls.UserMotion.Motions</span>, <span class="MenuCascade" id="GUID-2775925B-B23F-4082-9787-B720E394EE26">.cls.UserMotionCls.UserMotion1.Motions</span>, etc., on the object. Alternatively, you can use a script, custom operator, or event.
+                  
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_C10891C2C8A7441F8E2E9CB0D29F7C7E"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-46C5DE91-00BA-4904-9FDF-C0F30CF1BC02"></a></span>Setting PointUserMotion in ICE
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-AA776C25-D404-420E-9481-97DD2B062C7A"></a></span>To apply user motion directly in ICE, use an ICE tree to calculate an array of 3D
+               vectors per point and set the <span class="MenuCascade" id="GUID-E1BF8931-C389-443C-8C50-5B09CDA1D596">PointUserMotions</span> attribute. For example, you can calculate position offsets per subframe sample. Alternatively
+               if your motion is circular, you can use trigonometry. 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

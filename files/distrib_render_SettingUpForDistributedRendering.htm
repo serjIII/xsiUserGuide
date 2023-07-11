@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F48BCCA4-D4F2-4458-9444-BD088B9BE960">
+      <meta name="indexterm" content="distributed rendering: setting up">
+      <meta name="indexterm" content="master, distributed rendering">
+      <meta name="indexterm" content="slave, distributed rendering">
+      <meta name="indexterm" content="ray3hosts file, distributed rendering">
+      <meta name="indexterm" content="TCP/IP service protocol: using same port number for distributed rendering">
+      <meta name="indexterm" content="memory requirements for rendering">
+      <meta name="indexterm" content="distributed rendering: rayhosts file">
+      <meta name="indexterm" content="MI_RAY3_SERVICE">
+      <meta name="indexterm" content="environment variables: for distributed rendering">
+      <meta name="indexterm" content="distributed rendering: environment variables for">
+      <meta name="indexterm" content="_ADSK_LicServers">
+      <meta name="indexterm" content="MI_ROOT">
+      <meta name="indexterm" content="SI_HOME">
+      <meta name="indexterm" content="SI_LINKTAB_LOCATION">
+      <meta name="topic-type" content="concept">
+      <title>Setting Up for Distributed Rendering</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F48BCCA4-D4F2-4458-9444-BD088B9BE960"></a></span><div class="head">
+            <h1> Setting Up for Distributed Rendering</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-F81B34D2-8228-45DE-8BD3-4C2899A6AC39"></a></span>To set up Satellite distributed rendering for Softimage, several steps must be followed
+               before and after the program is installed. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-810180D4-D7E8-47E4-8B38-E9CD11E49AC2"></a></span>In a network rendering setup, whichever computer initiates the render (the master)
+               oversees the organization of the images to be rendered and distributes the rendering
+               tasks among the other computers in the setup (the slaves). This is accomplished through
+               the use of the <span class="MenuCascade" id="GUID-E35B5023-31B8-4905-AD4D-6768A4C5CEFC">ray3hosts</span> and <span class="MenuCascade" id="GUID-35BB0C15-022A-48E4-BA1A-BCEED2E335E3">linktab</span> text files. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5B69913F-C96D-4908-8CEA-59D96B2B1D86"></a></span>For the master to properly communicate with the slaves, each computer should have
+               the same version of the mental ray rendering software installed and use the same TCP/IP
+               port number. The master should have more memory than the slave computers and as much
+               virtual memory as possible. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFCA497CD769F774F9B86DC1899848563-000B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-81EA8642-0355-47C3-A732-374C1A82C5AD"></a></span> Defining a .ray3hosts File
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-FF275F95-40FD-4509-9DA4-4CE00CAE448D"></a></span>The <span class="MenuCascade" id="GUID-0BB13F4B-DA17-4EA4-8823-0DB8FB89B75A">.ray3hosts</span> file identifies the computers that will participate in distributed renders. This
+                  file must be present on the computer designated as the master, in the location specified
+                  by the MI_RAY_HOSTSFILE environment variable. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8A9B03B2-7518-4930-A812-C49C1D1384D1"></a></span>If you do not explicitly set the MI_RAY_HOSTSFILE environment variable, by default
+                  mental ray will search your $HOME directory (on Linux) or the location specified by
+                  XSI_USERHOME (on Windows) for a <span class="MenuCascade" id="GUID-3497685E-839B-4070-8690-B05D9B7CF3FE">.ray3hosts</span> file. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0D2B8B11-0851-4B59-9337-CE7EB9715EB9"></a></span>If you want to set a different location in your MI_RAY_HOSTSFILE environment variable,
+                  be sure to specify both the path and file name. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DF0D55BF-A744-4239-BA9F-13EA688C82A1"></a></span>The .ray3hosts file contains a list of the computers that can participate in distributed
+                  rendering (not including the master) and the port numbers they use for the mental
+                  ray service. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-98C97F73-388F-4D7E-9D45-3F2A0B1B2321"></a></span>Each computer must be listed by name on a separate line, optionally followed by a
+                  colon and the port number you want mental ray to use on that computer. If no port
+                  number is listed for a given computer, that computer will use the port defined in
+                  its MI_RAY3_SERVICE variable. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-68B61D15-02ED-4F28-84D7-7EA76FE0C60A"></a></span>Any line preceded by a hash (#) symbol is considered a comment and is ignored. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-197A2BFC-04DC-4E44-BC6D-5F9FA83FBC8B"></a></span>Here's a sample .ray3hosts file: 
+               </p> 
+               <div class="codeBlock"><pre>
+# The first three computers are always part of the
+# render network. The last computer listed is only
+# used for overnight renders; remove the # to make
+# it available.
+larry:7020
+moe:7020
+curly:7020
+# shemp:7024</pre></div> 
+               <div><span class="anchor_wrapper"><a name="GUID-45DDBF28-A0E7-43C5-B32F-4DB80A5F7452"></a></span><div class="note-note"><span class="label">NOTE:</span>Depending on your network settings, it can take up to several minutes for a computer
+                     to tell mental ray that a host does not answer, so be sure to modify your <span class="MenuCascade" id="GUID-FFA6EA5B-5364-4CC4-BD37-3997F49581CE">.ray3hosts</span> file if you know that certain computers are down. 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFCA497CD769F774F9B86DC1899848563-000C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A2935E4F-2A62-4198-A3D5-372D4D716734"></a></span> Environment Variables for Distributed Rendering
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-F5AD7305-B8F7-4F30-BB9E-9962557FD50B"></a></span>These environment variables are required for distributed rendering. They are set during
+                  installation in the environment script (<span class="MenuCascade" id="GUID-1D1DFF9C-00CB-405A-BB32-4A052149C23D">setenv.bat</span> on Windows and <span class="charspan-emphasis">.xsi_2013</span> on Linux). 
+               </p> <span class="anchor_wrapper"><a name="UL_F3F7A43AAEC84AB8A31DFC425B7CA2E3"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DE28C272-B6F6-4045-9B3B-FE783CE4D38E"></a></span> <span class="MenuCascade" id="GUID-1E2FB43B-ACE7-484B-9636-115F29F74A63">_ADSK_LicServers</span> must be set to the computer name of the computer running the Autodesk Network License
+                        Manager. For example: 
+                     </p> <span class="code">_ADSK_LicServers=@buzzgoodhost</span> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DDD5F8E4-B458-45BC-BC24-8B8EC23AD3DD"></a></span> <span class="MenuCascade" id="GUID-54B9608B-AA5E-45AD-809C-EA9E954D9199">MI_ROOT</span> defines the location of the <span class="MenuCascade" id="GUID-3BCC4D88-CC3B-4725-BE88-C159C0B16242">ray3rc</span> file. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D713673D-C5FD-4215-AD2A-E297BF762A4F"></a></span>The default location is the <span class="filePath">Application/rsrc</span> subfolder of the directory specified by SI_HOME. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8440539D-B7F5-49DE-823A-915C87A5A8B3"></a></span>On Linux it is also set in <span class="MenuCascade" id="GUID-1628111A-1058-4A6B-BCC7-38080E802982">ray3.sh</span> which is called during distributed rendering. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7B1228F6-A364-4C65-BEB4-29EDC2DF7FD7"></a></span> <span class="MenuCascade" id="GUID-1B6FDCF0-B3DE-413E-8193-52B692D9ACE4">SI_HOME</span> is set to the directory in which Softimage is installed. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-431A2334-BF90-49AC-A790-37088D662FF0"></a></span> <span class="MenuCascade" id="GUID-F8F33F94-6B70-49CC-A968-9885842300C1">SI_LINKTAB_LOCATION</span> points to the location of the <span class="MenuCascade" id="GUID-46B112C7-C858-4AD6-826A-DA9A9F2C82C5">linktab.ini</span> file. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C59C3BCA-22DA-45A0-BC91-9741598AADCB"></a></span>If the linktab file is not named <span class="MenuCascade" id="GUID-E735D0CA-A29F-400D-B4FF-75B7656F3688">linktab.ini</span>, you must also include the file name. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D34C2E74-0E65-4DFA-ABF0-C80F9BD3460B"></a></span> <span class="MenuCascade" id="GUID-07BF6912-EE5D-4684-A9C9-3FC0A410809C">MI_RAY_HOSTSFILE</span> defines the location and name of the <span class="MenuCascade" id="GUID-8A7FDE69-569F-4E03-803E-51C890B86AC9">.ray3hosts</span> file on the master computer. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-34FFC86E-FC73-4533-B461-C42AB7D03242"></a></span>For details on how to define the various environment variables used by Softimage,
+                  see the <span class="char_link"><a href="EnvVars_EnvironmentVariableReference.htm">Environment Variable Reference</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFCA497CD769F774F9B86DC1899848563-000D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E8B2154B-10AB-4259-99C4-3A1F628CDA3E"></a></span>Managing the mental ray Services
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-95039960-0D69-4082-81D3-EB69353CFD8B"></a></span>The <span class="MenuCascade" id="GUID-CCD39E86-3636-4D50-A674-8D668184DA6C"><span class="charspan-emphasis">raysatsi2013_3_10_1_4</span>server</span> service must be running on each slave computer for it to connect to the master. This
+                  is usually an automatic process, but you may need to perform some operations manually
+                  when troubleshooting. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1BB33B89-BFB4-45B7-9697-B35E7CAB9C6D"></a></span>For example, from the Softimage command prompt type: 
+               </p> <span class="code"><span class="charspan-emphasis">raysatsi2013_3_10_1_4</span>server /stop</span> 
+               <p><span class="anchor_wrapper"><a name="GUID-7EB29FA6-99F5-4248-AFB2-3124EEE05737"></a></span>This stops the <span class="MenuCascade" id="GUID-C1C40BC2-FBBA-449D-A50E-32AD1F1D1125"><span class="charspan-emphasis">raysatsi2013_3_10_1_4</span>server</span> service on the current machine. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D6C691A3-8019-415A-BCE5-EA5B7B2790A4"></a></span>You can run the <span class="MenuCascade" id="GUID-4760A665-9682-4CC3-89C3-0B59FE7B8D59"><span class="charspan-emphasis">raysatsi2013_3_10_1_4</span>server</span> executable from a Softimage command prompt with the following options: 
+               </p> <span class="anchor_wrapper"><a name="TABLE_D80659D67FF04C15BB983086140312BD"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="ruledHeading">
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-7F6D181A-B4A1-41AE-8A92-59848D8526C1"></a></span><p class="table-heading">Option </p> 
+                        </th>
+                        <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-95ABEE11-B6B3-4E91-B173-1EA20D0B0DD5"></a></span><p class="table-heading">Function </p> 
+                        </th>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FF1A5E9B-275F-4014-943D-1093D1128787"></a></span><p class="table-body">/install </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6B0B156C-FA27-447F-A42A-5643A5D58676"></a></span><p class="table-body">Installs the service and starts it. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3B47D126-A3F0-4F16-8318-0072FB5A988F"></a></span><p class="table-body">/remove </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-326E54B3-A7F4-4DDA-895B-FFD731DE0E85"></a></span><p class="table-body">Stops and uninstalls the service. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-692B1525-4CB4-47C2-A5DD-0D6688610940"></a></span><p class="table-body">/start </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ABA728F0-8CA3-4427-9D63-B546884CCBA5"></a></span><p class="table-body">Starts the service on the current computer. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6843975E-5969-4AB9-9009-41B959CEE6FB"></a></span><p class="table-body">/stop </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C77C6A42-3D43-4618-909B-0FC917999176"></a></span><p class="table-body">Stops the service on the current computer. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFCA497CD769F774F9B86DC1899848563-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6AB2E3C6-F280-40A4-AD03-BC1DAD7EBA05"></a></span>Machine Won't Load For a Network Render?
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-1D09206F-3BC6-4FE9-9E93-DB7FE8C6CD44"></a></span>If a machine won't load for a network render with mental ray, try the following to
+                  see if the machine is responding: 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-32EB25AC-EF9B-4287-B971-EDEA619E1729"></a></span>For example, if <span class="MenuCascade" id="GUID-67337353-B882-4BB1-871E-13B75F64FF6D">sparky</span> won't load, type: 
+               </p> <span class="code">telnet sparky mi-<span class="charspan-emphasis">raysatsi2013_3_10_1_4</span></span> <span class="anchor_wrapper"><a name="UL_E022070F02C6402D91113B86C6BD9151"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1F9C3E7F-2735-4C11-8BA0-74A0FD3AEF47"></a></span>If you see some messages ("Escape character is..."), this is good. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-01959EB0-E06F-4B63-82DF-ADFDBDC26652"></a></span>If you see "Unable to connect...", there is a problem with the slaves' <span class="MenuCascade" id="GUID-14031F83-5565-4A30-B22B-2B771C3EEDE2">/etc/inetd.conf</span> or <span class="MenuCascade" id="GUID-75FA10E6-8523-4828-9E6E-A08E2BF05D24">/etc/services</span>. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

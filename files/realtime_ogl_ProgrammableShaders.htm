@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-5B149296-78E3-4CF2-9045-D462D2B76D85">
+      <meta name="indexterm" content="realtime shaders: vertex shaders (about)">
+      <meta name="indexterm" content="realtime shaders: pixel shaders (about)">
+      <meta name="topic-type" content="concept">
+      <title>Anatomy of a Programmable Realtime Shader</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-5B149296-78E3-4CF2-9045-D462D2B76D85"></a></span><div class="head">
+            <h1>Anatomy of a Programmable Realtime Shader</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-70E60086-8BED-41B0-81BD-4CFEE84BB73F"></a></span>Programmable realtime shaders allow you to replace the fixed function pipeline with
+               your own program to control shading at the vertex and pixel level. This allows you
+               to create more complex effects, but it also requires that you re-implement code that
+               the fixed-function pipeline executes automatically, like transforms and shading of
+               vertices, texture coordinate generation and transforms, and texture modulation modes.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-82B095EA-1718-4391-8F25-F8998E34D964"></a></span>A programmable realtime shader consists of a vertex shader and a pixel shader. The
+               data stream flows from the application to the vertex shader, then to the pixel shader,
+               and finally to the frame buffer.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F821AB16-3C49-4B8F-B09C-8109248C3FCD"></a></span>To write vertex and pixel shader code that supports OpenGL-based effects, you can
+               use nVidia's Cg language or the OpenGL Shading Language (GLSL). For DirectX9-based
+               effects, you can use Microsoft High Level Shading Language (HLSL).
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFC7FC37B6D98EA449D60B7086EB80DB2-0005"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9780E925-7621-4725-9247-CFF429702EEE"></a></span>Vertex Shaders
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-9AD19186-6461-420E-ADFF-58AEF4526595"></a></span>Vertex shaders are executed for every vertex of the shaded object. They take input
+                  parameters, process them, and generate output data to be sent to a pixel shader.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1D9866DF-A3F5-4414-9901-7C7B91FD51C5"></a></span>The input parameters of a vertex shader can be:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-927827A9-6251-4D68-9C72-557D08BDB16B"></a></span>Vertex position in object space.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D13E8C38-3DDE-4696-8E12-CE08AE32C9B7"></a></span>Vertex normal in object space.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F6800496-E155-4B9F-B935-194203E950B9"></a></span>Vertex colors.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7D337F74-7049-45AB-AE09-BFCE4DE7388F"></a></span>Texture coordinates.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F0C2F8D8-5F0B-4C59-8EA2-3DEBB9141BA2"></a></span>Uniform parameters, which are constants that can be used in the shader code.
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-B88A4D1D-432D-4C1C-A575-7CE973E4025C"></a></span>The output of a vertex shader can be:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E40EB14E-61CE-490F-AE18-A4A9A3F3DDB5"></a></span>Vertex position in screen space.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F11E1E91-63C8-4372-9ABF-35B97AA708C1"></a></span>Vertex colors.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8321443F-F41A-4DA0-8773-073106039776"></a></span>Texture coordinates.
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFC7FC37B6D98EA449D60B7086EB80DB2-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5783F30C-B61E-47A0-827F-2B6B7EAF1682"></a></span>Pixel Shaders
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-54E9D298-DC47-4F8A-B7CF-40FDC58BD81D"></a></span>Pixel shaders (also known as <span class="MenuCascade" id="GUID-39F01787-191B-41AC-AE2E-F28692CD935A">fragment</span> shaders) are executed for every pixel generated of the object. They take input parameters,
+                  process them, and generate output data to be sent to the blending core of the GPU
+                  before going to the frame buffer. The input parameters come from vertex shaders and
+                  are interpolated inside of the triangle to which they belong.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7CC28136-3EC1-4C6F-BC65-394D128CC593"></a></span>The input parameters of a pixel shader can be:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-31A0A5C7-BC15-4D8D-85D6-1A835D6BB6AB"></a></span>Vertex position in screen space.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-62BBA452-971D-4B8A-9176-33056FE3FC3A"></a></span>Vertex colors.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-25262153-084C-45D5-A364-ADC135F5CF4E"></a></span>Texture coordinates.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1737038A-F3C5-49F3-A7C1-22E7E281A82A"></a></span>Uniform parameters, which are constants that can be used in the shader code.
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-D26F2854-DC9F-48F7-969D-B2AB27A30D9A"></a></span>The output of a pixel shader can be composed of:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-13625501-7B9E-440A-A57C-7AF63DBCAA88"></a></span>Pixel color.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AE0E6409-D89D-4103-8194-640084C7D4DB"></a></span>Pixel depth.
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSFC7FC37B6D98EA449D60B7086EB80DB2-0007"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F69B7164-D1DD-43CF-96F8-BA43E0421A1E"></a></span>Realtime Shader Structure
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4AD6F913-8B00-4D21-9141-C6D74F731F34"></a></span>A realtime shader has a very simple structure: it has input parameters, output parameters,
+                  and code. The code is called for every vertex of every pixel.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D768E721-1031-421D-BA37-5FD012CD3093"></a></span>There are two types of input parameters: <span class="MenuCascade" id="GUID-4457F6E8-4B20-4477-93EE-43E3C306460A">uniform</span> and <span class="MenuCascade" id="GUID-AD545AAA-851C-406B-B7C3-D57935C8ABC8">varying</span>. Uniform means that the parameter value is the same for all vertices or pixels. Varying
+                  means that the parameter value changes for every vertex and every pixel.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-60D3558C-714A-4711-97D6-C07F91084189"></a></span>For example, this simple HLSL program transforms a vertex position into the position
+                  of eye coordinate space by modelview matrix.
+               </p> 
+               <div class="codeBlock"><pre>
+struct a2v { 
+	float4 Position : POSITION;
+};
+struct v2p {
+	float4 Position : POSITION;
+};
+void main(in a2v IN, out v2p OUT,
+	uniform float4x4 ModelViewMatrix)
+{
+	OUT.Position = mul(IN.Position, ModelViewMatrix);
+}</pre></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

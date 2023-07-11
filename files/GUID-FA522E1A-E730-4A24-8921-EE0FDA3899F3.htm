@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-FA522E1A-E730-4A24-8921-EE0FDA3899F3">
+      <meta name="indexterm" content="CrowdFX: constraining leg deformers to terrain">
+      <meta name="topic-type" content="concept">
+      <title>Constraining the Legs to the Ground</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-FA522E1A-E730-4A24-8921-EE0FDA3899F3"></a></span><div class="head">
+            <h1>Constraining the Legs to the Ground</h1>
+         </div><span class="anchor_wrapper"><a name="FIG_BEB771E7C89D44F0A30435303BCA352A"></a></span><div class="figure-anchor"><img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-9FE48CE8-207F-4CB9-9821-CEDE21ED036D"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-BDA747F6-B825-47FB-B884-607D08945331"></a></span>You can constrain the actor's legs to solve some problems related to terrains. When
+            you create a terrain, the position of each particle (actor) is automatically updated
+            so that it moves along this surface. Because only the particle's position is updated,
+            the actor's envelope size and shape is not taken into account with this position update,
+            which means that feet and legs may penetrate the terrain. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-6DCE5D76-61A2-4CC6-8C90-F889E1AB2025"></a></span>The camera is usually far away from the actors in a typical crowd scene, so the penetration
+            may not be noticeable. However, there may be particular scenes or shots where the
+            penetration is more noticeable, and need a constraint to solve the problem. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-9327E322-75D5-4DBD-8DB4-6D80A7FE88B9"></a></span>In the image below, the legs go through the hill because they're not constrained to
+            the terrain. 
+         </p><span class="anchor_wrapper"><a name="FIG_76EBC126E1BB47BD8A5CC06CD2D5862C"></a></span><div class="figure-anchor"><img src="../images/GUID-AD9D1183-F563-4280-9F1B-E16A0C77678D-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-BAE9D765-D732-4E84-9458-5F0BAB334711"></a></span>In the image below, the legs stay above the terrain because they're constrained. Notice
+            that there is still some foot penetration into the hill, but this wouldn't be noticeable
+            if the camera was farther from the crowd. You can also increase the offset of the
+            leg from the terrain to reduce some of the penetration. 
+         </p><span class="anchor_wrapper"><a name="FIG_64BE95D4E6D74485B042C0F61B61C6E2"></a></span><div class="figure-anchor"><img src="../images/GUID-E783504B-42E1-4C7A-BF50-228B962B3EEA-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-38C6A186-9D64-4685-BF66-6B83B68A05DA"></a></span>To constrain the legs to the terrain: 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-59A8CB30-631F-4935-8B70-626ABF439FFA"></a></span> <span class="anchor_wrapper"><a name="OL_1E5497B2A63B49639CB599A813885C03"></a></span><ol type="1" start="1">
+               <li> Make sure that the deformers are parented correctly in the rig proxy for constraining
+                  the legs — see <span class="char_link"><a href="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4.htm">Modifying the Actor's Rig</a></span>. 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-03171272-4157-45A4-977A-E71478CC1768"></a></span>Create a terrain for the crowd simulation - see <span class="char_link"><a href="GUID-6B77DD13-25A1-4D30-B134-51C9D2D4FCC6.htm">Terrains for Crowds</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B2EF99E9-004E-4A69-A91B-29B9F5A4D54F"></a></span>In the simulation point cloud's Define Animation node of the Animation_Blending ICE
+                     tree, get a <span class="char_link"><a href="iceref_Crowd_Legs_on_Ground_Constraint.htm">Crowd Legs on Ground Constraint</a></span> compound. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_181B8172834941AC8D4DFD3D2AA23569"></a></span><div class="figure-anchor"><img src="../images/GUID-57C47E3D-0A0A-4F30-856D-00630FD9C4B6-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EC5F07B4-1279-4D34-87DA-FDC51FE9426B"></a></span>In the <span class="MenuCascade" id="GUID-B1ECB0F9-B23F-473D-864F-8915FD1BEBF3">Crowd Legs on Ground Constraint</span> compound's property editor, specify the rig proxy deformers to use for the <span class="MenuCascade" id="GUID-2A5833A1-EE80-4D3A-B17A-187ED0A3057C">Left</span> and <span class="MenuCascade" id="GUID-222279F0-69CB-46E1-B0BD-7FBC6BAFBC6A">Right</span> legs in any of these ways. The constraint compound uses the bone lengths of the legs
+                     to figure out where they need to be constrained to the terrain. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1DAE2608-0081-48CC-B777-5ADF3E53CD5D"></a></span> <span class="anchor_wrapper"><a name="UL_F3155030857F43FE925E09C2D9FEFF24"></a></span><ul>
+                        <li>Click the <span class="MenuCascade" id="GUID-18DA6AED-2EC6-4119-9505-1BF397B14FA9">Pick</span> button and select the rig proxy deformer in a view (object view or viewport) or the
+                           explorer. You can display the rig proxy as described in <span class="char_link"><a href="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4.htm">Modifying the Actor's Rig</a></span>. 
+                        </li>
+                        <li>Click the <span class="MenuCascade" id="GUID-80E9DE31-189A-40E8-AA2C-5791356178EF">Explorer</span> button and select the deformer from the actor proxy's <em class="strong">Rig_Proxies</em> folder in the explorer that appears. 
+                        </li>
+                        <li>Enter the deformer's name in the text box, making sure to include the actor proxy's
+                           name, such as <em class="strong">Pedestrian_Mesh.LThigh</em>. 
+                        </li>
+                     </ul> 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-88011D63-380A-48F5-8BCB-3F4D5564E0A5"></a></span><div class="note-note"><span class="label">NOTE:</span>Remember that <em class="strong">left</em> and <em class="strong">right</em> refer to the actor's left and right sides, not left and right according to your view
+                        of the actor. 
+                     </div>
+                  </div> <span class="anchor_wrapper"><a name="FIG_72157030AA36404E847EDD347EC45C23"></a></span><div class="figure-anchor"><img src="../images/GUID-8B64701A-A7CE-4A79-A39E-D5E04E99B843-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-99480DE3-4210-4B69-96E0-CDA1B2202A13"></a></span>Set the <span class="MenuCascade" id="GUID-EBF1EF43-2F07-4B7E-9F3A-0F63CC82DECA">Root Direction</span> and <span class="MenuCascade" id="GUID-61ED1280-B418-4948-8DEC-1B2994A430ED">Knee Direction</span> to the deformer's local axis that is pointing toward its children. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5D36C140-06D8-4336-AC87-D90BEFBBD115"></a></span>You can check to see which vector is axis forward this by selecting the root and knee
+                     deformer in the rig proxy in a 3D view and activating the Translate tool in Local
+                     mode. In this rig, the -Y direction points to the knee deformer's children. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_B97D6DFA2EC94A9FA8DE1990389BAE57"></a></span><div class="figure-anchor"><img src="../images/GUID-16C73F98-5D56-4751-B3EF-8FCDF6367C92-low.png"></div> 
+               </li>
+               <li>If the feet are penetrating the terrain, you can increase the <span class="MenuCascade" id="GUID-9BB4F42B-3681-4914-A3E4-B661FD37DE86">Offset</span> value. 
+               </li>
+            </ol> 
+         </p>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

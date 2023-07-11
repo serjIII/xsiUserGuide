@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D36B006B-501F-45C8-8655-B1C6535B74E8">
+      <meta name="indexterm" content="CrowdFX: slowing down to avoid collisions">
+      <meta name="indexterm" content="CrowdFX: turning to avoid collisions">
+      <meta name="indexterm" content="CrowdFX: buffer around actor to prevent collisions">
+      <meta name="topic-type" content="concept">
+      <title>Setting Up How Actors Avoid Collisions</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D36B006B-501F-45C8-8655-B1C6535B74E8"></a></span><div class="head">
+            <h1>Setting Up How Actors Avoid Collisions</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-FAA83873-A5C0-4661-BB39-009F6D41D824"></a></span>When a collision with one or more other actors is imminent, the actor reacts according
+            to what you define with the <span class="MenuCascade" id="GUID-E30B64A7-6583-4001-A5E3-A078DC522BE6">Acclerations</span> parameters in the <span class="MenuCascade" id="GUID-33503171-AD59-4835-A26C-1153C0012564">Initialize Collision Avoidance</span> compound, as described in this section. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-2271D80B-88F1-48FA-B729-2FED9A1BA103"></a></span>You can determine how much the actor slows down to avoid a collision, or how much
+            the actor turns to avoid a collision. You can also create a buffer around each actor
+            to prevent collisions. These parameter values are initialized when the particles are
+            emitted, and then used by the Simulate Collision Avoidance compound during the particle
+            simulation, as described in <span class="char_link"><a href="GUID-360384CF-A620-4DAB-A0CD-578813AC9C09.htm">Anticipating Collisions in the Simulation</a></span>. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-21550573-64C9-4C6E-891C-2A301ED9516D"></a></span>To open the property editor for the Initialize Collision Avoidance compound, you can
+            choose the <span class="MenuCascade" id="GUID-9B899E42-16F4-44BF-BE96-FF71BFF763B8">CrowdFX <img src="../images/ac.menuaro.gif"> Simulation <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> Inspect Init. Collision Avoidance</span> command from the ICE toolbar. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_33760F11AA734E908EC95278B74C6CD8"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-772ECF58-818B-45C6-88E0-D6E3E983FB39"></a></span>Setting the Speed Limits
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-BF5FB63D-D44D-43AA-BC0A-C46D9240B461"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C6D4D2B7-825E-4FBC-A2C1-603749E4BE5C"></a></span> The <span class="MenuCascade" id="GUID-60CB8E3D-1D06-4453-97FB-EC45536F2F81">Max Deceleration</span> value in the <span class="char_link"><a href="iceref_Initialize_Collision_Avoidance.htm"> Initialize Collision Avoidance</a></span> compound is the maximum number of units per second that an actor can slow down to
+               avoid a collision. For example, if the actor's maximum deceleration speed is not low
+               enough, it might not be able to avoid collisions because it can't slow down enough.
+               
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-BFBAF1D6-F59A-4E71-A73B-4868829BCEF6"></a></span>In the image below, the deceleration value is not low enough, so some of the particles
+               don't have time to avoid collision. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C1AD9886-F235-49EB-9EB9-4392EFC2CDA6"></a></span> <img src="../images/GUID-4657366B-C21A-4129-A6B9-587839A90873-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-1FE382E7-6B20-48DC-AEB8-B4B3874A23C5"></a></span>In the image below, the deceleration value is <em class="strong">low</em>, so the particles have time to avoid each other and move past each other easily.
+               
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-2AE5F7A9-C99B-4BED-A651-664F264F9926"></a></span> <img src="../images/GUID-63769FE6-E503-4391-95BE-5F3BCC9A7F43-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-2599E8CA-6B5A-4683-8CA0-0F233F0D0A7B"></a></span> The <span class="MenuCascade" id="GUID-C83D72D0-736E-435F-9B62-5D9A6DA37B04">Max Acceleration</span> value is the maximum number of units per second that an actor can speed up in order
+               to reach the <span class="MenuCascade" id="GUID-C64FAAE7-B242-47D1-A0BB-FBAEA3851000">Target Speed</span> value after avoiding a collision. This value is part of the calculation of the actor's
+               speed. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-2E294E05-FB7B-4BE2-9C7A-65D9881ED144"></a></span>See <span class="char_link"><a href="GUID-BF7F39A3-CA25-43B1-A2E2-5B5C550575FB.htm">Controlling the Actor's Animation</a></span> for more information. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_09860A6768BE494DA5C9F691531BE5CF"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-8E1523F2-AD2E-4E1B-9A99-21447FBACEA4"></a></span>Setting the Rotation Limits
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-59FCB4D8-4B99-43FD-8DA2-723DE8473AD1"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-3841C7FB-9A17-4072-B03D-3F143EA3959F"></a></span>The <span class="MenuCascade" id="GUID-826BEEB2-66D6-4D3B-B36D-18517B424214">Angular Velocity at Slow Speed/Target Speed</span> values in the <span class="char_link"><a href="iceref_Initialize_Collision_Avoidance.htm"> Initialize Collision Avoidance</a></span> compound determine how much an actor will turn away (in degrees per second) from
+               another actor to avoid collision, either when he's going slowly or at target speed.
+               
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-5BA103A7-74DB-4DA4-8BCF-F3A9424944BE"></a></span>For example, when an actor slows down to avoid a collision, he can turn away using
+               a large angle; if he detects a possible collision with another actor, he then has
+               a larger range in which he can turn to get out of a "stalemate" with the other actor.
+               When the actor speeds up to target speed, it means that he's not in danger of having
+               a collision, so he could use a smaller angle. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-12D74261-70E4-4F66-9EA2-5CF887983AB7"></a></span>In the image below, the angular velocity value at slow speed is <em class="strong">high</em>: if there is a collision, the particles can rotate enough to move around each other.
+               
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-B6F9296B-DEDC-4738-ADEA-8223F428B391"></a></span> <img src="../images/GUID-2CF3B3DD-70F9-433D-BF4D-C175C2976BD7-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-4788E960-34A3-4C0E-8C0C-7C8E5A68EC01"></a></span>In the image below, the angular velocity value at slow speed is <em class="strong">low</em>: the particles stay in a stalemate because they can't rotate enough to move around
+               each other. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-DA7284FA-E11D-44D1-A8DB-EB509EFC6008"></a></span> <img src="../images/GUID-83ADBE82-A838-418B-9A82-8E388B284725-low.png"> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_12D9C8D9F62A4795B337DD75AC1FCB4D"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-6983E317-2DDA-4E72-8984-651C0497D743"></a></span>Creating a Buffer Around the Actors
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-0E6B2005-4F1E-41C4-B68F-2B7E65F3FEBB"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-52F6872F-D45B-4DFE-B512-17EBD78132E6"></a></span>When particles are emitted, you can set several parameters the help prevent particles
+               (actors) from being too close to each other upon emission (see <span class="char_link"><a href="GUID-95B5FEE8-6205-4F72-ACE5-40A7C9474C5C.htm">Setting Up the Crowd Particle Emission</a></span>). 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-3B5D6B56-07C3-402B-A3B4-CF1DED053260"></a></span>Once they are emitted and move away from the emitter, you can keep a "safety buffer"
+               around each particle (actor) to help prevent collisions when the actors are very close
+               to each other. Creating a buffer takes into account the geometry of each actor instance's
+               envelope, which is not considered by the particle emission. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-E747C3E2-FCC2-4EB6-9874-8DBBFD31FD26"></a></span>To create a buffer, set the <span class="MenuCascade" id="GUID-0C2851C7-5805-4E1C-BF3D-11A975A5393E">Actor Thickness</span> value (units) in the <span class="char_link"><a href="iceref_Initialize_Collision_Avoidance.htm"> Initialize Collision Avoidance</a></span> compound, which is the radius around the geometry of each actor instance. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-D01AF517-4D60-4D3F-8E59-EA17E9D8EDB7"></a></span>In the image below, the thickness value is <em class="strong">low</em> so that the particles can get quite close to each other. They can move around each
+               other faster, but risk having a collision. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-92B91271-B1B0-4297-B504-0558DA6BFF7A"></a></span> <img src="../images/GUID-BF521E19-BBB6-4909-8317-63537D749860-low.png"> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-B070E9B8-C1F1-46E4-A259-F8025AF1F6E9"></a></span>In the image below, the thickness value is <em class="strong">high</em> so that the particles have more space around them, but tend to get more congested
+               when they meet in the middle. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-4BA004C5-4DBD-4BA0-BE4D-2F0189F605F9"></a></span> <img src="../images/GUID-F96EE3C9-06A6-40B0-AB45-ABF31FF464E6-low.png"> 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

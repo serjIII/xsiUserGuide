@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F075AFAD-3D0C-48C8-AFA5-38F16069D5AF">
+      <meta name="topic-type" content="concept">
+      <title>mib_lightmap_write</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F075AFAD-3D0C-48C8-AFA5-38F16069D5AF"></a></span><div class="head">
+            <h1>mib_lightmap_write</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-73635ADD-A042-4ED6-9533-B8EFC9B8BF63"></a></span> <em class="strong">Category:</em> mental ray &gt; Lightmap
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-71F8A80C-8859-4CFB-AEB8-B04339633191"></a></span> <em class="strong">Shader Family:</em> Lightmap
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-429FE806-3CE2-425C-8227-747885CE5B7C"></a></span> <em class="strong">Output:</em> Lightmap
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B6F8458A-5B51-4D01-8060-AA766BFDF5F3"></a></span>mental ray supports light mapping as a two-stage process that runs on certain objects
+               (whose materials contain a lightmap shader) to compute illumination or other information,
+               and write the result into a texture or elsewhere. The first stage calls the lightmap
+               shader in vertex mode once for every vertex of the object, and collects the returned
+               information. The second stage calls the lightmap shader in output mode to use the
+               collected information to paint a texture or other output data by looping over all
+               triangles of the object.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0D265492-1210-4DCF-B07C-07492A89CF7D"></a></span>The lightmap shaders in the base shader library collect direct and indirect illumination,
+               and create a writable texture map from it. Although mental ray knows only about one
+               lightmap shader, the base lightmap shader is split into the main shader that handles
+               the output stage, and a separate shader for the vertex stage that is called by the
+               main shader. This makes it easier to substitute only one stage with another user-written
+               shader.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-979D4B7A-38EA-4362-B96C-0DA9A832EFC5"></a></span>The mib_lightmap_write shader gathers geometric information and texture coordinates
+               on the triangle vertices and then writes a triangular region of texture for each triangle.
+               For each pixel of the texture that the triangle covers, a sampling function is called
+               and the results are written to the shader. The lightmap shader is connected to a material
+               through its lightmap port.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-855D9DFC-CF8F-4DE8-8F83-E65550BD2B8C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-04F7A725-3876-424F-9D33-D57112947203">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E1180224-731A-42C4-B842-91DBAC6EC5AC"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AD95F722-2DD8-400B-973E-6A3A7315EE4D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2D05EC43-8FC2-4A7A-BFE3-D97BF49EB2E3">texture</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EE190F34-98C4-420D-923D-875F3E0ADDDA"></a></span><p class="table-body">The writable texture where the lightmap will be written.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CCC1D3CC-BAA3-42E4-8AF3-A9D9C308855D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D2ECAB1D-34F5-4DBA-A28F-0C62B7BE6B1E">coord</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-724DA471-49A1-4D6B-856A-DFC9CF4C216E"></a></span><p class="table-body">A shader that returns the texture UV coordinates at the current particular point,
+                           such as <span class="char_link"><a href="mentalray_mib_texture_remap.htm">mib_texture_remap</a></span>.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D098E5CA-BA7B-44E0-82F3-BD256162592C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1B28A861-0E52-44E4-A58A-D445D3113D9E">input</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EEFA9C5E-9D8F-4BB4-B969-DAE65D6B726C"></a></span><p class="table-body">A shader returning the data to be written to each texture pixel. For example, using
+                           <span class="char_link"><a href="mentalray_mib_lightmap_sample.htm">mib_lightmap_sample</a></span> here is useful to gather illumination to write into the light map.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C09C7D3C-49CB-4196-A3D9-757DF1D2DC0D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EA05B95D-96D4-48C5-9630-5F6B06B91FFB">fg_mode</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5E78B62F-9322-4767-99A9-8A7646CAE16A"></a></span><p class="table-body">When final gathering is enabled, these mode settings allow you to tune quality by
+                           controlling the placement of final gather points all over the surface. This is usually
+                           required to achieve quality on the backside of objects or in areas which are out of
+                           view of the camera, places where the mental ray final gather view dependent optimizations
+                           might not cover.
+                        </p> <span class="anchor_wrapper"><a name="GUID-EAA61DEE-D795-4457-9B3B-2BA9BEAC1877"></a></span><p class="table-body">Supported values are:</p> 
+                        <ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-58F9FC8A-7DC6-44EC-8101-5DF291C6FB69"></a></span>A value of -1 turns off this feature.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4DEBA684-B235-4F4B-8E86-D25E83735AC0"></a></span>A value of 0 (zero) forces a final gather point on every vertex (of the tessellated
+                                 geometry).
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-97B01457-8199-49B2-91AF-CC3A88F09523"></a></span>A value of 1 forces a final gather point on every texture pixel (texel).
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CB253B25-A76B-4D9B-BAEB-8586C64B6442"></a></span>A value of 2 forces a final gather point on every second texel.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E9BFA2CF-FBA7-4E01-A498-7F2319E39BF8"></a></span>A value of 3 forces a final gather point on every third texel (default).
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A3F5BE65-6DFE-4A66-B020-18E7AD7E724C"></a></span>A value of n (n &gt; 3)forces a final gather point on every n-th texel.
+                              </p> 
+                           </li>
+                        </ul> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-001CF748-D2B9-43AB-AC7F-56DD7CFCCC85">
+      <meta name="indexterm" content="Face Robot: exporting animation rig as shapes (.dotxsi file)">
+      <meta name="indexterm" content="Face Robot: shape rig export">
+      <meta name="indexterm" content="Face Robot: Animation Rig Export tool">
+      <meta name="indexterm" content="dotxsi files: Face Robot animation rig export">
+      <meta name="topic-type" content="concept">
+      <title>Exporting Animation Rigs (Shapes)</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-001CF748-D2B9-43AB-AC7F-56DD7CFCCC85"></a></span><div class="head">
+            <h1>Exporting Animation Rigs (Shapes)</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-4F885B47-5448-4EBF-B5D2-9C50F47055CC"></a></span>The Animation Rig Export tool lets you capture all the animated deformations of the
+               face as shapes and put them into a simpler rig that can be easily imported into Maya
+               or Softimage. The rig is exported as a .dotxsi file. Once this simple rig is inside
+               your 3D animation package, you can refine the animation or build new rigs with the
+               same animation control set that is used in Face Robot. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D189F39E-E45C-4EFB-B0E6-C8635623407B"></a></span>Before you can import the dotxsi file into Maya, you must first install Autodesk<sup>®</sup> Crosswalk on the same machine as Maya — see <span class="char_link"><a href="face_export_ExportingAnimationRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-0048">Importing the Animation Rig into Maya</a></span>. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-03B2C86F-07E8-4666-8451-B30504A4E8AE"></a></span>Because Softimage contains the Crosswalk product, you don't need to install it separately
+               to import the animation rig into Softimage. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-002F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F68ECC78-392E-44E4-938F-820CCFB6ECA1"></a></span>Notes and Limitations for the Animation Rig Export
+               </h2> <span class="anchor_wrapper"><a name="UL_B0E7CB8625C24E73B1B29A79AFF17DD4"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-25665CE3-293F-4127-BAFE-B309661CFD42"></a></span>In order for the Animation Rig to behave exactly like the Face Robot head, make sure
+                        that the zeroed-out version of the Face Robot head is identical to its original version.
+                        This is because the Animation Rig is always based on the original version of the Face
+                        Robot mesh. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6A7D74FA-9D1C-4425-A206-C176A243B41D"></a></span>If you have lip-sync animation on the mouth controls, you need to select them and
+                        plot their animation into fcurves before the Face Robot head can be exported. This
+                        is because the Animation Rig can export only fcurves, and the lip-sync animation is
+                        driven by the SpeechBlend operator. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-624F49D4-983D-498E-A549-351AF61A1D01"></a></span>Use the <span class="MenuCascade" id="GUID-CE2DA834-A3BF-4283-83EC-5152705A02FB">Tools <img src="../images/ac.menuaro.gif"> Plot <img src="../images/ac.menuaro.gif">  All Transformations</span> command and make sure to select <span class="MenuCascade" id="GUID-FA8126E8-4839-4E6F-A010-834505E4DA93">Apply Plotted Animation to Object</span> in the Plot dialog box - see <span class="char_link"><a href="ani_proc_PlottingAnimation.htm">Plotting (Baking) Animation</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CAB5F293-254E-484C-A52E-5CCC4025B407"></a></span>For best results with the animation rig, avoid extreme positions of the animation
+                        controls. This can cause problems with the shapes when exporting the rig. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7F595CCB-941A-4573-AD0C-9320726691F7"></a></span>Head rotation and translation are not supported for the Animation Rig Export. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F3EF9ABE-B42A-42AB-A1E3-43340A856722"></a></span>Direction tracking is not supported for the Animation Rig Export. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A946C35E-DB6B-4008-A35B-2E887926F078"></a></span>The Lip Stiction feature is not supported for the Animation Rig Export. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0DD320F2-A359-4D7C-BD8A-BDF276BDB43B"></a></span>Animated teeth collisions are not supported in Animation Rig Export, but static teeth
+                        collisions are supported. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-70037A2C-C3DD-49A7-BED6-70636763570A"></a></span>Eyelid Bulge deformations and deformations resulting from rotating animation controls
+                        are not cached in the Animation Rig: they are simply ignored. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0030"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E6183C77-6FCB-4E1E-B076-714958F0B500"></a></span>Overview of the Animation Rig Export Workflow
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CE7BA287-E1DF-4619-8123-EE1B332B37EB"></a></span>The basic Animation Rig Export workflow involves the following steps. See the steps
+                  following this for more details: 
+               </p> <span class="anchor_wrapper"><a name="FIG_FF8F092489BD45A4A469F8EF7CD32C7B"></a></span><div class="figure-anchor"><img src="../images/GUID-89D95A57-1733-46A0-9F66-89380EAB9B30-low.png"></div> <span class="anchor_wrapper"><a name="GUID-7B7AF76F-92A9-40E2-9DF3-ECA8A55B8B60"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2A31403B-EBB4-4C6B-99FD-1DA266D13356"></a></span>Make sure that the original Face Robot head is solved and ready to go. This head can
+                        be animated or not. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-01908D5B-8C33-4023-8D13-BFEDD447F9F2"></a></span><div class="note-note"><span class="label">NOTE:</span>In order for the Animation Rig to behave exactly like the Face Robot head, make sure
+                           that the zeroed-out version of the Face Robot mesh is identical to its original version.
+                           This is because the Animation Rig is always based on the original version of the Face
+                           Robot mesh. 
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-34822571-DC72-45B0-AD22-EDE5CAF24388"></a></span>Click the Import/Export tab on the Act panel (see <span class="char_link"><a href="face_export_SavingandLoadingaFastPlaybackCacheFile.htm">Saving and Loading a Fast Playback Cache File</a></span>) and choose the <span class="MenuCascade" id="GUID-FC3A57BE-DF2E-4102-AA7A-92D09F9B54CE">Animation Export - Linked Shapes</span> option. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-585645E5-7576-4EE1-9E4B-0BAC261F759D"></a></span>The <span class="char_link"><a href="propref_facebot_ExportAnimationRig.htm">Export Animation Rig Property Editor</a></span> opens. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2BCDD148-EF2D-46A8-B325-D0987967EAC6"></a></span>Create the samplers that will sample the deformed geometry used for creating the shapes
+                        — see <span class="char_link"><a href="face_export_ExportingAnimationRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-0033">Creating Samplers</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FAC6C3D4-C9D6-4ADE-822C-73E631244785"></a></span>Build the rig that will be exported — see <span class="char_link"><a href="face_export_ExportingAnimationRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-0040">Building the Export Rig</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AB4C7BEC-2F97-4B38-BE5E-B9463F751C36"></a></span>Generate the shapes from the original head and transfer them to the export rig — see
+                        <span class="char_link"><a href="face_export_ExportingAnimationRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-0044">Generating the Shapes</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-073E22EB-D0E8-46A0-89D5-9D448F8D3844"></a></span>Plot the animation of the controls and transfer it to the export rig — see <span class="char_link"><a href="face_export_ExportingAnimationRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-0046">Transferring the Animation</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0DCD0CE7-469B-4006-9B63-00345C9E792E"></a></span>Save the rig in a dotxsi format file — see <span class="char_link"><a href="face_export_ExportingAnimationRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-0047">Exporting the Rig from Face Robot</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F58565F1-841E-4BC8-BA2B-5E664639E717"></a></span>Install Crosswalk on the machine that has Maya installed (Softimage already contains
+                        Crosswalk), then import the rig dotxsi file into Maya or Softimage — see <span class="char_link"><a href="face_export_ExportingAnimationRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-0048">Importing the Animation Rig into Maya</a></span> and <span class="char_link"><a href="face_export_ExportingAnimationRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-004A">Importing the Animation Rig into Softimage</a></span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B0556262-9C39-47EF-82E9-7736DF229B31"></a></span>You can then tweak the animation a bit and render out as you would normally from that
+                        software. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0032"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6FD8E234-A1E5-4FBC-9473-D0EEDA4658D8"></a></span>Hiding Rig Elements
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CF14D7C7-90F9-47AF-BA9B-37270E06F7F8"></a></span>You can use the buttons in the Hide/Display area of the Export Animation Rig property
+                  editor to toggle the display of: 
+               </p> <span class="anchor_wrapper"><a name="UL_7CF149C4A20D4E65BE6DDDDF1DB3D61B"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4666202C-41EF-4437-9456-9ACB3BB99553"></a></span>The original Face Robot head (<span class="MenuCascade" id="GUID-0D4605B9-3CFD-41E9-AF84-5442FFF9D280">Face Robot</span> button) 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BD7DB115-25DB-4C34-B098-8394E51A72EA"></a></span>The samplers (<span class="MenuCascade" id="GUID-E1585B22-8298-4123-B4C6-181E2A7E8A19">Samplers</span> button) 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EE99F411-BB62-4090-ACE2-78D8F18E9B90"></a></span>The export rig (<span class="MenuCascade" id="GUID-F52A45F9-404D-464D-B7D7-8BF074E89A55">Animation Rig</span> button) 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-14C83E20-5382-441E-B91E-837B9C918732"></a></span>For example, to keep the view uncluttered you may want to hide the original Face Robot
+                  head after you have built the export rig from it. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-E5916039-5EA4-4E08-B850-87B11BAB50C8"></a></span><div class="note-note"><span class="label">NOTE:</span>If you save a scene with the Face Robot head and/or the animation controls hidden,
+                     then reload that scene, it loads as you had saved it, but then an evaluation timeline
+                     appears and the face and controls' visibility is reset. 
+                  </div>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-E296261E-3128-4093-819B-17E285E49E1D"></a></span>As a workaround, you can click the <span class="MenuCascade" id="GUID-2ADE4198-6B39-4F35-9AB2-D002128969FD">Display</span> tab on the Act panel (see <span class="char_link"><a href="face_act_WhatsontheActPanel.htm#WSF468A8297860DD449B69C7615D16EBA9-0008">Displaying and Hiding Elements</a></span>) and select the <span class="MenuCascade" id="GUID-47B7EE9C-08B5-45D9-8516-E2FB68D60806">Toggle Face</span> and/or <span class="MenuCascade" id="GUID-361822A4-27D9-4518-8AD0-1D242D20D1C5">Toggle Controls</span> to return the face and/or animation controls to their hidden status. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0033"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D778A93F-5788-4447-9C9F-74C6B3B0BED2"></a></span>Creating Samplers
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-12924642-18D6-4E71-91F1-885BCB35750E"></a></span>Samplers are lattice-like forms that are created for the face's animation controls.
+                  These lattices help you visualize how the geometry of the face is sampled in each
+                  area around the control. The sampled area includes the points on the face's geometry
+                  that will be used to create the shapes for exporting. 
+               </p> <span class="anchor_wrapper"><a name="FIG_44A2F2EBBD9D4EE7A22A848F225073FF"></a></span><div class="figure-anchor"><img src="../images/GUID-09E63943-DF97-4048-A25F-194D78744B45-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-2516BDD0-71DC-4C16-92FD-5DEF6205926D"></a></span>You can also create ROM samplers, which are samplers based on the animation control's
+                  range of movement in space. Face Robot calculates the animation of each control over
+                  the duration of the animation and determines the positions that it has covered. The
+                  size of the sampler reflects the control's complete range of movement. This is more
+                  useful for controls that move over a larger area in space, such as the chin or mouth.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-332A0743-CA40-48BE-B29A-E33B184AD891"></a></span>Once you create the samplers, you can inspect them, as well as align their normals
+                  to the face's normal, change their size, and change the lattice density. 
+               </p> <span class="anchor_wrapper"><a name="GUID-3A2438C2-9885-4732-9172-2988F35A6C78"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EB1437C4-03DE-4FA8-AF29-B9D63C3C2476"></a></span>If the Face Robot head is animated, make sure it is at a frame where the head is in
+                        its rest pose or mute the animation on the head. This isn't absolutely necessary,
+                        but it may make it easier to work with the samplers. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D905ECB4-4657-4E53-8806-0E63A34ADA0F"></a></span>On the face, select one or more controls for which you want to create samplers. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EE8C1F94-1446-48B1-B76A-B954FACC8538"></a></span>If nothing is selected, samplers are created for all controls. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E9CC4B39-14E5-4E90-9BEC-BE9CE4CF4211"></a></span>Do either of the following: 
+                     </p> <span class="anchor_wrapper"><a name="UL_959C95C1AA98479C9CB565A93E6DBDD3"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-AC026314-2FEB-4DC1-8A5F-A655B82582A4"></a></span>Click the <span class="MenuCascade" id="GUID-28B04866-A6E5-4EE8-8EAB-2F7C531220EF">Create</span> button in the Samplers area of the Animation Rig Export property editor. Sampler
+                              lattices of the same size are created around all or only the selected controls. You
+                              can then adjust each sampler as you like (see below). 
+                           </p> <span class="anchor_wrapper"><a name="FIG_AD8341B7854F41BF9438E27F742B5426"></a></span><div class="figure-anchor"><img src="../images/GUID-3E178FA9-5E94-4B43-ACA4-C09A0B5A1356-low.png"></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2040430C-ADD7-4AAD-877A-B7749A1DF226"></a></span>Samplers of the same size are created when you click the Create button. You can adjust
+                              each one as you like by clicking the Inspect button and setting the options in the
+                              Inspect property editor. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-04B5C854-9842-4D9C-8DCA-510CAFAA7756"></a></span> <em class="mild">or</em> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4650320D-BF3F-4206-B925-69204B4C36D2"></a></span>Click the <span class="MenuCascade" id="GUID-23CAA60F-5131-4782-8220-1713906AC7E9">Create ROM</span> button in the Samplers area to create samplers based on the range of movement of
+                              each control. Face Robot calculates the animation of each control over the duration
+                              of the animation and determines the positions that it has covered, so this may take
+                              some time if you have many frames in the timeline! Once the samplers are created,
+                              you can adjust each sampler as you like (see below). 
+                           </p> <span class="anchor_wrapper"><a name="FIG_288D7D9474A740EAAEAF49145F8A4528"></a></span><div class="figure-anchor"><img src="../images/GUID-B5DBFCA7-C98F-4B25-9B77-EBA7C1012C07-low.png"></div> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7B37B1AF-366F-48F0-B17D-6786F8AD8B41"></a></span>ROM (range of movement) samplers are created based on the movement in space of each
+                              control. The larger the sampler, the greater the area in which the control has moved.
+                              
+                           </p> 
+                        </li>
+                     </ul> 
+                     <div><span class="anchor_wrapper"><a name="GUID-54D5225B-03F1-469B-A18B-896ACDDF0568"></a></span><div class="note-tip"><span class="label">TIP:</span>Click the <span class="MenuCascade" id="GUID-EF782884-7143-452C-89A0-CF6B3B3737F7">Samplers</span> button in the Hide/Unhide area of the property editor to toggle the display of the
+                           samplers on the face. 
+                        </div>
+                     </div> 
+                  </li>
+               </ol> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0038"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-72ECD593-2F72-4AAA-988E-C268F1B6A354"></a></span>Adjusting the Samplers
+                  </h3> <span class="anchor_wrapper"><a name="GUID-E0ED4ADA-E8AE-4CF9-A454-BF457404C2BC"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CF3658FB-A449-4D2F-951F-657FFC206FE8"></a></span>Select one or more samplers and click the <span class="MenuCascade" id="GUID-FD461915-77BC-4385-AD2B-8CA4131AD689">Inspect</span> button in the Samplers area. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1F203119-8924-48F7-8002-B9BA16C8EA20"></a></span>In the <span class="char_link"><a href="propref_facebot_Sampler.htm">Sampler Property Editor</a></span>, you can align the samplers' normals to the face geometry, scale the sampler on any
+                           axis, and change the density on any axis. 
+                        </p> 
+                     </li>
+                  </ol> <span class="anchor_wrapper"><a name="TABLE_9D5CFF8FDC4D4C07BE98C783526D2671"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-8A4C6490-5740-4A48-8C99-692C9F61AB08-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-1FD06CED-C4CB-4375-9F44-DF9CECEE1D1C-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-94F9CB26-79DB-4F92-82D3-0014AE03733A-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0D66716F-7E9A-41F5-B2B2-B50E6B426DBD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C3421114-D593-412C-9B39-47453C88EC89">Align</span> the samplers' normals to the normals of the face geometry so that the lattices better
+                                 follow the face's contours. 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E8F39A6E-E3EA-4734-862F-026BC208AE67"></a></span><p class="table-body">You can change the <span class="MenuCascade" id="GUID-77B137A4-B56E-488D-B981-DD830E7DA392">scaling</span> of the samplers. 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9A70A824-590D-45F4-80F7-08383CF5B859"></a></span><p class="table-body">You can change the <span class="MenuCascade" id="GUID-7A501AD1-EB02-40EB-89CA-EF7F99C0AF99">density</span> of the samplers. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-003C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-76D2A9F4-06E2-4639-83B6-9FAE8A611F46"></a></span>To update the shapes after changing the samplers
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-46E9C709-B581-4A5C-8D8E-18F9C806547F"></a></span>If you've changed the samplers after you have built the export rig and generated the
+                     shapes, you need to update the shapes to reflect these changes. 
+                  </p> <span class="anchor_wrapper"><a name="UL_4E44E0DC8557471088AB2002D7B6F152"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-69AA8397-E1DB-4831-A1FA-E982DAB39A91"></a></span>Click the <span class="MenuCascade" id="GUID-CF2D75F9-6F33-46A0-8EF0-D1099BD505E8">Create/Update</span> button in the Shapes area of the property editor — see <span class="char_link"><a href="face_export_ExportingAnimationRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-0044">Generating the Shapes</a></span> for information. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-003D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DFB664D6-7E76-4EDF-9CE7-1B6D7A2AAF50"></a></span>Saving and Loading Sampler Presets
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-55BFA406-C1BD-4D54-8315-CAD1DC4881FD"></a></span>You can save and load sampler presets to make the sampler creation process go faster,
+                     as well as being able to use the same samplers on a number of faces. Sampler preset
+                     files are saved in .smp files. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-003E"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-6FDA3461-A3E3-447D-929A-4D1CE18BD84C"></a></span>To load sampler presets
+                     </h4> <span class="anchor_wrapper"><a name="GUID-149A665D-4E6C-48AD-8523-E4B3EF4A85A8"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-531104D4-5320-4359-8AB2-0E54357A95C2"></a></span>Select one or more controls for which you want to load samplers. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B9ADFD82-666A-43B6-973B-6C5E73C77201"></a></span>If nothing is selected, sampler presets will be applied to all controls for which
+                              a preset exists. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F7A171D2-FB1C-473C-81BE-835820BF5C78"></a></span>Click the <span class="MenuCascade" id="GUID-416EA5D8-92F8-46D4-8978-30B80BDCC388">Load</span> button in the Samplers area of the property editor. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6AEC3E20-25C0-4E46-83DF-77B957E5DCB5"></a></span>In the browser that appears, select an <span class="MenuCascade" id="GUID-72DC6C4E-3245-4698-A209-2DA9A461005D">.smp</span> preset file. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-175677A2-1F8E-4A7E-8A95-166E0D7579A5"></a></span>There is a <span class="MenuCascade" id="GUID-36376398-6A96-45A6-87C4-95AE855BA325">default.smp</span> file that ships with Face Robot that you can apply. This file is just to help you
+                              get started with samplers. You can then adjust the samplers for your particular head
+                              and save the preset using a different name. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B005BCEB-7764-48D7-9C03-152519FE1ADE"></a></span>The samplers in the preset are applied to the applicable controls. You can then edit
+                              each sampler as you like. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-003F"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-71B96EBA-67EE-44D4-9C11-56FE38747354"></a></span>To save sampler presets
+                     </h4> <span class="anchor_wrapper"><a name="GUID-EEB7C2C0-4C31-4C02-A160-7B2B9079B4E8"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-FFC4B63B-E086-4B34-867D-3042EB14FC2E"></a></span>Select one or more controls for which you want to save a preset file. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-76EC8E6C-10AA-4664-B2BF-918B83B68027"></a></span>If nothing is selected, the sampler preset file will include presets for all controls.
+                              
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-487CBD1B-2B2C-4C14-839D-3FD0C7C6093D"></a></span>Click the <span class="MenuCascade" id="GUID-979A7C2A-7F3C-4C54-8A3E-075885740876">Save</span> button in the Samplers area. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-EB63C319-9E0E-4208-967D-638526FDC39E"></a></span>In the browser that appears, enter a name for the <span class="MenuCascade" id="GUID-B226EBF4-B0FF-4705-A743-7786C85F2623">.smp</span> preset file. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0040"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C14B1ED9-701A-4AA5-BE93-B0057F8980B9"></a></span>Building the Export Rig
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7E6DD2A5-2E75-4E5B-AD7E-056D57CFDAB3"></a></span>After you've created the samplers on the head, you're ready to build the export rig.
+                  To build the rig, Face Robot copies the geometry of the original head, then reconstructs
+                  its controls. This rig is a simpler hierarchy than what is in Face Robot because there
+                  are fewer scene elements, and the Face Robot solvers and operators are not included.
+                  
+               </p> <span class="anchor_wrapper"><a name="GUID-EDDC6960-43C7-4D6A-85EF-9E23EAE77240"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-208EB338-8620-40F1-BF85-94CF5496CDC8"></a></span>In the Rig area of the Export Animation Rig property editor, select the <span class="MenuCascade" id="GUID-9795CD7C-2DE0-4A8E-A566-197AB55FA39F">Copy Eyes, Teeth, and Tongue Geometry</span> option if you want to include the eyeballs, teeth, and tongue as part of the export
+                        rig. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5FFA9887-06A2-4304-8A35-7DC7DA070EAE"></a></span>Click the <span class="MenuCascade" id="GUID-5459A5BE-1912-46CF-97F1-EB430A6A9C05">Build</span> button. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-28238ADF-88A9-427D-A0B6-E6A131A2E4C8"></a></span>A model named Face Animation Rig is created, which contains all the elements of the
+                        rig. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-0C685D45-3224-4200-A380-B6BA69D25A64"></a></span><div class="note-tip"><span class="label">TIP:</span>You may want to click the <span class="MenuCascade" id="GUID-F8F7C0EA-64F6-4F9E-A60B-FE826A58F8E6">Face Robot</span> button in the Hide/Unhide area of the property editor to hide the original Face Robot
+                           head so that you can see the rig more clearly. Click the <span class="MenuCascade" id="GUID-C2795183-41F3-4593-A11F-8D0E11F65FC1">Animation Rig</span> button to toggle the display of the animation export rig. 
+                        </div>
+                     </div> 
+                  </li>
+               </ol> <span class="anchor_wrapper"><a name="FIG_A54B96C1DDC54B128CFC3E3999A3F47B"></a></span><div class="figure-anchor"><img src="../images/GUID-ABB7BE85-BFC2-4695-9192-E07312CCBF30-low.png"></div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0043"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5B525F43-3546-44A7-B3D4-899A385F02A0"></a></span>To delete the export rig
+                  </h3> <span class="anchor_wrapper"><a name="UL_6685E77E487E4C03AED11ACCF8880BCA"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E8BFA169-BD36-4639-B697-A4B597F63B4C"></a></span>Click the <span class="MenuCascade" id="GUID-116B5F0F-FAAB-482D-88B9-4EE1BEFEE166">Delete</span> button in the Rig area of the property editor. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0044"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0584561B-86A1-4605-B7DA-894F1719959F"></a></span>Generating the Shapes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-741CEB42-F3CD-4C10-A7DE-9D9F9D366BBC"></a></span>Once you've created the animation rig, you can save the geometrical deformation of
+                  the original Face Robot face as shapes and transfer them to the export rig. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-049EC34D-3C68-43B2-A376-DEDEDBED467E"></a></span>When you generate the shapes for the first time, Face Robot transfers the original
+                  head's geometry deformation to the animation rig. This creates a connection between
+                  the rig's animation controls and the face's geometry. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-02DF6089-9922-4E0C-A4E4-448F84B01923"></a></span>The shape creation process transfers the deformation by creating clusters of points
+                  that are affected by the movement of the control. One cluster of points is created
+                  for each control, then shapes (also known as <em class="mild">shape sources</em> or <em class="mild">shape keys</em>) are created for each of these clusters. Because only the clusters of points that
+                  are affected by each control are cached, the cache is smaller in size than if all
+                  points on the head were cached for each shape. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1BD0D059-59BD-470D-83B1-9AB8C48ED5F3"></a></span>After the clusters and shapes are created, a weight operator is added for every shape
+                  (shape source) in the Mixer node of the export rig's model. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0045"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-188FCDC3-99BD-44D2-8690-136B658A8284"></a></span>To generate and update the shapes
+                  </h3> <span class="anchor_wrapper"><a name="GUID-04480925-AD87-46D4-897D-FD5F8A47120C"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F4EBB5B7-7015-4B26-B2A7-6F96550E56A8"></a></span>Click the <span class="MenuCascade" id="GUID-E3C772EE-1E48-4ED2-B2CC-C61D1C5BF374">Create/Update</span> button in the Shapes area the first time to create clusters of points for each control
+                           and create shapes for each cluster. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CBB22C3C-2028-4D72-9B95-E1A8504CC238"></a></span>After this is done, you can modify a sampler and then click the <span class="MenuCascade" id="GUID-E31F6B1A-66C7-47FB-8004-CE1729445E45">Create/Update</span> button again. This updates only the clusters and shapes of the controls affected
+                           by the change to the sampler. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-22D817EB-6234-4803-A727-5E9E77EEBC6E"></a></span>You can select the rig and open the animation mixer (press Alt+0) to check that each
+                     control has a shape compound clip on a track that contains all its shape clips. Double-click
+                     on the shape compound clip to open it and see the shape clips. Shape clips are instances
+                     of the shapes. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0046"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A3CFAABE-2968-4711-AA87-38B60832109D"></a></span>Transferring the Animation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-CA8C8F29-3BD1-4594-A25E-918BEF2D50B7"></a></span>After you have created the shapes for the export rig, you need to transfer the animation
+                  from the original Face Robot head's controls to the export rig's controls. See <span class="char_link"><a href="propref_facebot_ExportAnimationRig.htm#WSD5274B1FC2E34F4894871ED78D7E5A02-0018">Transfer</a></span> for details. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0047"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-23BF51AC-BDC7-406E-B377-CC492B06071F"></a></span>Exporting the Rig from Face Robot
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-884B1C64-65BE-4F27-9E9F-21107C256D22"></a></span>When you have finished all the previous steps, you're ready to export the animation
+                  rig in a .dotxsi file. The dotxsi format is the file format that is used as the default
+                  export/import format for Softimage and is also easily imported by Maya. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3799CD81-D4A7-41FF-83AD-10E6B383C0A7"></a></span>Exporting the rig puts all of its geometry (head, eyeballs, teeth, tongue), shapes,
+                  controls, and their fcurves into a single dotxsi file. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6637AC6A-89D0-4A30-BD95-C3B11685BF93"></a></span>As well, a sampler file is exported as part of the process. The sampler file helps
+                  Softimage or Maya understand the control positions so that they can be assigned correctly
+                  to each shape when they get imported. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-AF7987BD-4580-47A1-898D-E375AB62E587"></a></span>You can choose to export the animation on the controls or not. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-121300CB-C23A-4D60-950D-94B922ECEB73"></a></span>See <span class="char_link"><a href="propref_facebot_ExportAnimationRig.htm#WSD5274B1FC2E34F4894871ED78D7E5A02-0019">Export Rig</a></span> for details. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0048"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F1962171-EE93-40C6-AF72-2D864E45FF57"></a></span>Importing the Animation Rig into Maya
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-72564400-601E-457F-9B1F-951FB58D7A17"></a></span>Once you've exported the Face Robot animation rig as a .dotxsi file, you can import
+                  it into Maya. There, you can use the native Maya tools to tweak the animation and
+                  shapes as you like, then render out from it as you would normally. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E0815F5B-6158-4751-B335-29FCC0720E0E"></a></span>Before you can import the dotxsi file into Maya, you must first install Crosswalk
+                  (both 32 and 64 bits are supported) on the same machine on which Maya is installed.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A9D6C0FB-5205-4059-9EB8-BF29BD55E0EB"></a></span>When you install Crosswalk, the <span class="MenuCascade" id="GUID-89165190-6211-41D1-85E1-17E6289FF03C">faceRobotUtils.mel</span> and <span class="MenuCascade" id="GUID-334D8B8F-BB90-4CAA-9DA9-B20F851DB74E">FaceRobotImporter.mll</span> files that are required for importing Face Robot are both installed in Maya's Plugin
+                  folder. They use Crosswalk to import the rig and its animation controls, and then
+                  reconnect the relationship between the Face Robot rig's shapes, controls, and the
+                  head's geometry once the rig is inside Maya. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-84DBF4B3-CC5E-45B8-B5C9-D1CE794186B9"></a></span>For information on Crosswalk options, see <span class="char_link"><a href="data_xwalk4maya.htm">Using Crosswalk for Maya</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-0049"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C311BC6D-018E-4BB6-8801-C3454A347492"></a></span>To import the rig into Maya
+                  </h3> <span class="anchor_wrapper"><a name="GUID-E4C25921-9AAE-46E2-9A57-7B3E974BB204"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AF792B94-9AB4-41F8-9A9D-DFDE89AC7166"></a></span>Install the latest version of Crosswalk on the same machine on which Maya is installed.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D95847A8-FB22-4A4E-BDD9-1D7154A4202E"></a></span>When you install Crosswalk, the <span class="MenuCascade" id="GUID-722D23DF-AE57-4E51-BA66-312FFCBC6C99">faceRobotUtils.mel</span> and <span class="MenuCascade" id="GUID-D4F16D9D-FE1C-413B-AB42-69879E5DB4DA">FaceRobotImporter.mll</span> files are installed in your Maya Application\Plugins folder. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E4D78CE1-A302-42F1-BB9E-1819784C4D79"></a></span>In Maya, choose <span class="MenuCascade" id="GUID-238402F7-4DCA-4DCB-836D-8F081337A347">File <img src="../images/ac.menuaro.gif"> Import Face Robot</span> from the main menu. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5F166299-0607-45EF-980E-E10C058E9B30"></a></span>In the Import Options dialog box that opens, set the options as described in <span class="char_link"><a href="import_export_xwalk4maya_ImportingandExportingwithCrosswalkforMaya.htm">Importing and Exporting with Crosswalk for Maya</a></span> [<span class="char_link"><a href="">
+                                 NO LABEL
+                                 </a></span>]. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F08908DC-D80A-4878-9164-0D7F641E2322"></a></span>Click the <span class="MenuCascade" id="GUID-3E35C67C-0FBB-4F74-96E1-7E1A7EE03D5C">Import</span> button. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FF584E02-4C72-4417-B4A3-1BF588CA93C1"></a></span>In the Import dialog box, do the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_C31CBD11C5484BDBA6E32824BFD2DF6B"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-25E81C7B-EC59-4BB1-8AB9-BD64C4F30D2F"></a></span>Set <span class="MenuCascade" id="GUID-11A98FE9-094F-4242-BA61-0EB8BBB3CFD0">Look in</span> to the folder where you exported your dotXSI files. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2643FD2E-7D81-41BB-AC02-AF6370515209"></a></span>Set <span class="MenuCascade" id="GUID-E5ABFD5F-845D-4729-A253-927556D4C166">Files of type</span> to Autodesk_Crosswalk_Importer (*.xsi). 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-67B664A3-DAA8-453B-9B81-26F61FECF97C"></a></span>Select the .dotxsi file that you exported from Face Robot. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7E29C3C0-06A0-4D24-B7E7-8033EA1610D3"></a></span>Click <span class="MenuCascade" id="GUID-2E155D7C-CE1A-4F4F-9EBE-7649FC817FD0">Import</span>. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C185AC90-71AB-40CE-80DF-DD3355D5C817"></a></span>The rig with its animation controls and blend shapes is imported into Maya in a model
+                     called Face_Animation_Rig. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-004A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CF8B863B-47A4-420A-843E-C253F7D177E4"></a></span>Importing the Animation Rig into Softimage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2B706CEA-FCC4-4AC5-BB48-AAF1370843D5"></a></span>Once you've exported the Face Robot animation rig as a .dotxsi file, you can import
+                  it into Softimage. There, you can use the native Softimage tools to tweak the animation
+                  as you like, then render out from it as you would normally. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-30B575ED-B967-41CD-9EED-CDEC901E34E7"></a></span>To import a Face Robot animation rig, Softimage uses the following files that are
+                  installed by default: 
+               </p> <span class="anchor_wrapper"><a name="UL_CA003EDE0B9841149F36DA78B959787B"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D0A0E93F-5320-4CAB-BD32-27014E4BA021"></a></span>AnimationRigImport.js 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0820E3FE-183D-4A90-BF0A-5F1A381E70E7"></a></span>ShapeWeight.x86.dll or ShapeWeight.x64.dll (depending on your setup) 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-30A931D5-4523-42CB-9D6B-A783095A53F8"></a></span>FR_ICE_Import.x86.dll or FR_ICE_Import.x64.dll (depending on your setup) 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-994CA9F9-DC49-416C-8C1C-9700BA579A12"></a></span>FR Blend Shapes.xsicompound 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-581184B7-7B65-4B79-B97E-5BA1B460E347"></a></span>FR Determine Shapes Per Point.xsicompound 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-3D43E79C-91BB-432E-B1E8-BEACC6655154"></a></span>Softimage uses Crosswalk (which is part of Softimage) to import the rig and its animation
+                  controls. Then the two ICE compounds listed above re-create the relationship between
+                  the rig's shapes, controls, and the head's geometry once the rig is inside Softimage.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS38C9EED16FDE024591DF17B0520564F4-004B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-29EC523D-6B4F-46D7-A86D-5EAABD414E74"></a></span>To import the rig into Softimage
+                  </h3> <span class="anchor_wrapper"><a name="GUID-BD11F684-B1D1-4C7E-BBDD-210D588CB0CD"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1A520CF5-EE03-40C5-AEC7-8EE7D04BA217"></a></span>Open Softimage and choose <span class="MenuCascade" id="GUID-4FCF391C-7B8B-4355-8A8F-1C56707B71F6">File <img src="../images/ac.menuaro.gif"> Import <img src="../images/ac.menuaro.gif"> Face Robot Shape Animation Rig</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-96FEA4D6-5B12-449F-9B37-AEADE8AB58B1"></a></span>In the dialog box that appears, select the .dotxsi file you exported from Face Robot
+                           and then click the Import button. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4570E3F5-9382-4529-9628-F2135333BC17"></a></span>The rig with its animation controls (represented as small green boxes) is imported
+                           into Softimage in a model called Face_Animation_Rig. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_5E08A21292BD41A5A6542F22817C23BC"></a></span><div class="figure-anchor"><img src="../images/GUID-27BD4937-0353-4C67-8D1D-43E9E1D7776E-low.png"></div> <span class="anchor_wrapper"><a name="UL_0D732CEE1F27401C82788D53D7D58D06"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-EFD87434-809B-45C6-B0B8-44D495C4FC3A"></a></span>If you exported the animation on the controls, you'll see red ticks in the timeline
+                                 at each frame, which represent the keys on the controls. To check the control's fcurves,
+                                 select a control and press 0 (zero) to open the animation editor. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D8A708F5-311B-4763-A12E-AE78E3EFA848"></a></span>You can select the head and open the animation mixer (press Ctrl+0) to check that
+                                 each control has a shape compound clip on a track that contains all its shape clips.
+                                 Double-click on the shape compound clip to open it and see the shape clips. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F0C653E2-488B-4922-9B68-0AB9D2C2A0D6"></a></span>Each shape clip is controlled by the ShapeKey operator, so you can't change its weight
+                     value, but you can see how the shape for each control is working by playing the animation
+                     or scrubbing the timeline. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_AFFAEEA5155D4FDBBFA6F3A19D567806"></a></span><div class="figure-anchor"><img src="../images/GUID-E95D167D-B7B3-47B0-ACEE-9E4A7B64B5FD-low.png"></div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

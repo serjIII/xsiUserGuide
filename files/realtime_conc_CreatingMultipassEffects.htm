@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-A19B7AA0-CDCA-4BD1-B6EB-0E6C3B54644C">
+      <meta name="indexterm" content="realtime shaders: blending">
+      <meta name="topic-type" content="concept">
+      <title>Blending with Realtime Shaders</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-A19B7AA0-CDCA-4BD1-B6EB-0E6C3B54644C"></a></span><div class="head">
+            <h1>Blending with Realtime Shaders</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-B1A63D81-81A1-4044-9EBA-BA07EAAB19FC"></a></span>Creating realtime effects often requires more than one drawing pass because each pass
+               is adding something to the overall effect. The blending modes that you specify create
+               transparency, and thus determine how the background layers show through the foreground
+               layers.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-0049"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5E712EE5-B383-43E4-AFD1-882F16D8B4FE"></a></span>How Blending Works
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-A5F88729-BF5C-4352-9E20-A8139D86A083"></a></span>Blending works by adding the incoming pixel (source) and the frame buffer pixel (destination).
+                  Keep in mind that destination pixels are already in the frame buffer, while the source
+                  pixels are new pixels that are being blended with the frame buffer pixels.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-610D74E2-9BE1-4457-8EFC-253E328D64B3"></a></span>For example, if you have a pixel that had the following RGBA value (0.7, 0.7, 0.5,
+                  1.0) and the frame buffer already contains the following RGBA value (0.5, 0.2, 0.3,
+                  1.0), then the resulting pixel will be (1.2, 0.9, 0.8,2.0). Values are clamped to
+                  1.0 which means the final pixel will be (1.0, 0.9, 0.8, 1.0).
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1C47800B-F359-4AD0-9435-194BC16FC7FA"></a></span>It is possible to multiply the values of the source and destination pixel by a specific
+                  term (ONE, ZERO, ONE_MINUS_SOURCE _ALPHA, and so on). So if, for example, the source
+                  is multiplied by ONE and the destination is multiplied by ZERO, then the output will
+                  include the source pixel only.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1A80EC99-BE05-49B1-8083-BC136C4A956E"></a></span>The blending equation is as follows:
+               </p> <span class="code">clamp ( (source * source multiplier) + (destination * destination multiplier))</span> 
+               <p><span class="anchor_wrapper"><a name="GUID-E8E4D25F-C8D4-47D0-A82F-A27B559B96CA"></a></span>So if you have the following incoming pixel:
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FB6CF006-1952-44FD-AFF9-A224F5CEF9B2"></a></span> <span class="code">(1.0, 0.0, 0.0, 0.8)</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-736D5B66-6DA6-4498-8C1D-8C53C17CBF6C"></a></span>and the following value in the frame buffer:
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-78B97126-5765-4A9D-8386-8ED7D4B0D02F"></a></span> <span class="code">(0.2, 0.0, 1.0, 1.0)</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0CA29D4F-8209-4550-83D1-EAFC97F5B1AE"></a></span>then the equation would be as follows:
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F175BE2A-DF3C-4D84-879D-69E6611E0172"></a></span> <span class="code">R = clamp ((1.0 * 0.8) + (0.2 * 0.2)) = 0.84</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4ECD5CFB-20A6-40B8-AEE0-5D45B087E904"></a></span> <span class="code">G = clamp ((0.0 * 0.8) + (0.2 * 0.0)) = 0.0</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-43CFA613-3F5D-461E-A3EE-295BFB2DD8E7"></a></span> <span class="code">B = clamp ((0.0 * 0.8) + (0.2 * 1.0)) = 0.2</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2C060312-F024-4FBC-BFA5-8BAA0C5180DD"></a></span> <span class="code">A = clamp ((0.8 * 0.8) + (0.2 * 1.0)) = 0.84</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-225ECA79-88AF-4723-A623-539EE4C207C2"></a></span>When applied to every pixel in a texture, this equation determines what the blended
+                  output looks like.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS349A1059FFC671449CEA65A315C2358D-004A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-638405B1-35ED-40E5-A834-A75C8C3D6A55"></a></span>Blending Example: Basic Transparency
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-5069442F-D138-4DF5-B521-1FF59BA29AF4"></a></span>The output of the render tree — applied to a grid in this case — is the blue texture
+                  shown below made transparent in an area defined by its alpha channel.
+               </p> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-DD8DA8BD-E054-4571-8724-4E5AD68643FB-low.png"> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-CE81D4E3-932C-4492-873D-BB58A82B9FCD-low.png"> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-CA9EDA6E-FDB4-44D5-BF0C-73E5D3533E01"></a></span>Texture (left) and alpha channel (right)
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D94D8AE2-478A-444E-97F0-91170A1FB3A4"></a></span>When the "drawing" shader performs its blending calculations, the source pixels are
+                  multiplied by their alpha channel value (SRC_ALPHA) and the destination pixels are
+                  multiplied by one minus the source pixels' alpha channel values (ONE_MINUS_SRC_ALPHA).
+                  The source and destination values are then added together.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4BD9A65B-609F-446C-BE85-10FFADF4C98F"></a></span>The net effect is that the source's alpha channel is removed from both the source
+                  and the destination, leaving the area transparent like this:
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-94F300EA-BEC5-4B91-A8DD-E143FB782785-low.png"></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

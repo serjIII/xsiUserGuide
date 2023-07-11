@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-8C8E32D3-DB3A-49EE-B309-562CE3DD934A">
+      <meta name="topic-type" content="concept">
+      <title>Architectural (Multi-Out)</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-8C8E32D3-DB3A-49EE-B309-562CE3DD934A"></a></span><div class="head">
+            <h1>Architectural (Multi-Out)</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-612F3F1D-09BF-4E83-9A98-D93AC91E45BE"></a></span>| <span class="char_link"><a href="mat-mentalimages_shaders_ArchitecturalMaterialMultiOut.htm#WS6EE05AA23AA85A43B64451BE2934084F-00F1">Render Tree Usage</a></span></p>
+            <p><span class="anchor_wrapper"><a name="GUID-D849B58D-5187-418B-B4F1-B03C430A9FDB"></a></span> <em class="strong">Category:</em> Illumination
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5A2C06E7-D4EC-4CBD-9E66-01E8A05B4881"></a></span> <em class="strong">Shader Family:</em> Surface Material
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-75D57C6F-5F85-4469-9CED-B7AFE0F7A7FF"></a></span> <span class="MenuCascade" id="GUID-4049E0F7-666C-45AB-AF5E-F4F711C69D9C">Multiple Outputs:</span> Color and Scalar values
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4A6C27CF-2176-4FDA-AFDB-467CD1741E2B"></a></span>This shader is the multi-output version of the <span class="char_link"><a href="material_shaders_ArchitecturalMaterial.htm">Architectural</a></span> shader (refer to this shader for all parameter descriptions).
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5FCF339E-D9E6-4955-89B4-F33E6892B4D0"></a></span>The Architectural Material (Multi-Out) shader is designed to support most physical
+               materials used by architectural and product design renderings. It supports most hard
+               surface materials such as metal, wood, and glass. It is tuned especially for glossy
+               reflections and refractions and high-quality glass.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6EE05AA23AA85A43B64451BE2934084F-00F1"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-776E9283-A7D7-4220-8B7A-690EB50AB7CF"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8B28F966-58E1-4A39-827B-FB2625598BEA"></a></span>The Architectural Material shader has multiple outputs. Most of the outputs follow
+                  the pattern of xxx_result, xxx_raw and xxx_level. The "result" is the final contribution,
+                  "raw" is the unscaled contribution, and "level" is the scaling. The "level" is often
+                  related to an input parameter (or combinations thereof), and has been modified to
+                  abide by the energy conservation feature of this material. Unless otherwise noted,
+                  xxx_result = xxx_raw * xxx_level.
+               </p> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4284159D-FDF9-4174-B677-0888DFD5EA49"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3773C934-A0BB-4C44-A575-19E444B26DD9">result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-16A1E074-35BC-4A3C-822A-94A02CE4C22B"></a></span><p class="table-body">The combined result. It is the main, blended output, also known as the "beauty" pass.
+                              It is identical to the single output of <span class="char_link"><a href="material_shaders_ArchitecturalMaterial.htm">Architectural</a></span>.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C70942DE-5270-4EBF-B6D6-FF5F724901CD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B1C88AFE-172C-404C-9214-2A229640F641">diffuse_result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A6394C0D-5DA6-46FD-AD74-D2C555B03630"></a></span><p class="table-body">The resulting diffuse component after lighting, including textures.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0B70C1A7-B550-404D-B9AF-67B7CEB299A8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EACF1045-5D9A-4F76-B9E0-38484AE3CC31">diffuse_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C4E60620-3EFB-45E7-BA58-2691ED805959"></a></span><p class="table-body">The diffuse lighting itself, without textures.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-51E95E8D-5987-4587-A44D-17A62F1C722B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1D846EFA-13C5-4859-8957-869A9EF739B4">diffuse_level</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-61B823C5-2E3E-4CE0-9C99-02F4BD35BD22"></a></span><p class="table-body">The diffuse texture color adjusted by the energy conservation.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1EF1E691-E708-4F6B-867B-90E8C3162D1E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-65CFC6F2-7F46-4741-A283-4655EFD0BCDD">spec_result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D51D5A0D-E511-4E84-8C4C-077D2CAB3393"></a></span><p class="table-body">The resulting specular component.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-77CF8698-C1DA-4EE0-8DCD-7BF3FCE1E182"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FD0A2FF6-3451-4977-8569-C963F4653000">spec_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-05F54B51-AE38-4E89-8B09-8E3F936E4994"></a></span><p class="table-body">The raw un-attenuated highlight.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6F71AA0C-9634-4E04-BA72-6956AF113C29"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-514BBFF8-ADAB-4E13-B85F-21BC82C78E6F">spec_level</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1FABC32A-2615-4AC6-BA76-4C9BF1FC0BA6"></a></span><p class="table-body">The specular level, which is the same as refl_level if the Highlight vs. Reflection
+                              Balance is 1.0.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-99A43A54-A15D-4139-82D6-5C62AD75996A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-76E9AD4C-100A-426C-8F39-552CF6196336">refl_result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BC95F80D-D0F6-4A76-85E7-81DD314B2627"></a></span><p class="table-body">The resulting reflection component.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C3934962-4006-48B7-85AA-2395048C3579"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FED7790D-AF85-406C-89CD-EB3D0B66254B">refl_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FDF28FFE-80C4-4E3D-ADC3-BBE61E9F73A3"></a></span><p class="table-body">The raw (full intensity) reflection.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-026A5B4E-C050-4B1E-8D32-0CB4DFE327CE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B187881B-745C-401E-AECA-CFCF0B213141">refl_level</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F69E69CB-38DB-4AF0-B58D-C51AF4A56513"></a></span><p class="table-body">The actual reflectivity, including Reflection Color and BRDF (or fresnel) curve attenuation
+                              effects.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0EC12661-85DA-416F-8190-FE0E0C3A8804"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4DC6492A-4D1F-4AD2-A976-D5CC80FB4430">refr_result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9AD0F15E-BD28-44EF-92DA-DD2269115356"></a></span><p class="table-body">The resulting refraction (transparency) component.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A5B4CF03-D546-424A-B400-D825832549AF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5BCBF88E-F345-4E43-B77B-7316DB56AD3E">refr_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2A87DB3B-3FAE-49E4-B1B8-2F105AA9C314"></a></span><p class="table-body">The raw full intensity transparency.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-100A7582-F5A4-4F05-AFA3-17E209A16677"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1C7354D4-6E85-42BA-88B1-6033EC7A7409">refr_level</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7561EAFD-00A2-49CC-9321-4EC998F886DF"></a></span><p class="table-body">The actual transparency level, which has been adjusted by the energy conservation.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DBB1319B-E850-49E4-AED1-2C69D177ABD5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D03AD0AA-59A1-4E35-9B0A-05ACC880FB59">tran_result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5779B850-CEC6-45C6-8636-92D0F6E26423"></a></span><p class="table-body">The resulting translucency component.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-059DB249-6563-41A0-A5EF-475F060635A1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9162ADB5-2487-4A8C-8DAC-0A749D8D924D">tran_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C20A87F6-FC1F-4E02-83AD-2AF95C7A842D"></a></span><p class="table-body">The raw translucency.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4C3E5437-1226-4CE7-9435-550837D9E49C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6CAD1DB1-E6F0-46E3-A988-C9D385A4F123">tran_level</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-43ABF1B7-E23A-4901-89D1-3BE38DAC7BAE"></a></span><p class="table-body">The actual translucency level, adjusted by the energy conservation.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8C1E94C2-FA6F-42CC-BEF2-7906A223E8FC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-16527C64-14A7-40FC-8B29-4C3DB46A7733">indirect_result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-399C10B5-9D81-4F4D-A07E-553592C58FEC"></a></span><p class="table-body">The resulting indirect illumination including ambient occlusion effects and multiplying
+                              by the diffuse color.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F11590BB-32E9-4A45-9947-8A4DFB0F99AA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-621B7CAD-9C6C-4E81-A768-EA242E3094C0">indirect_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A595DDB5-8AFB-41BA-9AF6-A2165302C7B2"></a></span><p class="table-body">The raw result from mi compute avg radiance().</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-04F2D774-6CA6-433C-91F0-7E16D68DB907"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C2D2B759-7175-4CB2-B47F-F97A804E4AB4">indirect_post_ao</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-77B42BB6-E691-436F-A596-4646765FA2EA"></a></span><p class="table-body">The indirect illumination affected by ambient occlusion but without being multiplied
+                              by the diffuse color.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C647E476-08F7-4FAE-9739-9D6DCDEF6C17"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1064C0B2-BDCD-4D39-A7DF-C59B7B062C28">ao_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-504C5E82-6241-44D2-8696-91E455EE8F9C"></a></span><p class="table-body">The raw ambient occlusion contribution.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-83ECB7A0-5C69-4570-A619-22C343B85940"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DD4012FE-B7DC-4C71-8168-9804EB39824B">add_result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E6705AF4-2B5A-48B6-8127-71A6C7FFEA91"></a></span><p class="table-body">A straight pass-through of the Color Blend (additional_color) parameter.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3774955F-1E6C-4F82-AA06-48DD073F8D3A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A8744C4E-2AA4-4B4E-A600-3330877CD5F6">opacity_result</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E7F9FD92-2685-43F3-87E0-549DE8132B80"></a></span><p class="table-body">The final contribution of any background of the object as a result of the Cutout Opacity
+                              being less than 1.0. This output will contain black if Cutout Opacity is 1.0 since
+                              no actual transparency ray is ever traced in that case.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-820A17B4-77F0-49BD-8CE5-7BB6F1E54DBA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-580D6304-36D1-4488-BD1E-11272A53EAAF">opacity_raw</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-18ABE13B-C163-4761-A936-1F546639F7D5"></a></span><p class="table-body">The background without scaling by the opacity. This output will contain black if Cutout
+                              Opacity is 1.0 since no actual transparency ray is ever traced in that case.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-92C32DB8-E213-45E2-A297-1636A9D3C00B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6588E7BC-8BC6-4A14-8AFA-D8DE7CB03608">opacity</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-CCFC1A35-33EC-4506-8014-8957F08239C0"></a></span><p class="table-body">The actual opacity itself (scalar value). Care must be taken if opacity equals zero,
+                              because this mean that the material has performed no shading whatsoever and none of
+                              the other outputs will contain any value at all.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

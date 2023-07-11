@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-93C1C646-C66D-4EC3-9C4B-6A4FF2408DC9">
+      <meta name="indexterm" content="bones: rotating in order">
+      <meta name="indexterm" content="rotations: changing order of for bones">
+      <meta name="indexterm" content="gimbal lock: changing order of rotations">
+      <meta name="indexterm" content="forward kinematics: changing order of bone rotation">
+      <meta name="topic-type" content="concept">
+      <title>Changing the Bones' Order of Rotation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-93C1C646-C66D-4EC3-9C4B-6A4FF2408DC9"></a></span><div class="head">
+            <h1>Changing the Bones' Order of Rotation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-563C1183-79EC-4EB5-96BD-4D08C8E0640D"></a></span>When you're setting up a character, you should consider how the bones will be rotating
+               for each body part so that you can choose the proper rotation order for them. While
+               the default order of XYZ works for some body parts, there are certain body parts or
+               movements that can cause <em class="mild">gimbal lock</em> with XYZ, but not with another rotation order. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-FD8DF2A8-A61B-400A-93BB-5956421386EB"></a></span>Gimbal lock is a state that Euler angles go through when two rotation axes overlap.
+               The angle values can change drastically when rotations are interpolated through it.
+               
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-006E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DF714EBB-ED60-44B8-95B3-03DC55AF9961"></a></span>To change a bone's order of rotation
+               </h2> <span class="anchor_wrapper"><a name="GUID-05F3E077-701D-4592-B72B-965C50B25939"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F4E791F3-A896-4D92-9C61-E58CF82AD0C9"></a></span>Select the bone. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-62FC757E-28CA-4528-8B61-1CEA57FED8F7"></a></span>Press Ctrl+K to open its Local Transform property editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-95577549-0F40-407C-AC05-72CFA463F442"></a></span>On the SRT page, select one of the <span class="MenuCascade" id="GUID-FCB708FB-36E4-4CBA-8A6E-FCC6A8497A14">Rotation <img src="../images/ac.menuaro.gif"> Order</span> options for control over the order in which a bone is rotated about its parent's
+                        X, Y, and Z axes. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2227D8FF-521A-4B73-9C0E-99F6D21B4CB0"></a></span>See the section below to determine which is the best order for the bone. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-006F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-82D4BE4B-41A6-4DBC-AF8E-E0C3E4822CC3"></a></span>Figuring Out the Rotation Order
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-8A97DC60-BCF6-4CE8-AEC0-ECC5657B617B"></a></span>To help you figure out what the rotation order for a bone should be, it's best to
+                  start with the skeleton in a neutral pose with the bone's rotation at 0 (see <span class="char_link"><a href="skel_CreatingNeutralPosesforSkeletons.htm">Creating Neutral Poses for Skeletons</a></span>). Then start posing the skeleton with its most common movements to see where problems
+                  can occur. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-278CD87F-F8DD-4A57-AE14-709EE84CAF6A"></a></span>Mapping the XYZ axes to movement type (such as flexion/extension, medial/lateral,
+                  abduction/adduction) can also help to reveal the most useful rotation order. Usually
+                  one type of movement will usually be dominant: its axis is the one that you want to
+                  be last in the rotation order so that it won't be affected by the other axes. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CC400A06-A4FE-43C2-9E12-6E16BAB0D5CD"></a></span>For example, let's compare the XYZ and YZX rotation orders on the humerus bone (biceps)
+                  in an arm. With the XYZ order: 
+               </p> <span class="anchor_wrapper"><a name="UL_9563C87B36294826B381438215674036"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BB80F6D8-2FF7-4457-94A1-6BAB75D85650"></a></span>X twists the biceps, which is not that useful in many cases. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-38D9ECD4-5977-4D63-BA50-02B5B56B6D2C"></a></span>For arms resting at a character's side, the Z and X approach gimbal lock. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4D7A8A5F-3EF8-4BD6-A92A-109191FAFF3F"></a></span>The back and forth swing of the arm is not easy to animate in FK. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-64FCB19A-7892-4976-8559-8F70BB71729C"></a></span>Now by making X the last in the rotation order, the X can be used for animating the
+                  back and forth swing an arm has when a character is running or walking. Making it
+                  the last also means that the swing axis never changes, which it rarely does because
+                  it's determined by the shoulders. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FBA2767F-BB05-48F6-B16B-347DE98AE817"></a></span>Meanwhile, Z and Y can still move appropriately: 
+               </p> <span class="anchor_wrapper"><a name="UL_B0A08D8300A44605B20EC6607BD00CBF"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-ED352C14-F41A-4128-93F5-64E4B2D077EB"></a></span>Z is natural for medial/lateral movements, like the swing in a punch. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-932B1CFF-9E5B-40D2-AF3A-C67B69E228AD"></a></span>Y is used for raising and lowering movements. Raising/lowering is usually a much more
+                        deliberate movement that comes more from flexing the shoulder muscles. It tends to
+                        move along with back and forth or medial/lateral movements, so it makes sense to have
+                        it first in the order. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-D090C238-8210-4F18-8BDF-06028B807DD7"></a></span>So after analyzing the character's movements, YZX seems like the best choice for animating
+                  the humerus. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0070"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2F966BAC-7BA2-4535-AFD3-39C70200B209"></a></span>Preventing Gimbal Lock
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2CCFB55E-0310-4D41-B289-0239B888DD67"></a></span>To prevent gimbal lock, there are a few different ways in which you can change a bone's
+                  rotation order. 
+               </p> <span class="anchor_wrapper"><a name="UL_E241234645544AA4A3E48C2DD3EF7701"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F995E66B-8F1F-452E-B2DE-03C1E745C63B"></a></span>When you set up character a rig, you can align the chain's root with the first bone
+                        and set the bone's rotation order to ZXY or YXZ instead of the default XYZ. Then the
+                        middle rotation (X) (which causes gimbal lock) is on the least-used rotation (that
+                        is, rotating along the length of the bone). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-38420018-BCC5-414C-B6A6-913D6AB6655D"></a></span>If an object needs to rotate only along one axis, change the order of axis to match
+                        it; that is, if the object is rotating around the Y axis, change the order of axes
+                        to YZX. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-05E6B776-9319-4590-A58B-FC24792A6E85"></a></span>If an object is rotating on two axes, change the order of axes to correspond with
+                        the first and last axes; that is, if the object is rotating around the X and Y axes,
+                        change the order of axes to XZY. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E440DAF4-331F-4A85-BAB4-671AC60CA2D1"></a></span>In addition to changing the rotation axes order, you can also convert the rotation
+                        angles from Euler to quaternion. Quaternion rotation angles produce smooth interpolation
+                        to help prevent gimbal lock. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5C19EA27-BB80-4C49-A142-336E4578A24D"></a></span>For more information, see <span class="char_link"><a href="ani_xform_AnimatingRotations.htm">Animating Rotations</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

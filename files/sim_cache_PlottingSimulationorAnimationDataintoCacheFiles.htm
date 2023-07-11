@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-301C8D6D-C6F8-432C-8BD1-76AFB0257314">
+      <meta name="indexterm" content="caching: writing animated deformations or simulations into point cache files">
+      <meta name="indexterm" content="ICE simulations: writing to point cache files">
+      <meta name="indexterm" content="ICE particles: writing simulation to point cache files">
+      <meta name="indexterm" content="caching: cacheslist files for multiple objects">
+      <meta name="indexterm" content="cacheslist files for multiple objects">
+      <meta name="indexterm" content="caching: ICE attributes">
+      <meta name="topic-type" content="concept">
+      <title>Writing Cache Files</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-301C8D6D-C6F8-432C-8BD1-76AFB0257314"></a></span><div class="head">
+            <h1>Writing Cache Files</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-EC5603C9-658D-4EA0-B732-B50850D82730"></a></span>You can cache an object's animated deformations or simulations to a point cache file
+               which stores the object's point position data. The object's point position is stored
+               in local space by default, but you can also choose to store it in global space by
+               selecting the <span class="MenuCascade" id="GUID-60AF9B0E-6E7B-4A22-937F-34C7E0D93C91">Baked Animation - All Transforms</span> option. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-782B5133-6C8B-4DC8-8529-30DA4D249592"></a></span>A point cache file stores only the XYZ positions of an object's points (vertices)
+               in space, not the object's transform data (translation, rotation, or scale) in its
+               Kinematics node. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6195AB06-5360-40A8-8066-55B57C7CD7FA"></a></span>In addition to regular cache files, you can also write Caches List (.cacheslist) files
+               that help you manage how you load multiple objects and multiple cache files. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5B83AEE8-2844-4F7F-806A-C5EAB731E3D9"></a></span>You can cache point data from these types of simulations and animations with the options
+               on the <span class="MenuCascade" id="GUID-475C91AE-11C3-4505-BAA1-2061DBCAFA27">Write</span> tab in the Cache Manager: 
+            </p><span class="anchor_wrapper"><a name="UL_53AAFB8BDE1F4D999F656A4A6F7F2916"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7A67A5A2-544F-44FB-A8B0-2A53FFBB83BB"></a></span>ICE simulations (particles and deformations, including Lagoa) and animated deformations.
+                     ICE attributes are also cached. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-69BDED7D-C5FA-4793-98B6-50884998D110"></a></span>Syflex ICE Cloth and Curve deformation simulations 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-406EC4DE-1C5B-409A-BF32-003DC31040FA"></a></span>Animated deformations (any type, including envelopes and animated Face Robot heads)
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0EF3DD14-C3AE-43CA-A770-04904C528263"></a></span>Soft body and cloth simulations 
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-000D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E23FE589-0885-4739-9D6B-BEA1C496A41C"></a></span>Notes
+               </h2> <span class="anchor_wrapper"><a name="UL_EC62A45524914BD29A13A7115D38F8CA"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6FAC93AB-851D-4169-B18C-A9988B516C91"></a></span>You cannot cache hair simulations in this way. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B0C1EE84-51F2-42E3-A02B-38C268D19A56"></a></span>Syflex cloth (non-ICE) is not supported. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CB9615F8-8C4D-4BE0-AD13-38BD130C1711"></a></span>If you're using the Polygonizer, note that it has its own caching mechanism — see
+                        <span class="char_link"><a href="poly_topomod_MeshingPointCloudsandOtherThings.htm">Meshing Point Clouds (and Other Things)</a></span> for information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-92A2914D-C82F-4ED9-A3D1-7CC2F4BBAF5D"></a></span>Only the simulated frames of an ICE tree are written to the cache, which doesn't include
+                        the first frame of the scene. This frame is considered to be the initial state and
+                        is therefore not simulated. For example, if your scene starts at frame 1 and ends
+                        at frame 100 frames, 99 simulated frames are written to the cache, beginning with
+                        frame 2. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-46EA3416-E6D1-4FAD-8A55-8A6BD3556C95"></a></span>If you're caching instanced geometry for ICE particles, make sure to keep the master
+                        object in the scene when writing or reading a cache file: even if the particles are
+                        cached, they still depend on the instance master to be there. If you don't want the
+                        master objects to be displayed or rendered, you can simply move them out of the camera's
+                        view, or you can hide them by selecting the <span class="MenuCascade" id="GUID-E6903AB4-1C07-4358-9BD1-1D46C9BC0429">Instance Master Hidden</span> option in each master object's Visibility property editor (Rendering tab). 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3594CBE3-E7DB-430D-9B19-B7C9EF065E46"></a></span>Caching Animation or Simulation Data
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BA3E88E7-30EB-4C4C-9216-3DB62456CA53"></a></span>To write animation or simulation data to a cache file: 
+               </p> <span class="anchor_wrapper"><a name="GUID-6972EB86-4A63-4D19-8EB0-C55BF298B3A3"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DE35EE3E-AC70-41C6-BDB1-D7ED697EA86A"></a></span>Select one or more objects whose simulation or animation you want to cache. Each object
+                        will have its own cache file. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D96D4C4E-BD16-4AE4-8327-B9144BF7B63C"></a></span>You can also branch-select a parent object to write cache files for all objects in
+                        the hierarchy — see <span class="char_link"><a href="animation_props_Caching_Options.htm#WS3ED399EEF2243144A8E6B3EEB78DEAF1-0014">Objects</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-78ECC2CD-E2CA-4053-A919-4CC5D4BAB52C"></a></span>Open the Cache Manager — see <span class="char_link"><a href="sim_cache_CachingSimulations.htm#WSBCC68D637F05FE469ECDBB479E3055EE-0005">Opening the Cache Manager</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C59A614A-64F8-47CC-8B06-33D49D5AB8E2"></a></span>In the Cache Manager, click the <span class="MenuCascade" id="GUID-26243E1F-5D2C-443F-A34B-09B48AEE6FF2">Write</span> tab at the top of the window. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9530A5CB-FB1F-42D4-A66B-A44CF4A1AD73"></a></span>On the Caching Files tab, select the <span class="MenuCascade" id="GUID-9EEC67A5-44C3-4A37-AE38-1DECCE51991A">Path</span>, <span class="MenuCascade" id="GUID-E0FFF2AF-B46C-4EB4-A269-5050643FAA4A">File Name</span>, <span class="MenuCascade" id="GUID-9A357CDB-39DB-464F-9B3C-3E38C6B5B929">Version</span>, and <span class="MenuCascade" id="GUID-7F856603-ADB1-4842-95F8-040FF9A1836A">Format</span> you want to use for the cache file — see <span class="char_link"><a href="animation_props_Caching_Options.htm#WS3ED399EEF2243144A8E6B3EEB78DEAF1-0012">Write</a></span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BAD0F9A3-A82A-4E93-8727-5ECC9F82BC17"></a></span>The current path is displayed in gray in the <span class="MenuCascade" id="GUID-DC536532-D9F2-4085-AAB4-B8A2029D58B0">Resolved Path</span> text box. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8718625C-0840-47A8-93A0-2048B974E825"></a></span>In the Object list, select the objects for which you want to create a cache file —
+                        see <span class="char_link"><a href="animation_props_Caching_Options.htm#WS3ED399EEF2243144A8E6B3EEB78DEAF1-0014">Objects</a></span> for details. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_F15BC750FEB5473EAEFF1D0F5F561494"></a></span><div class="figure-anchor"><img src="../images/GUID-C64B2643-2CD4-4A47-AD9B-F3C822CA6E40-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5BA71ECD-0378-48DD-BCBB-11D429ADC64E"></a></span>Using the options on the Additional Options tab, you can: 
+                     </p> <span class="anchor_wrapper"><a name="UL_894D301A2F234D6AB6D0AA5AAD4D35DF"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D2CA1C7C-111D-4AF1-9B73-AB3722F9CC3E"></a></span>Select certain frames of the simulation or animation to be cached: set the <span class="MenuCascade" id="GUID-52C16FB6-852A-4A99-87EC-13091EF4E6BA">Start</span> and <span class="MenuCascade" id="GUID-85B89ADE-A6A5-4711-BC38-A58685F8D812">End</span> values determine the range of frames to be cached, as well as the <span class="MenuCascade" id="GUID-6CEA77EE-D222-42F2-908D-B5FC245B3CED">Step</span> (the interval of frames). 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7DCBC011-3DE3-4D6E-9763-6C2E3B977E18"></a></span>Create a .cacheslist file for multiple objects — see <span class="char_link"><a href="sim_cache_PlottingSimulationorAnimationDataintoCacheFiles.htm#WSBCC68D637F05FE469ECDBB479E3055EE-0011">Creating Cacheslist Files for Multiple Objects</a></span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B47494C9-2F1A-471B-968A-F6E16FC4EF72"></a></span>Select certain ICE attributes to cache — see <span class="char_link"><a href="sim_cache_PlottingSimulationorAnimationDataintoCacheFiles.htm#WSBCC68D637F05FE469ECDBB479E3055EE-0014">Setting ICE Attributes for Caching</a></span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-490B7367-9BA7-4A11-B63E-179DED88974B"></a></span>Select the <span class="MenuCascade" id="GUID-B48F76D4-0CC5-43B2-9D6C-1C4DF9D4413F">Baked Animation - All Transforms</span> option to cache the object's point position in global space. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-783212A1-67D5-447B-901E-07CD5EC2DD64"></a></span>Click the <span class="MenuCascade" id="GUID-577DEB25-0406-4DD1-B4A7-8CE507714800">Write Cache</span> button when you're ready to cache. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8AA897B6-DC43-4221-9E14-D8AE875BAC43"></a></span>This plots all frames within the range that you specified for the selected objects'
+                        animated deformation or simulation and saves it in the cache file that you have specified
+                        — see <span class="char_link"><a href="sim_cache_CachingSimulations.htm#WSBCC68D637F05FE469ECDBB479E3055EE-0008">Where Do Cache File Sources Live?</a></span> 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-65682EA7-026C-49DA-88CC-466FD830F4F6"></a></span>Creating Cacheslist Files for Multiple Objects
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-C626192A-A8A3-4E4D-9BB6-CDBF94A386D4"></a></span>You can write cache files for multiple objects at a time using a .cacheslist file.
+                  For example, if you have a character which has 100 parts and each of them is given
+                  a separate cache file. You can then link up all the cache files using a .cacheslist
+                  file. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-730EBF02-A3C1-4842-826F-DEA125BDB953"></a></span>The .cacheslist file is a simple text file that stores information about all the caches
+                  you have recorded, including the frames, file format, path, and objects in the list.
+                  You can open it using any text editor and make changes as you like. <span class="anchor_wrapper"><a name="GUID-366C59E3-0B67-4548-BC18-CC5BD81B88E6"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-114ABF69-E821-48E4-9865-C78931DBE9D1"></a></span>Select the <span class="MenuCascade" id="GUID-DCDD27A4-66D4-4311-BF94-76E9CA1CF0B0">Path</span> you want to use for the .cacheslist file. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-10645E4F-D2F8-4619-824D-9A5E6EA81B3B"></a></span>You can see the current path and file name in gray in the text box in the <span class="MenuCascade" id="GUID-D31E1958-33B3-4697-BCA8-551B7ED880D5">Caches List Options</span> area. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7618DCA9-9E8F-4D88-8F0D-290D94781ABD"></a></span>Make sure that all the objects you want to include in the .cacheslist file are in
+                           the <span class="MenuCascade" id="GUID-43DFC5CE-6AEC-48B5-983A-2C67D1EECA3E">Objects</span> list on the Caching Files tab — see <span class="char_link"><a href="animation_props_Caching_Options.htm#WS3ED399EEF2243144A8E6B3EEB78DEAF1-0014">Objects</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B2A262D3-88E4-4442-A199-5EA35D500A9F"></a></span>On the Additional Options tab, select the <span class="MenuCascade" id="GUID-9B17DF0F-871C-492F-8C40-599451EC2957">Create Caches List</span> option . 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C9973FB2-7FCE-4475-8DB3-5EE0A832C9DC"></a></span>Back on the Caching Files tab, click the <span class="MenuCascade" id="GUID-A695A4DA-99AA-4D58-8481-7D6876E920A6">Write Cache</span> button to record the caches for each of the objects in the list, as well as creating
+                           a .cacheslist file containing a reference to each object and its cache file. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EC07BCC1-28F8-4964-AB35-83CBA7BBF007"></a></span>When the <span class="MenuCascade" id="GUID-A6FD0158-2E23-46F1-952B-613AF6C3CC97">.cacheslist</span> file has been created, you can load it in the animation mixer — <span class="MenuCascade" id="GUID-545FA2DD-9651-4CA9-977A-FE127F937340">see</span><span class="char_link"><a href="sim_cache_LoadingtheCacheFileintotheAnimationMixer.htm#WSBCC68D637F05FE469ECDBB479E3055EE-002E">Loading Cacheslist Files for Multiple Objects</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6F9A853B-C162-453A-A6FE-620B22DE49D6"></a></span>Setting ICE Attributes for Caching
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-E1421EF3-5F39-4A46-AEBF-A620F16D4C5E"></a></span>Using the <span class="MenuCascade" id="GUID-0072400B-43A0-45A8-BB80-20B77B616344">Attributes</span> lists on the Additional Options tab, you can specify which ICE attributes you want
+                  to write into the cache file. These are the attributes that are used in the object's
+                  ICE tree and in the render tree for rendering (such as those being used by an attribute
+                  shader in a render tree). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4178ABD0-934E-4371-B09B-7726B7312771"></a></span>When you select an object in the Objects list, its attributes are highlighted in the
+                  two Attributes lists. This lets you easily see which attributes belong to which object.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-82FF1C04-F891-4CB1-B221-583D92044B62"></a></span>If you want to see which attributes were cached for a cache file when you're reading
+                  it, click the <span class="MenuCascade" id="GUID-4045DBE8-2AEF-439A-AABA-F6BEFB02279D">Dump Header</span> button on the Read tab in the Cache Manager. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-308DC036-395D-4F3C-BB94-BFDD2276C02B"></a></span><div class="note-note"><span class="label">NOTE:</span>Custom attributes do not appear here unless they are used in the scene. A custom attribute
+                     needs to be used before it can be defined, and only defined attributes show up in
+                     the Available list. 
+                  </div>
+               </div> <span class="anchor_wrapper"><a name="FIG_ACC4974E64BB4BC390707640E02847E1"></a></span><div class="figure-anchor"><img src="../images/GUID-2AA575F7-B002-4179-AC6D-204A960736DC-low.png"></div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-0016"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C30DBA45-7DA0-41BB-90C5-078425AFCFAE"></a></span>Selecting Which ICE Attributes to Cache
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-35F8AB0D-61C3-4678-A083-3236748F8F67"></a></span>Softimage automatically makes sure that all required attributes are included for the
+                     objects in the Object list, as displayed in the <span class="MenuCascade" id="GUID-C7B9B685-69D9-49F3-A6BD-DB21B1822FB9">To Cache</span> list. However, if you want to cache only specific attributes, you can do so by moving
+                     attributes out of the <span class="MenuCascade" id="GUID-771E058E-2132-48C4-9E90-BCE9D1354D45">To Cache</span> list and into the <span class="MenuCascade" id="GUID-5D0F6BBD-61B8-4865-A8E5-1526FC27A1CB">Available</span> list. <em class="mild">Only</em> the attributes in the <span class="MenuCascade" id="GUID-F34A33E1-DD33-4BA5-853D-FABBC369A2E1">To Cache</span> will be cached into the file. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C1666B7B-1F88-43D5-A7C3-F40FE2FFA892"></a></span>Trimming down the number of attributes you use can make the cache files quite a bit
+                     smaller in some cases, especially for heavier simulations like Lagoa-based ones. For
+                     example, if you wanted to test only the movement of a particle system, you could specify
+                     only the PointPosition and PointVelocity attributes. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E3FA96F8-051E-497E-B6A7-0E93E4F78EBD"></a></span>Each object type has specific attributes: 
+                  </p> <span class="anchor_wrapper"><a name="UL_BFCB425D88D7470B8F10898DABE5894D"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AF669995-EF89-42F1-B479-D33EC323AB54"></a></span>NURBS curves, surfaces, polygon meshes, and hair only have the PointPosition attribute
+                           to include. 
+                        </p> 
+                     </li>
+                  </ul>
+                  <p><span class="anchor_wrapper"><a name="GUID-CE53794C-A806-4F59-A1BA-37B3BF448BC2"></a></span>Read-only attributes, such as PointCount on a polygon mesh, are not written to the
+                     cache file. 
+                  </p>
+                  <ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-46AFAFC9-E7DD-4269-B18E-97CF5D8365F3"></a></span>Point clouds have many attributes including ones related to rendering: Color, Force,
+                           Mass, Orientation, PointPosition, PointVelocity, Scale, Shape, ShapeInstanceTime,
+                           SimulatedFrameFraction, Size, SpriteAngle, StateID, StateTransitionTime, StrandOrientation,
+                           StrandPosition, StrandSize, and StrandVelocity. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-189EB34C-E5CF-4643-A0D3-D608C015BECC"></a></span>For a description of all attributes, see <span class="char_link"><a href="iceref_attributes_a.htm">ICE Attributes</a></span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSBCC68D637F05FE469ECDBB479E3055EE-0017"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6A286F5A-AB8D-4B3B-BB5C-786C26695119"></a></span>Tips for Particle Attributes to Cache for Rendering
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2911DBF1-C662-4DFA-9E1C-3A9D21AD62AC"></a></span>To keep attributes to a minimum for rendering ICE particle simulations, you may find
+                     it useful to cache only the following attributes, depending on your simulation: 
+                  </p> <span class="anchor_wrapper"><a name="UL_E5AA52BA61924E529E75A195BBFCFD94"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-03FA1EF3-1970-4227-995C-5DED814E49CF"></a></span>Position 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-24BABB37-416F-4C6B-B8B0-D441ACFF126D"></a></span>Size: only required if animated/different between particles 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CB351DC4-FDFE-47BE-B5F3-74BF145F504E"></a></span>Density (Alpha of the ICE Color): only required if you have animated it 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F26A6A94-F245-4850-939D-0CC1FBD9E5F5"></a></span>Color (RGB of the ICE Color): not required if you set the color in the render tree
+                           with a constant color or a gradient 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6DFB942B-A128-4F46-A0BE-F9833EFDAFF2"></a></span>ID: only required if you use textures 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D69AFD61-1937-423B-BDCD-8091E4B2A145"></a></span>Rotation: only required if you use textures 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B7C971E1-3BEB-4C0F-AF4F-2F58029E4F70"></a></span>Velocity: only required for align/rotate particle with velocity and motion blur 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8851D3EE-98CB-4C34-9926-40F1BD173250"></a></span>Age and AgeLimit: only required if you use a gradient 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FB83375C-4FA1-46FC-A26C-205D0EE351F9"></a></span>Custom attributes: any additional ICE attribute you can access in the render tree
+                           
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

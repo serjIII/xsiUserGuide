@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-1A8D52D0-FD6B-4695-8BD9-611B602949E8">
+      <meta name="indexterm" content="Lagoa: material properties">
+      <meta name="indexterm" content="Lagoa: elasticity">
+      <meta name="indexterm" content="Lagoa: breaking elastic structures">
+      <meta name="indexterm" content="Lagoa: elastic clusters">
+      <meta name="indexterm" content="Lagoa: inelasticity">
+      <meta name="indexterm" content="Lagoa: viscosity">
+      <meta name="indexterm" content="Lagoa: surface tension">
+      <meta name="indexterm" content="Lagoa: pressure">
+      <meta name="topic-type" content="concept">
+      <title>Lagoa Material Properties</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-1A8D52D0-FD6B-4695-8BD9-611B602949E8"></a></span><div class="head">
+            <h1>Lagoa Material Properties</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-C1ADACD3-2C32-4C9A-98AA-895D8D8BB15E"></a></span>In real life, all objects have material properties which define them. In Lagoa, all
+               point clouds or polygon meshes must also have material properties to define them so
+               that the simulator knows how to calculate them. These materials are appropriately
+               set in a Lagoa Material node. 
+            </p><span class="anchor_wrapper"><a name="FIG_8C9A106B50744B6185E37FFC7F862628"></a></span><div class="figure-anchor"><img src="../images/GUID-B821047D-0933-4C1B-8D76-FD60580C8E9D-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-46F341FE-2030-4B01-92D4-C439C95DF555"></a></span>Material nodes are basically big groups of Set Data nodes: they set the point's material
+               data that is to be computed by the simulator, which solves all materials in the simulation
+               at once. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-C2EFD4F3-D213-49FB-9128-9AD33F7B5D34"></a></span>For example, some metals undergo a type of plastic deformation, meaning that after
+               they are deformed, they don't come back to their rest shape. This can be simulated
+               by using both plastic and elastic properties. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-500A9FD0-CF79-4914-94B5-7B1F7F9FA3C8"></a></span>The <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span> node is the standard material compound used for setting the material properties of
+               a point cloud. It exposes all supported attributes that can be activated and calculated
+               in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node, which is the simulator. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-72B77165-BFB4-480D-AEEC-F7DB7A309893"></a></span>It's important to remember that if you set a certain material, you need to activate
+               the corresponding option in the Simulate Multiphysics node so that those properties
+               are solved in the simulation. For example, if you set the <span class="MenuCascade" id="GUID-81A6DDEC-C258-4798-93F1-FA9A62B074B2">Viscosity</span> parameters in the Material node, make sure to select the <span class="MenuCascade" id="GUID-104DD907-7568-4513-8E73-1362A424D775">Enable Viscosity</span> option in the Simulate Multiphysics node. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-002B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7214A408-1295-4B7D-8FD5-9D8AC88D49D9"></a></span>Material Types
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-84CBEAD2-FDB1-4E71-B2BC-8F0EA3E970DF"></a></span>All other Lagoa Material compounds in the <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span> group are simply "subsets" of the Lagoa Main Material compound, with various properties
+                  being hidden if not needed for the type of material they're creating, such as Foam,
+                  Jello, Thick Liquid, and so on. For example a cloth material doesn't need to have
+                  Surface Tension properties, so those properties are not exposed for the Material Cloth
+                  node. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-002C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-285D220D-4567-403D-B25C-59755BD0ED83"></a></span>Multiple Materials
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3F2AD137-B517-477D-B236-97366310FD01"></a></span>You can have more than one material defined for a point cloud in its ICE tree. For
+                     example, one material could be water, one could be oil, then you can define a phase
+                     in which you can use each material. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-40B08848-0CF4-495F-A874-69B90FADAFE9"></a></span>See <span class="char_link"><a href="lagoa_basics_CreatingPhasesforLagoaEffects.htm">Creating Phases for Lagoa Effects</a></span> for more information on this. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-002D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C228CC74-C49B-423F-B37A-7D9AB6F11321"></a></span>Elasticity
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-2FC20E12-F92D-4164-8328-A96F32ABA58B"></a></span>Elasticity is the ability of a material to return to its original shape after a deformation
+                  has occurred. In Lagoa, elasticity is controlled by spring-like connections between
+                  points that create a structure. 
+               </p> <span class="anchor_wrapper"><a name="FIG_035A857DAB0B4161B33F4BBC678C9354"></a></span><div class="figure-anchor"><img src="../images/GUID-37059ECE-0B5A-4FE3-AE52-7CD75E673201-low.png"><p><span class="anchor_wrapper"><a name="GUID-CE593AAC-03BB-478D-AECE-1DE91BC9C688"></a></span>The elastic structure is displayed as points being joined with yellow links that are
+                     horizontal, vertical, and diagonal. 
+                  </p>
+               </div> 
+               <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-21EF1068-1CB2-4E98-8F1B-C8CD17A3FABC"></a></span><div class="note-tip"><span class="label">TIP:</span>To display the elastic structure, select the <span class="MenuCascade" id="GUID-61ED0A99-2D62-416C-82F7-A8D3AFEBEEA3">Display Structure</span> option in the Lagoa Simulate Multiphysics node. 
+                  </div>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-FB9D94E6-CC7A-4649-81EE-2255085C258B"></a></span>You can set a material's elasticity by setting the <span class="MenuCascade" id="GUID-6572C880-AC9D-4D5C-ACDB-5EB24AC60F81">Elasticity Settings</span> parameters in the Material compound (see <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7EC20730-612A-494B-BBFF-21DB97366052"></a></span>Then select the <span class="MenuCascade" id="GUID-2919221E-05BF-4FA8-B8F1-9FFD3E1790CD">Enable Elastics</span> option in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node to use the Elasticity settings when calculating the whole simulation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6B3F466A-13C1-4BB4-BB79-304F568D6232"></a></span>You can set separate substeps value for only the Elastic Settings parameters using
+                  the <span class="MenuCascade" id="GUID-14F01008-2F22-46E4-9620-7862DBC899CC">Elastic Substeps</span> option in the Lagoa Simulate Multiphysics node — see <span class="char_link"><a href="lagoa_basics_SettingtheSimulationsSubstepsforAccuracy.htm">Setting the Simulation's Substeps for Accuracy</a></span> for more information. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-002F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9B5BA377-C5A2-4A99-A757-F2AD9B592E1C"></a></span>Tearing Elastic Structures Apart
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-4A1EEF10-9A6D-43E3-84E2-322E7F5C7029"></a></span>While you usually want an elastic structure to stay together, you may also want to
+                     have it rip apart based when some force provides too much resistance for it. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8FEF1636-3C75-4148-8887-A2B4B22DF8CE"></a></span>The values of the <span class="MenuCascade" id="GUID-8A0B114D-21C2-413A-935F-028D9C69BAA3">Elasticity Breaking Point</span> and other <span class="MenuCascade" id="GUID-9C284709-CEC3-4E4A-AE3B-AB458670422F">Elasticity</span> options in the Material compound determine how much deformation is necessary to break
+                     the links in the elastic structure (see <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span>). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3358D0AD-848D-4519-A7CB-2773AC98BBBC"></a></span>You must then select the <span class="MenuCascade" id="GUID-DBED0C7C-035A-498C-A1DC-09E27CDD60BF">Allow Structure Tearing</span> option in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node to allow elastic structures of points to be torn apart. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-640EF09B-619C-4992-BA88-0121CAD5936C"></a></span>If you have points that stick to collision objects, select the <span class="MenuCascade" id="GUID-E3E4F425-1F1A-47BC-9AB9-4EEBDAC61AC8">Elasticity at Boundaries</span> option in the Material compound to allow this. Then for each collision object, set
+                     the <span class="MenuCascade" id="GUID-B2D10C04-9C45-45FD-8683-8F63A2991F09">Elastic Breaking Point</span> value in its <span class="char_link"><a href="iceref_Lagoa_Set_Collision_Data.htm">Lagoa Set Collision Data</a></span> compound. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_E989C31D07B84994ACD1D0D766A21661"></a></span><div class="figure-anchor"><img src="../images/GUID-8A46A2F8-61A0-4E21-8E3F-0D5D45755ACD-low.png"><p><span class="anchor_wrapper"><a name="GUID-CC03C3EE-EE7D-4A38-8270-6C7AF0ADB018"></a></span>On the left, the Elasticity and Elastic Breaking Point values are fairly high so that
+                        the object bounces off the collision object. 
+                     </p>
+                     <p><span class="anchor_wrapper"><a name="GUID-16814B1E-8824-4DA9-BCD6-016973518B1B"></a></span>On the right, the Elasticity value is the same, but the Elastic Breaking Point value
+                        is much lower so that the structure rips when the surface friction on the collision
+                        object and the gravity force are too strong for it. 
+                     </p>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0031"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D1C813D2-A04A-4EF6-9E47-B5C3B05DC0FF"></a></span>Creating Elastic Clusters
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-90FC7F90-6C7B-46C2-B35E-D7E2F7BBF6C3"></a></span>With elastic structures, you can consider each frame's emission of points to be a
+                  separate cluster so that it behaves as a separate object that doesn't merge with other
+                  clusters. For example, you may want to emit "cloth sheets" every few frames, but not
+                  have them all merge together into a single elastic structure. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8A7BA8C2-9247-4BA2-A9C9-9BAA93E1BD30"></a></span>Of course, you can also choose to have clusters merged together. Each cluster has
+                  an ID, and only clusters with the same ID can merge together. 
+               </p> <span class="anchor_wrapper"><a name="FIG_BCA70FB916EE4D53879ABC1E56C95C04"></a></span><div class="figure-anchor"><img src="../images/GUID-52AA8925-3CB5-401F-A78B-99A4D91EBF2E-low.png"><p><span class="anchor_wrapper"><a name="GUID-0918B43F-8657-49A0-9838-05C0F23DD8D7"></a></span>Image courtesy of Lagoa Multiphysics <sup>TM</sup> 
+                  </p>
+                  <p><span class="anchor_wrapper"><a name="GUID-75D8E75A-01B7-418D-A057-6391EDB02469"></a></span>Point cloud "cloths" are emitted as clusters so that they don't merge together. 
+                  </p>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0033"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B5983E1C-FFC5-4376-B763-46056ADA85BC"></a></span>To create clusters
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-208389FA-BE08-415E-BD65-AEA7684A95B4"></a></span>In the Emit node, set these options (see <span class="char_link"><a href="iceref_Lagoa_Emit_Volume.htm">Lagoa Emit Volume</a></span>): 
+                  </p> <span class="anchor_wrapper"><a name="UL_43AE1C0B604F492FA6A01F93DA8296B4"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F469AFEC-57D5-4FAF-AA64-6ED977F8EC13"></a></span>Give the points emitted with this Emit node a <span class="MenuCascade" id="GUID-D001FAD8-6196-4C5F-A7A3-A6C1E605C556">Cluster ID</span> to identify each cluster of points. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FBC343DC-8935-4939-BB09-E992F8190F5D"></a></span>Select the <span class="MenuCascade" id="GUID-018ACA76-E8DB-45EC-A49D-D65AAB63005D">Cluster by Geometry</span> option to prevent clusters from merging. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7142C00C-B284-491B-9BED-DB356B0490B8"></a></span>Select the <span class="MenuCascade" id="GUID-58772CC1-0680-4ED3-A4F2-6BE8F3C94A56">Cluster at Emission</span> option to prevent new points from merging with existing ones. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0034"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5075F44B-14B9-457A-A0CA-ACF45DD6A00A"></a></span>To merge clusters
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-689DE646-4B9F-4638-8517-F3197C7E3DCB"></a></span>Do the following: 
+                  </p> <span class="anchor_wrapper"><a name="UL_67D72FFB63644483AE1735BD90B7B89D"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-08D4C8AC-28EC-4328-AAE0-BDFF5CDF016B"></a></span>For the points that you want to merge, give them matching <span class="MenuCascade" id="GUID-36126189-B299-4126-843E-85F206DA00AD">Cluster ID</span>s in their Emit nodes. Only clusters with the same ID can merge together. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EFD370AF-607A-4657-900D-ED98230ED858"></a></span>Deselect the <span class="MenuCascade" id="GUID-4A446C2E-3E08-4391-AB8E-A178F8312C37">Cluster by Geometry</span> and Cluster at Emission options. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-ABD4629F-5F3C-4CE4-A872-1293C0CB6D02"></a></span>Select the <span class="MenuCascade" id="GUID-E0260662-D9D0-43B1-A72B-5EA7E5A70128">Solve Plasticity</span> option in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0035"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9F1AEE9B-72D7-4F16-957D-952891674E2B"></a></span>Inelasticity
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-699B8352-BB3E-4EAA-B542-D483AD26E0E6"></a></span>Inelasticity is the amount of rigidity that the points have, causing them to become
+                  rigid and inelastic when interacting with each other or with a collision object. Friction
+                  is the resistive force acting between bodies that tends to oppose and dampen motion.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2B15DEA9-F04B-4EBB-8E4C-171457DE6EF7"></a></span>You can set a material's inelasticity by setting the <span class="MenuCascade" id="GUID-C1C0BFD5-6A47-4A91-A03D-C64F9F7F13F3">Inelastic Settings</span> parameters in the Material compound (see <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-EFF03667-1FF5-44D8-94C5-456353AE73E8"></a></span>Then select the <span class="MenuCascade" id="GUID-0BBE65CB-7F29-45DE-BB9E-E7B6C336D4AD">Enable Inelastics</span> option in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node to use the Inelastic settings when calculating the whole simulation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9FD5D9EC-CE10-4B27-ACC8-FEC704A732EB"></a></span>You can set separate substeps value for only the Inelastic Settings parameters using
+                  the <span class="MenuCascade" id="GUID-0E152FFE-2B1D-491E-A884-6EAC4AA5A46A">Inelastic Substeps</span> option in the Lagoa Simulate Multiphysics node — see <span class="char_link"><a href="lagoa_basics_SettingtheSimulationsSubstepsforAccuracy.htm">Setting the Simulation's Substeps for Accuracy</a></span> for more information. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0036"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-90F76E7B-57B2-4335-8906-D46F8EB38C48"></a></span>Viscosity
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-53755455-1367-4DE5-9943-3CFCCDA961AB"></a></span>Viscosity is the level of resistance to flow in a fluid. Lower values simulate the
+                  flow of a watery liquid, while higher values create a more syrupy fluid. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6F0F5F7E-48EC-487A-847C-8D6AAA43961B"></a></span>Heavier fluids also depend on gravity to define their behavior. By decreasing the
+                  gravity, you slow down the fluid dynamic (the result is similar to increasing the
+                  viscosity), and vice-versa. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4021E216-2348-4761-9DE0-2A9C9C2A8F0D"></a></span>The particle's mass also makes a difference in the viscosity of the fluid—make sure
+                  to set this to an appropriate level for the right effect. A larger mass value makes
+                  for more viscose results. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C2CE5681-328E-427D-9AD3-D60B1D4FAA90"></a></span>You can set a material's viscosity by setting the Viscosity Settings parameters in
+                  the Material compound (see <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BB72E3BB-11B0-479E-B0FB-392F53287A40"></a></span>Then select the <span class="MenuCascade" id="GUID-5E830D43-9B86-41AE-83A7-78B5D82755BA">Enable Viscosity</span> option in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node to use these settings when calculating the whole simulation. 
+               </p> <span class="anchor_wrapper"><a name="FIG_2441960FF4A74DE08EB9ED8CB2304FA0"></a></span><div class="figure-anchor"><img src="../images/GUID-3C945453-8506-4756-BC6D-1B0019D7BC63-low.png"><p><span class="anchor_wrapper"><a name="GUID-EB297734-86FE-476D-8DA9-47B64CB42823"></a></span>Particles with a Viscosity value of 80. The Surface Tension value also has a big effect
+                     on creating viscous fluids. 
+                  </p>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0038"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DFA754C5-F75C-4413-BC5A-64FD01D8988B"></a></span>Surface Tension
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-DEE5450F-6A23-4751-BC0B-EDB54DDEC66D"></a></span>Surface tension is the degree of tension among individual particles, like the attraction
+                  among water molecules to create a cohesive unit. Generally, the surface tension tries
+                  to reduce the total area occupied by the fluid, where the fluid tries to "go back"
+                  on itself and group as closely as possible. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FB888CD2-D039-4D20-8891-FB4FF3F47D58"></a></span>Due to surface tension, particles that simulate liquid tend to form into a spherical
+                  shape, like a water drop, as they fall down. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-06F7DCF7-9C3C-471B-AC60-131AE281654D"></a></span>You can set a material's surface tension by setting the appropriately named <span class="MenuCascade" id="GUID-AA5CF97C-1B8B-4426-B6D4-928FB0C7FF7F">Surface Tension</span> parameter in the Material compound (see <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-72FE8607-B65E-427A-92CE-8339247B5305"></a></span>For example, you may want a highly viscous liquid like honey to stay on a spoon when
+                  you remove it from a pot. Or if a liquid is flowing on a table, you might want the
+                  liquid to also flow underneath the table. In both these cases, you can increase the
+                  surface tension to make these types of flow possible. Lower values let the fluid move
+                  more freely because the particles do not stay together that much (think of water).
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B577ABD8-5365-4C3D-9EC4-76C5194B3DB6"></a></span>Make sure to select the <span class="MenuCascade" id="GUID-E1182F46-DCE3-4305-835D-9C30960A2E1B">Enable Pressure</span> option in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node to use all Pressure settings when calculating the whole simulation. 
+               </p> <span class="anchor_wrapper"><a name="FIG_6F8FF89FF387425FA07B14660E7F1D01"></a></span><div class="figure-anchor"><img src="../images/GUID-38841F67-AAA9-4175-A6DA-3B2758A0B228-low.png"><p><span class="anchor_wrapper"><a name="GUID-429C5705-06F5-4147-A228-1CCCDFB6B5D9"></a></span>With the Surface Tension value set to 2, particles tend to pull together as they get
+                     close to each other. 
+                  </p>
+                  <p><span class="anchor_wrapper"><a name="GUID-DD4BFA0B-DB9F-49C5-BE6D-DEF95857625E"></a></span>The Internal Pressure parameter also acts as an attraction force among the particles,
+                     and the External Pressure parameter helps to keep the particle "element" in a cohesive
+                     shape as a whole. 
+                  </p>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-003A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E69851BD-898F-4D8D-A252-91347606EFC7"></a></span>Pressure
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-5E3DC1E6-DA6B-4C53-AE84-F8C02B9AF338"></a></span>Pressure is a field that governs the incompressibility of fluids and guides them to
+                  a rest state. Lower pressure zones guide the fluid to higher pressure zones, while
+                  higher pressure zones guide the fluid to lower pressure zones. The pressure is transferred
+                  from one point to another inside of the fluid. This movement continues until the fluid
+                  reaches its rest state, at which point it is considered stable. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-179A3928-173D-4A89-A4B0-791B126E9373"></a></span>Fluids under high pressure always try to "get out" to a more stable position, moving
+                  to lower pressure zones. Fluids in lower pressure zones try to regroup as a volume
+                  using surface tension, until the rest density is met. In Lagoa, this rest state is
+                  based on the <span class="MenuCascade" id="GUID-CB636E96-3204-413D-94B8-D960D3CD703D">Surface Tension</span> parameter. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E2F72AB5-C4FC-4B84-8782-91B3897C5D86"></a></span>The <span class="MenuCascade" id="GUID-48B4BD8D-82F9-4DAE-BDA7-2DCDF442358D">Pressure</span> parameters in the Material compound (see <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span>) define a wide range of pressure reactions, letting you model things such as expanding,
+                  compressing, and tensioning effects on both liquids and elastic objects. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D531409A-3B2B-4451-AF19-3D0F9E8E6F91"></a></span>Inelastic settings can also be used with pressure, in which case the pressure becomes
+                  a "liquid bridge" between the points, creating wet granular materials that have high
+                  friction. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-92C76B96-0DC7-4398-809C-8DA2557E0AC5"></a></span>The Lagoa pressure model uses two pressure coefficients: one as an attraction between
+                  points (<span class="MenuCascade" id="GUID-4136646D-A1CB-49C4-B1A6-571407EBDAB6">Internal Pressure</span>), and the other as a repulsion between points (<span class="MenuCascade" id="GUID-38DAB945-623F-4E3A-B82D-88030AE70DF2">External Pressure</span>). The balance between the two is their rest density. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E3DC4734-6893-4AA3-A70C-D69D07338F87"></a></span>Like opposite sides of a coin, a low value of one pressure parameter is similar in
+                  effect to a high value of the other. If you want, you can choose to use just one pressure
+                  type. The simulator can operate with both pressure functions at the same time, or
+                  with only one. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-003B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3564301D-1498-4B2E-8F04-EC2495C1515E"></a></span>Internal Pressure
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9AA6BBD9-17BD-4CB6-8CA2-F081724F4C98"></a></span>When points are within a certain distance of each other, Internal Pressure makes the
+                     points form clusters like drops and trails. This is visually related to surface tension
+                     and thickening effects of a fluid. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_A2401C887A174BDB8E04FCB617DA55B4"></a></span><div class="figure-anchor"><img src="../images/GUID-37B4991C-6FA3-4182-834E-94D2C3EDC202-low.png"><p><span class="anchor_wrapper"><a name="GUID-AD3C2618-B4A7-40B5-9864-83EBD76FAED3"></a></span>Internal Pressure has a value of 0.2. 
+                     </p>
+                     <p><span class="anchor_wrapper"><a name="GUID-DDFEA897-BA81-487E-9E7F-02DC40793F9C"></a></span>Surface Tension is set to 2, and External Pressure is set to 1. 
+                     </p>
+                  </div> <span class="anchor_wrapper"><a name="FIG_A716154CC2D146C2A8E689F28A228350"></a></span><div class="figure-anchor"><img src="../images/GUID-9A51376E-A1D6-4240-98DD-C17D3FCF3B88-low.png"><p><span class="anchor_wrapper"><a name="GUID-20C6AC86-68B6-42F3-A882-BBE5CC0B81ED"></a></span>Internal Pressure has a value of 1. 
+                     </p>
+                     <p><span class="anchor_wrapper"><a name="GUID-39F429E7-E13D-4A93-B294-6BB6FA955B50"></a></span>The particles have a very strong attraction to each other when they're in close proximity,
+                        creating a tight formation. 
+                     </p>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-003E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A206A937-E928-49EE-A2C3-8E52C53EF368"></a></span>External Pressure
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ECFD8E26-5FF8-4FAD-B460-159422CAE6EE"></a></span>External Pressure tries to retain the shape of the whole point cloud's volume by pushing
+                     the points away from each other to prevent compression, which is especially noticeable
+                     in fluids. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_91E9E2CEDF314F269ED55E1A822FB422"></a></span><div class="figure-anchor"><img src="../images/GUID-81D94B98-684D-41AF-9EBD-FC2454DF62FA-low.png"><p><span class="anchor_wrapper"><a name="GUID-CB3B0165-659C-4B9C-9E08-B011057EA921"></a></span>External Pressure has a value of 0.5. 
+                     </p>
+                     <p><span class="anchor_wrapper"><a name="GUID-3EE94EC3-EFEE-40E4-9089-9FC02F5D41CA"></a></span>Surface Tension is set to 2, and Internal Pressure is set to 0.1. 
+                     </p>
+                  </div> <span class="anchor_wrapper"><a name="FIG_01A286D325E846129B8C8E9FB2D4C34E"></a></span><div class="figure-anchor"><img src="../images/GUID-3C821BAC-471D-428D-A240-CB8AD3EDC37C-low.png"><p><span class="anchor_wrapper"><a name="GUID-913A17B1-81D6-43DA-B23A-2D071FF9E08B"></a></span>External Pressure has a value of 2. 
+                     </p>
+                     <p><span class="anchor_wrapper"><a name="GUID-E7411530-1D8B-4AE9-86EA-FE4B0F0D04FD"></a></span>The particles as a whole keep their structure as the particles push away from each
+                        other. 
+                     </p>
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

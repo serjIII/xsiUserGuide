@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-3891F026-3DE7-4694-B46D-1C4A4E9E0383">
+      <meta name="indexterm" content="hair: light and shadows">
+      <meta name="indexterm" content="Hair Renderer shader: lighting for hair length">
+      <meta name="indexterm" content="final gathering: and hair">
+      <meta name="indexterm" content="Hair Renderer shader: final gathering">
+      <meta name="indexterm" content="shadows: for hair">
+      <meta name="indexterm" content="hair: shadows">
+      <meta name="indexterm" content="hair: shadow maps">
+      <meta name="indexterm" content="shadow maps: for hair">
+      <meta name="topic-type" content="concept">
+      <title>Lighting and Shadows for Hair</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-3891F026-3DE7-4694-B46D-1C4A4E9E0383"></a></span><div class="head">
+            <h1>Lighting and Shadows for Hair</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-33F6471E-C1B5-4D3C-AB84-1E9435E76192"></a></span>As with any other object in Softimage, the rendering of hair is affected by the lighting
+               in a scene. However, there are a few special lighting issues to consider with hair.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-71E34B1A-92B5-4BA3-BC39-77CB55AAC06E"></a></span>While the type of light doesn't matter with hair, the number of lights does. It's
+               best to have as few lights as possible on the hair. If you have a number of lights
+               in the scene but you don't want to use them all on hair, make the lights that you
+               don't want the hair to consider exclusive of the hair. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-004B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5BCF1AB3-AE94-491B-970C-2CB9F4A208C1"></a></span>Light Shading Models for Short or Long Hair
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7522E350-C368-440B-B4C4-395CE753CB32"></a></span>A hair whose tip is pointing toward a light will receive less light than a hair whose
+                  strand is perpendicular to the light (more surface area of the hair facing the light).
+                  You'll notice this when you first apply hair on any round shape: the hairs don't have
+                  much surface area on which the light can land. If you comb this hair up or down, you'll
+                  see that the light falls mainly on the hair's center. 
+               </p> <span class="anchor_wrapper"><a name="FIG_167D635CFA7B4E798BB592B2E45A7D0D"></a></span><div class="figure-anchor"><img src="../images/GUID-F1B7D42C-2638-48FF-B869-D164CA50206C-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D6E4F1CE-41C0-4FF6-955E-53A267E6B4D9"></a></span>Likewise, hairs that are perpendicular to the light (usually longer hairs) receive
+                  the most light contribution because of the large amount of surface area facing the
+                  light. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-EC6E142A-EE12-4305-BBA4-5500DB9FADAC"></a></span>To help render the hair appropriately, you can choose between two different Shading
+                  Models on the <span class="char_link"><a href="shaderpresets698.htm#WS6EE05AA23AA85A43B64451BE2934084F-00EB">Render Settings</a></span> page in the Hair Shading shader's property editor: one optimized for short hair and
+                  one for long hair. You can also control the amount of blending between the artificial
+                  normal and the actual underlying geometry of the hair object. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-89B40036-E161-477A-9D3C-5B8DF913DF12"></a></span>For more information on these Shading Models, see <span class="char_link"><a href="shaderpresets698.htm#WS6EE05AA23AA85A43B64451BE2934084F-00EB">Render Settings</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-004D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ED5CD55C-576F-40EE-A94C-42163A7D23FD"></a></span>Final Gathering and Hair
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-EFAA4860-D04B-4B5E-8759-6123386D6C2C"></a></span>If you have final gathering set in your scene, you can also have it affect hair. To
+                  determine final gathering's effect on hair, set the <span class="MenuCascade" id="GUID-9128FBDA-CAF2-41C6-97C1-E9551C8E3926">Final Gathering - Color</span> value on the <span class="char_link"><a href="shaderpresets698.htm#WS6EE05AA23AA85A43B64451BE2934084F-00E9">Indirect Illumination</a></span> page in the Hair Shading shader's property editor. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E670FD7E-9A12-4536-AD64-01CFAEC58C98"></a></span>This value controls the color and intensity (strength) of the final gathering effect
+                  over the hair's surface. The color that is received on the hair from final gathering
+                  is multiplied by the color value you set here and then added on top. Be aware when
+                  you're setting this value that hair is very sensitive to final gathering because it's
+                  like thousands of tiny objects blasting color at each other in a short distance. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-42C28362-B9BF-47DE-89BF-C92B63F7B708"></a></span>If you keep this Color value low for the hair, you can then associate an inclusive
+                  light for only the hair for shadows. This light should be quite dark so that it doesn't
+                  change the final gathering look. You can then exaggerate the specular of the hair
+                  so that it shines more from the dark light. You may also need to use negative umbra
+                  values to get dark enough shadows because of the dark light. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8B7FFC9E-9B65-49F4-8C1F-0805F4636E8E"></a></span>Also, if you connect a texture map to this parameter (see <span class="char_link"><a href="hairy_render_CreatingaSurfaceforTexturingCurveBasedHair.htm">Creating a Surface for Texturing Curve-Based Hair</a></span>), you can reveal a final gathering on a specific location on the hair. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2B26AC04-7429-483E-846F-5B125C8A49BD"></a></span>For information in general about final gathering, see <span class="char_link"><a href="gi_final_gathering.htm">Final Gathering</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-004E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-49F212F1-3E36-446C-99A4-9C7BBFC798F3"></a></span>Shadows and Hair
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-6CB4CEC0-8559-4039-9EE3-0DDE0DB0836A"></a></span>You can have hair cast shadows on other objects in the scene. In addition, the transparency
+                  values set for the hair are taken into consideration when shadows are calculated.
+                  
+               </p> <span class="anchor_wrapper"><a name="FIG_7198B77C7AAB4A3C806986BB0F590AFE"></a></span><div class="figure-anchor"><img src="../images/GUID-4534B0C9-30D0-46A9-BF88-68281A82BCD7-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-9FDEA4BE-468C-4B02-B6E8-851D3918960B"></a></span>As with anything else in Softimage, casting shadows with hair depends on the number
+                  and types of lights you're using. Make sure you have shadows activated for the lights
+                  you want to use. 
+               </p> <span class="anchor_wrapper"><a name="UL_9177F9AAE9E84902BE95B4036CC5C7C8"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3B3855BD-CABF-4373-87F5-061E724A2BCA"></a></span>Set the light's Umbra values to over 0.2 to give the best results. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-79BD4841-18D1-4860-B766-214402F4EB2A"></a></span>Using segment shadows can help reduce render times as well as improve the quality
+                        of the shadows. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-8F93348B-71B4-4436-B9D9-8B73632F89DE"></a></span>You can have the hair cast shadows with light sources inside the hair's bounding volume;
+                  however, if the eye ray hits a non-hair object before it hits hair, no hairs are displayed
+                  or shadows created for that segment. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-26C8F10E-8276-4185-8C4A-4110D7473510"></a></span>For information on shadows in general, see <span class="char_link"><a href="dir_shadows.htm">Shadows</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0050"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1C5D3020-84A0-4CB5-8BB9-3CE6E5F7FC93"></a></span>Shadow-mapped Shadows
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-78442342-DE80-4CC0-8FC9-46657310462D"></a></span>Shadow-mapped shadows usually provide the best performance for hair. The mental ray
+                     renderer uses the actual raw geometry from Softimage to create the depth maps for
+                     shadow mapping: the shaders are not considered in this calculation. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-949A378B-3C06-4BF5-8FE1-D895399BBD29"></a></span>When you're creating the shadow maps, be sure to eliminate all unnecessary objects
+                     from the shadow calculations. This can speed up the calculation process considerably.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6BD09159-B99C-4458-9008-FEBA7EC38782"></a></span>As well, shadow map size can be important, especially when there's lots of detail
+                     involved. Spotlights often work well with shadow maps to help keep the coverage low
+                     and the sampling and size down. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-47C01666-C4E5-4356-A23A-580F18099D46"></a></span>To eliminate flickering, you can increase the shadow map's sampling which, of course,
+                     increases the render time correspondingly. To reduce the rendering time, you can render
+                     the shadow map element in a separate pass with a lower sampling resolution, then blur
+                     that and composite it with the hair pass. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-78F27FDF-3067-44F7-987D-35E9CEBBC76D"></a></span>For information, see <span class="char_link"><a href="dir_shadows_CreatingShadowMappedShadows.htm">Creating Shadow-Mapped Shadows</a></span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS07FF3F5C1F4F2D4E8CBED7D77B97646A-0051"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-81F6E797-4AE7-4725-A31C-1C263A92B765"></a></span>Volumic Shadow Maps
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-592F287E-31A5-4A74-8E14-46F1194023F3"></a></span>You can also use volumic shadow maps with geometry hair to reveal more of it details
+                     and depth. Volumic shadow maps store the changes in color or intensity along with
+                     the depth at which the change occurred during the raymarching process. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-600C87D6-5B20-4632-ABA3-E4501F824AD3"></a></span>For information, see <span class="char_link"><a href="dir_shadows_CreatingVolumicShadowMaps.htm"> Creating Volumic Shadow Maps</a></span>. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_41B9A52FE2474F4B95C2B08BDD51C4CD"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-EC1E755E-275A-4BAD-A23A-8EFC01181A44-low.png"> 
+                           </td>
+                           <td class="table-body">&nbsp; <img src="../images/GUID-067DC4B4-408B-47D6-9D2F-AE6CDF3A8F56-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="not-ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-297F639E-15B7-4DCC-B399-AA47AAC8912C"></a></span><p class="table-body">Regular shadow-mapped shadow of hair. </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E81E8410-4E6E-4B16-9E78-7DC56231790B"></a></span><p class="table-body">Volumic shadow-mapped shadow of hair. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

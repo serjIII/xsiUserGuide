@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-4C75C0D8-E7B9-463C-92FC-AB717A6498BB">
+      <meta name="indexterm" content="CrowdFX: action sources in the simulation">
+      <meta name="indexterm" content="CrowdFX: Animation Proxies node">
+      <meta name="topic-type" content="concept">
+      <title>How Action Sources Are Used in the Crowd Simulation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-4C75C0D8-E7B9-463C-92FC-AB717A6498BB"></a></span><div class="head">
+            <h1>How Action Sources Are Used in the Crowd Simulation</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-57E85AE6-C9C3-4838-B0AD-9DEE48704807"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-1DD9BEA5-41D1-4BB6-81ED-85D3437E4E7E"></a></span>When you load a model into a crowd simulation, you must also load its action sources
+            as described in <span class="char_link"><a href="GUID-88FB9DAE-3E03-4335-90D9-476D4C83E014.htm">Loading Action Sources</a></span>. Several things are then set up in the Crowd model and the simulation point cloud's
+            ICE trees so that the animation from those action sources can be used on the actors
+            in the crowd simulation: the following is a general outline. 
+         </p>
+         <div><span class="anchor_wrapper"><a name="GUID-3D1EC8F0-C371-4B37-A4D6-4BED088511E0"></a></span><div class="note-note"><span class="label">NOTE:</span>You can get also direct access to action sources in the ICE tree without needing to
+               load them and create pose states. You may want to do this if you're using action states
+               to animate specific deformers in the rig proxy. This requires more ICE knowledge than
+               using pose states, but also offers you more control. See <span class="char_link"><a href="GUID-EFC969AB-C37B-4BE0-BEA9-71DDE25457FA.htm">Modifying Deformer Transformations for the Animation States</a></span> for information. 
+            </div>
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_1202782474B84E0F8CC15A6D9E0F476B"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-98D822CA-A77E-42E8-B792-1DB5538A0DC0"></a></span>Converting the Action Source Data to a Point Cloud
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-2054EF86-DDE4-4F34-9460-ED4B1A145D31"></a></span>When you load the action sources, a point cloud for each source is created in the
+               Animation Proxies node in the Crowd model. The local transform data that is in each
+               original action source is stored in this point cloud as global transform data on every
+               deformer in the actor's rig proxy at each frame (see <span class="char_link"><a href="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4.htm">Modifying the Actor's Rig</a></span>). These point clouds also set certain ICE attributes on the actions so they can be
+               used in the ICE trees for the crowd simulation. 
+            </p> <span class="anchor_wrapper"><a name="FIG_9354EC9E9898448ABDC6B74AF5BEE85C"></a></span><div class="figure-anchor"><img src="../images/GUID-1D218772-71DB-4D28-875D-B60656349A21-low.png"></div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_DF75944952C44D9FB98AEC16495DB583"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-4BEF72AF-A7B8-44CA-812F-110438797F1F"></a></span>Getting the Action Source Data into ICE
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-AEE8125D-7FDF-47FD-9521-05FC6BC7AE89"></a></span>Each point cloud generated from a loaded action source is referenced in the Get Animation
+               Sources ICE tree of the simulation point cloud. The point clouds are connected in
+               the ICE tree in the order in which the action sources were loaded from the <span class="char_link"><a href="CrowdFX_ActorProxy_CrowdFX_ActorProxy_CrowdFX_ActorProxy_CrowdFX_ActorProxy_CrowdFX_ActorProxy.htm">CrowdFX Actor Proxy Property Editor</a></span>. This order sets their ID, starting at 0. If these actions are locomotion type actions,
+               they should be in top-down order from slowest to fastest. 
+            </p> <span class="anchor_wrapper"><a name="FIG_791D62AAB4DF46E8A618E6EF06AABE4D"></a></span><div class="figure-anchor"><img src="../images/GUID-5B85B3EC-96F2-4F7C-BDE7-E189F72F95A4-low.png"></div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_528F7CF8045240EA9C80483157ECDE11"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-D7475596-3382-4C9F-87FE-426EC787FF9E"></a></span>Changing or Updating the Action Sources Used by an Actor
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-C952E887-2D50-4834-B243-512E8B4C31B3"></a></span>After you have created the crowd simulation with one or more actors, you can change
+               the action sources used by the actors in the simulation. For example, when you selected
+               the actor for the crowd simulation, you loaded a "running" action source. Now you
+               want the actor to use a "jogging" action source instead. Or you have fixed up the
+               animation in the original "running" action source so that it's better and now you
+               want to use it instead of the "running" action source that's already loaded for the
+               actor. 
+            </p> <span class="anchor_wrapper"><a name="OL_EBAC770B390143D8A67D3FBA88100C80"></a></span><p><span class="anchor_wrapper"><a name="GUID-6CC9104B-AF52-47A1-B720-700D84758FD9"></a></span> Basically, you need to remove the action source that's already loaded and bring in
+               a new action source, as described here: 
+            </p>
+            <ol type="1" start="1">
+               <li>Open the <span class="char_link"><a href="CrowdFX_ActorProxy_CrowdFX_ActorProxy_CrowdFX_ActorProxy_CrowdFX_ActorProxy_CrowdFX_ActorProxy.htm">CrowdFX Actor Proxy Property Editor</a></span> for the actor whose action sources you want to change. 
+               </li>
+               <li>Select the loaded action sources you want to remove from the <span class="MenuCascade" id="GUID-4BC380A8-095E-4ECF-BA9F-0741BE2B52C0">Selected Actions</span> list, and click the <span class="MenuCascade" id="GUID-838C5C1E-8381-4A35-B43A-2942F7C14C70">Move &lt;&lt;</span> button to move them to the <span class="MenuCascade" id="GUID-D5264B02-E6C9-491E-A46C-3B0863A293E3">Action Sources</span> list. This just keeps it clear which sources you have loaded, but doesn't change
+                  anything in the ICE trees. 
+               </li>
+               <li>Move the new action sources you want to load from the <span class="MenuCascade" id="GUID-991CF622-8ACF-4E07-B41C-8B3893171E32">Action Sources</span> list to the <span class="MenuCascade" id="GUID-C433BFEA-5667-46D2-B0E0-7AA4329402D2">Selected Actions</span> list. 
+               </li>
+               <li>Select the new action sources in this list and click the <span class="MenuCascade" id="GUID-C231FB89-A32F-4697-90A8-01015A01B11D">Selected</span> button to load it on the actor. 
+               </li>
+               <li>In the simulation point cloud's Get Animation Sources ICE tree, unplug or delete the
+                  Get Data nodes for the removed action sources from the Get actor proxy Animations
+                  compound. 
+                  <p><span class="anchor_wrapper"><a name="GUID-82ADFF3A-D3A3-4637-BF0B-D4043C0BDDA7"></a></span>In this image, the "Running" action source is being removed and replaced with the
+                     newly-loaded "Jogging" action source. 
+                  </p> 
+               </li>
+               <li>Right-click on the unused In <span class="MenuCascade" id="GUID-F4CCAA58-49EC-4905-B035-F71E4473ED3A">Name</span> port and choose <span class="MenuCascade" id="GUID-51213968-97B4-4620-BFA5-ADB1A557F8B7">Delete</span> Port. This is removed so that "blank" data isn't added to the calculations done by
+                  the Load Actor Cycles compound under the hood. 
+                  <p><span class="anchor_wrapper"><a name="GUID-4D1F488D-976A-438C-8EFD-38404B7B165C"></a></span>The "Jogging" action source can now be used by the actors. 
+                  </p> 
+               </li>
+               <li>Make sure that the logic set in the simulation point cloud's other ICE trees works
+                  with the new action source you have loaded. Check the speed and duration data set
+                  for the new action sources in the <span class="char_link"><a href="iceref_Initialize_Move_Locomotion_Data.htm">Initialize Move Locomotion Data</a></span> compound (see <span class="char_link"><a href="GUID-BF7F39A3-CA25-43B1-A2E2-5B5C550575FB.htm">Controlling the Actor's Animation</a></span>). 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_F3E874FC2D1B48F9BC851E7F375376D6"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-0F117A13-F9A6-4176-AFD6-2CCB2EC410A8"></a></span>Defining the Animation State
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-D2810D8E-6533-4889-A963-26A78861FD8F"></a></span>After importing the Action Sources into the crowd system, you can use them in the
+               Animation States. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C0902690-77B4-4827-88A5-7CAE01673F65"></a></span> When you expand the Animation Definition node, you can view the <span class="MenuCascade" id="GUID-B03DEF07-F7A8-4ECE-B610-900BB822E787">Define Animation State</span>, <span class="MenuCascade" id="GUID-7D25B7BC-1158-46FE-A9A6-1F7EC6DD413D">Define Move Animation State</span>, and <span class="MenuCascade" id="GUID-E350FB0A-AECF-486D-A83E-D6883FC58C3B">Define Animation State Transition</span> nodes. For example, in the following figure there are four different animation states
+               (Idle, Move, Move_Zombie_Style_A, and Move_Zombie_Style_B). You can notice that the
+               names of all these states are meaningful enough to understand the transition of actors
+               from one state to another. <span class="anchor_wrapper"><a name="FIG_7EFB03AC6BB040A2BB3D6EF07FB2FFC5"></a></span><div class="figure-anchor"><img src="../images/GUID-55FD3EEB-A447-4FE4-8F4D-319C93DE95EE-low.png"></div> 
+            </p> <span class="anchor_wrapper"><a name="OL_EBC82075830744159E60C1762180DF00"></a></span><p class="list-intro"><span class="anchor_wrapper"><a name="GUID-A7F326AA-190F-4F91-A441-BA04A06EF065"></a></span>To change the state name
+            </p>
+            <ol type="1" start="1">
+               <li>Double-click the Define Animation State node. 
+                  <p><span class="anchor_wrapper"><a name="GUID-59D572BD-A041-4ED9-B873-EAB9285F31D5"></a></span>The Define Animation State window appears. <span class="anchor_wrapper"><a name="FIG_77854B7271DD4E4DA8C541D1A6F3E182"></a></span><div class="figure-anchor"><img src="../images/GUID-F07E073C-AEE0-4CEB-9E71-085206C3073B-low.png"></div> 
+                  </p> 
+               </li>
+               <li>In the <span class="MenuCascade" id="GUID-4698C9B6-20F7-451A-AEB3-9E2736ABCDD2">State Name</span> text box, enter a new state name. 
+               </li>
+            </ol>
+            <p><span class="anchor_wrapper"><a name="GUID-FC184D6C-2193-4357-8479-6CCF00B17E30"></a></span>In the Define Animation State node, all the prerecorded animation states are imported
+               directly from the ICE CrowdFX. From the Define Animation State window Name drop-down
+               list, you can select the animation state of your choice. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0C1704DF-D031-4DD8-B9B5-B26F4945C44F"></a></span>Using the Pose Modifier element in the Define Animation State node, you can modify
+               the existing prerecorded animations. You can also define blending between different
+               animations (walking, standing, running, and so on) in one animation state. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_E18ACAC1EBA14A97A50490FB8F5119C6"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-7DAB4AEA-D9C5-4732-AF4E-16D01810EEEA"></a></span>Defining Transition Between Animation States
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-C4380F87-65E0-4721-B059-19EC0DEDB83E"></a></span>After defining the state for each of your prerecorded animations, you need to define
+               the transition between the animation states (from idle to move, move to run, and so
+               on) and the duration of the transition. If you do not define any transition between
+               states, then there will be a hard switch between these animation states. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-D9A98BBD-40A5-4CE7-AB05-F1EEA29EBC94"></a></span>The <span class="MenuCascade" id="GUID-6ABA66F8-F76B-417A-8E6E-BA5FB2BA485D">Define State Transition</span> node in the Animation Blending tree enable you to define transition between states.
+               <span class="anchor_wrapper"><a name="FIG_7089607EEC4E4D13BAF81C5E48EF4552"></a></span><div class="figure-anchor"><img src="../images/GUID-16585162-BBF6-4E3F-B0C7-98C2264C32C3-low.png"></div> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-02B6E98F-6F8C-40F3-BD89-7270AB101D19"></a></span>Double-clicking the Define State Transition node displays the Define State Transition
+               window. <span class="anchor_wrapper"><a name="FIG_8A7ABB00844F44208FA4C0591265E05D"></a></span><div class="figure-anchor"><img src="../images/GUID-18CAC054-8FA6-46BB-98E3-A1F9498208CE-low.png"></div> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-40454FBA-942D-4EEA-88FF-AF8F3A1ACFCA"></a></span>In this window, you can set the transition from Source state to Target state. In the
+               <span class="MenuCascade" id="GUID-CBBECC78-62E4-4C24-B7E7-C86D86DCB16C">Duration</span> field, specify the transition time in number of frames. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-5899326B-3A00-49C0-A77D-124AC8D56ED1"></a></span>In this way, you can define the capabilities of actors using the Animation Blending
+               tree. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_EADB2D7E309B4966B8E7C6746A400D8B"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-70E4074A-AAD3-40E0-A87E-AA52F604868C"></a></span>Defining the Behavior of Actors
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-879B46B4-9499-442F-AACB-FCF82714CBAE"></a></span>The Behavior ICE tree enables you to use the predefined animations by defining the
+               behavior of actors. In the Behavior ICE tree, different environments are defined and
+               conditions are set for the actors to respond to the defined environments. 
+            </p> <span class="anchor_wrapper"><a name="OL_612CBE6716A043E7830D251B62B519EF"></a></span><p class="list-intro"><span class="anchor_wrapper"><a name="GUID-D187AF6E-570E-499D-B1CB-C9C9FBFBC4C2"></a></span>To apply the behavior of animation states in the crowd system
+            </p>
+            <ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FCFFBD91-AD4A-45DE-9D28-1E40BC50478C"></a></span>In the Behavior ICE tree, double-click the Set Animation State compound. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-70A42ECA-75DA-4573-9D34-624CD745AECC"></a></span>In the Set Animation State property editor, select the new animation state (that you
+                     added in the Define Animation State node) from the State drop-down list. <span class="anchor_wrapper"><a name="FIG_E2023273A8A94195AD77BF291DB1E3BC"></a></span><div class="figure-anchor"><img src="../images/GUID-60609103-1BCA-4B6A-84D1-F21F4FDA6373-low.png"></div> 
+                  </p> 
+               </li>
+            </ol> 
+            <p><span class="anchor_wrapper"><a name="GUID-72CDD760-1C2C-4EE4-B62B-979D9C610E73"></a></span>The <span class="MenuCascade" id="GUID-81BC3A4F-882B-42D5-AB6D-E983C2413400">Animation State Selector</span> node in the Behavior ICE tree enables you to choose different animation states between
+               each transition. Double-clicking the Animation State Selector node displays the State
+               Selector window. <span class="anchor_wrapper"><a name="FIG_285E1A6AD5B34038B0716B197E067966"></a></span><div class="figure-anchor"><img src="../images/GUID-3D74641C-CEC3-490E-B22D-B6F788029BBB-low.png"></div> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-CE5C955C-7375-439B-B90A-5A4A410FB28D"></a></span>The <span class="MenuCascade" id="GUID-10853085-FAA2-47CB-9FAA-CFA4C70DF199">State</span> drop-down list contains all the different animation states, with meaningful names,
+               defined in the animation blending. This allows you to easily choose the animation
+               state of your choice during each transition. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-E6B43B3C-141C-45D4-825F-D40F3D7D4F3A"></a></span>The Animation_Blending and the Behavior ICE trees clearly separate different parts
+               of the ICE CrowdFX simulation. This enables you to easily define the animation states,
+               transition between states, and control the behavior of actors by conveniently choosing
+               the state of your choice during each transition. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_675514493A40410ABFD82F4660FD2AB9"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-F394DF1F-0B26-401B-8085-98698B8E7E3E"></a></span>Using Action Sources in the Animation_Blending ICE Tree
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-724E1FD9-0FD4-4476-A78A-CE239EBAFED8"></a></span>The Action Sources are used in the Animation_Blending tree within the Animation States.
+               You cannot directly use the Animation Sources in a crowd system, rather you should
+               use only the Animation States. An Animation State references one or multiple Animation
+               Sources. <span class="anchor_wrapper"><a name="FIG_64A5FBDBA8E640B0BB1643BFC653B2A1"></a></span><div class="figure-anchor"><img src="../images/GUID-1D58DF4A-BEED-46F1-99E4-94ACEBAC38AE-low.png"></div> 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-A6BACD36-19BC-41B1-AB12-566989225A9C"></a></span>You can use the Set Animation State Parameters node to define how the Animations Sources
+               are used in an Animation State. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-8562CF29-9AE5-4C4D-BC52-9583AFCC4DF7"></a></span>Set <span class="char_link"><a href="iceref_Set_Animation_State.htm">Set Animation State</a></span> and <span class="char_link"><a href="iceref_Set_Animation_States_Sequentially.htm">Set Animation States Sequentially</a></span>. 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

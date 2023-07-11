@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-35C6894E-C17E-46F6-A5C2-23B27654B5C9">
+      <meta name="topic-type" content="concept">
+      <title>mib_lookup_background</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-35C6894E-C17E-46F6-A5C2-23B27654B5C9"></a></span><div class="head">
+            <h1>mib_lookup_background</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-B9D27794-2670-4302-ACE7-7F42A7F895FC"></a></span> <em class="strong">Category:</em> mental ray &gt; Texture 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-79D874C0-FF5E-4C23-9E2C-B6C773246432"></a></span> <em class="strong">Shader Family:</em> Environment 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F75EBB9A-3E38-4DE3-94A5-40A2D8A81373"></a></span> <em class="strong">Output:</em> Color 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-93BA5CFE-C072-4D3D-88D8-3A569293818C"></a></span>The purpose of this environment shader is to insert background plates. Given a texture
+               shader, this shader places it in the background of the scene such that the edges of
+               the texture line up with the edges of the rendered image. Factors can be applied to
+               stretch and pan the texture, to allow for lenses that bend rays away from the center.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-95F74D91-69B0-4F0D-BD70-A900CEFF3B67"></a></span>This shader is useful with three different types of shaders: 
+            </p><span class="anchor_wrapper"><a name="UL_28E8DC7924764EA48BA425FBFE3CF559"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-77FC614F-AD6A-485A-837E-CF40315821F0"></a></span>Environment shaders can place the background plate at infinity. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-297465FA-C84C-448D-B79E-42EA1D89D79B"></a></span>Lens shaders can place the plate in front of the entire scene by evaluating the background
+                     shader first and casting an eye ray only if the returned alpha is less than 1, then
+                     blending the results. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BF6C20B5-5602-4247-A808-C9BFF81E364E"></a></span>Material shaders on an XY axis-aligned plane in the scene insert the plate at the
+                     Z coordinate of the plane if they first evaluate the background shader, then cast
+                     a transparency ray only if the returned alpha is less than 1, then blend the results.
+                     
+                  </p> 
+               </li>
+            </ul><span class="anchor_wrapper"><a name="TABLE_EF36B4F4FF4B4A1C9CDE8D647F7A9663"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C22831D6-B09E-41CF-888D-6C0AD2CC7AE2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7A083297-821B-435A-A311-473CC3C75321">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E9674148-3EFA-4071-8249-AE05304E9DB5"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D74C8685-D3D9-4B00-A820-AA27B2049E5F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-297697BE-7291-49DA-9E22-EDCE01A9B889">zoom</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3FED6B7B-90D6-4973-A1BA-26C1F1BDE88E"></a></span><p class="table-body">Enlarges the texture image by a factor given by the X and Y components of the zoom
+                           vector. The Z component is not used. If a component is 0, it defaults to 1. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A5CA8550-ACB1-4153-95EE-75EAD29D128B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FF0DD082-C6FF-45BB-B7CF-8B0937CFD881">pan</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-24825E6B-FE3D-4F90-B2EF-6D37612AA3FA"></a></span><p class="table-body">Shifts the texture sideways by a fraction of the rendered image size. The Z component
+                           is unused. For example, if the X component is 0.1, the left 10% of the rendered image
+                           background remains blank. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-14140973-79AA-438D-8FE5-B4D701284408"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EDCBC308-6A31-49B2-9757-83150570BE82">torus_u, torus_v</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3060DF0F-5033-4D08-BD0A-D963E9D80434"></a></span><p class="table-body">Repeats the texture endlessly in the respective U or V direction. If this option is
+                           off, transparent black is returned outside the tex image. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-39DF7E95-E495-4140-9EA3-22FB59940716"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B8E22D19-A314-4825-AD96-CB703891EE49">tex</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3D538DD5-FB8B-4CB5-961C-FBBA0E4874AE"></a></span><p class="table-body">The texture or shader to be looked up at the computed coordinate. It is sampled in
+                           the range [0 ... 1) only. 
+                        </p> <span class="anchor_wrapper"><a name="GUID-9882F6C7-FAFD-46CA-8AB1-09F3D573C43E"></a></span><p class="table-body">You can Edit the image clip, or get a New image clip from file or from source. For
+                           more information about working with images, see <span class="char_link"><a href="data_image_sources_clips.htm">Managing Image Sources &amp; Clips</a></span>. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

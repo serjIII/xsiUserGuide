@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6872A874-0B27-4C52-A920-DB94B4907992">
+      <meta name="indexterm" content="ICE particle instances: creating">
+      <meta name="indexterm" content="Set Instance Geometry compound">
+      <meta name="indexterm" content="Instance Shape node">
+      <meta name="topic-type" content="concept">
+      <title>Creating Particle Instances</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6872A874-0B27-4C52-A920-DB94B4907992"></a></span><div class="head">
+            <h1>Creating Particle Instances</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-CA30A9BF-3FAC-4C84-AB70-7361AE17231B"></a></span>To use instances as particles, you can use a single object, a hierarchy of objects,
+               or a group of objects and assign them to the point cloud using either the <span class="MenuCascade" id="GUID-3B7873A5-62BF-46E2-8C52-E93EF71597D7">Set Instance Geometry</span> compound or the <span class="MenuCascade" id="GUID-C8297B9D-9EA2-421B-83F9-76E49A82737E">Instance Shape</span> node in the ICE Tree. The Shape attribute is used to draw each particle in the point
+               cloud as the referenced instance object or hierarchy. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-63527E83-CC42-48B5-98A2-CA75D3DAF1DC"></a></span>See <span class="char_link"><a href="ICE_particles_ICEParticleInstancesObjectsasParticles.htm">Using Objects as ICE Particles</a></span> for general information about using instances, including inheritance and collision
+               geometry. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-000C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EA7EC924-3023-4033-8FD9-424FD8B9C528"></a></span>Instance Shape or Set Instance Geometry?
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4EC39D48-BD1D-4827-AAD8-2DA2653C4823"></a></span>To use instances as particles, you can use a single object, a hierarchy of objects,
+                  or a group of objects, and assign them to the point cloud using either the Set <span class="MenuCascade" id="GUID-8327DE0E-3D8E-4587-834A-B66319A6898D">Instance Geometry</span> compound or the <span class="MenuCascade" id="GUID-417FC08C-8824-4A84-8B8A-01766FD6A1A3">Instance Shape</span> node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9FDEBFCB-619B-46DC-9168-2A7871C36A99"></a></span>Both the Instance Shape node and the Set Instance Geometry compound assign each object
+                  in a group to a particle (based on its creation order that you can see in the explorer)
+                  and stays with that particle for its lifetime. This is because the instance is based
+                  on the unique ID of the particle. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9A5A1468-B290-4646-8D70-C3BC03E6E690"></a></span>So, which one to use? 
+               </p> <span class="anchor_wrapper"><a name="UL_93FCF2E1978449B8AC603E7BA9AE533B"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5386AEDB-146A-4DE5-893B-628D96535CC0"></a></span>The <span class="MenuCascade" id="GUID-2D47F52B-AA0D-4062-B8B2-DE28887B1B8E">Instance Shape</span> node provides the simplest and fastest way to create large numbers of instances,
+                        as well as allowing for lights and cameras to be used as instanced objects. See <span class="char_link"><a href="ipart_instances_RenderingParticleInstances.htm">Rendering Particle Instances</a></span> for how using the Instance Shape node can help with rendering instances, including
+                        workarounds for instanced objects whose animation is offset. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-76C6A736-737A-4A5E-A51A-A2D1DFB2CF96"></a></span>If you need the animation of the instanced objects to be offset in time, you can use
+                        the <span class="MenuCascade" id="GUID-CDD53AF0-D08A-40D0-81E9-1E709B1782E2">Set Instance Geometry</span> (and <span class="MenuCascade" id="GUID-D5A637A9-49C0-4C1B-A716-4B47FC96337C">Control Instance Animation</span>) compounds. These compounds include certain parameters that determine which frames
+                        of the instance's animation are used and how they are played during the particle simulation.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-66A167DE-08A8-4A7B-BCF2-1545FA8365EC"></a></span>See <span class="char_link"><a href="ipart_instances_RenderingParticleInstances.htm">Rendering Particle Instances</a></span> for information about rendering issues with these compounds. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-000D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-551E7B50-B7AB-4FFB-9F5E-EC4DBF1FB5C8"></a></span>Creating Particle Instances Using the Set Instance Geometry Compound
+               </h2> <span class="anchor_wrapper"><a name="GUID-7542C2C6-1489-446E-92AB-B05A44BE3EC2"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1C380238-3EDD-4A30-89E6-FA4C1275225A"></a></span>Create an object, object hierarchy, model, or group of master objects that you want
+                        to instance. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-204B7545-EB11-4362-B0F5-F1A54A15EFE5"></a></span>These objects can be animated or not — see <span class="char_link"><a href="ipart_instances_UsingAnimatedMasterObjects.htm">Using Animated Master Objects</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4187767D-E165-494A-A3BF-31FE3DB4D093"></a></span>Create a particle emission (see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>) or particle rigid body emission (see <span class="char_link"><a href="ICE_rigidbody_MakingICEParticlesintoRigidBodies.htm">Creating an ICE Rigid Body Particle Emission</a></span>). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F941DEE7-4105-45CB-8139-03881FD869A2"></a></span>Choose the <span class="MenuCascade" id="GUID-B78B4D2C-F799-4CAE-B824-F392284BC389">Particles <img src="../images/ac.menuaro.gif"> On Emission <img src="../images/ac.menuaro.gif"> Use Instance Geometry</span> command from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1167802B-1480-4D4D-AB9F-EA00EF86B30F"></a></span>This command adds the Set Instance Geometry compound to the ICE tree, plugging it
+                        into the Execute on Emit port of the Emit compound. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AC4647BB-3200-499F-8CB9-A692FA15D586"></a></span>Pick the geometry to use for the instances. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-969791FF-C53B-4BF9-98DE-285A805EAD25"></a></span>In the ICE tree, open the <span class="char_link"><a href="iceref_Set_Instance_Geometry_.htm">Set Instance Geometry</a></span> property editor and make sure to select the correct option in the <span class="MenuCascade" id="GUID-0DE2AD8B-C574-46CF-801C-C9106B10E839">Hierarchy Mode</span> list: 
+                     </p> <span class="anchor_wrapper"><a name="UL_15451B8C1B69489581EC8555CCDD5DA3"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A28901F9-023B-4DC6-B93F-604AEE5D18F1"></a></span>If you selected a parent object or model, make sure to select <span class="MenuCascade" id="GUID-069EF7B8-B904-43DF-81F9-25FFD197DAD6">Object+Children</span> in the <span class="MenuCascade" id="GUID-9F31FD21-CFC7-467D-83F8-38BC77C71634">Hierarchy Mode</span> list. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1B617A86-8323-48DC-8877-A153A954CDCB"></a></span>If you selected a single object or a group, select <span class="MenuCascade" id="GUID-6B4E02BD-8394-4B52-AE5A-501C2D70FF2F">Object Only</span> from this list. See <span class="char_link"><a href="ipart_instances_UsingGroupsofMasterObjects.htm">Using Groups of Master Objects</a></span> for more information about using groups. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-17593C29-B577-42E9-89AF-054789647B14"></a></span>In the Emit compound's property editor and set up the particles as you like. Instances
+                        inherit the values you set for the particle's Speed, Orientation, and Size. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A0234482-3D1F-40BC-BEC6-846973389A6D"></a></span>The Size value is like a multiplier of the original instance's geometry size: a value
+                        of 1 is the actual size of the instance geometry. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-B449EF05-A239-48FD-B39C-506BEB1511FC"></a></span><div class="note-tip"><span class="label">TIP:</span>Because the instances inherit these particle attributes, you could use a Randomize
+                           compound (such as Randomize Value by Range) to add some variation to them. 
+                           <p><span class="anchor_wrapper"><a name="GUID-6DBE2123-79C9-435A-953C-0F1D77A4863D"></a></span>See <span class="char_link"><a href="ICE_particles_ICEParticleSize.htm">ICE Particle Size</a></span>, <span class="char_link"><a href="ICE_particles_ICEParticleSpeed.htm">ICE Particle Speed</a></span>, and <span class="char_link"><a href="ICE_particles_ICEParticleOrientation.htm">ICE Particle Orientation</a></span> for more ideas on which compounds to use for adding variation to the instances. 
+                           </p> 
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3B7B154F-8FC3-47E4-ADC0-F42AC07C06DC"></a></span>To work with the animation of the instances, see <span class="char_link"><a href="ipart_instances_ControllingtheInstancexd5sAnimation.htm">Controlling the Instance's Animation</a></span>. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-000F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4699F1FB-1D9C-4E81-AB5B-AA1D004E6517"></a></span>Creating Particle Instances Using the Instance Shape Node
+               </h2> <span class="anchor_wrapper"><a name="GUID-1A1B9A89-B5A4-4C6E-A76B-BB67A79A8333"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-952D5F29-6408-4D1D-99EF-046F9DA773FD"></a></span>Create an object, object hierarchy, model, or group of master objects that you want
+                        to instance. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DDDF96CD-6DC4-401A-81A9-793EB04D5A50"></a></span>These objects can be animated or not — see <span class="char_link"><a href="ipart_instances_UsingAnimatedMasterObjects.htm">Using Animated Master Objects</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F51C087F-8344-4867-9565-F8A5FD972110"></a></span>Create a particle emission (see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span> or <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>) or particle rigid body emission (see <span class="char_link"><a href="ICE_rigidbody_MakingICEParticlesintoRigidBodies.htm">Creating an ICE Rigid Body Particle Emission</a></span>). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F8FCF6F7-02AE-4CB2-9141-3089E42AC55D"></a></span>From the preset manager in the ICE Tree view, select the <span class="MenuCascade" id="GUID-2EAFC093-4F6E-489A-B022-2376DD540A0C">Instance Shape</span> node from the Data Access group on the Tools tab, and drag it into the graph area.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-69E8E061-006E-4F3F-AF5C-76653F9AF08F"></a></span>Plug the Instance Shape node into the Shape port of the Emit compound to have the
+                        instances used upon particle emission. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-44674F89-B675-4C4C-8BA8-6181A9886143"></a></span>To have the instances evaluated at every frame, you can plug the Instance Shape node
+                        into the Shape port of the Set Particle Shape node, which must then be plugged into
+                        a port on the ICETree node. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_2176731A098546CBAE4A66F547F1171E"></a></span><div class="figure-anchor"><img src="../images/GUID-E2443867-EB51-4680-B00A-DCE1647AB5AE-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F1314F4D-5881-4760-97B1-3BB664287557"></a></span>Open the Instance Shape node property editor and use the Explorer or Pick button to
+                        select the master object you want to instance. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6DD41D9B-C9D5-4F09-9E3C-22671A99249B"></a></span>This can be a single object, a parent object of a hierarchy, a model, or a group of
+                        objects. For example, if you've created a hierarchy of animated objects, select the
+                        parent of this hierarchy. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D430042E-C97F-4F88-8604-6277506C4AE0"></a></span>In the <span class="MenuCascade" id="GUID-68F69E97-96AE-4952-ABC0-8264C0A7F157">Hierarchy Mode</span> list, make sure to select the correct option: 
+                     </p> <span class="anchor_wrapper"><a name="UL_250EC28BC9984437AEE362621189D956"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E1A7AB54-3906-4C83-A0F6-98F2F2D7766A"></a></span>If you selected a parent object or model, make sure to select <span class="MenuCascade" id="GUID-622CB007-D55E-496A-946B-85E7A9DB6A6C">Object+Children</span> in the <span class="MenuCascade" id="GUID-1249E301-2125-4870-A2D8-982BA8C2FCEB">Hierarchy Mode</span> list. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-81EE2072-9914-49AA-A460-BDB60E611044"></a></span>If you selected a single object or a group, select <span class="MenuCascade" id="GUID-A9A67EEE-0D75-45A0-9438-0ADD7A89A78F">Object Only</span> from this list. See <span class="char_link"><a href="ipart_instances_UsingGroupsofMasterObjects.htm">Using Groups of Master Objects</a></span> for more information about using groups. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

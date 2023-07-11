@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-980B59AA-882F-4F70-BE64-7D60EF55B9C4">
+      <meta name="indexterm" content="value-map expressions in action clips (clip effect expression)">
+      <meta name="indexterm" content="action clip effects: about">
+      <meta name="indexterm" content="action clips: editing data">
+      <meta name="indexterm" content="expressions: modifying in action clips">
+      <meta name="indexterm" content="constraints: modifying in action clips">
+      <meta name="indexterm" content="action clips: modifying values">
+      <meta name="indexterm" content="muting: parts of action clip">
+      <meta name="indexterm" content="action clips: muting">
+      <meta name="indexterm" content="muting: clips in animation mixer">
+      <meta name="topic-type" content="concept">
+      <title>Modifying Action Clip Values</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-980B59AA-882F-4F70-BE64-7D60EF55B9C4"></a></span><div class="head">
+            <h1> Modifying Action Clip Values</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-D398B32D-5A3E-4A4C-B1C2-B74940692425"></a></span>You can modify a clip's values to make specific changes to an action clip itself,
+               while leaving the original action source untouched. How you make these changes depends
+               on whether the animation in the action clip is from function curves or from expressions
+               or constraints: 
+            </p><span class="anchor_wrapper"><a name="UL_485C102E52B649159299F4418969BA62"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EC01A747-BF06-43E3-8480-22D61EB4EC17"></a></span>When an action clip contains animation data from a function curve, you can modify
+                     its data in the clip effect's expression, letting you modify only that clip. This
+                     is because each clip does not maintain its own local copy of the fcurve animation
+                     data, as constraint and expression clips do. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-897EC6D5-9620-4C67-93B6-2AD1C736510F"></a></span>When you do modify the expression, you create a clip effect which lets you use a number
+                     of variables and functions to modify the data "on top" of the original source animation.
+                     For information, see <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm">Modifying Action Clips with Clip Effects</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C1699F32-E578-43D0-8F47-BD91B185C3F2"></a></span>If you modify the clip's fcurves directly (such as by right-clicking on the clip and
+                     choosing Animation Editor), you modify the clip's action source, which affects all
+                     clips instantiated from that source (see <span class="char_link"><a href="actions_ModifyingActionSources.htm#WSA3B2924969ED704E813291282A376B72-0064">Modifying the Source's Function Curves</a></span>). 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-46D2D168-5858-4C29-A159-B73E5871DCA4"></a></span>When an action clip contains animation data from a constraint or expression, each
+                     clip maintains its own local copy of the data (it does not share an action source
+                     as fcurve-based clips do). For information on how to do this, see the following procedure.
+                     
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-C6D3EA79-3D0C-41D8-8A0D-45680CEC5DA3"></a></span>With any type of animation data, you use the clip's Instanced Action property editor
+               to edit it. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-ECAA5281-128B-46B5-9DF6-B18947BBC445"></a></span><div class="note-note"><span class="label">NOTE:</span>If you change the name of an object driven by a clip in the mixer, the items within
+                  the clip are updated to reflect the new object name. In addition, if that clip was
+                  instanced from a source <em class="mild">without</em> going through a connection-mapping template for the object, then the source names
+                  are also updated (so that subsequent instantiations of clips will not display a connection-mapping
+                  dialog box). 
+                  <p><span class="anchor_wrapper"><a name="GUID-E926DA64-BD44-4019-870D-1647C9E3FE9D"></a></span>This means that you can rely on the names listed in the Instanced Action property
+                     editor as being an accurate representation of what is being driven, so you can use
+                     them within your own scripts. 
+                  </p> 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0082"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BE10D8FE-8D72-4886-8D51-002481EF7F0B"></a></span>Modifying Expression or Constraint Data
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0083"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3DE32FC6-D54C-4756-A2E1-00E5BB178F8C"></a></span>To modify a clip with expression or constraint data
+                  </h3> <span class="anchor_wrapper"><a name="GUID-4DA5DAFE-1A38-4D22-BAC1-985A2FF0D6CA"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-47757653-8CF9-4626-AD21-A618C3EB238B"></a></span>Right-click the action clip and choose <span class="MenuCascade" id="GUID-74F73671-9A06-469D-84C9-B82FBB05C438">Clip Properties</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4D75021F-E3A9-4803-9027-6F362973FD76"></a></span>In the Instanced Action property editor, click the <span class="MenuCascade" id="GUID-95859EFF-C25D-4B8B-BD3D-19657AE16459">Clip Item Information</span> tab. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-765A2D26-55FB-49F0-8DAB-069404AB421F"></a></span>To edit data from a constraint or expression, select an item in the <span class="MenuCascade" id="GUID-B76A15B4-ACEE-4CE9-9FFD-C318DE0EDF36">Clip</span> column and then click the <span class="MenuCascade" id="GUID-1FA01DF2-8F35-41D1-863E-65E4BBF4BD38">Edit Clip-Specific Data</span> button. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_7350DA5E9A0E4273AFB2D6C257666DA2"></a></span><div class="figure-anchor"><img src="../images/GUID-3AAA8080-A55A-420F-B016-C6A1DF04DA7B-low.png"></div> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4914DACF-E0E0-45E5-814C-C1FD998629A1"></a></span>For more information, see <span class="char_link"><a href="ani_constraints.htm">Animating with Constraints</a></span> and <span class="char_link"><a href="ani_expressions.htm">Animating with Expressions</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0085"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-01A2ADDB-1BB4-4ED6-89F2-3A52956C0AFA"></a></span>Muting (Deactivating) Parts or All of an Action Clip
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-B1DF6041-C237-47CD-8DCF-6DF245AC8F32"></a></span>When you're modifying an action clip, you may simply want to temporarily mute all
+                  or part of the animation. When the clip or parts of it are muted, their animations
+                  no longer drive the corresponding parameter. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-AF0FAC2A-3E6D-4EF0-A7B3-628764399919"></a></span><div class="note-tip"><span class="label">TIP:</span>To mute parts of the animation in the action's <em class="mild">source</em>, see <span class="char_link"><a href="actions_ModifyingActionSources.htm#WSA3B2924969ED704E813291282A376B72-006F">Muting (Deactivating) Animation in Sources</a></span>. This mutes the animation for all clips that refer to that source. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0086"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-10AB56F4-B6B8-455C-9533-5E29841C6911"></a></span>To mute an action clip
+                  </h3> <span class="anchor_wrapper"><a name="UL_2BD4445D7DD1447F92381A99816D3A49"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E0847E1B-2755-4460-B6DC-5FED7DD7E3AB"></a></span>Select it and press H. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0087"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F32E04EE-86A3-4837-8803-032E047577AD"></a></span>To mute individual animation items in a clip
+                  </h3> <span class="anchor_wrapper"><a name="GUID-BE66116E-C5BF-412F-96DC-CD713BEA355C"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5AFC8FB2-0141-49FD-8F98-B72CC4DCC684"></a></span>Right-click the clip and choose <span class="MenuCascade" id="GUID-29B8293B-81A1-4D1F-A53A-F1002D155C04">Clip Properties</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4F381924-D83E-4D30-B5EF-62D3B85E2F50"></a></span>In the Instanced Action property editor, click the <span class="MenuCascade" id="GUID-69BD6228-94D1-45C7-9885-430450B78C34">Clip Item Information</span> tab. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8DAD9A74-7FFB-46F6-BE10-383110B243A1"></a></span>Do one of the following (see the illustration above): 
+                        </p> <span class="anchor_wrapper"><a name="UL_9D5E32DFAF264B8A8F7E4201978D513C"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-15FB3526-C33A-4BA8-88C2-09ECFE6C0529"></a></span>Click in the animation item's <span class="MenuCascade" id="GUID-A01CC403-0242-4D31-BD4A-7187F0681FDD">On</span> cell to toggle its activation. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7ADD7F0B-D5B5-4C1F-A95C-F70E1EC9DC44"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-FD4835D2-7069-4EEB-B55D-113A64306E61"></a></span>Click the <span class="MenuCascade" id="GUID-338D7815-C850-4232-9B24-AFA1EB32ADBE">On</span> column to toggle all items' activation. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-1071D2ED-B95C-44B2-A059-B81108B92F8C"></a></span> <em class="mild">or</em> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4CED5740-8B8A-4A8E-9637-C917ADD01A52"></a></span>Select items by clicking their Item number (Shift+click or Ctrl+click to multi-select
+                                 items, or click the <span class="MenuCascade" id="GUID-33C896AF-2C63-4461-861A-12020F6EBDDC">Item</span> column to select all items), then toggle their activeness by clicking the <span class="MenuCascade" id="GUID-BB026639-7F33-42FB-A4BE-4A7B142DF317">Toggle Active</span> button. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

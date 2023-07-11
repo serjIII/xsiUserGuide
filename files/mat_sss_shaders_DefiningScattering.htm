@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-38FBBE4F-A584-4434-ABB7-3299A6EC9027">
+      <meta name="indexterm" content="fast subsurface scattering shader: scattering">
+      <meta name="indexterm" content="fast subsurface scattering shader: bias">
+      <meta name="topic-type" content="concept">
+      <title>Defining Scattering</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-38FBBE4F-A584-4434-ABB7-3299A6EC9027"></a></span><div class="head">
+            <h1>Defining Scattering</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-7A0DC596-B9C3-44D2-9C91-27FC2EC34239"></a></span>The parameters discussed in this section are based on the <span class="char_link"><a href="mat_sss_shaders_WorkingwithFastSubsurfaceScatteringShaders.htm#WS09530771B2F33F4AAC02499CEA3EFF7D-000D">Fast Subsurface Scattering Phenomena</a></span>. Although much of the discussion applies when creating any fast subsurface scattering
+               effect. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3D9D5BF3-A579-46E6-835B-F37CCC0089D5"></a></span>The scattering options for Fast Subsurface Scattering effects control how light is
+               scattered on the shaded object's front and back surfaces. 
+            </p><span class="anchor_wrapper"><a name="UL_AF2B88CEC54A4121B06122F4AA89AA65"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5C12007F-AC82-483C-8E9D-4604A9031D29"></a></span>The front surface is the first surface seen from the render pass camera's point of
+                     view. Front scattering is scattering that is directly visible in the rendered image.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A69F8B2D-A003-42E1-8C4A-E54BB649587C"></a></span>The back surface is the next surface behind the front surface. Back scattering is
+                     scattering that becomes visible when the back surface is lit, and the light scatters
+                     far enough through the object to be visible on the front surface. 
+                  </p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-BD7F8BAD-2B33-4D57-A542-59DDB0798871"></a></span>Because the front and back surfaces shift, depending on the position of the camera,
+               the scattering effect is extremely view-dependent. As a rule, scattering on either
+               surface is most visible when that surface is lit directly. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-0D294A95-9B92-4768-9011-46B45292AF45"></a></span><div class="note-note"><span class="label">NOTE:</span>One side effect of fast subsurface scattering's view dependency is that the scattering
+                  effect is computed only enough to display properly when seen from the camera's point
+                  of view. As a result, scattering on the back surface of the object often contains
+                  artifacts when seen in a reflective surface (a mirror behind the camera, for example).
+                  
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-0023"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-943AA680-B703-4112-A1F8-B9E91022E992"></a></span>Front Scattering
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-934AC1F2-5896-449D-841A-DE57C4178492"></a></span>Front scattering is created when light passes just below an object's surface, underneath
+                  the diffuse shading, and scatters. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2F66DE1E-8719-4CCF-B21E-9AE5CA45367B"></a></span>Front scattering is controlled by four parameters: 
+               </p> <span class="anchor_wrapper"><a name="UL_B66669E0D4AB4E85B15E3FC82B00A9DE"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C0374509-76C7-443D-A155-810FEAC1243B"></a></span> <span class="MenuCascade" id="GUID-1513D9F2-EAB3-4062-97B1-2554EEF6F3FB">Color</span> defines the color of the front-scattered light. The brighter the color value, the
+                        more intense the front scattering appears. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-69E5FEBF-32A8-4C13-BE29-4186BA24105A"></a></span> <span class="MenuCascade" id="GUID-C703C918-0587-4234-9D7B-5777E2E47852">Weight</span> controls the degree to which front scattering contributes to the overall effect.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-89C1E4E7-FEEE-4965-B443-E82FB617CC9F"></a></span> <span class="MenuCascade" id="GUID-6C1DACA9-19AC-4A94-815F-625B0BF300D0">Radius</span> controls how far light is scattered along the front surface. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-55E85E11-81A7-4192-9869-7516A48F2FF0"></a></span> <span class="MenuCascade" id="GUID-06F1636A-0500-423D-83FA-5D309A9F072D">Falloff</span> controls the falloff profile for front-scattered light. Higher values create a sharper
+                        falloff and vice-versa. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-89DA4456-0C24-4D0C-8F3C-EEAF19AD5E0A"></a></span>If the falloff value is set high enough, it may cause the radius to appear shorter.
+                        If this is the case, increase the radius to smooth the front scattering. 
+                     </p> 
+                  </li>
+               </ul> <span class="anchor_wrapper"><a name="FIG_6D02F33E799849318CA5745EAA06AF57"></a></span><div class="figure-anchor"><img src="../images/GUID-8EC8C045-4054-4E29-850F-4DFE70B02571-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_410BFD58871147F4984079BE656925BF"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F1CE9344-EB99-4F7F-A90B-CE343DDA50C4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-531B31E6-8B50-4AC3-9081-4750F573BF17">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-91F1CA28-A03E-4C0F-8418-ADF81EF893AA"></a></span><p class="table-body">The cow in this image is shaded with light blue front-scattering, red back-scattering,
+                              and no diffuse lighting. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E05B6CED-C116-481A-951A-802EFF829441"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BB35EB7F-9F1F-45DF-AD0C-E956E5EF8704">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FF5CE33C-419B-4590-9BCB-5B669E1444D7"></a></span><p class="table-body">Reducing the front scattering Radius causes light to scatter less in the object's
+                              front surface, creating a sharper transition between front and back scattering. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A303B876-2296-4D04-8B5B-B9516D5E91F2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6F6E3D24-4A64-4824-89D1-5D09AA950EF8">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C890CF10-2D4E-411A-8820-F592638E3906"></a></span><p class="table-body">Increasing the Falloff creates a sharper falloff profile for the scattered light,
+                              causing the front scattering to blend less smoothly with the back scattering. This
+                              is particularly apparent on the neck. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-0025"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3A7B4560-6EF0-4D91-B765-ADB5978CF8BC"></a></span>Back Scattering
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-AF334BA6-6D15-4C5A-9A52-3A642B9D8F22"></a></span>Back scattering is scattering that becomes visible when the shaded object's back surface
+                  is lit, and the light scatters deep enough within the object that it becomes visible
+                  on the front surface. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C5EA859B-92B2-435B-98C9-EF00FB68431A"></a></span>Unless a large amount of back scattering, and a very bright back light have been defined,
+                  back scattering is generally only visible on the edges, or particularly thin parts
+                  of backlit objects. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-19E0240C-895C-43D9-8721-BF8A6EEA29EC"></a></span>Back scattering is controlled by four parameters: 
+               </p> <span class="anchor_wrapper"><a name="UL_910700A92B854799924F85800436A9C9"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-81584B67-A59E-4083-B0CA-A303478C0D4E"></a></span> <span class="MenuCascade" id="GUID-099F96EB-938E-4EC9-BF21-FABA36309160">Color</span> defines the color of the back-scattered light. The brighter the color value, the
+                        more intense the back scattering appears. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-396DEAA2-1370-4708-B1F7-DA0C0D43E08E"></a></span> <span class="MenuCascade" id="GUID-2C4DA3A7-D0CE-4FD3-B592-58A5B657BA9A">Weight</span> controls the degree to which back scattering contributes to the overall effect. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-791090A0-2025-43F9-AE97-DE7163A75B1A"></a></span> <span class="MenuCascade" id="GUID-7E213FE5-C6D6-458B-AB86-C1D0F3674336">Radius</span> controls how far light is scattered along the back surface. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B379A3B2-5AB6-4A70-B1A6-A76C2EF8EF94"></a></span> <span class="MenuCascade" id="GUID-02EE844F-FDD4-43AA-AE12-E907C1DEA0EE">Depth</span> controls how deeply light scatters within the object. The higher the value, the more
+                        likely it is that back scattering will be visible from the camera's point of view.
+                        
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-DBD10E29-826E-4F76-973C-F72088B9C109"></a></span><div class="note-note"><span class="label">NOTE:</span>As you increase the <span class="MenuCascade" id="GUID-0B85924E-EF60-4D88-A489-D1B4C1B52BCF">Depth</span>, you'll probably need to increase the number of lightmap samples to smooth out the
+                           effect. See <span class="char_link"><a href="mat_sss_shaders_DefiningScattering.htm#WS09530771B2F33F4AAC02499CEA3EFF7D-002C">Lightmap Samples</a></span> for details. 
+                           <p><span class="anchor_wrapper"><a name="GUID-38CAD5DC-C72C-4C5C-9B81-777803B8299A"></a></span>Normally, <span class="MenuCascade" id="GUID-FF7281D1-97C3-404E-9051-0879CAAC52FB">Radius</span> and <span class="MenuCascade" id="GUID-CC477782-6CE2-4363-8C38-200F21482971">Depth</span> should be set to the same value. 
+                           </p> 
+                        </div>
+                     </div> 
+                  </li>
+               </ul> <span class="anchor_wrapper"><a name="TABLE_878FDF7A8B2B47F48C34DEA6EAC0FFFF"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-4BC16001-CA4E-4D45-9853-C7DD38C567EB-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-77BB7E9D-8C90-4F95-BF08-6822D292DA62-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-400A7883-CB80-43A2-B554-E3CDADB329B9"></a></span><p class="table-body">The back scattering <span class="MenuCascade" id="GUID-C2E5F860-F675-41CF-BD07-CAE947597289">Color</span> is bright red, and the <span class="MenuCascade" id="GUID-A18DE84D-83D8-4689-BCF9-215C2BCE5BBF">Weight</span> is fairly high (0.75). However, a low <span class="MenuCascade" id="GUID-64C29659-0374-421F-A33C-EF6CD9B4AC88">Depth</span> value (5) makes the back scattering visible only on the edges of areas where the
+                              object is brightly backlit. 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-858D27D2-5EF9-45D6-A0A8-604FA3FE5C3C"></a></span><p class="table-body">Increasing the <span class="MenuCascade" id="GUID-219772F9-12FC-4BDA-B501-C689D27B693A">Depth</span> to 50 makes the back scattering visible through much more of the object. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-E3A597E6-535C-4FAE-B9E1-D6D78B4B9E28-low.png"> 
+                        </td>
+                        <td class="table-body">&nbsp; <img src="../images/GUID-D1A5B4F8-0992-4802-8EF0-593622FF6488-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0AD71C29-80A6-41C5-A70B-F31F0558C6D6"></a></span><p class="table-body">Increasing the <span class="MenuCascade" id="GUID-B81B9070-4932-4D06-A743-78515A9FA89F">Depth</span> and brightening the <span class="MenuCascade" id="GUID-4AB1FC92-CF2B-407D-9E9B-63AF74F6C203">Color</span> value's red component brightens the back scattering further. 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7D9850D6-EEFF-45FD-9398-EB3F02DBEBD0"></a></span><p class="table-body">Finally, increasing the <span class="MenuCascade" id="GUID-77D73729-6423-48CB-BEA7-7F25C170B359">Weight</span> to 1 makes the back scattering far more prominent wherever it is visible. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-002A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F018FEE1-E295-44EC-ABB1-4F3C312A20B9"></a></span>The Scattering Bias
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-9BDE4542-AE6F-41B6-A607-D4FC36A87A64"></a></span>The <span class="MenuCascade" id="GUID-359BB277-67DF-4D02-8AFF-359560A892DC">Bias</span> parameter allows you to adjust the subsurface scattering effect to favor either forward
+                  scattering or backward scattering, depending on whether the bias value is positive
+                  or negative. 
+               </p> <span class="anchor_wrapper"><a name="UL_EA3A9EE67AB2486DA09ADDEFF9164B47"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-90F19696-CF08-475D-A78B-5EE3E50D97E6"></a></span>Forward scattering means that more light from the back surface will scatter forwards.
+                        Positive <span class="MenuCascade" id="GUID-64DAE4AD-E441-4DB8-9A4F-79FBC30E4C45">Bias</span> values favor forward scattering. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3720020A-0B54-4C33-8BA7-87F1389425DF"></a></span>Backward scattering means that more light from the front surface will scatter backwards.
+                        Negative <span class="MenuCascade" id="GUID-E05EE268-8F38-4952-9AC5-4AACF1ABF039">Bias</span> values favor backward scattering. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-10E41281-2E13-40A8-B7A7-3C491B73338D"></a></span>Typically, small values (in the -0.1 to 0.1 range) are used to subtly nudge the final
+                  scattering effect in one direction or another. 
+               </p> <span class="anchor_wrapper"><a name="FIG_B30DFEC0393B4585992C80D531602BE4"></a></span><div class="figure-anchor"><img src="../images/GUID-5EA1EDA5-66C5-4E04-913D-2727E0E3A30A-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_04669FAB07754CFBA17131DC6FB2A2AA"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6609113D-90E9-4F6B-BE78-5BBF02529974"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2B69C7C6-EC49-4F7B-8D66-C2FB139DBD29">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9737484A-AEEF-4885-A317-123615509FDD"></a></span><p class="table-body">The cow in this image is shaded with blue front-scattering and red back-scattering,
+                              both with a Weight of 1. There is no diffuse lighting. With the <span class="MenuCascade" id="GUID-B8350964-5D0F-4D1D-86C9-533267BD8C18">Bias</span> set to 0, the scattering is uniform. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9207B048-43FD-42E7-9B47-004BBE76259E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-65FA4ACB-EE8F-4479-88A9-613EA82F6C2A">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-44B9E4AF-3519-4757-9AFC-C08A8417AB34"></a></span><p class="table-body">Setting the <span class="MenuCascade" id="GUID-476275C5-E9E9-451F-AD5F-D09ACC923CAC">Bias</span> to 0.5 causes more light from the back to scatter forward, which makes front more
+                              prominent. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-93C88995-A4D4-4BF7-A297-88AB38638A1B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F88ABA39-B4E3-4148-A28E-953EA2781B87">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-066E5482-08C6-4C4D-AF8C-5E9CE2AC9A1A"></a></span><p class="table-body">Setting the <span class="MenuCascade" id="GUID-4720AB3C-1038-4403-AA12-40AEFDE25110">Bias</span> to -0.5 causes more light from the front to scatter backward, which makes back scattering
+                              more prominent. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS09530771B2F33F4AAC02499CEA3EFF7D-002C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-92BFA3F1-88AB-44FF-AFD0-8851382EE7E2"></a></span>Lightmap Samples
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-55E1A406-7622-43EF-8460-3DE76663EE77"></a></span>The Lightmap Samples parameter controls the number of times the lightmap is sampled
+                  for each rendered ray. This helps to smooth the scattering effect when speckling artifacts
+                  appear. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-09F3AFB8-0131-43F8-9825-B56AC12925BB"></a></span>For subtle scattering, this value need not be particularly high (128 or lower), but
+                  for intense back scattering, you may need to increase the value quite a bit. Increasing
+                  the number of samples does increase render times, although you shouldn't see much
+                  of an impact until you start using relatively high values (1024 or greater). For best
+                  results, increase the number of samples by powers of two (32, 64, 128, 256, and so
+                  on). 
+               </p> <span class="anchor_wrapper"><a name="FIG_BE05124BFE134877ACC5F45AF9437293"></a></span><div class="figure-anchor"><img src="../images/GUID-E48008B7-EA14-466E-9A3B-5DB09F962CCA-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_10AA5D1E72F748998F292B7F9567A5D7"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5C000FAC-BF70-41CD-9FE3-5605F72E6E58"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-87363DF7-761F-4400-906B-730811B4A6B9">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-80A70998-1188-4791-B543-7A6B12B3A385"></a></span><p class="table-body">The cow in this image is shaded with purple front-scattering and yellow back-scattering,
+                              both with a Weight of 1. There is no diffuse lighting. <span class="MenuCascade" id="GUID-4FFD07C7-7910-48D5-9D3F-C9DE0C3BD078">Lightmap Samples</span> is set to 64, which is obviously too low. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5FF89BD0-328B-47AD-85A2-F88330B68F67"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5CB1470A-57E8-447D-9204-90C2A8467290">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AAF7E91E-9760-4695-BDA7-8FD99CD73136"></a></span><p class="table-body">Setting the <span class="MenuCascade" id="GUID-7017D75D-2F33-42C6-BEAD-0A32BC6B2676">Lightmap Samples</span> to 256 smooths the result somewhat, but there is still quite a bit of visible speckling.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0913D3E9-D4AA-4A6C-9E7F-A659499960A5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-34120E87-95C6-4425-9893-F63CF9B19426">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6A96CDC5-63F1-4613-83D3-BD3D3A9BD330"></a></span><p class="table-body">Setting the <span class="MenuCascade" id="GUID-334CBDA6-019A-4722-A3DD-27B649F3B7DD">Lightmap Samples</span> to 1024 produces a sufficiently smooth result, though there is still a touch of speckling
+                              in the cow's head. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

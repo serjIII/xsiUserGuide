@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-07DD928D-A98E-4776-A302-851CFF8C2128">
+      <meta name="indexterm" content="ICE particles: setting timers for events">
+      <meta name="indexterm" content="timers: ICE particle">
+      <meta name="indexterm" content="ICE particle states: timers for events">
+      <meta name="topic-type" content="concept">
+      <title>Setting Particle Timers</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-07DD928D-A98E-4776-A302-851CFF8C2128"></a></span><div class="head">
+            <h1>Setting Particle Timers</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-DC6BA6F9-8F35-4C39-9F85-7AA8AF278D5E"></a></span>Using different Timer compounds, you can set up particle events to happen when a certain
+               time limit has been reached. You set a condition that will start a timer. The timer
+               runs its course according to the time you've specified. Then when the time is up,
+               the particle event happens and the particles change state. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-7DF54BE9-62EA-44A6-8B64-A5B465B26845"></a></span>You can set up particle timers either with or without using a state system. Both methods
+               are described here. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-5588FF25-4928-46D3-8218-712B194A62C0"></a></span>In the image below, a simple change of particle states happens with a timer. The particle's
+               position in Y triggers the timer to start, then when the time is up, the particles
+               change color. 
+            </p><span class="anchor_wrapper"><a name="FIG_764BCD9CB0C44DACB549A19A3197AF4B"></a></span><div class="figure-anchor"><img src="../images/GUID-D45F34E6-4A46-46C3-A44C-3B1A470ED40E-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8A138FA63DB01B4DBDF955A7A5CD7D82-002A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0D3CDB2E-7D8E-4E49-B3D6-69005421EDF1"></a></span>Using Particle Timers in a State System
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-34F11CF8-A0DC-4E7C-9786-B0AFE5AD0E7D"></a></span>You can create this effect using the state system. <span class="anchor_wrapper"><a name="GUID-791E64FE-1A86-4E71-A3CA-ACB9AD681D78"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-88EF3E39-5C13-4778-92E5-001D4A95FD9B"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span> for information. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-451878D8-B7A1-4668-8C23-AE0126347957"></a></span>Get the <span class="MenuCascade" id="GUID-7A33BF4C-A4E3-4829-B9A4-828722724246">Init Timers</span> compound and plug it into the Execute on Emit port on the Emit compound. This initializes
+                           the timer attributes in the ICE tree and is necessary for using timers. 
+                        </p> 
+                     </li>
+                     <li>In the Simulation Root node's property editor, select the <span class="MenuCascade" id="GUID-0E998D83-23ED-4154-B866-81B83F0801D5">Use State Machine</span> option so that the ports in this section are processed. 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5A832771-898A-45F8-AF45-47F4B8A1C80B"></a></span>Choose one of the <span class="MenuCascade" id="GUID-D9BDEDC1-707B-4A13-994B-1DAC0B2A40B2">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> State Machine <img src="../images/ac.menuaro.gif"> Test</span> commands from the ICE toolbar, or get any Test compound from the Conditionals group
+                           to act as the trigger for the timer to start. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-945DE395-E00B-483A-93B0-48540B7BAB36"></a></span>Plug this compound into the Trigger port of the Primary State (first state you want
+                           to use) on the Simulation Root node. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-96D70044-E53E-4975-8F2E-6B4193488B2A"></a></span>In this example, the Test Particle Position is used. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A80DFCE4-2132-4B8D-9EAD-360E97A9172D"></a></span>In the Test compound's property editor, set the condition that you want to test for.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-996A24E0-D0B2-4582-9605-7D62983ADA83"></a></span>In this example, when the particles reach a position value in Y (6), the Start Timer
+                           begins counting. 
+                        </p> 
+                     </li>
+                     <li> Get the <span class="MenuCascade" id="GUID-FA2ABEC6-8899-4F8F-B9A8-CE3B526F980B">Start Timer</span> compound and plug it into the Execute on Trigger port of the Primary State on the
+                        Simulation Root node. This compound starts a timer when a trigger value is reached
+                        (see previous step) and lets it run for the amount of time that you specify. 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4313C0DC-0482-4524-ABAB-22F5A14F76D2"></a></span>In the Start Timer property editor, give this timer a name and set the amount of time
+                           (in seconds) that you want the particles to stay in this state. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FB842D0D-D789-4F95-B656-DCE0BB4AB070"></a></span>Get the <span class="MenuCascade" id="GUID-EF50EAE2-E9AE-45F5-804F-8FE9C5838B33">Test Timer</span> compound and plug it into the Trigger2 port of the Primary State. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F8BA6CF6-38F8-4A83-9FB6-3C80DAE0479B"></a></span>The Test Timer compound acts as a trigger for activating the second state of the particles:
+                           when the time defined in the Start Timer compound is finished, that trigger is pulled.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F6AD7E45-DCB9-4EC5-B523-C55AB3314362"></a></span>In the Test Timer compound property editor, make sure that the timer name you defined
+                           in the Start Timer compound is selected. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8E2CC812-B8CE-4F77-9529-36DD2B54F553"></a></span>Choose <span class="MenuCascade" id="GUID-38EB04B3-90B9-4BCA-9F81-8B0CE0D1EFD9">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> State Machine <img src="../images/ac.menuaro.gif"> Add State</span> from the ICE toolbar to add a State compound to the ICE tree (or simply get a State
+                           compound and plug it into a State port on the Simulation Root node as shown below).
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9CD7E845-3AB4-46FA-821B-EF53922E2EB2"></a></span>Drag some compound or node that makes the particles change when the timer value is
+                           reached, such as a <span class="MenuCascade" id="GUID-4646CE7A-FFAA-496A-9345-EA4E7ACBFEC6">Set</span> compound. Plug it into the Execute Every Frame port of the <span class="MenuCascade" id="GUID-09A4235F-51DA-42EF-A097-44C4D6886F90">State</span> node. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C1FA10B7-8273-418F-BF18-1816ADB06DC6"></a></span>In our example, this is the Set Particle Color compound: the particle color changes
+                           when the Start Timer value is reached and the Test Timer pulls the trigger. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_0E84DA252DD3477CA56506229DD53FAE"></a></span><div class="figure-anchor"><img src="../images/GUID-AF6CAEE4-0B99-40AC-9076-8474DC6F7DC3-low.png"></div> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8A138FA63DB01B4DBDF955A7A5CD7D82-002D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CEFEA738-0A0F-4E39-B2C9-B147F0B80F98"></a></span>Using Particle Timers with If Nodes
+               </h2> <span class="anchor_wrapper"><a name="GUID-460820CA-6322-42CD-AE7E-D071E1EDB6CB"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8DD1ED12-0F98-4C27-89D7-074F8A4AF9A8"></a></span>Create a particle simulation — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4EF7F0B2-9DCD-46DB-8725-F805C205D064"></a></span>From the preset manager, get two <span class="MenuCascade" id="GUID-0A379D7A-EA6D-4025-80CD-67527BB61076">If</span> nodes and plug them into consecutive Execute ports on the Simulation Root node (or
+                        in ports on the ICETree node if you're not using the Simulation Root node). 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-79A103C5-8378-4269-89F0-657B23FCD4AC"></a></span>Note that you can use nodes or compounds other than the <span class="MenuCascade" id="GUID-2E252687-541E-486A-A30F-B3E1A68B392B">If</span> node: the criteria is that the node needs to cause an execution. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CD4F50A4-77AA-49B8-8A9C-C86E05C60F32"></a></span>Get the <span class="MenuCascade" id="GUID-914AA427-5FAC-434F-BB11-22D9445195C5">Init Timers</span> compound and plug it into the Execute on Emit port on the Emit compound. This initializes
+                        the timer attributes in the ICE tree and is necessary for using timers. 
+                     </p> 
+                  </li>
+                  <li> Get a Test compound from the Conditionals group to act as the trigger for the timer
+                     to start. Plug it into the Condition port of the first <span class="MenuCascade" id="GUID-EAF06AC6-F6C3-418F-8C3A-FE7F5CC3BC17">If</span> node. 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5FB32C72-94B2-4DAC-84A8-6A423C4D5CD1"></a></span>In the Test compound's property editor, set the condition that you want to test for.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9620CA4E-DBCA-4B22-9AB8-EA2E9421B187"></a></span>In this example, the Test Particle Position is used so that when the particles reach
+                        a certain position value in Y, the Start Timer begins counting. 
+                     </p> 
+                  </li>
+                  <li> Get the <span class="MenuCascade" id="GUID-2C5CF2F5-65CD-497C-81DA-49879E087252">Start Timer</span> compound and plug it into the If True port of the first <span class="MenuCascade" id="GUID-08B57D21-03A0-43FE-9A4E-5783BDEFFCFA">If</span> node. This compound starts a timer when a trigger value is reached (see previous
+                     step) and lets it run for the amount of time that you specify. 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7C4C620B-4C68-4591-98AD-2489194E0521"></a></span>In the Start Timer property editor, give this timer a name and set the amount of time
+                        (in seconds) that you want the particles to stay in this state. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A0E34872-BFA9-4167-B69E-6D3B06A025CA"></a></span>Get the <span class="MenuCascade" id="GUID-C649056E-9454-427F-B181-DAF4D5571047">Test Timer</span> compound and plug it into the Condition port of the second <span class="MenuCascade" id="GUID-446AA8E5-AAAB-4EB9-A78C-B97322BA3AF6">If</span> node. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-916644C0-35DC-4097-9272-9C92EAFDFADE"></a></span>This acts as a trigger for activating the second state of the particles: when the
+                        time defined in the Start Timer compound is finished, that trigger is pulled. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-05B4BF39-BD57-40E5-BBBC-C3C86266963B"></a></span>Drag some compound or node that makes the particles change when the timer value is
+                        reached, such as a <span class="MenuCascade" id="GUID-B53F2672-0185-4398-A59B-F96792B0A58D">Set</span> compound. Plug it into the If True port of the second <span class="MenuCascade" id="GUID-EB5B88DA-D58C-4C50-80C5-7E01E030153C">If</span> node. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-086A9571-2A80-4D4F-95FF-74D2DCC40ACB"></a></span>In our example, this is the Set Particle Color compound: the particle color changes
+                        when the Start Timer value is reached and the Test Timer pulls the trigger. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_DE40D3D055AA407297965D2E5D364459"></a></span><div class="figure-anchor"><img src="../images/GUID-F5C07B64-95EE-448E-8A7A-60BF7F2F6167-low.png"></div> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

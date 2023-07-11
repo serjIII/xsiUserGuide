@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-924DEC13-21A4-4F40-A37C-47347191212E">
+      <meta name="indexterm" content="bump maps: about">
+      <meta name="indexterm" content="bump maps: applying without a surface image">
+      <meta name="indexterm" content="bump maps: bump scale">
+      <meta name="indexterm" content="bump maps: adding maps">
+      <meta name="indexterm" content="bump maps: computing using separate projection">
+      <meta name="indexterm" content="bump maps: bump map generator">
+      <meta name="indexterm" content="bump maps: creating">
+      <meta name="indexterm" content="bump maps: alpha channel">
+      <meta name="indexterm" content="alpha channels: bump maps and">
+      <meta name="indexterm" content="bump maps: bump factor">
+      <meta name="indexterm" content="bump maps: using normal maps">
+      <meta name="indexterm" content="normal maps: bump mapping with">
+      <meta name="indexterm" content="bump maps: troubleshooting">
+      <meta name="indexterm" content="scaling: bump mapping and">
+      <meta name="indexterm" content="bump maps: scaled objects and">
+      <meta name="topic-type" content="concept">
+      <title>Bump Maps</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-924DEC13-21A4-4F40-A37C-47347191212E"></a></span><div class="head">
+            <h1>Bump Maps</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-7B6C8ECE-FB96-46E3-98E0-0B1CCE501C70"></a></span>Although real surfaces can be perfectly smooth, you are more likely to encounter surfaces
+               with flaws such as indentations and ridges. One of the most basic ways to create these
+               types of "bumps" on a surface is to use a bump map. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8FD3A352-72B8-4F35-BCF0-0B02BF501E2D"></a></span>A bump map simulates relief on objects by perturbing the shading normals according
+               to a texture. The result is the illusion of bumps, ridges, and imperfections. However,
+               there is no change to the objects' geometry, so there is no change to an object's
+               silhouette or the shadow it casts. 
+            </p><span class="anchor_wrapper"><a name="FIG_93672E89367F47C1AB334C53E892A1B5"></a></span><div class="figure-anchor"><img src="../images/GUID-48C53E59-4D0A-4159-B79D-18C8685C212F-low.png"></div><span class="anchor_wrapper"><a name="TABLE_AD232712C9874D6193033A276A04F89C"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D0B6D770-6330-408C-BB71-A76DB9A11014"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6DAAEA22-8910-44BF-A8DB-CFA34A74F906">A</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B2E6A577-C128-4B11-9A60-A0023B45FF01"></a></span><p class="table-body">Texture used. </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5A09F728-B8A2-408D-B40A-9AACBAA8ADFA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6DA05254-C720-460F-8BE8-EB75E9AABAD4">B</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5AE3CA74-2762-471D-8BAE-7C3E106DF489"></a></span><p class="table-body">The dragonfly's body is textured with a bug-like texture, but the bump mapping is
+                           set to 0, which makes the effect unapparent. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3AF37FA1-948B-4FCB-8E51-ADCFFCEFF32B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-40542BBC-9970-4831-9B83-0F0B71FF92D5">C</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-42B44FB1-44CC-48BF-99CC-6DE4FB214915"></a></span><p class="table-body">Bump mapping is on and the Bump Factor is set to 20. A positive value bumps outward
+                           and a negative one bumps inward. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-0008"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-937E97E2-449D-46A2-A89E-7804DEC9F98E"></a></span>Selecting a Bump Map Image
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D77AAC20-0332-47A7-8797-019CB6B40533"></a></span>When you create or select an image to use as a bump map, remember that grayscale or
+                  black-and-white images are easier to work with. That's because you can quickly identify
+                  how the bump map will appear on the target surface. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2BF5EFE5-2E7E-4A84-9D20-26176EAEB99A"></a></span>Depending on how you create the bump, light areas can appear raised or lowered. 
+               </p> <span class="anchor_wrapper"><a name="UL_8E7035FE90944FB7BED39432ED096EBE"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-733FE73B-83C5-4BA5-8558-7A6BAD471E3A"></a></span>Using the Bumpmap node, light areas are raised and dark areas are lowered. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-88CE2E7E-0F49-4A45-A683-5A397846F6E6-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_CE7F8DDE78D34DD293F85F5CC66C8A69"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3A80EB93-F268-41F7-A5ED-A2CE944C3B70"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D0C0A788-418D-4A30-9386-C86C91AB6A1D">A</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5E4A7E8A-617F-4560-8EE4-561D0FD5E206"></a></span><p class="table-body">Wireframe object showing light position. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-67A4CBB1-804D-4550-8E2B-D9C9D7C6EF73"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CBF86205-3A31-4340-8632-BCEE91D14CFA">B</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F11DBF2E-0156-4A42-87EF-90F4DE92F24E"></a></span><p class="table-body">Bump map texture repeated 5 times in X and Y. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5CCCDF7F-2F11-450E-9BEB-2F2D15F6E3E4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-418D49BF-0AA9-47C1-8C37-5FC285060035">C</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-720168D6-F32E-498E-A825-3E0A8DC34A43"></a></span><p class="table-body">Because the texture is a white circle, each repeat creates a bump, while the surrounding
+                                    black area is lowered. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0274E003-F5C2-45AA-8DD3-B26F9D369B32"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5933ECA9-3CEF-4456-90AA-CDA6A060973F">D</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A3D879F2-75A6-4854-9874-D9601F439D23"></a></span><p class="table-body">Bump map texture repeated 5 times in X and Y. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7BD53BC7-661F-4E1D-82BB-EBC001445090"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DA0E976F-6B1B-4C90-8D6A-5640E9EFD53D">E</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-17BAAB03-163D-4E80-88F4-E8EB0C0AF87F"></a></span><p class="table-body">Because the texture is a black circle, each repeat creates a sunken area, while the
+                                    surrounding white area is raised. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B21DC2A9-A8A3-4F5E-A9B4-7280BA461040"></a></span>Using the Bumpmap Generator node or using the bump controls in a texture shader, light
+                        areas are lowered and dark areas are raised. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-7E00B92E-A713-4A1F-B64E-B7C4DA2A38BA"></a></span>Either way, you can invert the effect by setting a negative value for Bump Scale in
+                  the Bumpmap node, or a negative value for Factor in the Bumpmap Generator or texture
+                  shader. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-000A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4FC80B36-A369-47F6-ACE1-A09C640FE680"></a></span>Creating a Bump Map in the Render Tree
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-67168299-BB6F-464B-8FC0-E558028E6105"></a></span>You can apply a bump map to an object's surface independently of a texture or color
+                  by using the Bumpmap shader in the render tree. This allows you to control an object's
+                  bump-mapping independently of its color. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-000B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2EF6837A-B407-44E7-A97B-8851C76F71E7"></a></span>To create a bump map in the render tree
+                  </h3> <span class="anchor_wrapper"><a name="GUID-17440D98-4045-4BBA-B73E-0AEFE576D63F"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BAD4C1AC-3D47-41BC-B9CA-549477AF548A"></a></span>Select the object to which you wish to apply a bump map. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9CE9AEEB-46E7-4CCE-87E8-C3D486047D2D"></a></span>Open a render tree (press 7) and click <span class="MenuCascade" id="GUID-EA7BF3EF-A30B-41D7-B5D3-90C8CF64657E">Update</span> in its command bar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-431DA884-8C27-46B4-B626-02B50325858D"></a></span>Choose <span class="MenuCascade" id="GUID-D72ABA75-A94B-47F7-A089-5817BC2BD0D5">Nodes <img src="../images/ac.menuaro.gif"> Bump <img src="../images/ac.menuaro.gif"> Bumpmap</span> from the menu to add a Bumpmap shader to the render tree work area. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6D3393F8-90C3-4BE1-9656-632F4AAD6F81"></a></span>Connect the <span class="MenuCascade" id="GUID-84D11D40-AB2A-4EFF-AD6A-F93C6559B41B">Bumpmap</span> shader to the material node's <span class="MenuCascade" id="GUID-9AC79741-7D37-48FA-A457-25BD81A97A6E">Bump Map</span> input, and connect an image or shader tree to the Bumpmap's <span class="MenuCascade" id="GUID-04F9AE53-0EDA-4618-8DC0-9ADDF021921C">input</span>. The render tree might look something like this: 
+                        </p> <span class="anchor_wrapper"><a name="TABLE_5D734D2A488D4D5495FD45E0AD127177"></a></span><div class="table_NotRuled">
+                           <table cellpadding="0" cellspacing="0" class="not-ruled">
+                              <colgroup>
+                                 <col align="left">
+                                 <col align="left">
+                              </colgroup>
+                              <tr class="not-ruledOddRow">
+                                 <td class="table-body">&nbsp; <img src="../images/GUID-9ED80472-BD53-4408-8667-503A57202C95-low.png"> 
+                                 </td>
+                                 <td class="table-body" align="left">&nbsp; <img src="../images/GUID-919B8F6B-5297-4C34-8EC8-593E85C0C8DD-low.png"> 
+                                 </td>
+                              </tr>
+                           </table>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AB3B4591-B7D9-4F83-97EA-EA965F94DDCD"></a></span>Double-click the <span class="MenuCascade" id="GUID-0E3A132F-D852-48D7-8369-D590B90AAC1C">Bumpmap</span> to open its property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-039D15D3-B62C-46CE-9AF2-E4E69D353E39"></a></span>Determine the strength of the bumping by adjusting the <span class="MenuCascade" id="GUID-205A5F73-64DF-4555-8B2E-6BAE237D07FB">Bump Scale</span> parameter. The larger the factor, the "bumpier" the texture appears. A positive value
+                           bumps outward and a negative value bumps inward. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3681A3FD-1F9C-4A79-AD3E-A283D7DEF4FF"></a></span>If necessary, adjust the <span class="MenuCascade" id="GUID-10E01C7B-1B95-4A1E-9A5A-998E879D247B">Sample Spacing</span>. Larger values result in a blurrier map, while smaller values give a sharper result.
+                           
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-000E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A730AFC6-71B3-4159-BF12-F953B8CC9AD0"></a></span>Adding Bump Maps
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-1A8581C4-FE52-4AF1-9E3F-E65A0AEDF49D"></a></span>To create a more refined or detailed bump map, you may want to combine two or more
+                     bump maps onto the same object. This can be done as easily as adding a second bump
+                     map. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-69A8767E-1362-4388-821F-83C370AEF1F2"></a></span>To combine multiple bump maps, connect another Bumpmap node to the Bumpmap's <span class="MenuCascade" id="GUID-33084764-A06C-4B9D-A90F-CADB205B61E3">bump</span> input. The first node will perturb the normal before calling the second node. This
+                     allows you to create more detailed or refined bumps, for example, using one map for
+                     coarse detail and another one for fine noise. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_CEEC31C12CD04DAA9A16E64551028951"></a></span><div class="table_NotRuled">
+                     <table cellpadding="0" cellspacing="0" class="not-ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="not-ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-C7BF8163-492F-4DEE-A44F-0C547B1206E1-low.png"> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp; <img src="../images/GUID-066C8E10-B76E-4F8B-AE85-FC172E153D53-low.png"> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-90455E17-7C2D-4A18-881F-65BBDDCF65D2"></a></span>Other Ways of Applying Bump Maps
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3662E1AF-6688-4430-8F12-A1416FCB2B34"></a></span>As an alternative to using the Bumpmap shader, there are other ways of applying bump
+                  maps: 
+               </p> <span class="anchor_wrapper"><a name="UL_1A6AB567458D45718F986FB13DDBA172"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A9359A5C-5635-481C-B2E3-3C15340AF84E"></a></span>You can use the Bumpmap Generator if you want to use one of its projection options.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-951CC098-185D-42E3-81D7-4422DC66D0F7"></a></span>You can use the Image shader's built-in bump controls. This can be useful, for example,
+                        if the texture image's alpha channel contains the bump information. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-0012"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-84B16FDA-7D11-4FD5-B449-746CAAD47D34"></a></span>Using a Separate Projection for Bump Mapping
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-CF56F8C3-7E58-4BF5-94B7-A691144CDC83"></a></span>You can use a Bumpmap Generator instead of a Bumpmap node if you have special projection
+                     requirements. You can plug an image clip directly into a Bumpmap Generator because
+                     it has its own projection options. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_B253CF5CFB444117BC368896DDEA59DA"></a></span><div class="figure-anchor"><img src="../images/GUID-CFA432A8-6486-4F0F-A4DB-BF8896969593-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F86C14DA-5FD7-42DC-BC5C-3511F79549C4"></a></span>When you apply a bump map to an object, discontinuities in the object's UV coordinates
+                     can cause artifacts in the rendered object. The Bump Map Generator shader contains
+                     options that allow you to specify a second projection, with its own set of UV coordinates,
+                     used only for the bump map computation. You can find these options in the <span class="MenuCascade" id="GUID-FA5E5A42-0340-45A4-BDBE-91379B598D85">Projection Method for Bump Basis Computation</span> options of the Bump Map Generator shader's property editor. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_38BBE26A115D4363896DA26C5171A75E"></a></span><div class="figure-anchor"><img src="../images/GUID-353DF596-FA00-45DA-A9BF-39A823A60C68-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B8CD820B-A4B8-4DB5-A530-30DFE0F910D1"></a></span>The following parameters control the bump-basis computation's UV coordinates: 
+                  </p> <span class="anchor_wrapper"><a name="UL_8B5958EE6733496887EB68DAC829181F"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-26C7353C-DD0F-4168-A442-0F721A14C28B"></a></span> <span class="MenuCascade" id="GUID-E449FB48-B156-413E-A58E-C31C9890F0C8">Enable</span> activates the projection for the bump basis computation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8373FF4E-201E-4A03-B349-1411B97A670A"></a></span>The first Texture Projection list specifies the type of projection to use. Choose
+                           one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_6394A95AE2494700953295289D0345A0"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DB2BF942-D269-4516-8CAD-87FC9A7B8F54"></a></span> <span class="MenuCascade" id="GUID-1F98F42E-D802-44CA-AB15-9A514044BC58">Explicit UV: for deformed surfaces (shape/envelope</span>) uses an explicit texture projection. Choosing this option activates the second Texture
+                                 Projection list from which you can choose an explicit projection type. 
+                              </p> 
+                              <div><span class="anchor_wrapper"><a name="GUID-B058ABF0-D9D7-414C-9D47-C608EAAFDB1C"></a></span><div class="note-note"><span class="label">NOTE:</span>You should use this type of projection on objects that are deformed by shape, envelopes,
+                                    and so on because it properly maintains the "flow" of the bump map across the object's
+                                    surface. If you use an implicit projection to control the bump map, the bump map may
+                                    appear to swim as the object deforms. 
+                                 </div>
+                              </div> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-BD6513BA-BFD2-4082-8DEF-AC5DAA7C9EC6"></a></span> <span class="MenuCascade" id="GUID-F329ED26-A25B-49AC-80DE-A9D06BBE6A1C">Implicit UV (Nurbs only</span>) uses an implicit UV type projection to compute the bump map. Because the projection
+                                 is implicit, the UV coordinates are calculated at render time and not added to the
+                                 object as they would be with an explicit projection. This projection type only works
+                                 for NURBS objects. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3D7306BA-23EE-4EAB-B192-CA2BBB1B8E0F"></a></span> <span class="MenuCascade" id="GUID-209BC54A-6175-45CA-9206-C82E891C5DE2">Implicit Planar (XY/XZ/YZ)/ Spherical/ Cylindrical/ Lollipop</span> uses an implicit projection of the specified type to compute the bump map. Because
+                                 the projection is implicit, the UV coordinates are calculated at render time and not
+                                 added to the object as they would be with an explicit projection. 
+                              </p> 
+                              <div><span class="anchor_wrapper"><a name="GUID-A32F89B3-855B-4E7D-953B-F247C0DB9320"></a></span><div class="note-note"><span class="label">NOTE:</span>You should use implicit projections only to compute bump maps on static objects with
+                                    no deformations. Deformed objects require an explicit projection to maintain the bump
+                                    map's "flow" as the object deforms. 
+                                 </div>
+                              </div> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8E6D2FC9-98A8-4973-AF64-0B6A3C2FF9C2"></a></span>You can also negate the color values of the texture that is driving the bump map by
+                     using the <span class="MenuCascade" id="GUID-FC4D0435-3C0E-4B0B-838F-428E2CC28DC7">Mix 8 Colors</span> shader. This is useful if you wish to use several textures to create the bump map.
+                     
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-0015"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-45739B9E-940A-4C56-B5DA-A92EB3ADE096"></a></span>Creating a Bump Map Using the Texture Image Shader
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E7959F04-9A5C-4DBD-A1BE-C1D5F8771475"></a></span>You can apply a texture and use the texture's built-in bump mapping options. This
+                     is a fast way of applying a bump map, but offers less control than other ways. It
+                     can be useful, for example, if the texture's alpha channel contains the bump information.
+                     
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-0016"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-C15A31C6-8E7A-49C2-BA83-8D86A2D475DF"></a></span>To create a bump map
+                     </h4>  <span class="anchor_wrapper"><a name="GUID-10E48E31-A841-48E7-9358-93860A93996C"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CC7D7DB1-5E97-4E69-AC4C-AC751E06986D"></a></span>Select one or more objects to which you want to apply a bump map. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E50662B6-87F8-4AC0-8CBD-1D36A96E9F9E"></a></span>Apply a texture shader to the object, group, or hierarchy by choosing <span class="MenuCascade" id="GUID-760EE472-68C6-464B-BA25-B387A42DA698">Get <img src="../images/ac.menuaro.gif"> Texture</span>. The selected texture's property editor appears. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E859BA40-A7A4-4CE9-9F07-6B276E58857E"></a></span>If you chose the Image file, select an image clip to use as a bump map. You can choose
+                              from available image clips or create a new one by clicking New. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-DA94E366-4557-4B56-A7E7-3289DC6DB716"></a></span>Define a texture projection for the texture (by clicking New) or use an existing texture
+                              projection from the Texture Projection menu. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C9A49184-4BBF-4DD5-9474-4CC67E0198FE"></a></span>If you have a render region open, you will notice that the texture has been applied
+                              to your object. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-E11CFF76-3AAD-43CB-9BB7-6156567F9B98"></a></span>To activate the bump map, select <span class="MenuCascade" id="GUID-86CFB12A-3DE8-4EEC-9DDF-661C55FCCC97">Enable</span> in the Bump Mapping options of the texture shader's property editor. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5BF4CDAB-F41D-43E3-90FE-25EA4F749870"></a></span>If you want to use the image's alpha channel to control the bump map, activate the
+                              <span class="MenuCascade" id="GUID-138CBAE6-171D-41D5-B983-D34803F8B8CC">Copy Alpha to RGB option</span> so that the texture shader calculates the alpha channel instead of the RGB values.
+                              
+                           </p> <span class="anchor_wrapper"><a name="UL_D6C60ECEF8FD4769BFE2A1B12F9D848F"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-8A691E00-2265-435D-818C-1959DBBD5530"></a></span>If the texture has no alpha channel, the shader converts the RGB channels to an alpha
+                                    channel. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-4DDEBD71-1081-4C61-8A13-5E8091E113C8"></a></span>If your image has an alpha channel, but is empty, you won't see an effect. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D5B21581-FA29-45D6-8CD0-8C24BD6D6970"></a></span>Determine the strength of the bumping by adjusting the <span class="MenuCascade" id="GUID-3F7EA651-4505-4B73-B9DB-5AC822AACA02">Bump Map Factor</span>. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B5A5FE5E-2C23-4DC4-9831-D20D550CE5B0"></a></span>The higher the factor, the "bumpier" the texture appears. A positive value bumps outward
+                              and a negative value bumps inward. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-078108B2-2E99-4BC5-952F-904CAA92C5A4"></a></span>If necessary, adjust the <span class="MenuCascade" id="GUID-D417F306-D62B-4A27-A55B-0930299C62C1">Step</span> values. This defines the UV offset within which the shader evaluates the object surface
+                              to determine the surface orientation. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C5CB53AD-6D5F-4C7F-B647-DF5050ACB8B2"></a></span>The larger the texture used, the smaller the Step value should be. Typically, the
+                              Step value should be set in the 0.001 to 0.05 range. Larger values produce low quality
+                              bump maps with large numbers of artifacts. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-0017"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4833D281-D4BD-4245-A32E-15D92E832FA6"></a></span>Bump Mapping Using Normal Maps
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-37541447-F4BE-4EAA-B91F-8E246A8E8338"></a></span>Normal maps are images that store an object's normals as color values such that the
+                  Red, Green and Blue channels correspond to the X,Y and Z directions. Each pixel in
+                  the normal map image indicates the direction that the corresponding point on the object
+                  surface is facing. You can use this information to create highly detailed bump maps.
+                  
+               </p> <span class="anchor_wrapper"><a name="FIG_189716FDE9D74B5CAF453BF2599B66E2"></a></span><div class="figure-anchor"><img src="../images/GUID-B78E6C31-A1BD-4AC1-866A-2B328137B921-low.png"></div> <span class="anchor_wrapper"><a name="FIG_245F492E6EF74F8EA1104EE5B23BE90F"></a></span><div class="figure-anchor"><img src="../images/GUID-9C0D25C3-4DA1-4FCA-8093-5F5F5E8C5564-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-CD7D106F-6913-4BB0-9D1E-33CC6661A008"></a></span>The Normal Map shader allows you to use a normal map as a bump map. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BDDD877B-5E3C-4B4D-87AE-CB636471464C"></a></span>You can create normal maps for objects using the RenderMap property, as described
+                  in <span class="char_link"><a href="face_export_ExportingGameRigs.htm#WS38C9EED16FDE024591DF17B0520564F4-0022">Generating the Normal Maps</a></span>, or using the Ultimapper tool, as described in <span class="char_link"><a href="tex_transfer.htm">Transferring Surface Attributes (Ultimapper)</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-001A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CA56ECF3-BCA2-4C81-B04C-9F49E5CCC618"></a></span>To create a bump map from a normal map
+                  </h3> <span class="anchor_wrapper"><a name="GUID-7BA91BEF-9782-4DD2-998F-001F6188EEBE"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DDC8EFF2-D1D2-443F-B658-2CB6DBF4B96B"></a></span>Select the object to which you wish to apply a bump map. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CA8B4B0A-17CF-4553-9F1B-1222FA4D5DB0"></a></span>Open a render tree (press 7) and click <span class="MenuCascade" id="GUID-869C745C-A4E1-4671-939E-FB19BEBD4DBA">Update</span> in its command bar. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-22B6519A-DB10-457F-9530-291BA4B60A14"></a></span>Choose <span class="MenuCascade" id="GUID-960B3D7A-1BCF-4758-B4E5-33DBC6F2E2B5">Nodes <img src="../images/ac.menuaro.gif"> Bump <img src="../images/ac.menuaro.gif"> Normal Map</span> from the menu to add an XSI Normal Map shader to the render tree work area. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4FF53DEE-E0E9-4A53-89A6-68065081DC21"></a></span>Connect the <span class="MenuCascade" id="GUID-7D93CB79-95EA-4540-832B-B32065E7EED0">XSI Normal Map</span> shader to the material node's <span class="MenuCascade" id="GUID-6B3CDB20-4BE6-4430-891E-56BC800FBFE2">Bump Map</span> input. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9E994F94-EE30-4ED3-8EF4-17EA2D30997D"></a></span>Double-click the <span class="MenuCascade" id="GUID-2289E82F-2D0C-4AAA-BC85-316D9C036D86">XSI Normal Map</span> to open its property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0FC0939B-6779-4785-965A-AA1C33DDB450"></a></span>From the <span class="MenuCascade" id="GUID-4A76591D-8C42-41C7-A549-DCC5A997BB13">Map</span> options, choose a normal map image for the bump map. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AE6F6ED3-7A93-4326-B797-87DF009B3C9E"></a></span>From the <span class="MenuCascade" id="GUID-43240BB8-DB51-4C87-983A-FEF0A1810B9B">tspaceid</span> options, choose a texture projection for the normal map image, or click <span class="MenuCascade" id="GUID-09FA39B2-2B67-4A5B-A240-39699AC8DD94">New</span> to create a new one. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C0C8E9D0-2E8C-4363-A36B-6822CD0035AE"></a></span>From the <span class="MenuCascade" id="GUID-DF96F7AF-1D95-4502-90C0-3140D79E9A2B">Tangents</span> options, choose the Color at Vertices (CAV) property where the object's tangents
+                           are stored, or click <span class="MenuCascade" id="GUID-D3114DDC-4A98-47FD-A234-2AAEB45956C1">New</span> to create a new one. Tangents are required for the bump map computations. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-7C2CB92B-AC7C-4D95-9B6D-BA0DF420DE7A"></a></span><div class="note-tip"><span class="label">TIP:</span>You can create a set of tangents for an object at any time by choosing <span class="MenuCascade" id="GUID-3494CAEF-6217-4C27-B9FE-1CFF9D977EC5">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Tangents</span> from the Render toolbar. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-001B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C45C0F64-3CCA-488C-9FAC-E99D61102366"></a></span>Troubleshooting Bump Maps
+               </h2>  
+               <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-001C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-80DD49CF-0869-4644-AE4D-36F3FBE1763A"></a></span>Bump mapping renders badly when the texture repeats
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C987B6CA-B52F-4495-A953-B7E3E692400B"></a></span>When you use a repeating texture to control a bump map, the bump Step value should
+                     be divided by the number of repeats in order for the sampling achieve the necessary
+                     precision. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E2FBE00A-D8CA-4731-A6C6-083A12CD456C"></a></span>You can solve this problem by using scripting to divide the current <span class="MenuCascade" id="GUID-97BC84DA-D819-4F2E-99B9-B36BE30C9DA1">Bump Mapping <img src="../images/ac.menuaro.gif"> Step</span> value by the number of repeats in each axis. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS9825820158CC6F408FB52FB16A0CCEBF-001D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9FCDFF3C-34CD-46A0-AB74-A9BD90A6E7B6"></a></span>Bump mapping renders badly on scaled objects
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-C8C4DCB3-573D-4A1B-9111-8849F51B0CA3"></a></span>Bump mapping is scale-dependent. When you scale a bump-mapped object and then render
+                     it, you'll begin to notice artifacts that become more severe as the scaling becomes
+                     more extreme. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E69FF5C1-8BDA-40D3-9478-D66DCCBB9C3F"></a></span>This is because scaling increases the object's size relative to its parent's center,
+                     but does not deform its points, whose distance from the object's center stays the
+                     same. Think of scaling as magnifying the object without changing its geometry. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7E98ED1A-6D05-4110-ACC3-F2345C2B0B28"></a></span>As a result, each step in the bump map covers the same percentage of a larger object,
+                     resulting in a coarser bump map. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-96BED0E9-18D7-4622-821A-A8587043ABFC"></a></span>There are two solutions to this problem: 
+                  </p> <span class="anchor_wrapper"><a name="UL_7F8F1F4FFE85436090EF6E2ED24EB3B4"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-34122424-8D68-40D4-B869-F022DE5D63F6"></a></span>You can use scripting to divide the <span class="MenuCascade" id="GUID-F6A9ED84-6703-45C1-ABB7-9A731BD91798">Bump Mapping <img src="../images/ac.menuaro.gif"> Step</span> value by the scaling factor for each scaled axis. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3A19BDB3-995C-4B47-AFA1-1659A1C12D3B"></a></span>This adjusts the bump map such that each step covers less of the larger object, resulting
+                           in a finer bump map with fewer artifacts. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A82DE9F5-6A3F-44DD-9999-82CE2F83EE0C"></a></span>You can freeze the object's scaling. This resets its XYZ scaling values to 1,1,1 relative
+                           to its parent's center. The objects points are deformed to compensate, and the object's
+                           size appears not to change. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E2F8EC16-0832-45CE-B936-02A20A587427"></a></span>In this case, you don't need to adjust the <span class="MenuCascade" id="GUID-B0A63129-6169-47C3-821C-1AAE65971B82">Bump Mapping <img src="../images/ac.menuaro.gif"> Step</span> value because each step covers a smaller percentage of the now larger object, resulting
+                           in a finer bump map with fewer artifacts. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

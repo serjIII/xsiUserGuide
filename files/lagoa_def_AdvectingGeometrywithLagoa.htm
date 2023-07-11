@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-B8FEFFF9-CD8A-4B82-B7F0-B08797586D2D">
+      <meta name="indexterm" content="advecting (Lagoa): meshes">
+      <meta name="topic-type" content="concept">
+      <title>Advecting Geometry with Lagoa</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-B8FEFFF9-CD8A-4B82-B7F0-B08797586D2D"></a></span><div class="head">
+            <h1>Advecting Geometry with Lagoa</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-710C9338-3865-4CB7-9B6D-C6EEC4A14B19"></a></span>Advecting geometry with Lagoa means adding a particle for every vertex of a mesh,
+               and then using the particle simulation to "drag" the object's points along with it.
+               This is the technique to use if you want the object to interact with a Lagoa fluid
+               simulation. 
+            </p><span class="anchor_wrapper"><a name="TABLE_A5D5715D34514FD185B01DDE2A63CCE2"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-BB427AE2-8056-4942-A921-B1B1DBAB09E5-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-3D3AB240-88D5-4F7B-A2F5-9E1AB89FE23F-low.png"> 
+                     </td>
+                     <td class="table-body">&nbsp; <img src="../images/GUID-A043673D-F11E-4317-9F2D-CB3E01D1CCDE-low.png"> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C5B5CFDF-C7A6-4B4E-B1B8-88458C73D67F"></a></span><p class="table-body">Lagoa fluid and cloth simulations interacting to deform a mesh towel. </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-910BD388-7BF9-47FA-88CF-CD0EE6CB7647"></a></span>For best results, the simulated geometry should be as uniform as possible, with all
+               polygons and edges being roughly the same size as each other. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS46BC6A7250C41945B93F1AE8B15418A8-0010"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B190EA1D-0B09-4C4C-A610-6E7F85AD18CF"></a></span>Anatomy of a Lagoa Mesh Advection
+               </h2> <span class="anchor_wrapper"><a name="FIG_09583172DFFD4957900962E15B09A025"></a></span><div class="figure-anchor"><img src="../images/GUID-F80A809F-2411-465D-9B38-03C93B1DFC6D-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_FA3FE96C59E440E9BF1EF0B719809626"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A57744E0-0C53-42B3-9F0D-3440C394EB7F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-EE911F63-DF88-448F-8DD4-19D696206704">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C98A72C4-8AE9-4C4D-A3A0-8DEEC6BD47DA"></a></span><p class="table-body">Lagoa Emit Mesh creates a particle for every point in the mesh. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A59C42AF-C113-4753-B06A-361314DCD549"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F919911D-CDE8-4B99-930B-22B3995ED862">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CA0CEEFF-1266-4C08-8B2F-5A6C00D75862"></a></span><p class="table-body">A different emitter is used for the fluid that will interact with the mesh. See <span class="char_link"><a href="lagoa_basics_SettingUpEmissionsinLagoaSimulations.htm">Setting Up Emissions in Lagoa Simulations</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7B188B8E-8EFF-44D2-8087-E7D8029A4BFE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A9B764EF-8724-4B78-A11A-7413DDFFB2D5">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C3704CB4-4E37-4272-979C-484024D5FEEE"></a></span><p class="table-body">Lagoa Add Forces controls the forces acting on the geometry and fluid. See <span class="char_link"><a href="lagoa_basics_SettingUpForcesforLagoaEffects.htm">Setting Up Forces for Lagoa Effects</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2E937CF2-33A5-4C0F-890D-F1661F47A5B2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0F02087C-5784-4850-946C-92E414E29A49">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AC202235-AA1A-444A-AF7A-64EA0563D8C6"></a></span><p class="table-body">Different phases and materials are used for the points emitted from the mesh and the
+                              fluid. Together they control how a material behaves in various circumstances, such
+                              as compression, bending, stretching, and so on. See <span class="char_link"><a href="lagoa_basics_CreatingPhasesforLagoaEffects.htm">Creating Phases for Lagoa Effects</a></span> and <span class="char_link"><a href="lagoa_basics_LagoaMaterialProperties.htm">Lagoa Material Properties</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8B4F303C-E5A5-4BA8-96D9-28103DF45FD1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-400BBD71-3100-4DED-80F7-FAF8D989DB4D">E</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A80B43EC-9D7C-4977-9C31-3E12207C8C2E"></a></span><p class="table-body">The collision object's name is plugged into the Lagoa Simulate Multiphysics node.
+                              If you want to use multiple colliders, you must put them in a group and use the group's
+                              name. Each collider should have a tree with a Lagoa Set Collision Data node, or else
+                              default values will be used for friction and other attributes. See <span class="char_link"><a href="lagoa_basics_SettingUpCollisionsforLagoaEffects.htm">Setting Up Collisions for Lagoa Effects</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-67C13658-C829-4C48-8F25-E9B0A6042AC5"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E98A12D7-2A05-4D0D-933A-D6131A401D7D">F</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A5329781-F793-4598-AD1E-196DCD21D69B"></a></span><p class="table-body">Lagoa Simulate Multiphysics performs all the calculations for the simulation and updates
+                              point positions. You can enable and disable various aspects of the simulation, depending
+                              on the effect you want to achieve. See <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> [<span class="char_link"><a href="iceref_cover.htm">ICE Reference</a></span>]. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-46FA3B10-02F7-4DD5-861D-A80C652E85AF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D5145C90-94AC-48C8-9172-E5A5B3F705DC">G</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9487CEAC-BD0F-463C-B985-CE50B56AC2FD"></a></span><p class="table-body">Lagoa Advect Simulated Mesh updates the point positions of the mesh based on the particles
+                              emitted from it. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS46BC6A7250C41945B93F1AE8B15418A8-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C50FC66B-F7BF-4FAE-8D3B-7353B6DA5DBF"></a></span>Advecting Meshes
+               </h2> <span class="anchor_wrapper"><a name="GUID-DA2983BA-8730-450F-B2DB-8D1342D84172"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-016F9B85-F42A-47B2-A006-C46D37959540"></a></span>If you want to use multiple collision objects, add them all to a group. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-463EEF75-97F8-495C-85FD-26833B9563BA"></a></span>Select the object that you want to advect. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9150EBF0-5338-4968-98AD-956714718A88"></a></span>Choose <span class="MenuCascade" id="GUID-E39D895B-4354-42DA-9260-11385865803B">Particles <img src="../images/ac.menuaro.gif"> Create <img src="../images/ac.menuaro.gif"> Mesh Advection</span> from the ICE toolbar. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4D68903D-9D7E-4230-A9CA-8832708C7DF7"></a></span>Pick a collision object or group. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2999F573-2B06-44C7-B1C2-0EB3002B30D3"></a></span>If you right-click to cancel picking, a default collision object is created. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3339328A-0714-4C27-B872-98807206E164"></a></span>A point cloud is created with an ICE tree and the Lagoa Setup Advect Mesh compound
+                        is applied. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-102B21B5-D888-4229-8AB8-41C26F0E8532"></a></span>Another ICE tree is created on the collision object, and the Lagoa Set Collision Data
+                        compound is applied. If you want to add additional collision objects later, see <span class="char_link"><a href="lagoa_basics_SettingUpCollisionsforLagoaEffects.htm">Setting Up Collisions for Lagoa Effects</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F5BAA083-80E6-4981-9226-953511B74A33"></a></span>Open the ICE tree view, or refresh it if it is locked. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-F0CD1DE8-277F-47AC-A5A6-84319EFC5E57-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F2B92432-2A20-4655-A28B-346C74481E4A"></a></span>Select the Lagoa Setup Advect Mesh compound and choose <span class="MenuCascade" id="GUID-81BC28EE-5908-40DF-ADF5-81D0E6E52511">Compounds <img src="../images/ac.menuaro.gif"> Explode Compound</span> to expose its inner nodes. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EE20A246-26E2-4266-8BFA-7229DE8C1151"></a></span>Alternatively, you could edit the inner nodes directly, but in that case make sure
+                        that you do not export the compound without first giving it a new name or else the
+                        modified compound in your user location will take precedence over the factory compound.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BB97B01D-23C7-473A-91D6-EF0BB7E98126"></a></span>Drag an Execute node onto the link between the Lagoa Emit Mesh and Simulation Root
+                        compounds. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-28B5C66B-D965-4476-90C8-F6A5C4567CD4-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-92D96B3A-FE66-4134-89A6-30C1B1E45392"></a></span>To add a fluid that interacts with the advected mesh, add a Lagoa Emit Grid or Lagoa
+                        Emit Volume compound to the tree, and connect it to the Execute node's New port. For
+                        more information, see <span class="char_link"><a href="lagoa_basics_SettingUpEmissionsinLagoaSimulations.htm">Setting Up Emissions in Lagoa Simulations</a></span>. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-AE4D648D-F977-4F2A-A87E-833F03C6B9BB-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-91382914-6AF9-4BBC-A403-C6F4771EDA46"></a></span>Make sure to specify a different <span class="MenuCascade" id="GUID-55D1854E-BDCE-4741-9984-7E0F12EAC21E">Phase</span> in the emitter compound if you want to use a different Lagoa material, and to set
+                        up the corresponding Lagoa Phase and Material nodes. For more information about phases
+                        and materials, see <span class="char_link"><a href="lagoa_basics_CreatingPhasesforLagoaEffects.htm">Creating Phases for Lagoa Effects</a></span> and <span class="char_link"><a href="lagoa_basics_LagoaMaterialProperties.htm">Lagoa Material Properties</a></span>. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-84EC82CD-6032-40A0-A545-F57F74E388DA-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E78FD4A4-0404-4E29-9F66-3B407DE851B5"></a></span>Repeat this step for every fluid emitter you want in the simulation. Remember to set
+                        a different Cluster ID if you do not want fluids from different emitters to merge.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3E0B7EF0-981D-4860-ADAD-40802817F433"></a></span>If you want to advect a second mesh in the same simulation, connect a new Lagoa Emit
+                        Mesh compound to the Execute node. Use a Get Data node to get the mesh and connect
+                        it to the Emitter In Name port. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2E5E8168-4332-4062-8639-56DB8B4840CA"></a></span>Set up the phase, material, and cluster ID for the second mesh as desired. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FB7CAAA6-1509-48A4-B4A1-DCA6D321CDF7"></a></span>Repeat for every mesh that you want to advect in this simulation. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-783FE65D-CF5A-4D4E-A345-CE361C9990B2"></a></span>Add forces as desired. See <span class="char_link"><a href="lagoa_basics_SettingUpForcesforLagoaEffects.htm">Setting Up Forces for Lagoa Effects</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-019A6503-E725-42D5-927F-C218B184E169"></a></span>Play back and tweak all settings until satisfied. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

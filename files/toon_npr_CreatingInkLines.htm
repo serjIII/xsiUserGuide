@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6859C3E3-BB17-4F0E-815D-9E71C1680D2C">
+      <meta name="indexterm" content="toon shaders: ink lines, applying globally">
+      <meta name="indexterm" content="toon shaders: ink lines, applying locally (per object)">
+      <meta name="indexterm" content="toon shaders: ink lines, applying to specific objects">
+      <meta name="indexterm" content="toon shaders: ink lines, controlling global spread">
+      <meta name="indexterm" content="toon shaders: ink lines, controlling local spread">
+      <meta name="indexterm" content="toon shaders: ink lines, controlling global color">
+      <meta name="indexterm" content="toon shaders: ink lines, controlling local color">
+      <meta name="indexterm" content="toon shaders: ink lines, tapering">
+      <meta name="indexterm" content="toon shaders: ink lines, varying spread">
+      <meta name="indexterm" content="toon shaders: ink lines, simulating pressure">
+      <meta name="indexterm" content="toon shaders: ink lines, texturing local">
+      <meta name="indexterm" content="toon shaders: ink lines, texturing global">
+      <meta name="indexterm" content="toon shaders: ink lines, detecting">
+      <meta name="indexterm" content="contours: detecting for toon rendering">
+      <meta name="indexterm" content="toon shaders: ink lines, facet detection">
+      <meta name="indexterm" content="wireframe: rendering">
+      <meta name="indexterm" content="toon shaders: ink lines, blending">
+      <meta name="indexterm" content="toon shaders: ink lines, unblending">
+      <meta name="indexterm" content="toon shaders: ink lines, sampling">
+      <meta name="indexterm" content="antialiasing: and toon ink lines">
+      <meta name="indexterm" content="toon shaders: background color">
+      <meta name="indexterm" content="toon shaders: lens distortion">
+      <meta name="indexterm" content="lens distortion: toon inklines">
+      <meta name="indexterm" content="toon shaders: fisheye distortion">
+      <meta name="indexterm" content="toon shaders: bulge distortion">
+      <meta name="topic-type" content="concept">
+      <title>Creating Ink Lines</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6859C3E3-BB17-4F0E-815D-9E71C1680D2C"></a></span><div class="head">
+            <h1>Creating Ink Lines</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-596F49A8-E59F-4560-9656-A4142C279BA7"></a></span>You can control contour detection — or <em class="mild">inking</em> — at global and local levels. Global inking is controlled by the Toon Ink Lens shader,
+               which must be applied to any cameras that you are using to render the toon effect.
+               If the Lens shader is not applied, you cannot render ink lines. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-CAB3B169-9162-4617-B003-8C48218EE472"></a></span>Local inking is controlled by the Toon Host shader, which is available separately
+               or as part of the Toon Paint and Host material shader. The Toon Host shader does not
+               control the full range of ink attributes, but is useful for refining the ink lines
+               created by the Toon Ink Lens shader. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-000D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5FD6EE7F-C9E1-439E-9659-54787FB1652A"></a></span>Applying Global or Local Ink Lines
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-000E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B4127F83-6AF5-44EB-84BA-5752504D4264"></a></span>Applying Global Ink Lines: The To on Ink Lens Shader
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-3FA58D0C-AD5E-41CF-9280-20F3CDD0EA97"></a></span>If you want to render ink, you need to apply a Toon Ink Lens shader to any cameras
+                     that you'll be using to render the toon effect. Unless you specify otherwise, this
+                     renders contours over all scene objects, whether they are toon-shaded or not. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-000F"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-A80013DD-53EC-4EBF-90AA-AE5358806FD7"></a></span>To apply global ink
+                     </h4> <span class="anchor_wrapper"><a name="GUID-AC2F4110-204C-4D2C-9073-84121EF056F1"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9CCA92C0-400A-4F9B-9F45-574CDF4D9678"></a></span>Select one or more of the cameras that render the scene and display its property editor
+                              (<span class="MenuCascade" id="GUID-89FF1F5F-886F-4F73-9B60-3DEFFDFF43E5">Modify</span><img src="../images/ac.menuaro.gif"><span class="MenuCascade" id="GUID-C0AB50C9-12B8-46DD-B58E-4A5D8E4C6D5E">Shader</span>). 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B3DFE5B7-9541-44FC-AFBB-4E48F872C4C1"></a></span>On the <span class="MenuCascade" id="GUID-ED578ACE-8F39-48F0-A7C5-769D88DCB40C">Lens Shaders</span> tab, the lens shader stack appears. Click <span class="MenuCascade" id="GUID-0BD424EC-785D-4248-9633-BAC9CB921FE3">Add</span> to open a browser. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-32DD5980-375C-43A6-872C-AE7BF8891853"></a></span>From the shader library, select the Toon_Ink_Lens lens shader from the Lens folder
+                              and click OK to attach the shader to the selected camera. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-5A4CBA3F-E8A4-4E9B-8BB9-5417B424DB52"></a></span>Open the lens shader's property editor by selecting it from the shader stack and clicking
+                              the <span class="MenuCascade" id="GUID-491F3CEF-2C19-4085-B25E-2C65DBCC031F">Inspect</span> button. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-EF99F7C9-E5D8-4C40-90BD-88313D44AB85"></a></span>Adjust the ink properties. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0010"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D64E65BE-5F1D-4436-B0CD-35C492AAB881"></a></span>Applying Local Ink Lines: The Toon Host Shader
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-7BB42B38-A984-4C1B-B2B1-835D3A8AA0F5"></a></span>If you want to change the ink properties of specific objects, you need to apply a
+                     Toon Host shader to those objects. This allows you to change the characteristics of
+                     those objects' ink lines without changing the global inking created by the Toon Ink
+                     Lens shader. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A3D957F3-C199-4C31-8C74-CA666F135132"></a></span>The Toon Host is available by itself or as part of the Toon Paint and Host material
+                     shader. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-F935D19D-992C-4C42-B6A7-8AA821B2B6DD"></a></span><div class="note-note"><span class="label">NOTE:</span>The Toon Host shader does not replace the Toon Ink Lens shader. You still need to
+                        apply the lens shader to the render pass camera in order to render ink in the first
+                        place. 
+                     </div>
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0011"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-0811F16A-D97D-4070-9889-AD5295FBAB68"></a></span>To activate an object's local ink properties
+                     </h4> <span class="anchor_wrapper"><a name="GUID-5EE620FB-EE30-4C6E-A396-91E8CEAFA6CD"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-99A2A52A-7B8B-410C-B006-CDDBDA0F9A6C"></a></span>Select the object whose local inking you want to change. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A33F3514-3E4E-4245-94B6-DE379F62F992"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-FF21E82F-9DB3-42C5-9EF5-E4EF68610169">Get <img src="../images/ac.menuaro.gif"> Material <img src="../images/ac.menuaro.gif"> Toon Paint and Host</span> or <span class="MenuCascade" id="GUID-0BDC53EF-2FB8-49ED-9BD0-5E4019960455">Simple Toon Host</span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1A22D205-C4A3-4593-A1A3-D466E03DDCCB"></a></span>With the object selected, choose <span class="MenuCascade" id="GUID-62069FD2-41FF-40AA-91B7-0845A5921ECE">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the render toolbar. The shader's property editor opens. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-63BA093F-FA64-49A5-BAF4-92DB00AFC76F"></a></span>Go to the Ink tab and activate the <span class="MenuCascade" id="GUID-7CFAD282-844E-45B6-9C06-C67D8CEA6B79">Override</span> option. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F3F45810-9187-4F70-A7B4-C627E8CFEE73"></a></span>Adjust the local inking parameters (<span class="MenuCascade" id="GUID-89E66E43-E0C8-4D03-8E0E-63A40DD23524">Color</span>, <span class="MenuCascade" id="GUID-CFAE4D6E-6DF5-41F8-9C31-33F1CD1BC8F5">Spread</span>, and so on). 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0012"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-82D16788-7B70-439A-A461-DD53E68EAB98"></a></span>Rendering Ink For Specific Objects
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-D7CF5C91-2514-4728-9E64-19C2F52BC0D6"></a></span>Having a Toon Host shader applied to specific objects allows you to limit the Toon
+                     Ink Lens shader's ink rendering to those objects by making the Toon Host shader a
+                     requirement for any ink rendering. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0013"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-0B8F1EAF-4493-47AF-85C8-0BBF481BDC96"></a></span>To render ink for specific objects only
+                     </h4> <span class="anchor_wrapper"><a name="GUID-C9C1EE66-BA1D-4092-A291-127F8112D2EE"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F272C44C-AE0D-4186-9B1F-9E2584F39378"></a></span>Make sure that the Toon Host or Toon Paint and Host shader is applied to those objects
+                              that you want to ink. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-8416FD86-A134-4BD0-9102-C95487F19F70"></a></span>Select the camera to which the Toon_Ink_Lens shader is applied and open the render
+                              tree (press <span class="MenuCascade" id="GUID-CFDE1456-8D1F-46CE-817D-EC15FF0C89EB">7</span>). 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9D9C2926-89F4-4264-B01A-384B91121C31"></a></span>Double click the object's Toon_Ink_Lens shader to open its property editor. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1E1A718F-504A-436D-BB56-7F6104E9FDBB"></a></span>Go to the Advanced tab and activate the <span class="MenuCascade" id="GUID-0B4FEF7B-7877-4F44-9417-7D2ADB863BDD">Require Host</span> option. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ED722594-37BE-4308-8988-F582E930465E"></a></span>Controlling Ink Line Width
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-DE0645DD-24C7-436D-80F6-D9C8871D5784"></a></span>Basic ink line width is controlled by the Spread parameter. The higher the spread
+                  value, the thicker the ink line. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-91C27713-318D-4CB1-832E-4DFBD0974001"></a></span><div class="note-note"><span class="label">NOTE:</span>As ink lines get thicker, they tend to become "fuzzy" at the edges. You can sharpen
+                     them to a certain extent by adjusting the ink line sampling and the antialiasing values
+                     for the scene. For more information, see <span class="char_link"><a href="toon_npr_CreatingInkLines.htm#WS6772E968E0A3E94385DFF0672B73BD73-0045">Controlling Sampling</a></span>. 
+                  </div>
+               </div> <span class="anchor_wrapper"><a name="FIG_B145A8B1E0F9495A99A0AA117FECDFE3"></a></span><div class="figure-anchor"><img src="../images/GUID-6E4A9209-8B75-404A-BFD4-DDCAD742924A-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_7DD1F3B5B8B54F19A6BAB6F573EDB831"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AFB554B3-843D-4BA4-B7C4-1A19B6BF4B99"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4DA8DA4A-64A9-472A-968F-71BAEB56F374">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2511BB23-29C0-436E-9167-E38C53628691"></a></span><p class="table-body">Spread = 1 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-347D7F23-C00F-4600-AFC5-44D62E931BA1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E919A5EA-FD3B-46F6-9526-3217D02D2163">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5673B9DB-B5BC-4EF2-8845-4C3C75AFFCD0"></a></span><p class="table-body">Spread = 5 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DE1B107D-6E75-4E1A-B4B6-F0BC526C6ADA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1F309841-9F24-4AEC-9714-E2807EE40F2C">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8A623C4E-97B2-42B7-9FBD-62B333130239"></a></span><p class="table-body">Spread = 10 </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0016"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A13E26A2-26E9-4097-A9D1-EC37CD80616F"></a></span>To set global ink spread
+                  </h3>  <span class="anchor_wrapper"><a name="GUID-3CE84CBF-7AB2-4BF0-9B34-CB6F4CA33635"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-51DE66F1-EEA9-46D3-BDCE-3211EA4B10F9"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-03BC0755-541C-4080-AA07-FA051D073B73">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-42F61979-8B79-4B04-9D70-E53F8D0E8884"></a></span>On the <span class="MenuCascade" id="GUID-5740BF41-9600-40E6-AC52-62DA184DA2E6">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-292AF828-A18E-4C0B-BC44-B4603C63329F">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-86961A2C-E5A0-4AD5-B47F-04F457EF64B1"></a></span>From the Basic Appearance tab, adjust the <span class="MenuCascade" id="GUID-D542FA36-0057-4B09-9185-683B5FBA61E2">Spread</span> value. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0017"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B2080449-C455-4608-A656-09799C6BDDFB"></a></span>Adjusting Local Ink Line Width
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EAFF8C33-7252-4186-9F53-D1FF1CED9EC4"></a></span>You can adjust the ink spread for individual objects that have a Toon Host shader
+                     (or Toon Paint and Host) applied to them. This scales the spread value defined by
+                     the Toon Ink Lens shader rather than replacing it. A value of 2, for example, doubles
+                     the current spread value, while a value of 0.5 halves it. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0018"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-5D74BA98-D13B-490C-968B-A960182C67C9"></a></span>To adjust ink spread for specific objects
+                     </h4>  
+                     <div><span class="anchor_wrapper"><a name="GUID-12B4ECBB-89AB-49DB-B83E-FB117163BD23"></a></span><div class="note-note"><span class="label">NOTE:</span>Although the following procedure assumes that the object has a Toon Paint and Host
+                           material shader applied to it, the same controls exist in the Toon Host shader. 
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="GUID-BF6ABE1F-8501-465F-A2F2-96222E955CE2"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1A5A328A-8DB0-4FCA-BECE-DAF4C9D503BE"></a></span>Select the toon-shaded object whose ink line width you want to adjust. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-45D6CA4F-842C-4A73-A347-D06EAC4BB8DD"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-2CE43FED-C655-42C5-BFB6-5E30A56847DB">Modify <img src="../images/ac.menuaro.gif"> Shader</span> to edit the object's Toon Material shader. The Toon Paint and Host shader's property
+                              editor opens. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F1D4F068-E156-4D22-803D-BDA46AFA455B"></a></span>From the Ink tab, adjust the <span class="MenuCascade" id="GUID-EF1A1930-5324-4E9A-8061-444CDB0EF027">Spread</span> value. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0019"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4682B2F8-3ADA-4B55-9843-DEAD79F1463A"></a></span>Controlling Ink Line Color
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7D1435ED-51FD-47C0-9665-2D251EC86BE5"></a></span>Basic ink line color is controlled by the Toon Ink Lens shader as part of the ink's
+                  basic appearance. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-001A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-17C91D67-79E0-4762-B8C5-8CBC82DA4104"></a></span>To set global ink line color
+                  </h3>  <span class="anchor_wrapper"><a name="GUID-D50D1425-D38D-473E-84B8-B1F22E60CAC5"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-01B237C8-B0F4-484E-AE58-76D9FF9A351E"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-A854E51C-8512-4D86-A562-6073B29D617A">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DAEBF171-9E77-4F84-85F7-9979FE6EFF72"></a></span>On the <span class="MenuCascade" id="GUID-479ABE44-5573-481F-A926-2F2A09C7CFC1">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-5B549C9D-A691-4774-847F-0F598013AF8E">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9B25A4AC-669C-462D-BECC-B4EDBC847B9C"></a></span>From the Basic Appearance tab, adjust the <span class="MenuCascade" id="GUID-4B3B53DC-D7AD-4DE5-9DEC-292FF082C7EE">Color</span> values using the sliders. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-001B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-547CCB40-6893-44E1-A71D-9757D1E99610"></a></span>Setting Local Ink Line Color
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BFF13D42-3341-48D8-A52E-17B1D535EFB6"></a></span>You can also adjust the ink color for any Toon Host shaded object. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_43A84C479CAB44C98206E536E735389F"></a></span><div class="figure-anchor"><img src="../images/GUID-E5BB2C5B-C5DB-45A8-B525-878449CC683C-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-21358073-B72F-4E02-91F7-1355484E3535"></a></span>Here, all of the objects have the same ink line color, which is controlled by the
+                     Toon Ink Lens shader. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_F866E549E5A04F17A264FAAFD029C057"></a></span><div class="figure-anchor"><img src="../images/GUID-13AA934F-AEC3-4230-BC44-881782253803-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8B2411D6-85A1-408F-B31A-72A7BF2F9763"></a></span>Each object has a Toon Paint and Host shader applied to it. The ink color override
+                     is active and each object has been assigned its own ink color, except for the grid
+                     whose ink color is still controlled by the Toon Ink Lens shader. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-001E"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-6DF433C2-85E3-4675-B270-D04A4099E6F5"></a></span>To set local ink line color
+                     </h4>  
+                     <div><span class="anchor_wrapper"><a name="GUID-64A13BCD-0276-4B4F-8C36-558C5FDA772E"></a></span><div class="note-note"><span class="label">NOTE:</span>Although the following procedure assumes that the object has a Toon Paint and Host
+                           material shader applied to it, the same controls exist in the Toon Host shader. 
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="GUID-63D21E4C-D5AD-4702-8BB0-3F27CF482E19"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-05BA32EB-4C40-40DC-9823-DE8F378E2B2B"></a></span>Select the toon-shaded object whose ink line color you want to override. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-99A36613-9DC5-44EA-B175-D74C725ADA6B"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-EA5CC923-2951-4702-9816-30664BED740C">Modify <img src="../images/ac.menuaro.gif"> Shader</span> to edit the object's Toon material shader. The Toon Paint and Host shader's property
+                              editor opens. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-856A9C1E-F922-4DCB-88AA-2ECCF4ABF3BA"></a></span>From the Ink tab, activate the <span class="MenuCascade" id="GUID-4651CF6F-5FB4-45FF-95EB-69609F164487">Override</span> option. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6E78B809-AEAF-483D-A052-16CD2D45F517"></a></span>Set the override ink color using the sliders. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-001F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D3068BDC-5743-4C9F-8C9C-C779F08D3B5C"></a></span>Tapering Ink Lines
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-DB5C1241-3CEE-452A-A9CD-33AB15716588"></a></span>Tapering varies the spread of the ink lines based on specific criteria. You can Three
+                  types of tapering are available: 
+               </p> <span class="anchor_wrapper"><a name="UL_4E1767743FAA48589138C24A6A21D7C5"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A5A6A259-A158-4EFC-B41F-D3851DC13FD7"></a></span> <span class="MenuCascade" id="GUID-0BB2AE61-A01F-4F9E-8079-F36663225E97">Anisotropy</span> varies the spread at a specified angle. Typically, this is used to simulate a chisel-tipped
+                        pen. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-85D48D04-6BED-4DEF-8AFC-E2D581F6DAFE"></a></span> <span class="MenuCascade" id="GUID-BFC31196-F2A9-4454-AC6E-4B8CA8BCE3A0">Direction</span> varies the spread so that ink lines are thickest where the object faces a specified
+                        direction and thinnest where it faces away. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F2047FF6-8072-42E6-9318-0D9A5FB6D10C"></a></span>For example, the default direction spread makes ink lines thickest where the objects
+                        faces the camera and thinnest where it faces away. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E3CA323D-B61A-4A08-8957-144297820643"></a></span> <span class="MenuCascade" id="GUID-AB60107E-96A5-42DE-80CB-6F11496817CA">Distance</span> varies the spread based on the object's distance from the camera. Typically, this
+                        is used to create depth fading. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_79E087E41A904EE1B4450098912FAB6E"></a></span><div class="figure-anchor"><img src="../images/GUID-76E54915-D71D-475D-8DF6-19BCE80B4233-low.png"></div> 
+                  </li>
+               </ul> <span class="anchor_wrapper"><a name="TABLE_E4471D3C70C44FC3895177BFCFC737FF"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-15631979-FFAE-493C-B423-7F2A5542C2F3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-00CD2B98-4E43-441E-A1D5-913689156E1C">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-731E27C8-7357-49B3-BC34-4E7974EE7944"></a></span><p class="table-body">No Tapering and Spread = 5 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-16D1E27C-03ED-4DE3-8B59-7909A600BECF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1512B59F-0A75-42A3-B59E-A0BAFAB390B7">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EF5B1E71-7727-4D53-95EB-D6F3007827F6"></a></span><p class="table-body">Anisotropy Tapering, Amount = 3, and Angle = 155 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-01182285-8798-4646-BB4F-8586B0A92242"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7138D353-5454-4315-9854-00E51B86AF67">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AD587DFD-8A48-458A-9071-2DA339814296"></a></span><p class="table-body">Direction Tapering, Amount = 1, and Vector = Camera </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8AEE602C-5B64-43C7-9ED2-A8E08732FB24"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-35158201-C6DE-4890-9679-1310200CFD18">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-75EAA655-EE33-4D87-8693-1C8DB47E895B"></a></span><p class="table-body">Distance Tapering and Amount = 1 </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0021"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DBF24DFB-EEB1-4B77-8AA4-A0EEE0D1BB71"></a></span>To taper ink lines
+                  </h3> <span class="anchor_wrapper"><a name="GUID-5FC14D31-F086-4AA4-B908-65B353D49826"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-13FD5832-CC89-4032-AAF9-F5CA4A41AF33"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-B91A9CE0-5FEF-4F4A-A82C-1D0596780C19">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B098B9D9-30B1-4E15-9F10-83A098590F57"></a></span>On the <span class="MenuCascade" id="GUID-DE2F2271-98D8-4B20-809C-D83EEAE87A6B">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-57E1FA73-1F4F-48A6-8B1A-0E5E66E0C346">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6E0F7AE8-345D-4E2C-85E6-4AA2F7B817A0"></a></span>From the Taper tab, activate <span class="MenuCascade" id="GUID-14BBCDCE-9082-4071-A74C-2A86BE5D0E26">Anisotropy</span> tapering, if necessary, by setting the <span class="MenuCascade" id="GUID-3135E49B-C94A-4FAC-841F-EE287298B7E9">Amount</span> to a non-zero value. The <span class="MenuCascade" id="GUID-28B1D49D-11A0-4DCB-95AD-518773E7DC3A">Amount</span> value controls the strength of the effect. 
+                        </p> <span class="anchor_wrapper"><a name="UL_02C2C6E1A08442258409413067678DE7"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7166AAD5-D58C-4901-B7C5-370E282360C0"></a></span>Set the <span class="MenuCascade" id="GUID-5C35086D-CFDA-4202-A171-694A7876E8D9">Angle</span> value, which specifies the angle at which the spread is varied. A value of 0 corresponds
+                                 to 12:00 on a clock face, 90 to 3:00, and so on. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-00113782-BC55-496D-88E0-0FB3984FC0FD"></a></span>Activate <span class="MenuCascade" id="GUID-01BC1C70-0545-49D0-BA5B-ED97D0156D3C">Direction</span> tapering, if necessary, by setting the <span class="MenuCascade" id="GUID-86988490-6FB6-459D-8FC3-1F47EFD9F655">Amount</span> to a non-zero value. The <span class="MenuCascade" id="GUID-CEB7F40F-D05D-44F0-A724-38E28A274EB9">Amount</span> value controls the strength of the effect. Adjust the following values to tune the
+                           direction-based taper. 
+                        </p> <span class="anchor_wrapper"><a name="UL_5EBCA31967A1481C8A028F8425B75323"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B9264066-5907-41F2-A2F2-BF30E74FA8DF"></a></span> <span class="MenuCascade" id="GUID-972AA06A-41C9-4ED3-8952-3BFABC68A7DD">Vector:</span> Specifies the incident vector, relative to the object's surface, used to calculate
+                                 the direction-based taper. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DD5F8574-E05C-4C78-B57D-910CC7EE0599"></a></span> <span class="MenuCascade" id="GUID-2D60646E-3B72-42CE-92ED-60B36E91C13F">Space:</span> Defines the coordinate space (World | Camera | Object) used for specifying the incident
+                                 vector. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-09627188-B547-436F-B9C7-F3E1738487A2"></a></span> <span class="MenuCascade" id="GUID-E572C65C-21D9-4163-8571-BACEF72C58C0">Direction Min/Max:</span> Specifies the range of directions on which the effect is applied. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-C8151A1F-FE4A-496E-A9F4-0D2BE50CB4CB"></a></span>A value of 0 implies that the surface faces the incident vector (i.e., the surface
+                                 normal is parallel to the incident vector). 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9F2D33A7-8813-4736-9C85-28AE19248636"></a></span>A value of 90 implies a surface grazed by the incident vector (i.e., the surface normal
+                                 is perpendicular to the incident vector). 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-FC8C78B7-1281-4CF7-8255-EA08DCAF226B"></a></span> <span class="MenuCascade" id="GUID-984EEF34-9B0F-48C3-A089-0911538E07EF">Spread Min/Max:</span> Defines the range of spread values to which surface directions are mapped. For example,
+                                 a Min Spread of 2 would cause spread to increase by a factor of two at the specified
+                                 Min Direction. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8120F274-6E46-4790-8E1E-D8A9533A9ACB"></a></span> <span class="MenuCascade" id="GUID-BE8C1183-D552-4660-84EC-89BC4531BC32">Profile <img src="../images/ac.menuaro.gif"> Operation</span>: Gives a nonlinear emphasis to the effect so that changes in spread may ease-in smoothly
+                                 or cut in abruptly, for example. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8CE07994-13B8-4063-A9EE-E187103CE190"></a></span> <span class="MenuCascade" id="GUID-E431215A-FCDA-436E-81D2-D3522938A0AC">Power</span>: Controls the amount of emphasis created by the profile Operation. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B5D731AF-AC48-4414-BB6F-1CFA4484A7B2"></a></span>Activate <span class="MenuCascade" id="GUID-E126E67D-D9CF-4D18-BBBF-E421C8D167B3">Distance</span> tapering, if necessary, by setting the <span class="MenuCascade" id="GUID-FE2483C3-6BED-4DF9-9105-834F3F5328D7">Amount</span> to a non-zero value. The <span class="MenuCascade" id="GUID-18F541C8-493E-4C42-BAAE-83C5D676A19B">Amount</span> value controls the strength of the effect. Adjust the following values to tune the
+                           distance-based taper. 
+                        </p> <span class="anchor_wrapper"><a name="UL_B2AFA1A6D41541A9B5B61CEC5DE298BF"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D1157B5E-6640-408F-B395-68BE03693571"></a></span>In the case of secondary rays (those spawned as a result of reflection or transparency
+                                 effects), the distance considered is that accumulated over the entire ray path, beginning
+                                 at the camera and ending at the current ray-surface intersection. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CBB3DCB3-0F13-426F-B37C-7BE7BF7A9ABC"></a></span> <span class="MenuCascade" id="GUID-A310F384-95F5-42BB-BC53-C38F03E38DD7">Distance Min/Max:</span> Specifies the range of distances to which the taper effect is applied. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B8F2EBBD-D665-4B31-8786-766CB2B005BF"></a></span> <span class="MenuCascade" id="GUID-6C7FE8DD-5D40-4606-B0F4-DADAC1CCF5BF">Spread:</span> Specifies the range of spread values to which distances are mapped. For example,
+                                 a Min Spread of 2 would cause spread to increase by a factor of two at the specified
+                                 Near Distance. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-22F52BA1-C944-4059-894A-95907B7F93A0"></a></span> <span class="MenuCascade" id="GUID-C3D621DC-716B-40F3-933D-BF83CE96696F">Profile <img src="../images/ac.menuaro.gif"> Operation</span>: Gives a non-linear emphasis to the effect, so that changes in spread may ease-in
+                                 smoothly or cut in abruptly, for example. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E28D7C6D-240E-4647-99B0-DAD3BAFA81CD"></a></span> <span class="MenuCascade" id="GUID-F922F4E9-986D-4FC0-81EC-6A2B1829558F">Power:</span> Controls the amount of emphasis created by the profile Operation. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0022"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7A1FCC8E-87DC-4D15-A294-563DE1CA21A4"></a></span>Varying Ink Line Spread
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-99F3A9A8-DD48-484F-8856-49053D57E1AC"></a></span>The width of hand-drawn contour lines tends to fluctuate a certain amount, depending
+                  on how steady the artist's hand is. You can simulate the irregularities inherent in
+                  hand drawing by using the variation options to create random variations in the ink
+                  spread. 
+               </p> <span class="anchor_wrapper"><a name="FIG_FF067DD37CE84125B570BAB9D5253C5D"></a></span><div class="figure-anchor"><img src="../images/GUID-A47C23FD-CC58-49C9-A3D7-AFAA246936DA-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_EEC6BFB0F44A42FFB155478C70CBE752"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2FB7F30F-8014-4202-9218-16B9EE3C345A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E73DAB2F-DD1E-497B-B56E-3E5352E0253D">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AA4FF66B-D99B-4246-B46C-8DD6EDB5F83E"></a></span><p class="table-body">No Variation, Frequency = 50,50,50, and Spread = 5 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-13D99390-A014-4D1D-B414-95DC32F3C9F3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E8EA4F80-183E-46C8-B6EE-C615120DFEFC">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2DA073AD-EB8B-48B5-97A9-AB65120D4EF4"></a></span><p class="table-body">Variation = 0.5, Frequency = 50,50,50, and Spread = 5 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5E1ED80D-DACE-4F66-96B6-0C5458124668"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B24C729F-68BF-4743-953D-75B98F3E76FE">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AD876BD8-68E6-4A1A-94C1-D96FF1E7E108"></a></span><p class="table-body">Variation = 1, Frequency = 50,50,50, and Spread = 5 </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0024"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-373F206E-A9DC-43AB-9BFF-8B369F3DF51F"></a></span>To vary ink line spread
+                  </h3> <span class="anchor_wrapper"><a name="GUID-BD2E8F4A-7B0D-4294-B451-C4CE7FCCADF5"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-81ECA06E-88A8-4E3A-B151-45E57B54FAB9"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-B0D19273-8CBB-4627-895D-05C37C046B5A">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7EAAF46D-77E0-4FBE-927E-A01C26F9B799"></a></span>On the <span class="MenuCascade" id="GUID-C85A334D-C816-4A32-ABE9-6DAF7578A8D1">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-493C9B60-E57D-4E7B-9099-0144C347DFF7">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CD9971CB-042A-493A-8A40-76DC7509388C"></a></span>From the Variation tab, activate the variation by setting the <span class="MenuCascade" id="GUID-64207381-71DA-46A0-B12A-C5082139EBEA">Amount</span> to a non-zero value. <span class="MenuCascade" id="GUID-8443CE81-4D61-420B-A9FD-C90061F67302">Amount</span> controls the strength of the variation. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8255F147-94B9-4997-9DDD-A9A4C65B31E3"></a></span>Adjust the following parameters, as necessary: 
+                        </p> <span class="anchor_wrapper"><a name="UL_2D14276297DE4C4E8ECB81FD2F8E5906"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B05BA972-3E53-48B9-B654-A5641087D439"></a></span> <span class="MenuCascade" id="GUID-32096060-BDB2-42F2-81D8-FD0AB1E34B11">Frequency (X, Y, Z):</span> Defines the spatial frequency of the random variation. Higher values create noisier
+                                 ink contours, while lower values create in more smoothly varying contours. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-82761CA8-B843-4D02-8E45-A574B15A23CD"></a></span> <span class="MenuCascade" id="GUID-8018CA6A-03B8-4365-B345-9B155304477A">Animation:</span> Controls the animation of the variation of the ink spread. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7154AD27-39A3-4D03-B8FE-5AB90584F1EB"></a></span>A setting of 0 disables the animation and freezes the variation over time. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2AF5384F-BE2D-4A79-AA38-15C433F3F5F2"></a></span>Low values make ink lines crawl over time. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E5C75F28-0C1C-407C-8F00-9BCA26E3FD6E"></a></span>Very high values make ink lines "chatter". 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-60388119-7CDC-4304-B32A-F09AB177D48B"></a></span> <span class="MenuCascade" id="GUID-BEF05725-EFC6-4C19-BC13-4B8021B25209">Basis:</span> Specifies the basis of the random variations. Each option creates a distinct effect.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-C901C9DF-ED99-4A72-8236-D66D1B43FDD2"></a></span> <span class="MenuCascade" id="GUID-46E75ADC-7E95-49BE-8ACC-F8230FE3872C">Space:</span> Specifies the coordinate space (World | Camera | Object) used for specifying the
+                                 variation Basis. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-83CDB9CE-35C7-4E50-9737-4CAD6889A747"></a></span>Selecting camera coordinates computes variation relative to the camera. Camera coordinates
+                                 might be appropriate for simulating hand-painted techniques. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7BB3869A-BD3E-4693-A261-FE067066C441"></a></span>Selecting world coordinates locks the effect to the direction of a surface regardless
+                                 of its global orientation. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A6D662AA-A77E-48D3-BC81-BE163B76C13F"></a></span>Selecting object coordinates rotates the effect along with the surface. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D794F227-9335-43AB-8F5B-B2DA17D3DDB2"></a></span> <span class="MenuCascade" id="GUID-48A30D15-61DB-476E-8216-1D8C84ED593A">Variation:</span> Specifies the range of input to which the effect is applied. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D4FF6132-C0DF-403D-B32B-13C041E1740A"></a></span> <span class="MenuCascade" id="GUID-CABEEE45-38F3-42D8-A4BA-9EBEF6EC142F">Spread:</span> Specifies the range of spread values to which surface directions are mapped. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-7B5EE9BB-6221-42D5-B870-4ABE40FC1A75"></a></span> <span class="MenuCascade" id="GUID-03743C95-8FCD-4389-ADBA-B78571EC0C7D">Profile <img src="../images/ac.menuaro.gif"> Operation</span>: Gives a non-linear emphasis to the effect, so that changes in spread may ease-in
+                                 smoothly or cut in abruptly, for example. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D1446E49-FC1C-4E85-80CC-008EF9BE99CB"></a></span> <span class="MenuCascade" id="GUID-15320A4A-EED4-45AF-8C6B-4C55BE0452BB">Power:</span> Controls the amount of emphasis created by the profile Operation. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0025"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4A49F441-9EC2-42F8-8F83-EC0DD062C949"></a></span>Controlling Ink Line "Pressure"
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-F2AA44BA-F479-46FB-A54F-4E4E406C0A81"></a></span>The Pressure options simulate the pressure applied to a brush, pen, and so on, when
+                  drawing contours. The ink lines' color and alpha values are altered in proportion
+                  to the spread value. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7D404C00-334B-42F9-92A5-B6A9510CF6A1"></a></span>Typically, this is used to create ink lines that fade as they become thinner, though
+                  you can create a variety of effects by experimenting with the values. 
+               </p> <span class="anchor_wrapper"><a name="FIG_B557891F2E0D4AD5B4B45F1D08548A24"></a></span><div class="figure-anchor"><img src="../images/GUID-09D3FC4E-CF33-4865-B060-6A08F59B7FBA-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_A8782F18C6534B24B141F9BAD400B369"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4EC6CBFB-E6F7-431F-A3CC-C74151BF0F7B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-677AC947-B0B9-4B15-8AAE-C390362D6E49">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E0C4560B-BCB0-4E9E-8BD1-158CD8A94C99"></a></span><p class="table-body">Original Image and No Pressure </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-834124D3-B3F4-41C5-BCB6-7A2D2DCB1623"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-913F33A1-148F-4205-B07E-41282BB3AE22">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D8AE9EBD-6598-4F83-A471-97BED9E2BD50"></a></span><p class="table-body">Brightness, Spread Min/Max: 0.25, 1, and Brightness Min/Max: 1, 0.75 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6B7B8C13-C1B9-48C5-9996-0DCD47354260"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1C45D46D-CCD9-46F6-9355-0DEF078BD868">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0466AFA2-9940-4BF2-A2B6-7FAE50B34EBD"></a></span><p class="table-body">Saturation, Spread Min/Max: 0.25, 1, and Saturation Min/Max: 0.5, 2 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A5B2F3D6-B9DB-4B59-85DD-31C06B208F2C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3D888F60-152D-4576-94A4-8A515BA02CF3">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AF05BAC8-4B93-4D28-8865-5989AE644678"></a></span><p class="table-body">Alpha, Spread Min/Max: 0.25, 1, and Alpha Min/Max: 0.5, 1 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C1306B68-3398-4510-95F0-6EBB2D38BD4A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-62DA5E56-23CE-467B-BCFC-13D838E745BA">E</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-77B658EF-08FF-4747-9EB1-46E4D8D9B9C6"></a></span><p class="table-body">All Pressure options combined with the same values used in the three preceding images.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0027"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-CD4CAC45-F41D-4730-928D-71298EC657BE"></a></span>To create ink line pressure
+                  </h3> <span class="anchor_wrapper"><a name="GUID-0D5F6B77-3227-47D1-8923-7FB7FC8F13D2"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7ADA8226-B39E-4D77-A8D9-1CAE017CE18E"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-875B9F42-BE07-429C-A8A4-779A2D2B2CCC">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FE8CD315-A6C7-4CA8-B49D-4D34D10A83A5"></a></span>On the <span class="MenuCascade" id="GUID-5EE42A4F-A600-4B7F-B6A5-568BE2071B8B">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-D79A8784-486F-4273-B7E5-9F9C606F1184">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7E1ECA9E-6100-4FA3-B8FD-83729B73802A"></a></span>From the Pressure tab, activate one or more pressure effects and adjust the following
+                           parameters: 
+                        </p> <span class="anchor_wrapper"><a name="UL_E620CD7FF3364C82AAF19290817F7537"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A0A1DA26-8987-4B32-9B19-5B7936A225E7"></a></span> <span class="MenuCascade" id="GUID-33DB3672-A4F9-47BC-97A7-200D6C9F7CFC">Spread Min/Max:</span> The range of spread values on which the effect acts. Each type of pressure has its
+                                 own Min/Max values that correspond to a separate set of spread Min/Max values. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CABF406F-1AB1-463B-97D0-3811B1AA1D2C"></a></span> <span class="MenuCascade" id="GUID-E44EBBD2-D58B-482A-A24B-545CFD34612E">Brightness Min/Max:</span> The range of brightness to which distances are mapped. A Min Brightness of 0.5 would
+                                 cause ink to darken to half its original intensity at the specified Min Spread. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-75F6DBC9-2CF3-4064-A418-8F98D5E5F762"></a></span> <span class="MenuCascade" id="GUID-9750D7ED-BC2C-4461-8B6A-61DFF995665A">Saturation Min/Max:</span> The range of saturation to which distances are mapped. A Min saturation of 0.5 would
+                                 cause ink to fade to half its original saturation at the specified Min Spread. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2972F68A-96A0-4155-A5C1-01648548F22A"></a></span> <span class="MenuCascade" id="GUID-FC375F7B-72DB-44C9-B93E-536A516D523E">Alpha Min/Max:</span> The range of alpha to which distances are mapped. A Min alpha of 0.5 would cause
+                                 ink to have half its original alpha value at the specified Min Spread. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0028"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DA797536-966B-45CC-BD11-68AFCA12DE9F"></a></span>Texturing Ink Lines
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-AE103DF3-42DD-46B3-BB89-7AADB937A8F3"></a></span>If you want to add some complexity to the color of the ink lines, you can use textures
+                  to drive ink color. This can be done globally through the Toon Ink Lens shader or
+                  locally on objects that have a Toon Paint and Host or Toon Host shader applied to
+                  them. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0029"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-311B9FCB-5DFD-429A-BF5A-7B67D518FA35"></a></span>Texturing Local Ink Lines
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A0682ADC-5354-45A2-B597-79F4520ACF28"></a></span>To texture an individual object's ink lines, you have to drive its ink line color
+                     with a texture. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_C2F5853D4B7E4325AB782301BB22C782"></a></span><div class="figure-anchor"><img src="../images/GUID-E5BB2C5B-C5DB-45A8-B525-878449CC683C-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3AA87655-1314-48DC-BC27-BF8840568DC0"></a></span>All of the objects' ink lines are controlled by the Toon Ink Lens shader. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_C576EEE74AB9425EAFDAB5706A4EC8A0"></a></span><div class="figure-anchor"><img src="../images/GUID-3B7F9C83-D778-490A-83D6-F78172989146-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-800B40BF-703C-49FC-9ED8-7337251C6818"></a></span>The ink color override is active in the cube's Toon Paint and Host shader, while a
+                     rainbow gradient is used to drive the override color parameter. To emphasize the effect,
+                     the cube's local ink spread was also increased. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-002C"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-5EE0A59F-B843-4509-80E0-426B634DB529"></a></span>To color local ink lines using a texture
+                     </h4> 
+                     <div><span class="anchor_wrapper"><a name="GUID-3545AE7B-231D-4507-85D0-8121BD420F93"></a></span><div class="note-note"><span class="label">NOTE:</span>Although the following procedure assumes that the object has a Toon Paint and Host
+                           material shader applied to it, the same controls exist in the Toon Host shader. 
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="GUID-EBCD0E22-2BBB-428A-A387-E4D4EBE8F729"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B114EB7B-5F7E-46DB-8242-0CB0CE707088"></a></span>Select the toon-shaded object whose ink lines you want to texture. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9FB8410D-BEC0-4357-B5A3-220156CD3CB0"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-10E07A17-F177-47A6-AB92-F0AC927EFD18">Modify <img src="../images/ac.menuaro.gif"> Shader</span> to edit the object's Toon material shader. The Toon Paint and Host shader's property
+                              editor opens. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-332E4EE9-7B31-4626-BA1A-91CC7F1B81EC"></a></span>From the Ink tab, activate the <span class="MenuCascade" id="GUID-CAA3E23E-0F25-47EC-ABB1-6D733716A15B">Override</span> option. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-193C4A05-4696-48D5-A991-DF2E2002DD53"></a></span>With the object still selected, open a render tree (press <span class="MenuCascade" id="GUID-FD5B392C-CB52-4A5A-B438-0319665900A9">7</span>) and select a texture from the <span class="MenuCascade" id="GUID-530FAE77-1117-4E5F-95F3-04FF046EEB12">Nodes <img src="../images/ac.menuaro.gif"> Texture</span> menu. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7DE625BA-F228-4B7E-BD85-7B46F9AB1E78"></a></span>Connect the texture to the host shader's <span class="MenuCascade" id="GUID-73BAA902-BB62-4CAD-BEBE-2B3930C08D08">host_override_color</span> input. 
+                           </p> <span class="anchor_wrapper"><a name="FIG_20DB7565F35B4148B791E2523A5886DC"></a></span><div class="figure-anchor"><img src="../images/GUID-BEBAC167-2A5A-492D-80E8-3AF08A12EBD1-low.png"></div> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6C37E57B-836C-48F3-B4C5-FD3821BA2A67"></a></span>Double-click the texture's node to open its property editor and adjust the texture.
+                              Make sure to select an appropriate projection type for the object. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F0A3FFEF-825B-4F11-864A-8DA63A3B2A3D"></a></span>For more information about texture projection types, see <span class="char_link"><a href="tex_basicproc_TypesofTextureProjection.htm">Types of Texture Projection</a></span> [ <span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span> ]. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-002E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-002F"></a></span> Texturing Global Ink Lines
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-DFE5CF66-D155-49A7-AD03-2AF01A6C60F6"></a></span>Texturing global ink lines is more complex than texturing a single object's ink lines
+                     because texture shaders do not generate texture coordinates for cameras. Instead,
+                     you have to use a series of shaders to generate these coordinates in order to control
+                     how the texture is applied. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-060F5C6A-250A-4A41-BB9D-0F1A748C5A3A"></a></span>The best approach is to use a Texture Space Generator shader to create the coordinates
+                     for a texture that you connect using either the Image Lookup shader or a Texture Generator
+                     shader. Connecting the texture's output to the Toon Ink Lens Shader's <span class="MenuCascade" id="GUID-77C522A1-EDCD-4758-B42B-04FF02469544">Color</span> input renders the texture in the ink lines using the coordinates that you created.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-74AFD05C-9129-42C2-A382-CC3804D8ED48"></a></span>The easiest way to do this is to open the camera's render tree and connect the shaders
+                     there. The following two examples demonstrate how to texture ink lines this way. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0030"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-F3198173-E178-44AA-914D-E80F3733DC81"></a></span>Example 1: Controlling Global Ink-Line Color
+                     </h4> <span class="anchor_wrapper"><a name="FIG_0986E85A37DE461C986122ECF57255E8"></a></span><div class="figure-anchor"><img src="../images/GUID-A821F549-AC12-4EF1-88B3-9752CAA7EDDE-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-72A39A25-1F21-4C1E-A0F7-6E6B36E685F0"></a></span>Driving the global ink line color with a texture means that every object's ink lines
+                        are colored by the texture, unless they have a local color defined by a Toon Host
+                        shader. 
+                     </p> <span class="anchor_wrapper"><a name="TABLE_1512C9FF9E6B499AB228A7C4DA10F9CA"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledHeading">
+                              <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-EB2227D9-66A9-477B-A867-663EC45A3944"></a></span><p class="table-heading">Node </p> 
+                              </th>
+                              <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-AF365890-C0B9-43F8-99D7-400B0BFEC75A"></a></span><p class="table-heading">Function </p> 
+                              </th>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A9E2F519-8B94-4B1C-8053-AE76A21DAF5C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-602B1C6D-B6C7-4E49-8AFC-2D924A40F773">A</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E57C5243-222B-4A84-9E9E-BA227765BC0A"></a></span><p class="table-body">Material node: Acts like a placeholder for any shader that can affect the camera.
+                                    
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8A685B1C-F3BE-464A-AEBE-42EE838B72AC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AC5542CB-56E6-4D33-A3E4-C405D487BACE">B</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FAF30F2C-F58C-4400-9D25-291BC1FAD8DF"></a></span><p class="table-body">Toon Ink Lens: Defines ink line attributes for all scene objects. In this example,
+                                    an ink-only render is specified. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-85999F51-1C35-4294-BA28-3DF66FF17EC1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E000D22C-E7BC-4FD2-8967-F04285A5CA7D">C</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B7C7E6F9-8B92-4297-A73A-BB1EFF49E2EB"></a></span><p class="table-body">Color Math Basic: Performs a basic mathematical calculation on two color inputs. In
+                                    this case, the first input (the texture) is multiplied by the second input (RGBA values
+                                    of 1.0, 1.0, 1.0, 1.0). 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0C576DAD-C426-47CA-884F-45227947D7A8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-47D79470-F440-4F7E-9135-AC79702591C5">D</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D9538922-C4F6-431D-90C0-C497C757549F"></a></span><p class="table-body">Image Lookup: Gets a texture image and defines its UV coordinates. </p> <span class="anchor_wrapper"><a name="GUID-DE54D6D4-CF6B-4B68-AB90-FEFBFBA80B19"></a></span><p class="table-body">In this case, the coordinates are defined by the Texture Space Generator and Texture
+                                    Edit shaders. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5C81F5B3-0341-4F00-92F4-082D4CFCEB74"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2468DAAF-7A5E-4103-A70E-CAC9921314E6">E</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-487938FA-C27C-48B5-9E55-33D21EAAE10E"></a></span><p class="table-body">Image Clip: An image clip of the texture that appears in the ink lines. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4AAA2917-27A4-446B-A74B-465BCB57CCE2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5AD27B74-ECF8-4EC9-AE44-EAD426B2F617">F</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9D7A1E7E-6277-423B-83B2-64DF37EA17E6"></a></span><p class="table-body">Texture Edit: This tool shader remaps vector coordinates as defined by the parameters
+                                    in the shader's property editor. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-74728EDB-E5A7-474A-80B6-C26944F9675A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FA7CA870-67E1-4834-8B10-FBC4DB80585B">G</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DDAB92A2-A78E-4745-ADA8-A891E1EC26A7"></a></span><p class="table-body">Texture Space Generator: This tool shader defines the camera's texture projection
+                                    method. 
+                                 </p> <span class="anchor_wrapper"><a name="GUID-4EF45E10-3405-4CC5-B27D-704D6E0764A6"></a></span><p class="table-body">Define a UV projection method and set the Space Transformation mode to Screen to achieve
+                                    the effect shown above. Do not define a texture space. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> <span class="anchor_wrapper"><a name="FIG_AFFBBEEDBBA440F5B86B2B79D6ABFBBC"></a></span><div class="figure-anchor"><img src="../images/GUID-4A9B4427-8DE0-449E-A360-49F08AC58AD1-low.png"></div> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0033"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-EC8BD062-5259-44B9-8104-7072E787D27F"></a></span>Example 2: Controlling Global Ink-Line Spread
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-421345AE-B22D-4863-A8FE-FED7EC105539"></a></span>The last example demonstrated how to color global ink lines using a texture. You can
+                        use the same technique to alter global ink line spread. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F7CDF6DF-6113-4155-B96F-3E274169DE77"></a></span>By converting the texture into a scalar value and using it to drive the Toon Ink Lens
+                        shader's Spread parameter, you can create interesting variations in the ink lines'
+                        thickness. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_89BA4F4FA439419A866AE83597A02AD3"></a></span><div class="figure-anchor"><img src="../images/GUID-AD5EEC77-4224-42AC-8CAE-37B2E959135F-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-65FBEEC3-A0D9-43C5-B984-F53F30326180"></a></span>When you alter the ink line spread globally, it does not affect individual objects'
+                        ink line colors. In this image the ink line color is controlled by each object's Toon
+                        Host shader, while the ink line spread is controlled globally by the Toon Ink Lens
+                        Shader. 
+                     </p> <span class="anchor_wrapper"><a name="TABLE_3DCD95F84FCA40579E0BCC17BF9CD450"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledHeading">
+                              <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-13F01869-E128-4BA1-8012-18C346784C28"></a></span><p class="table-heading">Node </p> 
+                              </th>
+                              <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-9F11FD7F-C4F5-45D0-B130-273F599604A5"></a></span><p class="table-heading">Function </p> 
+                              </th>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F3380E4F-DE07-40C8-BBA1-FAA6A7710F64"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6FC0DF76-DE19-4AD6-A10B-CAC39D22BA21">A</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-904CDB99-FBF7-4B89-9BDF-78E40AEA46CE"></a></span><p class="table-body">Material node: Acts like a placeholder for any shader that can affect the camera.
+                                    
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CBD55493-C651-4896-8552-270142BBC3E1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-53BD397A-14D9-46C5-BABC-AEBF8FC589F7">B</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-97816646-E9FA-426A-966B-A09A4B537277"></a></span><p class="table-body">Toon Ink Lens: Defines ink line attributes for all scene objects. In this example,
+                                    an ink-only render is specified. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AC600A66-2F7E-4A7B-A5F0-96E56D9D4E02"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8784424B-82FA-4451-8F00-80E5CDE3B718">C</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C7070D69-52B9-44E5-BB53-E71CC2247C52"></a></span><p class="table-body">The Color2Scalar shader converts the Color Math Basic shader's color output into a
+                                    scalar value needed to drive the Toon Ink Lens shader's Spread parameter. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-29D0BE30-E6F3-4658-86DA-6AF7885E939A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5D6B9568-DA9D-40DD-9F08-84F894C18E7E">D</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D8543FC7-223B-4F3D-9202-1100138616E6"></a></span><p class="table-body">Color Math Basic: Performs a basic mathematical calculation on two color inputs. In
+                                    this case, the first input (the texture) is multiplied by the second input (RGBA values
+                                    of 1.0, 1.0, 1.0, 1.0). 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B20DBF8B-F696-46CB-9FE3-102CEA07E9B2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-26E45EB6-79DE-4B75-B366-BE7D60001FC9">E</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-09796587-B0DD-46EF-A677-CFCFAD42D806"></a></span><p class="table-body">Image Lookup: Gets a texture image and defines its UV coordinates. </p> <span class="anchor_wrapper"><a name="GUID-AC93E2AB-A072-4BA9-B4E2-04CF5D7692E2"></a></span><p class="table-body">In this case, the coordinates are defined by the Texture Space Generator and Texture
+                                    Edit shaders. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5B34B110-6CA2-4CCA-81E4-5FEFBEEE27F4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A3E9C50D-FFAB-4318-A2B7-5033ADF77460">F</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2999E701-61EC-4110-9277-8DF60F1FAB0A"></a></span><p class="table-body">Image Clip: An image clip of the texture that appears in the ink lines. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AB360116-E304-415E-BD54-08994314128D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-595F466D-9F39-4FE7-9EBB-198A07D28A70">G</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2054C855-A7A8-4F23-B1AA-79EAA8924197"></a></span><p class="table-body">Texture Edit: This tool shader remaps vector coordinates as defined by the parameters
+                                    in the shader's property editor. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-492BEB6B-D421-4F82-87A5-BA6F31102B5C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6BCBD7F0-6CA7-4E46-8212-BB2908A6AD68">H</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-13E56294-2EAF-4FFE-ACCD-EEEC5E3DD220"></a></span><p class="table-body">Texture Space Generator: This tool shader defines the camera's texture projection
+                                    method. 
+                                 </p> <span class="anchor_wrapper"><a name="GUID-FA1F6A33-1941-4AAD-A6AB-BF7198156025"></a></span><p class="table-body">Define a UV projection method and set the Space Transformation mode to Screen to achieve
+                                    the effect shown above. Do not define a texture space. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> <span class="anchor_wrapper"><a name="FIG_0C7B5EECBD464D9B871A4DCBBA802B73"></a></span><div class="figure-anchor"><img src="../images/GUID-3C3F074F-F815-486C-9E65-B9FC5219870C-low.png"></div> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0036"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-48480199-56C9-43C3-8AFF-5658E061F0FE"></a></span>Controlling Ink Line Detection
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-FD18CE19-80C8-455F-B14D-92FE894F232E"></a></span>You can specify where contours are detected based on boundaries between scene elements
+                  (between different objects or between objects and the background environment, for
+                  example) and based on Toon Host shader properties (like paint, shadows and transparency).
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0037"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-604D4E32-4BD8-4DF4-AA6C-A8A8DF514E39"></a></span>To set contour detection options
+                  </h3> <span class="anchor_wrapper"><a name="GUID-F3ECFDFE-81BF-414F-9BBA-7D5B2B5F0EC9"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C68587B5-9941-4732-B478-455012099F09"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-3A14EBE7-9A84-4653-82BA-8B64B1806410">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-724F08D1-C5A4-4683-A3CE-39951C0A0ADE"></a></span>On the <span class="MenuCascade" id="GUID-16A08339-D8EA-4B05-8049-9982A68DC1E4">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-15F6C29F-0C3D-4A27-B9EC-AC35475B3B54">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-703A4344-0E50-4E62-AEB6-F72D0424B11E"></a></span>From the Sampling tab of the Toon Ink Lens shader's property editor, select one or
+                           more of the following <span class="MenuCascade" id="GUID-DBE9FE24-2C4C-4906-B083-E7D889089715">Boundaries</span> options: 
+                        </p> <span class="anchor_wrapper"><a name="UL_74B3822ACC534753B6DE3010B0ACD49A"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-2A49C4E0-7A2A-47C3-952F-95BA0B1A70E3"></a></span> <span class="MenuCascade" id="GUID-03E28FEF-DD29-4536-82FF-2A6C8B1C170E">Environment:</span> draws ink lines at the boundaries between object surfaces and the scene environment.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D7E9B08B-6988-42AD-B918-316C5F72BF70"></a></span> <span class="MenuCascade" id="GUID-BC0391B1-0C68-4F2C-86C7-C239AC4117B8">Object:</span> draws ink lines where object surfaces intersect or overlap. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-193E8EAC-BF47-4D1E-A1CD-3FA57C241FC4"></a></span> <span class="MenuCascade" id="GUID-52F4745E-F9EC-4AAA-8526-47D10780F36C">Material:</span> draws ink lines at the boundaries between different materials. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-DB51BDF2-CF49-46EB-A209-228A6A5C67A2"></a></span> <span class="MenuCascade" id="GUID-8A23BB95-640C-4EF2-B622-562456DD0010">Paint:</span> draws ink lines that delineate the borders of paint regions on any toon shaded objects.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-373B5F99-4FDA-456F-B5E3-4119F983CF37"></a></span> <span class="MenuCascade" id="GUID-10CCC67D-3008-47E0-A255-D296EBAA21CC">Shadow:</span> wherever shadows are cast, ink lines are drawn between shadowed and unshadowed surfaces.
+                                 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9F7BF189-896C-49E8-8210-D8E191176734"></a></span> <span class="MenuCascade" id="GUID-91723E56-52C8-46C2-B746-89AA0F8357B3">Transparency:</span> draws ink lines at the boundary between transparent and opaque objects. 
+                              </p> 
+                           </li>
+                        </ul> 
+                        <div><span class="anchor_wrapper"><a name="GUID-D0A2BC5B-4ADF-43C8-B380-1D2A28B24874"></a></span><div class="note-tip"><span class="label">TIP:</span>Transparency-based contour detection is especially useful when you are using a transparency
+                              map to simulate "holes" in an object's surface because it allows you to draw ink lines
+                              around the holes. 
+                              <p><span class="anchor_wrapper"><a name="GUID-FD3B20C1-D19A-4681-9689-4E35DB58FC34"></a></span>You can adjust the threshold of transparency/opacity using the Detection Threshold
+                                 setting on Transparency tab of the object's Toon Paint and Host (or Toon Host) shader
+                                 property editor. 
+                              </p> 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-233EAFF6-FF2E-4CD7-AE92-02FF00B1FF5A"></a></span>If you want to render the scene objects' wireframes, set the <span class="MenuCascade" id="GUID-21901A32-5F11-4A1A-81EF-A8EBFDCDA485">Facet</span> options. This is described in depth in the next section, <span class="char_link"><a href="toon_npr_CreatingInkLines.htm#WS6772E968E0A3E94385DFF0672B73BD73-0038">Rendering Wireframes Using Facet Detection</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0038"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-C2179AF5-209C-4628-BE71-8FBE934FF2A6"></a></span>Rendering Wireframes Using Facet Detection
+                     </h4>   
+                     <p><span class="anchor_wrapper"><a name="GUID-2DBFE51B-2526-4CAC-9CD5-927782CD8069"></a></span>You can easily render the wireframes of some or all of your scene objects using the
+                        Toon Ink Lens shader's facet detection settings. When facet detection is enabled,
+                        contours are detected at the boundaries of an object's facets and rendered between
+                        all adjoining, intersecting, or overlapping triangles in the tessellated object surface.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CE5F8D63-F584-48C4-8C59-A981678DCA44"></a></span>In toon terms, this means that object wireframes are rendered as ink lines whose size,
+                        color, and overall look you can control as you see fit. Of course, you can further
+                        refine any object's wireframe by applying a Toon Material shader to the object and
+                        adjusting its local ink characteristics, making it transparent to expose the back-face
+                        of its wireframe, and so on. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_85616F9ECFDB45AA855D7EE7A74DFE8F"></a></span><div class="figure-anchor"><img src="../images/GUID-F006035B-C60A-4563-B26A-A6E7E61AD49D-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-03055198-758F-4943-8433-76EEE48F6688"></a></span>The images shown below are simple ink-only wireframe renders of the scene shown above.
+                        Ink line width is set to 2 and the basic ink color is set to black. However, each
+                        sphere has been given a different ink color. The background color is set to white.
+                        
+                     </p> <span class="anchor_wrapper"><a name="FIG_FC02468B535B4B24A1FAF288922FEAF6"></a></span><div class="figure-anchor"><img src="../images/GUID-5F8567D6-AAF3-48C1-B2C1-CF411D05C9C0-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_9D3A81B95679446BACDD312D663133E3"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B650CD6B-95BF-4C6A-ABFC-744C5DD35DA3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-033804D7-2CD9-4084-BC3A-2ADBBFBFFD9C">A</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-27450074-50A3-4851-8899-D7C849BEE8C7"></a></span><p class="table-body">Basic facet rendering detects and renders contours between adjoining, intersecting,
+                                    or overlapping triangles. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2B6EF9EF-E039-44DF-B136-EBBB4941244B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C30A4928-D6C1-4E58-BAEE-F9B9644A8754">B</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-77BD69A9-A461-424F-93A3-4C55FBCFBB27"></a></span><p class="table-body">When the merge co-planar option is activated, facet boundaries between co-planar triangles
+                                    are ignored, resulting in a wireframe with hidden lines removed. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8BE7B1D6-B599-4091-B3A9-5A38AA60C887"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-78C61F69-28AA-4641-B37B-1FF94AB0E29C">C</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C1178C10-B7C7-4481-841C-959F536971C9"></a></span><p class="table-body">When the rendered objects are made transparent, the back-face wireframe is rendered
+                                    as well. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                     <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-003B"></a></span> 
+                        <h5><span class="anchor_wrapper"><a name="GUID-A9790E24-D3DB-4592-8B28-A0D55B1C03F2"></a></span>To render a wireframe
+                        </h5> <span class="anchor_wrapper"><a name="GUID-57850A30-BFBA-4069-9F95-2D24532AE1E8"></a></span><ol type="1" start="1">
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B1F5BFB9-3C8E-42A4-9ADC-CBFF2E09B728"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-170AC371-6A98-428B-B5DF-4F0A826DE9E6">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9C85B54E-1C43-4BD3-ADD6-2936025127B7"></a></span>On the <span class="MenuCascade" id="GUID-8DD01B75-E7FF-47A0-9BBF-11829E1B46F4">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                                 stack and click the <span class="MenuCascade" id="GUID-3BC104F1-ADFD-4A25-A281-759D414DEAF4">Inspect</span> button to open the shader's property editor. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-CC537248-2087-4A62-BDD0-54F15920F43B"></a></span>To make sure that only the ink lines are rendered, go to the Basic Appearance page
+                                 and activate the <span class="MenuCascade" id="GUID-4DF6FC1B-BE94-4130-A58B-F7523747B57D">Ink Only</span> option. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A314545F-04F9-4D8E-B547-9BB63520F077"></a></span>You can also adjust the <span class="MenuCascade" id="GUID-1A96F925-88B4-4C61-A4CD-EEB65ECD98CF">Color</span> and <span class="MenuCascade" id="GUID-DDD28D64-DCB2-4F35-B7F2-487DE81FBC30">Spread</span> values to change the color and thickness of the ink lines respectively. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-90B9BEEC-3510-4025-BEB3-958E1AA7CC0F"></a></span>Now go to the Sampling tab and activate <span class="MenuCascade" id="GUID-DC2DBF28-7918-4890-ADC8-4087DC4C805F">Facet</span> detection. Select the <span class="MenuCascade" id="GUID-F57FFC8C-B83D-4740-8E8A-6A74AD64ECA0">Merge Coplanar</span> option to hide the boundaries between coplanar triangles (see the previous illustration).
+                                 
+                              </p> 
+                           </li>
+                        </ol> 
+                     </div> 
+                     <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-003C"></a></span> 
+                        <h5><span class="anchor_wrapper"><a name="GUID-86E6AF8F-4DE2-4C94-B62B-C5E7F4434CEE"></a></span>To include an object's back-face in the wireframe render
+                        </h5> <span class="anchor_wrapper"><a name="GUID-8F645EC0-7F95-4907-B751-AAFD290CFA5F"></a></span><ol type="1" start="1">
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-20CB0747-58A7-4CEF-852C-2B2AEFABC589"></a></span>Follow the previous steps to render a wireframe. Lock the Toon Ink Lens property editor
+                                 to keep it open (click the lock icon). 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-1C1EED02-57B4-4219-89A5-785269448E83"></a></span>If the object does not have a Toon material applied to it, apply one now (<span class="MenuCascade" id="GUID-BF36DBA9-4C7F-4A3D-A4CB-164794166BE9">Get <img src="../images/ac.menuaro.gif"> Material <img src="../images/ac.menuaro.gif"> Toon</span>). The Toon Paint and Host property editor opens. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-160407F5-A9BC-4B0E-96FC-F50E2C20A584"></a></span>From the Toon Paint and Host property editor, click the Transparency tab and activate
+                                 the transparency. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-54E7C246-DAD7-4CD7-B7ED-2B8F7F456027"></a></span>Set all of the transparency color values to 1 for full transparency. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-49C72ED2-9265-4BB8-84AC-32F29F2EFC4F"></a></span>From the Sampling tab of the Toon Ink Lens property editor, increase the <span class="MenuCascade" id="GUID-B166F143-B3BC-4DB7-AD84-64AA1C221FFE">Trace Depth</span> value. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-6CA89033-A4C9-4508-9027-9B70E3084525"></a></span>The trace depth determines how many levels of contour detection are computed. For
+                                 example, to render a transparent object's front and back-face ink lines requires a
+                                 trace depth value of 2 for two levels of contour detection. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-29DFC877-B6C6-40BB-88A2-46C14549B1FC"></a></span>Rendering the front-face ink lines of an object behind that transparent object requires
+                                 an additional level, and so on. Keep in mind that increasing the trace depth can significantly
+                                 increase render time. 
+                              </p> 
+                           </li>
+                        </ol> 
+                     </div> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-003D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D8CF74EE-43CE-4D9C-97B4-AF86B8437990"></a></span>Placing Ink Lines Using Seams
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5024351A-389C-4293-B75C-FB92D842ACE7"></a></span>The Seams options in the Toon Host shader allow you to hide ink lines where they would
+                     normally be rendered (blending) or create them where they normally wouldn't exist
+                     (unblending). 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-003E"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-75DBBE02-D888-4DCF-8DB8-6A61A0025B1E"></a></span>Using Blend Groups
+                     </h4>  
+                     <p><span class="anchor_wrapper"><a name="GUID-E68457FD-1BBF-4A7E-B79E-1FC916D7EAA6"></a></span>Blending ink lines allows you to hide ink lines in areas where they would normally
+                        appear. For example, areas where one object partially occludes another or where two
+                        objects intersect usually contain ink lines for both objects' boundaries. Blending
+                        can remove the ink lines from these areas. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-40B04F25-D72D-4168-9F0F-0375282B9DFD"></a></span>For the ink lines to be hidden, one of the two overlapping objects must be a part
+                        of the other's blend objects list and within the specified occlusion distance. Alternatively,
+                        both objects can share the same blend group ID. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-5B36743A-604D-492F-B194-8B05CCE236FB"></a></span><div class="note-note"><span class="label">NOTE:</span>The blend options are local inking options, so blending requires that all objects
+                           involved must have a Toon Paint and Host or Toon Host shader attached to them. 
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="FIG_16CC4415C8CC458AB36C2F146DB98195"></a></span><div class="figure-anchor"><img src="../images/GUID-59B27BE0-8D86-42F6-8861-7E48688A4AF7-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B3517623-3CB6-49CF-855C-18984EAB5390"></a></span>This ink-only rendering contains three overlapping objects (not counting the grid).
+                        The sphere and the cone partially occlude the cube, which creates ink lines. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_53F722B741AA43A099B387B2D82575BE"></a></span><div class="figure-anchor"><img src="../images/GUID-9286F7B8-6E44-4C10-AA55-A628B41612DE-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-704EC52B-A3DF-481C-BD1C-26019188C934"></a></span>Making the sphere and the cone part of the cube's Blend group allows you to not render
+                        the ink lines that would ordinarily be created where the cube is occluded. 
+                     </p> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0041"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-D2B1FC4B-B6BB-44AF-9E07-73886FA14F5C"></a></span>To blend objects' ink lines together
+                     </h4> 
+                     <div><span class="anchor_wrapper"><a name="GUID-02550C06-AAD4-43BD-BAB7-6E0214C848B5"></a></span><div class="note-note"><span class="label">NOTE:</span>Although the following procedure assumes that the object has a Toon Paint and Host
+                           material shader applied to it, the same Seams controls exist in the Toon Host shader.
+                           
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="GUID-B3ABC584-02A7-4224-8C76-93DF32EE4684"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B175DDEA-0F89-47CE-AD52-980B82B3E846"></a></span>Select the toon-shaded object whose ink lines you want to blend with occluding/occluded
+                              objects. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-15B8C348-372E-4C1D-868C-7C467E76214D"></a></span>From the Render toolbar, choose <span class="MenuCascade" id="GUID-91171EFB-8B13-457B-8975-7FAF0CB3CDAD">Modify <img src="../images/ac.menuaro.gif"> Shader</span> to edit the object's Toon material shader. The Toon Paint and Host shader's property
+                              editor opens. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B514C6BF-57E9-4082-A683-4B2C0C742418"></a></span>Do one of the following: 
+                           </p> <span class="anchor_wrapper"><a name="UL_DC7E4F7BD8574A54B244C96AC0641704"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-4D272493-D9FE-4B96-A8BF-21473C2A6A51"></a></span>From the Seams tab, click the <span class="MenuCascade" id="GUID-23232D48-F415-4AD1-B754-3926B4832906">Add</span> button next to the <span class="MenuCascade" id="GUID-4CCE2FBC-229F-4614-B7B9-E4A1E0576DB9">Object</span> list. From the pop-up explorer, select the object(s) whose ink lines you want to
+                                    blend with those of the selected object. Click anywhere outside the explorer to close
+                                    it and accept the selection. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-B91B5930-23DC-4F5E-8F5F-8A26A3358920"></a></span>Set the <span class="MenuCascade" id="GUID-8561E9F7-B2A8-4759-883C-B63D7A01CA47">Group</span> value to a non-zero value. This value becomes the object's blend group ID. Ink lines
+                                    are hidden wherever the object overlaps another object with the same blend <span class="MenuCascade" id="GUID-C8EE7DAF-A1EF-4CAF-9D68-510D844F1868">Group ID</span>. You need to repeat this for any other objects whose ink lines you want to blend
+                                    with the selected object's ink lines. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-76F79B5A-5010-4A8C-9BA4-78F1CF5797CF"></a></span>Set the <span class="MenuCascade" id="GUID-6FEC05A8-8650-46D3-85CC-105810E03EB7">Occlusion Distance</span> value. This is a distance value measured in Softimage units. Surface samples from
+                              the occluding and occluded objects must be no farther apart than this distance for
+                              ink lines to be hidden. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0042"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FD83FD9D-E90B-4503-8D84-A0C777A6FE49"></a></span>Using the Unblend Group
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-ABB6292C-79E0-49A1-9208-8D2A83A74EFD"></a></span>Unblending ink lines is just the opposite of blending them: it creates ink lines where
+                     none would normally exist. Every Toon Host object has an unblend-group parameter that
+                     you can texture to create ink lines on the object, using the texture as their basis.
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_B8EA3E95F2474C39B7398C9DFCEDA7C2"></a></span><div class="figure-anchor"><img src="../images/GUID-78CCCC46-BAB8-4103-817B-8BF340E8C575-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D3176A89-5EDE-4A49-B193-18EC14DD02EE"></a></span>In this ink-only render, the host_unblend_group parameter was textured with a procedural
+                     vein texture, using the render tree shown below it. Adjusting the Scalar Math Basic
+                     shader's values determines which parts of the texture produce ink lines. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_FC15DEA0B85B4CADB465600C993D39EB"></a></span><div class="figure-anchor"><img src="../images/GUID-9620B715-2F9C-4BE7-95B9-13277CF8FA99-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5C76B28F-F1A5-41CC-BF6A-B5B8C7B10E5E"></a></span>Another ink-only render. In this case, the host_unblend_group parameter was textured
+                     with the 2D no_icon.pic texture image using the render tree (as shown below it). Once
+                     again, adjusting the Scalar_Math_Basic shader's values determines which parts of the
+                     texture produces ink lines. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0045"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2728F0BF-2455-4F2B-BB66-00CD6ABDD22E"></a></span>Controlling Sampling
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-E99308F0-760C-461B-8A1B-7E4D61BEC73E"></a></span>Sampling controls the quality of rendered ink lines to a large extent. The sampling
+                  value specifies the maximum number of rays fired to locate contours. The higher the
+                  sampling value, the higher the quality of the contours. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F6C84366-1640-4F1A-AA89-682C1F4D49C8"></a></span>The default sampling value is 5, which is sufficient for rendering thinner contours
+                  (spread values less than 5 or 6). As contours get thicker (spread values of 7 and
+                  higher), however, they tend to become fuzzy at the edges and require higher sampling
+                  values. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2BF6AE3A-C183-4908-9457-96B63FAA1089"></a></span>All of these images were rendered with the following scene Antialiasing settings:
+                  Sampling Min/Max Level = 0/2 and Thresholds (RGBA) = 0.1, 0.1, 0.1, 0.1. 
+               </p> <span class="anchor_wrapper"><a name="FIG_2B5B7CE865BD46FCB6314F2B2F8FAA97"></a></span><div class="figure-anchor"><img src="../images/GUID-2C02F6BB-4BD4-4DC8-820B-BE82130F327A-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_C781274B1DE6476EA1CA0C1797611416"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-751E65FE-4523-4648-A381-15C263133EC1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ECF3CC2F-012C-4E27-9C83-562E0A10CAA4">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F68D97DF-AE33-4787-A2B5-E99D043570DF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0D6E65B2-2DB0-4675-81FD-4AACBCFF36C0">Spread: 2 and Samples: 5</span> 
+                           </p> <span class="anchor_wrapper"><a name="GUID-D112731B-9853-49DD-A4B5-01EC77B6A6ED"></a></span><p class="table-body">A sampling value of 5 (and sometimes less) is fine for thinner ink lines. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EC29F5CC-9DA4-4E3F-B5A1-A19051BD675F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6E120A7B-D9C8-456F-AB45-C75D575CC0EA">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EEEDE1C5-8F78-4BDB-A977-0B33599D5AA3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C142F725-6147-4392-BE35-19FE16C19EB4">Spread: 10 and Samples: 5</span> 
+                           </p> <span class="anchor_wrapper"><a name="GUID-9AB3E4FC-8302-4CD2-8279-E786072117C3"></a></span><p class="table-body">However, thicker ink lines start to get fuzzy at the edges. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3110FFBE-0B1A-4C72-A170-C90D2DA7CCE9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-54AD6B61-CFAE-4E3D-AF1B-5A17E578A32B">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9AF560E2-7515-4340-BCD3-78CA95895CB1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7A955CD8-548B-4C48-A9D2-954DEBC09BE7">Spread: 10 and Samples: 8</span> 
+                           </p> <span class="anchor_wrapper"><a name="GUID-559FB30C-8C6D-453C-B770-4DE5E5ACFED2"></a></span><p class="table-body">Increasing the Sampling value from the Toon Ink Lens shader smooths out the fuzzy
+                              edges. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0047"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-931CFA90-9D03-45DD-8981-3669AF5AC62A"></a></span>To set ink line sampling
+                  </h3> <span class="anchor_wrapper"><a name="GUID-7B6A8F2E-EB8C-47A0-9F8C-3C4D45F496B6"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-795AC113-27CA-4778-BF65-BC5C52C236BB"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-899C01DB-F812-47C2-8424-01B3D2A6E551">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B98E15C2-9FFE-4903-8FFA-1424243A084D"></a></span>On the <span class="MenuCascade" id="GUID-69CAFD31-4E4F-4E0A-9B1F-CEA41D3F2DD5">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-23A66A48-B51A-4074-BB27-5B3B95698C41">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F7589A54-7F85-456C-8E5F-868819A36798"></a></span>From the property editor's Sampling tab, adjust the <span class="MenuCascade" id="GUID-2364774D-E52B-4D8B-B091-BD179A946C5C">Samples</span> value. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-68E58316-BCAB-4EAE-8FAC-77E53DCBE7C5"></a></span><div class="note-important"><span class="label">IMPORTANT:</span>In a typical scene, increasing the Samples value by 1 slows rendering by a factor
+                              of 1¹, so you need to use as low a value as possible. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0048"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-680D94DF-B5CA-405A-82A8-22225B25314D"></a></span>Balancing Toon Sampling with Scene Antialiasing
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A51D8A97-F676-4DDC-8A0E-751545AC0EF1"></a></span>Because both the Toon Ink Lens shader's sampling setting and the render pass' antialiasing
+                     settings contribute to the quality of ink lines, it is important to balance them in
+                     order to optimize rendering. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-34807439-715F-42DF-A1BD-2BBC7F44199F"></a></span>For example, if you're rendering ink lines at the default spread value of 2, good
+                     values for a draft-quality render are: 
+                  </p> <span class="anchor_wrapper"><a name="UL_B52F7FE79923405C9ED6AD45EF85E2BF"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9579E7F7-D222-4EB9-A34A-FA540805AC91"></a></span>Render pass Antialiasing settings: 
+                        </p> <span class="anchor_wrapper"><a name="UL_3F9F465C4A1B4BE0A1EB86909E0A9B3A"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-941B6759-A7CA-449A-9C49-182AE30C07BF"></a></span>Sampling Min/Max Level: -1,1 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-247A1894-5072-4A54-8DE8-56A309C3C565"></a></span>Thresholds (RGBA): 0.2, 0.2, 0.2, 0.2 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-203EA6F4-CDBA-4B0F-B9D2-9611810C54D3"></a></span>Toon Ink Lens shader Samples value: 5 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-875D33BA-EEFF-45BA-82E2-C22438B96CF2"></a></span>Good values for a high quality render are: 
+                  </p> <span class="anchor_wrapper"><a name="UL_E659D08F53E54D6B80CAD9F80E7DC35B"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6D08D347-23C0-4C20-9A9C-E0D1367F000C"></a></span>Render pass Antialiasing settings: 
+                        </p> <span class="anchor_wrapper"><a name="UL_A29276890AE44259B68308F0B745DFA7"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-6E87C579-A4EA-40F8-BE94-39E1BF583791"></a></span>Sampling Min/Max Level: 0,2 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B32D6B52-DE86-461B-AF69-6EFF310FB3C8"></a></span>Thresholds (RGBA): 0.1, 0.1, 0.1, 0.1 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DC183E23-3304-44A7-AD2C-79620690806A"></a></span>Toon Ink Lens shader Samples value: 5 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C4A8B454-F35D-4DE9-9143-625D1E277EFA"></a></span>As you make your ink lines thicker, you'll need to increase the Toon Ink Lens shader's
+                     Samples value, but you should not increase the antialiasing settings. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F6B93E4D-9BBD-4E65-898C-89BAF2FDA066"></a></span>Instead, use the antialiasing settings to achieve the desired render quality whether
+                     or not the ink lines are rendered. Then adjust the Toon Ink Lens sampling to increase
+                     the quality of the ink lines. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EEA430DE-C651-4BF6-BED4-B320DC727DB5"></a></span>For more information about antialiasing settings, see <span class="char_link"><a href="renderoptions_ControllingAliasing.htm">Controlling Aliasing</a></span> [<span class="char_link"><a href="render_cover.htm">Rendering</a></span>]. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-0049"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CE4440DB-2DB8-4615-BCC6-D67570D07F48"></a></span>Setting a Background Color
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-7F1185A5-DA6D-462D-A736-13D2C964239B"></a></span>As you create Toon rendered scenes, you may want to preview the scene objects against
+                  a solid color background. This is especially useful when you're adjusting your ink
+                  lines. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-004A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8C25AAE0-E858-44CB-86F9-64BFA4969DD5"></a></span>To set a background color
+                  </h3> <span class="anchor_wrapper"><a name="GUID-20F939A8-A97F-4379-AE86-7A23D98423E6"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-317C25E2-676F-4F7C-A2A6-84161C96335E"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-456563FE-751A-464C-A87C-2129625FE0F2">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AE643D21-4995-4203-BA5B-16521D4803F8"></a></span>On the <span class="MenuCascade" id="GUID-E2F8FCFF-04AE-4EAB-B9DD-45E669F09F25">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-6534CECE-2169-4D91-B39A-16846369B8D0">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-74CB8302-FDF4-4703-B97B-B1ED9F9CC64A"></a></span>From the Background tab, enable the background and set the <span class="MenuCascade" id="GUID-8D378D92-4E0F-43E3-960B-8F506B171230">Color</span> values. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-44357148-F7E2-4B0C-B8AB-F539235D117D"></a></span><div class="note-tip"><span class="label">TIP:</span>Using the render tree, you can texture the background color. This allows you to render
+                              your scene against, among other things, a still image or an image sequence. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-004B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-59A04C45-672D-4935-B880-ADBD2826CB78"></a></span>Creating Lens Distortion
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-0ACBE902-6589-45BD-9A00-C12EAC93DA4D"></a></span>You can render your toon-shaded scenes with two different types of lens distortion:
+                  fisheye and bulge. 
+               </p> <span class="anchor_wrapper"><a name="UL_1EE83EA87AC94D05BE0041B2C7BED712"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-499A4118-84BA-4A29-9679-9F8C1A0B7C71"></a></span>Fisheye distortion simulates a hemispherical (fisheye) lens capable of rendering a
+                        180-degree field of view with characteristic hemispherical distortion typical of real-world
+                        fisheye camera lenses. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_2AAA22AA8F2747AFB85F350374103D8E"></a></span><div class="figure-anchor"><img src="../images/GUID-766A2840-74CD-44AA-958F-D6350CD54571-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_A9A7804753C84233AC5D133E87242EEC"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0AD1FDA1-8E7C-4A4F-A773-282CFAC24FDF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8CEDF202-A82D-44C9-BA1E-7E16268E82E4">A</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-40E1AAB2-B4CD-4624-83E3-F5D8E85FE9D2"></a></span><p class="table-body">No fisheye distortion </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F163A06C-364D-4769-A613-A075FB06C7FB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-50A2B2F3-F9AB-4DA9-BE3D-1C885375A5EB">B</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-46345C88-B667-4E92-A7EB-3C418B019E68"></a></span><p class="table-body">Fisheye distortion amount=0.5 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2CCD0E23-C4C8-42FD-862F-08D6CF47BE00"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-916C4628-3A86-45BE-86AC-C61190B5D8EB">C</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7A1FB735-C97D-412E-B764-E9F96929FF03"></a></span><p class="table-body">Fisheye distortion amount=1.0 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9825E61B-37D6-4FFE-BF17-CAFCBE0F34DC"></a></span>Bulge distortion allows "bulging" of the lens by altering eye-ray direction. The lens
+                        may bulge out (convex, like a fisheye lens) or bulge in (concave). This effect may
+                        vary over the surface of the lens. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS6772E968E0A3E94385DFF0672B73BD73-004D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B761A0AC-46CE-4E55-BC15-D9831B06827A"></a></span>To create fisheye distortion
+                  </h3>   <span class="anchor_wrapper"><a name="GUID-6BD8F150-7730-42AC-8312-9E09914FD19C"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-53A3F5D7-EE36-4A20-A565-7C525D8E833C"></a></span>Select the camera that is rendering the ink lines and open its property editor (<span class="MenuCascade" id="GUID-71242E8B-0881-4BFF-AEFF-2C410D8ED8B7">Modify <img src="../images/ac.menuaro.gif"> Shader</span> from the Render toolbar). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-88EE40A0-C77D-4C5A-A325-F617F2F1875E"></a></span>On the <span class="MenuCascade" id="GUID-705FCFAA-6148-4B06-9581-922FE35723A3">Lens Shaders</span> tab, the lens shader stack appears. Select the Toon Ink Lens shader from the shader
+                           stack and click the <span class="MenuCascade" id="GUID-4C6255D1-6908-477F-8107-7467AC666F14">Inspect</span> button to open the shader's property editor. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2D0F9E1A-2FCE-42FF-96C9-536932A74EE3"></a></span>From the Lens Effects tab, activate the type of distortion you wish to use — fisheye
+                           or bulge. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7DDD570C-543D-42FA-832C-31BAD8A278F8"></a></span>For either effect, adjust the <span class="MenuCascade" id="GUID-32EBD1A9-D9BB-41B9-B07F-DCEA75CAA71B">Amount</span> value. This controls the amount of distortion. A value of 0 negates the effect, while
+                           a value of 1 results in the full effect. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8D1D119B-2BDF-4306-8786-701E4B7D14A8"></a></span>Do one of the following, depending on the type of distortion: 
+                        </p> <span class="anchor_wrapper"><a name="UL_371B298238FF4B51874DFB9BA7BABD33"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-AE346BBB-B3E9-4E3B-A646-BDEC28DE17CE"></a></span>For fisheye distortion, adjust the <span class="MenuCascade" id="GUID-951F48B6-18C1-460C-AA3D-6EDCCA705885">Scale</span> settings. This adjusts the proportions of the distorted image in <span class="MenuCascade" id="GUID-3F78C6DD-CD71-4697-8432-83BAAFA8874E">X</span> and <span class="MenuCascade" id="GUID-A9958FA0-C558-47C5-87AC-83CA16E2BF5B">Y</span>. You can activate the Uniform option to force them to the same value. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-01830CA7-B12D-4807-B914-F9A5C0BC4C35"></a></span>For bulge distortion, adjust the <span class="MenuCascade" id="GUID-EC85583B-3776-4581-A761-BDF4DFA258F3">Magnitude</span>. The <span class="MenuCascade" id="GUID-D64C04E9-BEA1-4420-BAE0-832163A04C86">X</span> and <span class="MenuCascade" id="GUID-F8646430-D032-4421-A26E-B8F2809382F3">Y</span> settings control the horizontal and vertical bulge respectively. 
+                              </p> 
+                           </li>
+                        </ul> 
+                        <div><span class="anchor_wrapper"><a name="GUID-8FC2F818-4322-4D09-BAF3-CF5FEDBC8C4A"></a></span><div class="note-tip"><span class="label">TIP:</span>Driving the bulge effect's <span class="MenuCascade" id="GUID-4795D50F-4506-4EB0-A98F-16F893A79712">Magnitude</span> with a texture is an easy way to create complex patterns of distortion. For more
+                              information about texturing global ink line parameters, see <span class="char_link"><a href="toon_npr_CreatingInkLines.htm#WS6772E968E0A3E94385DFF0672B73BD73-002F"> Texturing Global Ink Lines</a></span>. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

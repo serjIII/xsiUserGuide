@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F568D20C-7C67-4CA5-8783-72C7371DAE97">
+      <meta name="indexterm" content="weight maps: about">
+      <meta name="indexterm" content="maps: weight">
+      <meta name="indexterm" content="generic attribute painting (GAP)\ \ painting">
+      <meta name="indexterm" content="property maps\ \ weight maps">
+      <meta name="indexterm" content="weight maps: defined">
+      <meta name="indexterm" content="operator stack: weight maps">
+      <meta name="indexterm" content="weight maps: operator stack">
+      <meta name="indexterm" content="weight maps: using">
+      <meta name="indexterm" content="weight maps: creating">
+      <meta name="indexterm" content="weight maps: displaying">
+      <meta name="indexterm" content="displaying: weight maps">
+      <meta name="indexterm" content="weight maps: selecting">
+      <meta name="indexterm" content="selecting: weight maps">
+      <meta name="indexterm" content="paint tools: paint tool (weights)">
+      <meta name="indexterm" content="painting: weights">
+      <meta name="indexterm" content="weight maps: painting">
+      <meta name="indexterm" content="weight maps: painting">
+      <meta name="indexterm" content="painting: on subdivision surfaces">
+      <meta name="indexterm" content="weight maps: on subdivision surfaces">
+      <meta name="indexterm" content="subdivision surfaces: painting weights">
+      <meta name="indexterm" content="weight maps: changing color">
+      <meta name="indexterm" content="weight maps: freezing">
+      <meta name="indexterm" content="freezing: weight maps">
+      <meta name="indexterm" content="symmetry: weight maps">
+      <meta name="indexterm" content="weight maps: symmetry">
+      <meta name="indexterm" content="painting: symmetrically">
+      <meta name="indexterm" content="symmetry maps: for weight maps">
+      <meta name="indexterm" content="symmetry: brush properties">
+      <meta name="indexterm" content="brush properties: symmetry">
+      <meta name="indexterm" content="weight maps: editing numerically">
+      <meta name="topic-type" content="concept">
+      <title>Weight Maps</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F568D20C-7C67-4CA5-8783-72C7371DAE97"></a></span><div class="head">
+            <h1> Weight Maps</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-FC133CF4-7516-4C7F-AD58-0CD0B3F21541"></a></span>Weight maps let you paint parameter values across the surface of an object. For example,
+               you can use weight maps to vary deformations or filter ICE particle emissions. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0018"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BE900207-93DE-4713-B0D6-EE61BD4B6E77"></a></span>About Weight Maps
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-E8323C92-D6EE-424A-851A-D789E9D0369A"></a></span>Weight maps are properties of point clusters on geometric objects. They associate
+                  each point in a cluster with a weight value. Each cluster can have multiple weight
+                  maps, so you can modulate different parameters on different operators in different
+                  ways. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0019"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C3B67055-1136-4769-901B-B8B6A80D4B35"></a></span>Weight Map Operator Stack
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-D534F0FF-287F-4596-92D9-93965FB5C0FF"></a></span>Each weight map has its own operator stack. When you create a weight map, a WeightMapOp
+                     operator sets the base map, which can be constant or one of a variety of gradients.
+                     Then when you paint on the weight map, the strokes are added to a WeightPainter operator
+                     on top of the WeightMapOp in the stack. Like other elements with operator stacks,
+                     you can freeze a weight map to discard its history and simplify your scene data. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-001A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-94AF753A-8AD0-46D1-810E-878C59683626"></a></span>Weight Map Limitations
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B2B678AF-55AC-4775-89BB-002C7916ED8D"></a></span>Weight maps have certain limitations: 
+                  </p> <span class="anchor_wrapper"><a name="UL_DA088C9C504F4701BD9DA1D5A4E0F129"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4EB566CF-28A2-4A8F-8DFE-27FE54AAD4C6"></a></span>You can apply a weight map on a curve, but you cannot display it or paint on it. You
+                           can use the constant or gradient base map generated by the WeightMapOp operator, or
+                           set values using an ICE tree (see <span class="char_link"><a href="ICE_trees_WorkingwithMapsinICETrees.htm#WSB74EE070EB80114199F4C921243896F3-0078">Weight Maps in ICE</a></span>). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-47A6BE7A-781B-4303-ADC8-F44E3989885E"></a></span>You cannot animate paint strokes. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-001B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-51803DF7-E24F-42A2-BCA6-FDEC9C20F789"></a></span>Weight Map Workflow
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-DFA1E20A-106D-4670-A2A0-3CDBB1CF8D99"></a></span>This section presents a quick overview of the workflow for using weight maps. The
+                  sections that follow later in this chapter will fill in the details. 
+               </p> <span class="anchor_wrapper"><a name="GUID-F875849E-2349-452A-8F4A-0E5CBBE99F71"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2F1D8B3D-BBF1-4A01-BBAC-8615C25C4E77"></a></span>Start with an object. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-3CD5E306-815E-4E87-B54F-EED09E22483D-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3A483CC3-FC96-408F-A1DA-EB00AE3DA21C"></a></span>Optionally, select some points or a cluster. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-BBFE1459-49F4-435A-9617-B92B5B97D064-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B95360AF-9C1F-4FCB-9B1D-F06E2EA4C4BA"></a></span>Apply a weight map using <span class="MenuCascade" id="GUID-B309D7A4-9E7D-487B-B179-3024FB46031A">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Weight Map</span> 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-3674F289-6842-4029-BBF5-CCD9436ABCB1-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8C14DFFE-EF59-4913-86DD-EC1BE485FD8F"></a></span>Press <span class="MenuCascade" id="GUID-44AC9590-E11A-4D2A-BAFB-7E3A12D74BA7">W</span> to activate the Paint tool, then use the mouse to paint on the weight map. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-D8114F45-0210-4942-9C95-670C1996661C-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6C402113-A1D2-47FE-8B50-8595DE4B2DD8"></a></span>Connect the weight map to drive the value of a parameter — for example the Amplitude
+                        of a Push deformation. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-C919EE80-C062-4E58-8E12-2A098BD9FB1F-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1DAE7514-37EF-4FB0-A84A-3819F941D6D4"></a></span>You can reselect the weight map and continue to paint on it to modify the effect further.
+                        
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0021"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-095C39A4-0E84-4093-B8B3-D67AD52CF2C5"></a></span>Creating Weight Maps
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-FB093847-64B0-482D-8856-635C92225199"></a></span>When you create a weight map, a WeightMapOp operator is applied. This operator creates
+                  the base weight map, which can be a constant value or a gradient. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0022"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2B12002C-DA33-475D-B286-912F8EAFE5F3"></a></span>To create a weight map
+                  </h3> <span class="anchor_wrapper"><a name="GUID-181570AF-DBB2-4CDE-8CD2-B0AA033FD90D"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B5A49519-9117-4B32-9D73-ED791CCF3D56"></a></span>Select the element to which you want to apply a weight map: 
+                        </p> <span class="anchor_wrapper"><a name="UL_E064DADAFE5C4464B778010D4B6856B0"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-8A4063EA-BBDF-43A2-9495-FA2C6FF6D6B4"></a></span>If you select a cluster, the weight map will be applied to it. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E89ABF38-532C-4584-9BD5-390ECAFC5B94"></a></span>If you select an object, a cluster will be created for all the points on the object
+                                 and the weight map will be applied to the cluster. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-3D9AEC89-C92F-4AA3-8999-6DEC43C65293"></a></span>If you tag (select) points, a cluster will be created and the weight map will be applied
+                                 to the cluster. 
+                              </p> 
+                              <div><span class="anchor_wrapper"><a name="GUID-DAAD8A61-6550-4AB4-AC1A-713C30CA71E2"></a></span><div class="note-note"><span class="label">NOTE:</span>You can improve performance greatly by using small, localized weight maps on specific
+                                    points rather than on the whole object or large areas. This is especially true if
+                                    most of the points would have been weighted to zero anyway. 
+                                 </div>
+                              </div> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1D41A94F-9436-438A-9C47-F91036981347"></a></span>Choose <span class="MenuCascade" id="GUID-37B8E400-233F-4840-9F1D-6EAFF281BB97">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Weight Map</span> from any toolbar. A weight map is applied and its property editor opens. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A1048D37-095E-4B04-82A8-7D053D2602E2"></a></span>To see your weight map while you are setting options, you can either change your view
+                           settings as described in the next section or press W to activate the Paint tool and
+                           move the mouse pointer over a 3D view. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-44A5B943-E4DF-4A3D-B2B0-395EFB9F06B0"></a></span>Set the options you want for your base map on the Weight Map Generator page. For example,
+                           if you set the <span class="MenuCascade" id="GUID-1E369FC5-1DCB-4230-9D13-2A5D017215A4">Weight Map Type</span> to Constant and the <span class="MenuCascade" id="GUID-446C4A7C-592E-4907-9BE5-5D5721E4E11C">Base Weight</span> to 0, you start with a blank map for painting weights. You can also choose from a
+                           selection of linear and radial gradients, and set other options. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C661D97E-8D55-49B7-8D85-86D2D0FA20F0"></a></span>When you create a weight map, it is automatically selected so you can immediately
+                     paint on it as described in <span class="char_link"><a href="weightmaps_WeightMaps.htm#WS191FB18683639C42880EB2157C8C09F6-0028"> Painting Weights</a></span> or apply a deformation as described in <span class="char_link"><a href="deforms_AboutDeformations.htm#WS3CD0299C9A553C42AA0D9499D69A994D-000A">Deforming with Parameter Maps</a></span>. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EFD16314-5D6F-413C-912F-75419339F0EC"></a></span>You can connect a weight map to drive a parameter as described in <span class="char_link"><a href="weightmaps_ConnectingMaps.htm">Connecting Maps</a></span>. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0023"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-289E19DE-B6E3-4B32-8267-33460039BBE4"></a></span>Displaying Weight Maps
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-BED7A10E-5F22-476B-8E3E-C3FDEA54FDCB"></a></span>Weight maps are visible in the 3D views when certain display options are on. You can
+                  set these options manually using the procedure below. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5A4DD935-E5C5-43C5-98B4-C369C7C66FDC"></a></span>Note that these display options are also temporarily toggled on when the Paint tool
+                  is active and you move the mouse pointer over a 3D view. When this happens, the previous
+                  display settings are automatically restored when you exit the Paint tool. You can
+                  also turn off Show Property Map in the <span class="char_link"><a href="property3507.htm"> Brush Properties Property Editor</a></span> to hide the map except while you are painting a stroke. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0024"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3056626E-6A7A-47B0-9955-27BDCB1356D7"></a></span>To display weight maps in a geometry view
+                  </h3> <span class="anchor_wrapper"><a name="GUID-4F0B6E2E-CA9E-40F6-8E4A-0A5E1C51391E"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-994B375F-DAB1-4716-845D-0FCFDA05A14D"></a></span>Click on the Display Mode menu, and set it to <span class="MenuCascade" id="GUID-90197D3F-96B8-4D0D-AF4B-D4620574DEEE">Constant</span> or <span class="MenuCascade" id="GUID-20DB5F79-1BB1-43EC-9EC8-1E5FE896CA85">Shaded</span>. Constant mode shows the weight maps more clearly than Shaded. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0CF5CA06-5607-41ED-89C4-14F20C697098"></a></span>Click the eye icon on the menu bar to make sure that <span class="MenuCascade" id="GUID-015F91AA-06B4-4CF2-B6AD-FBAE414564F6">Weight Maps</span> is on. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-908049C7-1BF7-4FC6-83D4-0045B9C34FBC-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B2D37569-336E-4FEA-992F-0EBFA0D8DBFE"></a></span>For other ways of setting this and other display options, see <span class="char_link"><a href="view_viewing_ChoosingWhattoDisplayin3DViews.htm#WS3752FB15FF8CB04CB50EAC66E0F20001-0058">Displaying Types of Elements and Other Data</a></span> [<span class="char_link"><a href="view_cover.htm">Basics</a></span>]. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0026"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-98B8575A-EBFB-4610-8127-81C51BCBF25F"></a></span>Selecting Weight Maps
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-6FC3E072-6449-4749-A3DC-AB0AED442B30"></a></span>Weight maps are stored under the clusters to which they belong. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0027"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EA3C2C09-657D-4E14-995A-BFAD18C098E2"></a></span>To select a weight map
+                  </h3> <span class="anchor_wrapper"><a name="GUID-67EFA2FB-27A8-42E6-939D-44F4FDA04DC5"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-354E573A-5405-4888-8E4B-0808AE1DCDE2"></a></span>Select the object. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8152ABB3-B942-4393-96C1-4F80882B21A1"></a></span>Choose <span class="MenuCascade" id="GUID-D68F5430-435D-4E16-A7CD-89CA3476B62A">Explore <img src="../images/ac.menuaro.gif"> Property Maps</span> from the Select panel. A pop-up explorer opens. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-49279D06-E0C1-4087-BB85-A9A54EFA1DE0"></a></span>Select the desired weight map by clicking on its name. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0028"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-790E909C-8456-4249-8966-BF2603EAF432"></a></span> Painting Weights
+               </h2>     
+               <p><span class="anchor_wrapper"><a name="GUID-295A1DD8-7663-4C99-B37A-FD4ACAA7158D"></a></span>To paint weights, you first activate the Paint tool. You can then add weight, remove
+                  weight, smooth weights, or change the brush radius, opacity, and other brush properties.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0029"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FBCDED44-B082-4378-8EF2-DB409EA87B8B"></a></span>Overview of Painting Weights
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-83E371C3-3A79-4FBC-9B62-36A1B5391FD7"></a></span>This section provides a quick overview of painting weights on weight maps. Each step
+                     is described in more detail in the sections that follow. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-2F8C2AA2-A5FC-4674-A7C2-9473D52919C8"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-27399529-C981-4F7F-A50B-5B044BB64F09"></a></span>Select the weight map. If you omit this step, painting is performed on the last active
+                           weight map by default. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5A07168D-2F72-4396-B5B2-740124A0B35F"></a></span>Activate the Paint tool by pressing <span class="MenuCascade" id="GUID-DAAC6D7A-8896-40A3-BBB1-822BD1E66D02">W</span>. For additional ways to activate the Paint tool, see <span class="char_link"><a href="ui_comtools_UsingBrushbasedTools.htm#WS150D47263D038F419B4140180A064485-0047">Activating the Paint Tool</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D8975047-55A7-4D06-A391-4ED8B1956789"></a></span>If desired, adjust the brush properties: 
+                        </p> <span class="anchor_wrapper"><a name="UL_B1EA60F921BF4D19AA8210087941ED70"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-A5B0547B-F172-44FD-B25A-4B7940EC40A5"></a></span>Press <span class="MenuCascade" id="GUID-B20DC4B4-DF27-4236-8506-3D844FDAA26D">R</span> and drag the mouse to change the brush radius interactively. You can also set the
+                                 radius on the weight paint panel. For additional ways to set the radius, see <span class="char_link"><a href="ui_comtools_UsingBrushbasedTools.htm#WS150D47263D038F419B4140180A064485-004A">Changing the Brush Radius</a></span>. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-491015E9-DB46-4D08-A834-723C035BCA8A"></a></span>Press <span class="MenuCascade" id="GUID-550AA93F-2147-4D76-AB38-A889E49AC9A4">E</span> and drag the mouse to change the opacity interactively. The opacity controls how
+                                 much weight is added with each stamp of the brush. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-AF65DADE-D115-48B9-AA9E-AC5CA1CC1F80"></a></span>Set other options in the <span class="char_link"><a href="property3507.htm"> Brush Properties Property Editor</a></span> (Ctrl+W). 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C4DCD253-EAEB-4C28-86AB-49555302CD86"></a></span>Click and drag to paint. In normal (additive) paint mode: 
+                        </p> <span class="anchor_wrapper"><a name="UL_5ABF20CA9488437B9B01AB59BC6EC531"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-15860841-A680-413D-99E7-A7BAB53E42D8"></a></span>To add weight, use the left mouse button. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4C6A8974-41AD-4AA8-82A8-FF8F140DFFFC"></a></span>To remove weight, either use the right mouse button or press Shift while using the
+                                 left mouse button. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-95E8E26E-F211-4B05-83BB-8DFB23A0E0E7"></a></span>To smooth weights, press Alt while using the left mouse button. 
+                              </p> 
+                           </li>
+                        </ul> 
+                        <p><span class="anchor_wrapper"><a name="GUID-09E2EF87-A09E-4FA6-9B55-2EEDADB803F7"></a></span>For more information about painting, see <span class="char_link"><a href="ui_comtools_UsingBrushbasedTools.htm">Using Brush-based Tools</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-002A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DCB297AC-B29A-4C8A-A82D-732382A1F3F7"></a></span>Tips for Painting Weights
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FD84FAA9-1713-436A-B3CB-05F62C01FFEC"></a></span>Here are some quick tips to consider when painting weights: 
+                  </p> <span class="anchor_wrapper"><a name="UL_869A54B7BD9D4BD2B2DD3EB374C871B9"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-51296E1C-BA8D-43CB-8529-0FFB9A295977"></a></span> To paint weights on a subdivision surface created with the geometry approximation
+                           method, click the eye icon (Show menu) on a 3D view's menu bar and make sure that
+                           <span class="MenuCascade" id="GUID-D2FD7A59-74EA-4726-B692-063445786CAC">Polymesh Hulls</span> is on. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-25F316EF-9913-4176-914E-1C7AD6881C47"></a></span>To see the weight maps on the hull, make sure that <span class="MenuCascade" id="GUID-6B4626D2-BD3A-4325-A8DD-AD7541DA3BB6">Subdivision Surfaces</span> is off. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-908049C7-1BF7-4FC6-83D4-0045B9C34FBC-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A60E5F18-FE25-4E45-989F-1093476A0983"></a></span>When painting, you can increase performance by reducing the object's geometry approximation
+                           settings. The Paint tool uses the triangulation of the object to follow its surface.
+                           See <span class="char_link"><a href="scel_properties_ApplyingandEditingGeometryApproximation.htm">Applying and Editing Geometry Approximation</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9A919C46-4199-4CD5-871C-FCA6AFB78587"></a></span>You can set the paint mode and certain other brush properties on the weight paint
+                           panel. However, the weight paint panel is designed for use with envelope weights and
+                           most of its tools are not useful for weight maps. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-002C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-27E03B8A-F196-4A0C-A2C6-6266B59D503A"></a></span>Setting Weight-Map Properties
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-AF0126FA-562E-4C58-8428-34898E471EFC"></a></span>You can modify weight-map properties. For example, you can change the name or display
+                  color — this is useful if you need to easily distinguish between several weight maps
+                  on the same cluster. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-002D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-EFD4F16A-AA40-44F7-A723-5A063A78BF9D"></a></span>To display a Weight Map property editor
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6241761D-FE27-4E7B-A790-96F99F77BAF6"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-64521077-E024-4959-98E8-46BAD73519A1"></a></span>Select the object. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0865596B-FA3D-4832-AE70-E7881FC09332"></a></span>Choose <span class="MenuCascade" id="GUID-FFCA1F8A-FB30-4483-9B0D-ECE03E5004FD">Explore <img src="../images/ac.menuaro.gif"> Property Maps</span> from the Select panel. A pop-up explorer opens. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8A420B8E-D923-48BF-B13C-62F357CCE2C9"></a></span>Click on the icon of the weight map. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A1F535B6-B294-443E-BBBA-18E72A1ACDE2"></a></span>Set the options to change the weight map name or display color. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-002E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CBD8B17F-ED35-43DD-A03D-6C95EAB31814"></a></span>Freezing Weight Maps
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-9A2F0114-1B93-48C3-95E0-F3FC1D18B8DB"></a></span>Weight maps can be frozen to simplify your scene's data. Freezing collapses the weight
+                  map generator (the base constant or gradient map you chose when you created the weight
+                  map) together with any strokes you have applied. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-02555DFF-FA05-49F3-83CB-BA3711B67373"></a></span>After you have frozen a weight map, you can still add new strokes but you cannot change
+                  the base map or delete any strokes you performed before freezing. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-002F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7B07B480-2E0B-4AEF-88AA-26BFB4303738"></a></span>To freeze a weight map
+                  </h3> <span class="anchor_wrapper"><a name="GUID-DA224AA7-601F-436C-A076-BB23D96DBD15"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B22027D0-B8A1-4C45-88BA-AE2A9B258BB7"></a></span>Select the weight map. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7FC6EFBE-B89B-459E-8392-77B560BC9080"></a></span>Click the <span class="MenuCascade" id="GUID-B550BBDE-1C18-4364-A71B-3EA997AA631E">Freeze</span> button on the Edit panel. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0030"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8A6054FF-B0CB-4E75-BDA4-130358A2DB07"></a></span>Weight Maps and Symmetry
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-9313F448-E463-444D-A62D-A9829B0A01B1"></a></span>You can paint weights symmetrically using symmetry maps, an object's local center,
+                  or both. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0031"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E1241C0D-B52A-42EF-87AF-0D26EF42B536"></a></span>Applying Symmetry Maps
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-A6B46673-7F70-4CB3-968D-4D45F6BB9953"></a></span>You can apply different symmetry maps on different clusters on your object, allowing
+                     you to have different planes of symmetry in different areas. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0032"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-E8D85592-B4EB-4431-8AFC-17F023AC2711"></a></span>To apply a symmetry map
+                     </h4> <span class="anchor_wrapper"><a name="GUID-2D890B37-9ABE-4654-8093-5EBE5AA2A3A3"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C7C49F87-61EF-4F30-B72F-A3A490B6C09E"></a></span>Select an object, cluster, or points. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-C05771CF-13F7-415C-BD59-162B041027E9"></a></span>Choose <span class="MenuCascade" id="GUID-2E3EA505-FEC9-4A80-93D4-AF7E909E4ED9">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Symmetry Map</span> from any toolbar. A property editor opens. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-111AE18D-00B9-499E-B8FE-08EAE3FEDDA2"></a></span>On the Symmetry Map Generator property page, set the Symmetry Plane to the desired
+                              value: <span class="MenuCascade" id="GUID-43A99687-C336-43BE-8850-6079EE46A455">YZ</span> (X = 0), <span class="MenuCascade" id="GUID-E23A20E2-2839-4379-A312-AD0121D01E97">XZ</span> (Y = 0), or <span class="MenuCascade" id="GUID-A0AF027C-B522-41C9-971C-9D3BD423B9ED">XY</span> (Z = 0). 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-7103C4DC-8DB1-4876-9E32-5B1F78D38152"></a></span>The symmetry map uses the object's local center and the chosen plane to establish
+                              a correspondence between points. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0033"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B858869C-61DE-49C8-89AA-18B6D2271E9A"></a></span>Brush Options for Symmetry
+                  </h3>   
+                  <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0034"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-B5133E1E-DBE3-4E63-83D1-76A732643EA9"></a></span>To set the brush's symmetry options
+                     </h4> <span class="anchor_wrapper"><a name="GUID-497A43EA-4EF0-4A81-851D-3D2703C62AA3"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F7265251-8477-4FB7-AD8D-00F140E0F580"></a></span>Open the brush's property editor (press Ctrl+W). 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9490CCCC-EA3C-4B7E-8E30-8131BDBC0DE4"></a></span>Set the options on the Symmetry Options tab: 
+                           </p> <span class="anchor_wrapper"><a name="UL_6FBDC4D8670A4E18A40E15087A151F3E"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-56480697-4CC0-4EE6-8B98-A900CE1B3053"></a></span> <span class="MenuCascade" id="GUID-95D00566-F492-4B47-8BAC-823D0A96002A">Use Local Object Symmetry Plane</span> uses the object's local center and whichever symmetry plane is currently active to
+                                    determine symmetry. To set the active symmetry plane, right-click on Sym in the Transform
+                                    panel and choose an option. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-D154A29E-0862-469C-BD4F-82C45E6265A6"></a></span> <span class="MenuCascade" id="GUID-7CD8B1A2-C779-4B66-8D40-953F94199EEF">Use Symmetry Maps</span> uses any symmetry map applied on the object to determine symmetry. 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-8FDD76AF-BCF1-47E9-BBBB-44982F680A95"></a></span>If both options are on, symmetry maps take precedence. This allows you to symmetry
+                                    maps wherever they exist and the object's local symmetry plane wherever there are
+                                    no clusters with symmetry maps. 
+                                 </p> 
+                              </li>
+                           </ul> 
+                        </li>
+                     </ol> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0035"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1EBF5781-0809-45CB-979E-BA18F123C05F"></a></span>Activating Symmetrical Painting
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FF0D2336-3C36-479E-81B9-5C151A2F2215"></a></span>You can activate <span class="MenuCascade" id="GUID-062C17EF-BA03-447A-975A-EAA2130ED68D">Sym</span> to paint symmetrically. 
+                  </p> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0036"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-75B7156C-FF6D-4A49-9AEA-AB88D344BDB6"></a></span>To activate or deactivate symmetry
+                     </h4> <span class="anchor_wrapper"><a name="UL_F36CC09FAA0A4FABA20F88A95DD55265"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2B0D9488-72E6-49F0-8C48-2A57F8900FDF"></a></span>Click <span class="MenuCascade" id="GUID-4BDF1FC2-9253-45F6-9C06-9D493D389FB2">Sym</span> on the Transform panel. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WS191FB18683639C42880EB2157C8C09F6-0037"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-C7608E08-7CE1-4BF4-BCEE-79E239CB7BEC"></a></span>To set the local symmetry plane
+                     </h4> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D09569EA-57C0-4D07-BDAB-2F40C0BCC25F"></a></span>Do one of the following: 
+                     </p> <span class="anchor_wrapper"><a name="UL_BE34953B711047BBA33BF5CCF9B2A937"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F8E1DE18-A92F-4292-82F7-D77073234BE4"></a></span>Right-click on <span class="MenuCascade" id="GUID-85191A00-2641-4F25-8912-20F69DB15CE3">Sym</span> and choose <span class="MenuCascade" id="GUID-EBFEADD9-4E11-4A7E-BB32-76A68D4D022D">YZ, XZ,</span> or <span class="MenuCascade" id="GUID-52357F29-6618-4401-8C4C-2F6EC9BFE80C">XY</span>. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3A12B121-9E83-40C2-BB39-AF7CB8A57160"></a></span> <em class="mild">or</em> 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-775C5A51-5716-4A8A-A267-8464F6896572"></a></span>Right-click on <span class="MenuCascade" id="GUID-41030020-D884-4503-BE8B-B63B4096EFB3">Sym</span> and choose <span class="MenuCascade" id="GUID-B7E55D56-3806-4CB9-80B5-13DB2FDB5204">Symmetry Properties</span>, then set <span class="MenuCascade" id="GUID-C8EC4B04-CFD4-4B7B-BCC7-CA0F1300E4F2">Symmetry Plane</span> to the desired value in the Symmetry Options property editor. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_3E9A1C54122149B5BC1E81A5E7049ACB"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1674BBB3-87C1-4996-8F77-71C1A41A9976"></a></span>Editing Weight Maps Numerically
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-03E8C442-8940-4CE1-8444-CBAC6B58F1E6"></a></span>You can edit weight maps numerically using the weight editor. The weight editor can
+                  be used for both weight maps and vertex colors as well as envelope weights. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_777D2CBF8183443B9C3526729B8FE5B2"></a></span>  
+                  <h3><span class="anchor_wrapper"><a name="GUID-3859D24D-BDA7-41BF-9EE9-4C7B32632702"></a></span>Displaying the Weight Editor
+                  </h3> <span class="anchor_wrapper"><a name="OL_3E7C72C0277B45CBAD75907B81DECAAE"></a></span><ol type="1" start="1">
+                     <li>Select one or more objects with an envelope, weight map, or vertex color property.
+                        
+                     </li>
+                     <li>Choose <span class="MenuCascade" id="GUID-F0791C94-3C6F-4C3E-AEB0-83DCECDF7B20">View <img src="../images/ac.menuaro.gif"> Animation <img src="../images/ac.menuaro.gif"> Weight Editor</span> or press Ctrl+E. 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_B52138884CDB42B8AA52D0C0E16492F0"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B0CEC79C-32A2-49BD-9346-956F936FB8A0"></a></span>Editing Weight Maps with the Weight Editor
+                  </h3> <span class="anchor_wrapper"><a name="FIG_647F4E3C7AC0450CBCDCE8860BC70FB2"></a></span><div class="figure-anchor"><img src="../images/GUID-D9CA012E-50F3-4291-BA90-B24813B15197-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_F5A1E717E5524CE39ECC953561EC7746"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="27.624309392265197%">
+                           <col width="72.37569060773481%">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-52428335-18D5-4D52-875F-505D494DCF79"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-98E39456-D28A-4D2A-B423-34FAE2D96BF4">A</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-55C2E957-BD80-437B-973B-9029D6125908"></a></span><p class="table-body">Sets the weight of selected cells. Values are affected by the weight edit mode (<em class="strong">N</em>). 
+                              </p> <span class="anchor_wrapper"><a name="GUID-AC69AA58-2FC7-496F-8755-D46A637F9872"></a></span><p class="table-body">If multiple cells with different values are selected, the slider is blank but you
+                                 can still use it to affect all values in the same way. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2EB0E1A8-4EC4-4E3B-8372-303D87269A0C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AE4A5199-0EBC-42F8-B06C-0409605C25B7">B</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B3413368-9262-421C-8312-6BF9B475A111"></a></span><p class="table-body">Right-click to sort by value. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-91179D42-1B1C-4344-A272-97592ABF771B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B0E2CE4B-9197-472F-BE1A-AB69498341B8">C</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-78145AE7-999B-4AE6-B6DD-07906D5DA8CF"></a></span><p class="table-body">Multiple weight maps and their map colors. Double-click to expand and collapse, or
+                                 right-click for more options. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-EAEC0ADD-A618-4020-9C67-EE7385F4497C"></a></span><p class="table-body">Double-click the first vertical splitter line to resize the first column to autofit
+                                 the property names. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-60943C10-0204-4A4F-A6EE-90AD500E7953"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F9667145-42D3-4C28-9841-623D5836650E">D</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-00A90BF2-EDE6-4F6B-95EC-12DDB5B0D66F"></a></span><p class="table-body">Points are listed in rows. Click the row label to select, or right-click to sort or
+                                 access other options. Drag a row border to resize. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-329F256A-416E-408D-85F3-0AE2667A7719"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E65A228E-DB4E-440D-8EDF-F65647146F1A">E</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5BA2CEC5-7DA2-4DF1-AA1C-3264DCF7F708"></a></span><p class="table-body">Each cell in the table shows the weight value for that point. </p> <span class="anchor_wrapper"><a name="GUID-7184133D-C850-4011-BF43-6A6964AA97E8"></a></span><p class="table-body">To set any cell's weight directly in the table, right-click in the cell and type a
+                                 value. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BC47DDD9-9650-466F-9898-66CBFEEF0425"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-988F42E0-BAFA-4EFF-A060-044D70EE4EF3">F</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2D45E9F7-8869-494E-A8CD-201C9510F73C"></a></span><p class="table-body">Selected cells are highlighted. </p> <span class="anchor_wrapper"><a name="UL_2D34A902779B4B50A10F7C23A71551DA"></a></span><ul>
+                                 <li>To select a cell, click it. </li>
+                                 <li>To select a rectangular range of cells, click and drag across them. Alternatively,
+                                    click to select the first cell and then Shift-click to select the last cell. 
+                                 </li>
+                                 <li>To add a cell to the selection, Ctrl+click it. </li>
+                                 <li>To add a range of cells to the selection, Ctrl+click and drag across them. Alternatively,
+                                    Ctrl+click the first cell and then Ctrl+Shift+click the last cell. 
+                                 </li>
+                              </ul> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E8006A8D-C045-41FC-BD1B-7CC0DEF3A1FB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5A10B0F6-B0BF-4889-9DC0-6C9164CEDEAC">G</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3501B416-C937-4174-BC23-C9A366CF4554"></a></span><p class="table-body">Use the <span class="MenuCascade" id="GUID-078879AC-062E-4C81-9566-1283A6707E12">File</span> menu to save or load presets. You can load a preset only if the number of points
+                                 is the same as the current weight map. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-15768B8B-16AD-4E89-8CE6-E5DAD5EDD793"></a></span><p class="table-body">The options on the <span class="MenuCascade" id="GUID-2E3FCB6A-EC44-41CC-ACA0-C664059E5490">Edit</span> and <span class="MenuCascade" id="GUID-1411B4BC-4DC1-4394-B15D-9133EA892BFE">View</span> menus are also available directly on the toolbar. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-737931AE-FC66-4EB9-AFEF-08DCE9B9309D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4FA948AC-4AA4-48E4-B006-F4FB4BE77E53">H</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4964729A-273D-42C0-992B-7A4B52A0BCDF"></a></span><p class="table-body">Locks the view to the currently displayed elements. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-64F2DCB0-186D-468D-A36D-8795BC390A2F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-996DDF1F-92F8-447C-A213-E5B8FF827B37">I</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C1806F52-F3B3-4F16-95ED-F96FB5C23047"></a></span><p class="table-body">Forces the view to update when it is locked. Alternatively, you can press F6. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FC631E41-B65C-4D27-95E4-4F87CFDC8572"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-821057F3-E1F3-42FB-BC3D-576DF20BBAC1">J</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D89FD344-F55E-41EB-83F0-88699CCC77B2"></a></span><p class="table-body">Clears the view. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-578674C0-27E2-4919-ACB7-A775990B9316"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2259D620-7287-4EB2-A5CA-FC6704BE0377">K</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6D0CD610-8702-4F4B-8D41-0979AA2F753F"></a></span><p class="table-body">Transfers the cell selection to 3D views. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AF0ABBE8-204B-4B3F-A251-212AA3481D48"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-89E147C8-9A62-4E25-A42F-E1AD688B971A">L</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-85EECBE9-42BD-4F03-A406-5D98F3FCBEF2"></a></span><p class="table-body">Freezes the weight map's operator stack. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C5EFBB07-6221-45E5-A565-F8A6D61ADA94"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-492125C7-029D-494A-A5E0-36F19A188327">M</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3A7D0236-57CA-46AC-82B9-4324FAEE3BF8"></a></span><p class="table-body">Controls the display of points in the table: <span class="anchor_wrapper"><a name="UL_9A1D094FD5144C388C1326F4788A2186"></a></span><ul>
+                                    <li><span class="MenuCascade" id="GUID-460020F0-3831-4921-BBBB-0D129DFDF967">Show</span> shows just the selected rows and hides everything else. 
+                                    </li>
+                                    <li><span class="MenuCascade" id="GUID-96B43780-25D8-48AA-A0D4-145E36964F26">Show All</span> shows all rows. 
+                                    </li>
+                                    <li><span class="MenuCascade" id="GUID-EA44B902-7272-47C3-92A0-D53EEDFA0E5A">Focus</span> automatically shows the rows of the points that you select in the 3D views. 
+                                    </li>
+                                    <li><span class="MenuCascade" id="GUID-1E8C55D8-AA10-48DD-930E-416022081139">Filter</span> automatically hides zero-weighted points when you select points in the 3D views.
+                                       
+                                    </li>
+                                    <li><span class="MenuCascade" id="GUID-767F69E3-B45E-4E21-834D-DF6372AE0AD3">Highlight</span> automatically highlights points in the 3D views when you select cells. 
+                                    </li>
+                                 </ul> 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A7EF3435-96B9-4D49-8A87-7F6B0B744D69"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-82BCD054-C56C-41DA-A841-CA72D32842F3">N</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A0220ED6-53D1-4618-AC79-3B501BF96523"></a></span><p class="table-body">Weight edit mode: <span class="anchor_wrapper"><a name="UL_B4C610375A61427885B7501C6876517C"></a></span><ul>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-4A10EA6F-B309-44E3-81B0-3B3761EF75E5"></a></span><span class="MenuCascade" id="GUID-E97B9AE4-DE73-4F8F-9A69-9DFFC49BAD90">Abs</span> sets the weight of selected cells to the value of the slider. 
+                                       </p> 
+                                    </li>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-FA551EDE-4A4E-4828-9032-33F9D48E6BD4"></a></span><span class="MenuCascade" id="GUID-858175B9-3C3D-4735-8234-D3EF6975FB64">Add</span> adds or subtracts the value of the slider to or from the selected cells. 
+                                       </p> 
+                                    </li>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-20C91FE9-7FCF-4316-B748-CBA062587E1F"></a></span><span class="MenuCascade" id="GUID-7CD76B7D-36D8-4474-B272-B2054F97A5CC">Add %</span> adds or subtracts the value of the slider as a percentage of the selected cells'
+                                          current values. 
+                                       </p> 
+                                    </li>
+                                    <li> 
+                                       <p><span class="anchor_wrapper"><a name="GUID-86A089D4-7764-4AA9-ABC6-EDB08D80DC91"></a></span><span class="MenuCascade" id="GUID-26A46638-5262-40EA-A88F-659554AE509D">Normalize</span> does not apply to weight maps. 
+                                       </p> 
+                                    </li>
+                                 </ul> 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ABEDE59C-9EC6-4EA5-ABBD-D489FB07657F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1D6DF9FF-8769-4D75-AE25-79AEF497EA32">O</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8EF0D58F-957B-483B-BCBB-324C8596C304"></a></span><p class="table-body">Select an envelope weight property, weight map, or vertex color property to edit.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

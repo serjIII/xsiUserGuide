@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-97409826-4C2E-42F9-B37C-FAD0E2945EC3">
+      <meta name="topic-type" content="concept">
+      <title>Get Data</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-97409826-4C2E-42F9-B37C-FAD0E2945EC3"></a></span><div class="head">
+            <h1>Get Data</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-027A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EE75385B-DF9B-47EB-9C32-804848E20AC6"></a></span>Categories
+               </h2> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-02889A2D-ECA7-4070-84E8-6D623950D425"></a></span>Data Access
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-027B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C073FAA6-0B7B-4698-B58E-BA00840C8078"></a></span>Description
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C3A59372-008F-4768-8F28-0F0D8A06C11E"></a></span>Accesses data on elements in the scene specified by the reference string. This data
+                  can be parameters such as "sphere.kine.global.posx" or attributes under some geometries
+                  or properties such as "sphere.PointPosition" and "sphere.polymsh.cls.Point.WeightMap.weights".
+                  Also, some parameters are grouped. For example, getting "sphere.kine.global.pos" would
+                  return a 3D vector containing all three components.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F175DF30-C0A0-41E4-993C-E7DD04C4CBC2"></a></span>If you connect a location in the source port of a Get Data node you can specify a
+                  geometry attribute at that location. Those attributes could be on points, edges, polygons
+                  or sample points and the Get Data node interpolates and returns the value at the exact
+                  surface or curve location.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-37769098-FF88-46BE-9C8F-D309426D6DD0"></a></span>Get Data supports special keywords. "Self" and "This" refer to the object on which
+                  the ICE tree is applied. "This_Parent" refers to the parent of the "Self" object.
+                  Similarly, "This_Model" refers to the model that contains the "Self" object.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-47E438F3-3877-4BBA-A62D-4576878B7B5A"></a></span>You can build the path to the data you want to fetch by daisy chaining Get Data nodes.
+                  For example, you can connect the Out Name port of a Get Data node on "Sphere" into
+                  the In Name port of a Get Data on "kine.global.posx". The Value output port of the
+                  second Get Data returns the value of "sphere.kine.global.posx". This is useful to
+                  have only one object reference. In the previous example, you could also connect the
+                  Out Name port of the Get Data on "Sphere" to another Get Data on "PointPosition" to
+                  get all the positions of the points on the sphere. This allows retargetting the graph
+                  to another object by just changing the object name. All other Get Data nodes, because
+                  of their relative path, automatically point to the new object.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-06EAB3E2-A8E1-4DD5-A5BB-0819D106F242"></a></span>The Get Data at Previous Frame node is similar to Get Data but gives access to the
+                  values at the previous frame. Such a node is especially useful to interpolate values
+                  in order to approximate values for any fraction of the current frame, in order to
+                  minimize frame rounding artifacts.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8C8EEB2C-3953-43E4-89E9-17FCA7660B0D"></a></span>For more information about Get Data, see <span class="char_link"><a href="ICE_trees_GettingandSettingDatainICETrees.htm#WSB74EE070EB80114199F4C921243896F3-000F">Getting Data</a></span> [<span class="char_link"><a href="ice_cover.htm">ICE Guide</a></span>].
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-027C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6F28A61B-1D1F-401E-B163-5A22AC58EC78"></a></span>Parameters
+               </h2> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px" align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DEEFE0A9-D26A-4D76-AF59-137B7475812F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6CFD09F3-1032-433A-BE3B-ACB2D90AFD46">Reference</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A8825EF3-2C8C-41D2-9DEB-D447FCC80ED0"></a></span><p class="table-body">Reference to the attribute to get.</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A4D127C0-68E1-4722-9807-15EA35ECDD6E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3B8DB71A-5DE6-4423-B034-9AB77278D4B2">Explore</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A4E78C46-A549-41BF-A3F0-D6BA5D4AC339"></a></span><p class="table-body">Click to select the reference from an explorer. If the In Name port is connected,
+                              you can only choose references that are valid at the existing path.
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-912C8A66-881D-4B2A-84CA-34120AC96D30"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-13BE09E8-E09A-4C10-B9DC-944FA316065C">Pick</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9338FDAE-A971-4986-8522-F7EE4003A6B4"></a></span><p class="table-body">Click to launch a picking session and select a reference from a viewport, explorer,
+                              or schematic view.
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-027D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F6A68F34-8524-47BC-92A5-4E36A1C3494E"></a></span>Ports
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-027E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-ECE0DF1B-0ACC-40BC-92BC-D31F51BECE51"></a></span>Inputs
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E3751707-92A3-42E4-ADEA-DFDF6B352EB7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AAA3E84C-8E40-45B2-B9AA-DC66C1DBACCD">Source</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-77F306A8-6D84-4F5E-8DE8-5A8AEA5974B3"></a></span><p class="table-body">Location at which to get the attribute requested. Only required when getting geometry
+                                 attributes at a specified location. Otherwise, geometry attributes are retrieved from
+                                 the current subcomponent (point, edge, or polygon) being processed.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-832117EA-00BC-47E6-976B-65544821F910"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CDCC40B8-9E61-4BEE-A33B-614665EF53E6">In Name</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5289AA44-C7E6-49E8-802F-A2C28E727096"></a></span><p class="table-body">Allows daisy chaining Get Data nodes. The scene path received in this port is appended
+                                 as a prefix to the reference string of the node.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS606E3E17BD444A4D887A46D12F2D8970-027F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-60818E9C-8C4C-4D76-AF75-3E26ACED2469"></a></span>Outputs
+                  </h3> 
+                  <div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8207A060-BD30-4F90-878F-67BFE620BD6F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3D7E7DAA-BCBA-4E68-B4D2-16D131328108">Value</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E10C3C01-336F-4AB8-9AB5-25C7CB4549F4"></a></span><p class="table-body">The value of the data being accessed. The type, structure and context of this port
+                                 automatically maps to the type, structure and context of the data accessed.
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CFD5BA6F-535D-4BC6-BFC2-8679A064E6D4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3C36550C-26CD-4B66-8BA8-A3031C284F17">Out Name</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C01A6930-2473-4F81-A134-7D4DA0BF53D3"></a></span><p class="table-body">Allows daisy chaining Get Data nodes. Connect this port into the In Name port of another
+                                 Get Data to prefix the reference of the other node with the reference of this node.
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

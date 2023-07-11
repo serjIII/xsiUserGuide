@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-071FF1BA-7631-4233-94E7-1F5EDED78194">
+      <meta name="topic-type" content="concept">
+      <title>Categorizing Effects Shaders in the Preset Manager</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-071FF1BA-7631-4233-94E7-1F5EDED78194"></a></span><div class="head">
+            <h1>Categorizing Effects Shaders in the Preset Manager</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-304BA6D2-302D-43A0-89F6-27888E808E23"></a></span>You specify categories to make your effects shaders accessible from the preset manager
+               and Nodes menu in the render tree. You can create your own categories, or you can
+               add your shaders to the existing Softimage categories, but you can only specify one
+               category for each shader. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-17CEEB11-79B1-4392-97FD-23D7098EAABD"></a></span>To further refine how your shaders appear in the preset manager, you can use special
+               syntax in the category string to group shaders together and/or specify subcategories
+               (nesting them). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-DDDDA4C0-C14E-4A6D-8EAE-1A380F2738D2"></a></span>If your effects file does not contain a category string, it will be displayed in the
+               default Realtime &gt; HLSL or Realtime &gt; CgFX categories. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-4FFF8412-6226-488C-A51A-3A07B7E7D147"></a></span>For the curious minded, the realtime shaders category and subcategories are defined
+               in the RTShaderCategories.js file located in the \Addons\RTUserTools\Application\Plugins
+               folder. You can create a similar user plug-in to add any other shaders you want, and
+               to anywhere in the preset manager and Node menu that you'd like. You can even start
+               from a clean slate by setting the environment variable XSI_NO_DEFAULT_SHADERS. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-001A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EC97676D-C0BA-42F3-AFC0-07B11FD99317"></a></span>Editing Categories in Effects Files
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-13D1C1F3-F288-44F0-A2CC-D34AA9C0D428"></a></span>If you are using the realtime shader wizard to code a custom effects file, you can
+                  specify a category (and subcategories if needed) in the <span class="MenuCascade" id="GUID-0ADA97AE-AA12-43D4-9CA7-025A9F6F3170">Category</span> field on the Information tab. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4C1C217A-4B8F-4F71-A877-4ED73510DCC2"></a></span>If your custom effects file does not include any categorization, you can edit your
+                  effects file and enter the category string directly. To do this you can use the Softimage
+                  shader code editor (choose <span class="MenuCascade" id="GUID-3DBA9362-5729-48D5-80CA-8FFE8762CA10">View <img src="../images/ac.menuaro.gif"> Rendering/Texturing <img src="../images/ac.menuaro.gif"> Shader Code Editor</span> from the main menu), or you can use any text editor for that matter. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2F1E7F8B-0C24-4E09-9468-23592A5BC725"></a></span>If you want to place your custom effects shader in a different category, you can edit
+                  the shader and enter the category string from within the render tree. To do this,
+                  drag your preset from the preset manager into the render tree workspace. Then, right-click
+                  the node and select <span class="MenuCascade" id="GUID-051EB559-FEDA-418F-BAC6-097F9D66C186">Edit Shader</span> to open the shader code editor. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8DA01442-AFC7-4129-80D9-3F1991C294DD"></a></span>Once you have finished editing the effects file in the shader code editor, click <span class="MenuCascade" id="GUID-D170F42C-6FCD-4807-BDC8-A979891767D4">Validate</span> to check your code and then <span class="MenuCascade" id="GUID-5647E8FD-63E6-4E64-9EEE-1D7865CDE958">Apply</span> your changes. To update the preset manager you may have to restart Softimage. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-001B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ED7DB5B0-6057-4FD7-8488-EAA654FE9538"></a></span>Defining Custom Categories and Subcategories
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-30365678-2761-4450-BF2B-F389F1468E4A"></a></span>The category string should be added at the beginning of the effects file, as follows:
+                  
+               </p> <span class="code">string Category = "MyCategory/MySubcategory";</span> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-001C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-01D9275F-CC46-44B5-A657-20D43F26EC61"></a></span>Specifying Subcategories
+                  </h3> 
+                  <div class="codeBlock"><pre>
+string Category = "MyCategory/MySubcategory/MyOtherSubcategory";</pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AAF7BB12-E7CC-414D-8D61-E892D8BB12FD"></a></span>You specify a subcategory using a forward slash (/) preceding each nested level (of
+                     subcategory). You can nest an unlimited number of levels deep, although it is recommended
+                     for clarity and usability to only use up to two levels of depth. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4F13F53798BA3F4FA5B9631E4DB3180B-001D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D032D215-3A34-4C02-8EC4-99742D7322A8"></a></span>Grouping Items in Categories
+                  </h3> <span class="code">string Category = "MyCategory@200/MySubcategory@100";</span> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3DE17F33-0683-43A8-8527-995AABDBC650"></a></span>To group items, you indicate group membership by the @ symbol followed by a number
+                     that identifies the group. It is best to use multiples of 100, to give maximum flexibility
+                     for interceding groups. For example, suffixing @100 to the Category name for three
+                     out of five shaders means that those three will appear after the other two, and each
+                     of the two groups will be automatically sorted in alphabetical order. If you then
+                     added another set of shaders with the group indicator of @200, those will appear at
+                     the end. Each grouping is indicated in the preset manager by a standard menu separator.
+                     
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-2BB085F6-4A79-4A07-A81B-B07C3E3D00E1">
+      <meta name="topic-type" content="concept">
+      <title>Notes on ICE Attributes</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-2BB085F6-4A79-4A07-A81B-B07C3E3D00E1"></a></span><div class="head">
+            <h1>Notes on ICE Attributes</h1>
+         </div>
+         <div class="bodyProcess">
+            <p>This section explains some of the information that is presented in the attribute descriptions
+               that follow.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC1C53A9E65B2A54782CFC25B0C2087ED-0003"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-AEBC6E4F-175B-425C-914C-BC4EF462AE94"></a></span>Belongs To
+               </h2> 
+               <p>In ICE, attributes are always associated with elements, either objects or one of their
+                  component types such as points, polygons, edges, and so on. For example, NbPoints
+                  and NbPolygons are attributes of objects, while PointPosition is an attribute of points
+                  and PolygonPosition is an attribute of polygons.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC1C53A9E65B2A54782CFC25B0C2087ED-0004"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-44FC9B3E-716E-4FFE-8654-67BEDC9D0C16"></a></span>Geometry Types
+               </h2> 
+               <p>Some attributes are common to many different geometry types, like PointPosition. Other
+                  attributes are specific to particular object types, for example, PolygonPosition is
+                  available only on polygon meshes, PointU is available only on curves, ID is available
+                  only on point clouds, and so on. Some other attributes are available on specific elements
+                  or properties, for example, IsElement is available on clusters, Weights is available
+                  on weight maps, Colors is available on vertex color properties (CAVs), and so on.
+               </p> 
+               <p>Note that some attributes that are specific to point clouds appear in the explorers
+                  of the Get Data and Set Data property editors when dealing with other types of geometry.
+                  For example, BlobBlend appears to be available for polygon meshes, NURBS surfaces,
+                  curves, and even lattices. While it is possible to get and set these attributes on
+                  other geometry types, they have no effect except on point clouds.
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC1C53A9E65B2A54782CFC25B0C2087ED-0005"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D3FE6002-8CC5-4F1E-B563-9472689390F2"></a></span>Attribute Type
+               </h2> 
+               <p>Attributes can be inherent, predefined, or custom.</p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC1C53A9E65B2A54782CFC25B0C2087ED-0006"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A178B37B-376F-4CD0-8E62-C88439211102"></a></span>Inherent
+                  </h3> 
+                  <p>Inherent attributes represent data that is always available in the scene. For example,
+                     PointPosition represents the XYZ coordinates of the points of a geometric object.
+                     Some inherent attributes can be set, like PointPosition, but others are read-only,
+                     like PolygonArea.
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC1C53A9E65B2A54782CFC25B0C2087ED-0007"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-09C04C49-B722-4C85-8D6D-3FD22D30280F"></a></span>Predefined
+                  </h3> 
+                  <p>Predefined attributes are recognized and used by certain basic nodes. However, unlike
+                     inherent attributes they are dynamic, meaning that they do not exist until they are
+                     set.
+                  </p> 
+                  <p>For example, PointVelocity is used by the Simulation nodes to update PointPosition,
+                     but the PointVelocity attribute does not exist in the scene if has not been set by
+                     something in an ICE tree. The factory compounds in the Emitters task typically set
+                     the initial velocity, and in addition the Simulation nodes update the current velocity
+                     based on Force and Mass.
+                  </p> 
+                  <p>If you get a dynamic attribute before it has been set, you get the default values:
+                     these are zero for most data types, false for Booleans, identity for matrices, black
+                     for color, etc. However, the Simulation nodes may use different default values when
+                     calculating motion if attributes have never been set.
+                  </p> 
+                  <p>All predefined nodes can be set, except for ID which is read-only.</p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSC1C53A9E65B2A54782CFC25B0C2087ED-0008"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9BD36381-2912-4422-A19B-AD2C09A19352"></a></span>Custom
+                  </h3> 
+                  <p>Custom attributes are also dynamic and can always be set. For example, AgeLimit is
+                     a custom attribute that is set by some of the Emitter compounds and used by Modulate
+                     Value by Age Percentage and Delete Particle at Age Limit, among others. However, there
+                     is nothing in the underlying ICE framework that recognizes AgeLimit by name — your
+                     ICE tree needs to use a compound that explicitly gets this attribute and uses it in
+                     some way.
+                  </p> 
+                  <p>You can set your own custom attributes and use them for any purpose. See <span class="char_link"><a href="ICE_trees_ControllingExecutioninICETrees.htm">Controlling Execution in ICE Trees</a></span> [<span class="char_link"><a href="ice_cover.htm">ICE Guide</a></span>].
+                  </p> 
+                  <p>Some custom attributes may appear to be per object until you drive them using a per
+                     point attribute, such as by randomizing them based on particle ID, after which they
+                     become per point attributes.
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

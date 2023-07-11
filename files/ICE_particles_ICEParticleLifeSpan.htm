@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-FBCDE09F-A455-424F-A8BA-86E9B4F98FF7">
+      <meta name="indexterm" content="ICE particles: age (lifespan)">
+      <meta name="indexterm" content="Set Particle Age Limit compound">
+      <meta name="indexterm" content="ICE particles: age limit">
+      <meta name="indexterm" content="age limit: ICE particles">
+      <meta name="indexterm" content="ICE particles: deleting particles at age limit">
+      <meta name="indexterm" content="Delete Particles Upon Age Limit compound">
+      <meta name="topic-type" content="concept">
+      <title>ICE Particle Age</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-FBCDE09F-A455-424F-A8BA-86E9B4F98FF7"></a></span><div class="head">
+            <h1>ICE Particle Age</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-9866D780-05D8-48BA-8F9A-3921C159250F"></a></span>A particle's age is defined in time by the number of seconds it lives from when it's
+               emitted (born). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F461CF29-BCBB-49C0-9C95-8B713CEEC4FD"></a></span>By default, a particle lives for the entire length of the simulation. It's useful
+               to have particles always available as you're tweaking their parameters when setting
+               up effects. As well, you may want the particles to remain in the scene for creating
+               effects that require static clouds of particles, such as with stars, clouds, or fog.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-89A6BFE7-2C75-4E5F-B440-3CF464811469"></a></span>There comes a time, however, when a particle's life must end. For most effects, you
+               need the particles to disappear at some point, and to do this you need to set the
+               particle's age limit, then delete them based on that age limit. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-CC915E9E-B21F-457C-9F69-F1CA59243C26"></a></span><div class="note-note"><span class="label">NOTE:</span>When particles are born, they're not all born at exactly the same time <em class="mild">within</em> a frame, meaning that particles all have a different birth time. This means that
+                  when you're using the particle's age or age percentage, you won't get banding or clumping
+                  effects because each particle's birth time is staggered within the frame. 
+               </div>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-3B1E21B5-B4A5-478E-9C80-590519ED67F4"></a></span>Here, the particles change color based on a percentage of their age. 
+            </p><span class="anchor_wrapper"><a name="FIG_E1075B679EC24BFBA436E84904EFEDF5"></a></span><div class="figure-anchor"><img src="../images/GUID-AE397BD5-D88D-4675-8694-2FC7F7E168A8-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0111"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-50CCA5E6-F752-47E6-B2A7-40069D0B8354"></a></span>Particle Age Attributes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-49086225-4FDC-4A79-9D6E-A4ED528C80F5"></a></span>There are two particle attributes that are used to define particle age: <span class="char_link"><a href="iceref_attributes_Age.htm">Age</a></span> and <span class="char_link"><a href="iceref_attributes_AgeLimit.htm">AgeLimit</a></span>. These attributes are used in several compounds that are described in this section,
+                  but you can also use them on their own in an ICE tree by specifying them in the Get
+                  Data and Set Data nodes, as described in <span class="char_link"><a href="ICE_particles_UsingICEParticleAttributes.htm">Using ICE Particle Attributes</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F5ACAD6E-8CDB-49AF-A20E-C59F473CBCE5"></a></span>For more information on attributes in general and a list of all available ICE attributes,
+                  see <span class="char_link"><a href="iceref_attributes_a.htm">ICE Attributes</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0112"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D42C5476-2DE0-4883-B56B-5744400493A0"></a></span>Setting the Particle's Age Limit
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-897E6E0B-7437-45C2-9C90-1A11DA317319"></a></span>If you want to limit the amount of time that a particle live, you need to use the
+                  Set Particle Age Limit compound. In this compound, you can set the Age Limit to control
+                  the maximum length of time (in seconds) that the particle exists after it is emitted.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-47154C6E-0587-41B1-9C1E-2AF85DB9B3FC"></a></span>Some compounds just require an age limit on particles so that they can calculate values
+                  properly. For example: 
+               </p> <span class="anchor_wrapper"><a name="UL_0D60244979EC43CB864D1EFD9CAF9854"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-59B599A7-4AB7-47BE-A60B-A8FB6E4D09E9"></a></span>Any node or compound that uses a percentage of the particle age needs to have the
+                        age limit value set so that the percentage of the particle's life can be calculated.
+                        For example, if you want to use the <span class="MenuCascade" id="GUID-9D7C178A-E096-43B3-8546-C8B3E26113FB">Modify Particle Value by Age %</span> compound to change particle values, you need to set an age limit. See <span class="char_link"><a href="ICE_particles_ModifyingICEParticleValues.htm">Modifying ICE Particle Values</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AF8756FB-F9FC-43DD-B36C-0B63EBB1B453"></a></span>If you're using the particle <span class="MenuCascade" id="GUID-BFE5EAF8-2943-4D67-9EAE-E308A85AF865">State</span> system, you can use the particle's age as a trigger to cause a certain effect to
+                        happen, so you need to set an age limit. For example, when the particle reaches its
+                        age limit, a new set of particles is emitted from it, such as for fireworks. See <span class="char_link"><a href="ipart_states.htm">ICE Particle States</a></span> for information on using states. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4C54FD23-DBD6-49A9-8800-0E324084B793"></a></span>If you're using the <span class="MenuCascade" id="GUID-D7CB335D-B344-4FCE-9C13-D083EE0E6278">Particle Gradient</span> shader to define the particle's color using a gradient, you need to set the age limit
+                        so use a particle's age percentage as an attribute for determining how to set the
+                        color gradient. See <span class="char_link"><a href="ICE_particle_shaders_ParticleGradientShader.htm">Particle Gradient Shader</a></span> for information. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div><span class="anchor_wrapper"><a name="GUID-F6977417-9BF6-4F29-8D7A-343BB16826AD"></a></span><div class="note-note"><span class="label">NOTE:</span>Even though you can set the particle age limit here, you must use the Delete Particles
+                     at Age Limit compound to actually eliminate the particles — see the next section,
+                     <span class="char_link"><a href="ICE_particles_ICEParticleLifeSpan.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0117">Deleting Particles upon Reaching Their Age Limit</a></span>. 
+                  </div>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-E1533C86-B4BB-4765-9345-F3119C6D8818"></a></span>To set the particle's age limit: 
+               </p> <span class="anchor_wrapper"><a name="GUID-54AC1900-265D-4372-91C7-AC7898A269AF"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A79D804F-3A2C-4EBC-9E9F-8EF001B02E75"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C2674667-168C-4880-89A6-3BC95959EB29"></a></span>Choose the <span class="MenuCascade" id="GUID-6CD60476-561B-4309-9159-BCBD1F8262EE">Particles <img src="../images/ac.menuaro.gif"> On Emission <img src="../images/ac.menuaro.gif"> Set Particle Age Limit</span> command from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3FB4D8C9-0921-4A92-8790-5792374C904D"></a></span>This command adds the <span class="char_link"><a href="iceref_Set_Particle_Age_Limit.htm">Set Particle Age Limit</a></span> compound to the ICE tree, plugging it into the Execute on Emit port of the Emit compound.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-52D4C92D-7BAD-48AA-8E74-46B9D58CDF77"></a></span>In the example below, the Modify Particle Size and Modify Particle Color compounds
+                        are also plugged in. Both of these compounds can use the Age %, as determined by the
+                        age limit, to define how the particle size and color change over the particle's life
+                        span. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_AA71F6B90A0F4A4AA81633F1E445DDD1"></a></span><div class="figure-anchor"><img src="../images/GUID-415ACC81-D54E-4C35-ACF7-63A29FCFFE09-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DEAD3F8C-203E-4D7A-9CEA-EB51B4E0EDCC"></a></span>In the <span class="char_link"><a href="iceref_Set_Particle_Age_Limit.htm">Set Particle Age Limit</a></span> property editor, set the particle age limit value, which is in seconds from the time
+                        it's emitted. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-10035FBD-4886-43CB-9128-9FA014D6A461"></a></span><div class="note-tip"><span class="label">TIP:</span>You can use the <span class="MenuCascade" id="GUID-D4BD974D-5ACD-41A4-BB5C-E8F2A0F9533D">Frames to Seconds</span> and <span class="MenuCascade" id="GUID-616CF994-D247-46D7-924E-4B072685E4BB">Seconds to Frames</span> compounds in the Conversion group on the Tool panel when you're working with time
+                           values in an ICE tree, such as with the particle age. 
+                           <p><span class="anchor_wrapper"><a name="GUID-96F52A71-2DDB-40CC-80C2-566766FC07D2"></a></span>For example, if you wanted particles to live exactly 67 frames, you could plug the
+                              Frames to Seconds compound's Seconds output into the Age Limit port on the Set Particle
+                              Age Limit compound, and specify 67 as the age limit. The 67 frames are converted to
+                              2.24 seconds (or whatever your frame rate is) by the conversion compound. 
+                           </p> 
+                        </div>
+                     </div> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0115"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-032F86C4-3DB4-48E4-87E7-B34E27536517"></a></span>Randomizing and Turbulizing the Particle Age Limit
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F8B2B34E-ACBE-49C2-80FF-3E6966CAD27F"></a></span>There are several compounds on the Task &gt; Particle tab that let you add randomness
+                  or turbulence (noise) to the age limit value so that the particles don't all end their
+                  lives at the same time, such as with flickering flames. Adding randomness or noise
+                  helps the particles look more natural for certain types of effects. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-99752E17-B55B-4E2B-8463-463DA73B3F9D"></a></span>See <span class="char_link"><a href="ICE_particles_RandomizingParticleValues.htm">Randomizing Particle Values</a></span> for information on each one of these compounds. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D24E176B-6CBC-4CB4-92E6-7C72048538B4"></a></span>Here, a particle's age limit is turbulized to give the flames a more random look.
+                  
+               </p> <span class="anchor_wrapper"><a name="FIG_CBF632F21B0E412790D42AA15B5853DF"></a></span><div class="figure-anchor"><img src="../images/GUID-F6046F73-6E9B-4EFA-B791-92A7756567D3-low.png"></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0117"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3A31517C-0FD6-4D64-ADF2-95412BE6AC49"></a></span>Deleting Particles upon Reaching Their Age Limit
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-8272B425-2CC3-45B8-B58E-7FFAC403A886"></a></span>Setting the age limit is not enough to kill the particles when they reach it. You
+                  need to deliberately delete them based on the age limit: the Kill Particles command
+                  does the job for you. Using this command, you can delete each particle when it reaches
+                  its age limit that you specify (think of it as "Logan's Run" for particles!). 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0118"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C97D4EBB-BFE6-484D-9F9D-2F0969A81DC3"></a></span>To delete particles with the Kill Particles command
+                  </h3> <span class="anchor_wrapper"><a name="GUID-D6559A08-A4C2-493A-808B-E0DD9298717B"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2CE45C0B-68FB-41FD-BECE-F02BD641E0B7"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E5614F01-CE7E-4C18-A5EB-A62ACC418E3C"></a></span>Choose the <span class="MenuCascade" id="GUID-03C53B8C-0D6B-42F0-AA0E-C606C8F740B5">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> Kill Particles</span> command from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A0A6B5FA-FAA6-4E3F-87F4-2D405D9A0F97"></a></span>This command adds the Kill Particles compound to the ICE tree, plugging it into the
+                           PostSimExecute port of the Simulation Root compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7D24FE3C-3576-45AF-9130-497D44C991C2"></a></span>In the <span class="char_link"><a href="iceref_Kill_Particles.htm">Kill Particles</a></span> property editor, set the Age Limit value to when you want the particles to die. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0119"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9EB0320A-172D-462E-A055-1DA4C04292BA"></a></span>Deleting Particles
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-395D99CB-E729-40AA-A977-E025236425BB"></a></span>Deleting particles is usually used as part of a state system or some behavioral setup,
+                  such as having particles die when they get to a certain location or upon collision
+                  with object. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3A450B5D-CABE-48A0-A1D3-ADADD673E8B3"></a></span>For information on states, see <span class="char_link"><a href="ipart_states.htm">ICE Particle States</a></span>; for information on behavioral compounds, see <span class="char_link"><a href="ipart_surface_interact.htm">ICE Particle Surface Interaction Behaviors</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-011A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6679F9FA-74FD-451C-B9FC-E4B2018F896F"></a></span>To delete particles
+                  </h3> <span class="anchor_wrapper"><a name="GUID-7DBA3E69-2CBE-4316-A6EC-0308D86D92EE"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-148DA4D3-8BC7-4B9B-97B2-380958413289"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-78D7EFBD-D1CA-4804-A616-5E402542BE44"></a></span>Select the <span class="MenuCascade" id="GUID-1FAE22A1-AA23-4194-9FC2-9356E1F6AD07">Delete Particles</span> compound from the preset manager in the ICE Tree, and drag it into the ICE view.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-58948CFD-732A-4F77-8708-DEC9FE689324"></a></span>You can plug its Execute output into any Execute-type port, such as the Execute on
+                           Trigger or Execute Once on Enter State port in a State compound; or the Execute on
+                           Collide port in the Bounce Off Surface compound. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6003A721-711E-4A73-968E-E9E59222CCD9"></a></span>(If you plug this compound's Execute output into a port on the ICETree node, it deletes
+                           particles at every frame as they're born!) 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-011B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-60861149-5624-4C6D-AC79-6501F5CF610E"></a></span>To delete particles upon collision with an obstacle
+                  </h3> <span class="anchor_wrapper"><a name="GUID-6C47CE0D-2D2F-45BB-A2F5-B5CDE5A30556"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B0BDE811-2001-4316-BE0D-F523DCBD59E2"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0AC25C99-0189-4646-B17E-C3E3A2D739E3"></a></span>Choose the <span class="MenuCascade" id="GUID-768903B8-1DA7-4FC9-8FD2-8017DEEDAC41">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Delete on Collision</span> command from the ICE toolbar — see <span class="char_link"><a href="ICE_behavior_ICEParticlesBouncingOffObstacles.htm#WS023556C5E04D53409E7E875671E8B309-000C">Deleting Particles Upon Collision</a></span> for more information. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-011C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2C3C71D1-758C-401A-977B-3CD7DD9E1604"></a></span>Deleting Particles by Volume
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-41530EDC-1F0D-4FE4-87A6-F905EE8C8FF9"></a></span>You can delete particles if they are within the volume of an object. You can set the
+                  falloff within the object's volume to shape how the particles are deleted. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A00AF1A5-B3F0-4FDC-82D1-36811F5770B1"></a></span>Here, particles are deleted within a defined falloff distance as they enter inside
+                  the sphere's volume. 
+               </p> <span class="anchor_wrapper"><a name="FIG_3BD7C80B71E44CB598D5D8EF66050993"></a></span><div class="figure-anchor"><img src="../images/GUID-5A766544-4C5E-4833-81A4-60A7BD7E95DE-low.png"></div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-011E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2BF4F506-C050-411E-BA58-473B2535F7F8"></a></span>To delete particles by volume
+                  </h3> <span class="anchor_wrapper"><a name="GUID-AF98949F-9816-42D7-9754-273F1109A89B"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-15AFB9B8-5B2F-40AB-A8D1-FE4AA891102E"></a></span>Create one or more volume objects inside which the particles will be deleted. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-98AF3886-A875-4CB7-943B-2E4AB1C2F93A"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A9477464-B349-4191-9EC5-06285ACA2F15"></a></span>Choose the <span class="MenuCascade" id="GUID-660AD638-7026-4027-90CC-754C65FC541F">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Delete by Volume</span> command from the ICE toolbar. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E027DDD9-9C46-40A2-BB90-0AEBB1FE4A49"></a></span>This command adds the <span class="char_link"><a href="iceref_Delete_Particles_by_Volume.htm">Delete Particles by Volume</a></span> compound to the ICE tree, plugging it into the Execute port of the Simulation Root
+                           compound. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9FB5B152-D46A-4E11-A4FE-0E219536B87C"></a></span>Pick one or more volume objects to use for the particle deletion. Each object's Get
+                           data node is then plugged into the Volume port of the Delete Particles by Volume compound.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B34A2D18-8239-43D9-A4A1-373983905C8A"></a></span>You can also add more objects to the ICE tree later — drag each object's name into
+                           the ICE Tree view to create a Get Data node for it, then plug it in as the other objects.
+                           
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4E6EA0F5-AFA9-479C-B98F-9AEE0D8A7DF2"></a></span>In the <span class="char_link"><a href="iceref_Delete_Particles_by_Volume.htm">Delete Particles by Volume</a></span> property editor, set the falloff distance, as well as other parameters. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

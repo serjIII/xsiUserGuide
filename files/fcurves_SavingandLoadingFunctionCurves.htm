@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6C607C5C-F5B1-45B9-AA58-993BCB518305">
+      <meta name="indexterm" content="function curves: importing">
+      <meta name="indexterm" content="function curves: loading">
+      <meta name="indexterm" content="importing: function curves">
+      <meta name="indexterm" content="function curves: saving">
+      <meta name="indexterm" content="function curves: exporting">
+      <meta name="indexterm" content="exporting: function curves">
+      <meta name="indexterm" content="file types: .fraw2">
+      <meta name="indexterm" content="file types: .fraw">
+      <meta name="indexterm" content="FRAW (raw function curve) files">
+      <meta name="indexterm" content="FRAW2 (raw function curve) files">
+      <meta name="indexterm" content="function curves: fraw and fraw2 files">
+      <meta name="topic-type" content="concept">
+      <title>Saving and Loading Function Curves</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6C607C5C-F5B1-45B9-AA58-993BCB518305"></a></span><div class="head">
+            <h1> Saving and Loading Function Curves</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-4D668067-78B0-45BB-8759-B84E5A1E400F"></a></span>The fcurves you create in the fcurve editor can be saved as <span class="MenuCascade" id="GUID-79551F46-B0B5-4C59-AC8B-9ED172BAEA8F">.fraw2</span> files and subsequently applied to other parameters. You can also import and export
+               SOFTIMAGE|3D fcurves as <span class="MenuCascade" id="GUID-FF7E9A6D-6A3F-4C84-91F0-3C5FB0F8F966">.fraw</span> files. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-89256E65-B0C4-4CA2-B46C-943FD5B3D89B"></a></span>The <span class="MenuCascade" id="GUID-6C16A9F6-40D1-448B-A457-FFFABE0A5FDF">.fraw</span> format of the SOFTIMAGE|3D raw fcurve file is an ASCII file with a minimal description
+               of fcurves as follows: 
+            </p>
+            <div class="codeBlock"><pre>
+&lt;number of keys&gt; &lt;interpolation mode: 0 = CONSTANT, 1 = LINEAR, 2 = SPLINE&gt;</pre></div>
+            <p><span class="anchor_wrapper"><a name="GUID-677E83B2-AEF5-4A94-B03B-42CEFEE1F1F8"></a></span>The <span class="MenuCascade" id="GUID-2CAB687C-05F8-4735-9173-31F522E6B5B3">.fraw2</span> format is a simple ASCII file that can be used to import and export fcurves to and
+               from Softimage. It is an augmented version of the .fraw format that can describe any
+               fcurve in Softimage. The file can contain several fcurves, each of which is described
+               following this format: 
+            </p>
+            <div class="codeBlock"><pre>
+Start_FCurve
+&lt;curve name&gt; &lt;number of keys&gt; &lt;curve type&gt; &lt;extrapolation method&gt; &lt;value when no keys&gt; &lt;min clamping value&gt; &lt;max clamping value&gt; &lt;first segment kind&gt; &lt;unused field (for padding)&gt;</pre></div>
+            <p><span class="anchor_wrapper"><a name="GUID-B89D598A-83B8-4A8F-A647-6103EB42F0F4"></a></span>Because this file format is ASCII, it's simple to write a converter for other software
+               packages. It also makes it easy for you to save fcurve presets. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-67BBD319-8D59-466D-B2D3-D4ED064BFE6C"></a></span>For more details on the <span class="MenuCascade" id="GUID-F6DC0859-C857-48C9-90D1-882EA7DA4D8B">.fraw2</span> format, see <span class="char_link"><a href="fcurves_SavingandLoadingFunctionCurves.htm#WS7D3CF27A1F861246AE428C3790A69202-01AC">.fraw2 File Format</a></span>. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS7D3CF27A1F861246AE428C3790A69202-01A7"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DE348DFD-8E8A-4822-BB07-91A50F98A69D"></a></span>Saving Fcurves
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS7D3CF27A1F861246AE428C3790A69202-01A8"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B78FB8F1-75C7-470D-B509-29DC3BAF5FD7"></a></span>To save an fcurve preset in an .fraw2 file
+                  </h3> <span class="anchor_wrapper"><a name="GUID-96498DA6-97C6-4B1C-97E5-4E240914CBE3"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BBF7DF02-1A84-45B6-BDDC-0289BBDB66A5"></a></span>Select the fcurve you want to save. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D0FF3EF5-B35A-46DE-85D6-C5FFDB7905FC"></a></span>If you select multiple fcurves, the fcurves are saved in the <span class="MenuCascade" id="GUID-DB7946A1-16D8-49FE-92AC-FABB654B4E50">.fraw2</span> file, but only the first one is loaded. This is because the file contains only raw
+                           data — there is no mapping information. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-702C0635-7781-4629-A6E5-285C378BE89A"></a></span>Choose <span class="MenuCascade" id="GUID-3925C047-000B-423E-8FDF-E8F01A2D8738">File <img src="../images/ac.menuaro.gif"> Save</span> from the fcurve editor toolbar or press Ctrl+S (with the mouse pointer within the
+                           fcurve editor) to save the fcurve in an <span class="MenuCascade" id="GUID-E7CDC074-F476-4B5F-AB50-05EE07AC407E">.fraw2</span> file for use in Softimage. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS7D3CF27A1F861246AE428C3790A69202-01A9"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A5A8001C-64A1-44B2-9F6D-3A7A18C3DF5A"></a></span>To save an fcurve for exporting to SOFTIMAGE|3D in a .fraw file
+                  </h3> <span class="anchor_wrapper"><a name="GUID-64798BD5-23D1-46AE-B14F-7FA481929FB1"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DB5FCB38-DD3E-46B0-A6D1-7FF303BCDCA8"></a></span>Select the fcurve you want to save. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D9672ACF-56DA-453A-8CED-F2424899B4B9"></a></span>Choose <span class="MenuCascade" id="GUID-C30E70CF-FE74-40D7-9AC9-71E4CE0AE34F">File <img src="../images/ac.menuaro.gif"> Export (.fraw)</span> to export the fcurve for use in SOFTIMAGE|3D. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7E4B9F69-01C0-41D7-9260-CE732E837B21"></a></span>In the browser, navigate to the folder where you want to save your curve, give it
+                           a name, and click OK. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-467B09C5-8A31-4871-BC31-ED9973D81135"></a></span>Your curve is now saved as an fcurve file, indicated by its <span class="MenuCascade" id="GUID-B576D691-1AFC-40B5-8B9F-C44ACCEEFAC2">.fraw2</span> (Softimage) or <span class="MenuCascade" id="GUID-9020A89E-AB51-4666-AC99-E02663C5D3E5">.fraw</span> (SOFTIMAGE|3D) extension. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS7D3CF27A1F861246AE428C3790A69202-01AA"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3B224773-6778-40BE-B9E7-1F8AB3A1F35B"></a></span>Loading Fcurves into the Fcurve Editor
+               </h2> <span class="anchor_wrapper"><a name="GUID-A2566B8F-5A8D-4D86-B3F1-8AF2319420ED"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C6087288-69A6-4800-8830-5F152935E90F"></a></span>In the fcurve editor, select the fcurve you want to replace. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7D705B77-0595-4F79-9ECA-2D21510DA62C"></a></span>Do one of the following: 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3E1BA65B-DBBE-498E-A8A4-AEC7C051E287"></a></span>Choose <span class="MenuCascade" id="GUID-1E998653-D94E-42E2-BE9D-2839D447F3F1">File <img src="../images/ac.menuaro.gif"> Open</span> from the fcurve editor toolbar or press Ctrl+O to load an <span class="MenuCascade" id="GUID-CA948527-429D-4E06-A332-09B5124A79BE">.fraw2</span> fcurve. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-86041FE1-7264-4F72-8008-96B7387E3BE5"></a></span> <em class="mild">or</em> 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E6E16531-6F14-4ABE-8D6F-F337A4474052"></a></span>Choose <span class="MenuCascade" id="GUID-9EF2DA32-F5F8-441E-BD33-434AA02ED191">File <img src="../images/ac.menuaro.gif"> Import (.fraw)</span> to import an <span class="MenuCascade" id="GUID-ACA47AA4-1B19-4BE9-9B77-9E80D8B1F508">.fraw</span> fcurve from SOFTIMAGE|3D. 
+                     </p> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-44B33044-7869-4C1F-A835-C604BF5105C9"></a></span>The loaded fcurve replaces the currently selected curve. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS7D3CF27A1F861246AE428C3790A69202-01AC"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-2D59F394-85A0-443D-8152-E26F99ADD28D"></a></span>.fraw2 File Format
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BA368257-541C-4C4B-8733-7C41A8237E12"></a></span>The .fraw2 file format is a simple ASCII file that can be used to export and import
+                  fcurves to and from Softimage. It is a revamped version of the old .fraw format from
+                  SOFTIMAGE|3D. The file can contain several fcurves, each fcurve being described following
+                  this format: 
+               </p> 
+               <div class="codeBlock"><pre>
+Start_FCurve &lt;curve name&gt;
+&lt;number of key&gt; &lt;curve type&gt; &lt;extrapolation method&gt; &lt;value when no keys&gt; &lt;min clamping value&gt; &lt;max clamping value&gt; &lt;first segment kind&gt; &lt;unused field (for padding)&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-EEACE9C2-A792-46B8-B13A-A60ED5E78708"></a></span>Each following line provides information on a key. Their first argument is an integer
+                  referring to the template ID of the key. The template IDs are as follows: 
+               </p> <span class="anchor_wrapper"><a name="TABLE_189C62D7BF39426CABC888D4F84C00B5"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B5B960E4-7420-45D2-88FE-0341AA4AB081"></a></span><p class="table-body">0 </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-09A4FC8C-033F-43E5-9D0C-738E2815A527"></a></span><p class="table-body">The key is continuous (ONE value) and has a tangent (ONE tangent) =&gt; it's a continuous
+                              standard key. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1AD6B3D6-50D1-4376-AE25-DB3D9C179895"></a></span><p class="table-body">1 </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D14DF046-6BE7-4107-9FA8-19E1507AB741"></a></span><p class="table-body">The key is continuous (ONE value) and has no tangent (NONE) =&gt; it's a continuous raw
+                              key. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C09EC604-E2F9-44A8-BFDE-6D4311EAA3AD"></a></span><p class="table-body">2 </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FD059DE6-ECE7-4D8E-AE7F-019BA2CD9430"></a></span><p class="table-body">The key is discontinous (TWO values) and has a tangent (ONE tangent) =&gt; it's a discontinuous
+                              standard key. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1AE56E31-2F9B-478D-982A-099D4AB6B75E"></a></span><p class="table-body">3 </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6C8F36E7-3DBC-475D-9803-F5D354BEFE03"></a></span><p class="table-body">The key is discontinous (TWO values) and has no tangent(NONE) =&gt; it's a Boolean, integer,
+                              or discontinous raw key. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-CD1A5FB3-16BF-4673-9BE4-4F7978F15BDA"></a></span>For the <span class="MenuCascade" id="GUID-41A4789B-29BF-4816-968A-02F8728C5003">template ID 0</span>, the line is written/read as follows: 
+               </p> 
+               <div class="codeBlock"><pre>
+0 &lt;key - time&gt; &lt;right value&gt; &lt;right slope time&gt; &lt;right slope value&gt; &lt;left slope time&gt; &lt;left slope value&gt; &lt;constraints&gt; &lt;right segment kind&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-31EFC98F-EEF6-4D2C-A1F9-6EEF9298AFAE"></a></span>For the <span class="MenuCascade" id="GUID-1B2638D6-2990-490B-9E89-FFFAF57EBD28">template ID 1</span>, the line is written/read as follows: 
+               </p> 
+               <div class="codeBlock"><pre>
+1 &lt;key - time&gt; &lt;right value&gt; &lt;constraints&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-F2A4577F-2129-4C3D-9CE8-98452A303FCE"></a></span>For the <span class="MenuCascade" id="GUID-D0A289FD-245B-4E33-B04E-8EF57133FBBC">template ID 2</span>, the line is written/read as follows: 
+               </p> 
+               <div class="codeBlock"><pre>
+2 &lt;key - time&gt; &lt;right value&gt; &lt;left value&gt; &lt;right slope time&gt; &lt;right slope value&gt; &lt;left slope time&gt; &lt;left slope value&gt; &lt;constraints&gt; &lt;right segment kind&gt;</pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-54FF9FE5-E17F-494F-BA69-514C97217073"></a></span>For the <span class="MenuCascade" id="GUID-C0C0F8DE-B55D-4C37-AB32-8AEB1B6288C2">template ID 3</span>, the line is written/read as follows: 
+               </p> 
+               <div class="codeBlock"><pre>
+3 &lt;key - time&gt; &lt;right value&gt; &lt;left value&gt; &lt;constraints&gt;
+End_FCurve </pre></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-D5D61B10-FD93-473E-857D-43E9FFDE9D93"></a></span>The bit fields and enums used are the following: 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS7D3CF27A1F861246AE428C3790A69202-01AD"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-015C23E5-F2EB-4A81-AD00-C8076B7F4338"></a></span>Curve-specific Attributes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-05A8DB92-9F83-4162-9581-D117DAE25214"></a></span> <span class="MenuCascade" id="GUID-416576A4-FE88-49A7-A2F8-AD8797E80225">Curve type:</span> Used to define the curve type 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_80FF322938FC44AE96E8BAA5A3CF5F89"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EBBF1D6E-959C-4D52-9117-76600ECBFF7A"></a></span><p class="table-body">0 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8BAFE138-8029-48BD-BAC0-6AE8596E54C3"></a></span><p class="table-body">Undefined type </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-48C3C9C0-E67C-475A-AB21-5FD8ED8913B3"></a></span><p class="table-body">10 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C04CFFFB-190A-488D-9E2E-9D3E9C8DA196"></a></span><p class="table-body">Boolean fcurve: keys have 2 values (0 or 1) </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3460B610-9F8E-4A6F-839F-6C1D7D1F39A6"></a></span><p class="table-body">15 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0952227E-0CC9-40E6-900F-B3B71C8B791A"></a></span><p class="table-body">Integer fcurve: keys have 2 values (integer) </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7C9DBAF8-9848-4557-AAD3-516B23EC3B0E"></a></span><p class="table-body">20 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1E87B0EB-366C-46CB-9233-0549E7021458"></a></span><p class="table-body">Standard Fcurve: keys have 2 values (real) and 2 tangents. Interpolation can be set
+                                 to linear, constant, or Bézier 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F7C21FC2-D16B-40A1-ABD2-F0A7F6751870"></a></span><p class="table-body">30 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9B833C9B-C50D-4144-AF50-A952ADD59DA7"></a></span><p class="table-body">Raw fcurve: keys have 2 values (real) but no tangents </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DF5D83B4-8C50-4C2E-A974-3C3077489836"></a></span> <span class="MenuCascade" id="GUID-8ADCBC6F-4B69-4E2B-89A5-5DD010F82598">Extrapolation:</span> Used to set the extrapolation of the curve (same one before the first key and after
+                     the last one) 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_3D8213D1BE514DEF85E57889F1D99E94"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F17B29C1-7A38-4205-A649-D3A6FD971D7B"></a></span><p class="table-body">1 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9A482D45-7B3E-4A66-B4BB-8A80C1CA58BC"></a></span><p class="table-body">Constant extrapolation (horizontal lines at the values of the first and last keys)
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-175F2BE9-7195-405A-B719-C6B2B03B48BE"></a></span><p class="table-body">2 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6048112E-4085-4399-9274-130B21CED915"></a></span><p class="table-body">Linear extrapolation (based on the first and last keys tangents). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1A75532A-3DB9-4B54-B777-ABFF836A6E54"></a></span><p class="table-body">3 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5661A506-4B19-4C4D-9557-94A45B4B7A68"></a></span><p class="table-body">Cyclic extrapolation: the animation between the first and last key is cycled infinitely.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7A70A222-759E-49A7-BC54-509400BB7362"></a></span><p class="table-body">4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EAE35759-CB76-4536-9C58-C3AD934CBE45"></a></span><p class="table-body">Continuous cyclic extrapolation: same as above but the repetitions are offset to ensure
+                                 the curve continuity. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS7D3CF27A1F861246AE428C3790A69202-01AE"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-92108DA5-85F0-4E8E-885D-579070A2D9B3"></a></span>Key specific attributes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-915AF479-8804-4F81-A492-031B12257F8D"></a></span> <span class="MenuCascade" id="GUID-639CEB24-0DE1-44F7-A892-811B09E7F8FF">Segment kind:</span> Used to define the kind of segment on the right side of a key (also known as key
+                     interpolation). 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_3BF804C617674E7A866A48E2E7BBD736"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6C10A64F-19B6-4D4B-98B4-603F78E2FB61"></a></span><p class="table-body">0 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-59376A12-4244-4A81-ACED-1D4567067B5B"></a></span><p class="table-body">Default interpolation; that is, interpolation of the previous key. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BC616229-A4D4-404F-9806-4183025A2BD4"></a></span><p class="table-body">1 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8B799078-C95E-40BA-A30F-74267EFCD4F2"></a></span><p class="table-body">Constant interpolation: staircase curve </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-73CDAAB5-4D7B-46F4-96BB-18E2A3F3C789"></a></span><p class="table-body">2 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9A7861E4-8C2E-4CAC-B8D4-276F49800304"></a></span><p class="table-body">Linear interpolation </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D291127C-2021-403D-B9F8-A91691643C06"></a></span><p class="table-body">3 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4024D82F-89DC-4845-A893-F2B9131F43E7"></a></span><p class="table-body">Bézier (spline) interpolation </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CC89AD0B-8AC8-4AE5-97A7-7DCCC85EC698"></a></span> <span class="MenuCascade" id="GUID-CECDED2C-4F96-4C0D-BBFE-25CB99095A42">Constraints:</span> Used for the constraints field 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_1244EDBA1B744205870C15FA6EDF6464"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2A60FCAB-27E0-4231-9093-ED59FB04531E"></a></span><p class="table-body">1 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-17EE6023-964D-4DCB-8F18-B2281EE67146"></a></span><p class="table-body">Key parameter is locked. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DFD9CE27-0428-4D52-8F03-A72B5F82B678"></a></span><p class="table-body">2 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D2093D90-0AB2-4A93-8E08-421841BED668"></a></span><p class="table-body">Key values are locked. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CE8CAD15-D06A-4937-A25B-83D8897BA2B5"></a></span><p class="table-body">4 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-5238232D-C178-4F8C-A673-50477CCA8B5A"></a></span><p class="table-body">Key tangent is continuous (unified). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-61AF6E9E-AD37-4B60-8C49-A73C8FEF6D67"></a></span><p class="table-body">8 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4538167B-B408-4871-9C04-127B1135FBD8"></a></span><p class="table-body">Tangent orientation is locked. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B8405B77-CB01-487C-83F2-C628ED8925FA"></a></span><p class="table-body">16 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9FD8945D-7323-4010-9FC0-7EBFFFB0663E"></a></span><p class="table-body">Tangent length is locked. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1D49F347-3C0C-4A2A-A6BB-44A908024443"></a></span><p class="table-body">32 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B216A322-81A7-4763-8E4F-CFD32742963D"></a></span><p class="table-body">Key parameter/values/tangents are locked. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DB6CEB47-A2AB-45D7-A295-73E0E9D4987A"></a></span><p class="table-body">64 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7FE9E486-01DF-4FCB-B5B0-5FD5F97645CD"></a></span><p class="table-body">Tangent has a horizontal slope (zero). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2B63F556-9D12-4940-A1E4-AF0F45F13B7E"></a></span><p class="table-body">128 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A8937009-E92D-4E33-8902-6A3B75A817A4"></a></span><p class="table-body">Tangent has a horizontal slope when key is an extremum (plateau). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-68F535F8-6DD8-49A3-BE4A-B7CEABE89060"></a></span><p class="table-body">256 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-853DBAF4-4B19-41D7-9994-49750CD96E13"></a></span><p class="table-body">Tangent is recomputed when the neighboring keys are moved (automatic). </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DB39E56D-F7EA-4588-98F9-C62D54D14065"></a></span>These constraints are additive. In the example, 260 = 256 + 4 = Tangent is continuous
+                     and automatic. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-031910CC-794E-41F8-9720-6094851B8484"></a></span> <span class="MenuCascade" id="GUID-2A5DCBB5-92FF-4F55-980D-AB4370B2F57E">Example:</span> 
+                  </p> 
+                  <div class="codeBlock"><pre>
+Start_FCurve posy </pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-88F4F5DC-4FA9-4509-8F64-BA4EF15BEFDD"></a></span>(description of curve posy is starting) 
+                  </p> 
+                  <div class="codeBlock"><pre>
+6 20 1 6.19792 -1.79769E+308 1.79769E+308 3 0 </pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-61553460-13E2-4E7A-94CE-9E2838C4E37A"></a></span>(6 keys, standard curve, constant extrapolation, 6.19 is the value when no keys are
+                     on the curve, min value bound, max value bound, first segment kind is standard Bézier)
+                     
+                  </p> 
+                  <div class="codeBlock"><pre>
+0 0.033367 6.197923 0.100100 0.000000 0.000000 0.000000 260 3 </pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6AFBF84A-219C-4BB7-87F2-652E3DD62EC9"></a></span>(Continuous key with 1 tangent, time, value, right tangent x, right tangent y, left
+                     tgte x, left tgte y, constraints (bit field), Bézier segment) 
+                  </p> 
+                  <div class="codeBlock"><pre>
+0 0.333667 6.157524 0.133467 -0.327045 -0.100100 0.245284 260 3
+0 0.734067 5.029417 0.094326 -0.083477 -0.142822 0.126396 260 3
+0 0.934267 5.500409 0.124774 0.174916 -0.085164 -0.119389 260 3
+0 1.267933 5.617429 0.139058 -0.261066 -0.135670 0.254705 260 3
+0 1.601600 4.553986 0.000000 0.000000 -0.111222 0.000000 260 3
+
+End_FCurve </pre></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E8B9D735-C939-448E-B5DD-25953217607B"></a></span>(description of the curve is finished) 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

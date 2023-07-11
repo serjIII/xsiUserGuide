@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D0CA66F0-4FCD-4C6B-AE9F-E98C2343DC11">
+      <meta name="indexterm" content="kinematics: forward">
+      <meta name="indexterm" content="chains: animating with forward kinematics (bone rotation)">
+      <meta name="indexterm" content="forward kinematics: animating with">
+      <meta name="indexterm" content="forward kinematics: posing a chain with inverse kinematics">
+      <meta name="indexterm" content="rotations: keying all bones in a chain">
+      <meta name="indexterm" content="forward kinematics: keying rotation for bones">
+      <meta name="indexterm" content="bones: keying rotation for all">
+      <meta name="indexterm" content="chains: keying rotation for all bones">
+      <meta name="indexterm" content="orientation: aligning root with first bone in chain">
+      <meta name="indexterm" content="bones: aligning root with first bone's orientation">
+      <meta name="indexterm" content="roots: aligning with first bone's orientation">
+      <meta name="topic-type" content="concept">
+      <title>Animating with Forward Kinematics</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D0CA66F0-4FCD-4C6B-AE9F-E98C2343DC11"></a></span><div class="head">
+            <h1> Animating with Forward Kinematics</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-3B060539-E6F6-44FD-87EF-A3C79D5BC08A"></a></span>When you animate with forward kinematics (FK), you move the skeleton into position,
+               specifying the angle of each joint and then keying its rotational position (orientation).
+               Each movement needs to be carefully planned to create the resulting animation. For
+               example, to bend an arm, you start from the "top" and move down by rotating the upper
+               arm bone, then the forearm bone, and finally the hand bone. 
+            </p><span class="anchor_wrapper"><a name="FIG_38DC169A2E3248CD8BC11252B505D8A6"></a></span><div class="figure-anchor"><img src="../images/GUID-C1F488AC-C8C1-45F5-A9FF-F0C1B9C4A302-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-4F218DE2-23EF-4D47-A93E-BA1271DD47BF"></a></span>Bones in arm are rotated and keyed in order from top down to move from an outstretched
+               position to raised with a flexed wrist. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-000B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8A955720-81A8-4477-AC05-BF6F29AEE44F"></a></span>When to Use Forward Kinematics
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C8C6763E-D7D9-4203-9023-55345D9C51CA"></a></span>While rotating each joint can sometimes be tedious, it offers you complete control
+                  over the orientation of each joint with FK, allowing you to create many types of movements
+                  that may not be possible to animate with IK alone. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-56D893BB-4644-4E79-8F0B-A97479345904"></a></span>With FK: 
+               </p> <span class="anchor_wrapper"><a name="UL_EC8BF42EF5FF4088AC7EA6E3C3CB35AA"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5578F924-4819-4502-ABC7-2A5F2C034182"></a></span>You can key the exact orientation (in X, Y, and Z) of a joint. This prevents any surprises
+                        from occurring when 2D chains flatten on their resolution plane. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D504851F-A17A-4027-B86B-649C618B373A"></a></span>You can control certain joints that are difficult to animate, such as shoulders. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4D0DCCA8-713A-4068-9B0D-833AAC41E4D3"></a></span>You can have a movement properly "follow through," such as making a foot kick a soccer
+                        ball properly. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-000C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-22BA30E4-1647-4989-9839-CC60DAB7631C"></a></span>Example: Animating Kraken's Tentacles with FK
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-22560281-CEB6-4BEB-A175-FE35D32A1CBA"></a></span>Let's say you want to animate one of the tentacles on Kraken, the Evil Sea Monster.
+                     Currently, the tentacle is coiled, and you want to animate it straightening out. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9AB33886-5A0B-4911-B629-FEE2362BB867"></a></span>If you were to use IK by keyframing the effector translation, parts of the tentacle
+                     would pass through each other. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_4F18F966AD3C47038910020CA954A567"></a></span><div class="figure-anchor"><img src="../images/GUID-48E9A800-66FE-4F75-AB8D-9DBFC1397F53-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E58C8F0E-F3AE-4D60-833E-EF179BECDB31"></a></span>Using IK, the tentacle twists strangely when the effector's translation is keyed.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A8C5000E-3A56-4206-9669-4F582D8C0733"></a></span>Using FK, you would rotate each joint in the chain, starting from the chain root.
+                     Although more time-consuming than using IK, the tentacle will not twist into itself.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-406657AE-2AF1-4219-A6ED-8B397C20B15B"></a></span>FK also lets you choose how you want the tentacle to uncoil — from a lazy extension
+                     (Kraken is swimming peacefully) to a whip-like snap (Kraken is attacking a submarine).
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_B230BBC97B1E418D9C541AA241BBF878"></a></span><div class="figure-anchor"><img src="../images/GUID-C18C0717-0775-4DB7-BB20-7AF11F1406C0-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-74D9C0E2-35EE-45B1-B9C2-77DBDDA95205"></a></span>Using FK, the tentacle uncoils without strange twists. In this figure, the joints
+                     start rotating at regular intervals, with each joint completely straightening out
+                     in a constant number of frames. The result is a slow, lazy uncoiling. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_C3D4DEC70CD742E28B2E05ABCAA75C62"></a></span><div class="figure-anchor"><img src="../images/GUID-4BAD2FA8-36F7-403B-85F5-631122B47E90-low.png"></div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5D29E0C8-89AD-4827-8655-E40B2F6E0640"></a></span>This time, the joints' rotations are keyed with some recoil on the first four joints,
+                     creating a whip-like effect. Notice how the second, third, and fourth joints bend
+                     backward compared to their original angles. This creates the whip effect, which would
+                     be impossible with IK. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0010"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B05B0D96-9481-4645-996A-90E2A3BA206D"></a></span>Posing a Chain First with Inverse Kinematics
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-B5648950-30AC-4F93-9329-9139203C9D70"></a></span>While you often need to rotate each bone individually to pose a chain, in some cases
+                  you can speed up the process by using inverse kinematics. Move the chain's effector
+                  to place the bones quickly as you like and then tweak the bones' rotation before keying.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-509539EA-8333-4697-BF17-967984FE8113"></a></span>When things are in the position you like, use the <span class="MenuCascade" id="GUID-9CBAB749-55D4-4120-A3FE-31FBD2F106FB">Key All Bone Rotations</span> command (see <span class="char_link"><a href="ik_AnimatingwithForwardKinematics.htm#WSF4D645293765AE498C69174E3D6620E4-0014">Keying the Rotation for Multiple Bones</a></span>) to set rotation keys for all bones in the chain. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3DCADEB6-6ACB-4253-9A95-07E5528EBA3C"></a></span>To blend FK with IK animation on the same chain, see <span class="char_link"><a href="ik_BlendingBetweenFKandIKAnimation.htm">Blending Between FK and IK Animation</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1DA9D9E6-2E23-4A05-AB67-6351D800A7BE"></a></span>Animating Bone Rotations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C8EDAA29-1544-493E-B58A-ECDD5BC4A1A6"></a></span>Animating the rotation of the bones is the most basic way of animating chains with
+                  FK. You don't usually animate the bones directly; instead, you animate the rig control
+                  object that is constrained to the bone. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F1AFE7B1-89BC-49F4-B0A6-ADA3E74D5893"></a></span>For more information on animating transformations in general, see <span class="char_link"><a href="ani_xform.htm">Animating Transformations</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0012"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B0C904BF-2959-4623-9F2B-3EDD6F945CF7"></a></span>To animate a chain using FK
+                  </h3> <span class="anchor_wrapper"><a name="GUID-F01755E0-222D-48F0-979B-493FC2251DCC"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BE9C2A7A-EDE8-4AC0-B30E-225219D9201F"></a></span>Select a bone or the rig control object that is constrained to the bone. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B8F1B0B9-EC4A-4435-9525-CD318C1E1DF2"></a></span>Click the <span class="MenuCascade" id="GUID-B1DE4CF2-1B2F-4C27-A96A-40F0E550EEC2">Rotate</span> (<span class="MenuCascade" id="GUID-B00C62AE-E36C-4666-9F15-2F9FBDC3E159">r</span>) button in the Transform panel or press <span class="MenuCascade" id="GUID-BB8CDE1D-5EC1-499D-A1F3-01FCA0D5C71A">C</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-CF2BB20E-82FD-421D-9706-B6EEF3FF56B0"></a></span>Rotate the bone into position on any axis (X, Y, Z). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B5F76449-17AB-4741-ACE8-7FBCE103328D"></a></span> <em class="mild">or</em> 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FE437798-256E-4934-8587-9DCA8019A52E"></a></span>Translate the chain's effector (invoke IK) to move the bones into position, and then
+                           tweak each bone's rotation if necessary. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-4CB4D94B-1F19-4FF2-868F-8FD0A622C15A"></a></span>Key the rotation values by clicking the keyframe icon, or pressing <span class="MenuCascade" id="GUID-A521AF27-CD11-4A78-BF2D-10300D32AD7F">K</span>, or by choosing <span class="MenuCascade" id="GUID-B5F648A0-012C-455A-8B03-68534367CAFF">Animation</span><img src="../images/ac.menuaro.gif"><span class="MenuCascade" id="GUID-DCC42D32-4E92-4DD4-ADF7-4754B66431C3">Set Key</span> from the Animation panel. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-40F68530-E568-4121-A13E-5AEA6A210A4D"></a></span>To animate your object, move the timeline pointer and continue to create rotation
+                           keys for the bone. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-14FD9D5E-0278-430A-B7DE-26D5193B5725-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F9C393BF-26C2-4E15-B344-81CBE040E59A"></a></span>Here, the upper arm and forearm bones are animated by keying their rotation values
+                           at frames 1 and 20. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-414455A3-F034-4AA5-AFEE-D285434C6DF2"></a></span><div class="note-tip"><span class="label">TIP:</span>For information on changing the order of the bone's rotation axes, see <span class="char_link"><a href="skel_ChangingtheBonesxd5OrderofRotation.htm">Changing the Bones' Order of Rotation</a></span>. This may sometimes help with gimbal lock problems. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9A0472C4-6F5D-497A-B231-C64F2937DB1C"></a></span>Keying the Rotation for Multiple Bones
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-EB4263DD-7CE3-46F4-9B39-AA13D76EBCE6"></a></span>If you want to key the rotation of several bones at a time, do one of the following:
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0015"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E88C8E3C-140E-4E63-89DE-F63DA8862DC0"></a></span>To rotate multiple bones
+                  </h3> <span class="anchor_wrapper"><a name="UL_521B8223C1DD47C1B7042E3924C5BEC3"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3359917F-4F91-42C9-832A-9595E882F3A6"></a></span>Select the bones and rotate them interactively in the <span class="MenuCascade" id="GUID-AD2BCEF9-7B16-4E29-AA6C-A8917D4D2A11">Add</span> (additive) manipulation mode. This rotates the bones in relation to their parent.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F7CEB441-B363-42E0-BD77-CFCDF3706AE3"></a></span> <em class="mild">or</em> 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-29FA3F48-F7D9-492E-A8A3-53B59AFB58D8"></a></span>Select the bones and open their Local Transform property editor (one property editor
+                           opens for the whole selection — just press Ctrl+K). On the SRT page, enter specific
+                           values in the <span class="MenuCascade" id="GUID-BBFA6636-AC80-47D0-80FC-6B570818491E">Rotation</span> text boxes. This is the same as rotating interactively in Add mode. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-8A4E2392-B0F9-43AD-BF43-01F31A904FC9"></a></span><div class="note-tip"><span class="label">TIP:</span>You can also create a character key set with only the rotation parameters for all
+                              the bones whose rotation you want to key. Then you can key from this. See <span class="char_link"><a href="keys_KeyingwithCharacterKeySets.htm">Keying with Character Key Sets</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>] for more information. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0016"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9891CAB4-B6E6-44F8-AB01-0EC93C2C8EC3"></a></span>To key the rotation of all bones in a chain at once
+                  </h3> <span class="anchor_wrapper"><a name="UL_EF0C60DC474247EEB3E535877493442F"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E25AB993-468C-4CE0-B1A9-040F4AC27D46"></a></span>Select any element of a chain and choose <span class="MenuCascade" id="GUID-89981B7B-47A3-4705-8AE3-D3796F8F9477">Create <img src="../images/ac.menuaro.gif"> Skeleton <img src="../images/ac.menuaro.gif"> Key All Bone Rotations</span> to set keys for the rotation of all the bones in that chain at the current frame.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9A17188D-3736-4B6B-AAFD-AF2D34D7CBFE"></a></span>This means that you can select a bone, rotate it, select another bone, rotate, and
+                           so forth. Then choose the <span class="MenuCascade" id="GUID-AD10AD70-5BF1-424B-A87F-1014CAA89D70">Key All Bone Rotations</span> command without needing to select the specific bones first. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BDF49A9A-3BE7-4A7D-8B27-CDD8D2382E52"></a></span>This may also be useful to do when posing a chain using IK but keying in FK. Select
+                           the chain's effector and move it to place the bones quickly as you like. Then tweak
+                           the bones' rotation before keying. When things are in the position you like, choose
+                           the <span class="MenuCascade" id="GUID-1CA6FC1B-B17D-4A30-BC30-8C78E0F10A5B">Key All Bone Rotations</span> command to set rotation keys for all the bones in that chain. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0017"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-49A02468-C392-43FA-B07D-750832A99136"></a></span>Aligning the Root's Orientation to Match the First Bone
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-E3BD1CCA-B9FD-48EA-93A8-E739C8090866"></a></span>To make it easier to work with skeletons driven by FK, you can change the orientation
+                  of the root so that it matches the orientation of the first bone. The orientation
+                  of the root is changed so that the first bone's rotation is set to 0,0,0 in its current
+                  position. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1A3669B0-A34C-4B23-8257-4CC692DA9363"></a></span>This means that when you set up the default pose for your character, you can get the
+                  first bone to that position by resetting the rotation. For example, if you want to
+                  lift the leg up 30 degrees, you set the rotation to 30. 
+               </p> <span class="anchor_wrapper"><a name="FIG_80DC5B00C48C4F75AD45DD65AE720002"></a></span><div class="figure-anchor"><img src="../images/GUID-06946152-EB7B-47A5-A686-5F733571A0DD-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_C986B9C16AD5481685027886A47EA7BE"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1C746359-E545-46DC-B6D9-15E4C99571E3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0625A816-36C1-41D3-8ACF-0CDD8809B1B1">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2CFA09BE-0051-4E5D-ACA4-7636033543A4"></a></span><p class="table-body">Chain in its original position. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2FF1D3F3-16C2-4515-9A59-620C83B3A9A9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5F88B5B5-7871-4965-8D51-847F009B7118">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-68416868-7F02-4062-84D2-52C4192A7B64"></a></span><p class="table-body">First bone is rotated in Z. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-08C08FF1-98A9-4E8B-9935-041DBBC026A6"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A7A47522-D1CA-4B1A-A29C-7A93822AA723">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-33B10F08-1587-4CA0-B5F0-F5C9C7DECF14"></a></span><p class="table-body">Chain's root is aligned to the first bone's orientation. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-9C1A3E0C-11C0-450B-8E56-B6F6D845161E"></a></span>It also rationalizes any character setup you do based on the bone angle because the
+                  root and first bone are not in a position where they produce much gimbal lock on the
+                  rotation values. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSF4D645293765AE498C69174E3D6620E4-0019"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9BD64DA8-7EF1-4E32-8A55-D429BDA55DB6"></a></span>To align the root's orientation to the first bone's
+                  </h3> <span class="anchor_wrapper"><a name="GUID-058D0110-C460-421B-9F03-8900B5EB7E24"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-32CB082F-4CEF-4CA4-942E-8551794EA8E9"></a></span>Set the chain's first bone's rotation to how you want it. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AE43D5FC-5D87-4815-AD43-7AA223FD0E90"></a></span>Select any element on the chain and choose <span class="MenuCascade" id="GUID-B0672442-1ED7-41FA-B377-50D78F681D17">Create <img src="../images/ac.menuaro.gif"> Skeleton <img src="../images/ac.menuaro.gif"> Align Root to First Bone</span>. The chain root's orientation changes to match that of the first bone's. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-60B41C10-16C8-469E-9B12-341F11FFCAC4"></a></span><div class="note-tip"><span class="label">TIP:</span>You can also choose <span class="MenuCascade" id="GUID-BC61E95E-3755-42F1-B626-62E538DD73CB">Create <img src="../images/ac.menuaro.gif"> Skeleton <img src="../images/ac.menuaro.gif"> Align Root to First Bone When Drawing</span> to automatically orient the root when you draw a chain — see <span class="char_link"><a href="skel_CreatingChains.htm"> Creating Chains</a></span>. 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

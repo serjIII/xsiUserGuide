@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-7A985A65-1AEC-4C71-B76C-2DEFAE673408">
+      <meta name="indexterm" content="collisions: acceleration and velocity limits">
+      <meta name="indexterm" content="acceleration limits on rigid bodies">
+      <meta name="indexterm" content="velocity: limits on rigid bodies">
+      <meta name="topic-type" content="concept">
+      <title>Setting Limits on the Rigid Body's Velocity and Acceleration</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-7A985A65-1AEC-4C71-B76C-2DEFAE673408"></a></span><div class="head">
+            <h1>Setting Limits on the Rigid Body's Velocity and Acceleration</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-D53305FB-4540-4E97-9139-AEE9DBF7405D"></a></span>The <span class="MenuCascade" id="GUID-DC722821-2A8E-4915-9567-E40D0E013BD0">Velocity/Acceleration Limits</span> on the Rigid Body property page put a soft limit on the maximum velocity and acceleration
+               of a rigid body. Because collisions happen very quickly, they can cause large but
+               accurate accelerations which can make the rigid bodies become unstable when they collide.
+               These parameters can help solve any interpenetration problems of the rigid body geometries
+               in a collision that make them seem to "explode" off into space. Generally, you shouldn't
+               need to set these limits, but they may help solve this type of simulation problem.
+               
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA1B6EFC221254041A441258FAB7C7AE4-0095"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BD482A0F-9597-438A-A0F5-BFA8F7BF9A08"></a></span>To set velocity/acceleration limits
+               </h2> <span class="anchor_wrapper"><a name="GUID-BC5585E9-3F85-4550-8BDF-45189F927501"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8805DC38-BDE7-4E5E-A814-59ABAF7661DE"></a></span>Select <span class="MenuCascade" id="GUID-3FFACAAA-6A59-4B1D-B71B-99153A57C084">Limit velocities</span> and/or <span class="MenuCascade" id="GUID-903E12A5-0754-410D-AE27-0F664D376D10">Limit accelerations</span> on the Rigid Body property page. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FDB32C9B-20C0-4654-B627-0AAA5E84CF9F"></a></span>Set the <span class="MenuCascade" id="GUID-7C6607C6-B3AC-4777-8667-2E69E62EE94C">Linear/Angular Velocity/Acceleration Limit</span> values. Linear values are in Softimage units and Angular values are in radians. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5A22088C-4A18-47CD-91E1-92340145AD9E"></a></span>If you lower the limits of the rigid bodies' velocity and/or acceleration, you can
+                        often prevent the problem of interpenetrating rigid bodies flying off into space or
+                        rigid bodies spinning too much after a collision. However, if you lower the limits
+                        too much, the interpenetrating rigid bodies may get stuck together during a collision.
+                        
+                     </p> <span class="anchor_wrapper"><a name="FIG_3958B4426CFF482B878A279E2B912E28"></a></span><div class="figure-anchor"><img src="../images/GUID-C4EE1373-92D6-4883-BB43-E20B361A630F-low.png"></div> 
+                  </li>
+               </ol> 
+               <p><span class="anchor_wrapper"><a name="GUID-827920D3-AB0B-4582-B2CE-07A88EE24268"></a></span>Specifically, these limits scale down velocities or accelerations inside the dynamics
+                  engine at the end of each substep so that they will not exceed the limit you've set.
+                  For example, if you set the linear velocity limit to 100, if, at the end of any substep,
+                  the velocity of this object is over (0.5 * 100), the velocity is nonlinearly scaled
+                  to between (0.5 * 100) and 100. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-14FF881C-6E3E-4048-B7FF-FD4FC6D16A81"></a></span>The limits are applied at the end of each substep, before Softimage sees anything.
+                  So if you have a velocity limit of, say, 50 and a initial velocity of 100, it will
+                  travel at the rate of 100 for one step, then the velocity will be scaled back to something
+                  between 25 and 50 (around 26, actually) for the next substep. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

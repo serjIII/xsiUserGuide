@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-5CCC6DCC-FC01-4AA8-9C4E-0C71C9A2B85E">
+      <meta name="indexterm" content="ICE particles: filtering particle emissions">
+      <meta name="indexterm" content="ICE particles: filtering particles by weight map">
+      <meta name="indexterm" content="weight maps: filtering ICE particle emissions with">
+      <meta name="indexterm" content="Filter by Weight Map compound">
+      <meta name="indexterm" content="ICE particles: filtering particles by texture map">
+      <meta name="indexterm" content="texture maps: filtering ICE particle emissions with">
+      <meta name="indexterm" content="Filter by Texture Map compound">
+      <meta name="indexterm" content="Filter by Object Intersection compound">
+      <meta name="indexterm" content="ICE particles: filtering particles by object intersection">
+      <meta name="indexterm" content="ICE particles: filtering particles by volume">
+      <meta name="indexterm" content="Filter by Volume compound">
+      <meta name="indexterm" content="Filter by Null compound">
+      <meta name="indexterm" content="ICE particles: filtering particles by null">
+      <meta name="indexterm" content="nulls: filtering ICE particle emission by">
+      <meta name="indexterm" content="ICE particles: filtering particles by distance to UV">
+      <meta name="indexterm" content="Filter by Distance to UV Location compound">
+      <meta name="indexterm" content="ICE particles: filtering by particle ID">
+      <meta name="indexterm" content="Filter by Particle ID compound">
+      <meta name="indexterm" content="particle ID: filtering using">
+      <meta name="topic-type" content="concept">
+      <meta name="keywords" content="IsElement, Weights">
+      <meta name="keyword" content="IsElement">
+      <meta name="keyword" content="Weights">
+      <title>Filtering ICE Particle Emissions</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-5CCC6DCC-FC01-4AA8-9C4E-0C71C9A2B85E"></a></span><div class="head">
+            <h1>Filtering ICE Particle Emissions</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-6F574DD2-A73C-4133-9D14-2663E94ADE75"></a></span>You can let the particles emit from specific areas of an object only by using a number
+            of different Filter parameters or compounds. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-C30B3789-F4AC-4F2E-93F2-B738DB80989F"></a></span>Using Emission Filter Parameters in the various Emit compounds or in the Generate
+            Sample Set node, you can limit the emission of particles to a cluster of Polygons
+            or Points to the area defined by the weights of a weight map. 
+         </p><span class="anchor_wrapper"><a name="UL_F54CDFED31B245119185369ADED2F249"></a></span><ul>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-02AD5203-416D-49B6-9B6E-FD71214E2F50"></a></span> <span class="char_link"><a href="ICE_particles_FilteringtheICEParticleEmission.htm#SECTION_855346BAD5F8493B9CC91009D4FF0A9D">Filtering Particles Based on Polygon or Point Clusters</a></span> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-A4EB63E4-EFC8-4A97-97DB-60F735447755"></a></span> <span class="char_link"><a href="ICE_particles_FilteringtheICEParticleEmission.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0065">Filtering Particles Based on a Weight Map</a></span> 
+               </p> 
+            </li>
+         </ul>
+         <p><span class="anchor_wrapper"><a name="GUID-A8BE0945-1AEE-498E-9E70-02F6183F1B47"></a></span>Using Filter compounds, you can emit particles from texture maps, within a volume,
+            distance from a null or UV location on an object, by object intersections, or by particle
+            ID. With all Filter compounds, the particles are actually born first and then some
+            are immediately deleted depending on the different criteria used for each compound.
+            
+         </p><span class="anchor_wrapper"><a name="UL_014B7CE1F98245CEA97D63B4D2D1A3C9"></a></span><ul>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-9D4B5EC3-62D1-41D4-B103-B4BCD0030100"></a></span> <span class="char_link"><a href="ICE_particles_FilteringtheICEParticleEmission.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-006A">Filtering Particles Based on a Texture Map</a></span> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-6D6B812E-0213-4978-91C6-776297D0EEC4"></a></span> <span class="char_link"><a href="ICE_particles_FilteringtheICEParticleEmission.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-006F">Filtering Particles Based on Object Intersections</a></span> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-DFD5202E-84CB-4E5A-BA90-C5F548A4F9D6"></a></span> <span class="char_link"><a href="ICE_particles_FilteringtheICEParticleEmission.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0073">Filtering Particles Based on an Object's Volume</a></span> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-418ED244-F3DB-436F-B3B4-A9BC02BE7910"></a></span> <span class="char_link"><a href="ICE_particles_FilteringtheICEParticleEmission.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0077">Filtering Particles Based on a Null Object</a></span> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-58861BFA-68FF-4F77-9BC8-5038995058E8"></a></span> <span class="char_link"><a href="ICE_particles_FilteringtheICEParticleEmission.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-007B">Filtering Particles Based on Distance to a UV Location</a></span> 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-BD09DC76-7D26-44C3-B8D7-2D9896D158DA"></a></span> <span class="char_link"><a href="ICE_particles_FilteringtheICEParticleEmission.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-007E">Filtering Particles Based on Their ID</a></span> 
+               </p> 
+            </li>
+         </ul>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_855346BAD5F8493B9CC91009D4FF0A9D"></a></span> 
+            <p><span class="anchor_wrapper"><a name="GUID-62036C7F-FB67-40AC-A9E9-19B53599CCBD"></a></span> <img src="../images/GUID-ECF79349-7B61-489C-8795-0B1E669A49AA-low.png"> 
+            </p> 
+            <h2><span class="anchor_wrapper"><a name="GUID-433BDA39-1B27-4580-8EE4-7F73C1B06D1B"></a></span>Filtering Particles Based on Polygon or Point Clusters
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-A4C9AD48-882F-46B3-BCD8-6BF5537E4AC8"></a></span>You can let particles emit from a cluster of Polygons or Points on the scene object.
+               
+            </p> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_8914B379466647D0AB1CDF65B643027E"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-11D50829-3077-4B77-B7DD-C9318A606B0B"></a></span>To emit particles from a cluster of polygons or points in an object
+               </h3> <span class="anchor_wrapper"><a name="OL_FCB1145DD83A4550854831CB29C33108"></a></span><ol type="1" start="1">
+                  <li>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                  </li>
+                  <li>Click Polygon or Point from the Component Selection Filter, and select the polygons
+                     or points from which the particles should emit. 
+                     <p><span class="anchor_wrapper"><a name="GUID-A2A36121-6F29-46C0-B0FF-BA087590B0EF"></a></span>For more information about selecting components and different component selection
+                        modes, see <span class="char_link"><a href="selectionpanel512.htm">Selecting Components</a></span>. 
+                     </p> 
+                  </li>
+                  <li>Choose <span class="MenuCascade" id="GUID-D2403BCA-17BD-42EA-A030-557CFE08373F">Edit <img src="../images/ac.menuaro.gif"> Create Cluster</span> from the Edit panel to create a cluster for the selected polygons or points — see
+                     <span class="char_link"><a href="components_Clusters.htm">Clusters</a></span>. 
+                     <p><span class="anchor_wrapper"><a name="GUID-F48C51CF-D572-4FC8-A9C5-6F4C58E431E3"></a></span>Alternatively, click the Cluster button in the Edit Selection Filter. 
+                     </p> 
+                  </li>
+                  <li>Open the Explorer and click the pointcloud tree. </li>
+                  <li>Open the ICE Tree, and double-click the Emit from Geometry compound. </li>
+                  <li>In the Emission Filter Parameters pane, click the Explorer button to select the reference.
+                     
+                  </li>
+                  <li>From the Explorer, select <span class="keyword">IsElement</span> as reference from the <span class="MenuCascade" id="GUID-10774C74-8C3C-4841-9EFA-74778F68EE2C">Polygon Mesh <img src="../images/ac.menuaro.gif"> Clusters <img src="../images/ac.menuaro.gif"> [Polygon]</span> folder. <span class="anchor_wrapper"><a name="FIG_307457E37FA743E7986A4A10A276D22A"></a></span><div class="figure-anchor"><img src="../images/GUID-A12CEC0D-B691-47F6-8BD7-2FA90E0E879A-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-42CE64CA-9774-47E8-9709-735BA2C36AE6"></a></span>The string <span class="MenuCascade" id="GUID-B5962BC8-571D-47D7-A0C2-4596DB4AF702">cls.[polygon].IsElement</span> appears in the Reference text box. <span class="anchor_wrapper"><a name="FIG_39C259DC0B42416DB4A75588B5276C38"></a></span><div class="figure-anchor"><img src="../images/GUID-FAF6615C-858B-4205-AA72-24864FEE41CA-low.png"></div> 
+                     </p> 
+                  </li>
+               </ol> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0065"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-A83EB201-5A8F-4236-8CE9-45043127E7EF"></a></span>Filtering Particles Based on a Weight Map
+            </h2>    
+            <p><span class="anchor_wrapper"><a name="GUID-480EABDC-DA41-4B47-86C8-16F76C149BA3"></a></span>Using a weight map lets you emit particles from specific areas of the emitter object,
+               especially when you want to emit particles using a gradient. Particles are emitted
+               only where the weight map has values over 0. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-DC9DA728-FFBB-4014-AAB4-3055853F36AB"></a></span>Note that the resolution of the emitter's geometry determines how detailed the weight
+               map will be: the higher the resolution, the greater the potential detail. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-48255C06-CE35-43CD-A99F-929D06899793"></a></span>Weight maps are discussed fully in <span class="char_link"><a href="scel_parametermaps.htm">Parameter Maps</a></span>. 
+            </p> <span class="anchor_wrapper"><a name="TABLE_75B29A5709164C14A6612D09803D6AB1"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="50%" align="left">
+                     <col width="50%" align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-9B080C65-D182-4D90-8E24-F98B1A75B7AC-low.png"> 
+                     </td>
+                     <td class="table-body" align="left">&nbsp; <img src="../images/GUID-E17980F9-D465-4037-8550-188E03288957-low.png"> 
+                     </td>
+                  </tr>
+               </table>
+            </div> 
+            <p><span class="anchor_wrapper"><a name="GUID-31675751-C709-4490-81A7-896BD42B90DD"></a></span>On the left, weight map with black areas at a value of 0. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-4E4E1D4A-2519-4B1C-8300-0071C76894CD"></a></span>On the right, particles are emitted from all areas that are not 0. 
+            </p> 
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0068"></a></span> 
+               <p><span class="anchor_wrapper"><a name="GUID-E0F2EF51-F59C-4DDE-9012-BCDC96BCF5CF"></a></span> <img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"> 
+               </p> 
+               <h3><span class="anchor_wrapper"><a name="GUID-41B70628-1795-4D94-9DE3-C966CA8DDF7C"></a></span>To emit particles according to a weight map
+               </h3> <span class="anchor_wrapper"><a name="GUID-078151A8-14F7-45E2-91EA-7AB0AFB86FD1"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-637011FE-1548-4997-A595-864F664EF9BC"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-858D7CB5-E833-4CC2-AD00-948833598A25"></a></span>Choose the <span class="MenuCascade" id="GUID-00622259-C9AC-4BA9-917F-FDB8D4CAACFE">Particles <img src="../images/ac.menuaro.gif"> On Emission <img src="../images/ac.menuaro.gif"> Emit from Weight Map</span> command from the ICE toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C5BC13AA-CC10-43D7-9263-AF9A6D17D376"></a></span>If a weight map already exists on the emitter object, you are prompted to select it
+                        from the explorer that appears. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DF6460ED-1E55-485E-A396-D96687AAF656"></a></span>If there is no weight map on the emitter object, then create one by choosing <span class="MenuCascade" id="GUID-B22808E3-E8F3-4AA4-9095-B7932D79F437">Property <img src="../images/ac.menuaro.gif"> Weight Map</span> command from the ICE toolbar. You can give the weight map a new name, if you like.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CF1B402F-5D0B-4DA2-A773-A5BE7CB766A7"></a></span>Weight maps are found under the emitter object's Clusters &gt; WeightMapCls node. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E8EAB084-4B8B-499E-A11E-994801D2F3B8"></a></span>Press <span class="MenuCascade" id="GUID-2F6C9627-77CE-4BE6-8BBA-3AC8BC0A3639">W</span> to activate the Paint brush tool and paint on the weight map. Press Ctrl+W to open
+                        the Brush Properties in which you can edit the paint brush tool. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-37A002AA-2BE9-4326-BDE4-FE9D3F1E131D"></a></span>The weight map and its Weights attribute reference is automatically added to the Emission
+                        Filter Parameters in the <span class="char_link"><a href="iceref_Emit_from_Geometry.htm">Emit from Geometry</a></span> compound, with the string in the text box looking something like this (but using
+                        your own "weight_map" name instead of Weight_Map): 
+                     </p> <span class="anchor_wrapper"><a name="FIG_7AFA982B28BA4FEBB57735B90682E0DB"></a></span><div class="figure-anchor"><img src="../images/GUID-6C10A069-7336-4F72-9F7C-D4610056DD5B-low.png"></div> 
+                  </li>
+               </ol> 
+               <div><span class="anchor_wrapper"><a name="GUID-8FFE9C7E-B58D-490E-A728-CFF8B511CB1D"></a></span><div class="note-note"><span class="label">NOTE:</span>You can also use the <span class="char_link"><a href="iceref_Filter_by_Weight_Map.htm">Filter by Weight Map</a></span> compound to filter particles using a weight map. 
+                  </div>
+               </div> 
+            </div> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_3DFEE5EE860544B9A1D993FAA0DE0B08"></a></span> 
+               <p><span class="anchor_wrapper"><a name="GUID-A4332453-23E3-42BD-B694-D95D5445E765"></a></span> <img src="../images/GUID-ECF79349-7B61-489C-8795-0B1E669A49AA-low.png"> 
+               </p> 
+               <h3><span class="anchor_wrapper"><a name="GUID-21B342A7-54E3-4795-8BBC-794EB14378C5"></a></span>Alternative workflow to emit particles according to a weight map
+               </h3> <span class="anchor_wrapper"><a name="OL_233BA778F4874E1FA7D8C994A241E802"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4D3B250F-64B5-4D04-BFBA-38406AE16485"></a></span>Create a particle emission. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F74C33DD-4CD7-4891-B2B6-2A9C820E4B9D"></a></span>If a weight map already exists on the emitter object, then select it from the <span class="MenuCascade" id="GUID-0F490708-441B-49E1-AE1B-00E39BFAB526">Explorer <img src="../images/ac.menuaro.gif"> Clusters <img src="../images/ac.menuaro.gif"> WeightMapCls</span> node. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B947FF29-3F8C-4C9A-BDD9-148C9EC78E93"></a></span>If there is no weight map on the emitter object, then create one by choosing <span class="MenuCascade" id="GUID-F3DDE8AE-1163-40D3-9CE7-903EA0441524">Property <img src="../images/ac.menuaro.gif"> Weight Map</span> command from the ICE toolbar. You can give the weight map a new name, if you like.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5164757E-E1AC-4A3D-BD4C-A2E7411FAD88"></a></span>Press <span class="MenuCascade" id="GUID-EFC28E7B-3ABE-490A-98F0-4B99064F2E3F">W</span> to activate the Paint brush tool and paint on the weight map. 
+                     </p> 
+                  </li>
+                  <li>From the Explorer, click the pointcloud tree. </li>
+                  <li>Open the ICE Tree, and double-click the Emit from Geometry compound. </li>
+                  <li>In the Emission Filter Parameters pane, click the Explorer button to select the reference.
+                     
+                  </li>
+                  <li>From the Explorer, select <span class="keyword">Weights</span> as reference from the <span class="MenuCascade" id="GUID-33FFD7FB-346B-435A-9C69-0F385C23D84E">Polygon Mesh <img src="../images/ac.menuaro.gif"> Clusters <img src="../images/ac.menuaro.gif"> WeightMapCls <img src="../images/ac.menuaro.gif"> Weight_Map</span> folder. <span class="anchor_wrapper"><a name="FIG_ADD17ACF5E3145519C88F80FB2AA094C"></a></span><div class="figure-anchor"><img src="../images/GUID-14557828-74A2-4F79-8EA3-22E1B5F5349D-low.png"></div> 
+                  </li>
+               </ol>
+               <p><span class="anchor_wrapper"><a name="GUID-A6BAFB61-E90F-47D3-AFFA-C3DE6A7FE992"></a></span>The string <span class="MenuCascade" id="GUID-4C000965-41D1-4A65-A32E-E8F990CAE196">cls.WeightMapCls.Weight_Map.Weights</span> appears in the Reference text box. 
+               </p> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-006A"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-6B6B5E4A-7D48-4CA9-9C9E-C0161C917E54"></a></span>Filtering Particles Based on a Texture Map
+            </h2>    
+            <p><span class="anchor_wrapper"><a name="GUID-2E5F5839-0438-4411-BAA2-5E9DAFE84B10"></a></span>You can create a texture map on an emitter object and use it to define the particle
+               emission using the Filter by Texture Map compound. This compound reduces the number
+               of particles that are emitted based on the texture map luminance (brightness) values
+               (using an image or sequence): the darker the area of the texture map, the more particles
+               are blocked from being emitted. 
+            </p> <span class="anchor_wrapper"><a name="TABLE_69DCA1B0028248E8841258AF5C050E0B"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="50%" align="left">
+                     <col width="50%" align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-45E80941-B8B0-4BCA-B1EC-E8E880AF7D40-low.png"> 
+                     </td>
+                     <td class="table-body" align="left">&nbsp; <img src="../images/GUID-045C0272-A64D-4B57-A726-930E6AAF101E-low.png"> 
+                     </td>
+                  </tr>
+               </table>
+            </div> 
+            <p><span class="anchor_wrapper"><a name="GUID-B2872834-0DB8-4395-BAD4-A6467F45A326"></a></span>On the left, texture map image with contrasting colors. The black areas have a value
+               of 0. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-9D3D7802-EF1E-4A9F-9333-BF7E271DAE80"></a></span>On the right, particles are emitted from all areas that are not 0. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-E3FE86B6-D858-4209-AA06-33B0C8F0429C"></a></span>This lets you emit particles from specific areas of the emitter object, such as when
+               you want to emit particles using a gradient or image pattern, especially an animated
+               image sequence. And unlike with weight maps, the resolution of the geometry on which
+               a texture map is applied is irrelevant. This means you can have more detailed particle
+               emissions regardless of the resolution. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-3301CC93-E47C-4B31-B607-783921A1F68E"></a></span>Texture maps consist of an image file or sequence and a set of UV coordinates. They
+               are similar to ordinary textures, but are used to control parameters instead of surface
+               colors. To create a texture map, you select a texture projection method and then link
+               an image file to it, all in the texture map property. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-F6EA0E53-5741-4A9D-A7D8-828865C42969"></a></span>For more information on texture maps, see <span class="char_link"><a href="weightmaps_TextureMaps.htm">Texture Maps</a></span>. 
+            </p> 
+            <div><span class="anchor_wrapper"><a name="GUID-175BEAE7-A963-4A06-8740-2942C8C5559D"></a></span><div class="note-tip"><span class="label">TIP:</span>To have particles take on the color of a texture map, see <span class="char_link"><a href="ipart_particles_UsingaTextureMaptoSettheParticleColor.htm">Using a Texture Map to Set the Particle Color</a></span>. 
+               </div>
+            </div> 
+            <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-006D"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-0477F71C-A2A5-4F73-A519-ADCBD3242060"></a></span>To filter the particle emission using a texture map
+               </h3> <span class="anchor_wrapper"><a name="GUID-A94807C5-8FDC-4296-98C9-E6F572722738"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9DA320A8-C9FE-4ABD-800F-4EDF471114ED"></a></span>Select an object that will be the particle emitter and choose <span class="MenuCascade" id="GUID-404BBCA2-B5BF-49A5-A281-C30C70C47BA3">Get <img src="../images/ac.menuaro.gif"> Property <img src="../images/ac.menuaro.gif"> Texture Map</span> from any toolbar. A texture map is applied and its property editor opens. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7DC85970-0BCF-4715-AC81-722A43BE6D7E"></a></span>Select the texture projection method according to the emitter object's geometry and
+                        then select an image or sequence to link to it. The texture projection maps the colors
+                        of the image to the geometry. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-86FEB96F-9DA6-47A5-A0D9-FF2EED3B453B"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9B4DC347-3F26-4123-9631-16AF68CD3E09"></a></span>Open the ICE tree and click the Task &gt; Particles tab in the preset manager on the
+                        left side. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-78E3ECE4-0C46-4901-904B-AFECE4DEC8CE"></a></span>Select the <span class="MenuCascade" id="GUID-F6E56C2C-D2D1-4BD2-BA6B-916E8318BB43">Filter by Texture Map</span> compound from the Emission Control group, and drag it into the graph area. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-28F65411-6167-4B32-9F5F-37452D26E2D8"></a></span>Plug this compound's Execute on Emit output into an Execute on Emit port of the Emit
+                        compound or into a port on the ICETree node. If you do the latter, the emission is
+                        updated at each frame. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_D17FEE5FFAA94E6CBA5520872AFC7C0F"></a></span><div class="figure-anchor"><img src="../images/GUID-2DF0BF2D-FAEA-4498-8184-179D9917743C-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D722A051-964D-453F-878B-9C5FF4FB7386"></a></span>In the Filter by Texture Map compound's property editor, use the Explorer button to
+                        select the texture map on the emitter that you want to use. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E67E0864-E135-4722-B38D-3E1800921628"></a></span>You can also select the <span class="MenuCascade" id="GUID-4D72EBAC-E080-4ED4-95C6-D3271863E2A8">Invert</span> option to use the inverse texture map values so that particles are emitted only where
+                        the texture map values are 0. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-006F"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-0B7B34A0-996B-4523-9042-8292D09152C6"></a></span>Filtering Particles Based on Object Intersections
+            </h2>   
+            <p><span class="anchor_wrapper"><a name="GUID-71C99DA3-0616-408C-A1A3-95DEEF98BA43"></a></span>The Filter by Object Intersection compound reduces (filters out) the number of particles
+               based on the emitter intersecting with another object. Particles are emitted only
+               within that intersection area. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C92916AE-CD7E-4F68-80EB-3B5C0C71ADB6"></a></span>For best results, make sure that the intersecting objects are surface objects, such
+               as polygon meshes or NURB surfaces. 
+            </p> <span class="anchor_wrapper"><a name="FIG_AA8754D0ADA0469C980A5540496A7A79"></a></span><div class="figure-anchor"><img src="../images/GUID-E33CBA2A-A3C5-4E42-B0F9-0847A845907C-low.png"></div> <span class="anchor_wrapper"><a name="GUID-0E2672F4-06C2-4851-8A3B-93B45CEF4309"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-50F53F14-C2E1-4BCB-BE3B-DE3CAD9D8B7C"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EAC31DA9-20A0-444D-979E-DC63A7C04C36"></a></span>Click the Task &gt; Particles tab in the preset manager on the left side of the ICE Tree.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CFB10361-E062-4BC3-A9E0-E4FFD2F63B5A"></a></span>Select the <span class="MenuCascade" id="GUID-BD90F31F-7E35-460F-9823-9057472204AD">Filter by Object Intersection</span> compound from the Emission Control group, and drag it into the graph area. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-298966BD-FE2E-45CD-905C-B60FADF0D719"></a></span>Plug this compound's Execute on Emit output into an Execute on Emit port of the Emit
+                     compound or into a port on the ICETree node. If you do the latter, the emission is
+                     updated at each frame. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D912B394-6B02-4848-8140-68E0B69A07D6"></a></span>Select one or more objects and drag their names from an explorer into the ICE Tree
+                     graph to create a node for it. These are the objects that will intersect the emitter
+                     in order to emit particles. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-474C00EF-9C54-42C0-B9EA-70A3BE744815"></a></span>Plug each object's Value output into the Filter Geometry port on the Filter by Object
+                     Intersection compound. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_63E4D897E9CD4171AC438E508B0DBF95"></a></span><div class="figure-anchor"><img src="../images/GUID-FC4A0749-4ACE-4866-A0AB-6424066801E0-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EBBC5BC7-D0F7-4180-A6CD-28E250FC1747"></a></span>In the Filter by Object Intersection compound's property editor, you can set the Distance
+                     Threshold, which is the maximum distance (in Softimage units) around the object intersection
+                     area in which the particles are emitted. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DA047CDB-EE9D-4C89-BCD1-A66CF940E070"></a></span>You can also select the <span class="MenuCascade" id="GUID-AD13FC10-90CD-49B3-8781-6BD15E72D4E9">Invert</span> option, which inverts the particle emission so that particles are emitted from the
+                     emitter except in the object intersection area. 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0073"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-D76ECE3D-88A1-425B-9F16-CB49F138B1A2"></a></span>Filtering Particles Based on an Object's Volume
+            </h2>   
+            <p><span class="anchor_wrapper"><a name="GUID-E904429F-4DC5-467F-85E8-7E0CF36EECB3"></a></span>The Filter By Volume compound reduces (filters out) the number of particles based
+               on whether or not they're inside an object's volume. The volume object must intersect
+               with the emitter in order to emit particles. 
+            </p> <span class="anchor_wrapper"><a name="FIG_131B7DD8FB27472AAE896EA6809B8382"></a></span><div class="figure-anchor"><img src="../images/GUID-ACEC2CE6-18B4-439D-9F34-5ABBAD58E91F-low.png"></div> <span class="anchor_wrapper"><a name="GUID-54B57FC0-9160-48AB-AAD2-5781FE4599A5"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9679D78D-B900-45D4-9E48-B90B5D8BE88B"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3D9CEAEA-840E-4E9D-9BE4-01FA2212807C"></a></span>Click the Task &gt; Particles tab in the preset manager on the left side of the ICE Tree.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-103C45E3-8FDE-4C1E-9B6D-9F95795EFCC3"></a></span>Select the <span class="MenuCascade" id="GUID-46534156-BE75-402E-AA67-3802FC0189F1">Filter by Volume</span> compound from the Emission Control group, and drag it into the graph area. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C4F18821-49B5-4EE3-A5C8-CE65BED3E510"></a></span>Plug this compound's Execute on Emit output into an Execute on Emit port of the Emit
+                     compound or into a port on the ICETree node. If you do the latter, the emission is
+                     updated at each frame. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-90484FB6-7CB8-4F37-AC54-CA480139F592"></a></span>Select an object with volume (such as polygon mesh or NURBS surface) and drag its
+                     name from an explorer into the ICE Tree graph to create a node for it. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-37789CD3-DEE5-422C-A0DD-998F1BFBAF47"></a></span>This object must intersect with the emitter at the point where you want to emit particles.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F7E95EAE-B04D-4468-AED8-8BDFFE58A0D8"></a></span>Plug the object's Value output into the Volume port on the Filter by Volume compound.
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_326DDA87B00547838BBCC17976EC4823"></a></span><div class="figure-anchor"><img src="../images/GUID-C45F4D2F-8BD4-4868-9ABB-194B35C3CBDF-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-874B71D1-2CA0-4789-A143-93ED6534F759"></a></span>In the Filter by Volume compound's property editor, you can set the falloff profile
+                     curve and distance value to determine how the particle emission is filtered. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-43A141FE-99B4-4C4D-B235-A60137D776F5"></a></span>You can select the <span class="MenuCascade" id="GUID-F9DC0DA9-F4CF-4985-80E2-F62C12BE46BF">Invert</span> option to invert the graph so that so that particles are emitted from the emitter
+                     except in the volume intersection area. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9EEEBF64-F2B9-424A-8D1C-BF232BECD556"></a></span>For more information on the parameters, see <span class="char_link"><a href="iceref_Filter_by_Volume.htm">Filter by Volume</a></span> [<span class="char_link"><a href="iceref_cover.htm">ICE Reference</a></span>]. 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-0077"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-04EC97E4-A4FB-4CA3-BCC7-7B38911265F2"></a></span>Filtering Particles Based on a Null Object
+            </h2>    
+            <p><span class="anchor_wrapper"><a name="GUID-4E9F76CC-9471-411E-8F98-B290B073930A"></a></span>The Filter By Null compound reduces (filters out) the number of particles based on
+               whether or not they're inside a null's icon shape. The null must intersect with the
+               emitter in order to emit particles. 
+            </p> <span class="anchor_wrapper"><a name="FIG_793D09C105B74753970AC566D34D5073"></a></span><div class="figure-anchor"><img src="../images/GUID-4BFF516C-1560-4628-85AA-49441AA1781E-low.png"></div> <span class="anchor_wrapper"><a name="GUID-BB5AC2B0-4171-4571-A3AA-CBE51E86FAB6"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3451CBC4-40F0-45C5-8E72-C347D23A4728"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-EF366BF5-FB11-463F-AD66-30F942D7149E"></a></span>Click the Task &gt; Particles tab in the preset manager on the left side of the ICE Tree.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FCB32353-DBD8-499B-AD2F-94C1F7BB7FD2"></a></span>Select the <span class="MenuCascade" id="GUID-4B26FF49-BC37-4866-B12B-0992104D783B">Filter by Null</span> compound from the Emission Control group, and drag it into the graph area. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C27C0E83-9E42-4A51-BF3E-01F2D5F09894"></a></span>Plug this compound's Execute on Emit output into an Execute on Emit port of the Emit
+                     compound or into a port on the ICETree node. If you do the latter, the emission is
+                     updated at each frame. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D0C82B5F-C889-4836-9564-E92C06372B6A"></a></span>Create a null and open its property editor. Select an Icon shape that has volume,
+                     such as Box, Pyramid, Arrow Rings, etc. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-81C6875A-2D44-4091-A7C5-75246F0EAF9E"></a></span>The null must intersect with the emitter at the point where you want to emit particles.
+                     
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FB6486FB-CC85-4922-9CE5-342E02282896"></a></span>Select the null and drag its name from an explorer into the ICE Tree graph to create
+                     a node for it. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-194C8D7E-896B-4E9B-8D82-107E4B344B5B"></a></span>Plug the null's Out Name output into the Null Name port on the Filter by Null compound.
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_E83B48EE321F4298B5B9A634E0AEE438"></a></span><div class="figure-anchor"><img src="../images/GUID-F4ECB229-46E7-4875-9D95-27D4D9EF6A8A-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0DC90A15-84FE-4BAE-B2B4-140D944DE6B0"></a></span>In the Filter by Null compound's property editor, you can set the falloff profile
+                     curve to determine how the particle emission is filtered over distance. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5CEB5E79-C961-46CC-8271-1F3DC09967F3"></a></span>You can select the <span class="MenuCascade" id="GUID-5879FF3C-7962-4083-A241-AE31AD74DC18">Invert Filter</span> option to invert the graph so that so that particles are emitted from the emitter
+                     except in the null intersection area. 
+                  </p> 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-007B"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-71643623-D6BB-493B-9C7C-2107CEAAD0C7"></a></span>Filtering Particles Based on Distance to a UV Location
+            </h2>   
+            <p><span class="anchor_wrapper"><a name="GUID-98F10429-E476-4AC5-8C85-CF19AD9F4AC0"></a></span>The Filter By Distance to UV Location compound reduces (filters out) the number of
+               particles based on the distance of a specific UV location on a NURBS surface or curve
+               object to the emitter. Particles are emitted only when this location on the object
+               is within a certain distance of the particle emitter object. <span class="anchor_wrapper"><a name="GUID-965CCE81-3FB3-4F48-97DA-7A59CF1071A8"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-80406316-77B5-44E3-8744-1ABD34FB8FAD"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0F37B08A-63AE-43D7-934B-DCFE5BD66E27"></a></span>Click the Task &gt; Particles tab in the preset manager on the left side of the ICE Tree.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0313E314-ECE4-4DAD-9DC3-B4CC6A34C557"></a></span>Select the <span class="MenuCascade" id="GUID-3FB86D83-FA0A-4858-8779-1A26213C29FE">Filter by Distance to UV Location</span> compound from the Emission Control group, and drag it into the graph area. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7A941ECE-B98A-44DB-A4FE-3C1127BEC21A"></a></span>Plug this compound's Execute on Emit output into an Execute on Emit port of the Emit
+                        compound or into a port on the ICETree node. If you do the latter, the emission is
+                        updated at each frame. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-534192F9-8FD0-44E1-B2BD-4B1CF4A00A67"></a></span>Select a NURBS surface or curves object and drag its name from an explorer into the
+                        ICE Tree graph to create a node for it. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-55C94411-20A2-40EB-B156-B56B22C426F0"></a></span>Plug the NURBS surface or curve's Value output into the Geometry port on the Filter
+                        by Distance to UV Location compound. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_76D9F42CA2D44446A67BBDE03D0FAB52"></a></span><div class="figure-anchor"><img src="../images/GUID-559C2FE7-528C-48D0-BF3D-8C01C245C2F7-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-67C250D0-BAB0-48E2-82D2-D00A24603859"></a></span>In the Filter by Distance to UV Location compound's property editor, select the UV
+                        location on the object to use and set the Distance Threshold, which is the maximum
+                        distance (in Softimage units) from this NURBS curve or surface to the particle emitter
+                        at which the particles will be emitted. 
+                     </p> 
+                  </li>
+               </ol> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WS0F5213CEFD3FD34D9EE1C81183C70926-007E"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-65C0FEF6-3654-4BF6-8980-CBCF4C974CA0"></a></span>Filtering Particles Based on Their ID
+            </h2>    
+            <p><span class="anchor_wrapper"><a name="GUID-7614F79A-F9B3-4417-A23B-24F53DAF0F78"></a></span>When a particle is born, it has its own unique identification number (ID attribute)
+               that stays unique throughout the simulation. This number can be used for identifying
+               particles for different things, such as troubleshooting or scripting. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-A4E2E11C-7086-4445-A1C2-CB3BEA429DA5"></a></span>The Filter by Particle IDs compound reduces the number of particles that are emitted
+               based on the particle's ID attribute. Particles are emitted only when their ID matches
+               what's defined in this compound. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-F87B3934-D5E7-4BBA-BB48-90E4CC7000AA"></a></span>For more information on IDs, see <span class="char_link"><a href="ICE_trees_WorkingwithIDsandIndices.htm">Working with IDs and Indices</a></span> [<span class="char_link"><a href="ice_cover.htm">ICE Guide</a></span>]. 
+            </p> 
+            <div><span class="anchor_wrapper"><a name="GUID-1FB2AD2C-B71F-46C0-97DB-25226C19ADE9"></a></span><div class="note-tip"><span class="label">TIP:</span>To view the particle ID number in a viewport, see <span class="char_link"><a href="ICE_particles_DisplayingICEParticles.htm#WS0F5213CEFD3FD34D9EE1C81183C70926-0162">Creating Particle Display Attributes</a></span>. 
+               </div>
+            </div> <span class="anchor_wrapper"><a name="FIG_D6612B89C5F54A29AE4FE2CF68FC0B8B"></a></span><div class="figure-anchor"><img src="../images/GUID-0EDCEC17-6D9A-48CD-9E01-0D9F18FF480B-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-7CD59BB2-BC0C-4549-8D9C-F84BEA850F9E"></a></span>Particles are filtered so that only particles matching ID numbers of 3, 5, 7, and
+               10 are emitted. <span class="anchor_wrapper"><a name="GUID-44B708B4-13DD-4C25-BC79-4ADFCCBB2359"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0C0E2532-BE61-4C03-8EB0-8103A2D75D96"></a></span>Create a particle emission — see <span class="char_link"><a href="ICE_particles_CreatingICEParticleEmissions.htm">Setting Up Any Type of ICE Particle Emission</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0508A66A-7C60-479E-942D-FCC83B53718B"></a></span>Click the Task &gt; Particles tab in the preset manager on the left side of the ICE Tree.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-28C5E4DF-DC9D-4AFF-8BD5-F1A67D4A3E3E"></a></span>Select the <span class="MenuCascade" id="GUID-E3F19983-9D78-4673-B841-32F084CA46FA">Filter by Particle ID</span> compound from the Emission Control group, and drag it into the graph area. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FC1FE6B8-79E8-4FEB-B0DF-3DFDFFC4A77F"></a></span>Plug this compound's Execute on Emit output into an Execute on Emit port of the Emit
+                        compound. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-332DC551-79AD-4A2C-BE79-EE86D5656F06"></a></span>In the Filter by Particle ID compound's property editor, enter the ID value for the
+                        particles you want to filter. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-984126F0-A528-452A-B359-3B40657CED32"></a></span>You can also select the <span class="MenuCascade" id="GUID-99226D6E-A14C-4AD6-8801-E107F4F4A3DC">Invert</span> option so that particles are emitted only if they don't match the Particle IDs that
+                        are defined in this compound. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-651621AF-4ECA-4AE8-979F-76D5E4890B39"></a></span>To add more particle ID ports, right-click on a Particle ID port on the compound and
+                        choose <span class="MenuCascade" id="GUID-4B24C798-AB8F-42D7-A3FF-AD925294F9A2">Insert Port After</span>. You can do this for as many Particle ID ports as you need. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_C4E9214C1F2A417A97A3C31038F45FB2"></a></span><div class="figure-anchor"><img src="../images/GUID-6BB661A3-E795-4892-A5F4-C0BCD16E62C9-low.png"></div> 
+                  </li>
+               </ol> 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

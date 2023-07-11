@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-6AD029B7-BBDB-44B1-942A-6DEAD8D281C7">
+      <meta name="indexterm" content="render tree: connecting nodes">
+      <meta name="indexterm" content="nodes (render tree): connecting">
+      <meta name="indexterm" content="render tree: connecting collapsed nodes">
+      <meta name="indexterm" content="render tree: inserting nodes">
+      <meta name="indexterm" content="conversion nodes: inserting in the render tree">
+      <meta name="indexterm" content="render tree: inserting conversion nodes">
+      <meta name="indexterm" content="render tree: disconnecting nodes">
+      <meta name="indexterm" content="nodes (render tree): disconnecting">
+      <meta name="indexterm" content="render tree: assigning texture projections to nodes">
+      <meta name="indexterm" content="texture projections: assigning to nodes in render tree">
+      <meta name="indexterm" content="wildcards: for specifying texture projections">
+      <meta name="indexterm" content="texture projections: specifying with wildcards">
+      <meta name="topic-type" content="concept">
+      <title>Connecting Shader Nodes</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-6AD029B7-BBDB-44B1-942A-6DEAD8D281C7"></a></span><div class="head">
+            <h1>Connecting Shader Nodes</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-1BACBC05-0796-45F9-9EC8-EFE22EF92242"></a></span>Dynamic property assignment is a feature of the render tree that lets you extend shaders
+               by using the output of one shader as the input for one or several shader parameters.
+               Since each node has an output and at least one input, you can connect a nearly endless
+               number of nodes together. For example, you can use a 2D or 3D texture to control a
+               material shader's reflectivity and another texture to control the its specularity.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-86E36647-0FF9-4D3E-A56E-5B4284AF0CBF"></a></span>Some render tree connections are very basic. For example, when you connect a color
+               output into the an object's surface input, you have a pretty good idea of what the
+               result is going to be because you're only changing the object's color. But what if
+               you connect a fractal shader to another shader's Reflection input or a cloud texture
+               to a material's Displacement input? The combinations are endless! 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8D7BD57C-3250-4E03-951D-A9B6DF79E6C7"></a></span>In general, you connect shader nodes by clicking and dragging an output port from
+               the right side of one shader node onto an input port on the left side of another shader
+               node, or the other way around (drag the input port onto an output port). 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2BF4D3EE-1946-4458-AADB-A31DBCE26808"></a></span>Data flows along the connection from the first node and is processed by the second
+               node. 
+            </p><span class="anchor_wrapper"><a name="FIG_488D8B909DF94B5F982B747B330B479C"></a></span><div class="figure-anchor"><img src="../images/GUID-3502C6BE-E803-4683-97DF-5AC44E057630-low.png"></div><span class="anchor_wrapper"><a name="TABLE_DD0E01A520BF4FB7A408C5F1D46D90AC"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col>
+                     <col>
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9BF8F3B6-9192-4325-A5C4-D5A3778AEF13"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9B9A7C9A-640D-49FC-8C92-97D10B20EAF8">1</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-45438A13-5AFA-4033-978F-BB8B1E9D5D84"></a></span><p class="table-body">Data travels from this node's output port ... </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9D8CBC88-83A5-46E1-AEF3-5BB39643066B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-19EC7F1E-1D25-4A03-BC2B-FA8938836357">2</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C2CFF977-742D-4AE1-A835-50C4E7082612"></a></span><p class="table-body">.. and is processed by this node via its input port. </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-9500834E-FB4F-4ED5-8853-FB33514F281B"></a></span>When a port is connected, the value of its corresponding parameter is driven by the
+               connection, which means that you can no longer set the parameter's value in that shader's
+               property editor. In fact, the parameter and its controls (checkboxes, sliders, etc.)
+               are not even displayed. If you remove the connection, the controls reappear in the
+               property editor. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-5878AF1B-E68E-4322-90A6-3DB243A576D2"></a></span><div class="note-important"><span class="label">IMPORTANT:</span>When you connect to an input port, any existing animation on that parameter's value
+                  is lost. 
+               </div>
+            </div>
+            <p><span class="anchor_wrapper"><a name="GUID-4726017D-A0E0-40B3-B1D4-D5403CE25700"></a></span>The type of the data, as indicated by the port colors, determines whether you can
+               connect two specific ports. If you cannot connect two ports, it is likely because
+               the types are incompatible. See <span class="char_link"><a href="rendertree_WheretoStart.htm#WS0BA946C0C7F07C489426C340C08C4904-003C">Ports for Parameters: The Ins and Outs</a></span> for more information. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-BF23909E-C920-4500-985F-F74AEECAD5CC"></a></span>Once you have created a connection arrow from a node's output, you can drag the cursor
+               over a port inside another node to see if a parameter will accept the connection.
+               
+            </p><span class="anchor_wrapper"><a name="UL_7F864F38BEDF414A974B57DFAF86B02E"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-171E27B6-1741-4D36-B480-AC20A8096504"></a></span>If the parameter name changes color, it will accept the connection arrow. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4A8179CE-718E-4A6F-95D0-83A32BBB0C3B"></a></span>If the input and output are not of the same type, a conversion node is created automatically.
+                     
+                  </p> 
+               </li>
+            </ul>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-004B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CD18824C-348B-4F86-9728-F3655672A72F"></a></span>Connecting Nodes
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-56B2B23E-DD23-4158-AA02-0D0957722756"></a></span>If a shader node already exists in the render tree, you can connect one of its output
+                  ports by dragging the port icon onto another node. You can also add a new node and
+                  connect it at the same time by dragging the node from the preset manager directly
+                  onto a node's port (you can't do this for shader compounds). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-10C09899-4BB4-48D4-A6CC-50EFE147F0E7"></a></span>You can hover the mouse pointer over a connection to highlight the connected ports.
+                  If a port is not visible because it has been collapsed or because the view is zoomed
+                  out too far, information about the port is displayed in a pop-up. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-004C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-26A1537D-A4C1-46CF-A50F-880C469B6AF9"></a></span>Connecting Existing Shader Nodes
+                  </h3> <span class="anchor_wrapper"><a name="GUID-7A68D856-1978-47C0-9F52-A3D3DFFE6F11"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B55370B2-97A9-4757-A36D-7CC121458E9B"></a></span>Bring two or more shaders that you want to connect into the render tree. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C816116F-5510-4315-81A7-C4793B7B0B26"></a></span>Do either of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_1A3E5A7D66434E18BC6934916461FB5B"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-ECB64FD2-200C-4B9B-86E7-1F372CEC2F8A"></a></span>Click on an <em class="strong">output</em> port on the right side of a node, then drag it over to an <em class="strong">input</em> port on another node and release the mouse button. If the input port's name is highlighted
+                                 when you drag over it, the connection is valid. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-AD641A22-E490-4836-81B9-85211C32F1DB"></a></span> <img src="../images/GUID-25BC33F7-7E7B-4747-9541-7FF19351E826-low.png"> 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B714A068-2F52-4575-AAB4-DD2FC4E9F085"></a></span>Click on an <em class="strong">input</em> port on the left side of a node, then drag it over to an <em class="strong">output</em> port on another node and release the mouse button. When the menu of ports appears,
+                                 select the one to which you want to connect. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-035DF059-5C19-4F50-805C-A3D86B2221A9"></a></span>You can connect the same output to as many input ports as you want. 
+                              </p> <span class="anchor_wrapper"><a name="FIG_D4FC50D9F0A04F26A054CA8630F1D829"></a></span><div class="figure-anchor"><img src="../images/GUID-412A8670-EA31-40C0-ADF3-A178F9DED094-low.png"></div> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B7D1675E-17DD-404C-BD7B-2BDDEB30D48B"></a></span>Connection arrow shows connection between the two ports. 
+                              </p> 
+                              <div><span class="anchor_wrapper"><a name="GUID-469CF1C1-D0DB-4A49-A828-26A7DBF4610D"></a></span><div class="note-note"><span class="label">NOTE:</span>Dragging a connection to the edge of the workspace automatically scrolls the view.
+                                    
+                                 </div>
+                              </div> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-004F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B1BA05DD-A424-4B9E-9D70-AD9F47F8D3B9"></a></span>Adding a Node from the Preset Manager and Connect It to an Input
+                  </h3> <span class="anchor_wrapper"><a name="GUID-60907461-65EF-4BCF-A468-AF0F0FEB8647"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D2FC93EF-0B16-44F2-974E-74C9CC46E225"></a></span>Drag a shader node (not a shader compound) from the preset manager directly onto the
+                           node to which you want to connect. The new node is slightly transparent and displays
+                           an arrow when it's on top of the existing node. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A7218919-B49B-415A-BA8F-77965DCB81E6"></a></span>Drag the new node over the port name to which you want to connect so that the name
+                           is highlighted. When you release the mouse button, the new node is connected to that
+                           port. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-0050"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F7CEE374-212D-4520-A1DE-55F0C412C638"></a></span>Connecting to Collapsed Nodes, Port Groups, and Texture Layers
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-965FCBA1-3D8D-4AA0-88EA-E5E16A21385E"></a></span>When port groups, texture layers, or entire nodes are collapsed, their ports are hidden.
+                     Rather than expanding them, you can use a pop-up menu to connect nodes to ports while
+                     they're collapsed. <span class="anchor_wrapper"><a name="GUID-932049BF-F465-411E-8BDE-6270514BAE82"></a></span><ol type="1" start="1">
+                        <li> <img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"> 
+                           <p><span class="anchor_wrapper"><a name="GUID-ADE7A0B8-A190-4110-93B3-E5B687F7B2A7"></a></span>Drag a connection arrow from an output port onto a collapsed node, port group, or
+                              texture layer. Release the mouse button and the <span class="MenuCascade" id="GUID-00161EE8-F7E9-4077-919A-2141B743FB32">Connect To...</span> pop-up menu appears showing all input ports that are valid for that connection. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CE75E7C6-8CD5-4C22-A8EF-25879044AAF0"></a></span>The <span class="MenuCascade" id="GUID-D0516BF8-7073-43B2-8D0D-FA7B411F7F8B">Connect To...</span> pop-up menu displays all available ports in the Render Tree. All available ports
+                              in the pop-up menu display colors beside their name in the form of a rectangle. These
+                              colors match the colors of exposed ports in the connecting node The colors help to
+                              know the right ports that you want to connect between two nodes. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1A7E98BF-ABB0-40B1-ADEE-688727440BB0"></a></span>Select an item from the menu to connect to that port. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-D2BD669D-316B-4CED-AEBD-732A13384655"></a></span>Selecting a connected port replaces the old connection with the new one. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-24C54E8D-8F51-4FC2-BFD2-57AFA0D21EA4"></a></span>You can press Shift to keep the menu open while you select multiple ports. 
+                           </p> <img src="../images/GUID-AEDDD3BD-7D75-4F12-8575-0276A72FD797-low.png"> <span class="anchor_wrapper"><a name="FIG_6C23D31DE29D4A2882BB943655A15CD1"></a></span><div class="figure-anchor"><img src="../images/GUID-269A7823-AE38-4EE2-9B25-A6EC1B7691D3-low.png"></div> 
+                        </li>
+                     </ol> <span class="anchor_wrapper"><a name="TABLE_3BA8B9ECDC7F41DF9D72D506A1891867"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col>
+                              <col>
+                           </colgroup>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-40DFF1BD-3AAD-47A5-99F3-3BE033F1D823"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DF16F177-F191-4591-BD79-3A63C56904EA">A</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9EA68D9E-A217-45D9-829E-D5E8391E1EF2"></a></span><p class="table-body">Port color in the form of a rectangle. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-30482EED-FB6A-441B-8865-029535E3ACC9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1AB22063-BF8D-4863-86A9-E604A6DB780E">B</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B880EDD0-866B-4E5B-BF3C-8FC6B295F7F6"></a></span><p class="table-body">When connecting to a collapsed node, port group, or texture layer, a menu appears.
+                                    Select a port from it to which you can connect. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-0053"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B835FD57-C8BF-487F-B3C6-834FF7ABF28B"></a></span>Inserting Nodes
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-EEE60E8A-31C2-4250-A816-260B99BF29CF"></a></span>Rather that getting shader nodes from the preset manager or Nodes menu and then connecting
+                  them, you can insert certain nodes directly into the render tree workspace using a
+                  contextual menu. You can insert nodes between other nodes in one of three ways: 
+               </p> <span class="anchor_wrapper"><a name="UL_6A9013659D7A404EACB7A88F32AB642F"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-526819A1-AB06-4F47-870A-626B6F38A408"></a></span>Connected to a specific input of an existing node. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-52EADDF4-ADFA-4902-846F-BB7E921AF3C0"></a></span>Between two existing nodes as a conversion shader. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-847B90FB-6B90-4585-ADE7-141BF599F5E6"></a></span>Blended with the shader's parameters using a texture layer. For more information about
+                        working with texture layers in the render tree, see <span class="char_link"><a href="tex_tle_WorkingwithTextureLayersintheRenderTree.htm">Working with Texture Layers in the Render Tree</a></span>. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-0054"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C596172B-C739-4DCD-8050-6F51E94A7374"></a></span>Inserting a node from the preset manager
+                  </h3> <span class="anchor_wrapper"><a name="GUID-DF9888D4-3168-4123-A612-4268789C39B7"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3FD4E6EA-A716-4ACB-9146-4A54E946AD68"></a></span>Drag a shader node (not a shader compound) from the preset manager onto the connection
+                           line between two nodes. The new node is slightly transparent. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A33D399E-C9A9-4C89-80DD-C7201A4A137F"></a></span>Release the mouse button when the connection line is partially highlighted and the
+                           new node's outline shows an arrow. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_3B02D366AF334C77ABF5B07C97FD96DB"></a></span><div class="figure-anchor"><img src="../images/GUID-4CCED169-901C-43A4-8FF6-B233930AC228-low.png"></div> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-34127409-04AC-433E-8200-FF7492E05209"></a></span>The new node's inputs and outputs are connected according to the first valid ports
+                     available. If these are not the desired ports, simply reconnect them. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-0056"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3CEE0F9C-0787-4D24-B88B-B125A0171887"></a></span>Inserting a node using a pop-up menu
+                  </h3> <span class="anchor_wrapper"><a name="GUID-2092A6B2-575A-49CA-A30E-6C6C147752E1"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D03F6406-A0BD-4B4D-96E3-1243E757E744"></a></span>Expand a node and right-click any of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_218D8C01C2F543EDBE66EB6EBB3BC29D"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-209702FB-92D8-4766-97C8-AF973A50DE58"></a></span>The input port to which you want to connect the inserted shader node. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-6C4BAFA6-C2F8-43F7-B721-9A81D80CA928"></a></span>The input port's name. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-D3E4D061-672C-4729-B0AF-60BA015EEDC6"></a></span>The connection line between two nodes. 
+                              </p> <span class="anchor_wrapper"><a name="FIG_CA772783EDAD4DCFA5C21EE021422438"></a></span><div class="figure-anchor"><img src="../images/GUID-A93B867E-2ECE-4695-B36B-FF5B96132D5F-low.png"></div> 
+                           </li>
+                        </ul> 
+                        <p><span class="anchor_wrapper"><a name="GUID-53D7C3F2-BCDA-4F77-A182-9B4819DCF5C6"></a></span>Right-click in any of these places (A, B, C) to insert a node. 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-0F821BCC-B085-4C92-9B22-6AA6CD3DB88D"></a></span><div class="note-tip"><span class="label">TIP:</span>If you are displaying connections as horizontal and vertical lines, it may be difficult
+                              to isolate a connection line. Change the line display to curved line by choosing <span class="MenuCascade" id="GUID-BBF52E79-5810-47B4-BFC8-79C1022C6784">Show <img src="../images/ac.menuaro.gif"> Show Connections as Curved Lines</span> from the render tree menu. 
+                           </div>
+                        </div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1FCFE3A2-CD19-434C-91BF-A39F0C9F20DD"></a></span>From the pop-up menu that appears, choose one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="FIG_D2E075689CE547D7B1F4C088D932C44C"></a></span><div class="figure-anchor"><img src="../images/GUID-1CC839EF-2195-4BDF-8E73-84D2C098EC29-low.png"></div> 
+                     </li>
+                  </ol> <span class="anchor_wrapper"><a name="TABLE_B72A1E6581FA4B87A92724ECA69F3AAB"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col>
+                           <col>
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-E4CF94E6-A618-4850-A59C-98C9AEBE32D0"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-78E99820-0541-4763-966A-AAFD5FF14D0F">Option</span> 
+                              </p> 
+                           </th>
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-30A986E9-E525-4BB2-80CF-DD9478E1F0A0"></a></span><p class="table-heading"> <span class="MenuCascade" id="GUID-33C973EB-B247-4E1A-8EDB-80D14F2DD304">What it does</span> 
+                              </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EA39FE29-7739-48E9-B947-E4BA486EF465"></a></span><p class="table-body">Disconnect </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-98B85930-552E-43E4-B5EB-C4F6FBE066EE"></a></span><p class="table-body">Cuts the connection between the parameter and an attached shader. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-27C2960C-399E-41B2-A3CC-931656510544"></a></span><p class="table-body">Blend with </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9F863E08-1486-4B0F-B909-48575EB902FE"></a></span><p class="table-body">Opens another menu from which you can select a texture shader. </p> <span class="anchor_wrapper"><a name="GUID-13C21272-8818-4E1B-A9BC-7010FBFCE765"></a></span><p class="table-body">The selected shader is blended with the parameter's value using a mixing shader. </p> <span class="anchor_wrapper"><a name="GUID-5BCAC798-59E8-4D29-A516-633F03ED5F30"></a></span><p class="table-body">If a shader is already connected to the parameter, it is disconnected and replaced
+                                 with the new shader and the mixer shader. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-05833BE9-78D8-4362-8390-4245F80A26A3"></a></span><p class="table-body">Insert </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C899E685-42DF-4727-912A-77C97A927716"></a></span><p class="table-body">Opens another menu from which you can select a conversion shader (Invert, Color Correction,
+                                 and so on). 
+                              </p> <span class="anchor_wrapper"><a name="GUID-6B8F10C7-BD50-49E3-9812-4D17A2444CCB"></a></span><p class="table-body">If a shader is already connected to the parameter, the conversion shader is inserted
+                                 between the parameter and the previously connected shader. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C8D96D03-0C5B-4FF1-9662-0FBDA88AA4B4"></a></span><p class="table-body">Edit Conversions </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FAE0B889-FB77-443C-BC50-657A3B70D5F8"></a></span><p class="table-body">Opens a combined property editor for all conversion shaders connected in series to
+                                 the parameter. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-8951CBC4-8367-4F71-864F-8E4BEDFD1EAD"></a></span><p class="table-body">For example, if a Phong shader's diffuse parameter is connected to a Color Correction
+                                 shader, which is connected to an Intensity shader, which is connected to an Image
+                                 texture shader, choosing <span class="MenuCascade" id="GUID-39EACD01-7D37-42BC-B4F2-BAA3929C550E">Edit Conversions</span> will open a combined property editor for the Color Correction and Intensity shaders.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-08E969AB-2659-4258-ADDF-2209E144AC84"></a></span><p class="table-body">Image </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-341A36E7-EBC4-450D-8D63-8D1376D5A69C"></a></span><p class="table-body">An image is connected to the port using an Image shader. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5037106A-6AED-47B4-A384-0209C8603F96"></a></span><p class="table-body">Clips </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A7CBD87D-BA49-4E00-B4E0-EEF4D4A4CE78"></a></span><p class="table-body">Opens a sub-menu that lists all of the scene's image clips. You can select any clip
+                                 from the list. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-E0C43439-5B96-4DFE-8F14-0C7A67C99328"></a></span><p class="table-body">The clip is connected to the parameter using an Image shader. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3E360FD9-2942-43AD-A849-4BADBCD87550"></a></span><p class="table-body">Sources </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A204F77F-7B6F-46FA-A6CB-B86526BE340A"></a></span><p class="table-body">Opens a sub-menu that lists all of the scene's image sources. You can select any source
+                                 from the list. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-89DED5C9-5F4C-4C3A-9700-ED5B80921028"></a></span><p class="table-body">A new image clip is created from the source and connected to the parameter using an
+                                 Image shader. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-77E9A848-42C0-44DE-ABDE-F994AAAD69D9"></a></span><p class="table-body">[Various shaders] </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AC6CE58B-BFD1-4AE1-B89C-32565E09F8A5"></a></span><p class="table-body">Lists shaders that are commonly associated with the parameter. Selecting one of these
+                                 shaders connects it to the parameter. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-100A3809-D1AB-40ED-A37C-FC2904B5C70E"></a></span><p class="table-body">If a shader is already connected to the parameter, it is disconnected and replaced
+                                 with the new shader. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EEB9214F-147A-4387-B077-831005380F70"></a></span><p class="table-body">More... </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-66E4104D-05C4-4DE7-809C-CDF39009649F"></a></span><p class="table-body">Opens a browser so you can select any shader from the shader library. The selected
+                                 shader is connected to the parameter. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-D51C58A8-D8B4-47EF-B12D-00D0EE817955"></a></span><p class="table-body">If a shader is already connected to the parameter, it is disconnected and replaced
+                                 with the new shader and the mixer shader. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-2A9C53D7-D991-4952-BA3A-AAE780EBA626"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CA5358EB-1A5C-42DF-974D-04AB6B30093D">Note:</span> Once you select a shader from the browser, it will appear in a list of most recently
+                                 used shaders under the <span class="MenuCascade" id="GUID-40B282F7-A30B-4069-8D06-511C62C1FF6C">More</span>... option. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-0059"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B99CEA48-7237-4722-BED0-1F66AB7D8829"></a></span>Disconnecting Nodes
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-E1EB710B-4C23-4EAE-912D-B90B9DA4CC80"></a></span>Disconnecting nodes is as simple as connecting them. Use any of the following techniques:
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-005A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0B79861C-7BAB-4353-90E3-477D3371E220"></a></span>Disconnecting a port
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-508B25E7-E200-45E1-92D2-421D40305DBC"></a></span>Do either of the following: 
+                  </p> <span class="anchor_wrapper"><a name="UL_595AE989380E415B84EDA03F9D004D40"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-839944D0-8314-496C-A1B6-F513EF76E6EB"></a></span>Right-click the port you want to disconnect and choose <span class="MenuCascade" id="GUID-FBDDD4C7-4005-4980-B0A1-D41A0A65E620">Disconnect</span> from the pop-up menu. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DEB03D55-B891-479E-8F6E-76967E89C647"></a></span> <em class="mild">or</em> 
+                  </p> <span class="anchor_wrapper"><a name="GUID-E4D4A56E-9B2B-4E5D-A4C9-0DC50A266291"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-87D6CD11-313E-4546-8356-99BB78F6EEC3"></a></span>Move the mouse pointer over the connection line, close to the input port. The line's
+                           right end is shaded in white. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_546ACB80C46B4E6EA77A63A7DA5D276D"></a></span><div class="figure-anchor"><img src="../images/GUID-CBE405B8-305C-4EBD-A632-A60989792EFC-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A261BF21-80C7-4554-9E2B-762925DFA84D"></a></span>Click and drag away from the port until the cursor changes to a pair of scissors,
+                           then release the mouse button. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-35FD240C-923C-4E8D-83F1-E0D92CD20628"></a></span>You can also replace a connection by connecting a new node without disconnecting the
+                     first one. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-75B64045-E93C-4A46-96AF-9D6B48E57E81"></a></span><div class="note-note"><span class="label">NOTE:</span>Disconnecting an input this way deletes any branch of the render tree that is connected
+                        only to that input. Nodes in the branch that are connected to other nodes are not
+                        deleted. 
+                     </div>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-005C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-FB9EF096-A4CD-4D01-8383-BB2F461BB9D5"></a></span>Disconnecting all of a node's inputs/outputs
+                  </h3> <span class="anchor_wrapper"><a name="GUID-C5EC737D-E124-4920-8B70-3CF4A914C8DD"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-85938952-6DCA-4E64-BCCB-55E7ED1DD1AA"></a></span>Right-click the node whose inputs or outputs you want to disconnect. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0C5FD6BB-73B1-41CA-8F28-DDD1ADA19A70"></a></span>From the pop-up menu, choose one of the following: 
+                        </p> <span class="anchor_wrapper"><a name="UL_6C7AC7A310BB442BBFAA171143C3EFCB"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-51B7AA37-81FB-46F4-B0ED-83BC4690D6E1"></a></span> <span class="MenuCascade" id="GUID-7EBC0758-1447-49C6-95BE-FB473C19E46F">Disconnect All Inputs</span> removes all connections to the node's inputs. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-5E5BD6D5-2D4A-4426-AD2C-1142CB54EE30"></a></span> <span class="MenuCascade" id="GUID-6B931ACB-E30B-4918-A38D-D53D154044C2">Disconnect All Outputs</span> removes all connections from the node to any other nodes. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-C7096C41-9102-4E1E-BF12-D4ED6AB5B497"></a></span> <span class="MenuCascade" id="GUID-1336ABEB-FF1B-437A-8827-025606FEAFFF">Disconnect All</span> removes all connections to and from the node. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS0BA946C0C7F07C489426C340C08C4904-005D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-532D03CF-BD09-4CD2-ADFE-8A6D1A2EE864"></a></span>Assigning Texture Projections to Nodes
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-7B176FC1-2AF5-4D19-87E8-A548FFC56E8F"></a></span>Texture shaders and certain other properties require you to select a projection. You
+                  can specify an existing projection or create a new one using the texture projection
+                  control in the upper-left of the render tree. 
+               </p> <span class="anchor_wrapper"><a name="FIG_21172C6C435D4E65B839A15E024BC1F9"></a></span><div class="figure-anchor"><img src="../images/GUID-2EBA49CE-EC8B-403C-A1FE-51C9F4186B8B-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_B9B8087BAD0947C6BA10E7258B796007"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ADFDD0C7-88CF-466C-A30A-BCAE06F18A3D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3C541588-66C8-4C20-B5B6-8CD1AC628C6F">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BFB5350D-8A4F-43AF-8AC7-9655E30B526C"></a></span><p class="table-body">If multiple objects use the same material, you can select the one(s) to affect: <span class="MenuCascade" id="GUID-0DB8477E-6C86-4FF9-B755-50EC20F67FD7">All</span> or a specific object. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-2741A6FF-EB66-4545-8AB7-279798752897"></a></span><p class="table-body">This box appears only if a material is shared by multiple objects. It updates automatically
+                              as you select objects in the scene, as long as the render tree is not locked. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-54DE7521-6E29-4852-93D2-8674E54015A7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4CA95B10-6AFC-4760-A37E-1C2BD9517C86">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EDA8F672-A922-4E32-86AA-5423BB805985"></a></span><p class="table-body">Select an existing projection to use. </p> <span class="anchor_wrapper"><a name="GUID-89E45DDC-6776-47B4-B21E-182BD2167E65"></a></span><p class="table-body">If an object already has one or more projections when you apply a texture, the texture
+                              will automatically use the first projection. However, this box will remain blank until
+                              you explicitly select a specific projection. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-B9B5C757-A73E-44A4-9F85-499ECD8BD126"></a></span><p class="table-body">If multiple objects with the same material use different projections, <span class="MenuCascade" id="GUID-4F064EA5-CBFF-4BCE-93DB-E7B36A3981FA">(multiple values)</span> appears instead of a projection name. You can select a projection by name only if
+                              all objects have a projection with the same name. However if you are using a naming
+                              convention for projections on different objects, you can enter a string with a * wildcard
+                              pattern. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D2AC32BE-0AF6-4E4E-8DB2-C8B4C08BE966"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DA88D3F8-5B8A-4CA8-A2DB-29516FDBCE9B">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1A9ADA90-BBEE-42B8-9180-9E7F1AF4EF88"></a></span><p class="table-body">Click to modify the properties of the selected projection, as well as the support
+                              if applicable. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-4A82F32D-AE91-455D-858D-273FE834A239"></a></span><p class="table-body">In the case of multiple texture projections, a multi-selection property editor opens.
+                              Changes that you make from the property editor affect all projections. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B29CFB94-9BFF-4649-AAEA-BB87C904F44E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4863CA3D-E43C-4E00-9B20-40E91A4F72D7">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A6C43CFE-533B-4ABB-B865-EB715B886C63"></a></span><p class="table-body">Click to create a new projection. See <span class="char_link"><a href="tex_basicproc_ApplyingTextureProjections.htm">Creating Texture Projections</a></span>. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-3567D0ED-7CB0-4A58-BECD-350FBF9D3094"></a></span>Besides viewing and editing texture projection information, you can also get information
+                  about other maps used by selected nodes (weight maps, color at vertices maps, and
+                  so on). If you select multiple nodes that use different types of maps, the texture
+                  projection controls are deactivated. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-933E2278-95D2-4632-AE37-867B57C2637F"></a></span>For information on texture projections in general, see <span class="char_link"><a href="tex_applying.htm">Applying and Editing Textures</a></span>. 
+               </p> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F5ACC176-AD6F-4B81-8AF8-B25D34422734"></a></span></h2> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

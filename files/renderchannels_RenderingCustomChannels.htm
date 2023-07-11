@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-FAFEA3CE-0E52-415B-AE93-74EA3839D6F7">
+      <meta name="indexterm" content="render channels: custom channels">
+      <meta name="indexterm" content="render channels: store in channel shaders">
+      <meta name="topic-type" content="concept">
+      <title>Working With Custom Channels</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-FAFEA3CE-0E52-415B-AE93-74EA3839D6F7"></a></span><div class="head">
+            <h1>Working With Custom Channels</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-A0721AD6-FBFF-43B0-93E8-42F76B4AC0C5"></a></span>If you wish to isolate specific data for particular objects in your scene, you can
+               create a custom render channel to extract it. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9BBC60EA-D43C-4CC8-9380-F35B8D48B887"></a></span>Unlike the built-in or preset channels, custom render channels do not automatically
+               apply to every object rendered by the pass. Custom channels require Store In Channel
+               shaders used in the render tree to extract and store data from specific object materials.
+               This data is output when the channel is rendered with its pass. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-26C72F45-9BE4-4B9C-B2EE-939D50D01EE9"></a></span>You can also use Store In Channel shaders to store additional data with the preset
+               render channels. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC3E5E55625BD5A41A60AC47CADE8610F-000D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E2F66E25-569A-4014-AB59-9EC01D7F98D6"></a></span>Creating a Custom Render Channel for the Scene
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-922A5B0B-630C-4265-B5AA-5D76D81D055D"></a></span>All render channels are available from the scene render options. You create your custom
+                  channels for the scene, and then you add and enable them for your pass. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5893B4A2-033F-4291-8A51-DF9B881F9A98"></a></span>You can create a custom render channel directly in the scene render options (as described
+                  in the procedure below), or you can add the custom render channel for the scene later,
+                  using one of the Store In Channel shaders while you are building your render tree
+                  (see <span class="char_link"><a href="renderchannels_RenderingCustomChannels.htm#WSC3E5E55625BD5A41A60AC47CADE8610F-000F">Storing Data in a Custom Render Channel</a></span>). 
+               </p> <span class="anchor_wrapper"><a name="GUID-0F61277B-A502-467E-8C82-D14937FD1A49"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-505C42A9-7409-49CB-A90D-129DB6BE06EB"></a></span>Open the <span class="char_link"><a href="rendering_props_SceneRenderOptionsPropertyEditor.htm">Scene Render Options Property Editor</a></span>: 
+                     </p> <span class="anchor_wrapper"><a name="UL_3EFB28D237194F8B8333CD17225E8A4F"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-6A12D6C7-7079-4C73-8A63-51F1D064B9CC"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; Scene Render Options 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B2892D0D-3C57-4E61-AFBB-1B55E62B1433"></a></span>Choose Render &gt; Render &gt; Scene Options from the Render toolbar. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0F15F244-7958-4614-8F15-84B966E172A1"></a></span>On the <span class="char_link"><a href="rendering_props_SceneRenderOptionsPropertyEditor.htm#WS3006BE1388530344A0CBB5EC50AB924E-00C9">Available Channels</a></span> tab, click the <span class="MenuCascade" id="GUID-655FB7A8-E66F-477C-B8C1-206B29BD7CFD">Add...</span> button below the <span class="char_link"><a href="rendering_props_SceneRenderOptionsPropertyEditor.htm#WS3006BE1388530344A0CBB5EC50AB924E-00CA">Available Render Channels</a></span> grid. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0AA0900C-F486-48A6-8208-8941793437E5"></a></span>In the <span class="char_link"><a href="rendering_props_CreateRenderChannelDialogBox.htm">Create Render Channel Dialog Box</a></span>, enter a name for your new render channel. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B465AC1B-9E08-4141-B04D-A29E26ADF5AE"></a></span>Select the type of data that the channel will store: mental ray supports color, grayscale,
+                        depth, normal vector, vectors/motion vectors, and object label data types. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC3E5E55625BD5A41A60AC47CADE8610F-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D5DAC85F-A375-4AE0-BFBF-5C5485FBA21B"></a></span>Adding a Custom Render Channel for the Pass
+               </h2> <span class="anchor_wrapper"><a name="GUID-8C80974C-9C6A-4955-80E2-CCA606ADE4AC"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7DD7612B-A0CD-41D5-9D49-792032A74B29"></a></span>Adding a custom render channel is done the same way for all render channel types,
+                        as described in <span class="char_link"><a href="renderchannels_RenderingBuiltInandPresetChannels.htm#WSC3E5E55625BD5A41A60AC47CADE8610F-0007">Adding a Render Channel for the Pass</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B48675D1-901F-4661-BE6F-60855F74445E"></a></span>Once the render channel is added to the pass, you can specify your output format and
+                        file name for the render channel, as described in <span class="char_link"><a href="renderchannels_RenderingBuiltInandPresetChannels.htm#WSC3E5E55625BD5A41A60AC47CADE8610F-0009">Defining a Framebuffer for the Render Channel</a></span>. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSC3E5E55625BD5A41A60AC47CADE8610F-000F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-BA806E96-75D7-4876-95A6-EB4CDC2AB216"></a></span>Storing Data in a Custom Render Channel
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-04420162-54E2-41F5-B2FE-E93A3D59824E"></a></span>Custom render channels do not automatically apply to every object rendered by the
+                  pass. To store data in your custom channel for rendering, you must connect a Store
+                  In Channel shader in the render tree of an object's material node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F69734B1-C520-4C04-B3AC-50AF0B87EFBE"></a></span>The Store In Channel shader intercepts data from its connection input point in the
+                  render tree and pipes the data out to be rendered by the specified render channel.
+                  
+               </p> <span class="anchor_wrapper"><a name="GUID-42CD14DF-8E34-4CF6-9BC9-7253FD59BEA3"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B0841070-27F9-409A-BBA4-CB3FF00F0E45"></a></span>Select the object whose material attributes you want to store in a render channel.
+                        If the material is shared by other objects in your scene, then data for all objects
+                        sharing that material will be stored and rendered. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-71A30C9B-F0D4-48D2-AFE4-79C758E7A3E4"></a></span>Open the render tree or the material manager. The material manager is the tool that
+                        provides the easiest way to work with materials, image clips, shaders, and render
+                        trees all at the same time. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_0653B78878B84C738317CDC5F032915B"></a></span><div class="figure-anchor"><img src="../images/GUID-1AF41BF6-7E79-4396-9638-3849F417F6B5-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-03728330-AC30-4ECF-A453-6159B247033E"></a></span>As you attach networks of shaders to your objects, you will probably want to use some
+                        tool shaders to help you get the exact data you need piped into the Store In Channel
+                        shader. Generally speaking, utility shaders allow you to manipulate a shader's output
+                        before it is connected to another shader's input. For more information, see <span class="char_link"><a href="ShaderBasics_ApplyingShaders.htm">Methods for Applying Shaders</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CE18755F-20CD-4B19-883A-A7F18E0C6B35"></a></span>Identify where in the render tree you want to place the Store In Channel shader. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1D488C40-95C5-4AEA-B1CE-7EF4EC35F595"></a></span>Keep in mind that data flows "downstream" from left to right along connections from
+                        one node's output ports to the next node's input ports in the render tree. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AC42D8E7-EA49-4A2A-93F2-6A4E88112035"></a></span>The further downstream that you connect the Store In Channel shader in a render tree,
+                        the more data gets stored and rendered in the channel. For example, if the Store In
+                        Channel shader is connected directly to the material node's Surface port, the shader
+                        will intercept data for the entire tree. If you are outputting a color render channel,
+                        this will completely isolate or "cutout" the object that uses that material. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B5E8C4D9-AD70-4521-8FF3-8BF3C572021E"></a></span>Right-click the input port of the node to which you want to connect the Store In Channel
+                        shader. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7DB9B6BE-60DA-48C2-B9DB-D09F71F8ED2B"></a></span>Choose <span class="MenuCascade" id="GUID-6A28545E-9E0F-498D-9987-3A044F50BFBF">Insert <img src="../images/ac.menuaro.gif"> Store In Channel</span> from the context menu. This will automatically insert a Store In Channel shader of
+                        the appropriate data type. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-348D55F2-54E0-4630-BE25-B81256F0C173"></a></span>If a shader is already connected to the parameter, the Store In Channel shader is
+                        inserted between the input parameter and the previously connected shader. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A359E3F8-C8C3-4603-A85D-31516A0679AD"></a></span>For details on how to connect nodes in the render tree in this way, see <span class="char_link"><a href="rendertree_ConnectingShaderNodes.htm#WS0BA946C0C7F07C489426C340C08C4904-005D">Assigning Texture Projections to Nodes</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-BF05C55A-BD22-4E7F-B0C5-87B17EA2C839"></a></span>In the property editor of the Store In Channel shader, select a render channel from
+                        the Render Channel drop-down that will be used to render out the data. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FD214AB7-A816-4915-A69F-034A1B7C96A6"></a></span>If you have not created a custom render channel yet, then click the <span class="MenuCascade" id="GUID-3622E788-7DFC-4BB3-8BF9-84F441200E9D">Add</span> button and enter a name for the render channel. The render channel is automatically
+                        added to the scene's Available Channels grid using the appropriate data type for the
+                        output. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9C233836-1BF0-4024-AA35-691EBA63D3C2"></a></span>Add the channel to the pass and set the pass options to render the output. See <span class="char_link"><a href="renderchannels_RenderingBuiltInandPresetChannels.htm#WSC3E5E55625BD5A41A60AC47CADE8610F-0007">Adding a Render Channel for the Pass</a></span>. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

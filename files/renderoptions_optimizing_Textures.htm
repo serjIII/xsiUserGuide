@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-7A9AE77C-DF39-4758-8FA3-5DD01FD4CF4E">
+      <meta name="indexterm" content="textures: rendering">
+      <meta name="indexterm" content="textures: rendering">
+      <meta name="indexterm" content="environment maps: rendering">
+      <meta name="indexterm" content="memory-mapped textures">
+      <meta name="indexterm" content="textures: memory-mapped">
+      <meta name="indexterm" content="multi-resolution texture mapping pyramid mapping">
+      <meta name="indexterm" content="MipMapping pyramid mapping">
+      <meta name="indexterm" content="rendering: subregion">
+      <meta name="indexterm" content="rendering: resolution">
+      <meta name="indexterm" content="textures: rendering">
+      <meta name="indexterm" content="textures: management">
+      <meta name="indexterm" content="image management">
+      <meta name="topic-type" content="concept">
+      <title>Textures</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-7A9AE77C-DF39-4758-8FA3-5DD01FD4CF4E"></a></span><div class="head">
+            <h1>Textures</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WS9AE726E69FE8064EB1EABCC16EAD5E6F-000A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4CC04DA4-A13F-4C0B-AB81-C2C76211BE05"></a></span>2D Textures
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-B0531A9A-CCBC-40C1-9D79-D530458F9268"></a></span>In general, using large texture files or a high number of textures in a scene will
+                  slow down rendering. Each 2D texture file must first be loaded into memory. This can
+                  result in memory swapping (transferring data between RAM and disk), which increases
+                  rendering time. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1589786F-66F8-4FAD-8EB9-C5C84D5C6631"></a></span>For more information about 2D textures, see <span class="char_link"><a href="tex_applying_AboutTexturinginSoftimage.htm#WSF3670244173DE845B36001FAA69DB62C-0008">Image Textures</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+               </p> <span class="anchor_wrapper"><a name="UL_B7275C6EF2054946A7DCBED19BF1E77A"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6B4530D8-6D6D-4C52-A3B5-4350C136EEC7"></a></span>Consider a texture to be "large" when it is over 1000 pixels in any direction. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B2DCC07A-735D-415B-AAF8-295654660954"></a></span>For preview renders, use small, low-resolution texture files. For the final render,
+                        swap the low-resolution textures files for their high-resolution counterparts. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7FA82288-E85A-400C-BA4B-328E2B9F1886"></a></span>You can write a script to swap images quickly, or you can use the Search and Replace
+                        function in the External Files Manager (<span class="MenuCascade" id="GUID-A775C937-DEBB-48A0-A560-445467E42DCB">File <img src="../images/ac.menuaro.gif"> External Files</span> from the main menu). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-56C9618D-E4D1-4871-8FE3-2099B550AF46"></a></span>For highly detailed textures, activate elliptical filtering. This will slow down rendering
+                        slightly, but will reduce the amount of noise, distortion, and/or flickering in the
+                        texture. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A44E2399-77A3-4DD6-AA0E-E906DCB7C8AC"></a></span>With elliptical filtering active, you'll likely be able to decrease the antialiasing
+                        sampling values without losing image quality. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-26CC4B0B-BF06-4E09-B2AB-7F3DDACEF852"></a></span>Once you've finished setting up your scene, delete all of the unused texture images
+                        from the scene file by choosing <span class="MenuCascade" id="GUID-9EB7D41C-824C-44CB-9343-F64E48906AFD">Get <img src="../images/ac.menuaro.gif"> Clip <img src="../images/ac.menuaro.gif"> Delete Unused Sources and Clips</span> from the Render toolbar. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9AE726E69FE8064EB1EABCC16EAD5E6F-000B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7C788054-D59C-4375-B760-C8EB19E17100"></a></span>Procedural Textures
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-C273AF84-A08A-4D61-BA0F-A53BAAD9266D"></a></span>Whereas 2D textures are created from an existing file, procedural or 3D textures are
+                  mathematically calculated on demand. As a result, they take longer to render than
+                  projected 2D textures. Procedural textures do give a better rendered result close
+                  up, because pixels can be recomputed (rather than interpolated) at close proximity.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-627BF596-9724-44AD-A64B-8DFDB06CFB47"></a></span>For more information about procedural textures, see <span class="char_link"><a href="tex_applying_AboutTexturinginSoftimage.htm#WSF3670244173DE845B36001FAA69DB62C-000A"> Procedural Textures</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9AE726E69FE8064EB1EABCC16EAD5E6F-000C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FBE87DB1-15AB-4881-A726-CC8CC25F5053"></a></span>Bump Maps and Displacement Maps
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-9A2F7813-6B9F-4A12-A32E-EA0D0DD9E0B4"></a></span>Bump maps and displacement maps affect rendering performance to varying degrees, depending
+                  on the number of calculations required to render them. Generally, bump maps take much
+                  less time to render since they do not actually modify the geometry of the objects
+                  to which they're applied. Whenever possible, use bump maps instead of displacement
+                  maps. Bump maps require fewer calculations and will render much faster than highly
+                  tessellated models. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6A6327D0-79A9-49AA-8D4A-4C6F6C88ACEA"></a></span>If you are rendering with displacement maps, you can select the <span class="MenuCascade" id="GUID-EA1DD09B-7F01-4E2E-931F-1F7C3B051595">Sample Displacement Before Rendering</span> checkbox on the <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-004B">Render Type</a></span> tab of the <span class="char_link"><a href="property4502.htm">mental ray Render Options Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]. This option can help speed up displacement rendering by providing mental ray with
+                  the correct bounding boxes for its calculations. This can provide faster overall render
+                  times. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DDAF3220-3832-44CF-83FB-547304EBAD72"></a></span>For moving objects with displacement, you can optimize the displacement approximation
+                  based on how fast the object is moving by setting the <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-0057">Shutter Settings</a></span> option on the <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-004B">Render Type</a></span> tab of the <span class="char_link"><a href="property4502.htm">mental ray Render Options Property Editor</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]. The automatic reduction of displacement detail on moving objects has a significant
+                  impact on rendering performance and memory consumption by cutting down on the typically
+                  huge amount of tessellation data that gets generated. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-BEFAB2EC-BF31-4042-AD57-D1DDF3B67B9C"></a></span>The displaced geometry should have a geometry approximation property applied to it
+                  and motion blur must be enabled for the render region and/or the render pass. See
+                  <span class="char_link"><a href="scel_properties_ApplyingandEditingGeometryApproximation.htm">Applying and Editing Geometry Approximation</a></span> [<span class="char_link"><a href="scel_cover.htm">Scene Elements</a></span>] and <span class="char_link"><a href="motion_blur_RenderingMotionBlur.htm">Defining and Rendering Motion Blur</a></span> [<span class="char_link"><a href="cam_cover.htm">Cameras and Motion Blur</a></span>]. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CAE02D94-314C-46B4-BDE0-17EDE4C49C67"></a></span>For more information about bump and displacement maps, see <span class="char_link"><a href="tex_maps_CreatingBumpMaps.htm">Bump Maps</a></span> and <span class="char_link"><a href="tex_maps_CreatingaDisplacementMap.htm">Displacement Maps</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9AE726E69FE8064EB1EABCC16EAD5E6F-000D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5AAC0D6F-6F12-4583-B76C-16516B6975D4"></a></span>Environment Maps
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-F7869041-C220-438C-A441-6F91D60E2030"></a></span>You can speed up rendering considerably by using environment maps instead of raytraced
+                  reflection. Environment maps use a texture to simulate the environment that should
+                  be reflected by objects in the scene. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A6BF8C42-E535-44D5-A45E-10E6CE41177A"></a></span>For more information about environment maps, see <span class="char_link"><a href="tex_maps_CreatingaReflectionEnvironmentMap.htm#WS9825820158CC6F408FB52FB16A0CCEBF-0039">Using Environment Map Shaders</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+               </p> <span class="anchor_wrapper"><a name="UL_02F9C55DC46D4CEE881F066B0CA3518C"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4121AC9F-00C2-434D-8CED-23BA06E7947A"></a></span>When using environment maps, use scanline mode to render whenever possible. However,
+                        you will need to activate raytracing if there is any refraction or distortion from
+                        a lens shader. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4FB6CF3D-0927-43C9-8225-D01F61B8553D"></a></span>Use non-raytraced reflection maps wherever possible. If the object's surface shader
+                        supports reflection, go to the reflection tab of the shader's property editor and
+                        change the reflection mode to Environment Only. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9AE726E69FE8064EB1EABCC16EAD5E6F-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-13EC7ED9-9EED-4CD2-BA66-2A1B20473853"></a></span>Memory-Mapped Textures
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-DEFD411E-DFA4-4AB6-8912-E267EDBF4432"></a></span>Rendering textures can be done quicker with the use of memory–mapped textures. Memory–mapped
+                  textures are not loaded into memory but are accessed directly from the disk whenever
+                  the shader needs it. Softimage recognizes a memory–mappable texture and automatically
+                  maps it. Only the map image-file format (with the .map extension) can be mapped. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7676AD7A-637E-46E2-B575-DB901D28452D"></a></span>For detailed information about memory mapped textures, see <span class="char_link"><a href="tex_clip_source_UsingMemoryMappedTextures.htm">Using Memory-Mapped Textures</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9AE726E69FE8064EB1EABCC16EAD5E6F-000F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DA80354E-CF77-431D-93D0-F9A05E95299D"></a></span>Multi-Resolution Texture Mapping ("MipMapping")
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-C60F191D-47C3-490E-996A-0154E845EFA7"></a></span>Pyramid mapping performs a type of pre–blur on a texture according to the texture's
+                  distance from the camera. In turn, this prevents having to increase the antialiasing
+                  settings and removes flickering that is often associated with detailed textures being
+                  far from the camera. Pyramid mapping can be used on both 2D and 3D textures. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-C0C3740C-844D-4089-A094-5D193EBBEF66"></a></span>For more information on how to set pyramid mapping options, see <span class="char_link"><a href="tex_clip_source_FilteringanImageClip.htm#WSF3670244173DE845B36001FAA69DB62C-00AC">Using MipMaps (Pyramidal Mapping)</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9AE726E69FE8064EB1EABCC16EAD5E6F-0010"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="WS9AE726E69FE8064EB1EABCC16EAD5E6F-0011"></a></span> Image Resolution and Subregions
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-AC9F3FE8-4A8E-4B8D-BE50-EA7FA2BDF4E2"></a></span>If you are testing settings, you can decrease the resolution to obtain an image more
+                  quickly. Another possibility for test images is to render only a subregion. See <span class="char_link"><a href="renderoptions_scene_SettingOutputFormatandResolution.htm">Setting Output Format and Resolution</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS9AE726E69FE8064EB1EABCC16EAD5E6F-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-508407A3-4D1C-4551-97C7-48C7BA48652C"></a></span>Image Management
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-BF3BDE51-D57F-46C8-A372-6A07570C433E"></a></span>In Softimage, you have the option to define how your image clips will be managed.
+                  This is especially useful if you are working with several large images or across a
+                  network of several machines. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FB363B19-3FA9-476B-B234-7E357183CA8E"></a></span>You can define the Broadcast, Use from Disk, or Load in Memory options per image from
+                  the material node's property editor. The options are defined as follows: 
+               </p> <span class="anchor_wrapper"><a name="UL_B2EB0CCAEFCF48C68FB76C80033E08C3"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-791CE67B-F542-447C-AAB1-3B08E30C6C75"></a></span> <span class="MenuCascade" id="GUID-FA00F36F-8C2B-4518-BC1D-C828159A84F5">Load in Memory</span> — Softimage opens the file and sends the pixel data to mental ray, which then sends
+                        the pixel data to slaves. The mi file will have the texture in-line. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-6078A53B-C376-4690-A0FC-57AC55D3ACF9"></a></span> <span class="MenuCascade" id="GUID-709ACDA4-C848-44D6-8886-4336B3379F77">Use from disk</span> — Softimage passes the path directly to mental ray, which then loads the image and
+                        sends the pixel data to slaves. 
+                     </p> <span class="anchor_wrapper"><a name="UL_939CF7C7270F4BEA878F2E4F96095577"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0AAD8E44-C834-4C38-9F00-84CFE2061B0B"></a></span>If echo verbatim is on, the mi file will have the texture inline. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B4815F54-0CF6-4E75-A921-BE0AE8219104"></a></span>If echo verbatim is off, then the <span class="MenuCascade" id="GUID-1C62BFD6-B127-4AD6-8906-4F131F3D7F88">mi</span> file will only have a path reference of the texture. 
+                           </p> 
+                        </li>
+                     </ul>
+                     <div><span class="anchor_wrapper"><a name="GUID-E62FC831-5885-46E5-93BA-9C3260BC16CB"></a></span><div class="note-note"><span class="label">NOTE:</span> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CA41BCE1-33FB-49B7-82FF-BCDCFEC8937A"></a></span>Softimage supports approximately 20 image formats. When using this mode, the file
+                              must be compatible with mental ray. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-32708CA8-F73D-4C2F-BFE3-41A5E79A50B4"></a></span>The <span class="MenuCascade" id="GUID-C68F6F96-1645-4F46-AF0E-3C15DA90172B">.pic / .tga / .tif / .sgi / .jpg</span> formats are supported by both Softimage and mental ray; this ensures correct behavior
+                              when changing image management mode. 
+                           </p> 
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A0F5FD6F-6008-44AF-B5C0-B1C27DA2D524"></a></span> <span class="MenuCascade" id="GUID-FD5A596C-B5AE-4A8F-9513-CFD2682F67C8">Broadcast</span> — Softimage passes the path directly to mental ray, which then opens the texture
+                        file and broadcasts the path to the render slaves. 
+                     </p> <span class="anchor_wrapper"><a name="UL_D7870C1FBEE4490DBCF93A1A57F649BB"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-8568B841-E83F-43E2-8086-085A08701DB2"></a></span>If echo verbatim is on, the mi file will have the texture inline. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A3AD5244-27A5-41C5-929C-04269A21FAA0"></a></span>If echo verbatim is off, the mi file will only have a path reference of the texture.
+                              
+                           </p> 
+                        </li>
+                     </ul>
+                     <div><span class="anchor_wrapper"><a name="GUID-1063D08D-46BB-446B-ABFA-DD8549C311C7"></a></span><div class="note-note"><span class="label">NOTE:</span> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3598DB5D-A7C2-4218-A6A7-65819732C229"></a></span>The texture file must be compatible with mental ray. The <span class="MenuCascade" id="GUID-3498C72F-5E09-4113-A9E7-774F2607B279">.pic / .tga / .tif / .sgi / .jpg</span> formats are supported by both Softimage and mental ray. 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-50D0F301-B0E5-4EE8-91D1-8662EB58EAED"></a></span>You can set all of the clips' management options at once by typing the following in
+                              the script-editor text box: 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-0FB3A357-E2B2-4CC6-9C24-B83D74FB6B7C"></a></span> <span class="code">SetValue "Clips.*.ImageDefinitionType", 1</span> 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-F8E2866D-9F7B-4C56-8250-D583D63D8400"></a></span>0= Load in Memory 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-4915CBD1-D232-458E-951C-A0D882D61AE3"></a></span>1= Use from disk 
+                           </p> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1DE96A3F-A7A8-40DE-829F-46CCBCD8B7B3"></a></span>2= Broadcast 
+                           </p> 
+                        </div>
+                     </div> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

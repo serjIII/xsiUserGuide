@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F204555E-3380-4C7A-A40E-5D4FE903E186">
+      <meta name="indexterm" content="Syflex ICE: springs">
+      <meta name="topic-type" content="concept">
+      <title>Using the Syflex Spring Forces</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F204555E-3380-4C7A-A40E-5D4FE903E186"></a></span><div class="head">
+            <h1>Using the Syflex Spring Forces</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-D64CC5B6-8E0B-4F04-8B25-D264DE3898FB"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-BBFA6B26-0E51-4E3A-8F26-932A36D4ED03"></a></span>Syflex cloth and curve deformations are controlled by a virtual "spring net", which
+            connects the vertices on a cloth or curve object. There are three different types
+            of springs that make up the spring net, each controlling a different kind of deformation:
+            stiffness, shearing, and bending. 
+         </p><span class="anchor_wrapper"><a name="UL_165BD1139B0B4EA3ADEDCF6C07CFDD02"></a></span><ul>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-915FDA0E-EBC9-4D9A-9D0C-E8EEE8F247AC"></a></span> Stiffness (elasticity or stretch) springs, which connect adjacent vertices on the
+                  cloth object. For curves, this is the stiffness of each segment. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-61833FA0-58A9-49E6-A2AA-B1C5D4DBD78D"></a></span> Shear (fishnet) springs, which connect the vertices on the cloth object in a crosswise
+                  manner. For curves, this connects every other point (skips over one point). 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-2CCFBC88-2873-4E9D-A9E6-D84C5FCE9576"></a></span> Bend (flex) springs, which connect every other vertex on the cloth object, skipping
+                  the adjacent ones. For curves, this connects every third point (skips over two points).
+                  
+               </p> 
+            </li>
+         </ul>
+         <p><span class="anchor_wrapper"><a name="GUID-39149368-72FF-4B63-9126-25B4521229D3"></a></span>Stiffness is the most influential spring, with Shear and Bend being percentages of
+            the Stiffness spring. In general, the Shear value should stay around 40% to 80% of
+            the Stiffness value, and the Bend value should stay around 10% to 40% of the Stiffness
+            value. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-6F4AA313-2842-4BA7-AB46-01DC98E2F122"></a></span>Damping acts as an internal friction. It is a moderating force that helps control
+            the oscillations (vibrations) that can occur when springs are very stiff. When you
+            change one of these spring parameters, you should also change the damping accordingly.
+            
+         </p><span class="anchor_wrapper"><a name="FIG_010136CCE10848338B4C447DD72F776A"></a></span><div class="figure-anchor"><img src="../images/GUID-DEFC68B4-A07D-4DC2-A663-F03EC482D2F0-low.png"><img src="../images/GUID-B937463A-4464-4B98-AB14-43DAE4A8D20E-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-6B5D9F39-849F-4013-96C3-AD10549A3C88"></a></span>The images below show different Stiffness values, from low values on the left going
+            to higher values on the right. 
+         </p><img src="../images/GUID-CCD18067-6316-402E-ABE9-54471B5FC698-low.png"><img src="../images/GUID-73FD554A-83E6-4C64-92B9-918B36C3E03F-low.png"><img src="../images/GUID-E62D8FB3-BC24-4C5F-BCE0-CA1505CCE770-low.png"><div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0026"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-F89A1F5B-CEDF-4240-9EF7-44A77BADE3B3"></a></span>Applying a Spring Force to a Cloth or Curve Simulation
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-A12D9EF1-0DB9-4D83-8E89-83BE996E528E"></a></span> The Syflex Cloth Spring and Syflex Curve Spring compounds are built into the Syflex
+               Cloth and Syflex Curve compounds, respectively, but if you're creating your own simulation
+               from scratch, you can use these compounds independently. <span class="anchor_wrapper"><a name="GUID-4E3BF413-A932-4EED-9F19-B8DD2C763E5C"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4335F119-925E-4929-BCC0-D9859474F398"></a></span>Create a simulated ICE tree for the cloth or curve object that you want to deform.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E5D3BFE0-CC5D-4E1F-B2DB-ABAE3ADE1ECD"></a></span>To give you an idea of which nodes you need to use to create your own simulation,
+                        edit the Syflex Cloth or Syflex Curve compound to see what's inside. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B5DD7298-72BD-44B8-9546-B3017DFB827F"></a></span>One of the main nodes that you need is the syflexISimul node, which controls the simulation
+                        calculations. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-199F743D-A8D5-46CE-8987-331E0073F5BF"></a></span>From the Task &gt; Syflex tab in the preset manager in the ICE Tree view, drag the <span class="MenuCascade" id="GUID-3DD39C19-987D-4AD9-8E3E-68B1D3B60E37">Forces <img src="../images/ac.menuaro.gif"> Syflex Cloth Springs</span> or <span class="MenuCascade" id="GUID-79BBE0CC-59A9-48A6-8897-78E681669EF5">Syflex Curve Springs</span> compound into the ICE tree workspace. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0DEE1FB1-4BE2-448B-9CA8-33AD70835AD8"></a></span>Plug each of the three Force outputs from the Syflex Cloth/Curve Springs node into
+                        a Force port on the syflexISimul node. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_46ED9B6320F54F6EB6B855F5D1902799"></a></span><div class="figure-anchor"><img src="../images/GUID-94A5093D-31F8-4F55-A4CF-829749972B49-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0C6C7EF9-11A1-4C84-83DC-FBDCA577F17B"></a></span>In the <span class="char_link"><a href="iceref_Syflex_Cloth_Springs.htm">Syflex Cloth Springs</a></span> or <span class="char_link"><a href="iceref_Syflex_Curve_Springs.htm">Syflex Curve Springs</a></span> property editor, set the parameters as you like. 
+                     </p> 
+                  </li>
+                  <li>Continue building the Syflex ICE tree with forces, collisions, and constraints as
+                     you like - see <span class="char_link"><a href="GUID-FFF815E2-1F03-404C-A6EF-0B542B4EBF16.htm">Anatomy of a Syflex ICE Tree</a></span> for an example. 
+                  </li>
+               </ol> 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

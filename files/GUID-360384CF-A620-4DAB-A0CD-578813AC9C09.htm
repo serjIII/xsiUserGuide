@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-360384CF-A620-4DAB-A0CD-578813AC9C09">
+      <meta name="indexterm" content="CrowdFX: actor behavior to anticipate collisions">
+      <meta name="indexterm" content="CrowdFX: braking to avoid collisions">
+      <meta name="topic-type" content="concept">
+      <title>Anticipating Collisions in the Simulation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-360384CF-A620-4DAB-A0CD-578813AC9C09"></a></span><div class="head">
+            <h1>Anticipating Collisions in the Simulation</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-41683454-3543-4765-80DF-7F20B38AEA5F"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-E710CBF5-233A-4592-AE16-E8C9177F5042"></a></span>Once the actor's basic collision avoidance settings are initialized in the Initialize
+            Collision Avoidance compound (see <span class="char_link"><a href="GUID-D36B006B-501F-45C8-8655-B1C6535B74E8.htm">Setting Up How Actors Avoid Collisions</a></span>), you can determine the way in which an actor anticipates collisions with other actors
+            and walls during the particle simulation. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-07ACD598-1154-4E12-8587-AFE5237D4E97"></a></span> When an actor "sees" one or more other actors or walls, several factors are considered
+            to determine if a collision is imminent, as calculated in the <span class="MenuCascade" id="GUID-338B809C-CD30-439A-845C-969370A2BFFB">Collision Avoidance</span> node that's inside the <span class="MenuCascade" id="GUID-CE7780C7-35EF-4BB6-B6E7-B7E3EDAFC3B9">Simulate Collision Avoidance</span> compound: 
+         </p><span class="anchor_wrapper"><a name="UL_C80CD5496824482890C3FB823924C0CC"></a></span><ul>
+            <li>The position, speed, and size of other actors, and the geometry data from the walls.
+               
+            </li>
+            <li>The actor's own position, direction, speed, size, and goal to which it is moving.
+               
+            </li>
+         </ul>
+         <p><span class="anchor_wrapper"><a name="GUID-DC860F48-EBDD-4AF2-9A74-5D286157F579"></a></span>After the ICE tree checks for imminent collisions, the actor's point position is updated
+            and then its velocity and orientation is updated inside the Simulate Collision Avoidance
+            compound. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-D7AC7871-8BFA-4DB3-BD61-66E42DC93F0A"></a></span> You can set the actor's anticipation behavior with the <span class="MenuCascade" id="GUID-131AA6BA-D868-4C6D-9570-C0A598648BB8">Actor Avoidance</span> parameters in the <span class="MenuCascade" id="GUID-32D8CA4A-56C5-4271-BACD-2139C300A3C2">Simulate Collision Avoidance</span> compound in the simulation point cloud's Particle Simulation ICE tree, as described
+            here. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-3FD20D8F-5715-4B56-910C-98996DBF24C5"></a></span>To open the property editor for this compound, you can choose the <span class="MenuCascade" id="GUID-1070ACCF-98C6-4745-9078-6A641D348832">CrowdFX <img src="../images/ac.menuaro.gif"> Simulation <img src="../images/ac.menuaro.gif"> Edit <img src="../images/ac.menuaro.gif"> Inspect Collision Avoidance</span> command from the ICE toolbar. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_C5220A5A8F4A4D85ACCA51D7BFBEAAA3"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-026A7CC7-F277-4791-A466-B4CFC1860D0E"></a></span>Anticipating the Collision
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-3AB28C46-5E3F-4275-81D0-D2DDF41BFC11"></a></span>There are two factors that you can set to alter the actor's behavior: <span class="MenuCascade" id="GUID-343BF409-35B4-4018-AE7E-358268E6D040">Anticipation Factor</span> and <span class="MenuCascade" id="GUID-D34B2AEA-94A9-4B28-AD44-5FEFC60E8BF2">Anticipation Contrast</span>. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-EAE753DA-0FF7-4024-BF74-C168AD02F09F"></a></span>The <span class="MenuCascade" id="GUID-E4CD0B99-91B2-4B18-B4D2-4577C881D015">Anticipation Factor</span> in the <span class="char_link"><a href="iceref_Set_Velocity_Using_Collision_Avoidance.htm">Set Velocity Using Collision Avoidance</a></span> compound determines how soon the actor starts to turn away to avoid an imminent collision
+               based on the time to collision. The amount that the actors turn at the beginning depends
+               on the <span class="MenuCascade" id="GUID-C56441B7-6CCC-45FF-AAD2-7B1945A69742">Anticipation Contrast</span> value. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-C648483B-5954-4002-A046-EF42BCA9281C"></a></span>If the factor is a <em class="strong">high</em> value, the actor starts turning immediately after detecting an imminent collision
+               (he's very cautious), as shown in the image below. 
+            </p> <span class="anchor_wrapper"><a name="FIG_600AA3776C074E9FAA18898E771A2494"></a></span><div class="figure-anchor"><img src="../images/GUID-AA8B0917-ADF9-4E25-9B04-DA7B7AB65139-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-36BA146B-2A4C-4483-8D76-AB6E499F4207"></a></span>At a <em class="strong">low</em> value, the actor turns away only when he gets close to the moment of collision (he's
+               living dangerously), as shown here. 
+            </p> <span class="anchor_wrapper"><a name="FIG_853205BC81A04C3E8090B2A49CB52135"></a></span><div class="figure-anchor"><img src="../images/GUID-59F1115D-A4ED-4915-BFC5-A64F953B8D0F-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-9D248842-83FD-461D-8A05-BCF6B3622882"></a></span>The <span class="MenuCascade" id="GUID-A4DA3064-7EBA-44E6-AD67-6801F920ED40">Anticipation Contrast</span> in the <span class="char_link"><a href="iceref_Set_Velocity_Using_Collision_Avoidance.htm">Set Velocity Using Collision Avoidance</a></span> compound is the contrast between how much the actor turns away versus how close he
+               is to a collision. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-5710D183-2499-440C-BB62-6D7321EA07C7"></a></span>A <em class="strong">high</em> contrast value makes the actor turn away sharply when he's close to a potential collision,
+               as shown in the image below. 
+            </p> <span class="anchor_wrapper"><a name="FIG_B0BB58FC0FB74AD1A11D3C21F38EFD93"></a></span><div class="figure-anchor"><img src="../images/GUID-7BC222AD-AF53-4138-9E50-E42B5B61A55F-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-8D8944E9-C975-40B3-98CE-BD01F16DC772"></a></span> A <em class="strong">low</em> contrast value makes the actor turn away slightly when he's far away from collision,
+               as shown here. 
+            </p> <span class="anchor_wrapper"><a name="FIG_1B141CD4729E4DAD9435CF02AAEA9202"></a></span><div class="figure-anchor"><img src="../images/GUID-C4E98281-ED14-4327-86F5-45DD34E44E8D-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-9A38DDCF-8B22-46F7-9D37-5368CBC1FE4D"></a></span>Remember that the angle range in which the actor is allowed to turn is defined by
+               the <span class="MenuCascade" id="GUID-ED7573E9-164D-475F-9E5A-09C7A2BB2D1A">Angular Velocity at Slow Speed/Target Speed</span> parameters in the <span class="char_link"><a href="iceref_Initialize_Collision_Avoidance.htm">Initialize Collision Avoidance</a></span> compound. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_4FF67EC8D3884BFC919729FBC70F849B"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-9EA3F404-9A53-4514-8CBC-8722945F637B"></a></span>Putting On the Brakes
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-0DA00232-B8CB-4BE2-BD4B-9CC9371AE361"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-FDDFF59B-3938-4B11-9115-B7B34077D88E"></a></span>The <span class="MenuCascade" id="GUID-719B6555-BC6E-4405-9155-734CECA051F9">Braking Threshold</span> in the <span class="char_link"><a href="iceref_Set_Velocity_Using_Collision_Avoidance.htm">Set Velocity Using Collision Avoidance</a></span> compound is the factor that determines when an actor starts to "put on the brakes"
+               to avoid a collision. This value is the number of seconds. The lower this value, the
+               closer the actor will get to having a collision before starting to slow down. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-1A3B24DE-6AFD-42A6-A366-9C0D3E9DE100"></a></span>For example, if this value is 0.5, the actor starts to brake when he's within 0.5
+               seconds of colliding with another actor, as shown in the image below. 
+            </p> 
+            <div><span class="anchor_wrapper"><a name="GUID-41883A7E-8D66-4310-9ED4-01C3BE7E5ABA"></a></span><div class="note-note"><span class="label">NOTE:</span>To help troubleshoot this value, you can use the <span class="MenuCascade" id="GUID-D8FCBC9D-CF02-4296-BC5E-ADACF9950E19">CollisionAvoidanceTimetoCollision</span> attribute as a display attribute, as shown here - see <span class="char_link"><a href="UI_props_AttributeDisplay.htm">AttributeDisplay Property Editor</a></span>. 
+               </div>
+            </div> <span class="anchor_wrapper"><a name="FIG_2D14C9BF379B438CB3B5C0B959811FD6"></a></span><div class="figure-anchor"><img src="../images/GUID-C31E1D13-665C-48FB-82D6-9DCA20EA4FA8-low.png"></div> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

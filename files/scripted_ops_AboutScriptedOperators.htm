@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-40E0AFD8-7647-40FC-B43A-9A3DBE5671B0">
+      <meta name="indexterm" content="scripted operators: connections">
+      <meta name="indexterm" content="connections, scripted operators: defined">
+      <meta name="indexterm" content="custom variables, scripted operators: defined">
+      <meta name="indexterm" content="scripted operators: variables">
+      <meta name="indexterm" content="variables: scripted operators">
+      <meta name="indexterm" content="scripted operators: main update routine">
+      <meta name="indexterm" content="In_UpdateContext">
+      <meta name="indexterm" content="UpdateContext">
+      <meta name="indexterm" content="global variables: in scripted operators">
+      <meta name="indexterm" content="scripted operators: helper routines">
+      <meta name="indexterm" content="scripted operators: global variables">
+      <meta name="indexterm" content="scripted operators: limitations">
+      <meta name="topic-type" content="concept">
+      <title>About Scripted Operators</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-40E0AFD8-7647-40FC-B43A-9A3DBE5671B0"></a></span><div class="head">
+            <h1>About Scripted Operators</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-593FB6D8-2B0A-4416-A288-6651E3F6C668"></a></span>Before you begin, you should understand some basic concepts about scripted operators,
+            connections, and variables. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0004"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-148B2453-E584-45C9-A2BB-08F8EA44A832"></a></span>What Are Scripted Operators?
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-7E48D883-4B2E-4510-96C9-05ECFBC3B505"></a></span>Scripted operators are object-model scripts that are called to update data in a scene.
+               A scripted operator can be applied to one or more animatable parameters, to properties,
+               or even to geometric objects to deform their shapes. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-FFF6DEFB-EB38-4D1E-8938-FA0697EF6E5E"></a></span>Scripted operators have several uses: 
+            </p> <span class="anchor_wrapper"><a name="UL_EA3C89141DA944AEA5F49B79DD060AF8"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DA0008CD-AC6B-4BBE-A180-1B13AE04FA42"></a></span>As an alternative to expressions on parameters, scripted operators have several advantages.
+                     
+                  </p> <span class="anchor_wrapper"><a name="UL_1F153C77C4FC4A04B44D213AA0B9053E"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D2500BFC-3CCF-41C9-818E-3E108F53C991"></a></span>You can use multiple text lines, indents, local script variables, and comments to
+                           keep the code more understandable than the equivalent expression. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-555A8C07-BC34-43E6-BEA9-A65F287320F3"></a></span>You can use programming loops, subroutines, and other script language features that
+                           are not available when using expressions. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1E1F9D7F-75FD-4E03-B8BE-CEF342A7A952"></a></span>You can apply scripted operators on top of a previously-applied function curve or
+                           expression. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-78F0F447-4210-4417-B1ED-EE4A8592E364"></a></span>You can apply multiple scripted operators to the same parameter, with the output of
+                           one operator being the input of the next. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5B48F8B1-5146-4530-B4CF-79D658D595FB"></a></span>You can also apply a single scripted operator to multiple parameters or properties
+                           (like local transformations). This is easier to set up, maintain, and copy than many
+                           expressions on separate parameters. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-75C3E783-B27B-42C4-8943-266860558B69"></a></span>Scripted operators can also be used for quick custom deformations that you don't plan
+                     to reuse. If you intend to reuse a deformation, it may be worthwhile to create a compiled
+                     plug-in instead. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-350E898C-779F-4FC9-803E-37883134CED3"></a></span>Even if you are developing a compiled plug-in deformation, you can use a scripted
+                     operator to quickly prototype your design and test its logic before converting the
+                     code to C++ or another language. 
+                  </p> 
+               </li>
+            </ul> 
+            <p><span class="anchor_wrapper"><a name="GUID-8EEF25AE-D56D-466F-892E-88F50F442902"></a></span>At the same time, scripted operators have some disadvantages: 
+            </p> <span class="anchor_wrapper"><a name="UL_A79C3A3F725D4119A5F10D211B096EA3"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-588F32D0-0D5F-44AC-9386-CEEF14F8D5AB"></a></span>When you first create a scripted operator, it is stored in the scene rather than as
+                     a separate file. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5DAD1505-BE66-41CB-BD7A-526836766C26"></a></span>Although you can create presets of scripted operators and reuse them in other scenes,
+                     it can be awkward to install and register a preset on all machines that require it,
+                     such as on a render farm. 
+                  </p> 
+               </li>
+            </ul> 
+            <p><span class="anchor_wrapper"><a name="GUID-D8B40F46-DF6D-40D5-A040-DACACBF978E0"></a></span>For these reasons you may prefer to use scripted or compiled self-installing custom
+               operators instead of scripted operators — see Custom Operators [SDK Guide]. You can
+               think of scripted operators as providing an intermediate solution between expressions
+               and self-installing custom operators. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0005"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-A040EBD6-690B-4C07-90DC-19DF2D89AED1"></a></span>Connections
+            </h2>   
+            <p><span class="anchor_wrapper"><a name="GUID-75191B47-98F1-4D59-A150-972CA6720425"></a></span>Connections represent the points at which your scripted operator communicates data
+               with Softimage. You do not have any access to data unless you create a connection.
+               
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-53C64440-FFAE-4B29-B68E-FC7E07E7673E"></a></span>You can connect a scripted operator to animatable parameters, properties, objects,
+               or a combination. Each connection is one of two types: input or output. A single scripted
+               operator can have any number of connections, almost anywhere in the scene. 
+            </p> 
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0006"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-2626F6A1-5C24-4E24-8314-8E35A8FEFD8B"></a></span>Parameter, Property, and Geometry Connections
+               </h3> 
+               <p><span class="anchor_wrapper"><a name="GUID-E12BB78E-6396-4DC3-9972-6939B1FCD0CD"></a></span>You can connect a scripted operator to animatable parameters, properties, 3D geometry,
+                  or a combination. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-DFB04C63-CD2F-435A-8605-B80918CBE6D7"></a></span>A scripted operator connected to a parameter is similar to an expression. One important
+                  difference is that a scripted operator can be connected to multiple parameters so
+                  that a single script can be used to update several parameters with different values.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-039089F9-0E82-45A6-BA70-EA470AAA278C"></a></span>You can also connect a scripted operator to a property like Visibility or Local Transform.
+                  This means you can access any of the property's parameters without the need to define
+                  multiple connections to individual parameters. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1FB606AF-FC30-4B51-AA81-CEBD3850BCE7"></a></span>In addition, scripted operators can be connected directly to geometry such as polygon
+                  meshes, surfaces, curves, particle clouds, and hair. This lets you modify a 3D object's
+                  shape to create your own custom deformation. 
+               </p> 
+            </div> 
+            <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0007"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-38F3C120-5F1F-4AA1-A669-B98F23CE64A7"></a></span>Input and Output Connections
+               </h3> 
+               <p><span class="anchor_wrapper"><a name="GUID-ABF2B06B-8D48-4C7D-9389-69B38245885C"></a></span>There are two types of connection: 
+               </p> <span class="anchor_wrapper"><a name="UL_60698D274F1841799FCE1D704F14E879"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-722B32AC-B231-40F6-A308-7E7275C14442"></a></span> <span class="MenuCascade" id="GUID-DB187272-C5C4-48FE-8100-AC7CD4E87290">Output connections</span> are those elements that your script is responsible for updating. When the scene needs
+                        to be updated, your script is called to calculate the new values. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-88336496-28D1-427A-A6F1-2A7EABDB9C9A"></a></span> <span class="MenuCascade" id="GUID-2AFDE032-994E-48F3-AD97-B0E827C93C4A">Input connections</span> let your script access data from the scene. You can create an input connection for
+                        any scene data that your script requires in its calculations. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-43D75B05-8303-4A19-9596-78F85FA9BE87"></a></span>The connections must be properly defined for the operator to be evaluated correctly.
+                  Any scene data that is used in the computation should be added as an input connection;
+                  otherwise, the operator will not be called to update when the input changes. Similarly,
+                  any scene data that is set by the script should be added as an output connection;
+                  otherwise, the operator will not be called when an updated value is required. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-6D1087BD-0C96-43A2-B0C3-00C6DB1EB3BE"></a></span>The same element can be connected as both an input and an output in the same operator.
+                  For example, if you create a custom deformation, you must get a 3D object's geometry
+                  to get its list of points (input) and then update the geometry with the new positions
+                  of those points (output). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8608CBB4-C8A6-4110-92FD-89AA22DDAA7F"></a></span>In the case of a parameter input connection, the scripted operator is passed the final
+                  value of that parameter for the appropriate frame including the effect of animation
+                  from any other source (function curve, expression, action, constraint, or inverse
+                  kinematics). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3F8F11A2-B151-42E0-B60E-02D89AFE0C0A"></a></span>If a parameter is both an input and an output connection, then the scripted operator
+                  is passed the current value of that parameter. This could be the last value set, or
+                  it could be the value from a previously-applied function curve or expression. If there
+                  are multiple scripted operators, then the output of one is the input of the next in
+                  the order in which they were applied (not the order in which they were created). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-64EE1286-8383-46A1-BA6D-7002550590F8"></a></span>If there are multiple parameters that are connected as both inputs and outputs to
+                  a single scripted operator, the scripted operator is called to update them individually
+                  as needed. In particular, the order in which they are updated may change; when your
+                  operator is called to update one parameter, you cannot be certain which, if any, of
+                  the other inputs have already been updated. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-7C413DBC-9501-4478-95B3-F58C24ECDA62"></a></span><div class="note-tip"><span class="label">TIP:</span>Using the Softimage SDK instead of the scripted operator editor, you can define port
+                     groups to create an operator with a variable number of connections. See Custom Operators
+                     [SDK Guide] for more details. 
+                  </div>
+               </div> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0008"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-C2FAF93A-5FF0-4B56-957A-E20D6D78196A"></a></span>Variables
+            </h2>    
+            <p><span class="anchor_wrapper"><a name="GUID-C0ED3341-0960-4DE0-A503-EC6F373733A0"></a></span>Scripted operators can have variables as well as connections. Variables are custom
+               parameters that belong to the scripted operator and can be used to control its effect.
+               You can edit and animate variables just like any other custom parameter in a scene.
+               In addition, the variable is available to the scripted operator in its calculations.
+               
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-6A797D01-7ACA-4930-BB31-BFA7760CDF1C"></a></span>For example, if you create a custom deformation, you could define a variable to control
+               the amplitude of the deformation. You can then animate the amplitude using keys, expressions,
+               actions, and so on. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-0009"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-9A385FFE-84AC-4621-A229-332AA71CF1AE"></a></span>Main Update Routine
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-59AE8615-ABD7-4B22-81FA-3E1CEA31F2D0"></a></span>The main update routine is where you write the code to calculate new values for all
+               your output connections. It is contained in the middle panel of the scripted operator
+               editor. This code is parsed when you apply a scripted operator as well as when a scene
+               with a scripted operator is loaded. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-492FC7DC-6393-4B2C-9F1F-B41F8D17EAD6"></a></span>You can write scripted operators in any language supported by Softimage. The language
+               that is used to parse a particular scripted operator is the language that is set on
+               the <span class="MenuCascade" id="GUID-23F40172-B035-4553-8E4E-1E5DFF173DDA">Scripting</span> page in the <span class="MenuCascade" id="GUID-CBC82AD1-824A-48C5-A9A1-A2B69E895495">Preferences</span> window when the scripted operator is first created. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-40B8F0E2-0DDC-41D3-8A84-30731A9316A7"></a></span>You cannot use scripting commands in your code. You are restricted to a subset of
+               object model statements. The properties and methods that you are allowed to use in
+               scripted operator code are listed in the SDK Guide. 
+            </p> <span class="anchor_wrapper"><a name="FIG_AB57C7C2C39749F29DE88F8D65117443"></a></span><div class="figure-anchor"><img src="../images/GUID-7E38A6E2-B238-41FA-B044-BA3594E8A55A-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-1C5F8677-95AD-42ED-980C-8FE3E03F3ED7"></a></span>The scripted operator editor manages the header of the main update routine automatically
+               for you, so the <span class="MenuCascade" id="GUID-D6F50621-A3C3-4650-9CAC-11732AADA64D">Sub Update</span>() and <span class="MenuCascade" id="GUID-4942ED22-AEBB-4963-BA95-A4E291F7CCA7">End Sub</span> lines are read-only. The following arguments are passed to the main update routine:
+               
+            </p> <span class="anchor_wrapper"><a name="UL_A3C226EB7613407ABFB59B3DBB5136D8"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-14F6D5DB-B097-4363-9B63-5538FD96D2F3"></a></span> <span class="MenuCascade" id="GUID-2A3894E8-ECBB-469E-8CC1-ABCED7E71C35">In_UpdateContext</span> is a transitory UpdateContext object that gives your scripted operator information
+                     about the context in which it is being called. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-112EDCE8-84F4-4B26-9696-77C7CFDBFE90"></a></span>For more information about this and the object model in general, refer to the SDK
+                     Guide as described in <span class="char_link"><a href="scripted_ops_TipsandTricksforScriptedOperators.htm#WSF9298584C75F6742BEB150C3C0A6A3BC-007A">Getting More Information Objects, Properties, and Methods</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-292D6617-AA21-4C63-8598-3962B8706F35"></a></span> <span class="MenuCascade" id="GUID-7AF43ECF-E5F8-438D-83F4-6ABDA39A18E7">Out</span> is the single output connection that your operator is being called on to evaluate.
+                     Your operator is called separately to update each output connection, one at a time.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D9874C19-0C52-4848-A359-C4C45D7EF859"></a></span>If your operator has multiple output connections, then your update routine must test
+                     <span class="MenuCascade" id="GUID-1E435407-7022-4157-9BC0-5F0F384361CB">Out.Name</span> to determine what to return and then set <span class="MenuCascade" id="GUID-C6C828E4-2436-44D2-86DE-4C420C9B4CC7">Out.Value</span> accordingly. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-095C7F35-CEFE-4848-B3A3-240C87CEAA11"></a></span>The <span class="MenuCascade" id="GUID-E268B616-A716-44DC-AF12-152930131B75">input connections</span> are all passed as arguments every time your scripted operator is called. In the previous
+                     illustration there are four input connections: InGeom, InGPosX, InGPosY,and InGPosZ.
+                     
+                  </p> 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-000B"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-D6532F57-F45E-43E0-A803-BEEAD188B763"></a></span>Extra Code
+            </h2>    
+            <p><span class="anchor_wrapper"><a name="GUID-CCAEBAA6-3822-44A2-985A-9BC85FA029AA"></a></span>The bottom pane of the scripted operator editor can be used to hold extra code needed
+               by your scripted operator, such as helper routines and global variable declarations.
+               In addition, it can be used to define Init and Term procedures that allow you to access
+               private user data — see <span class="char_link"><a href="scripted_ops_UsingPrivateUserDatainScriptedOperators.htm">Using Private User Data in Scripted Operators</a></span>. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-F71E4613-3EFE-4EAA-962A-B5E0BDF34D5E"></a></span>As with the main update routine, this code is parsed when you apply a scripted operator
+               as well as when a scene with a scripted operator is loaded. 
+            </p> 
+            <div><span class="anchor_wrapper"><a name="GUID-F1144EBC-17F0-4314-9632-8FE880CB39A8"></a></span><div class="note-note"><span class="label">NOTE:</span> 
+                  <p><span class="anchor_wrapper"><a name="GUID-40D735DA-C369-44E7-87BC-AB3059DBE7DA"></a></span>In VBScript, you can force all variables (including the variables in the main update
+                     routine) to be defined before they are used by adding the following statement to the
+                     global code in the bottom pane. 
+                  </p> <span class="code">Option Explicit</span> 
+               </div>
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="WSF9298584C75F6742BEB150C3C0A6A3BC-000C"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-6F66FD88-B74C-48E0-97E4-CFCC61A3FA13"></a></span>Limitations
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-1685F5B5-A968-43C8-BE78-725178BBB30A"></a></span>Scripted operators have a few limitations: 
+            </p> <span class="anchor_wrapper"><a name="UL_32F4DA8776CE4C4689FA3E6806B5A496"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-52DE3A5A-3C6E-4CFB-868C-21F293D02AB9"></a></span>You cannot use scripted operators inside an action. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9E833C19-C761-4118-A3BC-8BF1E42B453E"></a></span>You cannot undo the actions of applying or editing a scripted operator. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F024591B-F311-4347-A5ED-85DCBD6EB5ED"></a></span>Cut, Copy, Paste, and Copy All Animation do not work with scripted operators. 
+                  </p> 
+               </li>
+            </ul> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-4F0EA69E-7FAC-48AC-AFF5-F834129E7E15">
+      <meta name="indexterm" content="clip effects, see action clip effects">
+      <meta name="indexterm" content="action clips: adding animation to (clip effects)">
+      <meta name="indexterm" content="action clip effects: adding animation to action clips">
+      <meta name="indexterm" content="action clips: clip effects">
+      <meta name="indexterm" content="action clip effects: nested">
+      <meta name="indexterm" content="compound clips: clip effects">
+      <meta name="indexterm" content="action clip effects: creating">
+      <meta name="indexterm" content="action clip effects: expression">
+      <meta name="indexterm" content="action clips: clip effect expression">
+      <meta name="indexterm" content="GetNumMappingRules(]">
+      <meta name="indexterm" content="GetMappingRule()">
+      <meta name="indexterm" content="SetMappingRule()">
+      <meta name="indexterm" content="action clip effects: variables in expressions">
+      <meta name="indexterm" content="this, variable in action clip values">
+      <meta name="indexterm" content="cid (cycle ID) token for action clips">
+      <meta name="indexterm" content="cycle ID (cid token) for action clips">
+      <meta name="indexterm" content="cycles: using the cycle ID in action clip values">
+      <meta name="indexterm" content="bouncing: using the cycle ID in action clip values">
+      <meta name="indexterm" content="walk cycles: cid (cycle ID) value in action clip">
+      <meta name="indexterm" content="local time: in action clip values">
+      <meta name="indexterm" content="local frame, in action clips">
+      <meta name="indexterm" content="frames: in action clip values">
+      <meta name="indexterm" content="gtime (global time) token in action clips">
+      <meta name="indexterm" content="time: global and local in action clips">
+      <meta name="indexterm" content="global time: in action clip values">
+      <meta name="indexterm" content="global frame: in action clip values">
+      <meta name="indexterm" content="gframe (global frame) token in action clips">
+      <meta name="indexterm" content="weight: token in action clip values">
+      <meta name="indexterm" content="param, variable in action clips">
+      <meta name="indexterm" content="iwarp, variable for action clips">
+      <meta name="indexterm" content="warp, variable for action clips">
+      <meta name="indexterm" content="functions: in action clip values">
+      <meta name="indexterm" content="math operators: in action clips values">
+      <meta name="indexterm" content="expressions: in clip effects">
+      <meta name="indexterm" content="action clip effects: math operators and functions in expression">
+      <meta name="indexterm" content="action clip effects: creating effect variables">
+      <meta name="indexterm" content="custom parameters: effect variables in clip effects">
+      <meta name="indexterm" content="action clip effects: custom parameters in effect variables">
+      <meta name="indexterm" content="warps: time in clip effects">
+      <meta name="indexterm" content="timewarps: in clip effects">
+      <meta name="indexterm" content="action clip effects: timewarps">
+      <meta name="indexterm" content="cycles: in clip effects">
+      <meta name="indexterm" content="action clip effects: cycles in (cid)">
+      <meta name="indexterm" content="walk cycles: cid clip effect">
+      <meta name="indexterm" content="action clips: activating items in">
+      <meta name="indexterm" content="action clip effects: deleting">
+      <meta name="topic-type" content="concept">
+      <title>Modifying Action Clips with Clip Effects</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-4F0EA69E-7FAC-48AC-AFF5-F834129E7E15"></a></span><div class="head">
+            <h1>Modifying Action Clips with Clip Effects</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-34C02A1B-4330-4996-95CD-DE9629D53341"></a></span>When an action clip contains animation data from a function curve, you can modify
+               its data in the clip effect's expression. When you do this, you create a clip effect
+               which lets you use a number of variables and functions to modify the data "on top"
+               of the original action source animation. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3A50362D-786B-4FE6-A8A2-CFAAA3129523"></a></span>You may need to edit its animation for a number of reasons: 
+            </p><span class="anchor_wrapper"><a name="UL_7F0D99FB6DAF4C0AA0E00AA7A2A1BBD0"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0299FDD9-56DD-4653-8378-6BBD935D0851"></a></span>Animation coming from a library of stored actions often needs to be modified to fit
+                     a particular goal or environment. For example, you have a walk cycle available, but
+                     the character must now walk over an obstacle, so you have to animate the leg moving
+                     over the obstacle. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F63FC49A-AD57-4D93-A642-097980E9334D"></a></span>Animation that was originally created or captured for a given character must be applied
+                     to a different character that has different proportions. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C996A5F0-D3C6-4C34-9EA0-CC61E06105FD"></a></span>Animation with numerous keys, such as motion capture animation, must be adjusted,
+                     but you don't want to touch the original animation because it can be difficult to
+                     edit. 
+                  </p> 
+                  <div class="figure-anchor"><img src="../images/GUID-E95983E8-060A-46A0-AB89-008B49C70A25-low.png"></div> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-62FFD1AC-A7C4-4F72-B50C-39D4AAC6BB1E"></a></span>Moving a key point (in red) results in a peak in the curve. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-3BB7C91F-6A04-4784-969F-4DE8E918EC02"></a></span>Clip effects let you change the animation in an individual clip without affecting
+               the action source (thus affecting all clips instantiated from that source) or having
+               to re-create the action source. They do this by adding values to only that clip, such
+               as noise, offsets, and other higher-level operations. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-E7B9D828-D587-42D8-802A-EBA80DF92EDF"></a></span>This means you can tweak the individual animation "channels" to change the nature
+               of the motion, using the original source as a base. For example, you can add animation
+               to motion capture curves without having to edit them. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-9A452118-F229-441B-B570-24A1388BB295"></a></span><div class="note-note"><span class="label">NOTE:</span>Clip effects can be scripted, which allows you to build up very complex behaviors.
+                  
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-008B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5A1358D1-7A15-4B81-939B-DC04C74D034C"></a></span>How Clip Effects Are Represented
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F7CB45BB-2A94-4558-9E64-6249482955BF"></a></span>Each clip effect is an independent object, associated with its action clip or a compound
+                  clip. It is represented in the animation mixer as a yellow bar above the action clip
+                  itself. Because the effect is an independent unit, you can easily activate or deactivate
+                  it, allowing you to toggle between the clip's original animation and the animation
+                  resulting from the clip effect. This makes it easy to test out changes to your animation.
+                  
+               </p> <span class="anchor_wrapper"><a name="FIG_915FDF08DAEB490DA86F63A0C68BF9FC"></a></span><div class="figure-anchor"><img src="../images/GUID-34D8DADE-D721-4980-B01C-E48484FE39AB-low.png"></div> 
+               <h2><span class="anchor_wrapper"><a name="GUID-566E26D0-ED50-4B2B-BF2F-0EF744AC3F2C"></a></span>Levels of Clip Effects
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C0BA43C1-4F3E-4FFD-9BB9-A8D778092BB2"></a></span>You can apply clip effects to each item (parameter) within a clip, to a whole clip
+                  itself (all parameters), or to a compound clip for an overall effect on the multiple
+                  clips within the compound. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E70F0327-C96A-408F-A05C-04F61D494FFA"></a></span>While you can't apply more than one clip effect on the same clip, you can have the
+                  "results" of multiple clip effects by creating a compound clip and applying a clip
+                  effect to it. With compound clips, you can have complex effects by nesting them in
+                  layers. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-95688A98-45A3-458C-A302-CBA689042D8E"></a></span>For example, you have clips effects on individual clips, then place all these clips
+                  into a compound clip and apply a clip effect to the compound clip (such as to add
+                  noise, warps, or random values). For a simple example of this, see <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-0092">Example: Creating a Nested Clip Effect</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1B853B0E-91C6-43D8-9AB9-274995DF4A9B"></a></span>After you've created a clip effect, the results are calculated in the animation mixer.
+                  If multiple effects are applied to a clip, they are calculated in sequence from first
+                  applied to last. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-008D"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D7F3A46F-7908-44A6-8E72-C27AEC0D6B06"></a></span>Creating a Clip Effect
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-0FE7E4AB-F878-49DE-BF72-9B9146168676"></a></span>The basic way of using clip effects is to associate a clip effect expression with
+                  each of the items (parameters) within the action clip. In other words, you create
+                  a clip effect that has as many entries as the action clip has items. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2ACD8D27-6DFF-4E36-B166-72C53908049F"></a></span>Each item's clip effect expression references the associated sources within the action
+                  clip and then modifies them or overrides them in a variety of ways. For example, if
+                  you added <em class="mild">this+3</em> as a clip effect expression for the foot's X position, the action clip supplies a
+                  value to the mixer. It first looks at the source of animation to obtain a result and
+                  then adds the value 3 to it. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-17F4BFE9-8801-4325-BFE1-C5DEB112F39E"></a></span>The clip effect expressions can be blank (the default), in which case the animation
+                  is taken "as is" from the action. You can also build up arithmetic functions using
+                  a number of special effect variables (see <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-009E">Creating Effect Variables</a></span>). 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-008E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-074C8F47-84DF-4998-B366-ADD1BEE01CA8"></a></span>To create a clip effect
+                  </h3> <span class="anchor_wrapper"><a name="GUID-A463123C-7D67-4692-A288-BD6F5823FE74"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5A359C1F-8444-4D98-882A-579D3A8CF94B"></a></span>Right-click the clip and choose <span class="MenuCascade" id="GUID-4E3A3B2E-D854-408D-AF24-23EA35CAF670">Clip Properties</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F350A967-0FD4-4D58-BCFC-5427809E8E92"></a></span>In the Instanced Action property editor, click the <span class="MenuCascade" id="GUID-4D54DE7D-D756-401F-9EB2-BC09F2919E1D">Clip Item Information</span> tab. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-27CD025A-6E23-4295-B765-6A8423F8F182"></a></span>Enter a formula in the <span class="MenuCascade" id="GUID-6EB12301-82DF-4812-B682-7904D90D208A">Clip Effect</span> column. You can use the variables and math operators as listed in <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-009B">Variables</a></span> and <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-009D"> Supported Operators and Functions</a></span>. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-5E615531-1E06-4067-8591-715D1858774B-low.png"></div> <span class="anchor_wrapper"><a name="UL_D7F4BACB1AB24EC4ACF7AB346326701D"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-9138A18E-872C-4E86-A65B-C6F895152ADD"></a></span>You can copy and paste formulas in the Clip Effect column using the standard Cut,
+                                 Copy, and Paste shortcuts: Ctrl+X, Ctrl+C, and Ctrl+V, respectively. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-B09B7D8F-A3B8-4A0E-8E4F-693EF5985BF3"></a></span>Select items by clicking their Item# (Shift+click or Ctrl+click to multi-select items,
+                                 or click the <span class="MenuCascade" id="GUID-39423009-C5A5-4511-9666-C35A7FF5DE13">Clip</span> column to select all items), then click the <span class="MenuCascade" id="GUID-AE13DEF1-858E-4549-B90D-688A984F0E7D">Clear Fx</span> button to clear the expression written for the selected items' Clip Effect column.
+                                 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-35298733-E774-4BA0-8364-EAAF61BE9498"></a></span>You can also define your own custom variables to be referenced in the expression (see
+                           <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-009E">Creating Effect Variables</a></span>). 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A6795799-16CF-4D8E-B559-2178BEF2C333"></a></span>You can refer to that variable in any of the clip effect expressions by referring
+                           to it by name. For example, if your effect variable is called "Banana", then you can
+                           refer to it with this+Banana in an expression. Any of the variables can be combined
+                           in the same clip effect expression; for example: <span class="code">this+45*param+(Banana/weight)+gtime</span> 
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-0BC8FB5D-E7A3-43DD-AD9E-AD6D2CFEE7DA"></a></span><div class="note-tip"><span class="label">TIP:</span>If you create a custom variable using a custom parameter on a clip, the custom parameter
+                              appears on the Clip Effect page instead of in a custom parameter set, making it easy
+                              for you to use. See <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-009F">Creating Effect Variables with Custom Parameters</a></span> for more information. 
+                           </div>
+                        </div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DCCB6D89-9832-4D92-9DF7-AE9CF2D7CF7D"></a></span>The clip effect is created and represented above the clip as a yellow bar. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-C88FFAC2-07B0-46F9-B3E4-D31C071D7788-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BE2AB487-BDB9-40A5-9DBA-D15755E5EFB4"></a></span>To see where the clip effects live, open an explorer and look deep down in the model's
+                           <span class="MenuCascade" id="GUID-0729AA77-11AF-43FF-9418-BCE1FB77EA35">Mixer <img src="../images/ac.menuaro.gif"> Tracks <img src="../images/ac.menuaro.gif"> Animation <img src="../images/ac.menuaro.gif"> Mixer_Anim_Track n <img src="../images/ac.menuaro.gif"> Clip list <img src="../images/ac.menuaro.gif"> Clip name <img src="../images/ac.menuaro.gif"> Instanced Action <img src="../images/ac.menuaro.gif"> Clip Effect <img src="../images/ac.menuaro.gif"> Items</span> folder. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-BB50E4CF-3E10-4D6B-8B3C-C759377AB885-low.png"></div> 
+                        <p><span class="anchor_wrapper"><a name="GUID-87C29C33-6FAD-41D8-BC69-A1FA42510991"></a></span>To open the clip's path quickly, select the clip in the mixer and then press E in
+                           the explorer. This way, only the clip and its nodes appear in the explorer. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6DA5A98C-B7BE-4759-BDCE-D5266ED9E318"></a></span>In the explorer, make sure to choose <span class="MenuCascade" id="GUID-C6085C5A-4EB7-42C2-94C1-FFAE285F8EB1">Show <img src="../images/ac.menuaro.gif"> Animated</span> or <span class="MenuCascade" id="GUID-9684ACAC-E3B9-4621-9765-2FB65B6341BD">Animatable Parameters</span> to see these parameters. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0092"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-82AA477A-03B4-4668-8065-C6D40DA7EE9B"></a></span>Example: Creating a Nested Clip Effect
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-528A2F7F-BB2C-41A4-9912-74AB29F6DFAF"></a></span>This example shows you how to add an offset to an action clip, then create a compound
+                  clip and add a custom variable to it for an overall jitter effect. 
+               </p> <span class="anchor_wrapper"><a name="GUID-78D25A82-98E6-413F-9747-12BE5D9E330D"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-765D06F9-8C77-4B32-B991-E7A733522EEE"></a></span>Create a simple 2D chain that represents a leg. Duplicate it and translate it so that
+                        you have two legs beside each other. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2EEA8E3C-B6D2-489E-A69B-FDE3C740057A"></a></span>On one leg, select the effector and set a few keyframes of the leg moving up and then
+                        down. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AFCD84C1-CFB4-4CE1-8D2E-FD71887A54D2"></a></span>Store an action for this animation by choosing <span class="MenuCascade" id="GUID-24B7A2D8-BC81-4888-B8E9-F1233C8193D7">Actions <img src="../images/ac.menuaro.gif"> Store <img src="../images/ac.menuaro.gif"> Transformation - Fcurves</span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-D04BBDD7-CA21-4C36-8CE8-3555A21C5FEE"></a></span>Open the animation mixer and load the action you just created. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-34A7629D-6A68-4401-BC77-EAF458C9F32A"></a></span> <em class="mild">Offset the leg</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A7A0F3C6-2F98-4BBE-910F-AC252412D329"></a></span>Right-click the action clip and choose <span class="MenuCascade" id="GUID-8F654FC2-328B-44A3-9DD0-3F8974EA9584">Clip Properties</span>. In the Instanced Action property editor, click the <span class="MenuCascade" id="GUID-22746C8B-5D2A-416A-94AD-E153FCBAE0C6">Clip Item Information</span> tab. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4EAA779A-4D9E-4064-AF9B-2168ED774A63"></a></span>In the <span class="MenuCascade" id="GUID-BBCF8562-31E1-45DE-A1EB-BBCD0C250395">Clip Effect</span> column, set a slightly different offset for each parameter. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-53CF0677-145E-43B9-A9A2-4AD8D31D9573-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FAE52B55-9FDB-42A7-B8DD-FAB2D4D75B3B"></a></span>In the mixer, a yellow bar appears above the clip, representing the clip effect. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-26F1C40A-D85E-4420-9165-6A616E7C6243"></a></span>Repeat steps 2 to 6 for the other leg. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FE894E32-E07C-44F2-9FCF-AAA834772E4B"></a></span> <em class="mild">Create a compound clip</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A5220E69-8E3C-4683-BE6B-487CE7846EFE"></a></span>Select the action clips and choose <span class="MenuCascade" id="GUID-0E16D946-707E-4179-B5DA-AEF9FDABC98F">Clip <img src="../images/ac.menuaro.gif"> Create Compound</span>. This lets you combine a number of clips within a compound so that you can apply
+                        an overall effect to both clips. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4B05F5BA-4318-403E-B9F9-1F7422E903D0"></a></span> <em class="mild">Create a custom parameter called "jitter"</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0016B742-FD62-4B28-B939-CF18E6053436"></a></span>Select the compound clip and create a custom parameter called <span class="MenuCascade" id="GUID-6F07ECAF-DB54-4C1C-BA4A-ADE5C109CAB8">jitter</span> (choose <span class="MenuCascade" id="GUID-A8EEFFB9-A9DD-4D75-9DC0-12249756128E">Create <img src="../images/ac.menuaro.gif"> Parameter <img src="../images/ac.menuaro.gif"> New Custom Parameter</span>). Change the Maximum value to 10 and click OK. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-943DB41E-150A-47B8-B0E3-64C7750BDB1C"></a></span>For information on creating custom parameters, see <span class="char_link"><a href="cusparams_WhatAreCustomandProxyParameters.htm">About Custom and Proxy Parameters</a></span> [<span class="char_link"><a href="custom_cover.htm">Customizing Softimage</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-78A0EC83-5451-401B-A8F0-8E8F4397E225"></a></span>Right-click the compound clip and choose <span class="MenuCascade" id="GUID-DF63CAF3-C8E4-4DBD-AAC6-803D030C09E3">Clip Properties</span>. The jitter custom parameter appears as a Variable on the Instanced Action &gt; Clip
+                        Effect page. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-D6253B06-940B-4B16-B142-F6DBBC5AFFB5-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-423F8591-F589-48AC-A72F-843EE6F185A9"></a></span> <em class="mild">Link a randomize expression to the custom parameter</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8864A38A-F8B8-4C53-9013-06EDA601C4EB"></a></span>Right-click the jitter custom parameter's animation icon and choose <span class="MenuCascade" id="GUID-91ED24FD-766E-4D2B-86C8-D412CAEF6C77">Expression Editor</span>. In the expression editor, add a random function and give it any values you like.
+                        The expression could look something like this: 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-D6D82162-9949-47F5-B455-98892A11A731-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-4E5C6FE2-FFCF-4FD9-8276-0556F0C2850B"></a></span>For information on writing expressions, see <span class="char_link"><a href="ani_expressions.htm">Animating with Expressions</a></span> [<span class="char_link"><a href="ani_cover.htm">Animation</a></span>]. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AA67D007-6ECC-440D-B5B3-B9FBDE106980"></a></span> <em class="mild">Use the jitter as a custom variable</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9BA866ED-644D-40E1-9AE0-F48391C29738"></a></span>For each of the clips, open their Clip Item Information pages. In the <span class="MenuCascade" id="GUID-12555608-0E49-48EF-A01C-389FD7786423">Clip Effect</span> column, reference the custom parameter (variable) you created by entering <span class="code">this+jitter</span> for each clip effect item (use Ctrl+C and Ctrl+V to copy and paste). 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-CB3C5BC6-AE87-46BD-9DAB-D17254BF3B4F-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-50F3E4E0-419B-4224-A66D-604132D0BE75"></a></span>When you play back the animation, you'll see how there's an overall shakiness on the
+                        leg. The expression on the jitter slider is controlling the amount of jitter applied
+                        to the animation. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0097"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FABD98EF-D961-44E0-ADC4-07DCDFF9CB7C"></a></span>Clip Effect Expressions
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-F1C01D98-C41D-4FBE-896B-15EA7B8576E0"></a></span>Clip effect expressions let you define the clip effect on a per-clip item basis. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-0098"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A33FAC93-32BB-45BE-B7E0-691FECA57619"></a></span>To add a clip effect expression
+                  </h3> <span class="anchor_wrapper"><a name="UL_DAAFDEC097B840F1827DF993BD2D83A1"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-778D3F73-4F50-4ED9-B7A3-F2DBDABF7E0A"></a></span>Enter expressions in the Clip Effect column using the variables, operators, and functions
+                           listed in this section. 
+                        </p> 
+                        <div class="figure-anchor"><img src="../images/GUID-53496DDF-ED20-4409-9F86-2F6656D244E4-low.png"></div> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-009A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-452F11D6-A675-4F94-84C8-990CAE8A4381"></a></span>To clear the expressions for an item
+                  </h3> <span class="anchor_wrapper"><a name="GUID-850A96A6-5BBB-4099-91BB-AB7E0D8CF2EE"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-83DAC128-E765-4C06-9B24-A26771B49BCE"></a></span>Select items by clicking their Item number (Shift+click or Ctrl+click to multi-select
+                           items, or click the <span class="MenuCascade" id="GUID-B2748CC2-C9A9-41E5-A8B0-EAD00FCE633D">Clip</span> column to select all items). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BF259B0E-79E9-42BC-A92A-B2F3073E4949"></a></span>Click the <span class="MenuCascade" id="GUID-E34F1374-FA4C-4CFC-8C41-64DE5A87D555">Clear Fx</span> button to clear the expression written for the selected items' Clip Effect column.
+                           
+                        </p> 
+                        <div><span class="anchor_wrapper"><a name="GUID-54ACFAC2-0130-40DE-BCFF-6BEFCB211ACD"></a></span><div class="note-note"><span class="label">NOTE:</span> <span class="anchor_wrapper"><a name="UL_D04E980281D54E208C951E85A390EECA"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-0F3E5329-BA93-4D9C-A763-ADADBB242579"></a></span>You cannot save a preset. However, you can copy and paste clip effect expressions
+                                       using the standard Copy and Paste shortcuts: Ctrl+C and Ctrl+V, respectively. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-DABD2CD6-8BDB-487E-87BA-AD3FF5B47232"></a></span>You can also use scripting commands to read and write clip effect items. Use <span class="MenuCascade" id="GUID-A2628ADF-073E-416F-A012-9181CEB883B3">clipname.actionclip</span> as the value of the MappingTemplate parameter with the GetNumMappingRules(), <span class="MenuCascade" id="GUID-D5511E80-2689-482D-8ADA-7723645AEEA8">GetMappingRule()</span>, and <span class="MenuCascade" id="GUID-BF5C3BDC-BB80-4D28-99BE-BC8ED105C406">SetMappingRule()</span> commands. See the online Command and Object Model Reference for more information.
+                                       
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </div>
+                        </div> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-009B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E41DB8EC-DB23-4346-A4FC-07A13018318A"></a></span>Variables
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-E1D05A91-9602-4516-8872-F243D6B55114"></a></span>When writing clip effect expressions, there are several special variables you can
+                     use: 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_7C4C4C055CD44BF8A65F50D31D2F81B6"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-64EA4D38-5224-40FF-8A66-BF032266C086"></a></span><p class="table-heading">Variable </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-62A437DE-B126-4DE2-B1A2-FFCAA6C1E439"></a></span><p class="table-heading">Meaning </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D35EE9E6-3FD4-4F7C-B97F-7174AE7298FF"></a></span><p class="table-body">  <span class="MenuCascade" id="GUID-AC04CF08-6EB4-44FA-BCC0-6DDA133E65B2">this</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-847095DE-85F4-44CE-8A1E-CDDB7802FB22"></a></span><p class="table-body">The item's original parameter value. This lets you create offsets from the original
+                                 value rather than use a new value entirely. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AEE51E70-AF92-4F55-9644-1B981F114847"></a></span><p class="table-body">      <span class="MenuCascade" id="GUID-4D61976F-FDEF-4B86-8C41-99970DF857C3">cid</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-51CBAE55-3B30-4AEB-9DA2-AEC1881B9FA1"></a></span><p class="table-body">The cycle ID number. If you have cycled or bounced an action clip in the animation
+                                 mixer, the original clip has a cid of 0, the first cycle has a cid of 1, and so on.
+                                 This lets you continuously increment or decrement a value based on the cycle; for
+                                 example, so that a car moves forward with every wheel rotation. See <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-00A1">Using Cycles in Clip Effects</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-348EA6AE-D876-4D01-9EE8-83A0F45258E8"></a></span><p class="table-body">  <span class="MenuCascade" id="GUID-FD74D977-4CB3-4979-B85C-DBB75F49ED2A">time</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FF06F3AF-32D3-48B4-8EFE-B13ADD93F22A"></a></span><p class="table-body">The current local time of the clip's source, in seconds. If you cycle or bounce the
+                                 clip, the values in the first cycle are repeated in the second, and so on. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7383560E-5DD0-473E-A877-970E6AC381DD"></a></span><p class="table-body">   <span class="MenuCascade" id="GUID-4FF7E46C-0440-44D8-890D-E7A5904AA578">frame</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B38CDA12-AD29-4020-8041-2A3AFACADBA2"></a></span><p class="table-body">The current local frame of the clip's source. Again, if you cycle or bounce the clip,
+                                 the values are repeated. Note that this is always an integer, even if the clip has
+                                 been scaled and offset. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A4461D0D-CE35-48BB-8CD3-44005D6F83BB"></a></span><p class="table-body">    <span class="MenuCascade" id="GUID-26254CC8-4F1E-4B6C-8C37-A958C04BE12F">gtime</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-F4CC6152-557E-4C26-AAFB-13197BCED964"></a></span><p class="table-body">The current global time of the scene. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-391064F4-A248-4640-868C-E6D92E55E47A"></a></span><p class="table-body">   <span class="MenuCascade" id="GUID-835B107D-2482-487B-85B3-F7852C7CD936">gframe</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-15586483-8AAB-44B7-8E39-16A78E55AEE8"></a></span><p class="table-body">The current global frame of the scene. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-04795B8C-85E7-4CAC-8EA4-5110F078FB6B"></a></span><p class="table-body">  <span class="MenuCascade" id="GUID-97E1454B-F340-4AB4-A3DB-16D02FB8F5D2">weight</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A818D44D-C036-42C8-8618-82DFCBF7FB1E"></a></span><p class="table-body">The current mix weight value of the clip. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3761A91D-1BB8-419F-B0E4-6E34DD2431A4"></a></span><p class="table-body"> <em class="strong"> <em class="mild">custom parameter name</em> </em> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4DA223EA-C78C-4505-86BC-D635E1129EFA"></a></span><p class="table-body">If you have created a custom parameter on the clip, you can access its value by using
+                                 its name in the clip effect expression for any item. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-59952458-EFD4-4C2B-A69E-3CD098A96B4B"></a></span><p class="table-body">See <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-009F">Creating Effect Variables with Custom Parameters</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-39604DA9-3536-447D-A017-C81FBEEC515C"></a></span><p class="table-body">  <span class="MenuCascade" id="GUID-246F6C5B-ED9D-4B93-A71E-1CC37085D16C">param</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-0E3A9C4A-E009-4B76-9E0D-8CFF67D4F0AB"></a></span><p class="table-body">The item's effect variable at evaluation time. </p> <span class="anchor_wrapper"><a name="GUID-777AAEFD-2650-43F6-993F-DDFCAE01AB3C"></a></span><p class="table-body">See <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-009E">Creating Effect Variables</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6E411759-D7C4-4B92-B123-7A740ED138BF"></a></span><p class="table-body">  <span class="MenuCascade" id="GUID-76CFC6BB-DE02-49C6-9210-F112FADC6911">iwarp</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-340F060E-3C6F-45E9-92D4-425A2ED78114"></a></span><p class="table-body">The item's effect variable as a warp for using the original value. See <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-00A0">Using Warps in Clip Effects</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-75A64AC8-290A-4B83-B780-AFBAFD8F1194"></a></span><p class="table-body">  <span class="MenuCascade" id="GUID-820E2D89-14A4-4996-B8EE-2F990B3248B1">warp</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-D71DC150-0D02-48F1-AEBE-3D7F36C9E36E"></a></span><p class="table-body">If you have created a custom parameter on the clip called "warp", using this name
+                                 in the clip effect expression of any item causes the source item to be taken at a
+                                 time dictated by the warp parameter. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-B148F5F6-1827-4F02-82A8-76CF747D7163"></a></span><p class="table-body">See <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-00A0">Using Warps in Clip Effects</a></span>. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-009C"></a></span> 
+                     <h4><span class="anchor_wrapper"><a name="GUID-9F4EE392-A6D0-4E9F-863A-935D97D72604"></a></span>Examples
+                     </h4> <span class="anchor_wrapper"><a name="TABLE_BCC06BA0FB684B28B020F282858F08EB"></a></span><div class="table_Ruled">
+                        <table cellpadding="0" cellspacing="0" class="ruled">
+                           <colgroup>
+                              <col align="left">
+                              <col align="left">
+                           </colgroup>
+                           <tr class="ruledHeading">
+                              <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-C175052C-FEAB-4638-8A60-30A78B85E215"></a></span><p class="table-heading">Expression </p> 
+                              </th>
+                              <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-C0C67BED-37CB-4148-B8B9-FD81E2F9EC8E"></a></span><p class="table-heading">Result </p> 
+                              </th>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D60FCB50-FACD-41EE-96F5-D2CC7AF6F780"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C4323E18-12EE-4477-817B-5C1162A19EE0">5</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-882DF4EE-8B7C-4113-B1A0-43040429D37D"></a></span><p class="table-body">The corresponding parameter value is always 5, no matter what animation is contained
+                                    in the action. 
+                                 </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledEvenRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FD13120B-8BDA-4A37-B1BF-B985F32D8AC2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3EABF2D4-19B7-4D5E-BEE0-D1D1218817D8">this + 5</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-68157BC2-9D4E-4B41-B465-6DB2958E2903"></a></span><p class="table-body">5 is added to the parameter value of the action at the current frame. </p> 
+                              </td>
+                           </tr>
+                           <tr class="ruledOddRow">
+                              <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4C980907-0271-46F2-8860-4B65C811B295"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5BAF7AFA-1AB9-4BE5-80FE-BD43441BB701">(cid * 10) + this</span> 
+                                 </p> 
+                              </td>
+                              <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4AF0FB07-6F7A-4689-A87E-69F5C669F650"></a></span><p class="table-body">The parameter value of the action is used for the duration of the original clip, then
+                                    10 is added for the first cycle, 20 is added for the second cycle, and so on. 
+                                 </p> 
+                              </td>
+                           </tr>
+                        </table>
+                     </div> 
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-009D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6ADAB36F-6A2E-4D2F-B86C-F44B83F9A36B"></a></span> Supported Operators and Functions
+                  </h3>     
+                  <p><span class="anchor_wrapper"><a name="GUID-C542E2C7-87E2-4652-B5CC-AEB0CDD36CEB"></a></span>The expressions in clip effects do not use exactly the same syntax as expressions
+                     in the expression editor. In clip effect expressions, you can use any operator or
+                     function supported by VBScript. The following tables list the most useful operators
+                     and functions. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_8536DF7DD63B43BAA0A15DDB29818DED"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-1ED773E2-6407-4D8F-9E7E-33446B4DB9C5"></a></span><p class="table-heading">Operator </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-642EA4CD-A0E6-4708-95BB-37899EA2FC53"></a></span><p class="table-heading">Description </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-57B2F97F-27A6-48F0-8E96-4078902F767A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-21499B92-B361-4FCA-81EC-93C6F1FDC421">+</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-06EE1CA9-A317-470D-AD04-079A98D5D0EE"></a></span><p class="table-body">Addition </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-869D35E2-75B4-400C-9F9E-FBDF02ECE16E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7F92D074-6F01-49FA-8DE0-B81A5261F0A6">-</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B6AA5EF1-A22A-4696-8C96-13A7C1556987"></a></span><p class="table-body">Subtraction </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-639EE3D7-DAD7-4D0E-BD36-B200E4E39C1F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DD20D3EC-42FC-4D97-AF14-329F08D9F71E">*</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4E6D6A0D-3BC5-41F4-9034-43A48A2F64A0"></a></span><p class="table-body">Multiplication </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D83CC257-0995-424D-AC15-4AC3509D8AFE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1AC25723-C2D3-4689-A885-1EE2453FC4A8">/</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-373B9C51-A91B-4B6D-AD6C-31FE10ACC88A"></a></span><p class="table-body">Division </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D50BDE84-8850-4273-99BE-92D15C9EC306"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9DC7BCD5-F104-4075-87EC-E5C4BA839EAE">^</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-93A67527-CC14-4061-9EF9-0931497B5716"></a></span><p class="table-body">Exponentiation </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-90F7CD06-7A8B-4496-8032-0EDDED332060"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-526B06BB-EEB1-4D3F-A26C-D51B7CADB6A5">\</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-36374132-FE64-4ADF-B009-4EF4C8C7C52E"></a></span><p class="table-body">Integer division </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-51FA5B83-D00F-422B-9FC8-B9E2F5FB47C7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-10BEE878-C890-43FE-BA95-FCC45CDEE2A4">Mod</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-302B0BD8-2354-4E09-A8F7-DFB7BA8A3A96"></a></span><p class="table-body">Remainder </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E2922EA4-4F7D-4A96-ADB2-913A0D917381"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7E666701-E8C3-4F81-B597-AB6A63BBAEA5">And</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-4C772117-8AED-4DB8-86A3-0FF183AD93F9"></a></span><p class="table-body">Logical conjunction </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-895A581C-FED8-4478-AE6A-8F32D22184C3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8A539671-BDD7-4BD0-93D0-F814B55B50AF">Imp</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C8E0AADF-DA76-4EA3-8CD6-6139C64564AB"></a></span><p class="table-body">Logical implication </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9889F1A9-FACD-4C9E-85EA-0E9787F2CB2E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7CFADB7D-F608-4E9D-84D7-A4BE41ADA7BE">Not</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-83E8A35A-7E07-4458-8AC1-C8727023FC9E"></a></span><p class="table-body">Logical negation </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8A20CA59-9D42-4DF1-A94C-1A55D951FE8E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-FECAEEA6-F8B7-4621-B5C5-447122685108">Or</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1DF3367F-1DAA-43EA-9AD2-D9D005C01991"></a></span><p class="table-body">Logical disjunction </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-708B1673-042B-453C-A3B4-A91616153FAC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4DAFE8C9-8D08-44F5-9878-C669CF69FBB1">Xor</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-6648B0BF-EBAE-443D-BE5D-96155AEB1162"></a></span><p class="table-body">Logical exclusion </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> <span class="anchor_wrapper"><a name="TABLE_93FE785AC2954AA4B837D1BC5A462A49"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledHeading">
+                           <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-2E62C284-602D-4A26-BF69-97A151240843"></a></span><p class="table-heading">Function </p> 
+                           </th>
+                           <th class="table-heading" align="left"> <span class="anchor_wrapper"><a name="GUID-D6F5DED8-B72D-457D-B000-93AD21D7EE6E"></a></span><p class="table-heading">Description </p> 
+                           </th>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A5F2CCEC-2050-4D87-9DB3-6CE5BF28E099"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-289DC62A-8206-4D59-9797-596CF00DDE68">Abs()</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-238569CD-277F-430C-BC2A-346DD7F9DDDE"></a></span><p class="table-body">Absolute value </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6B277B0A-5924-431F-88AA-E887EA0F536E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8F0DB41D-CA94-44A8-8896-AE55E88903D6">Cos()</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-199F373B-8039-4038-B14E-5C33D7E03AC2"></a></span><p class="table-body">Cosine </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5186A3A8-75A1-40F7-84BB-850B39E0F438"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F42D5FF0-87B1-4A89-8369-6E2F26D39246">Fix(), Int()</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1E549248-FCE9-4493-AD8F-98563524AF45"></a></span><p class="table-body">Integer portion of a number </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-515D5C5E-0AD7-4A7E-AE9E-17F67008404D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4F7F6AD9-E33E-47DC-B405-C3BEE608CB41">Log()</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E5E40EA6-ACF6-434C-8A3F-97DA634EDB7A"></a></span><p class="table-body">Natural logarithm </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7467A10C-BC93-4EF0-9C13-8B6359A74934"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-47E36C11-C778-4F48-A2CB-0F52B6CF6683">Rnd()</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-18406D03-D696-430B-BF07-715BA0FE6EEC"></a></span><p class="table-body">Random number </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FB3DA6C1-AF9F-454E-84A4-2FA9B9D65A73"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-54E27142-DFBA-49CC-A710-C4AEEA2F05FF">Sgn()</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7DD8F3B2-B4A8-4C98-9304-ED8F24EA646D"></a></span><p class="table-body">The sign of a number: –1, 0, or 1 </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1BB7E209-27B4-4E4F-9F69-B455C81F845C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1F695521-A98D-4D25-9BD2-F4F7D1A2BE06">Sin()</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-38477EFA-92D5-41D6-9BA5-393B793349D6"></a></span><p class="table-body">Sine </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8D0E32EC-307D-441C-932C-4AAD7FFB644E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9E57C814-038E-48E4-A804-B244B2E3B0E7">Sqr()</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B4F3C0A2-1DAC-4D2B-888F-46F2918F3F53"></a></span><p class="table-body">Square root </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2168BEFF-9E9E-43D1-815C-BF058B1FC6C9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-84BF316F-950F-4BDA-82B8-8E41BCA10693">Tan()</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-B6DD6F9B-35E8-4718-B874-BB69DE89121E"></a></span><p class="table-body">Tangent </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8DC2085A-D667-4491-A6B3-EC29496A0754"></a></span>The clip effect expressions use VBScript as a basic evaluation engine for non-trivial
+                     expressions, and in the simple cases, a private custom parser and evaluation engine
+                     is used. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6AF9E4C0-0231-42B0-87D9-3BAEEC5CF1DF"></a></span>For more information, see the Microsoft VBScript language documentation at <span class="MenuCascade" id="GUID-6970C4DB-FFE1-49E0-B932-5F0C19A7A6B9">http://msdn.microsoft.com/scripting/vbscript/doc/vbstoc.htm</span> 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-009E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E33FB428-A9BD-4DA1-BD5F-327F7D30CA86"></a></span>Creating Effect Variables
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-18B86248-4082-48AA-8203-647D5C814BC5"></a></span>An effect variable is a parameter that is associated with the clip effect. You can
+                  animate it independently in the time space of the clip and it can be referred to in
+                  the clip effect expression of a clip's items. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8F91A738-45DE-434E-AC21-9A60841795EB"></a></span>In other words, you can greatly modify the values within the action clip itself by
+                  using other parameters to change the value being supplied to the mixer without needing
+                  to alter the sources themselves. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CCB30AE1-A990-4EB3-9200-1C14E22B8E62"></a></span>There are two types of effect variables: 
+               </p> <span class="anchor_wrapper"><a name="UL_133F41A0DBE7456EA9743F12D04D7395"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FC172975-C7D8-4222-B90C-1B2A0FA7E506"></a></span> <span class="MenuCascade" id="GUID-6F5459BD-5766-4A9A-AA47-DD318C0BD82F">Per effect</span> — These are variables for the entire clip effect. You can create and remove them
+                        dynamically at any time, so you can have as many or as few as you need. These variables
+                        can be referenced by any of the items within an action. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-86BEF521-E381-42E4-8A49-7D320D4B4A7A"></a></span> <span class="MenuCascade" id="GUID-D91E97FF-5114-41C3-9CF1-C5B96A309D89">Per item</span> — These are created automatically for each animation item that is present in the
+                        original clip. For every item within the clip, a custom variable is created within
+                        the associated effect and this variable can be referenced <em class="mild">only</em> in the clip effect expression for that item. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-D910D557-6542-45F0-88E4-5A819263D4CE"></a></span>When you animate the effect variables (per-item or per-effect variables), you do so
+                  in local clip time. When the timing on the animation clip changes, any animation driving
+                  the effect variables also moves and updates with the state of the clip itself, so
+                  everything stays synchronized. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FDF7C85C-0D76-42E9-B84F-EB00B7FED359"></a></span>If you use an expression to drive an effect variable, and if that expression reads
+                  from objects in the scene, then those items are used in global scene time. If you
+                  tie together variables in the same effect, however, then one will use the other in
+                  the correct, clip local time. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-009F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-73C4C9C3-D015-432A-84E3-7FA3BCFCCA33"></a></span>Creating Effect Variables with Custom Parameters
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-FB6273EF-FC2C-4EE8-BC64-159B82EB9CE0"></a></span>You can create effect variables using custom or proxy parameters that can connect
+                     to expressions, linked parameters, or scripts (see <span class="char_link"><a href="cusparams_WhatAreCustomandProxyParameters.htm">About Custom and Proxy Parameters</a></span>). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CDE83DD7-619C-497A-AFF0-A5CA525D2424"></a></span>You can access a custom parameter directly by name inside each item's clip effect
+                     expression, allowing you to connect any animation source you please to the item's
+                     parameter. For example, you can add per-item noise by creating a noise expression
+                     on a custom parameter and then using its parameter name in the clip effect expression
+                     for a clip's item. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-93B7EE15-2351-49FF-B3C3-B22169B0EDDE"></a></span>You can also use custom parameters that you create on the clip itself. If you select
+                     a clip and create a custom parameter for it, the custom parameter appears on the Clip
+                     Effect page instead of in a custom parameter set, making it easily accessible. See
+                     <span class="char_link"><a href="actions_ModifyingActionClipswithClipEffects.htm#WSA3B2924969ED704E813291282A376B72-0092">Example: Creating a Nested Clip Effect</a></span> for an example of this. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0B79B219-41C1-4A9B-A124-60B63E19BE8D"></a></span>You can then reference the values of those variables in each item's clip effect expression
+                     by using the word param to mean the parameter associated with that item and the custom
+                     parameter name itself to reference it. For example, you can connect a standard expression
+                     that generates noise to a custom parameter you create on the clip. You then reference
+                     that noise parameter inside an item on the clip by entering <span class="code">this + noise</span> (the name of the custom parameter). Similarly, you could connect a scripted operator
+                     to the item's parameter, then reference it using <span class="code">this + param * 10+3/2</span> (for example). You can even override the channel of animation completely by just
+                     using the <span class="MenuCascade" id="GUID-BC0CF6A6-A247-484C-9B9B-80D382A8CF99">param</span> variable or the name of the clip's parameter, and in this way, replace the contents
+                     of a clip at runtime. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00A0"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-545E463D-7EAF-4401-A687-9BCFFD0ECEE6"></a></span>Using Warps in Clip Effects
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-AC699174-A8EC-4A00-8959-F74E7216BE66"></a></span>A special use of the effect variables allows a weight control on a clip with extrapolation
+                  using either the <span class="MenuCascade" id="GUID-151E2614-B3A3-451E-A033-D68918FFF422">warp</span> or <span class="MenuCascade" id="GUID-2E68A0F5-6F04-4A8E-BA22-A5B7494F956C">iwarp</span> variable. This lets you create a timewarp for any of all items within a clip. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-06794F18-760A-4880-9A42-980CB3AA56DC"></a></span>The <span class="MenuCascade" id="GUID-DEB81A73-CD90-4A37-A676-ADD1CFC0F03D">warp</span> variable allows you to define a custom parameter for the clip (called "warp") and
+                  refer to it in the clip effect expression strings for any item in the clip. The advantages
+                  are that: 
+               </p> <span class="anchor_wrapper"><a name="UL_F9B8FC6B42714948806F5CA66E8504D4"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0004C228-C989-4673-AD13-DCA612F33AC8"></a></span>You can connect <em class="mild">any</em> sort of animation source to the warp parameter (since it's a normal parameter). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DDE0461D-4A74-47C4-AC62-8F7EC919798B"></a></span>You can view the source in a standard animation editor. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FFEC5F31-D802-4F71-AE36-6CD2FC0D93E7"></a></span>You can write scripts referring to the parameter. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B6118A0A-26C5-4023-9B5D-7DDA97613563"></a></span>You can decide if you want the warp repeated over cycles or not (that is, the warp
+                        can occur every cycle or encompass all cycles in an extrapolation). 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-897E5183-03B1-4AE9-8026-E6DE64546E8B"></a></span>In the basic use, you enter <span class="MenuCascade" id="GUID-2F437386-6BCA-4735-A65F-394FC6300E73">warp</span> as the string for all the clip effect strings (you can script this too), then attach
+                  your own curve to a custom parameter called <span class="MenuCascade" id="GUID-69018A2E-6705-4EAF-ADF8-2401A89249DA">warp</span>, and you're done. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3D51E335-CE5E-44B0-A61E-67C97C6C3590"></a></span>With the <span class="MenuCascade" id="GUID-6E4220B5-E211-4944-8154-3ACD0E321492">iwarp</span> variable, you can have a distinct per-animation item (such as per fcurve source in
+                  the action clip) warp effect by treating the per-item parameter as a warp, attaching
+                  a curve (or whatever), and using the string <span class="MenuCascade" id="GUID-5FBE49A6-F901-4B27-8CAB-90874C9B0A6B">iwarp</span> in the effect. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3D11CF00-07BF-41FF-BD7A-6E827A915517"></a></span>To do this, rather than using the this variable in the clip effect expression, you
+                  use the <span class="MenuCascade" id="GUID-9C1D100A-0D05-419C-B8A6-1E717CE8CF6F">iwarp</span> variable. What this means is that you use the value <span class="code">source(Parameter(t));</span> that is, the clip item's effect variable is used as a timewarp lookup to the source
+                  itself. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E17A9ADF-22CB-46E1-AD69-9958A0E84179"></a></span>For information on timewarps in general, see <span class="char_link"><a href="animmixer_ChangingTimeRelationshipsTimewarps.htm">Changing Time Relationships (Timewarps)</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00A1"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-E7021749-ACA4-4E6E-A8B2-75E31CBBFC14"></a></span>Using Cycles in Clip Effects
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-935C2026-EAE4-49D3-B7DA-726BE9A50083"></a></span>The <span class="MenuCascade" id="GUID-488FB017-D316-4424-9ABB-8D3735BF1B77">cid</span> variable in a clip effect expression is the cycle ID number. The cycle ID can be
+                  used in an expression to progressively offset a parameter in an action, such as for
+                  having a walk cycle with a progressive offset. You can find the Cycle ID of the current
+                  frame on the General page in the Time Control property editor (click the clip and
+                  press Ctrl+T). This information is read-only and cannot be modified. 
+               </p> <span class="anchor_wrapper"><a name="FIG_CABC58BD393B4B4DBF34F15F04B426F4"></a></span><div class="figure-anchor"><img src="../images/GUID-1DAB7FC3-E936-46FE-A22B-B67C5C4698A6-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-1C714614-8AFD-4AE6-8C7C-08CE15CDDDD4"></a></span>If you have cycled or bounced an action clip in the animation mixer, the original
+                  clip has a Cycle ID of 0, the first cycle has a Cycle ID of 1, and so on. If the clip
+                  is set to extrapolate before with a cycle or bounce, the cycle immediately before
+                  the original clip has an ID of -1, etc. This lets you continuously increment or decrement
+                  a value based on the cycle; for example, so that a car moves forward with every wheel
+                  rotation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-95172A8E-BEEF-4FFC-BE2F-9D1939A8DD52"></a></span>For example, with a clip effect expression like: 
+               </p> <span class="code">(cid * 10) + this</span> 
+               <p><span class="anchor_wrapper"><a name="GUID-3AE869D9-EB11-4B59-B1B1-781376F6E97B"></a></span>The parameter value of the action is used for the duration of the original clip, then
+                  10 is added for the first cycle, 20 is added for the second cycle, and so on. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-0D2B9E35-747C-494B-8C34-A03B7CF32B46"></a></span>For information on cycles in general, see <span class="char_link"><a href="animmixer_CyclingBouncingandHoldingClipsExtrapolation.htm">Cycling, Bouncing, and Holding Clips (Extrapolation)</a></span>. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00A3"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8799F659-790E-4589-8B50-0EAF495798F1"></a></span>Repeating a Clip Effect When Cycling or Bouncing
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BD6DB5F5-EC33-4A71-BDDE-7DF42B244998"></a></span>When you create a clip effect, you can force it to repeat with each extrapolation
+                     (each cycle or bounce) or have it span the entire extrapolation. For example, you
+                     can do a walk cycle and then use the offset effect to move the hand. You can then
+                     apply the hand movement to each cycle instance or have it span the entire walk cycle.
+                     <span class="anchor_wrapper"><a name="GUID-6F65B06B-9E1C-4B85-95B5-AC4D57F38941"></a></span><ol type="1" start="1">
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B6A32AF4-EB78-4552-AEA9-ABD26D134C40"></a></span>Select the clip with a clip effect. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-38DA4F69-8C9E-49E9-AFCB-62E39A5F8D4D"></a></span>Right-click the action clip and choose <span class="MenuCascade" id="GUID-F3442529-FD26-4B9C-934D-D4D779B530AB">Clip Properties</span>. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A6EF5498-C007-4D3E-BC52-CB44BCADA229"></a></span>In the Instanced Action property editor, select one of the <span class="MenuCascade" id="GUID-57550366-78DA-4A16-B6BC-E00352032BC3">Time Reference</span> options on the Clip Effect page: 
+                           </p> <span class="anchor_wrapper"><a name="UL_EC7F67BE5EBB49D0B8A9FE0C488C4655"></a></span><ul>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-3265C37A-229A-43F1-AF47-91F75CCC8AD3"></a></span>If you select the <span class="MenuCascade" id="GUID-1AA647E6-DACA-47B4-8748-12EE35374C4E">Original Clip</span> option, the clip effect repeats for each instance of the extrapolation (for each
+                                    cycle or bounce). 
+                                 </p> 
+                              </li>
+                              <li> 
+                                 <p><span class="anchor_wrapper"><a name="GUID-BAB84E77-4284-4A1C-82DB-434E2B5C13DF"></a></span>If you select the <span class="MenuCascade" id="GUID-C143B725-931B-45BA-A077-79E22EB46479">Extrapolated Clip</span> option, the clip effect spans the entire extrapolation. 
+                                 </p> 
+                                 <div class="figure-anchor"><img src="../images/GUID-711EBBE7-FA28-43AE-8515-9C78BD6A7DB4-low.png"></div> 
+                              </li>
+                           </ul> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-553D73C4-A1A0-4D7F-9D33-A9BE2EA38C88"></a></span>Cycle or bounce the clip by dragging one of its corners. For more information on extrapolation,
+                              see <span class="char_link"><a href="animmixer_CyclingBouncingandHoldingClipsExtrapolation.htm">Cycling, Bouncing, and Holding Clips (Extrapolation)</a></span>. 
+                           </p> 
+                        </li>
+                     </ol> 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00A6"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B096E6EB-E78A-4FE5-95C2-B6E62094600D"></a></span>Activating or Deactivating Clip Effects
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-E630541F-696F-4C6D-93E3-AF6483671889"></a></span>Do one of the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_9EDEFA7578FC482DA74DF2C8492CD045"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7F357A1E-E9D5-42E6-8F21-5AAFE1EA9718"></a></span>Right-click the clip and choose <span class="MenuCascade" id="GUID-0CED0242-DB6E-499B-85CB-22536340F55F">Toggle Effect Activeness</span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AF481700-E226-44E2-90D9-F79C496E6E63"></a></span> <em class="mild">or</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E7CA087E-7DD0-42C5-A973-4612CEF564FF"></a></span>Right-click the clip and choose <span class="MenuCascade" id="GUID-26C73F3B-91F3-48E1-89F1-F2B350B48FEB">Clip Properties</span>. On the Clip Effect page, toggle the <span class="MenuCascade" id="GUID-2E8EDE48-BF02-45D1-B118-613571E5563C">Active</span> option. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-B1D84C12-5E57-401D-BA14-857BFEFCB275-low.png"></div> 
+                     <div style="margin-top: 9pt;"><span class="anchor_wrapper"><a name="GUID-F29A60FB-86A4-4A1D-A228-3175D9BF9368"></a></span><div class="note-tip"><span class="label">TIP:</span>To activate or deactivate clip animation items, see <span class="char_link"><a href="actions_ModifyingActionClipValues.htm#WSA3B2924969ED704E813291282A376B72-0085">Muting (Deactivating) Parts or All of an Action Clip</a></span>. When an animation item is off, the clip no longer drives the corresponding parameter.
+                           
+                        </div>
+                     </div> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA3B2924969ED704E813291282A376B72-00A9"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D419D595-42AD-4E4A-B583-1324324D5CD0"></a></span>Deleting a Clip Effect
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-28110915-CDC8-4221-8452-6A8016EB0F2E"></a></span>Do one of the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_7C6B3A7214D7448E93CD0258D5106A02"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A50F6BC4-9003-4BEF-9E4C-711B7D058B6B"></a></span>Right-click the clip's yellow effect bar or a pose offset's aqua bar and choose <span class="MenuCascade" id="GUID-63D64729-BA39-4328-B3B0-30A5CBCF4DEE">Remove Effect</span>. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-53163B43-B8AE-4C32-BAB3-E4952633D3DE"></a></span> <em class="mild">or</em> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C9AD5091-5921-49D7-84B2-3343F8C15827"></a></span>Select the clip and choose <span class="MenuCascade" id="GUID-25135D40-1123-4899-9294-06EC7338102C">Effect <img src="../images/ac.menuaro.gif"> Remove Effect</span> on the animation mixer command bar. This removes the animation on all parameter curves
+                        and clears the clip effect expression information for all clip, offset, and pose offset
+                        effects. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

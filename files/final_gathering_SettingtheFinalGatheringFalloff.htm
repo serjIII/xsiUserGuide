@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F958D0B3-2EA9-452D-8F07-1E174422D860">
+      <meta name="indexterm" content="final gathering: falloff">
+      <meta name="topic-type" content="concept">
+      <title>Setting the Final Gathering Falloff</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F958D0B3-2EA9-452D-8F07-1E174422D860"></a></span><div class="head">
+            <h1>Setting the Final Gathering Falloff</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-A30B3855-A8F2-4DB0-A60C-601EACC61331"></a></span> <span class="MenuCascade" id="GUID-2D9D5209-5CE3-447D-89FC-A91BAF4C0873">Location:</span> 
+            </p>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CB39955B-5EF2-431F-94D7-5E6319FC0485"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; mental ray (Global Renderer)
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2AA59332-D80D-4D5E-A150-5984B5D35B0C"></a></span> <span class="char_link"><a href="renderoptions_TheRenderManager.htm">The Render Manager</a></span> &gt; (expand a pass) &gt; mental ray
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D2967DFE-1ED6-456A-A66E-102D9A6E9E6B"></a></span>Set the current pass and choose Render &gt; Render &gt; Renderer Options from the Render
+                     toolbar.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BE8CAF76-98BD-4F19-A3E5-3E45946C87D7"></a></span>Tab: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-0068">Accuracy</a></span> [<span class="char_link"><a href="property_ref.htm">Properties Reference</a></span>]
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D55AC779-38A9-43EE-BEF1-DE7E95B5CCC2"></a></span>Options: <span class="char_link"><a href="property4502.htm#WS3006BE1388530344A0CBB5EC50AB924E-006D">Sampling Options</a></span></p> 
+               </li>
+            </ul>
+            <p><span class="anchor_wrapper"><a name="GUID-23B8489B-E4F8-4AFA-957A-8226988C1A54"></a></span>The Falloff options limit the effect of distant objects on the final gathering calculation.
+               This helps to increase rendering speed and reduce memory usage, since distant objects
+               do not usually have a significant impact on the surface color of scene objects.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSA21E80B11B6CD64F8A12F58867B5FD5B-0028"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-9850AB74-A1E6-4F90-971D-0292C853B04F"></a></span>To set the final gathering falloff
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-5404F108-12CF-4EA5-B5C1-C44760119CC6"></a></span>Falloff uses a Start value and a Stop value to limit the range of the final gathering
+                  calculation. These settings have the following effect on final gathering rays:
+               </p> 
+               <ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EBACCE2D-B914-44C7-86E6-638C8A0F7C06"></a></span>Results returned by final gathering rays whose lengths are less than or equal to the
+                        <span class="MenuCascade" id="GUID-4F700540-C982-4124-8FC1-13A9A9843017">Start</span> value are used normally.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-39A77D5F-A59C-46A1-81FC-360355828DF4"></a></span>Results returned by final gathering rays whose lengths exceed the Stop value automatically
+                        default to the environment color.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-005CC09A-1918-4232-A6A2-A1BB5800E22D"></a></span>Results returned by final gathering rays whose lengths are between the <span class="MenuCascade" id="GUID-58FB7D05-C975-432B-A380-F59D7F5FB280">Start</span> and <span class="MenuCascade" id="GUID-27451C72-B46F-437A-AF55-DB459C090556">Stop</span> values are attenuated with a linear falloff toward the environment color.
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="figure-anchor"><img src="../images/GUID-79A2A47D-14B5-4FEC-A9DC-AB1971F37FDC-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-9B04E749-8541-4EB5-AF59-302721AD6C93"></a></span>The images below show this scene which was rendered with an exaggerated final gathering
+                  effect. Notice how low falloff values keep the final gathering effect very localized.
+                  increasing the falloff Stop value broadens the effect.
+               </p> 
+               <div class="figure-anchor"><img src="../images/GUID-96F7EB46-C3AA-4CCA-9183-58900E109715-low.png"></div> 
+               <div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1CEDEC64-C1CE-4E92-813B-8C57C028BEAF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-966623AB-3090-48CE-ABB1-9411FDF8EFEB">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-262E7E6D-605F-47AF-ABFB-8EB64812560C"></a></span><p class="table-body">Falloff: Start = 0, Stop = 25</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-823D6E2E-7844-4C27-9499-6702E7FE12D0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-88C9CE87-A7F6-41C2-9B33-208B8C79E9FC">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-DD763FC5-9F4C-4F0D-A67A-5D304D2EACD4"></a></span><p class="table-body">Falloff: Start = 0, Stop = 50</p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BDF19F3A-0149-45ED-B0BD-101FBD6A3B48"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DAFFAD76-35BD-45D7-A4C2-44835754C4FB">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A8B94943-6FC9-4AA7-B0D4-913C8FD97F5B"></a></span><p class="table-body">Falloff: Start = 0, Stop = 75</p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

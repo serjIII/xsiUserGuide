@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D058F1DE-B538-4A50-8D7D-0C926A3EDED6">
+      <meta name="indexterm" content="Syflex ICE: collisions with polygon mesh objects (actual shape)">
+      <meta name="indexterm" content="Syflex ICE: collision envelope for polygon mesh objects">
+      <meta name="topic-type" content="concept">
+      <title>Creating Collisions with Polygon Mesh Objects</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D058F1DE-B538-4A50-8D7D-0C926A3EDED6"></a></span><div class="head">
+            <h1>Creating Collisions with Polygon Mesh Objects</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-7B103CAD-917B-4CF0-ACA5-46749F015162"></a></span>  
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-926875BD-A1D7-4829-9423-18A08439DA49"></a></span>When you need to use the exact shape of an object for a collision with the cloth,
+            you can use polygon mesh objects as the collision objects. For example, you will need
+            the actual shape of a body for a shirt colliding with a character's arms, armpits,
+            and upper body. Polygon mesh collision objects allow for an accurate collision, but
+            they take longer to calculate than bounding shapes (see <span class="char_link"><a href="GUID-74B31395-C13B-4EC2-B300-B2225FA4A801.htm">Creating Collisions with Bounding Shape Objects</a></span>). 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-26553EEE-9DD5-44BE-AC60-AB48465753E0"></a></span>The polygon mesh collision objects can be stationary or animated. They can also have
+            animated deformations applied to them, including lattices, shape animation, envelopes,
+            waves — any deform operator. The current shape of the deform-animated collision object
+            is updated at each frame of the simulation. This slows down the simulation, but makes
+            the collision more accurate. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-7A9A5F9E-E467-43B2-9A70-9A21F50A05DB"></a></span>See <span class="char_link"><a href="GUID-D058F1DE-B538-4A50-8D7D-0C926A3EDED6.htm#GUID-A14400DC-71A3-4F9B-8D3D-595F52871D7C">Tips for Successful Collisions with Polygon Mesh Objects</a></span> and <span class="char_link"><a href="GUID-D058F1DE-B538-4A50-8D7D-0C926A3EDED6.htm#GUID-F0A4A743-80F5-4CE6-A687-5EE542B106EA">The Collision Envelope</a></span> below for information. 
+         </p><span class="anchor_wrapper"><a name="FIG_D737822E19F64AA880C987BF7CD1C396"></a></span><div class="figure-anchor"><img src="../images/GUID-05CB413B-6312-4BC8-B78C-38AF51DFF4A7-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-40433522-5FCF-45CB-8B0B-2F62F015460A"></a></span>To have cloth collide with polygon mesh objects: 
+         </p><span class="anchor_wrapper"><a name="GUID-EBFE58EE-AF00-4647-A948-48D7335AD958"></a></span><ol type="1" start="1">
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-3486F4A4-5791-42F6-A9E0-C7384A97A5AF"></a></span>Create a Syflex ICE cloth or curve simulation - see <span class="char_link"><a href="GUID-60BCC277-A58B-490F-9550-6FDD7DF3C145.htm"> Creating Syflex ICE Simulations</a></span>. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-65B7825C-80AE-4732-879B-3C6EF0C28407"></a></span>Select the cloth or curve object. 
+               </p> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="GUID-1609E8D5-6A77-41CB-99E7-5F8CD4BCADCD"></a></span>Do either of the following: 
+               </p> <span class="anchor_wrapper"><a name="UL_48145A553D854860BFDABC68814C9774"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C92141E9-1131-49BB-A4E9-57C4C93224BB"></a></span>Choose the <span class="MenuCascade" id="GUID-7DC9271E-145A-4646-9399-16D1272BDC16">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Syflex <img src="../images/ac.menuaro.gif"> Add Collide Mesh</span> command from the ICE Tree toolbar. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CCA4ED07-68B1-4619-AA15-AB2F2555BC9F"></a></span>Then pick one or more polygon mesh objects to use as the collision mesh. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9B2CFC1E-4D84-4982-9043-9E00C023450D"></a></span>This updates the Syflex ICE tree by adding the Syflex Collide Mesh node and a Get
+                        Data node for each collision object. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EA0BCD2D-60A3-4AE3-B419-13A1725F632A"></a></span>In the ICE Tree view, drag the <span class="MenuCascade" id="GUID-195BB48D-B426-48B7-A19D-37581DE6FC45">Collisions <img src="../images/ac.menuaro.gif"> Syflex Collide Mesh</span> compound from the Task &gt; Syflex tab in the preset manager and plug it into a Forces
+                        port on the Syflex Cloth or Syflex Curve node. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9B1C632F-C162-4456-8CDD-E5237DF899BD"></a></span>Then drag the name of each polygon mesh collision object from an explorer into the
+                        ICE tree to create a Get Data node for it. 
+                     </p> Plug each collision object's Value output into a Geometry port on the Syflex Collide
+                     Mesh node. 
+                     <div><span class="anchor_wrapper"><a name="GUID-F148E145-23EF-42D4-90A3-C0492307D8BB"></a></span><div class="note-note"><span class="label">NOTE:</span>To use multiple polygon mesh objects, you can also use groups, as described in the
+                           section below. 
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="FIG_541E2B2D27914396A041B4B3C227E89D"></a></span><div class="figure-anchor"><img src="../images/GUID-8E610F13-2382-4DF3-8D9D-ED31C298E1B8-low.png"></div> 
+                  </li>
+               </ul> 
+            </li>
+            <li> 
+               <p><span class="anchor_wrapper"><a name="WSE1C045C7AF7B3A4BA3ECAD303D087181-0046"></a></span> Set the parameters in the <span class="char_link"><a href="iceref_Syflex_Collide_Mesh.htm"> Syflex Collide Mesh</a></span> property editor. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-69283282-6CD7-440A-9795-04D97C53F4F8"></a></span> For more information on the Envelope parameters, see <span class="char_link"><a href="GUID-D058F1DE-B538-4A50-8D7D-0C926A3EDED6.htm#GUID-F0A4A743-80F5-4CE6-A687-5EE542B106EA">The Collision Envelope</a></span> below. 
+               </p> 
+            </li>
+         </ol>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_76AE7D3AADAA4CEA813A52198F569AA8"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-33B95B16-FC5C-4C3A-9D88-3088C8147668"></a></span>Using a Group of Polygon Mesh Collision Objects
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-534C38C3-C6B4-4C2B-82E6-F12DD2A807FB"></a></span>Groups allow you to easily add collision objects to, or delete collision objects from,
+               the group while keeping the same Get Data node plugged into the ICE tree. However,
+               if you change members of the group after plugging in the group's Get Data node, you
+               need to update the simulation. 
+            </p> <span class="anchor_wrapper"><a name="GUID-26F67F98-9566-4533-962A-EFF6C4508BE4"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AC7FE9BC-37DF-4D7D-AEE0-DC5FC739E93B"></a></span>Select all the polygon mesh objects you want to use for collision objects and press
+                     Ctrl+G to create a group. 
+                  </p> 
+               </li>
+               <li>Follow the process as above so that the Value output from the group's Get Data node
+                  is plugged into a Geometry port on the Syflex Collide Mesh node. 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_05D0D44E024E4948A4BDC07183717E98"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-F0A4A743-80F5-4CE6-A687-5EE542B106EA"></a></span>The Collision Envelope
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-2E1C12A9-D566-463C-BAFA-8233E45208E4"></a></span>The simulation of a cloth is often driven by its collisions with a character's body.
+               Computing these collisions with the whole cloth geometry can be extremely time consuming,
+               so instead a collision envelope is used. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-88A75C7E-11AE-4815-8C49-9A7980814461"></a></span>The collision envelope consists of an external envelope that is outside of the collision
+               object, and an internal envelope that is inside the collision object. Whenever a cloth
+               vertex enters the volume defined by these two envelopes, the vertex is repelled to
+               be outside of the volume. You can think of it rather like a "push" operator. By making
+               the envelope bigger, the cloth is pushed further away from the collision object, to
+               a point where there are no more visible intersectionss. 
+            </p> <span class="anchor_wrapper"><a name="FIG_3DB1490910E64397AD789ABE9A6CF509"></a></span><div class="figure-anchor"><img src="../images/GUID-7E6798D8-C98D-452F-8057-FE09FD650A2E-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-DA3BCCAC-1B37-49EB-A8A6-E593409B5C1A"></a></span>The collision object's envelope is a distance based on the Softimage units that you're
+               using (such as one Softimage unit = 10 cm). The difference between the external and
+               the internal envelope should be as small as possible: the smaller the envelope, the
+               faster the computation. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-1CA13630-1B5A-4C25-8356-5957F6207B80"></a></span> The inner envelope's value is often the inverse of the outer envelope' positive value,
+               but the inner envelope's value can also be positive. If you're using a character's
+               body as the collision object, start out with an external envelope of 1 cm, and an
+               internal envelope of -1 cm, then fine-tune as you need. 
+            </p> <span class="anchor_wrapper"><a name="UL_438766D34E4D4F49994DD97321AAB66B"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2F062FB1-A2DA-440E-AD7B-1EE760C61046"></a></span>If the movement of the cloth or the collision object is too fast, collisions might
+                     not be detected quickly enough, and some cloth vertices might penetrate the collision
+                     object. In this case, decrease the internal envelope value (such as from -0.1 to -0.2)
+                     so that there's more distance between it and the external envelope. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-DF00A74F-2DE1-486F-8061-25613E934416"></a></span>If the collider is visible through the cloth in some places (as in the picture below
+                     on the left), increase the external envelope value (as in the picture below on the
+                     right). 
+                  </p> <img src="../images/GUID-D34F38A1-8F65-4583-B7D8-0C46B2E3622F-low.png"> <img src="../images/GUID-9AC00903-2B9A-4B84-B5D5-4964827DC4B8-low.png"> 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_D2307A9A59A742EBBD8725BEC68335FE"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-A14400DC-71A3-4F9B-8D3D-595F52871D7C"></a></span>Tips for Successful Collisions with Polygon Mesh Objects
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-CF7BF0B4-E854-4FD6-89F3-6716B75E676B"></a></span>Here are some tips to help you create successful collisions for Syflex cloth and curve
+               simulations: <span class="anchor_wrapper"><a name="UL_0768B050D8E74644A3C5ACCFD1CC6971"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A7754150-C16C-4CED-8A87-AE8921865D19"></a></span>Collisions don't work well with very thin collision objects. Grids are generally not
+                        a good idea to use: it's better to use a flattened cube that has some thickness, such
+                        as for creating a ground plane or table. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CA8A3F1E-A066-4B59-94E3-134038C1E9E7"></a></span>Having a higher resolution on the collision object than on the Syflex cloth object
+                        results in a faster simulation than if the cloth has a higher resolution. The size
+                        of the collision object's polygons should be at least 2 times smaller than the cloth's
+                        polygons. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9738D30E-8FA3-4CB4-AC64-36558A0ADE76"></a></span>Avoid sharp angles on the collision object. Bevelling these angles will give better
+                        results. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_184FFA5D45F14B58A7F72CFBD15D35D1"></a></span><div class="figure-anchor"><img src="../images/GUID-C54FC659-14E7-41EA-AAD2-67EAF0E31F06-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-46B46A2F-AC4B-406D-B987-104136727E42"></a></span>To stop the cloth from sliding off the collision object, you may need to adjust the
+                        Friction value in the Syflex Collide Mesh node and the Stiffness value in the Syflex
+                        Cloth or Syflex Curve node. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E7D8CA52-EFDB-449A-BC6E-E98046ABFE4F"></a></span>For best results, you should set up the cloth simulation so that its geometry don't
+                        interpenetrate the collision objects before the first frame of the simulation. Slight
+                        interpenetration might be fine, but more significant amounts can cause instability
+                        as Syflex tries to resolve the interpenetration. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-C577FB84-ACFE-4C7A-AA82-FA06FEA7AE17"></a></span>Sometimes the animation of the character is not perfect. For example, the arm might
+                        penetrate the body at the armpits (or envelopes from both sides might intersect).
+                        In these cases, Syflex does not know how you want to solve the cloth simulation. Depending
+                        on the situation, Syflex will use only one collision (such as with the body), or will
+                        average both collisions (body and arm). If this causes problems in the animation,
+                        the best solution is, of course, to clean up the animation of the character. If this
+                        is not possible, try separating the body into two parts (the body and the arm) and
+                        compute 2 collisions (overlapping one polygon). You should also slightly decrease
+                        the internal envelope value (such as from -0.1 to -0.2) so that there's more distance
+                        between it and the external envelope. 
+                     </p> 
+                  </li>
+               </ul> 
+            </p> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

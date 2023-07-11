@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-25BF6B34-1FFC-4FCE-B76A-2097367839BE">
+      <meta name="indexterm" content="construction regions: Simulation (ICE)">
+      <meta name="indexterm" content="Simulation construction region (ICE)">
+      <meta name="indexterm" content="Post Simulation construction region (ICE)">
+      <meta name="indexterm" content="construction regions: Post Simulation (ICE)">
+      <meta name="indexterm" content="ICE simulations: Simulation and Post Simulation construction regions">
+      <meta name="indexterm" content="Simulate Particles node">
+      <meta name="topic-type" content="concept">
+      <title>ICE Simulation Regions and Nodes</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-25BF6B34-1FFC-4FCE-B76A-2097367839BE"></a></span><div class="head">
+            <h1>ICE Simulation Regions and Nodes</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-68AFAE30-42D7-4260-AAE4-D90BA7E79D2F"></a></span>An object's construction stack is divided into different regions so that operators
+               can be evaluated in different ways that are appropriate to the task that you're doing.
+               Traditionally, there are regions for Modeling, Animation, Shape Modeling, and Secondary
+               Shape Modeling. If you're working with simulated ICE trees, however, there are two
+               more construction regions that are created: Simulation and Post Simulation. 
+            </p><span class="anchor_wrapper"><a name="FIG_B352EC00FD544585905896EF5E305D04"></a></span><div class="figure-anchor"><img src="../images/GUID-4AE430F1-3E2F-452B-A0E0-65FED7A3DA9F-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-941CC2C9-F8DE-4A55-8763-3A222F21DA1F"></a></span>The Simulation and Post Simulation regions are used only for ICE simulations and appear
+               automatically when you create a Simulated ICE Tree node (operator). Currently, only
+               particles and deformation operators can have simulated ICETree nodes. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9B82958F-08B3-4BFF-90C7-1800E9922DCE"></a></span>For more information on the Simulation and Post-Simulation regions, see <span class="char_link"><a href="ICE_basics_UnderstandingtheICEFramework.htm#WS9FE06F03DF579543AA4724145BC8BB4F-0019">ICE Trees and the Construction Stack</a></span>. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0005"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EFB2B26A-07AC-46F5-8846-3031E59D6A3A"></a></span>About ICE Simulations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-0C155FE8-2760-45EB-8CB3-957DE911AE57"></a></span>Simulated means that the result of the current frame depends on the result of the
+                  previous frame rather than on the results of the construction regions that are below
+                  it. This is what differentiates a simulation from other types of modifications to
+                  an object. For example, if you use a Push deformation on a sphere, at each frame the
+                  Push operator gets the undeformed sphere and applies the push. If you move one frame
+                  forward, the Push gets the undeformed geometry again and applies the same push. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-315CBD90-672E-42AD-96EB-1E3324224DD8"></a></span>The only way to modify the push deformation over time is to animate its parameters.
+                  However, if the Push operator is in the Simulation region, at each frame it takes
+                  the results of the sphere's pushed points from the previous frame and pushes them
+                  out more. As you play the simulated push, you see the sphere gradually inflating,
+                  without any animation being defined. The only way to return to the undeformed sphere
+                  is to go back to the first frame. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-989E8A09-2368-484E-86AA-05F57F14D101"></a></span>When a simulation is active, the regions below the Simulation region are not re-evaluated.
+                  This means that if you have any operators in the Animation region, those operators
+                  are not evaluated again after the simulation is active. If you want to return to using
+                  the animation operators instead of the simulation, simply select and delete the Simulation
+                  marker from the stack so that there's no Simulation region. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-704B4106-726D-422A-8482-493698E13083"></a></span>The Simulate Particles and Simulate Rigid Bodies Nodes
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-28D1413D-B43A-4BB0-B80B-9CCC576C5807"></a></span>In the world of ICE, there are two nodes that allow you to simulate particles: the
+                  Simulate Particles node and the Simulate Rigid Bodies node. These are their stories.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0007"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-715A8F31-9A61-46F2-851C-289D64A0AFF7"></a></span>Simulate Particles Node
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F8E13717-BEE2-46F7-8077-3F2A6F3E60DF"></a></span>The Simulate Particles node is the "standard" particles node that updates the position
+                     and velocity of each particle at each frame by doing the following. It: 
+                  </p> <span class="anchor_wrapper"><a name="UL_F7497B2B1E5046ECB2D6AE28326AF9B9"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-E592ED58-E84C-4D7C-A21E-5F6EE5709354"></a></span>Calculates the point accelerations based on mass and force. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-AC6AE188-4CB8-4948-9D53-C320E9F7DB33"></a></span>Updates the point velocities based on acceleration. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-82C22F76-7B00-484D-9FBF-8EB545E260EB"></a></span>Updates the point positions based on velocity. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-41C55DFF-1D85-49FC-828E-C26749960377"></a></span>Sets the simulated frame fraction to 1. The SimulatedFrameFraction attribute defines
+                           the fraction of a frame that has already been simulated for a point. Setting this
+                           value to 1 prevents points from being resimulated by other Simulate nodes in the same
+                           tree (such as the Simulate Rigid Bodies node) or in other trees on the same object.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DAE35C47-7BAC-47B9-8942-9CFA75BB0C30"></a></span>The Emitter compounds that use this node automatically set the SimulatedFrameFraction
+                           to (1 – Age/SimulationStep) so that on its first frame of existence, a particle moves
+                           only for a distance proportional to its age. As a result, it appears as if particles
+                           have been emitted continuously throughout the frame instead of all at once. 
+                        </p> 
+                     </li>
+                  </ul> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2FAD545F-B063-48ED-9DD5-9F912F724A7E"></a></span>For information on using the Simulate Particles node for emissions, see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2A020F56F634064C904087E0C75076C7-0008"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7572B27D-785F-4A3D-95D3-B0FEAA64DB28"></a></span>The Simulate Rigid Bodies Node
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B7A1785D-C8B5-4177-A025-F23BBAB9D030"></a></span>The Simulate Rigid Bodies node is similar to Simulate Particles in that it simulates
+                     the particles, but it also lets you make particles into PhysX rigid bodies, which
+                     are objects that do not deform in a collision. The node updates a particle's position,
+                     velocity, orientation, and angular velocity from the previous frame based on its rigid
+                     body attributes (such as elasticity, friction, shape, size, and scale). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F8A5A0EF-E52B-400B-94D9-3FE0FF625F07"></a></span>Using this node, particles can collide with each other, based on their shape, and
+                     with other objects that are set as obstacles. You can also create springs and dampers
+                     between points on objects that have the Simulate Rigid Bodies node in their ICE tree.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-78F97DE5-F970-4547-B4FD-906FFE7A5047"></a></span>Unlike the Simulate Particles node, the Simulate Rigid Bodies node does not have the
+                     SimulateFrameFraction attribute because the PhysX dynamics engine doesn't work on
+                     frame fractions to detect collisions: it uses whole frames only. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9994BDFB-A265-4DE8-842E-C8A462DF9F14"></a></span>You need to have only one Simulate node plugged into an ICETree node at a time. This
+                     means that if the Simulate Rigid Bodies node is plugged into the ICETree node, you
+                     don't need the Simulate Particles node to also be plugged in. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B0081A3C-2B0A-4670-AF6C-1009C7B5046D"></a></span>The only time you need the Simulate Particles node to be plugged in addition to the
+                     Simulate Rigid Bodies node is if some of the particles are acting as rigid bodies
+                     while others are acting as "regular" particles, and you switch between each type of
+                     simulation at some point (such as by using a state system or an If node and setting
+                     a condition for switching). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-425D7B01-1125-4127-B345-381CED26453E"></a></span>For information on using the Simulate Rigid Bodies node, see <span class="char_link"><a href="ipart_rigidbody.htm">ICE Rigid Bodies</a></span>. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

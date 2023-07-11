@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-3005A9C7-1DFD-44C9-8BF3-17E95523D468">
+      <meta name="indexterm" content="ICE particles: instanced geometry">
+      <meta name="indexterm" content="instances: ICE particles">
+      <meta name="indexterm" content="ICE particle instances: about">
+      <meta name="topic-type" content="concept">
+      <title>Using Objects as ICE Particles</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-3005A9C7-1DFD-44C9-8BF3-17E95523D468"></a></span><div class="head">
+            <h1>Using Objects as ICE Particles</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-3B631C72-A900-4C1A-BEE8-7549147157D1"></a></span>Substituting objects for particles allows you to use objects as part of a particle
+               simulation. You can use any 3D object in place of particles to create many different
+               effects. For example, you could use party streamers as particles to make a parade
+               scene, cars to create a flow of traffic around a traffic circle, or characters to
+               create a crowd scene. You can also loft instanced shapes along particle strands to
+               create many different effects. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9352B885-8C65-4BAE-9C8E-EF7906AA2B63"></a></span>If you want to create animated actors as instances in a crowd simulation, see <span class="char_link"><a href="GUID-D9626F65-5A99-4128-A38F-86B0637FF5E4.htm">ICE CrowdFX</a></span> for information. 
+            </p><span class="anchor_wrapper"><a name="FIG_DB84F689D3904BFD9B1AC5C5DFF4827D"></a></span><div class="figure-anchor"><img src="../images/GUID-14006281-2457-4416-8C97-5FDDCCA2AAD6-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-0005"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-39CBBD5E-13C1-41F0-ADDE-E9654F468AFE"></a></span>What Do Instances Inherit from Their Master Object?
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-27753A2D-3E98-4794-862C-63E3A92D0AE2"></a></span>Instances are exact copies of their master object's geometry, including their materials
+                  (such as color and texture). This means that instances get their rendering information
+                  from their master object. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-D2F3EDEB-5A2C-4B08-A664-0414E91AAE3B"></a></span><div class="note-tip"><span class="label">TIP:</span>If you want to use the particle color instead of the instanced geometry color for
+                     rendering, see <span class="char_link"><a href="ipart_particles_UsingtheICEParticleColorintheRenderTree.htm">Using the ICE Particle Color in the Render Tree</a></span>. 
+                  </div>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-9BA1E6B8-857F-4AE0-999A-12D568623772"></a></span>If the geometry of the master object is animated (shape animation or a deformation),
+                  the instance also inherits that. See <span class="char_link"><a href="ipart_instances_UsingAnimatedMasterObjects.htm">Using Animated Master Objects</a></span> for details on using master objects with animated transformations. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-0006"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F0665D4F-8B22-45C4-9651-B51C268C4593"></a></span>What Do Instances Inherit from Their Particle?
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C8AF7A5D-05A6-43A6-B947-02B7451E6348"></a></span>Instances inherit these attributes that define the particle's movement and size: Position,
+                  Velocity, Orientation, and Size. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-8D85665E-D0D0-4748-9439-9E2E2B7FDEBD"></a></span>You could use a Randomize or Turbulize compound (such as Randomize Value by Range)
+                  to add some variation to these attributes for the instances. See <span class="char_link"><a href="ICE_particles_ICEParticleSize.htm">ICE Particle Size</a></span>, <span class="char_link"><a href="ICE_particles_ICEParticleSpeed.htm">ICE Particle Speed</a></span>, and <span class="char_link"><a href="ICE_particles_ICEParticleOrientation.htm">ICE Particle Orientation</a></span> for more ideas on which compounds to use for adding variation. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-0007"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4C83C994-D10F-4E87-BF4B-84BBC4B50964"></a></span>Collision Geometry for Instances
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-4F0DEC79-46E1-4DB7-9A0A-C82D07C7202E"></a></span>If you're using instances as particle shapes in collisions, different collision geometry
+                  is used for the instance geometry depending on the type of collision you're creating:
+                  
+               </p> <span class="anchor_wrapper"><a name="UL_FC22DE59BB6F4395B1892F3878C3A3DD"></a></span><ul>
+                  <li>If the particles are rigid bodies using the Simulate Bullet Rigid Bodies node, you
+                     can choose between convex hull or bounding box approximation of the instance geometry.
+                     Convex hull more accurately reflects the shape, excluding any concavities. This is
+                     set in the <span class="char_link"><a href="iceref_Instance_Shape.htm">Instance Shape</a></span> or <span class="char_link"><a href="iceref_Set_Instance_Geometry_.htm">Set Instance Geometry</a></span> node. 
+                     <p><span class="anchor_wrapper"><a name="GUID-8CA9D6A8-53BA-41C1-88A6-1438E3DB124D"></a></span>See <span class="char_link"><a href="ipart_rigidbody_CollisionGeometryforRigidBodyParticlesandObstacles.htm#GUID-F2D8D3A0-98F8-4728-93F0-07831091A75A">Collision Geometry for Instanced Shapes</a></span> for more information. 
+                     </p> 
+                  </li>
+                  <li>If the particles are rigid bodies using the Simulate Rigid Bodies node, a bounding
+                     box approximation of the instance geometry is used automatically. 
+                  </li>
+                  <li>If the particles are not rigid bodies and you're using a compound with surface interaction,
+                     such as Bounce Off Surface, a bounding sphere approximation of the instance geometry
+                     is used - see <span class="char_link"><a href="ICE_behavior_MotionControlandSurfaceInteractionBehaviorforICEParticles.htm">Motion Control and Surface Interaction Behavior for ICE Particles</a></span>. 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-0008"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-3C656FE6-8713-4B3F-A519-B60353299EC2"></a></span>Hiding Instance Masters
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2CE4B2BD-8207-4E4F-9F3D-DB7CDD48ED33"></a></span>If you want to keep the master objects in the scene, but you don't want to worry about
+                  them being displayed or rendered, you can simply move them out of the camera's view,
+                  or you can hide them by selecting the <span class="MenuCascade" id="GUID-55AB3AFC-B0F8-46BE-A738-96ACBD12DB23">Instance Master Hidden</span> option in each master object's Visibility property editor (Rendering tab). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-5DAB8E4E-BF21-41DD-9EEF-34E29C139E71"></a></span>If you hide the instance master in the standard way (such as by pressing H), they
+                  are not displayed when they are instantiated by the particles. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSE366BC828DD84A479387FB556A4F61C5-0009"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-35D5B52D-19C2-476F-9B36-CC611370898B"></a></span>Caching Instances
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-FBED9749-D4CF-4D24-88F9-8342163D59A2"></a></span>If you're caching instanced geometry for ICE particles, make sure to keep the master
+                  object in the scene when writing or reading a cache file: even if the particles are
+                  cached, they still depend on the instance master to be present. The master object
+                  can be hidden, if you like. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

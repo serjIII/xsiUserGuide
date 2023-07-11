@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-656BB955-7626-4A19-9CFB-598316D51B0A">
+      <meta name="topic-type" content="concept">
+      <title>mib_lightmap_sample</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-656BB955-7626-4A19-9CFB-598316D51B0A"></a></span><div class="head">
+            <h1>mib_lightmap_sample</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-AA5E8333-0DFE-42F5-B2E4-C28177C76FD1"></a></span> <em class="strong">Category:</em> mental ray &gt; Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F11D604D-CB8C-4D2A-896F-4E0374BD8F58"></a></span> <em class="strong">Shader Family:</em> Texture
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F2C3A4DA-6CFA-4391-B3F2-C0ABAE689434"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-EDFCAE3B-4460-40CA-990A-A41BD5260A7C"></a></span>mental ray supports light mapping as a two-stage process that runs on certain objects
+               (whose materials contain a lightmap shader) to compute illumination or other information,
+               and write the result into a texture or elsewhere. The first stage calls the lightmap
+               shader in vertex mode once for every vertex of the object, and collects the returned
+               information. The second stage calls the lightmap shader in output mode to use the
+               collected information to paint a texture or other output data by looping over all
+               triangles of the object.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-85DB4FE2-D2BA-48CE-80FF-12DD0B230545"></a></span>The lightmap shaders in the base shader library collect direct and indirect illumination,
+               and create a writable texture map from it. Although mental ray knows about only one
+               lightmap shader, the base lightmap shader is split into the main shader that handles
+               the output stage, and a separate shader for the vertex stage that is called by the
+               main shader. This makes it easier to substitute only one stage with another user-written
+               shader.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8C7D34C9-A272-434B-B029-C2F885836540"></a></span>The mib_lightmap_sample shader is a simple color shader that samples the surface light
+               influx density. It gathers direct illumination and optionally indirect illumination.
+               It should be connected to the input port (parameter) of the <span class="char_link"><a href="mentalray_mib_lightmap_write.htm">mib_lightmap_write</a></span> shader.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0ECDFF20-096F-41E9-8985-2F6051BC3D50"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-73B04998-07F5-4F11-9781-612FE0E25FA2">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-3AA1CC71-7133-4E3F-AEC0-66730FF2BCB7"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8391AF96-7E24-402B-ADEC-F395339BA47B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DDAF8CC6-102F-4BB0-9538-03176E3206AD">indirect</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-76A0BB37-CCE6-4A2A-88B1-9BC390AEBCE0"></a></span><p class="table-body">Tells the shader to sample indirect illumination too.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-385C75CE-16EA-4723-9145-B95416535587"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BE9E4F3E-1E15-49AB-BF47-B118DD834E1A">flip</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-882447EB-98A1-4854-8868-E0D907204CAA"></a></span><p class="table-body">An integer value that specifies the side of the geometry to be illuminated.</p> 
+                        <ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-E11D409D-E853-4865-A59C-F3CA70E785A2"></a></span>A value of 0 (zero) selects the direction of the normal — the front side.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-FB13F0CA-8910-436F-85A8-97D5E6B3678B"></a></span>A value of 1 selects the opposite direction — the back side.
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-4FFE3672-4D52-49D4-8C32-912F9515E6F7"></a></span>A value of 2 selects that the illumination be sampled from both directions and combined.
+                              </p> 
+                           </li>
+                        </ul> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS7941648CBD30B248B121B4AE508381D2-0037"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EDA527E4-08BE-4DC0-8A81-B82D89DB8116"></a></span>Lights
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-68ABF994-87C9-447F-8FC8-4649CB2EC1EB"></a></span>Creates a light list to specifiy which lights should produce the effect. For more
+                  information, see <span class="char_link"><a href="dir_lights_UsingLightLists.htm">Using Light Lists</a></span> [<span class="char_link"><a href="dir_lights_cover.htm">Direct Illumination</a></span>].
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

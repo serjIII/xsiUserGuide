@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F603EC4E-786C-483A-AF15-988C0C71570D">
+      <meta name="topic-type" content="concept">
+      <title>Toon Ink Lens</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F603EC4E-786C-483A-AF15-988C0C71570D"></a></span><div class="head">
+            <h1>Toon Ink Lens</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-FEC13475-6DEA-49D0-902E-0BCC05474B73"></a></span> <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-003A">Basic Appearance</a></span> | <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-003B">Taper</a></span> | <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-0040">Variation</a></span> | <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-0042">Pressure</a></span> | <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-0046">Sampling</a></span> | <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-0049">Background</a></span> | <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-004A">Lens Effects</a></span> | <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-004F">Advanced</a></span> | <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-0051">Render Tree Usage</a></span> 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A97BF379-7457-4FEC-B0EC-85836B6458DB"></a></span> <em class="strong">Category:</em> Toon 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-028D4946-E495-4A8D-819B-345627D207FE"></a></span> <em class="strong">Shader Family:</em> Lens 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-1473D1FF-DBAA-484D-9836-07CA33D8FD77"></a></span> <em class="strong">Output:</em> Color 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-157E0179-2D6A-4B42-AFF9-8DEA9579E512"></a></span>Renders ink contours over the image. Ink can be drawn between different materials,
+               objects, or where there are great discrepancies in distance or direction, for example.
+               Contours are detected using a stratified adaptive stochastic super-sampling technique
+               (!). This means that for each primary-ray sample normally fired to compute an image,
+               the shader fires additional rays into the scene until various conditions are met (that
+               is, until a contour is detected); Quasi-Monte-Carlo (QMC) methods are used to compute
+               the direction of each additional ray. At the intersection of one of these rays with
+               a surface, some information about the intersection point, such as the surface direction
+               or its distance from the camera, is stored for later analysis. After each additional
+               ray is fired, the information gathered at its intersection is compared with that stored
+               for the nominal ray. If a contour is detected, sampling ceases and a user-specified
+               contour-color is composited over the image. 
+            </p><span class="anchor_wrapper"><a name="TABLE_6B96690CBD674050B89FAAB3729D5680"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FE7FAC48-8044-4CA8-A09E-3392DDE30742"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-398D90DD-437D-41A5-8965-073C00F04C65">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-FCE28E32-C153-493F-9484-CA71CB923C4F"></a></span><p class="table-body">The shader's name. Enter any name you like, or leave the default. </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-003A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1F1BFECF-9902-4304-B684-7F5DC9A8B3AC"></a></span>Basic Appearance
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-C9B8D768-2B9B-4F62-B7A6-8ED476206518"></a></span>Basic ink attributes, such as thickness ("spread") and color. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_37515C6AA3EC4580860DF2EBE095E2DB"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px">
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A278DC50-F8C7-4AA5-B6B9-E33621E42CDD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0510939A-4912-460A-A439-8E5C177A53D2">Bypass</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-562D716B-859C-4AA6-B1BD-C11B874D98D4"></a></span><p class="table-body">The shader may be bypassed and the image rendered without ink. This parameter is useful
+                              because it is texturable. Since rendering ink contours can be very time-consuming,
+                              it is often useful to create a garbage matte texture to mask out large areas of the
+                              screen that do not require contours, and connect the garbage matte to this parameter
+                              in the Render Tree. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0C76BC0C-B21D-4469-944A-2A5E66529005"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-055D7622-5A4E-4887-B93A-02904C4F778C">Ink Only</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-53DDD126-9C17-4AED-9B69-FE2D8DC8A316"></a></span><p class="table-body">Renders ink only. The Ink Only control in this shader's Advanced tab allows for the
+                              ink color to be influenced by underlying surface color, or composited over black.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-04500020-AE92-4C46-BD09-DA19BD9AE47A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-4976BF79-D3E9-4149-9863-63D296DABABD">Color</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5AE256A4-A920-4866-B0AC-6C1335F2D1E9"></a></span><p class="table-body">Ink color and alpha. Ink is composited according to its alpha, so an alpha less than
+                              1 will result in underlying surfaces being partially visible through the contours.
+                              Local controls for overriding this parameter are available from the Toon Host material
+                              shader. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-761F38A9-627D-4C48-AC23-0A1DD4A358CC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5FA6CB0E-241E-4BC1-B276-CBC4C22F1196">Compositing</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4D66DAE1-ACA3-4ACB-BFEE-E39E821E6B00"></a></span><p class="table-body">Choose from a variety of available transfer modes for controlling the compositing
+                              of ink over underlying surface color: <span class="anchor_wrapper"><a name="UL_A78946BCAB06452B97F8A094EE4C4CF5"></a></span><ul>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-954AEC90-C110-4188-9D1B-37CB98306E23"></a></span> <span class="MenuCascade" id="GUID-5F9BC00C-A0D2-45E0-85EA-FA9B74304178">Normal</span>. This is the default. It simply takes the foreground. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-D8D7CA83-2E76-46C6-8A40-DB7C4437F791"></a></span> <span class="MenuCascade" id="GUID-D4F01690-8368-45DC-8955-D493FF661373">Add</span>. The foreground is added to the background. Thus, no foreground will be visible if
+                                       the foreground is black. This is useful for compositing such that the foreground appears
+                                       to glow. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-D40F07D4-FF00-4286-B206-9B29F83B85CF"></a></span> <span class="MenuCascade" id="GUID-0C53A2DC-0F4F-4312-AE05-A9C5C9BF5876">Multiply</span>. Multiplies the foreground by the background. The result is always a color darker
+                                       than either original foreground or background, much like the result of two overhead
+                                       transparencies stacked and projected from a single projector. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-01AB5F7F-7D31-432C-AEEB-987F1670ADF7"></a></span> <span class="MenuCascade" id="GUID-96A0DB69-F953-45BC-BE63-BA1B263F3118">Screen</span>. The inverses of the two color values are multiplied. The result is a foreground
+                                       brighter than either the original foreground or background. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-93289926-9CAE-46BA-A17E-3C03AB979A60"></a></span> <span class="MenuCascade" id="GUID-494F4B1E-FD3D-44E5-9F88-1DDFC36CDD1E">Overlay</span>. Either multiplies or screens, depending on the value of the background underneath.
+                                       The overall result is that the background is not replaced by the foreground, but is
+                                       mixed with it, while weighted by the value of the original background. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-BD2BBAE0-FE22-48C9-B4A4-95F073002113"></a></span> <span class="MenuCascade" id="GUID-C7112C8F-8383-429C-9B58-07033B6EE296">Lighten</span>. Compares the values of the foreground and background and chooses the lighter of
+                                       the two. The overall result is that the foreground can never do anything except make
+                                       the background lighter. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-27E97143-70F1-4722-92E5-7A906E4C01F5"></a></span> <span class="MenuCascade" id="GUID-A8E236DF-2F52-4F63-8073-EEA0B23CB3EC">Darken</span>. Compares the values of the foreground and background and chooses the darker of the
+                                       two. The overall result is that the foreground can never do anything except make the
+                                       background darker. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-C6EC4D22-10BD-4485-A032-13BD1CB16C5E"></a></span> <span class="MenuCascade" id="GUID-BD8BFBD0-0B7D-4E7F-8A42-D83CB6F7DDC5">Difference</span>. The foreground is subtracted from the background, producing an inverted color effect.
+                                       
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-6C933389-2313-4F0A-9B14-E1F460B0C1DA"></a></span> <span class="MenuCascade" id="GUID-79575A94-045E-4DA9-B742-3930EAF4B3D4">Hue</span>. Uses the luminance and saturation of the background and the hue of the foreground.
+                                       
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-D2CD0431-B29F-4687-B15E-2DECE20D3E91"></a></span> <span class="MenuCascade" id="GUID-AB126444-4749-4F49-900B-0FF0B4B56945">Saturation</span>. Uses the hue and luminance of the background and the saturation of the foreground.
+                                       
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-7A3A8CD2-616D-4E31-9AAA-1E87812884AD"></a></span> <span class="MenuCascade" id="GUID-CBB01F6B-1BE0-463F-956E-95682B67E339">Value</span>. Uses the hue and saturation of the background and the luminance (value) of the foreground.
+                                       
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-DBCBDB75-9970-4A14-BD2E-B362EE5C4338"></a></span> <span class="MenuCascade" id="GUID-50E2B43C-561E-4CD1-A2B3-AC6B5E7C6597">Soft Light</span>. If the value of the foreground is greater/less than 50% gray, the underlying background
+                                       is lightened/darkened by the foreground. This is similar to shining a diffuse light
+                                       on the image. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-79C3100B-6E26-40E3-948F-ADAA91383C01"></a></span> <span class="MenuCascade" id="GUID-94288405-3D64-4E5A-A724-945B7C728D1E">Hard Light</span>. If the value of the foreground is greater/less than 50% gray, the background is
+                                       screened/multiplied by the foreground. This is similar to shining a harsh light on
+                                       the image. 
+                                    </p> 
+                                 </li>
+                                 <li> 
+                                    <p><span class="anchor_wrapper"><a name="GUID-31C6F6A5-354B-4B58-AF6A-03E409CCC842"></a></span> <span class="MenuCascade" id="GUID-E5850759-6B17-423F-B17F-6D9B38D92A25">Exclusion</span>. Similar (though not identical) to <span class="MenuCascade" id="GUID-186E2D42-AA8A-45A0-BDE3-DEAFE517A010">Difference</span> mode. 
+                                    </p> 
+                                 </li>
+                              </ul> 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0E56D124-F783-407A-96B5-9D4CE3735033"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-89D412AE-F703-4F50-9003-DC455065FA9D">Spread</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F1CB2446-E7EE-41C4-8217-D7E99AEB875A"></a></span><p class="table-body">Controls the thickness of ink contours. Ink spread may be modified by a variety of
+                              procedural methods, such as Taper and Variation, and also by local controls in the
+                              Toon Host material shader. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-0FB381E4-3DB9-4161-9C41-1B8A1C29CEEE"></a></span><p class="table-body">The Spread Scale control in this shader's Advanced tab allows spread to remain fixed
+                              relative to a specified screen resolution, so that changing resolutions will not affect
+                              the relative thickness of ink contours. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-003B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ADBD7397-B147-4BE2-B14C-545DAF4E67CC"></a></span>Taper
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-2F820E7E-AFAC-432E-BB92-249B4CECF709"></a></span>Tapering is a procedural variation of ink spread. For example, surface-direction can
+                  be used so that contours are drawn thickest where a surface faces the camera directly,
+                  and thinner as a surface curves away. Tapering is a useful way of simulating a variety
+                  of artistic techniques for emphasizing object shape and placement. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-003C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-AC7BD3F3-434D-425A-881E-818A6D8413BA"></a></span>Anisotropy
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-53B29783-1EB9-4098-B314-8F1DDDAC433E"></a></span>Increase ink spread at a preferred angle. This is useful for simulating a calligraphy
+                     pen, for example. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_8364E5126EBF491BB41C3D51754F73FF"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-17E1A745-5584-49D1-8032-161CC2C34F91"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7A85BAB9-6866-45FF-89BE-5D41D15683C5">Amount</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4D3C02C0-B875-4AB5-8D0F-9DB07C56393C"></a></span><p class="table-body">The strength of the effect (a setting of 0 disables it). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6F892908-089C-4868-AB14-49319FEA2BD8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D728C0CB-39A2-4880-BCFB-01EE8DC60551">Angle</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-07891C0D-113C-41FA-B5F4-C4B8800E8009"></a></span><p class="table-body">The preferred angle, specified in degrees (such that 0 corresponds to 12:00 on the
+                                 clock face, 90 to 3:00, etc.). 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-003D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9CFCAC80-3645-40B5-B01F-84EF77AD25AB"></a></span>Direction
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D374C78A-A650-4CB5-8EBE-E9C254E1E0D6"></a></span>Vary contour spread as a function of surface-direction. By default, direction taper
+                     alters ink spread according to the degree of a surface's incidence to the camera (such
+                     that spread is greatest when a surface faces towards the camera, and least when facing
+                     away). 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_4B17CCC185D2427FAE211E9E70B2146B"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2DA034D4-DBDD-47D7-A6D6-9B497B4E4675"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C04B4FA0-B602-4374-BB2F-B86B555DE0E3">Amount</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-420D2966-3DFC-441E-9464-06895B3E7AF4"></a></span><p class="table-body">The strength of the effect (a setting of 0 disables it). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-67609CE5-97C7-4084-B9D9-2432687C490E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-51126430-1361-4263-8995-BE00BD93D8A9">Vector</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4069CBE0-2F30-4102-9934-E20798B88FD8"></a></span><p class="table-body">The direction-based tapering effect relies on an incident vector pointed towards the
+                                 surface in question. Usually this is the camera direction itself but, alternatively,
+                                 a user-specified vector or one of a variety of presets may be used. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-0739F418-8F5E-4C42-A202-48508D6ADDA2"></a></span><p class="table-body">The Custom Vector can be used to create thicker ink contours on the underside of objects
+                                 and thinner ink contours on top, for example. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5209A43D-FD1D-4E45-9C7B-364692E60EC0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DC56E1AC-0CA8-422E-A6DA-A0CB96573EEE">Space</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-32337A16-54ED-4987-AF44-9209BEC6FF9B"></a></span><p class="table-body">The coordinate space (World | Camera | Object) used for specifying the incident vector.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-A07BF73B-D71C-4F71-97F9-00C69DCC782A"></a></span><p class="table-body">Selecting camera coordinates will compute incident direction relative to the camera
+                                 ("Upper Right" remaining in the upper right of the rendered image regardless of camera
+                                 position or orientation, for example). Camera coordinates would probably be most appropriate
+                                 to simulating hand-painted techniques, but will also cause ink spread to vary as the
+                                 camera moves. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-8C42F423-C243-4DAE-8DF9-B5AC4FB6CD83"></a></span><p class="table-body">Using world coordinates will lock the effect to the direction of a surface regardless
+                                 of its global orientation, while using object coordinates will rotate the effect along
+                                 with the surface. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A7651988-824E-4A5E-BD4B-95C3C09F240D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-13CD0214-EBB4-48E5-B81E-0A0E55E15F6B">Custom Vector</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9E014982-01AA-4EFA-97FF-C8D473118682"></a></span><p class="table-body">A three-dimensional (x, y, z) vector. The vector is automatically normalized internally.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-833A98A4-D543-4384-B8B6-F87983B16C87"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DC6633BA-679A-4373-8C4E-37DDBAE8CA54">Direction</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-24C5A373-4CC0-4150-80B6-DF57D575D008"></a></span><p class="table-body">The range of directions on which the effect acts. A value of 0 implies that the surface
+                                 faces the incident vector (i.e., the surface normal is parallel to the incident vector).
+                                 A value of 90 implies a surface grazed by the incident vector (i.e., the surface normal
+                                 is perpendicular to the incident vector). 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0C88F4E7-CE0D-49F0-B3CD-CA7A7D629525"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-842543AC-0B46-482D-A24C-41F58A542BD8">Spread</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D0572A4F-EA75-4349-A64E-CDA4BDAD35E2"></a></span><p class="table-body">The range of spread values to which surface directions are mapped. A Min Spread of
+                                 2 would cause spread to increase by a factor of two at the specified Min Direction,
+                                 for example. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DE8A4043-D4AF-464C-90B4-C059CA429EE4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B6F5742E-E322-4AF7-99F1-0B9D6B50C085">Profile</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-6C95C2FE-9C3C-454A-A607-43826B26D1AF"></a></span><p class="table-body">Specifies a non-linear emphasis to the effect, so that changes in spread may ease-in
+                                 smoothly or cut in abruptly, for example. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-84FCCD81-A5F7-44AD-88EF-497A678F6A1E"></a></span><p class="table-body"> Two power functions, Bias and Gain, are provided. The response of the bias function
+                                 resembles that of a gamma curve, while the gain function creates an S-shaped profile.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-CE7C2312-EE2A-417B-B44B-79DED139DFD7"></a></span><p class="table-body">The Power parameter controls the amount of emphasis. Regardless of the function chosen,
+                                 a Power of 0.5 results in a linear response. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-003E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-86C77796-E4C4-4A8E-907B-6033F80D1008"></a></span>Distance
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-D21B1C35-49F0-4DA1-BB99-8FB63490A9A5"></a></span>Vary contour spread as a function of distance from the camera. This can be used to
+                     create depth-fading effects (ink contours thicker where they are close to the camera,
+                     etc.). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BA089F5E-67DF-42A6-8F39-56F30ACE6580"></a></span>In the case of secondary rays (those spawned as a result of reflection or transparency
+                     effects), the distance considered is that accumulated over the entire ray path, beginning
+                     at the camera and ending at the current ray-surface intersection. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_7948652C830146839D5C0250CC77B39B"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-409385F0-0405-4B4C-831E-7DC710114142"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-21407138-71F8-4B07-A203-7362CB66779A">Amount</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BAD12027-88ED-42BA-AE87-1C3D511A3F41"></a></span><p class="table-body">The strength of the effect (a setting of 0 disables it). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9E1BE941-5D48-4C05-B39F-0A6811324B4C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-A510B445-1500-4C66-B9C8-35DE47860252">Vector</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C68CF19F-42F5-4CFE-A2DE-5A39A7CF1DC4"></a></span><p class="table-body">The direction-based tapering effect relies on an incident vector pointed towards the
+                                 surface in question. Usually this is the camera direction itself but, alternatively,
+                                 a user-specified vector or one of a variety of presets may be used. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-6F329495-A1D2-4292-A437-419DBC3B5762"></a></span><p class="table-body">The Custom Vector can be used to create thicker ink contours on the underside of objects
+                                 and thinner ink contours on top, for example. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D935EAB6-D220-42E9-BABE-A98B93FF958B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-52032F36-8DB8-47C9-9246-31B0D4338593">Distance</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D15F99F5-D3EA-429C-B97B-DB7E1945CC1F"></a></span><p class="table-body">The range of distances on which the taper effect acts. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-30D85B4C-7DA5-41AB-87CF-0C37A79D0E75"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-65BE4145-1490-41EC-9978-33202238986B">Spread</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E76D4ACC-C4CD-443D-83B9-EBF134E593B2"></a></span><p class="table-body">The range of spread values to which distances are mapped. A Min Spread of 2 would
+                                 cause spread to increase by a factor of two at the specified Near Distance, for example.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-79F7E3DA-7E18-4E95-8A38-E6CE29E87CDA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-46E06544-0C38-4B5A-927D-73168337FC43">Profile</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E3585213-57BF-40EF-9FCB-4BED6227B12A"></a></span><p class="table-body">Specifies a non-linear emphasis to the effect, so that changes in spread may ease-in
+                                 smoothly or cut in abruptly, for example. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-1B33CC2B-33B9-43E0-9936-435BA19B588D"></a></span><p class="table-body">Two power functions, Bias and Gain, are provided. The response of the bias function
+                                 resembles that of a gamma curve, while the gain function creates an S-shaped profile.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-1424AE5B-EB43-4632-8746-6CBDB6F7175F"></a></span><p class="table-body">The Power parameter controls the amount of emphasis. Regardless of the function chosen,
+                                 a Power of 0.5 results in a linear response. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-003F"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-D7E4AC6A-37BD-4185-8AE9-81D59AAC85F3"></a></span>Other
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_7EF5B808762649C8B792B06E89070B77"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2EDBFE85-8F9C-487E-9162-3A7EBBB3A2B2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F6717E86-CD14-4279-8264-8834AF679581">Trace Depth</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-A6C7AB03-1119-4F26-BA1E-4652A0A66CB7"></a></span><p class="table-body">Varies contour spread as a function of ray-traced depth. Primary rays (eye rays) are
+                                 considered to have a trace depth of 0, while reflections or transmissions will have
+                                 trace depths of 1 or greater. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-5B7AEF91-CD8C-4729-8755-2E068FA25705"></a></span><p class="table-body">A setting of 1 will result in contour spread being reduced 100% on the first reflection
+                                 or transmission. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-C0808C96-86B1-4854-9482-435812A428B4"></a></span><p class="table-body">A setting of 0 will have no effect. </p> <span class="anchor_wrapper"><a name="GUID-2E87EF3A-9B38-467E-9544-C4577FB7FA21"></a></span><p class="table-body">Negative settings may be used to cause contours to get thicker when appearing in reflective
+                                 or through transparent surfaces. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0040"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C5B58CBB-17ED-41C1-B25A-8ABC109E1935"></a></span>Variation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-6B4DA75B-A92E-47FA-B4DF-23C8AE21AC95"></a></span>Allows pseudo-random variation of ink properties, such as spread. Variation is useful
+                  to suggest the natural quirks and deviations of an artist's hand. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0041"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-8141B347-4725-40A7-A98D-1198DB879DB7"></a></span>Spread
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1755E039-9647-40B4-A391-CD2015561B47"></a></span>Perturbation of ink spread. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_2FCF1BD61C6643CB8D84AF8C6C7A8E01"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CB8BF0F4-4DC8-4832-B1EE-D2246CA18FEA"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CF15B81C-75FC-432A-A6EA-07E8FAFE6978">Amount</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D2FF284F-204E-4098-A36D-0C9C48AE5C36"></a></span><p class="table-body">The strength of the effect (a setting of 0 disables it). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5600BC0A-93D6-4EA3-94B0-45DCE2361822"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-24235088-B539-491F-B595-77503AD6B609">Animation</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A52D805E-FFCE-41F4-8C4D-FC43D9C95B35"></a></span><p class="table-body">A setting of 0 disables the effect and causes the randomness to be frozen over time.
+                                 Low values will cause inked lines to crawl over time. Very high values will cause
+                                 inked lines to chatter. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BC281BD5-B5BD-4E2C-BFD8-514E920F9AF2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9C9C6CE6-C70B-45A9-BC08-E9E6BC1259BF">Basis</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A1EBC769-48E9-4E05-B004-DF7DF2BF28B4"></a></span><p class="table-body">Random variations are based on one of the following bases: Ray Direction, Intersection
+                                 Point, or Intersection Normal. Each of these has a distinct flavor. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-4EF3D72C-27D1-4DC2-BD80-979BE012E141"></a></span><p class="table-body">Choosing Ray Direction will result in any recognizable patterns remaining more-or-less
+                                 constant relative to the screen. Other options will result in features seeming to
+                                 adhere to surface features. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-77F13872-0A60-4080-A711-734365112CA7"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-40A6C1EB-4C4A-4FC2-9668-4BE61A819945">Space</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FFCA84C1-F940-46F1-A76C-A532273BACA6"></a></span><p class="table-body">The coordinate space (World | Camera | Object) used for specifying the variation basis.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-2B4F4238-114D-4E2D-B528-D320CA8531B7"></a></span><p class="table-body">Selecting camera coordinates will compute variation relative to the camera. Camera
+                                 coordinates might be appropriate for simulating hand-painted techniques. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-617CD555-7A29-4C58-BAA8-545B9D35D124"></a></span><p class="table-body">Using world coordinates will lock the effect to the direction of a surface regardless
+                                 of its global orientation, while using object coordinates will rotate the effect along
+                                 with the surface. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5695E45D-B595-414F-9A2C-E962C7223091"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E366AB73-1505-4E5F-9D48-A0F2F4F60D1F">Custom Vector</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-11D02142-7FBE-48DE-AEF8-DF09D58424E2"></a></span><p class="table-body">A three-dimensional (x, y, z) vector. The vector is automatically normalized internally.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9EAC3FE0-19B7-4BDD-AE8A-5ECE6395B6FE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1977727A-84C6-40A8-B6E0-550EF433CEBE">Variation</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-540357A8-253E-4BDC-8D8B-FBA510D9502D"></a></span><p class="table-body">The range of input on which the effect acts. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0D34A4F0-F2AE-4FE8-B41B-10F8CD4DFA0C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-59A5B173-2023-4326-BB24-CDC6A915FD14">Spread</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-723E6DC3-1C4A-4152-9E1D-85375CDF79F0"></a></span><p class="table-body">The range of spread to which surface directions are mapped. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-446ADAC3-5FE7-4FD3-BAE2-017DCCA4A606"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D1D86954-264D-48BA-938C-0F5705082E74">Profile</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9AAB36C8-866A-4101-AE54-F49B417ABB3F"></a></span><p class="table-body">Specifies a non-linear emphasis to the effect, so that changes in spread may ease-in
+                                 smoothly or cut in abruptly, for example. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-DB58472B-0D01-4D60-B8EA-5D4B3CC8F68A"></a></span><p class="table-body">Two power functions, Bias and Gain, are provided. The response of the bias function
+                                 resembles that of a gamma curve, while the gain function creates an S-shaped profile.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-FEEFFB04-BC39-4268-8F8C-D7288B7CCB46"></a></span><p class="table-body">The Power parameter controls the amount of emphasis. Regardless of the function chosen,
+                                 a Power of 0.5 results in a linear response. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D75B6BD0-8A87-4F67-A372-1C267640773C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F4F1007E-3C2C-492D-95E0-B591867F300C">Frequency</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2E18D697-274B-485E-A5B2-83BA9782ACA1"></a></span><p class="table-body">Spatial frequency (x, y, z) of the random variation. Higher values will result in
+                                 apparently noisier ink contours, while lower values will result in more smoothly varying
+                                 contours. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0042"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7FFB983E-FE4F-487D-A8CF-18E0D0C9184A"></a></span>Pressure
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-DB7978EE-BDDC-4179-8AB7-F2B7122341FE"></a></span>Simulates varying pressure of pen or brush by altering ink color (saturation and brightness)
+                  and alpha, proportional to spread (after Taper and Variation effects are accounted
+                  for). It is possible, for example, to create ink that becomes darker and more saturated
+                  where it spreads out; or ink that fades away where it spreads least. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0043"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A66C8575-7083-4573-BB4F-45F7C19E54B6"></a></span>Brightness
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4B8F1A50-94EE-426B-AB48-1B855B489ED9"></a></span>Varies the intensity of the ink color according to spread. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_E4BB97A5131943608E4615F9F2C28045"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8A86C2AB-7B64-409A-902F-DD394665D11A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DD58F9B5-4734-484C-A6DD-66931665FAA4">Enable</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7C541796-D87D-4055-9CBE-9B26824A7C1B"></a></span><p class="table-body">Switches on the effect. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-664C130F-2816-4F4D-8424-1627EF1FBE93"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6154D151-96BF-46BD-AB2C-5A96D23B2F5E">Spread</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A6D5BF37-064A-4B80-80DA-33C48E2740AA"></a></span><p class="table-body">The range of spread values on which the effect acts. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0A97A219-6BEE-426F-812F-4DB55F18DAEE"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ACE46419-2ADB-4829-B6E2-C8EB92C9F51B">Brightness</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1BD895A1-ED01-4CCE-82ED-1104DF3998E1"></a></span><p class="table-body">The range of brightness to which distances are mapped. A Min Brightness of 0.5 would
+                                 cause ink to darken to half its original intensity at the specified Min Spread. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0044"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-86595C7D-5F2A-43DF-9DBC-4023DA938FCD"></a></span>Saturation
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-98913867-EF7F-4575-AE8D-B1A4FB6FEC70"></a></span>Varies the ink saturation according to spread. Saturation has parameters with the
+                     same names (and corresponding functions) as those for Brightness and Alpha. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0045"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-C56A527C-92D8-4FB5-B34B-8401338CE6AB"></a></span>Alpha
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C3533BE9-794F-4C61-9335-CF79572230D2"></a></span>Varies the ink alpha according to spread. Alpha has parameters with the same names
+                     (and corresponding functions) as those for Brightness and Saturation. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0046"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-33081376-E02F-42BE-92AD-F9A4E46BE511"></a></span>Sampling
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-99C522FA-C69F-4AB3-8231-DDE0CDAA9FE3"></a></span>Control over contour sampling and detection. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_5A66E455A1CB4A14933A2958E275616E"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px">
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E355DE37-A637-4DC0-BA82-FA9F0454C183"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-71155D31-6308-4BF7-8141-E38FECC795D6">Samples</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9EDACC95-6F52-44EF-A4C0-9D7D8DC7030F"></a></span><p class="table-body">The maximum number of rays fired to locate contours. Increasing this parameter to
+                              high values (6 or 7) results in higher-quality contours, while setting lower values
+                              (2 or 3) result in proportionately lower quality contours. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1FC677A4-9545-4037-A5D3-96D4133DD555"></a></span><p class="table-body">In most cases a setting of 4 or 5 will suffice. Thicker contours will require higher
+                              settings. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-25D86238-DF65-4552-9FC5-551AB9C8AA85"></a></span><p class="table-body">Because increasing this parameter by 1 will slow rendering by a factor of 11/4 on
+                              a typical scene, it is essential to use as low a value as possible! This setting should
+                              also be balanced with anti-aliasing settings for the entire scene. Typical settings
+                              for high quality contours might be: 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1A90A67B-24DA-4C89-9338-790820438913"></a></span><p class="table-body">samples -1 2 </p> <span class="anchor_wrapper"><a name="GUID-88CC6631-6072-4587-9231-2CF76C2DDCB5"></a></span><p class="table-body">contrast 0.200000 0.200000 0.200000 </p> <span class="anchor_wrapper"><a name="GUID-19E04850-4881-43FC-A96F-40024B697F25"></a></span><p class="table-body">for the scene, and </p> <span class="anchor_wrapper"><a name="GUID-B8FF74E3-4383-460B-88D0-E78D7AF48472"></a></span><p class="table-body">samples 5 </p> <span class="anchor_wrapper"><a name="GUID-4AEA41ED-8E30-46FE-B14C-F5EF44B113D6"></a></span><p class="table-body">for the shader with a spread setting of 2.0. Faster previews could be accomplished,
+                              with some loss in quality, using settings such as 
+                           </p> <span class="anchor_wrapper"><a name="GUID-62D8E862-E8D7-4258-B741-0B7BD66C4B6D"></a></span><p class="table-body">samples -1 1 </p> <span class="anchor_wrapper"><a name="GUID-EA6105C3-2232-40AD-BE2B-5E87A98144AA"></a></span><p class="table-body">contrast 0.200000 0.200000 0.200000 </p> <span class="anchor_wrapper"><a name="GUID-458C6782-E425-44E6-9ACE-B4119C08C5EC"></a></span><p class="table-body">samples 4 </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-52AB2659-F265-4D4E-8E76-A93A5573FF2D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5ECF7DAB-38E9-4336-9504-5F373E3A7F4A">Trace Depth</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C8909173-1AEB-4AFC-9D2B-3A06D84E5373"></a></span><p class="table-body">Sets the maximum trace depth to which contours are computed. If no reflections or
+                              refractions are needed, than a setting of 1 will result in the fastest render. If
+                              contours are only necessary for eye rays, and in the first reflective surface, or
+                              though the first transparent surface encountered, then a setting of 2 will suffice.
+                              Higher settings will result in greater levels of contours traced (as well as longer
+                              rendering times). 
+                           </p> <span class="anchor_wrapper"><a name="GUID-D0A0A902-B195-4EBE-9CAD-DD543FBAF942"></a></span><p class="table-body">A warning will be issued if this parameter is set to a value lower than that of the
+                              scene's maximum trace depth for reflections, refractions, or their sum. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0047"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-3F2D084D-CC3C-47AF-AC4A-25CAB7255195"></a></span>Boundaries
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ED25E25D-FABF-488B-97FF-7709F187B812"></a></span>Contours detected according to various criteria. These options are not mutually exclusive
+                     (a contour may be both between materials and also between objects, for example); so
+                     turning one option off does not guarantee that all affected contours will disappear.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-BC25FAE5-398F-4EBB-99A6-B762BAFF4787"></a></span>If an option is not required, turning it off will result in a slight performance increase.
+                     
+                  </p> <span class="anchor_wrapper"><a name="TABLE_95B1A82A70054A80BDB416C509AB5555"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-87978358-0EBD-4B86-9180-AA3CA4B5396D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-CAC4FB96-71B8-4F79-B0B6-EFE65C7D3FB5">Environment</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-322AEEE3-2D8F-4AEA-B399-52B3E9FC7664"></a></span><p class="table-body">Enables contour detection at the boundaries between surfaces and the background environment.
+                                 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F2D2EE02-1A86-40BD-AAAF-0A90AD0995BF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7B0243D9-A405-4D37-AA46-91EC39DD41FD">Object</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-50A65A0E-FB61-4536-B794-C09A6D391C29"></a></span><p class="table-body">Enables contour detection where surfaces intersect or overlap. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-78ED3F6F-8DC8-45D5-8927-18CFF836303A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-ED2F0874-4097-422A-9685-CE90DA4A7F3B">Material</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1AA0CBEA-0C21-48D3-BFC1-FEB518EC6158"></a></span><p class="table-body">Enables contour detection at the boundaries between different materials. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8F82C0E5-A1FE-4E94-B0C9-5D599A02C0D9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8697661A-97C2-41AA-AFBC-C392C8FB388F">Host Materials</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-048BBE59-F5EC-4E72-BF58-298ACB11276B"></a></span><p class="table-body">These options allow properties associated with the Toon Host material shader to affect
+                                 ink placement. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-2515FE70-AA21-4E20-9113-98A12B846B60"></a></span><p class="table-body">When the Paint option is enabled, ink will be drawn at the boundaries of various paint
+                                 layers (highlight, rimlight, etc.). This feature might be useful if the final ink
+                                 contours are to be subsequently filled using a digital ink-and-paint system. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-6A510160-AB82-4E32-9F02-48BD96474BED"></a></span><p class="table-body">When the Transparency option is enabled, ink will be drawn at the boundary between
+                                 transparent and opaque surfaces. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-0B32D040-C233-4197-98F4-9638EAB4EEBD"></a></span><p class="table-body">With the Shadow option enabled, ink will be drawn between surfaces on which shadows
+                                 are cast and those unaffected by shadows. The transparency threshold for determining
+                                 whether a surface is considered opaque or transparent may be adjusted with the <span class="char_link"><a href="shaderpresets624.htm">Toon Host</a></span> shader's <span class="MenuCascade" id="GUID-94BDDB45-70B3-4DEA-A328-E8CA69EA50C4">Transparency</span> &gt; <span class="MenuCascade" id="GUID-241A5BD9-CF06-4AFA-89F2-00A812333855">Detection Threshold</span> parameter. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F44F8B14-6B0F-41F9-922F-C72F92ACE239"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-03AE95FE-D1E5-46D2-BA74-4427C9D495B3">Facet</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3294F0EB-7D6B-4FF1-8AC7-1E4BD559E066"></a></span><p class="table-body">Detects contours at facet boundaries - this will result at contours being drawn between
+                                 intersecting, adjoining, or overlapping triangles in the tessellated surface. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-FD561618-F2C9-4FBB-8A92-A053695A96B2"></a></span><p class="table-body"><span class="MenuCascade" id="GUID-114A4838-79CD-4021-A347-CD98960DEB22">Enable</span> switches on the effect. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-6D19B2DD-24EB-4ADE-B976-82BE7A74A94E"></a></span><p class="table-body"><span class="MenuCascade" id="GUID-7CE4053A-2877-4B79-8C4F-CA9E67A90F68">Merge Coplanar</span> is provided for ignoring facet boundaries between adjacent co-planar triangles. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0048"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A684BACB-488A-489A-9AA6-52EF70A4DC28"></a></span>Thresholds
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-881B8B68-5315-4392-A7B3-3CA43D5DBDDC"></a></span>Contours detected according to surface properties at the ray intersection. These are
+                     not mutually exclusive (a contour may be both direction and also distance-related,
+                     for example), so setting one parameter to a value of 0 does not guarantee that all
+                     affected contours will disappear. Direction and distance contours are only detected
+                     within surfaces of the same object, with the same material applied. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_6209708066474671B0EC93C01E0ECC12"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A965D79F-B759-4F0C-8975-C3209072A04D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-25693367-CCA9-4266-A07E-A034E3C18223">Direction</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FE90F3FE-9F86-483B-8ECA-A977882D5A6D"></a></span><p class="table-body">Inks where the difference in surface orientation of sampled points not on the same
+                                 triangle exceeds this angle. The angle is specified in degrees. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-C1ED661F-64ED-4C23-9B50-DE332F80B3E2"></a></span><p class="table-body">This threshold may be modified by the Depth-Fade Thresholds controls in the Advanced
+                                 tab of this shader, and also by local controls in the Toon Host material shader. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A8150B0A-4351-4398-89E5-399B68ABA5B9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1F044759-FB31-4D26-B315-5CBAEE60AB22">Distance</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-94CC024A-07CF-490E-9548-204209B8F646"></a></span><p class="table-body">Draws a contour where sampled points not on the same triangle exceed this distance
+                                 from each other. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-A860E989-E007-4162-851B-AC23FEBFC43B"></a></span><p class="table-body">This threshold may be modified by the Depth-Fade Thresholds controls in the Advanced
+                                 tab of this shader. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0049"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FC35BCFA-49A6-4D3F-8792-92EDE63F32F9"></a></span>Background
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-F0254521-04ED-4411-A471-89FD6B316AE7"></a></span>This is a quick way to preview or render a contour image against a specified color
+                  (or image) background. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_913F8A175D424C25B7C99846BABEC996"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px">
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1E7CFA5F-F68A-419B-8B6C-7289F620D741"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-772AC3F9-DFAF-4BCD-9C96-CFF6411DC11C">Enable</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D4615A96-7CA9-4980-9000-BB65FFABED34"></a></span><p class="table-body">Activates the effect. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D8EF8962-E33B-4A26-AC6B-92C1B52E29B2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0E235E30-3EB9-449C-96E1-37FCF8AB88C8">Color</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-312637A5-FA7E-4B4D-8543-C06AEE685C8C"></a></span><p class="table-body">Specifies a background color. Because this parameter is texturable it may be used
+                              as the input for other rendering nodes (for example, an image or image sequence).
+                              
+                           </p> <span class="anchor_wrapper"><a name="GUID-7D5A1420-8EE1-4D35-93AD-3355F371CD0A"></a></span><p class="table-body">Because of the effects of alpha pre-multiplication (mental ray's default color format),
+                              the alpha-channel value in the final rendered image may differ from that specified
+                              here. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-004A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C9916C93-70EB-4690-A852-DED0F348F91A"></a></span>Lens Effects
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-5D6D1840-92DD-4F67-9CED-E3DB8C5A8D38"></a></span>The Lens Effects options allow for a variety of lens-distortion effects useful for
+                  simulating distorted perspectives often found in hand-drawn artwork and non-photorealistic
+                  rendering. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-004B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BC549EE1-15B6-41AE-9BD4-CC824D34ECEA"></a></span>Fisheye
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1DF9B562-687C-478A-86FF-BCF5471E3EBA"></a></span>The fisheye parameters simulate a hemispherical (fisheye) lens capable of rendering
+                     a 180-degree field of view with characteristic hemispherical distortion typical of
+                     real-world fisheye lenses. These parameters are identical to those of the <span class="char_link"><a href="shaderpresets642.htm#WSB31C1F4CB7B1A3448EDB51EEE2321570-004A">Lens Effects</a></span> shader, but have been built into the Toon Ink Lens shader both for speed and to allow
+                     distortion of the rendered image rather than the inklines themselves. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_41AB880B69C047A7A9321D3980EBD0E7"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3D58E29C-D5C4-454E-8894-0D86A14D8C6D"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-DB23A193-6304-4F95-936C-C9C42716908B">Enable</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C0AEC12B-7B82-439E-B5F7-B8CAC81F770B"></a></span><p class="table-body">Activates fisheye distortion. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1AC9FD00-728C-472C-955B-2FDE23611400"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B258244B-1181-4238-8996-6D9E85C19957">Amount</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-74C0462B-E053-4C63-8014-32B21646F0BF"></a></span><p class="table-body">Adjusts the degree of fisheye distortion. A value of 0.0 effectively "flattens" the
+                                 lens, while a value of 1.0 results in completely hemispherical distortion. 
+                              </p> <span class="anchor_wrapper"><a name="GUID-BBF51385-2364-42A0-9439-DD359826A549"></a></span><p class="table-body">Distortion is relative to the pass camera's field of view (FOV). Hence, only if FOV
+                                 is set to 180 degrees, and Distortion to 1.0, will the lens be truly hemispherical.
+                                 
+                              </p> <span class="anchor_wrapper"><a name="GUID-27311343-FC88-4C09-889D-26DCF8F3D86F"></a></span><p class="table-body">You can adjust the pass camera's field of view from the Camera property editor. </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-004C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F37A4CDF-7FC2-4D49-B4BF-47A0607C6749"></a></span>Scale
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_B775EA9652414B799F541C202BB20CF0"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9442C36A-2BC5-43B8-85F3-4C619702B1CC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5F602732-D436-4D42-8447-D2B9A6861078">X/Y</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9A2F52F8-D983-4DA7-852E-3CE7B98E9864"></a></span><p class="table-body">Adjust the proportions of the image in X and Y. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-AF107BDF-9A45-4D9F-8D69-39E4E60C144E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-E8F7913D-8B4B-4113-BB94-860C8F909D06">Uniform</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CBED0081-1792-4565-B175-0942BCCCA009"></a></span><p class="table-body">When activated, the X and Y scale values are kept identical, and changing them zooms
+                                 into or out of the image uniformly. Zooming out reveals an undefined (black) area
+                                 outside of the area covered by the lens. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-004D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-E21CCBCE-3F15-44B9-985F-6757B68BB7AD"></a></span>Bulge
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F5126591-229F-49D6-94CC-86014F37EC0B"></a></span>The bulge parameters allow "bulging" of the lens by altering eye-ray direction. The
+                     lens may bulge out (convex, like a fisheye lens) or bulge in (concave). This effect
+                     may vary over the surface of the lens, and is best controlled via the render tree.
+                     
+                  </p> <span class="anchor_wrapper"><a name="TABLE_9B21BF14C74E4C9AB8E1F9A26AF67CC2"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D89636D2-8930-4B36-849E-34D479402CAC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D0AE4A91-090B-4D85-89C4-A0E94B4E1124">Enable</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-101A6558-5FAC-4C20-8AB3-E9F7650E9729"></a></span><p class="table-body">Activates bulge distortion. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3F0A08AF-5413-4135-9993-149036EB78A3"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-BD5A3A05-442C-4C18-989D-92485286F0DA">Amount</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F6CCF99F-E2B6-4E95-AEFF-166C55766F8D"></a></span><p class="table-body">Adjusts the amount of bulge distortion. A value of 0.0 effectively disables the bulge
+                                 effect, while a value of 1.0 results in the full effect (as determined by the Magnitude
+                                 sliders). 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-004E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-386D332A-7A4A-4501-8195-4479F23EE580"></a></span>Magnitude
+                  </h3> <span class="anchor_wrapper"><a name="TABLE_C87AD8766FE84B2C8B24C5857F4263AC"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px" align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4890C6C8-57A5-41B9-9C24-DF8C48537DAB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6DFB5AB1-0507-4570-B056-39B2F20E3B74">X/Y</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AA3C67F0-9F4D-4B8D-A4C8-6ED885A7F180"></a></span><p class="table-body">Controls horizontal and vertical bulge, respectively. Using the render tree, you can
+                                 generate scalar values for these parameters by mapping a procedural texture (GradientGradient_Mixer,
+                                 for example) to screen space, using the Texture Space GeneratorPreset node to compute
+                                 screen coordinates for each eye ray. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-004F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CF10B821-ED27-4D4D-AE66-6739B77049A7"></a></span>Advanced
+               </h2> <span class="anchor_wrapper"><a name="TABLE_37899EEE54C5461D97D023D2F25E498F"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col width="220px">
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5541B085-91DA-475C-9234-D4C064A38021"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B4EC3DCF-E9C7-4CFA-B4FB-3A204F0ED4C9">Require Host</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DFF7ACF7-2386-4055-95A6-F97A01A72D8F"></a></span><p class="table-body">When enabled, contours are drawn only on surfaces with a Toon Host material shader
+                              applied. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EB833550-4F1A-4D6D-BCA8-20F92094364E"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-AF336DD0-2506-4F45-95DB-03482D421BC4">Ink Only</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-70F5E9F2-C20F-4888-BD9D-FE8276FBE1C3"></a></span><p class="table-body">Include or Exclude underlying surface color's influence on the ink color. When excluded,
+                              ink is composited over black. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D0A1824E-2022-439B-A971-77C8D7C3F380"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-6430B33E-AFE9-4A41-BCEB-C72CFF05CF9E">Sorting Tolerance</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E8DF0C53-0CEA-4CF0-AB49-AFD5CF78A3A2"></a></span><p class="table-body">Whenever possible the ink properties of the sample nearest the camera are used when
+                              drawing contours. However, when samples occupy nearly the same position in space,
+                              it is necessary to use alternative criteria, such as the incidence of a sample relative
+                              to the camera, to prevent noisy contours. Sorting Tolerance defines the range of distances
+                              (plus-or-minus this value) between two samples within which incidence, rather than
+                              distance, is used to determine which sample's contour to draw. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-677C5984-E45B-416A-A9A5-8C6D52C73B1F"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F9BC2239-064E-44D1-AFFC-D297CCD41BA9">Distribution</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BF757095-B413-465F-ABD3-10FE49E0E2B0"></a></span><p class="table-body">Older versions of this shader jittered contour rays' directions in two dimensions
+                              (raster space). The current version is able to render ink contours faster and with
+                              more accuracy by jittering the rays' directions in one dimension (the angle of a circular
+                              target with fixed radius). Select Angular for the improved behavior. Area distribution
+                              is provided only for compatibility with older versions. 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-34FD1EED-76E8-46BE-A588-FF14EECCAC23"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-8EA4E7EB-6B2C-4616-9FF1-CF4C478F011D">Spread Scale</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-75DF5CEF-25AF-440E-A099-E54D7993A332"></a></span><p class="table-body">Contour spread may be expressed absolutely (in internal units) or relative to a specified
+                              screen resolution. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-1604B348-2BA1-48BE-B5BB-93148380B577"></a></span><p class="table-body">Choosing Relative causes spread to be maintained constant in relation to a specified
+                              <span class="MenuCascade" id="GUID-181DFC0E-4872-47F9-8B5F-29D4C63D5EF2">X. Res</span> (horizontal resolution). Rendering at twice the specified resolution then would result
+                              in ink twice as thick, for example. 
+                           </p> <span class="anchor_wrapper"><a name="GUID-CAC076AC-7925-4BC0-A92D-326A87ADA574"></a></span><p class="table-body">Choosing Absolute will keep spread constant regardless of rendered resolution. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0050"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-546270DC-78B6-4296-9CC0-3857F08C0421"></a></span>Fade Sampling Thresholds
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1BB7D2ED-17D2-43AC-BD72-4BCB090ACAD0"></a></span>Allows altering the Distance and Direction sampling thresholds according to samples'
+                     distance from the ray origin (camera or reflecting/refracting surface). This can be
+                     used to reduce the apparent detail of faraway objects. 
+                  </p> <span class="anchor_wrapper"><a name="TABLE_96787BEA864344689B98A3B90CD2ABEA"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col width="220px">
+                           <col>
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3279737E-EA8D-4243-9875-FA1E733FA5E1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9E9C2199-5C31-46E3-9608-8670AA2DD0A1">Amount</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-E3F8C7A8-BBB9-42B6-8D63-11449B3BB6E6"></a></span><p class="table-body">The strength of the effect (a setting of 0 disables). </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DD472B71-15EC-492D-94F0-3D9CBEAA26FF"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B4294619-3C30-4213-A782-44DCDD0D1F7D">Distance</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-A5362C8E-B418-467B-9DBF-2EE7688270DA"></a></span><p class="table-body">The range of distances over which the Direction Threshold is modified. </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D9238983-E8B2-4DEF-8498-596DDFA1E830"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-827384F5-EA0A-4A7F-B620-0B4D8E10D298">Far Thresholds</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-7086DBB5-37B0-4C6F-B0E4-E91C28CDD3ED"></a></span><p class="table-body">The thresholds for Direction (in degrees) and Distance where the samples' distance
+                                 exceeds the specified Far Distance above. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB31C1F4CB7B1A3448EDB51EEE2321570-0051"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-333D44D6-69E0-4E44-865F-04F8502492D2"></a></span>Render Tree Usage
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BD7DFB13-63C8-466F-9E6E-513D1258D32D"></a></span>This shader can be applied directly to the camera in the lens shader stack. See <span class="char_link"><a href="cameras_AddingLensShaderstotheCamera.htm">Applying Lens Shaders to Cameras</a></span>. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F3742F60-5FC3-4E02-906D-CD28720146C5"></a></span>Alternatively, it may be used with companion Toon Host material shaders to allow some
+                  of its parameters to be overridden or modified, depending on settings at the intersected
+                  surface. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

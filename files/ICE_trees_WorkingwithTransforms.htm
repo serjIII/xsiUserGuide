@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-403B3F0C-9B84-4501-8386-C410F4FE0524">
+      <meta name="indexterm" content="ICE trees: transformations in">
+      <meta name="indexterm" content="transformations: ICE trees and">
+      <meta name="topic-type" content="concept">
+      <title>Working with Transforms</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-403B3F0C-9B84-4501-8386-C410F4FE0524"></a></span><div class="head">
+            <h1>Working with Transforms</h1>
+         </div>
+         <div class="bodyProcess">
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-004B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-79F87E2C-1C19-48AA-9676-AAEB884A3E35"></a></span>Point Transforms
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-004C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9D340E22-538A-449B-99FD-A458B4D0BE2E"></a></span>Point Positions
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-7ECD38FD-5442-49E5-8AD7-006EFD438A26"></a></span>The PointPosition attribute is a 3D vector that is available to get and set on any
+                     geometric object. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A5F4DF0A-B1CF-4C5D-8FB1-63142224363D"></a></span>When you get an object's PointPosition values, they are expressed in terms of that
+                     object's local reference frame, not in terms of the object on which the ICE tree exists
+                     (the "self" object). The same is true of PointVelocity, PointNormal, and similar attributes.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-B5677265-7916-44C7-B80F-3443B0C2A0D4"></a></span>On the other hand, if you get data such as PointPosition from a location, it is expressed
+                     in terms of the "self" object's local reference frame. This makes it easy, for example,
+                     to set points' Force or PointVelocity vectors based on the GoalLocation's positions.
+                     
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-13EBDB09-8475-44F5-906A-AFC15D1756F0"></a></span>You can convert between two different local reference frames by converting from the
+                     first frame to the global frame, and then from the global frame to the second frame.
+                     See <span class="char_link"><a href="ICE_trees_WorkingwithTransforms.htm#WSB74EE070EB80114199F4C921243896F3-0054">Converting Between Local and Global Reference Frames</a></span>. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-004D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-13024268-C13E-472C-8C60-184243BDB9B4"></a></span>Point Orientation
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C2CC1C0A-883E-4343-AAE0-36A9FF8AB8E8"></a></span>PointOrientation is a special ICE attribute that is used when drawing point shapes,
+                     drawing sprites, and simulating rigid bodies. It works only on point clouds, and cannot
+                     be manipulated interactively using the Rotate or Tweak Component tools. 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-004E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-DEA5F4FD-BC2F-49C6-BB73-CD6B5A7B73EB"></a></span>Object Kinematics
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-D407BD1C-55FB-4D2C-B2F9-E5855A9B9A29"></a></span>You can get either the local or the global kinematic properties of objects. The data
+                  type depends on which part of the kinematic property is referenced, as shown below.
+                  
+               </p> <span class="anchor_wrapper"><a name="FIG_4AF50FCAAC82454DBFA97FC2E3545CA0"></a></span><div class="figure-anchor"><img src="../images/GUID-8A3CF19C-99CE-48A4-AAF0-A3E0F06D8306-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_F06146E13C6140E08B1515E27E16F374"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-052892A3-BECA-41A4-8FBF-DEDAC16C2483"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-0B76D874-280D-4200-BFF6-0CC323265561">A</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1C5DA938-6564-4F0D-9A2F-17BD1E31E7C4"></a></span><p class="table-body">The global or local transform returns a 4x4 matrix representing the complete transformation
+                              (position, rotation, and scale). 
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8BD6AB7B-68BF-49D1-AE98-33F88E485F7C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-1644D8BF-3BE3-45A7-A797-DA5D07327CBE">B</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CFD02ABF-E43F-4109-BF2D-18420FAF5A66"></a></span><p class="table-body">Pos returns a 3D vector with the XYZ coordinates. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EBB55D36-5748-4DF2-9CB9-A1843E897D91"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-30CA7995-D721-4701-9403-ABC7DAD7325B">C</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C7BD955B-32AB-434F-A448-40B3A24C0C4A"></a></span><p class="table-body">Ori returns a rotation (axis and angle). </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2CB0808B-3CAA-4039-B946-C7E91B3E1986"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B083796E-83A0-4B69-96A1-8657882D7F5E">D</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-64F4EAB5-AE04-40CD-8DB4-633097438FEA"></a></span><p class="table-body">Ori.Euler returns a 3D vector containing the XYZ Euler angles. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledOddRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-953F180B-2EB2-47A4-861A-6CC82F4C34BD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-F6E27925-F28B-41B4-B5D7-D1D17CB0B418">E</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CBFF6CEF-491D-42A3-991B-79D52DF12BB5"></a></span><p class="table-body">Ori.Quat returns a quaternion representing the orientation. </p> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-BA89BBA3-0E78-4880-B168-894A4C6D69A4"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-2B803BD2-D48B-4832-914D-5E3785F0DEE2">F</span> 
+                           </p> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-DFE7C21C-6AA8-4FCE-8A79-7EB2961DA171"></a></span><p class="table-body">Scl returns a 3D vector containing the XYZ scaling factors. </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0050"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-D331C6C7-EF9A-4C5B-996F-7E4A7074E2A0"></a></span>Object Velocity and Acceleration
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3214CE33-243B-49AA-85DC-C34B4F39D689"></a></span>If you get an object's velocity or acceleration values, the ICE tree calculates these
+                  values automatically. It does not read the values from the Global Transform property,
+                  and you do not need to compute velocity and acceleration in the Global Transform property
+                  editor. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0051"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-C9F00FB8-B3C2-4D56-B71C-AA2354891F70"></a></span>Working with Rotations
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E92CE3FD-85AA-4907-BFBE-C67D37C1D108"></a></span>Rotations can be represented by different data types. The data type that is called
+                  "rotation" consists of an axis of rotation, and an angle around that axis. 
+               </p> <span class="anchor_wrapper"><a name="FIG_94A444EF87854D0B9343371158E77ACD"></a></span><div class="figure-anchor"><img src="../images/GUID-E2874292-7A64-4327-B8EF-8018EDC8FAB0-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-09F72186-B4DF-464D-8BF0-6101BEC9DECD"></a></span>If you need to access the axis and angle as separate attributes, you can use the Rotation
+                  to Axis and Angle and Axis and Angle to Rotation nodes, or the Rotation to Scalar
+                  and Scalar to Rotation nodes. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A6C95E12-D0D6-42D0-8C9B-FB83B44E34DF"></a></span>There are other possible ways to represent a rotation: 
+               </p> <span class="anchor_wrapper"><a name="UL_EA2CD34A01EA4E1B867A4F35ABE34FE9"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8CD592A0-47CE-4C8E-BC98-790F2C4A8C71"></a></span>A quaternion. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A38B3DF0-A362-4178-90C8-D14460B6C460"></a></span>A 3D vector containing the XYZ Euler angles. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B48D8DFD-30A4-49A9-B131-ABABDE6413B1"></a></span>A 3-by-3 matrix. This can also represent rotation and scaling together. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-45CE109E-4774-455D-B70D-6FA4878D3315"></a></span>You can convert between these representations using the nodes in the Conversion category.
+                  In addition, the Rotation category collects various nodes that are useful for rotations,
+                  including nodes that are also found in the Conversion, Constant, and Math categories.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-56113D6A-6CD2-42E7-868C-361DF12240BC"></a></span>You can calculate the result of composing two rotations (performing one rotation after
+                  the other) in several ways: 
+               </p> <span class="anchor_wrapper"><a name="UL_C1FB1A57A7DC4E4F86207D24990F1BF1"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DFFA0AFC-A0A2-467F-A5A5-877BD9F66725"></a></span>Multiplying or adding two rotation (axis and angle) values. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-283D69EC-2E10-4E45-A8EB-E033A7609EC4"></a></span>Multiplying two quaternions. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-26D43BE4-AE7A-41CB-B39B-708C41CE43EE"></a></span>Multiplying two matrices. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-58BB836E-920D-4FAC-972A-B145BDBD55CA"></a></span>Note that multiplying two 3D vectors representing the Euler angles does not give the
+                  correct result (and actually has no geometric meaning). See <span class="char_link"><a href="ICE_trees_WorkingwiththeMathNodes.htm#SECTION_EDD12ABDB3194F888ABC9BC6D30A1F5E">Using the Multiply Node</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0053"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-7BB87164-A754-4D30-A28E-DD2A50E793BE"></a></span>Composing and Decomposing Transforms
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-DF786A35-8CA7-423E-8824-D01CB730CA86"></a></span>You can use the SRT to Matrix node to compose separate position, rotation, and scale
+                  values into a 4x4 matrix representation of a transformation. Similarly, you can use
+                  the Matrix to SRT node to decompose a 4x4 matrix into position, rotation, and scale.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-04ADD007-2FA0-4423-90A9-F3542D44BC4F"></a></span>Both the SRT to Matrix and the Matrix to SRT nodes also work with 3x3 matrices. In
+                  this case, the matrix is assumed to represent rotation and scaling. You might need
+                  to pipe the output of the SRT to Matrix node through a 3x3 Matrix or 4x4 Matrix node
+                  (from the Constant category) to force the data type to be one or the other, if the
+                  data type is not automatically resolved by the rest of the ICE tree. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2E1A5F76-8E6E-46DA-B91E-589E860D209D"></a></span>The Rotation output port of the Matrix to SRT node is polymorphic. It can return a
+                  rotation (axis and angle), a quaternion, a 3D vector containing the XYZ Euler angles,
+                  or a 3x3 matrix, depending on which nodes you connect it to. If necessary, you can
+                  plug it into a node from the Constant category to force a particular data type. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSB74EE070EB80114199F4C921243896F3-0054"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-27C166BB-C3FE-4EB0-AA43-255A0BF38432"></a></span>Converting Between Local and Global Reference Frames
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-A9903156-DB48-4C41-B974-6CC0111AB259"></a></span>You can convert between local and global positions. When you multiply a 3D vector
+                  by a 4x4 matrix, ICE assumes that the 3D vector represents a position in homogeneous
+                  coordinates and that the matrix represents a transform, and performs the calculation
+                  using special rules. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_05C9919B88FB425292D06AC0D0C828EC"></a></span><div class="table_NotRuled">
+                  <table cellpadding="0" cellspacing="0" class="not-ruled">
+                     <colgroup>
+                        <col>
+                        <col>
+                     </colgroup>
+                     <tr class="not-ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-D3A5EDFF-D116-472B-9E15-BD786AD6C32B-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-27D97F7C-F3D7-4361-807B-DB5CDE11E7AE"></a></span><p class="table-body">To convert local position to global, multiply the position by the global transform.
+                              
+                           </p> 
+                        </td>
+                     </tr>
+                     <tr class="not-ruledEvenRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-41D8AFA7-DA67-4AA9-B1D9-A9F974C5708E-low.png"> 
+                        </td>
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FEE7CE4A-3523-49F0-A9D4-1CCDCDD71948"></a></span><p class="table-body">To convert global position to local, multiply the position by the inverse of the global
+                              transform. 
+                           </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-EFEE6E53-9839-4AA4-BD26-5E741F48070F"></a></span>To convert between two different local reference frames, convert from the first reference
+                  frame to global coordinates and then from global coordinates to the second reference
+                  frame. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7CEDA18E-B3ED-4861-807D-A2FCE0395195"></a></span>If you want to convert a 3D vector as a vector like PointVelocity rather than as a
+                  position like PointPosition, you should "zero out" the translation component of the
+                  transformation. 
+               </p> <span class="anchor_wrapper"><a name="FIG_497E627291DF4D74B792946A2DA442AF"></a></span><div class="figure-anchor"><img src="../images/GUID-917E6FB3-D513-4593-B076-B196C4205035-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-04531223-58E0-483E-8254-B2F09F1C4D73"></a></span>Remember also that you need to use a Switch Context node to combine positions or other
+                  3D vectors from different contexts. 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-42A7CFF1-BBF4-48E9-8A98-1D16FE209784">
+      <meta name="indexterm" content="caustics: tips &amp; troubleshooting">
+      <meta name="indexterm" content="global illumination: optimizing">
+      <meta name="indexterm" content="global illumination: tips &amp; troubleshooting">
+      <meta name="indexterm" content="photons: tips &amp; troubleshooting">
+      <meta name="indexterm" content="photons: tips &amp; troubleshooting">
+      <meta name="indexterm" content="caustics: optimizing">
+      <meta name="topic-type" content="concept">
+      <title>Troubleshooting Photon Effects</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-42A7CFF1-BBF4-48E9-8A98-1D16FE209784"></a></span><div class="head">
+            <h1>Troubleshooting Photon Effects</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-B44DD2BB-61A6-409F-AA40-13E4C6E3E510"></a></span>The following will help you optimize your scene's lighting effects, as well as troubleshoot
+               common problems. Many of the tips and optimizing methods described in <span class="char_link"><a href="lights_TipsOptimizingTroubleshooting.htm">Troubleshooting Lights</a></span> can be applied to lights transmitting photons. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-97A5A5A5-5C78-4E6B-9A81-8F7FE7EF2D10"></a></span><div class="note-note"><span class="label">NOTE:</span>Keep in mind that speed optimizations usually sacrifice quality, while quality optimizations
+                  usually decrease speed. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-003F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-42D926FD-A23D-4DE1-947D-D14CEB7E5152"></a></span>Photon Tips
+               </h2> <span class="anchor_wrapper"><a name="UL_94249A0115B54F2E928E556CBC8BA81C"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-25735308-29DA-4EF5-8A17-35D27C4E908C"></a></span> <span class="MenuCascade" id="GUID-966DA4E4-B43B-465A-9844-A54D09EA1AC6">The first render</span> — The first time you render photons, the render takes a little longer than usual.
+                        This is because the Photon Map is being calculated for the first time. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-396AD0A3-4ABF-4BF0-BD50-6E71B14966F5"></a></span> <span class="MenuCascade" id="GUID-D5B12D4A-506F-4CAD-A145-C43883FCB827">Number of receivers</span> — The fewer objects you have defined as photon receivers, the faster the photon render.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-365D0F01-0C79-4EA9-BDCC-6F4BD16F85A9"></a></span>If not necessary, avoid defining every object in a scene as a receiver. For example,
+                        if a room's ceiling is not in the camera's frame, do not define it as a receiver.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1982ED48-FB0C-47A2-B78B-FDE78C0DCD19"></a></span> <span class="MenuCascade" id="GUID-69F5654D-3F18-47A0-A7B1-CA1BF4412140">Start small</span> — When tuning a global illumination effect, start with small values and work your
+                        way up. Try using few Emitted Photons so they are clearly visible. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-60DDD5DE-5566-436E-A7B5-F2B75BF14999"></a></span>A value of around 1000 should be good to get you started. Notice how the effect smoothens
+                        as you add more and more photons. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B039187C-CF9D-4A32-A73B-D1192967906A"></a></span> <span class="MenuCascade" id="GUID-A6CC0909-3C7D-489B-806D-760E178739C6">Use a high intensity</span> — When tuning a photon effect, start with a high Intensity value (in the light's
+                        property editor). A value of approximately 40 000 makes your photons immediately visible.
+                        
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A5B0E35C-0A21-4DF4-9764-F10CB646616C"></a></span> <span class="MenuCascade" id="GUID-9B530AD5-CC3C-493D-9BE9-1C56CF30E809">When to use final gathering</span> — Try not to use final gathering in scenes that have complex volumic effects or many
+                        speculars. Final gathering works best in scenes with diffused illumination. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0040"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-18884175-257D-4FDD-ACDF-83EE6EF92765"></a></span>Optimizing Photon Effects
+               </h2> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0041"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-1F83A2C2-3864-46C7-86A0-87ECC7DA905F"></a></span>Lights (Speed Optimization)
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-448DFFD7-600C-469D-9C87-7DB8F532C8C3"></a></span>The number and placement of lights have a large impact on rendering speed: 
+                  </p> <span class="anchor_wrapper"><a name="UL_5AFD1A0E36BC469099C984B51A1775C2"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-7A22CDD1-6952-4B24-8D25-D2DE6968953A"></a></span>If you are not creating a photorealistic scene, consider making some lights not emit
+                           photons. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9907B5CB-75BD-4727-995F-60B99F702725"></a></span>Make sure that photon light rays can easily reach the caustic receivers or diffuse
+                           materials so that photons aren't wasted or lost unnecessarily. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0042"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5B3E0DC8-9AEB-445A-A945-B47B0D71662F"></a></span>Using Global Illumination (Speed Optimization)
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-3AF12449-E2D9-41A1-98CD-1BC729CD0F08"></a></span>Global illumination simulation can be very time consuming to render. Unless you require
+                     effects like color bleeding from diffuse interreflection and/or caustic effects, you
+                     should consider using ambient light or final gathering to imitate a global illumination
+                     effect. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0043"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-F5BC74F1-03E9-46E0-8F70-874C54762041"></a></span>Using Caustic Effects (Speed Optimization)
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-353FFA9C-C2F0-47D9-911D-A3877CBCCF29"></a></span>Caustics are a subset of the complete set of effects achieved by global illumination
+                     simulation. If you want to see only caustics, activate <em class="mild">only</em> the <span class="MenuCascade" id="GUID-14857711-8DEC-4B8B-81C5-09CEB2472144">Caustics</span> option for the render pass where they are used (do <em class="mild">not</em> activate Global Illumination as well). 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0044"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8EA2CEA1-2516-4020-91C4-7907D2C615D4"></a></span>Troubleshooting Photon Effects
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-80C5ADC4-8761-482B-ADF8-C86AB73DEAC8"></a></span>Here are some common problems and their solutions. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0045"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-2949FB0C-DDE9-4346-B19C-ECBA5057C839"></a></span>My photon rendering won't launch
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-238207DF-7D0C-48A0-8CE4-2AA5B3DF7A3A"></a></span>Make sure that you have defined a caster, receiver, and photon light source. An error
+                     message appears at render time if you have forgotten to define one of these elements.
+                     
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-114ED103-3DCA-41B3-8C28-8F4881F79110"></a></span><div class="note-note"><span class="label">NOTE:</span>Keep in mind that if you don't specify either a caster, receiver, or photon light
+                        source, the render options reset the Enable Global Illumination and/or Caustic setting
+                        to off. 
+                     </div>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0046"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-74839A84-C247-4802-9E43-79A808498F39"></a></span>Why is my photon rendering taking forever?
+                  </h3> <span class="anchor_wrapper"><a name="UL_873C8A30CDB74ED491D9DFEEA517A085"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FE751F5F-9335-48CE-8CC9-FE52B53FC869"></a></span>If the render seems to be taking much too long, you may have specified too many Emitted
+                           Photons. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A1F969EC-C5F5-426D-9CE8-F566ABA49E46"></a></span>Try lowering the value until you see an effect, for example, down to 1000. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-44A860CB-145F-48D0-986A-FDA8FB298BA6"></a></span>If you are using global illumination, caustics, and final gathering all at the same
+                           time, your computer may be taxed beyond its limits. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-524E3254-9F1B-4B13-8CA9-6560C39BE820"></a></span>Try deactivating two of the effects, adjusting the settings of the active effect,
+                           and then adding the others. You may want to try adding each effect in a different
+                           render pass so your system doesn't crawl to a stop. 
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0047"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-6CC82873-17C0-4E5E-8EA9-50A4FAF67FE0"></a></span>My render seems to abort just before or after the first frame
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-1EBE7000-70FD-45AF-8643-86E883BBCC42"></a></span>This problem is most likely due to an invalid path specified for the Photon Map. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-236C076E-0FF9-438E-9196-12BB99F9D3F6"></a></span>Open the mental ray Render Options property editor and click the <span class="MenuCascade" id="GUID-1A5CA97A-ABD2-4D1B-AD27-BC6A5180BBA0">GI and Caustics</span> tab. At the bottom of the tab is a text box with the path to the Photon Map file.
+                     You can select a new path by clicking the (...) Browse button. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0048"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9C7FC14F-1B0E-4CFF-B994-2B63CB07519A"></a></span>My global illumination/caustic effect is too soft
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-6DE8A7AD-7A40-4FFE-9D21-A07B29EF5C4A"></a></span>Locate which light is creating the soft effect and try to increase the Number of Photons
+                     from the light shader property editor (choose <span class="MenuCascade" id="GUID-02007478-6E78-4021-A1F6-4935D9E97FCC">Modify <img src="../images/ac.menuaro.gif"> Shader</span>). 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-0049"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-65188F7D-AD1E-45CF-93EA-09177F923356"></a></span>My global illumination/caustic effect looks splattered
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FFB7ACB6-7375-4019-891F-6C0FDBC9F084"></a></span>This may occur if too few photons are hitting an object. Usually the photons are hitting
+                     another object first and then the effect becomes uneven as some of the photons bounce
+                     to the desired location, but others don't. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E13F143F-DD43-4669-9DE2-818FED876949"></a></span>You can fix this problem by either increasing the Accuracy parameter or the Number
+                     of Emitter Photons parameter. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-004A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-49648DF6-3BC2-4B52-98AE-8A3F03D15393"></a></span>My caustics don't have the sharpness I was expecting
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E99FBF57-A853-49E2-AD45-D165E477DDFC"></a></span>Make sure that the caustic caster has the right shape to create sharp caustic effects.
+                     Usually, you'll want to use a curved object or an object with varying thickness. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F760CD6F-BE04-4D29-A853-17F0D16F304E"></a></span>It is also recommended that the object has an index of refraction of at least 1.33
+                     or 1.5. The caustic receiver should also be at an appropriate distance (too far or
+                     too close results in no effect or a blasted one, respectively) and the light itself
+                     should be bright enough to create the effect. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS2AC16530ADA927498F2E66C653F26AE6-004B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9E18C309-4098-485F-AF81-9712502A7574"></a></span>My changes don't have any effect
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-61A8651D-665A-4233-ADB2-A403CA743C0B"></a></span>Make sure that Rebuild Map is on. 
+                  </p> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

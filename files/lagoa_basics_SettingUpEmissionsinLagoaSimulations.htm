@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C68436F4-7878-4E3C-874E-D3EA785D901D">
+      <meta name="indexterm" content="Lagoa: emissions">
+      <meta name="indexterm" content="Lagoa: resolution for particle emission">
+      <meta name="topic-type" content="concept">
+      <title>Setting Up Emissions in Lagoa Simulations</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C68436F4-7878-4E3C-874E-D3EA785D901D"></a></span><div class="head">
+            <h1>Setting Up Emissions in Lagoa Simulations</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-75814018-17EF-49B6-8E82-BBADC8887144"></a></span>When emitting points in a Lagoa simulation, there are different options that you can
+               choose that have a big impact on the resulting simulation. This includes the type
+               of Emit node, the number of emitter objects, the size and shape of the emitter objects,
+               and the Resolution Per Unit value you set for the emission. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0F547B67-5703-4BD0-AE32-66D69196FCA3"></a></span>The Emit Nodes
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-5965C1FD-BC47-4839-BC9D-6A32404DF6A7"></a></span>The Lagoa Emit nodes are responsible for creating and emitting the particles. At every
+                  frame, they add points and set the particle attributes such as size, color, velocity,
+                  mass, shape, etc. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F1B2FCA0-0180-42CB-A80E-C426C007C6F5"></a></span>Emit compounds are usually plugged into the top of the Simulation Root node in a particle
+                  simulation because you need to emit the particles before anything else can happen
+                  to them. 
+               </p> <span class="anchor_wrapper"><a name="UL_A1A12ABDD275434EBAFA2B97FCA5CF3A"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3C614A1B-4196-4712-96A1-7E50884977E1"></a></span>You can emit particles from nulls (<span class="char_link"><a href="iceref_Lagoa_Emit_Grid.htm">Lagoa Emit Grid</a></span>) or volume objects (<span class="char_link"><a href="iceref_Lagoa_Emit_Volume.htm">Lagoa Emit Volume</a></span>). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-93FD4FF7-AFFE-4372-B5A6-C1DA1D922AC5"></a></span>You can use the <span class="char_link"><a href="iceref_Lagoa_Emit_Mesh.htm">Lagoa Emit Mesh</a></span> node to advect a mesh on the same point cloud simulation. To do that, you need to
+                        use the <span class="char_link"><a href="iceref_Lagoa_Advect_Simulated_Mesh.htm">Lagoa Advect Simulated Mesh</a></span> node — see <span class="char_link"><a href="lagoa_def_AdvectingGeometrywithLagoa.htm">Advecting Geometry with Lagoa</a></span> for information. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-442237EF-7CB8-4F85-BBE6-D364590C39CE"></a></span>If you're creating a deform effect on a mesh or curve, you use the <span class="char_link"><a href="iceref_Lagoa_Init_Geometry.htm">Lagoa Init Geometry</a></span> or Lagoa Init Curve node directly on those objects, instead of using an Emit node.
+                  
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0014"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-5A80F33F-DC11-4464-8450-1AB2DCEB44EC"></a></span>Multiple Emit Nodes
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E730F5F6-68B5-44A0-94B0-4BBC27328C31"></a></span>To have multiple Emit nodes in the same ICE tree, such as for creating phases or advecting,
+                     plug each Emit node into an Execute node, then plug that node into the Emitter port
+                     on the Simulation Root node. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_8F58AD7D292D47819F5A7A01A41D1951"></a></span><div class="figure-anchor"><img src="../images/GUID-AE4D648D-F977-4F2A-A87E-833F03C6B9BB-low.png"></div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0016"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-1D86430A-024A-4457-80FA-047A8435CBE7"></a></span>Multiple Emitter Objects
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-3955E049-A4B2-4807-8364-0304D3EDFE2F"></a></span>You can use multiple emitter objects to have create several particle emissions in
+                  one ICE tree using one point cloud. The emitter objects must be in a group. Groups
+                  allow you to easily add objects to, or delete objects from, the group while keeping
+                  the same Get Data node plugged into the ICE tree. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-27B6954F-F6B9-47EA-A29D-6B1B6AB3FDD1"></a></span>Because the group is plugged into the same Lagoa Emit node, all the settings there
+                  apply to both emitter objects. For example, if their sizes are different, the same
+                  Resolution Per Unit is still used, so you will get fewer particles emitted from a
+                  smaller object. 
+               </p> <span class="anchor_wrapper"><a name="FIG_191171230F3946DF842C30797D548B27"></a></span><div class="figure-anchor"><img src="../images/GUID-BA4D8189-FC73-4838-86E7-B6C6CD634D44-low.png"></div> 
+               <p><span class="anchor_wrapper"><a name="GUID-6647A50F-F9D6-4063-A35A-672E364D0763"></a></span>Particles are emitted from two null objects in a group plugged into the same Lagoa
+                  Emit node. The nulls are of different size and shape. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-916CF110-6768-4990-B439-21006950F716"></a></span> <span class="MenuCascade" id="GUID-96868401-F321-433E-A84E-F2C32C442A05">To set up multiple volume emitter objects:</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-B9FEC56F-F1D8-400F-914E-D6E1859CDCEF"></a></span>When you are using multiple volume emitter objects, you need to plug the <span class="char_link"><a href="GUID-CD693BCA-F687-4E29-9042-8A151931BC51.htm"> Lagoa Init Emitter Volume Data </a></span> compound into an ICETree node for each of the volume emitter objects. This compound
+                  allows the Lagoa Emit Volume compound to properly compute the proper transform and
+                  bounding box limits of each emitter so that it can create particles. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-962F343D-CFAC-4816-B0AC-BFB60C4403BF"></a></span>Then follow the steps below to put the objects in a group and connect the group's
+                  Get Data node to the Lagoa Emit Volume node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-1C4C35CA-CC8F-4712-BF0A-EDC0850124CF"></a></span> <img src="../images/GUID-AADD5A45-918A-40BA-8CF7-9ABAAA2686EA-low.png"> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CEF9C67C-0BF1-4E4A-8E02-9F8D24943908"></a></span> <span class="MenuCascade" id="GUID-D3AB5AAB-9420-4600-ACBC-B9A6C8A1D4E8">To use multiple emitter objects:</span> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E8038ED2-F9B1-4B12-AD31-0F9422264D45"></a></span> <span class="anchor_wrapper"><a name="GUID-7FA2249F-8B0D-4874-A38C-BA04B398DE26"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3F0F1C94-9348-48EE-8792-E4E3BC7550FA"></a></span>Select all objects to put in the group and press Ctrl+G to create a group. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-3BF5B18B-0E58-4D84-8022-3746DDCAAE50"></a></span>The objects must be of the same geometry to be used for the matching type of Emit
+                           node: volume objects for the Lagoa Emit Volume node and null objects for the Lagoa
+                           Emit Grid node. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D27C5998-79C1-4CCB-916F-7B82975972DB"></a></span>Drag the group's name into the point cloud's ICE tree view to create a Get Data node
+                           for it. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-FB4BF8D3-7B3C-49FE-8074-A552E4B2404A"></a></span>Plug the emitter group's Get Data node into the Null Name or Emitter Name port on
+                           the Lagoa Emit node. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_889F98B4AC814C4BA9C49DE5630B9635"></a></span><div class="figure-anchor"><img src="../images/GUID-C32135A6-B21F-415F-8CBB-2AA28CD65F36-low.png"></div> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-001A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-405F5A8D-CB5C-4401-BB04-440747001058"></a></span>Emission Resolution
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-EB2930C0-3010-4D8F-8AF8-44A81BCC2E56"></a></span>When you emit Lagoa particles, the emitter object is the region in which the particle
+                  volume is initially contained and calculated. This region is divided up into Softimage
+                  units, and each unit is subdivided into cells. Each unit represents a fixed space
+                  of 10 cm and cannot be changed. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-43DD374B-3094-4F5E-92E5-C3BF98935B2D"></a></span>The <span class="MenuCascade" id="GUID-96F3B772-6882-47D8-9626-B0304D7E1A88">Resolution Per Unit</span> parameter in the Lagoa Emit nodes (see <span class="char_link"><a href="iceref_Lagoa_Emit_Volume.htm">Lagoa Emit Volume</a></span> for details) sets the density (points per unit ratio) of the particles based on the
+                  number of units into which the emitter object can be divided, and then scales the
+                  particles appropriately. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-00C7CCE2-2C78-4A73-9FDF-1389BB2F7019"></a></span>A value of 1 means that one point is created per unit inside the volume. A lower value
+                  means that the density that is trying to be achieved per unit will require more (and
+                  smaller) points to fill the same volume. The point size is updated at emission, and
+                  shows you the granularity of the simulation. The smaller the point, the more detail
+                  in the simulation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-9453DDFB-951F-4719-8CC5-8F9E634BAB72"></a></span>You can think of the Resolution parameter as your particle "budget": if you have a
+                  budget for many, many particles, then use as small a Resolution Per Unit value as
+                  you need! If not, then you need to balance the Resolution Per Unit value with the
+                  desired effect for your particle simulation. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-001B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A443BF79-04BD-4B88-96AA-AEC356E4CB28"></a></span>Number of Points Created
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2AD8A930-E76A-444D-9189-1AB258B6DB75"></a></span>As you can imagine, the size and shape of the emitter object has a large part to play
+                     in the size and number of particles that are created in the volume. This matters whether
+                     the emitter is a volume object or a null. For nulls, you can set their shape in their
+                     property editor. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-50319229-266E-46E4-92A5-B45C8517012B"></a></span>You must make sure that the emitter object has enough space to create a cell. If you
+                     want to add 1 cell per unit, then you need to have at least 1 unit to "fill" inside
+                     your emitter object. 
+                  </p> <span class="anchor_wrapper"><a name="UL_2CF81A3E61E24E8D8A26129B2F274A4C"></a></span><ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-80011BA2-D74A-4522-B934-D1984E548FB7"></a></span>A Resolution Per Unit value of 1 means one point per cubic unit, which means that
+                           you will need a space of 1x1x1 units. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2AB03185-6522-4EC9-A88B-A06D1A3C20C3"></a></span>If Resolution Per Unit = 0.5, the unit is divided into 2 cubic cells, ending up with
+                           8 cells, each containing one point. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0D3E8AB4-9F19-403E-8E55-09D0164A61DA"></a></span>If Resolution Per Unit = 0.1, 1000 cubic cells/points are created per unit. In turn,
+                           every empty space inside of a volume that has at least one tenth of a unit will be
+                           filled with a point. 
+                        </p> 
+                     </li>
+                  </ul> <span class="anchor_wrapper"><a name="TABLE_FCD3E090955E45F89D560E755A8AB6D5"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body">&nbsp; <img src="../images/GUID-5A54E708-6117-4A5B-B623-AB5C29D53A6B-low.png"> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp; <img src="../images/GUID-5642332C-4CE6-4759-A21D-DCC199CEFE92-low.png"> 
+                           </td>
+                           <td class="table-body" align="left">&nbsp; <img src="../images/GUID-E0C701E1-558E-4987-A0A6-E9CC880E67AF-low.png"> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8C445D8D-598B-4FD4-9EE9-7D831635B543"></a></span><p class="table-body">Null emitter object in a box shape with a size of 1 Softimage unit. </p> <span class="anchor_wrapper"><a name="GUID-DCC1C75C-869B-4E06-A69D-991AEC14C52F"></a></span><p class="table-body">Resolution Per Unit = 1 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-09C655BC-DFBA-45CD-8163-4329720F2C98"></a></span><p class="table-body">Resolution Per Unit = 0.5 </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-ECFAC277-2954-47E6-87A7-110964239D3E"></a></span><p class="table-body">Resolution Per Unit = 0.1 </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-001F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5FFFEDBC-12AB-4D6D-AF3D-F3699125C376"></a></span>Emission Generation Types
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-B1BC0C33-B5CD-4200-8180-AE2AE750EF94"></a></span>The Lagoa Emit node tries to put in as many points of mass as can fit inside the emitter
+                  volume's space. The points are arranged into a neat grid (Uniform Placement) within
+                  this volume upon creation by default, but you can change the formation using the <span class="MenuCascade" id="GUID-55EAF2B3-8C6F-4261-B627-D31D41193A99">Generate</span> options in the Lagoa Emit node. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-38BCB77A-C036-4ACE-9FF8-81910F93A645"></a></span>In these images, the Resolution value is set to 0.5. 
+               </p> <span class="anchor_wrapper"><a name="TABLE_3EA49912114348DBA5FF79F02F167159"></a></span><div class="table_Ruled">
+                  <table cellpadding="0" cellspacing="0" class="ruled">
+                     <colgroup>
+                        <col align="left">
+                        <col align="left">
+                        <col align="left">
+                     </colgroup>
+                     <tr class="ruledOddRow">
+                        <td class="table-body">&nbsp; <img src="../images/GUID-C1E0C86B-703B-4AC9-A4CE-D68FA497D276-low.png"> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-08C8B44E-F1DE-4C0D-A27E-27EBD2D1659B-low.png"> 
+                        </td>
+                        <td class="table-body" align="left">&nbsp; <img src="../images/GUID-77D1395D-C906-4785-88BB-9A95F583E577-low.png"> 
+                        </td>
+                     </tr>
+                     <tr class="ruledEvenRow">
+                        <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-66EB8836-F4F9-48FE-8B34-0BBB9ED67679"></a></span><p class="table-body">Uniform Placement </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-9D510074-4A43-4504-92E5-CD65A1598D5D"></a></span><p class="table-body">Hex </p> 
+                        </td>
+                        <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-C5E95FA0-34CC-43CE-85E4-34F4492DA75B"></a></span><p class="table-body">Tetrahedral </p> 
+                        </td>
+                     </tr>
+                  </table>
+               </div> 
+               <p><span class="anchor_wrapper"><a name="GUID-C5E3D9BA-160B-45E1-B2D5-2FAF1E052B43"></a></span>The <span class="MenuCascade" id="GUID-BFBF4CED-4B69-4B96-92D1-1AFCDC44E21C">Tetrahedral</span> option creates four times more points around each cell center. This results in smaller
+                  points with little space between them, so you can create highly incompressible matter
+                  this way or very high friction materials. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-84FBED4C-3CDD-4256-8349-61B53484B106"></a></span>This is useful for creating fluid effects, when you need many particles, but you don't
+                  want to lower the <span class="MenuCascade" id="GUID-75D94F1D-449B-4C09-B776-16F5AAC99B58">Resolution Per Unit</span> value. It's also the best choice if you want to simulate volume-preserving soft bodies.
+                  
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F1C6971B-5C8B-4E2C-84D4-51F1E93FC352"></a></span>Tetrahedra may require more substeps because they have more resolution by default.
+                  
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

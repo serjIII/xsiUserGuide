@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-49C3A033-41F7-4605-AE72-C74A926F3431">
+      <meta name="topic-type" content="concept">
+      <title>Mirror Ball (mip)</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-49C3A033-41F7-4605-AE72-C74A926F3431"></a></span><div class="head">
+            <h1>Mirror Ball (mip)</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-B9986885-E6FA-4CB7-AC19-71705D1F0129"></a></span> <em class="strong">Category:</em> Environment 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-9BD4C568-CA52-4C06-BA8E-9618E19A68C1"></a></span> <em class="strong">Shader Family:</em> Environment 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F27B1581-F6D3-42E4-8245-056D95D4AB7B"></a></span> <em class="strong">Output:</em> Color 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-51602F90-7A77-4E02-984A-1BCDCBBBDC2E"></a></span>In the visual effects industry it is common to shoot a picture of a mirror ball (also
+               known as a <em class="mild">light probe</em>) on set, as well as a gray ball for lighting reference. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-7A208415-7309-4A83-A7D7-12F91533CE4B"></a></span>Ideally, you shoot these at multiple exposures and use a tool to combine them into
+               a single high dynamic range image and/or unwrap the mirrored/gray ball into a spherical
+               environment map. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-192DB9CF-0FFC-4B52-B5F1-EC3584410A48"></a></span>However, it is often difficult to regain the proper orientation of the spherical map
+               such that it matches the camera used to render the CG scene. Furthermore, a single
+               photo of a mirror/gray ball contains poor data for certain angles that you want to
+               avoid seeing in the final render. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-F5D27B77-D669-4353-A48D-950B8997EE51"></a></span>The Mirror Ball and <span class="char_link"><a href="environment_shaders_MirrorBall.htm">Mirror Ball (mip)</a></span> shaders are intended to simplify a particular special case where the mirror/gray
+               ball is already shot from the exact camera angle from which the final image will be
+               rendered. These shaders use the mental ray camera coordinate space and apply the mirror/gray
+               ball in this space, hence the orientation of the reflections will always "stick" to
+               the rendering camera. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-83BFDAE2-1A53-4BB9-A08A-2F478CD23F88"></a></span>The Mirror Ball shader does a texture look-up based on the direction of the ray. It
+               will map the proper direction to a point on the mirrored ball and retrieve its color.
+               
+            </p><span class="anchor_wrapper"><a name="TABLE_9CD358380A2041DD8D7121565A118F16"></a></span><div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-375B3C53-3F0B-4448-9686-12CDC78E3884"></a></span><p class="table-body">[<span class="MenuCascade" id="GUID-8F26DBD8-403D-4223-AEAE-9582EA3EDD35">texture</span>] 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2DD65095-C780-4AC7-9470-7FC0E42B7C90"></a></span><p class="table-body">Displays the texture map (connected in the <span class="MenuCascade" id="GUID-DCC20ECF-3CA4-4C29-ACE3-39949972D7E8">texture</span> parameter port) to be looked up. You can Edit the image clip, or get a New image
+                           clip from file or from source. For more information about working with images, see
+                           <span class="char_link"><a href="data_image_sources_clips.htm">Managing Image Sources &amp; Clips</a></span>. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-4483D544-FB85-4A63-A638-C265CADB16C0"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-646FE641-65A2-440A-BF4C-31A0C2B0C1C9">Multiplier</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7FC6157D-1050-4019-8699-6A866B921895"></a></span><p class="table-body">A multiplier for the texture map. </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8181695C-3031-4D33-99E5-0591E5304D8A"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-3DFEC741-A48D-4944-B8B0-A15058201FF3">De-Gamma</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-7EAD41CA-EA86-4C20-BF64-A860DF8F3187"></a></span><p class="table-body">If necessary, applies an inverse gamma correction to the texture. If gamma is handled
+                           by other shaders in the render tree, or if a global gamma is applied, use a value
+                           of 1.0, which means no gamma correction is performed. 
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2B596115-37F2-49C2-BD20-094BE048BCA1"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-37915172-A1A1-40ED-BE11-7DED0D25675D">Blur</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-AFCE6EF0-803E-433D-8D79-4250923A3192"></a></span><p class="table-body">If the texture parameter input points to a literal texture map, then the <span class="MenuCascade" id="GUID-5FC9800F-27F6-48CE-A730-E1891361BBEF">blur</span> parameter input can be used to blur it. 
+                        </p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

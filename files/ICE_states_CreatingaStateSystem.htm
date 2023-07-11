@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F00C4AAA-D1D9-4937-91C9-9C6BE04B24B8">
+      <meta name="indexterm" content="State Machine compound">
+      <meta name="indexterm" content="ICE particle states: State Machine">
+      <meta name="indexterm" content="State compounds">
+      <meta name="indexterm" content="ICE particle states: state ID">
+      <meta name="indexterm" content="state ID, ICE particles">
+      <meta name="topic-type" content="concept">
+      <title>Setting Up States</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F00C4AAA-D1D9-4937-91C9-9C6BE04B24B8"></a></span><div class="head">
+            <h1>Setting Up States</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-6D3EC88D-E237-46DD-B94C-4E1185B2DC24"></a></span>A particle state system is based on two main sections: the State Machine ports and
+               one or more State (or Simple State) compounds that are plugged into the Simulation
+               Root compound. 
+            </p><span class="anchor_wrapper"><a name="FIG_3461184F5D2440D0BF8C08B0C4F13103"></a></span><div class="figure-anchor"><img src="../images/GUID-5F935ED8-E83B-48E0-84C8-2B7502DF00E0-low.png"></div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8A138FA63DB01B4DBDF955A7A5CD7D82-000E"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4F5CD02C-DD5B-4530-9BF9-9DB7F8030FC7"></a></span>The State Machine
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-B8839254-7749-4EF0-9A96-F1D27C33BDBB"></a></span>The State Machine parameters in the Simulation Root node (or the <span class="char_link"><a href="iceref_State_Machine.htm">State Machine</a></span> compound, if you're working without the Simulation Root node) act as the central
+                  processor for all the State compounds that define particle behavior. At every frame,
+                  the State Machine executes the values from all the State compounds that are plugged
+                  into it. The states are executed in the order in which they're plugged in to the Simulation
+                  Root (or State Machine) node, from top to bottom. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-E8EC9EE5-83FB-46CB-A67C-900E8D6364B0"></a></span>You can define the number of iterations per frame that the State compounds are evaluated
+                  per frame. Keep this value low to reduce processing times, but you may need to set
+                  this higher for particles that move quickly from frame to frame. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-D15BD939-DD44-44F8-9204-680C88DC5706"></a></span><div class="note-note"><span class="label">NOTE:</span>Make sure you're using version 2.0 of the Simulation Root node to have the State Machine
+                     ports available — see <span class="char_link"><a href="iceref_Simulation_Root.htm">Simulation Root</a></span> for more information. 
+                  </div>
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8A138FA63DB01B4DBDF955A7A5CD7D82-000F"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A729AC16-02E6-40FB-9DB7-2C301D5BF6FC"></a></span>The State Compound
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-27C27365-2C9B-44F7-A7C8-81EA171BB382"></a></span>Each State compound lets you define a particle behavior that is used with the State
+                  Machine. Each behavior is a combination of a "trigger" compound and an "effect" compound,
+                  such as particles spawning new particles when they collide with an obstacle. You can
+                  have effect compounds be evaluated only once upon entering the state, or have them
+                  evaluated every frame for a continuous effect. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-F057AB2F-FE5B-4D6F-89E4-A292BA889E0F"></a></span>You can have multiple State compounds all linked together consecutively, working as
+                  part of a larger effect. The particles can transition from one state to the next as
+                  you specify with its unique State ID. Particles stay in one state until a trigger
+                  is "pulled" and a new state is used. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-28D57C54-A477-41F5-847A-AB071D392052"></a></span>You can also plug a State compound into a Primary State port on the Simulation Root
+                  node if you want that state to be the initial state for the particles. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS8A138FA63DB01B4DBDF955A7A5CD7D82-0010"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-A05D4C52-1BED-4DE1-8E26-9659502E7D82"></a></span>Creating a New State
+                  </h3> <span class="anchor_wrapper"><a name="GUID-C41BE1BD-AFEE-4069-9686-E55A5117B904"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2EABC968-B6A6-48DB-A2E3-6F25C420C0E4"></a></span>Create a particle emission — see <span class="char_link"><a href="ipart_particles_CreatingaBasicParticleEmission.htm">Creating a Basic Particle Emission</a></span> for information. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-2B6528F0-9973-4893-BE49-A02577E7F175"></a></span>Choose <span class="MenuCascade" id="GUID-B2EADA6C-007A-4486-8499-42D53E3B00F0">Particles <img src="../images/ac.menuaro.gif"> After Emission <img src="../images/ac.menuaro.gif"> State Machine <img src="../images/ac.menuaro.gif"> Add State</span> from the ICE toolbar. This adds a <span class="char_link"><a href="iceref_State.htm">State</a></span> compound to the ICE tree, plugging it into a State port of the Simulation Root compound.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-606B8DF0-7856-4A6E-916D-DCA84E2C2EE6"></a></span>You can also drag a State compound from the ICE preset manager and plug it into the
+                           State port. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-A5519C05-9B10-41F1-B4A1-2C167C725563"></a></span>If you're not using the Simulation Root compound, you must plug the State compound
+                     into a State port on the State Machine node. 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="SECTION_330930110C7D4C9890DE6217713C4C3B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7CFA89D1-F08C-40C8-B19A-2511AAE8D36A"></a></span>Creating States for Rigid Bodies
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FEB9C1ED-EC6C-4376-969A-DD348F09DD8E"></a></span> If the particles are rigid bodies, you can use the <span class="char_link"><a href="iceref_Simple_State.htm">Simple State</a></span> compound instead of the State compound. The Simple State compound is the same as
+                     the State compound except that it doesn't contain the Simulate Particles node, so
+                     you can use either the Simulate Bullet Rigid Bodies or Simulate Rigid Bodies node
+                     with it. 
+                  </p> <span class="anchor_wrapper"><a name="OL_18FE1E0FF42B4C69A296A8AD1251D0EF"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-D3AFFFE1-BB69-4427-BDFA-97DE87CCC342"></a></span>Create either a particle or rigid body particle emission — see <span class="char_link"><a href="ICE_rigidbody_MakingICEParticlesintoRigidBodies.htm">Creating an ICE Rigid Body Particle Emission</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-45722DA7-E4CB-49EE-B528-158FBD741E92"></a></span>Get a Simple State compound from the ICE preset manager and plug it into a State port
+                           of the Simulation Root compound. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EBC5CEEE-0008-4642-879D-12E69FE9DA5D"></a></span>If you're not using the Simulation Root compound, you must plug it into a State port
+                           on the State Machine node. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-A44DB408-CA74-444C-AFCE-B5CB23B370CE"></a></span>Plug a Simulate Bullet Rigid Bodies or Simulate Rigid Bodies node into the Simple
+                           State's Simulate port. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-700292E7-A791-4C3C-A359-65D684B23A98"></a></span>Continue setting up the state system as usual. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_9627BF5B6BE44B49BA944B40196E15E7"></a></span><div class="figure-anchor"><img src="../images/GUID-9F0DED9A-EF65-481D-8FF5-872306889805-low.png"></div> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8A138FA63DB01B4DBDF955A7A5CD7D82-0011"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-FFB52FD0-7A02-4E18-BC29-0A747397C51B"></a></span>Setting the Particle's State ID
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-F543CF6D-0A3E-4B58-8277-7069FAB433A1"></a></span>You can set the primary state for particles in the Simulation Root node (or the Emit
+                  compound), which determines the state when the particles are born. State 0 is the
+                  default primary state ID into which particles are born. And unless you use a State
+                  compound to define State 0 to be something else, this is what is set for the particle
+                  for the duration of its lifetime. Particles always stay in a certain state unless
+                  you switch them to another state using a State compound. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-515639E5-5300-4408-A6EF-3BE49A74D960"></a></span>It's important that you give each state its own unique state ID as soon as you create
+                  it, otherwise it may not get evaluated. If there are two states that have the same
+                  ID in the same state system, only the state that is plugged in higher up on the State
+                  Machine gets evaluated. <span class="anchor_wrapper"><a name="GUID-DE1E7FE3-BA50-4334-AF35-A17058B97CBE"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9F26D392-AC16-4DD9-BEC3-91D992EC0529"></a></span>Open each State compound's property editor and give each state a <span class="MenuCascade" id="GUID-0CDFF59D-BD0D-48F6-9AE1-69F3EA309E76">State ID</span> number to uniquely identify it. This sets the <span class="char_link"><a href="iceref_attributes_State_ID.htm">State_ID</a></span> attribute. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-9C4DD3ED-06F7-409F-99B0-13F28714F909"></a></span>Select this state in another State compound's <span class="MenuCascade" id="GUID-75B1A107-E5A0-4F71-A599-46A33315AE91">Change State on Trigger</span> list to switch to it. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F974EABA-65B6-4060-9F4D-F2A9731DFDC4"></a></span>For example, in the property editor for the State 1 compound, you could select State
+                           2 in the Change State on Trigger1 list as the state to which the particles will transition
+                           when the Trigger value is reached. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_95A9DABD623D408BA41BCC974CA00B22"></a></span><div class="figure-anchor"><img src="../images/GUID-49760911-1CE7-4703-8035-DB667382371B-low.png"></div> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS8A138FA63DB01B4DBDF955A7A5CD7D82-0014"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-EAE4A8D6-CFED-45B6-8598-054309E375E7"></a></span>Setting the State Color
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-5B930008-57BE-4763-BCF1-0575B73E4B5E"></a></span>For each State compound, you should select a <span class="MenuCascade" id="GUID-B33E1D92-25DA-4C5D-8A44-930ABBC5A80F">State Color</span> to identify the particles in this state as you're working. This color is used just
+                  for working/viewing, so you can change it when you're ready to do your final effect.
+                  <span class="anchor_wrapper"><a name="GUID-D05A8D2F-2ADA-4ED7-8A0F-56FB5F90CD6F"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-43D39827-17D2-41C2-8E08-F8E20454E216"></a></span>In each State property editor, select a <span class="MenuCascade" id="GUID-A8B095D4-CD63-4B56-A42F-DBA9BA49F3EE">State Color</span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-94B92D8D-65AD-4CF8-A109-C9FFCC92AC8F"></a></span>If you want to see this color on the particles in the viewport, select the <span class="MenuCascade" id="GUID-C47EE6D3-4D8B-427B-9E9C-277F9EB58FB7">Set Particle Color to State Color</span> option. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-30D91700-16BE-415E-9B47-4DED4F2A40B2"></a></span>You can select this option for when you're setting up the states, then turn it off
+                           when you're finished setting up the states so that all particles are displayed with
+                           their usual particle color again. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_3E15F212B51846B1A135A5AF83310E64"></a></span><div class="figure-anchor"><img src="../images/GUID-2E317BF6-8C5A-40C8-926A-39899C689920-low.png"></div> 
+                     </li>
+                  </ol> 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

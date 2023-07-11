@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-22F3BB59-3453-4589-A313-CA1E8CC22A50">
+      <meta name="topic-type" content="concept">
+      <title>Setting Up Collisions for Lagoa Effects</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-22F3BB59-3453-4589-A313-CA1E8CC22A50"></a></span><div class="head">
+            <h1>Setting Up Collisions for Lagoa Effects</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-4A5F9B31-2C8F-4B59-898E-523C1A4C06A0"></a></span>For most Lagoa simulation effects, you are going to need some sort of collision between
+               the Lagoa-simulated object and a collision object. While this is a very simple setup
+               to create, you can also customize the collision using several different options in
+               a few different Lagoa compounds. 
+            </p><span class="anchor_wrapper"><a name="FIG_CD28A37FEFC545589136EBCB967DB904"></a></span><div class="figure-anchor"><img src="../images/GUID-82192F58-46D8-4AB7-A758-CFC69EF36AA6-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-4D4CFD60-110A-4CC4-B02A-C51CF5EE5A1A"></a></span>Image courtesy of Lagoa Multiphysics<sup>TM</sup> 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0044"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-CC44B693-49A6-42A9-B557-0F9E0AB18E24"></a></span>Collision Objects
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-7DC86B22-6EA3-4EDD-B2D5-645855814BEB"></a></span>A collision object is a solid object which obstructs the points of a simulated object,
+                  causing the points to interact with and move around it in some way. When Lagoa objects
+                  collide with a collision object's geometry, the collision object's actual shape is
+                  used. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A7157C9D-4109-4CA8-8C92-EAA3C226BAE7"></a></span>The collision object can be any type of object with a surface (polygon mesh or NURBS
+                  surfaces), as long as its geometry is closed. Subdivision surfaces are not supported.
+                  As well, the collision object can be stationary or moving, and deforming or not. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7B6836E5-742D-4B50-8146-EE018AE217D8"></a></span>While the resolution of the collision object is often important for an accurate collision,
+                  what matters most in Lagoa is the <span class="MenuCascade" id="GUID-E495036F-FC8E-4A35-9469-D5FF72E80CEC">Substeps</span> value in the Lagoa Simulate Multiphysics node. The higher this value, the more accurate
+                  the collision, but the longer the calculation time — see <span class="char_link"><a href="lagoa_basics_SettingtheSimulationsSubstepsforAccuracy.htm">Setting the Simulation's Substeps for Accuracy</a></span> for more information. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-2335195B-8EA7-435E-8AB1-BE0B2BA4EAEA"></a></span>Below, the Substeps value is at 1, which is not enough to prevent the particles from
+                  penetrating the low-resolution box at their current velocity. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FE373602-CCC5-4F2F-AF8E-C4EE681E0684"></a></span> <img src="../images/GUID-77AC4FB3-079B-47E6-82FD-028A63875F26-low.png"> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A6EA32F7-B0FE-4ECC-B51D-89CE33633982"></a></span>Below, the Substeps value is at 3, which keeps all the particles inside the low-resolution
+                  box. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-D0DBDDDB-4E10-4CA4-9037-14DEE7B4F92A"></a></span> <img src="../images/GUID-D0601B87-95B8-4934-BFD6-C48201DE612A-low.png"> 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0047"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-6297C2CC-A814-45D3-A342-CBF17A0E7796"></a></span>Points in a Collision
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-BC1EF2B6-B781-4F0F-9E68-AFACB9F63F40"></a></span>The size of the points in the Lagoa object is taken into account upon collision. If
+                  you're using instances as the particle geometry, an approximated bounding sphere is
+                  created around it: its actual shape is not used. This is the same as in standard ICE
+                  particle collisions (non-rigid body collisions). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-CC5B9AFB-3449-4F67-BB28-251E2E6500BF"></a></span>The point rotation is not calculated unless you select the <span class="MenuCascade" id="GUID-DEFCEF4F-4ACE-49D7-8F98-CA807D049D2A">Orient Particles</span> option in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node. This allows the particles to change orientation according to forces and collisions.
+                  You can see this easily when the particle shape is something like a building block
+                  or an irregular-shaped rock. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0048"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-4BB2D361-0DC7-41C7-88BA-F492250198C3"></a></span>Creating Collisions in a Lagoa Simulation
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-471A316A-E069-4AD9-9422-542683A30322"></a></span>These are the basic steps you need to follow to create any collision for a Lagoa simulation.
+                  
+               </p> <span class="anchor_wrapper"><a name="GUID-EBFE58EE-AF00-4647-A948-48D7335AD958"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DCEAD096-9E5F-499B-93F2-49881E6533AD"></a></span>Create a Lagoa ICE tree for a point cloud or polygon mesh with the required nodes
+                        as described in <span class="char_link"><a href="lagoa_basics_CreatingaLagoaEffectfromScratch.htm">Creating a Lagoa Effect from Scratch</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-109DCB49-AC33-4531-86B5-21E92522EF6B"></a></span>Create one or more collision objects. Put multiple collision objects in a group. 
+                     </p> 
+                     <div><span class="anchor_wrapper"><a name="GUID-ACA25D42-F733-460F-923E-E8524FB39ADE"></a></span><div class="note-tip"><span class="label">TIP:</span>Groups allow you to easily add collision objects to, or delete collision objects from,
+                           the group while keeping the same Get Data node plugged into the ICE tree. However,
+                           note that if you add objects to the group later then you still need to apply a Set
+                           Collision Data compound as described in the next step. 
+                        </div>
+                     </div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3E842B20-8778-4CD8-88CB-E4678EE00FC5"></a></span>For each collision object, create an unsimulated ICE tree and plug the Lagoa Set Collision
+                        Data node into a port on the ICETree node. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-8B849E47-7CB4-41EA-AF8D-48E36984D71A"></a></span>You can also select each collision object and choose <span class="MenuCascade" id="GUID-37101EFB-197B-4570-A90E-F11AB8D5B741">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Lagoa Collision <img src="../images/ac.menuaro.gif"> Set Collision Data</span> from the ICE toolbar to do this. 
+                     </p> <span class="anchor_wrapper"><a name="FIG_AFBB44A0D3A1450EA34C7366BE9B521E"></a></span><div class="figure-anchor"><img src="../images/GUID-2F3E8B6B-387E-43C0-8C9F-4D54341142AE-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DC4423BC-A15E-42C5-A117-8450BF82A901"></a></span>Set the options in each collision object's <span class="char_link"><a href="iceref_Lagoa_Set_Collision_Data.htm">Lagoa Set Collision Data</a></span> property editor to affect how points interact with only that collision object. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F8CF054B-8D55-432B-A40B-22BE7106F380"></a></span>To add collision objects to the Lagoa-simulated object's ICE tree, do any of the following:
+                        
+                     </p> <span class="anchor_wrapper"><a name="UL_0205149357B54AB6BC5515233EEF778D"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-624BBA59-89BC-46C8-804C-9CDA5BFCFF3A"></a></span>Plug each collision object or group's Get Data node into the Passive Body In Name
+                              port on the Lagoa Simulate Multiphysics node. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-3B02A9D8-B290-4C98-99B7-22B77A1D5282"></a></span>If you're using a group of collision objects, select the group and choose <span class="MenuCascade" id="GUID-62675A83-440B-4DB4-8C39-112B883F14F4">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Lagoa Collision <img src="../images/ac.menuaro.gif"> Add Passive Body</span> from the ICE toolbar. This creates a Get Data node for the group of selected collision
+                              objects and plugs it into the Passive Body In Name port on the Lagoa Simulate Multiphysics
+                              node. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B258689D-2261-4280-992F-99C1BE0FE006"></a></span>If you select one or more collision objects that are not in a group and choose <span class="MenuCascade" id="GUID-89F84639-5F82-4732-82FA-446E6CEB1E84">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Lagoa Collision <img src="../images/ac.menuaro.gif"> Add Passive Body</span>, a group called Lagoa_PassiveBodies is created with these collision objects in it.
+                              The group's Get Data node is plugged into the Lagoa Simulate Multiphysics node. 
+                           </p> 
+                        </li>
+                     </ul> 
+                     <div><span class="anchor_wrapper"><a name="GUID-029887F8-6C40-4E01-A996-0028B2B6E11D"></a></span><div class="note-note"><span class="label">NOTE:</span>To remove a collision object from a group, select it and choose <span class="MenuCascade" id="GUID-84E2EF1D-861E-4B6B-A99B-452BCC2E8FAC">Particles <img src="../images/ac.menuaro.gif"> Collision <img src="../images/ac.menuaro.gif"> Lagoa Collision <img src="../images/ac.menuaro.gif"> Remove Passive Body</span> from the ICE toolbar. The Get Data node remains connected to the ICE tree, making
+                           it easy to switch out collision objects from the group. 
+                        </div>
+                     </div> <span class="anchor_wrapper"><a name="FIG_2072B9D65AA74A28AA46488B3A6ABB4E"></a></span><div class="figure-anchor"><img src="../images/GUID-D45059CB-0B31-424B-8C39-253E758E4BAA-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-272FC693-95FB-4899-A6AF-4C0189999746"></a></span>Raise the <span class="MenuCascade" id="GUID-0B1B1A86-0F69-4EEB-89D3-B6A8F7F2F9C4">Substeps</span> value in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> property editor to as high a value as you need to accurately solve the collision.
+                        
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-572D7257-1C8A-42D6-BF68-AA10DC1B93AC"></a></span>The accuracy results depend on the force of the collisions and the complexity of the
+                        collision object's shape, but not on its resolution. 
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-004B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-33D66B2E-7F17-46F3-8E1B-38CA00A85854"></a></span>Setting Offsets from Collision Objects
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-E0D4D877-E10D-4C3D-8BC6-774FC1F0E254"></a></span>To set an offset between the collision objects and points, there are two options you
+                  need to set: 
+               </p> <span class="anchor_wrapper"><a name="UL_C37E30BC7D1B465898CFB1C715262CB5"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-FBCD24F3-31FE-4DA2-9251-BAA093954AE2"></a></span>Set the <span class="MenuCascade" id="GUID-8D0CCEC6-F376-49B3-8E03-C5890F45ECCC">Material Collision Offset</span> value in the Material compound (see <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span>), which creates an offset in Softimage units between points that have this material
+                        and collision objects. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-1DD3C96E-3CEC-4070-A972-0FE84866DB83"></a></span>Select the <span class="MenuCascade" id="GUID-9A30D7C2-57F4-4AB6-9680-6C74A5815DC7">Offset Method</span> in the <span class="char_link"><a href="iceref_Lagoa_Simulate_Multiphysics.htm">Lagoa Simulate Multiphysics</a></span> node which allows you to define an offset from the collision objects for all materials
+                        used in this ICE tree. 
+                     </p> 
+                  </li>
+               </ul> 
+               <p><span class="anchor_wrapper"><a name="GUID-F670C037-4BEE-428F-839E-47CE3315BADA"></a></span>Below, the Material Collision Offset value is set to 0.5 creating a slight gap between
+                  the particles and the boundary of the collision object. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-821C57E6-0BED-47E3-90FA-0043F3705885"></a></span> <img src="../images/GUID-4BB2BAFA-240A-47C6-878B-FCA2627098A8-low.png"> 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4A9371DD-3B53-4D06-892E-CCDA47ABEE8B"></a></span>Below, the Material Collision Offset value is set to 0. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-A084ECE0-E9F8-41B8-9CEE-2AC83F48E9FE"></a></span> Note that if the particles have a high velocity, they may penetrate the collision
+                  object if there is no offset. The best is to set at least a very small offset of 0.1
+                  or so. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-106EC00D-499C-4571-9018-525FFA2938E4"></a></span> <img src="../images/GUID-09FC6717-DB55-4F05-B363-26C06FD6F5D8-low.png"> 
+               </p> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

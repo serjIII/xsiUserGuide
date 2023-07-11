@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-47CCB58F-331D-4565-A122-E4169D112210">
+      <meta name="topic-type" content="concept">
+      <title>mib_lens_stencil</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-47CCB58F-331D-4565-A122-E4169D112210"></a></span><div class="head">
+            <h1>mib_lens_stencil</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-9448C17A-6C23-43E5-9B26-31BE12F60B65"></a></span> <em class="strong">Category:</em> mental ray &gt; Lens
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-12AF2BBE-4FDE-49E3-ACC9-A0F6A1223F68"></a></span> <em class="strong">Shader Family:</em> Lens
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-2C79C3CA-866B-47C4-9580-385C398FC908"></a></span> <em class="strong">Output:</em> Color
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0A56E973-8C72-40EA-8FB2-78FF3F541C81"></a></span>Lens shaders are not only used to change the direction of eye rays: they can also
+               be used to manipulate colors (see <span class="char_link"><a href="mentalray_mib_lens_clamp.htm">mib_lens_clamp</a></span>) and even the apparent shape of the rendered images.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-69A84339-8FA9-4C6E-8528-8FDFF8928CEC"></a></span>This lens shader may be used to block out portions of an image by overlaying a stencil
+               texture. An eye ray is cast only if the returned value of the provided scalar texture
+               is between the prescribed <span class="MenuCascade" id="GUID-243DFACE-9FC0-44B7-A02F-720600B538D8">floor</span> and <span class="MenuCascade" id="GUID-EC9DDD7A-221D-4A0F-A104-A844DA23D8C6">ceiling</span> values. If the texture value is below the <span class="MenuCascade" id="GUID-0C621C2E-667D-4DF5-A39F-3221FAE2DB2F">floor</span> value, then the <span class="MenuCascade" id="GUID-0B05241D-43DC-4ACB-BDCF-1500AC4A4344">floor color</span> is used; if the texture value is above the <span class="MenuCascade" id="GUID-BC440399-DA0F-4CC9-9299-122DDB547B5A">ceiling</span> value, then the <span class="MenuCascade" id="GUID-1F43176A-C978-49F2-916F-8B6A6A963FC7">ceiling color</span> is used. If the texture value is between the <span class="MenuCascade" id="GUID-A5D3DD0C-5134-4CE0-87EC-BB15220449CF">floor</span> and the <span class="MenuCascade" id="GUID-FF48F81A-3D17-4AA5-B660-0DFED893D5EB">ceiling</span> value, then the returned color is blended with the <span class="MenuCascade" id="GUID-B0409B31-E9C2-4315-ADA5-9308C10BC879">floor color</span> and the weight provided by the relative texture value, with respect to the <span class="MenuCascade" id="GUID-021E6DFF-9F68-4CDE-A321-9EED9DADB594">floor</span> and <span class="MenuCascade" id="GUID-5F40B150-1766-4070-B6F4-6D52CFF62871">ceiling</span> values.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col width="220px" align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-9D29225A-A739-4BC3-85EF-EFEAD34BF98B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-703F016E-DFEC-4273-B743-CC83323BAFA2">Name</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E00E1D46-2133-4E5B-9284-2FA9D9F21E0A"></a></span><p class="table-body">The name of the shader node displayed in the render tree. Enter any name you like,
+                           or leave the default.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5FA78DE0-AD18-4E27-8031-7585EBCD5382"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9F87505A-8445-4049-9E23-27E5F6F6ADFD">floor</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E097BFC8-546B-4719-8E7D-F1C39CD657CE"></a></span><p class="table-body">If the value of the <span class="MenuCascade" id="GUID-6E480EB6-50ED-4E2B-9AAC-748446AF9007">stencil</span> texture is below this value, then the current sample color is replaced with the <span class="MenuCascade" id="GUID-ACDFDF25-A5AF-4271-96ED-546997BA068C">floor color</span>. The default floor value is 0.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-FB17B758-EA78-4CE2-A175-53955346CF86"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-5DDF2B79-543B-4461-9CC3-0B0D2ABDC02B">ceiling</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2DB48C44-CBFF-4C8D-B9BB-57E56A71FE36"></a></span><p class="table-body">If the value of the <span class="MenuCascade" id="GUID-0D76A86C-2ABC-4080-9C43-EF5B30CB9E25">stencil</span> texture is above this value, then the current sample color is replaced with the <span class="MenuCascade" id="GUID-83F90996-BABC-45A0-8359-84B1DD8C3285">ceiling color</span>. The default ceiling value is 1.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-359F0D2F-4713-45DE-9422-716B74851294"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-9DCD9CDA-FA27-4A27-BC3C-DC212328A1DD">floor_color</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-BAF64EAD-0E61-4719-8A94-6C2FBC0D0EF1"></a></span><p class="table-body">The color used for samples where the <span class="MenuCascade" id="GUID-C54F2677-806C-45F6-8081-D7C92ECE237A">stencil</span> texture value is less than the <span class="MenuCascade" id="GUID-3A020012-A57B-4B34-B99F-EB109E3FD958">floor</span> value. The default value is black.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F8EAF352-2956-4343-B5FE-6AC23EDB5C4B"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B64D9B3A-9A05-4C5F-92F9-6040EC412FA8">ceil_color</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-526359FF-F5BB-437E-821F-6A421B0EF1F2"></a></span><p class="table-body">The color used for samples where the <span class="MenuCascade" id="GUID-5E92E413-51C1-453B-9CC2-0A022B4A7001">stencil</span> texture value is greater than the <span class="MenuCascade" id="GUID-B38F864C-B187-4B23-AA67-3C74A9116D33">ceiling</span> value. The default value is black.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B95A7160-EFD4-473C-8DF2-E97498C58BFB"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-B276E8C1-03E8-48E5-A6EA-AAB593260483">stencil</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-52D45A72-B4E1-4BD4-819C-E1635924806F"></a></span><p class="table-body">A scalar-valued 2D texture acting as a stencil overlaid on the camera lens.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

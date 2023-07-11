@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-4ACB5ACB-10EC-4F00-9EE4-622C87F9D557">
+      <meta name="indexterm" content="ICE modeling: edge loops">
+      <meta name="topic-type" content="concept">
+      <title>Specifying and Modifying Components in ICE</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-4ACB5ACB-10EC-4F00-9EE4-622C87F9D557"></a></span><div class="head">
+            <h1>Specifying and Modifying Components in ICE</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-358A3F94-05B3-470E-83AF-E45CAB843E4B"></a></span> When you model interactively using non-ICE operators, you specify the components
+            to affect by selecting them in the viewports. When modeling procedurally with ICE,
+            you must also specify the components somehow. This is done using the components' indices.
+            You can specify components by explicitly listing their indices, or you can calculate
+            the desired index values procedurally. Many of the topology nodes, like Delete Vertex,
+            allow you to specify component indices as a single integer, an array of integers,
+            or a (possibly filtered) set of integers. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_B0FEFDB11837412DB26D15AF7BB0857D"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-A4847CC7-B373-4026-BFF5-65FD7AA43143"></a></span>Specifying Explicit Indices
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-0F5B63EE-F939-4F42-BF30-4F2340EFDD7B"></a></span>You can specify a single component using the slider in an ICE topology node, or you
+               can specify multiple components by connecting an array. You can create an array with
+               the various array nodes, such as <span class="char_link"><a href="iceref_Build_Array.htm">Build Array</a></span> or <span class="char_link"><a href="iceref_String_To_Array.htm">String to Array</a></span>. 
+            </p> <span class="anchor_wrapper"><a name="FIG_9290E87054F0483480B61BFCE7E5E9FF"></a></span><div class="figure-anchor"><img src="../images/GUID-E8CA6D9A-18D8-4870-AAB1-19C7628ABC4E-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-7B6DD92E-0153-44DB-B826-BF289BC4DAE5"></a></span>Although explicit indices can be useful when learning ICE modeling, or when developing
+               and debugging compounds, they are very limited. Calculating indices procedurally based
+               on various conditions is much more powerful. 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_1C708CFA18F14EE293E539FB1F135DBD"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-3ACB2898-AB37-46DB-AFC1-9FA07D993D64"></a></span>Calculating Indices Procedurally
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-71B62BAF-0CB0-4279-B042-2CAAE1941743"></a></span>One way to calculate indices procedurally is to filter out those that do not meet
+               one or more conditions. The <span class="char_link"><a href="iceref_Test_Polygon_Inside_Null.htm">Test Polygon Inside Null</a></span> compound is available in the Conditionals group of the <span class="MenuCascade" id="GUID-AFA168F6-60A2-4DBD-AB81-C72EB7536145">Tasks <img src="../images/ac.menuaro.gif"> Topology</span> group in the preset manager, or you can build your own test using any calculation
+               with a Boolean result. 
+            </p> <span class="anchor_wrapper"><a name="FIG_AB896392B3D04797852BB04748220BCB"></a></span><div class="figure-anchor"><img src="../images/GUID-4A2CA5F8-AEBB-4ACC-B122-EB496FA8F687-low.png"></div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_6AC7F99597C94242AAC3B5DBC0468B66"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-3507B2DF-40C6-47FD-A06E-43743EA34435"></a></span>Using the Test Component Index Compounds
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-4D4C733D-C5A7-4118-B1BD-9DAF43944E7F"></a></span>The Conditionals group also contains compounds for specifying indices of each component
+               type in a variety of ways: <span class="char_link"><a href="iceref_Test_Edge_Index.htm">Test Edge Index</a></span>, <span class="char_link"><a href="iceref_Test_Polygon_Index.htm">Test Polygon Index</a></span>, <span class="char_link"><a href="iceref_Test_PolyNode_Index.htm">Test PolyNode Index</a></span>, and <span class="char_link"><a href="iceref_Test_Vertex_Index.htm">Test Vertex Index</a></span>. <span class="anchor_wrapper"><a name="UL_7C54811DBA5949439B48D2C26249B0D1"></a></span><ul>
+                  <li>To test whether the components are in a cluster, set Mode to Is Element and connect
+                     the cluster name. 
+                  </li>
+                  <li>To test whether the components meet an arbitrary condition, set Mode to Is Element
+                     and connect a per-component Boolean value. 
+                  </li>
+                  <li>To specify components using a comma or whitespace-separated string, set Mode to String
+                     Array and enter or connect a string. 
+                  </li>
+                  <li>To test whether a component index is contained in an integer array, set Mode to Integer
+                     Array and connect an array of integers. 
+                  </li>
+                  <li>To perform a basic mathematical comparison against a single integer, set Mode to Comparison,
+                     select the comparison Type, and specify the Index value to compare with. 
+                  </li>
+               </ul>These nodes are especially useful when building compounds that allow for specifying
+               components in any one of several ways. 
+            </p> <span class="anchor_wrapper"><a name="FIG_85E43DE5A427492AB42EB149302D27A6"></a></span><div class="figure-anchor"><img src="../images/GUID-91A78322-A37D-47D9-8B1A-4EF3E093B046-low.png"></div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_177C40FC496D448CA8988E3A8E16C2FE"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-BFE69105-96F6-4C58-9975-0E4B3FD6473B"></a></span>Changing Component Types
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-73219558-48FD-44A8-9EB7-4D0B55CC1FFE"></a></span>Sometimes you need to switch component types. For example, you perform a test on polygons
+               but you want to modify the associated edges. In that particular case, you can use
+               the PolygonToEdges attribute. This attribute is an array of integers per polygon,
+               containing the indices of its edges. There are similar attributes for converting between
+               all polymesh components: vertex, edge, polygon, and node (polynode). 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-7E46BC29-A617-4379-BA31-AF7E1F035840"></a></span>The following example shows how to build a filtered set of edge indices from a filtered
+               set of polygons: 
+            </p> <span class="anchor_wrapper"><a name="FIG_7255FFD47A04432896817915637808C9"></a></span><div class="figure-anchor"><img src="../images/GUID-D202CCD9-3384-4201-9C46-932208D4F9D6-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-04F201F4-4455-4864-B703-88410B670FF6"></a></span>This example shows how to build an filtered set of polygon indices from an array of
+               vertex indices: 
+            </p> <span class="anchor_wrapper"><a name="FIG_C4FED96C4A2A498F9C43FF83224B389C"></a></span><div class="figure-anchor"><img src="../images/GUID-950EAF14-1552-4A2C-9DA8-1BFA1E8932A2-low.png"></div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_9BE3CFE24A6848988C60DB56DAC7CEA9"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-CD27D1E1-8614-44ED-8D41-3A25AAD11370"></a></span>Modifying Components
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-2E1843A4-B90A-49E8-AF6D-60F4C45A3B5B"></a></span> The nodes in the Topology category on the Tool tab of the preset manager modify the
+               specified components. They perform the same operations as the equivalent non-ICE topology
+               operators. You get a topology (or leave the input unconnected for Self.Topology),
+               connect to a topology node, and set the Topology. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-606EEDD7-F885-40F0-A6BD-A035CF79CA0D"></a></span>You can also use the compounds in the Modifiers group of the <span class="MenuCascade" id="GUID-37A01BB0-9625-4220-A32E-23AE27A36981">Tasks <img src="../images/ac.menuaro.gif"> Topology</span> group. They have built-in options for specifying components, and they have execute-type
+               outputs so they can be connected directly to the ICETree root one after another. 
+            </p> <span class="anchor_wrapper"><a name="FIG_239F108832BC44DD9AC4F15EDA22BA62"></a></span><div class="figure-anchor"><img src="../images/GUID-A9D3C3EF-DBEC-4080-BF37-18BC24E588FA-low.png"></div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_14E9D01A0B724A86862E685534E81871"></a></span>  
+            <h2><span class="anchor_wrapper"><a name="GUID-B6F6D86E-7247-4193-8DC3-3C8F38671EF4"></a></span>Working with Loops
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-8F63265A-27E6-4406-9088-C0B90A4D8226"></a></span>There are some compounds that can help when working with loops. Note that loops on
+               open meshes are unidirectional, that is, from a specific edge to one or other border.
+               
+            </p> <span class="anchor_wrapper"><a name="OL_36AEA823314D495C807E22845A89ED7D"></a></span><ol type="1" start="1">
+               <li>Get a null. You will use this null to specify an edge by proximity. </li>
+               <li>Connect <span class="char_link"><a href="iceref_Get_Closest_Edge_Index_from_Null.htm">Get Closest Edge Index from Null</a></span> to the root, and connect the null's name. This stores the index of the closest edge
+                  as a custom parameter value that you can get later in the tree. 
+               </li>
+               <li>Connect <span class="char_link"><a href="iceref_Get_Edge_Loop.htm">Get Edge Loop</a></span> and set its options. This stores other custom attributes for the edges, polygons,
+                  and/or vertices in the loop. 
+               </li>
+               <li>Finally get the components using <span class="char_link"><a href="iceref_Get_Edge_is_on_Edge_Loop.htm">Get Edge is on Edge Loop</a></span>, <span class="char_link"><a href="iceref_Get_Polygon_is_on_Edge_Loop.htm">Get Polygon is on Edge Loop</a></span>, and/or <span class="char_link"><a href="iceref_Get_Vertex_is_on_Edge_Loop.htm">Get Vertex is on Edge Loop</a></span>, and use them with a modifier. <span class="anchor_wrapper"><a name="FIG_CB868DAF959D40BBAB8ABB1D1BE98873"></a></span><div class="figure-anchor"><img src="../images/GUID-47229646-48D2-40F8-9682-A1489575BB31-low.png"></div> 
+               </li>
+            </ol> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

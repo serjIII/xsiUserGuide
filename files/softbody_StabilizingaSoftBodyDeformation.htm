@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-49F8D643-40A7-4B88-9E4A-F7A9F752952A">
+      <meta name="indexterm" content="soft body: stabilizing the deformation">
+      <meta name="topic-type" content="concept">
+      <title>Stabilizing a Soft Body Deformation</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-49F8D643-40A7-4B88-9E4A-F7A9F752952A"></a></span><div class="head">
+            <h1>Stabilizing a Soft Body Deformation</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-1DE02BA3-B5E1-4674-BA5D-180795B0C5E9"></a></span>Soft-body deformations can sometimes give unexpected results, such as strange shapes
+               or transformations, when certain parameters, such as <span class="MenuCascade" id="GUID-4815B192-750C-48B1-A45B-D7FDA24D5040">Sampling</span> and <span class="MenuCascade" id="GUID-9B962930-58C0-45C7-A305-63C5D368AB87">Stiffness</span>, have high settings. These parameters are found on the Soft Body page in the <span class="char_link"><a href="property535.htm">Soft Body Operator Property Editor</a></span>.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-59D97C48-4091-437C-AE67-CF0E29FAF5AD"></a></span>To compensate for most of these problems, you can adjust the value for the <span class="MenuCascade" id="GUID-EA05C591-6E7F-430C-914C-BCF31586AE7B">Iterations per Frame</span> parameter, found on the Simulation page of the SoftBodyOp property editor. This defines
+               the time step between one frame and the other, subdivides this value, and then executes
+               the soft-body simulation. Unlike cloth, soft body uses an explicit method for calculating
+               dynamics, so this parameter is the main factor for giving stability to the simulation.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0C2B0CCF-F064-4570-B8F1-5DC1B8EE5BB2"></a></span>Generally, high values of <span class="MenuCascade" id="GUID-7C1B857F-7F81-4BCF-899A-494528202C6A">Sampling</span> and <span class="MenuCascade" id="GUID-ADBB2FB3-0D90-421D-8204-15CAC637F0BB">Stiffness</span> can cause instabilities that can be fixed by raising the value for <span class="MenuCascade" id="GUID-187173A9-FE47-4B9E-A77A-4311A5FD9DCE">Iterations per Frame</span>. Of course, when you raise value, it increases calculation time. Start with a low
+               value and bring it up until you get the realistic simulation look you want.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-25B3AC5F-C961-4F95-9713-7BC4EF818BE3"></a></span>In some cases, you can use settings as low as 2. Tune each soft-body object differently
+               — they probably won't use the same settings. This is highly dependent on the properties
+               you've set, like stiffness and mass.
+            </p>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body">&nbsp; <img src="../images/GUID-6551A126-3654-44C5-A6FC-D98F1A6ED75F-low.png"> 
+                     </td>
+                     <td class="table-body" align="left">&nbsp; <img src="../images/GUID-DE722922-8989-4C85-9D50-8AB04B441A81-low.png"> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-8BFA6F69-FAE4-4AC7-B3A9-2007B7D89C62"></a></span><p class="table-body">Strange deformations: Iterations per Frame is set to the default value of 6.</p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-E576737B-9E4F-44E4-AD37-D2291B7E6CBB"></a></span><p class="table-body">Problem fixed for this object: Iterations per Frame is set to 7.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-8506285D-CED5-427A-97D7-FF09856FE62D"></a></span>High <span class="MenuCascade" id="GUID-6D401457-C451-4A65-99BA-A1A187AF5840">Sampling</span> values cause the lattice to more closely resemble the volume of the object to be
+                     deformed and thereby create a more realistic result, but these may contribute to the
+                     instability of the simulation.
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-10EBEEF3-3DFC-4CDE-8B35-F0BBFE2DF3B1"></a></span>If this happens, you can lower the <span class="MenuCascade" id="GUID-21373645-1BA5-482C-9D0F-7A9532C339F1">Stiffness</span> value as well as increase the <span class="MenuCascade" id="GUID-7616F214-269C-4C64-84FA-CA7A2960F046">Iterations per Frame</span>.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2E29DEA9-331D-4E09-9758-920724CD6FB0"></a></span>High <span class="MenuCascade" id="GUID-529359BA-6C29-4841-9ABC-A7772B42448C">Stiffness</span> values cause the object to better resist deformations, but again, may contribute
+                     to instability. If this happens, you can lower the <span class="MenuCascade" id="GUID-5EADD654-727F-4604-B06C-4929784C82BA">Sampling</span> value or increase the <span class="MenuCascade" id="GUID-F1BA74E9-3B69-4144-BE78-12C8928B3D95">Iterations per Frame</span>.
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FAC67D37-EB85-4FD9-9EF8-690BB4FC297C"></a></span>Select <span class="MenuCascade" id="GUID-3F51D9AE-182A-4DD6-8EB5-9FF45548CE45">No Stretch</span> to help stabilize the deformation, especially when the soft-body object seems to
+                     "explode" after a collision.
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-79F5D238-28B7-4CD2-95CD-8030102C88C5"></a></span><div class="note-note"><span class="label">NOTE:</span>You can also help stabilize a deformation by increasing the <span class="MenuCascade" id="GUID-41C54030-D2BC-4C4B-B99A-53FEAD071585">Body Mass</span>, which determines the weight of the object.
+                     </div>
+                  </div> 
+               </li>
+            </ul>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

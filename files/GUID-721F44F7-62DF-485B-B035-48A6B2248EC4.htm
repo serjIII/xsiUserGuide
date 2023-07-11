@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4">
+      <meta name="indexterm" content="CrowdFX: actor rig">
+      <meta name="indexterm" content="CrowdFX: rig proxy">
+      <meta name="indexterm" content="CrowdFX: deformers in actor rig">
+      <meta name="indexterm" content="CrowdFX: rig proxy display">
+      <meta name="indexterm" content="CrowdFX: rig proxy hierarchy">
+      <meta name="indexterm" content="CrowdFX: changing the COG deformer">
+      <meta name="topic-type" content="concept">
+      <title>Modifying the Actor's Rig</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-721F44F7-62DF-485B-B035-48A6B2248EC4"></a></span><div class="head">
+            <h1>Modifying the Actor's Rig</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-6B4F481C-17D2-4A5F-A355-1A12D8ED1295"></a></span>    
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-7C2BC19C-7232-4F88-AC2C-2EC57894B817"></a></span> The actor's rig is known as the <em class="mild">rig proxy</em>. It is a copy of the source model's rig that is used for the actor proxy in the crowd
+            simulation, but includes only the objects from the source model's rig that are actual
+            deformers: no other control objects are copied. 
+         </p><span class="anchor_wrapper"><a name="FIG_1D1EED56BFE54005960B8BF883335E1F"></a></span><div class="figure-anchor"><img src="../images/GUID-E1036C3F-8C81-4BEB-857E-E37BE345EA38-low.png"></div>
+         <p><span class="anchor_wrapper"><a name="GUID-BDA949A8-EDB6-439A-A72E-08830FCB1F86"></a></span>The rig proxy gives you access to each deformer, allowing you to change the hierarchy
+            or adjust the animation by using constraints. You can make changes or corrections
+            to the rig proxy without affecting the source model's rig or animation, or other actors
+            who are using a different rig. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-A57A5487-7BEA-443E-A1ED-BE55A97C3429"></a></span> For example, if you want to constrain the actor's head to look at an object during
+            the crowd simulation, you can constrain the direction of the head deformer in the
+            rig proxy to the object, and the source model's rig isn't altered. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-2032C2C6-E08F-40EC-8594-58FBD3C1646A"></a></span>If the rig proxy is the identical for some or all of the actors in the crowd simulation,
+            you can modify the rig proxy to affect all actors who use that rig proxy. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_F5080ADF33F1455A937A0058BFEC316E"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-9671D69D-5242-45FF-973F-D38F3DB79CE0"></a></span> Global Transform Data on the Deformers
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-841547D3-A778-4403-BD0B-54432D662C25"></a></span> There is only one rig proxy per actor proxy, and all instances of the actor proxy
+               mesh in the simulation refer to it, but the actual rig proxy is not copied per actor
+               instance. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-A198DDE9-710D-42AA-A964-B3A2952C77FC"></a></span>The <em class="strong">Animation Proxies</em> node in the Crowd model contains a point cloud for each of the action sources loaded
+               for the actor. The local transform data that was in each action source is stored in
+               this point cloud as global transform data on every deformer in the rig proxy at each
+               frame using the <span class="char_link"><a href="GUID-891F6434-42F7-478E-A318-D014ACB0EF4D.htm">CrowdFX_GlobalTransforms</a></span> attribute, which is an array of this data. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-55B66470-337A-4006-B5EE-FABD97FDF602"></a></span>To display the global transforms of each deformer used per actor instance, you can
+               plug the <span class="MenuCascade" id="GUID-928AA31C-1842-40D0-94E7-E1B0FB4D0B57">Show Deformers Transform</span> compound into an ICE tree in the Post Simulation region of the simulation point cloud.
+               This compound uses the <span class="char_link"><a href="GUID-3B555959-A289-4C93-8D87-7FD5ECEED1ED.htm">CrowdFX_Actor_Deformers</a></span> attribute. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-F255F31F-B087-4006-9DBB-0EA12C8EF45B"></a></span>You can show the global transforms for all deformers, or just one at a time by selecting
+               its <span class="MenuCascade" id="GUID-C576A779-58EE-4D47-A11E-92A6EFAAEF8A">Index</span> value. 
+            </p> <span class="anchor_wrapper"><a name="FIG_31EF263295224D09926E38E29250FEF0"></a></span><div class="figure-anchor"><img src="../images/GUID-B95BF27C-A328-416B-8CA1-286D9CF3C3AE-low.png"></div> 
+            <div class="section"><span class="anchor_wrapper"><a name="SECTION_D39C49518A724997B9B7026A7EE3F039"></a></span> 
+               <h3><span class="anchor_wrapper"><a name="GUID-612FA674-8248-4CD8-95C5-C678637AE261"></a></span>The Deformer Index Value
+               </h3> 
+               <p><span class="anchor_wrapper"><a name="GUID-468C83E4-2619-4D58-9A6D-2DB095BD5A39"></a></span>Each deformer in the rig proxy has an index number to identify it in the array used
+                  for the rig proxy. To find out what a deformer's <span class="MenuCascade" id="GUID-5A91F75A-4D8D-4FA0-BEA3-68B2DF9CACEF">Index</span> value is, select a deformer and open its <span class="char_link"><a href="CrowdFX_RigProxy.htm">CrowdFX Rig Proxy Property Editor</a></span>. A quick way to open this property editor is to select the deformer, press F3, then
+                  click the property editor's icon in the pop-up explorer. 
+               </p> 
+            </div> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_530077B0472F4B8B8946591130A7E9AD"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-2584F904-D3D8-4DD5-8A0C-FBEC3F6FE498"></a></span>Displaying the Rig Proxy
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-E396F3C7-F9C2-4901-8A69-2C800BFBD29F"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-99579DCB-AAF8-439B-8D79-9D9320B4D9BC"></a></span>You can find the actor's rig proxy in the explorer, and display it in a 3D view. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-6876E875-D5FB-477B-BFA2-9DA267195349"></a></span>To find the rig proxy in the Crowd model in the explorer, do either of the following:
+               
+            </p> <span class="anchor_wrapper"><a name="UL_6DE6924A60BF427C851E21B5A4319800"></a></span><ul>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-299F8FAB-A88D-4C8C-9787-DF8E1854C473"></a></span>Expand the <em class="strong">Actors Proxies &gt; <em class="mild">name of actor proxy</em> &gt; Rig Proxy</em> node. This displays all of the rig deformers in a hierarchical structure that reflects
+                     the rig of the original source model. You can change this hierarchy if you like, as
+                     described in the next section below. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E786618C-C5E4-4294-AFE9-50B46456BC28"></a></span>Open the <em class="strong">Deformer Proxies</em> group node. This displays all of the rig deformers in a flat structure so that each
+                     one is easier to find. 
+                  </p> 
+               </li>
+            </ul> 
+            <p><span class="anchor_wrapper"><a name="GUID-0900AA5A-531C-43CC-8061-F395CB9187D3"></a></span>You can display the rig proxy in an object view and the viewport to easily access
+               its deformers by doing any of the following: 
+            </p> <span class="anchor_wrapper"><a name="UL_35BE464D88DA4850BBEB5818F83AF247"></a></span><ul>
+               <li>Click the <span class="MenuCascade" id="GUID-6FDF3E79-5121-4C1C-9275-AE402D338297">View Rig</span> button in the <span class="char_link"><a href="CrowdFX_ActorProxy_CrowdFX_ActorProxy_CrowdFX_ActorProxy_CrowdFX_ActorProxy_CrowdFX_ActorProxy.htm">CrowdFX Actor Proxy Property Editor</a></span>. 
+               </li>
+               <li>Click the <span class="MenuCascade" id="GUID-193EA877-6111-4036-B269-CC65CFB15021">View Rig</span> button in the <span class="char_link"><a href="CrowdFX_ActorsProxies.htm">CrowdFX Actors Proxies Property Editor</a></span>. You can open this editor by choosing the <span class="MenuCascade" id="GUID-F3A244B4-C0CD-4928-BAF4-1700F8450D79">CrowdFX <img src="../images/ac.menuaro.gif"> Actors <img src="../images/ac.menuaro.gif"> Inspect Actor Proxies</span> command from the ICE toolbar. 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-367DCE09-DB5D-4852-9303-7015CFE69839"></a></span>To toggle the display of the rig proxy in the object view and viewport, click the
+                     <span class="MenuCascade" id="GUID-DF723FB9-4A62-4CB9-8E65-BEF35765B1FD">Show/Hide Proxy Deformers</span> button in either the <span class="MenuCascade" id="GUID-C2A44B76-3D8D-4C4F-A291-3B68AE36027C">CrowdFX Actors Proxies</span> property editor or <span class="char_link"><a href="CrowdFX_RigProxy.htm">CrowdFX Rig Proxy Property Editor</a></span>. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_C45851CAD0F24DB9A214CC715B26B3AA"></a></span><div class="figure-anchor"><img src="../images/GUID-D350A6C9-4C1B-4407-86C7-995A2A3D36FB-low.png"></div> 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_C0CAB55EAA324EF6899C17410AD85C6C"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-28B4C059-61D2-460A-89FF-2804C982F1EF"></a></span>Changing the Deformer Hierarchy in the Rig Proxy
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-FB619F50-49F7-4FC5-9181-19640582D04F"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-5EC3C871-843E-4D82-9849-A5B7D075580E"></a></span>You can change the hierarchy in the rig proxy to set it up as you need for using constraints,
+               or for "fixing" issues that existed in the original rig. For example, if the head
+               deformer isn't parented to the neck deformer in the original rig, you can change this
+               in the rig proxy. 
+            </p> <span class="anchor_wrapper"><a name="OL_FE82B80F486C4AAAB55C5FB4148B5338"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-951CDF3C-39C5-4EC8-BB17-914698834DF6"></a></span>In the explorer, expand the actor's Rig Proxy node in the Crowd model as described
+                     above. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-39A30BF8-F26A-441C-A1AC-5A350882DADD"></a></span> You may also want to display the rig proxy in a 3D view. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FA9C9746-D258-4E2E-B094-804EFE9D54E0"></a></span>Change the parenting of the rig proxy deformers using either the explorer or the 3D
+                     view as described in <span class="char_link"><a href="hierarchies_CreatingHierarchies.htm">Creating Hierarchies</a></span>. 
+                  </p> 
+               </li>
+               <li> To quickly cut the hierarchy links, select the child deformer and click the <span class="MenuCascade" id="GUID-6A7E61F1-D4A6-4BAA-9EE8-F84F1FC4B416">Cut</span> button on the Constrain panel on the main command panel (MCP). 
+               </li>
+            </ol> 
+            <p><span class="anchor_wrapper"><a name="GUID-A0B52384-9A53-4A3B-A17F-3A2DDC33F853"></a></span> In the example below, the leg hierarchy should be like this to properly constrain
+               the legs to the ground (see <span class="char_link"><a href="GUID-FA522E1A-E730-4A24-8921-EE0FDA3899F3.htm">Constraining the Legs to the Ground</a></span>): 
+            </p> <span class="anchor_wrapper"><a name="UL_24C020C18BF74FFDA2C61E5883A71DD4"></a></span><ul>
+               <li>The Knee (LeftLeg/RightLeg) deformer should be a child of the Root (LeftUpLeg/RightUpLeg)
+                  deformer 
+               </li>
+               <li>The Leg Effector (LeftFoot/RightFoot) deformer should be a child of the Knee. </li>
+               <li>The Foot (LeftToeBase/RightToeBase) should be a child of the Leg Effector. <span class="anchor_wrapper"><a name="FIG_4EAC81F20F7C4C808CA124C8D5354750"></a></span><div class="figure-anchor"><img src="../images/GUID-26C359E5-6BCD-4E25-841B-BC60A83A96D2-low.png"></div> 
+               </li>
+            </ul> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_E8745D917F8243C1B81BC4F7F7C35AA2"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-AB594DD4-5FCB-4655-B89D-AB8581770B8E"></a></span>Changing Which Deformer is the COG
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-D81DCA02-CD43-4566-9304-F767D4AE6B67"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-AE501602-5EA1-43F1-86F0-B805D359B3FD"></a></span> The actor's COG (center of gravity) is a deformer in the actor's rig proxy whose
+               horizontal speed (in the global Z direction) is used for calculating the actor's velocity
+               for locomotion in the crowd simulation. When you import action sources for an actor,
+               the COG in the actor's rig is automatically determined as being the closest deformer
+               from the center of the actor mesh's bounding box, which is often the hip. 
+            </p> <span class="anchor_wrapper"><a name="FIG_56AD483519E0480FA671EBE178C05652"></a></span><div class="figure-anchor"><img src="../images/GUID-DD416613-2872-4059-9128-DC6034E2FEE3-low.png"></div> 
+            <p><span class="anchor_wrapper"><a name="GUID-6D794A16-FDBD-49ED-B740-9E1F0B9FB6E3"></a></span>If you want to assign a different deformer as the COG, follow these steps: 
+            </p> <span class="anchor_wrapper"><a name="OL_A5FA2EF113614F3ABEB601CD60FDE7F4"></a></span><ol type="1" start="1">
+               <li>Select a deformer in the rig proxy. </li>
+               <li>Open its <span class="char_link"><a href="CrowdFX_RigProxy.htm">CrowdFX Rig Proxy Property Editor</a></span> from the explorer. 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-4418165F-F0FF-495C-95C7-4953698B16E1"></a></span>Select the <span class="MenuCascade" id="GUID-CDA56E01-3AE8-41F5-9EB7-00BACE5B2315">Is Center of Gravity</span> option. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_E440197E0B8E470F811E712BFA6BB9EF"></a></span><div class="figure-anchor"><img src="../images/GUID-B4E3834F-BB41-445E-A941-B9DC4C34ED0C-low.png"></div> 
+               </li>
+               <li>For the deformer that was previously the COG, open its CrowdFX Rig Proxy property
+                  editor and deselect this option. 
+               </li>
+            </ol> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

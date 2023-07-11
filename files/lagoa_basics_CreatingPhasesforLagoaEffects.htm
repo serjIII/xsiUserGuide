@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-D0984DBB-B3BF-4CE3-BF26-E0741337D5CD">
+      <meta name="topic-type" content="concept">
+      <title>Creating Phases for Lagoa Effects</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-D0984DBB-B3BF-4CE3-BF26-E0741337D5CD"></a></span><div class="head">
+            <h1>Creating Phases for Lagoa Effects</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-0B2E15F5-F407-4AD0-9AD1-6F37530FD9E4"></a></span>A phase is a separate part of a mixture of substances that have different material
+               properties. In Lagoa, phases allow you to define different materials for the same
+               point cloud, giving the illusion of different substances in the same element. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-0814DD08-614E-4549-9C3E-63B0FE39C9D1"></a></span>For example, a mixture of oil and water materials can be created using two phases,
+               or you could make an elastic object become a fluid by plugging two states with different
+               materials and using some type of trigger to switch from one phase to the other. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-A58D0B0F-6BE8-4A69-9A2F-751D65430751"></a></span>You also use phases when you create advection effects — see <span class="char_link"><a href="lagoa_def_AdvectingGeometrywithLagoa.htm">Advecting Geometry with Lagoa</a></span>. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-B5828019-0F9A-4671-8685-6F95F7B11B84"></a></span>You can set phases only on point clouds. In the Lagoa point cloud's ICE tree, each
+               phase needs to have its own setup consisting of an Emit node, a Phase node, and a
+               Material node. Each phase needs be to identified by the same Phase ID that you define
+               in the Emit and Phase nodes. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-8E74CB19-16A0-453E-A48E-ED9F799CACCC"></a></span>Once you have set up phases, you can define how each material interacts with each
+               other using its interface pressure. You can imagine this pressure as the edge between
+               particles with different materials. Changing the pressure creates the movement of
+               particles with one material to the area of particles with another material. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0050"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B9062015-749C-431B-B3EA-5C7404E33C58"></a></span>To set up a phase for multiple materials
+               </h2> <span class="anchor_wrapper"><a name="GUID-EB68AE11-B87B-4CD9-BBBD-67FB6A466276"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A7029581-61DB-474C-B8AB-51F71B46CD3B"></a></span>Create a Lagoa ICE tree for a point cloud with the required nodes as described in
+                        <span class="char_link"><a href="lagoa_basics_CreatingaLagoaEffectfromScratch.htm">Creating a Lagoa Effect from Scratch</a></span>. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-2B7281C4-36A6-4682-9C5B-1E895BA03C0D"></a></span>For each phase, connect a Lagoa Emit node, a Lagoa Phase node, and a Lagoa Material
+                        node as shown here: 
+                     </p> <span class="anchor_wrapper"><a name="FIG_66C0B5CD2B004A92B1D06F1784E3938D"></a></span><div class="figure-anchor"><img src="../images/GUID-D8C8B1D1-B4E7-448E-A9D3-6BBD3561C73E-low.png"></div> <span class="anchor_wrapper"><a name="UL_E7B77F6271E24F81BDA03EFBB2238F41"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-CA42EE33-4156-442B-BF86-D8335418E0AA"></a></span>If you want multiple materials at once, you need multiple emitters, each with their
+                              own Emit node. Plug each one into an Execute node, then plug that node into the Emitter
+                              port of the Simulation Root node. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-9CB5E941-86C8-4E55-8B0A-49F490A14717"></a></span>If you want to switch from one material to another based on a condition, you can use
+                              one emitter. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-85A6EA7B-EF73-4FCA-B6E5-D0466D38D14A"></a></span>In each Lagoa Phase node, give the phase a unique <span class="MenuCascade" id="GUID-8BEDD8AA-B8B0-4632-957D-515E41461CE9">Phase ID</span> number. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A981BDE4-7763-4A74-B142-FEED13831BD6"></a></span>Give the same <span class="MenuCascade" id="GUID-8858B36D-4B1B-459A-B3BB-D8CF647B98E6">Phase ID</span> number to the accompanying Lagoa Emit node. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-E7061B10-2F9E-4CBC-B5C0-98E232D9C06E"></a></span>Set the Lagoa Material properties appropriately for each phase; for example, make
+                        one material denser than the other one. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-5D504FE6-1098-4E0A-B4EE-18F6B72996C3"></a></span>Set the <span class="MenuCascade" id="GUID-8C4F8907-3E59-4B13-B33E-4D6B63A47F3E">Internal Interface Pressure</span> options in each material's property editor (see <span class="char_link"><a href="iceref_Lagoa_Main_Material.htm">Lagoa Main Material</a></span>) to define how the two materials create pressure on each other when they interact.
+                        
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0052"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-345FB656-9B77-4029-8457-EED596C4FF99"></a></span>Switching Phases
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-83584D49-2DE2-45AD-B07D-A0C458F4273F"></a></span>A trigger is something that causes an effect to happen when its value is reached,
+                  such as when the particle bubble reaches a certain size, it pops. If you know how
+                  to use particle states, using triggers for phases is the same basic process as it
+                  is for states (see <span class="char_link"><a href="ipart_states_CreatingaParticleStateSetup.htm">Overview of Creating a Particle State Setup</a></span>). 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3AFD9DAE-6F34-4E4E-AFEF-B64970DC59D2"></a></span>You can set a trigger so that one phase changes to another upon a certain condition.
+                  For example, the particles could change from jelly to liquid when the particles come
+                  in contact with a collision object. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WSDB3F18AD46880645A866AC65C658D203-0053"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-9B0C541F-F74E-4CD0-BCF8-F305C7EFA2D5"></a></span>To switch from one phase to another
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AA7942C1-0064-4C50-AF84-E007BFC32046"></a></span>Follow the steps above to set up phases, making sure to do these things: 
+                  </p> <span class="anchor_wrapper"><a name="GUID-5E7739FC-ED56-4041-86BF-DAF5C3E7FB57"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8E05A756-DBED-4D44-9A79-C1CC70971EED"></a></span>Make sure that all phases you want to use have unique Phase IDs. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F22DF9F1-DD4C-4028-A767-0368A8E3CFDD"></a></span>Define the Trigger value in a node that sets the condition, then plug this node into
+                           a Trigger port on the Lagoa Phase node. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C0E0196F-BFDD-4B7C-86BA-D17886BBDC6A"></a></span>Most of the nodes that can be used as triggers are found in the <span class="char_link"><a href="icecompound_ref_Conditionals.htm">Conditionals</a></span> group on the Particles tab. However, you can use any node that has a Boolean output
+                           so that it can be plugged into a Lagoa Phase node's Trigger port. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-0C813D1B-711E-46F3-8ECD-9D2C8CE6541F"></a></span>In the Lagoa Phase node, specify the ID number of the <span class="MenuCascade" id="GUID-882592E0-2DAC-4A33-B867-E74960FBF61E">Next Phase</span>, which is the phase to which the particles switch when the condition is reached.
+                           
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-183888B0-5620-4CB8-99A0-90EDEF366B2A"></a></span>For example, in the Lagoa Phase node for Phase 0, specify that the Next Phase used
+                           will be Phase 1 when the Trigger value is reached. 
+                        </p> 
+                     </li>
+                  </ol> 
+                  <p><span class="anchor_wrapper"><a name="GUID-17183D64-93A3-4F87-AED5-F86F7703106D"></a></span>Here's an example ICE tree of particles switching phases upon a condition: 
+                  </p> <span class="anchor_wrapper"><a name="FIG_673D5584A832406194905C3555FEAB34"></a></span><div class="figure-anchor"><img src="../images/GUID-0955A57C-B3EB-40AE-A897-D5E491DF8474-low.png"></div> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

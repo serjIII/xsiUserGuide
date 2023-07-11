@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C16E43E3-016E-483A-900D-74720C0DC65D">
+      <meta name="indexterm" content="quaternion rotations: about">
+      <meta name="indexterm" content="rotations: quaternion">
+      <meta name="indexterm" content="Euler rotations: versus quaternion">
+      <meta name="indexterm" content="gimbal lock: Euler versus quaternion rotations">
+      <meta name="indexterm" content="quaternion rotations: converting to and from Euler">
+      <meta name="indexterm" content="Euler rotations: converting to and from quaternion">
+      <meta name="indexterm" content="converting: quaternion and Euler rotations">
+      <meta name="indexterm" content="quaternion rotations: keying">
+      <meta name="indexterm" content="keyframes: setting quaternion rotations">
+      <meta name="indexterm" content="rotations: continuous, fcurves">
+      <meta name="indexterm" content="continuous rotation: fcurves">
+      <meta name="topic-type" content="concept">
+      <title>Animating Rotations</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C16E43E3-016E-483A-900D-74720C0DC65D"></a></span><div class="head">
+            <h1>Animating Rotations</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-C7F0179D-315F-443E-8D05-DF7C4CD03F29"></a></span>Rotations have some special considerations more than the other transformations. Some
+               of the issues that you need to understand when animating rotations are the transformation
+               node in which you can manipulate and key rotations (see <span class="char_link"><a href="ani_xform_ManipulationModesversusTransformationValues.htm">Manipulation Modes versus Transformation Values</a></span>), Euler versus quaternion rotations, gimbal lock, and continuous rotations. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-0022"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-F77A36FA-456C-420F-9C47-852961D8B480"></a></span>Euler versus Quaternion Rotations
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-855F864B-F163-466D-A2F9-96AA43576963"></a></span>When you animate rotations in Softimage, you normally use three separate function
+                  curves that are connected to the X, Y, and Z rotation parameters. These three rotation
+                  parameters are called <em class="mild">Euler angles</em>. Euler angles are simple to understand and control because each rotation axis is
+                  evaluated in a set order. This process is known as Euler interpolation. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3EE5CA06-C7E3-41EF-9DA0-0179C5E7D746"></a></span>Euler interpolation works well when the axis of interpolation coincides with one of
+                  the XYZ rotation axes, but is not as good at interpolating arbitrary orientations.
+                  For example, it may be difficult to get smooth interpolation when animating the orientation
+                  of either a ball joint, such as a shoulder, or of a tumbling object whose animation
+                  is not around one of the XYZ axes. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3096D0F1-2D6F-4746-B160-97D7AC811B0F"></a></span>Euler angles can also suffer from <em class="mild">gimbal lock</em>, which is the phenomenon of two rotational axes aligning with each other so that
+                  they both point in the same direction. This happens because the XYZ axes are not independent,
+                  so changing one axis can affect the preceding ones. For example, if you apply a 90-degree
+                  rotation to the Y axis, it causes the X axis to coincide with the Z axis so that rotating
+                  in X and Z has the same effect. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-FF469B73-74D6-4343-93C1-D92A1DCFB851"></a></span>Gimbal lock can be compensated for by changing the order in which the rotation axes
+                  are evaluated (by default, it's XYZ), which changes where the gimbal lock occurs (see
+                  <span class="char_link"><a href="skel_ChangingtheBonesxd5OrderofRotation.htm">Changing the Bones' Order of Rotation</a></span>). 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-0023"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-B5420B0D-8822-473A-B74D-D413E020F0DC"></a></span>About Quaternion Interpolation
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9DB6DB4D-542C-440C-938E-76CF5C37C51C"></a></span>Quaternion interpolation provides a way to overcome these limitations and provide
+                     smooth interpolation with any sequence of rotations. With this type of interpolation,
+                     the XYZ angles are treated as a unit to determine an object's orientation so they
+                     are not restricted to a particular order of rotation axes. Quaternions interpolate
+                     the shortest path between two rotations. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_94D72EE850014CAF8AE98EF05DF1BDC1"></a></span><div class="figure-anchor"><img src="../images/GUID-C5AA9BA2-DBEA-4000-AB41-51B7D0BA4F3D-low.png"></div> <span class="anchor_wrapper"><a name="TABLE_CBD61FEE3AC54533AECCF45544594722"></a></span><div class="table_Ruled">
+                     <table cellpadding="0" cellspacing="0" class="ruled">
+                        <colgroup>
+                           <col align="left">
+                           <col align="left">
+                        </colgroup>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-CAFD6998-399A-4CD2-908B-E07B4664EE8C"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-79D9F278-BC1F-474A-9D23-F726116C96DF">A</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-EF60B452-4ECA-4E33-A158-657D551FCAE0"></a></span><p class="table-body">Cone rotated on 90 degrees in X and Y. The two curves show the trajectory of Euler
+                                 and quaternion interpolation of these animated values. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-80DAC1C5-A403-4F1C-BC40-230F362C5834"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C90D793F-BB4B-4980-8C9D-2D0258970FA9">B</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-8F71D4CC-2422-44AB-A179-C06C6237102A"></a></span><p class="table-body">Euler interpolation path </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1D298757-14F7-4D87-8F6F-0DC7BEBE0BF2"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D315B308-9518-4624-92F9-61533A9889FC">C</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2DBFF23C-7624-469A-AF8F-D0C813FD9025"></a></span><p class="table-body">Quaternion interpolation path </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledEvenRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0275DEEB-CE6D-48FB-A06D-EB57190846E9"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-C1993C88-958E-4DB6-9706-5C3DF21DA207">D</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-05CAE2FE-9B9A-4534-B144-063E763E56CA"></a></span><p class="table-body">Euler interpolation of the rotation values. Notice how it takes a little detour before
+                                 reaching the final point. 
+                              </p> 
+                           </td>
+                        </tr>
+                        <tr class="ruledOddRow">
+                           <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C1D2488F-74EC-454E-AD12-C0DB97B95914"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-7E68EE28-89B5-46A6-B772-1C81BE937DCF">E</span> 
+                              </p> 
+                           </td>
+                           <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-1CD8CA9C-8B74-40C6-800F-4C8864A48AA8"></a></span><p class="table-body">Quaternion interpolation of the rotation values. Notice how it takes a direct path
+                                 to the final point. 
+                              </p> 
+                           </td>
+                        </tr>
+                     </table>
+                  </div> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-0025"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-72112DFC-35FC-42E8-A727-1CDCD03D94C0"></a></span>Quaternion Function Curves
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-AF5CD28D-8D5B-4791-8635-D04FC83F15A3"></a></span>You can create quaternion fcurves in Softimage by either setting quaternion keys or
+                     converting Euler to quaternion function curves. These curves are true quaternion curves,
+                     but are drawn as three separate fcurves (as Euler fcurves are represented) in the
+                     fcurve editor to make them easier to edit. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-65F4F848-CACF-47F0-8546-F65743884759"></a></span>Because the three fcurves are an approximation of the underlying quaternion fcurve,
+                     the displayed values may have discontinuities where the XYZ angles change abruptly.
+                     This is only a display artifact and does not affect the interpolation. You can usually
+                     minimize these discontinuities by making the fcurve rotations continuous (see <span class="char_link"><a href="ani_xform_AnimatingRotations.htm#WS79336AD9EA54DC4087CCC2F02945AB89-002C">Making Rotations Continuous</a></span>). 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-88AB1C4F-1ADC-45C2-9F0D-529FDD176D9B"></a></span>When you set, delete, or move a key on a quaternion fcurve, the change appears on
+                     all three fcurves because the entire rotation is being interpolated by the quaternion
+                     fcurve. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-E069CB38-D5EC-475E-9F4C-1B14DC01A6C9"></a></span>You can edit quaternion fcurves in both the fcurve editor and the dopesheet as you
+                     would normal fcurves. However, quaternion fcurves do not have tangents for editing
+                     fcurve slopes as typical fcurves do, but instead use special parameters to edit the
+                     fcurve's interpolation (see <span class="char_link"><a href="fcurves_EditingQuaternionFunctionCurves.htm">Editing Quaternion Function Curves</a></span>). 
+                  </p> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-0026"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-8DD5C049-DDA9-4323-84AC-3577FB799CC2"></a></span>Converting between Euler and Quaternion Rotations
+               </h2>    
+               <p><span class="anchor_wrapper"><a name="GUID-B1E0E5F5-A80C-4FD4-AB1B-D7A25EED55EC"></a></span>It's a simple process to convert from Euler to quaternion rotations and back again.
+                  However, as with most conversions, information is changed in the process. This is
+                  because quaternion fcurves store one key for the entire XYZ rotation value. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7A9A7234-1546-4C99-9CCB-E1CD5592D000"></a></span>When you convert Euler fcurves to quaternion fcurves, a quaternion key is added for
+                  each key in the XYZ fcurves. For example, if there is a key at frame 5 for the Euler
+                  rotation X parameter but not Y and Z, a quaternion key is generated for each rotation
+                  parameter by sampling the XYZ values at frame 5. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-3993747C-4FCA-4547-B8EA-0F8056FE8FCA"></a></span>Also, any slope (tangent) information on the Euler fcurves is lost when converting
+                  to quaternions. 
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-4F9D0649-A243-4462-AE1C-D0C436D766D3"></a></span><div class="note-tip"><span class="label">TIP:</span>If you want to preserve the original rotation fcurves, you could store them in an
+                     action source. You can then apply the source back to the object if you want to return
+                     the original fcurves. See <span class="char_link"><a href="nla_actions.htm">Actions</a></span> for information. 
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-0027"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-DB4D3164-64A5-491F-B315-13A47A3D5B3D"></a></span>To convert Euler to quaternion rotation
+                  </h3> <span class="anchor_wrapper"><a name="GUID-3CAAEE2E-9211-4464-832A-41F316B57156"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-51F8C734-6736-444C-814D-EDA2E44BC786"></a></span>Select an object with Euler rotation fcurves and choose <span class="MenuCascade" id="GUID-5A95F94C-B226-4C69-BEB5-6C7B50BA3EBB">Animation <img src="../images/ac.menuaro.gif"> Convert Euler Rotation to Quaternion</span> from the Animation panel. 
+                        </p> <span class="anchor_wrapper"><a name="FIG_993C7A17BF304AB997BDFF6B3585BA56"></a></span><div class="figure-anchor"><img src="../images/GUID-8A2358E0-E744-461A-9D9F-6E3E3D11CF79-low.png"></div> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-5F2C7E43-43FE-4075-91FD-84A22B529CA9"></a></span>Edit the timing and interpolation of the quaternion curves in the fcurve editor using
+                           the Quaternion Key controls — see <span class="char_link"><a href="fcurves_EditingQuaternionFunctionCurves.htm">Editing Quaternion Function Curves</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-0029"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7C59F0A5-28AA-4489-AD33-3A272C2B2145"></a></span>To convert quaternion to Euler rotation
+                  </h3> <span class="anchor_wrapper"><a name="GUID-66171139-FD39-46D4-8610-9E57860CA1AD"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-DFC7E584-ED6E-437D-90FA-4DC732D25D2D"></a></span>Select an object with quaternion fcurves and choose <span class="MenuCascade" id="GUID-04BA55B6-07DE-4DF0-8C7C-90F18EE27D3F">Animation <img src="../images/ac.menuaro.gif"> Convert Quaternion Rotation to Euler</span> from the Animation panel. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-718C063D-DCD4-430A-8240-7AE2EA4B6F81"></a></span>Edit the Euler function curves as you would normally. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-002A"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-B8D7BE4D-BE72-4B59-9198-C50C152A8861"></a></span>Keying Quaternion Rotations
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-10746673-5FD1-42BA-8E74-9DE565FB76F1"></a></span>Setting keys to create quaternion rotation fcurves is the same process as for setting
+                  Euler rotation fcurves except that you can key quaternion rotations only an object
+                  that already has rotation fcurves (either Euler or quaternion). When you set and key
+                  the object's rotation as quaternion, you get a smooth interpolation. 
+               </p> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-002B"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-85D81D64-A548-40DB-AD5B-3CC468B0314F"></a></span>To create quaternion rotation fcurves
+                  </h3> <span class="anchor_wrapper"><a name="GUID-689F4C15-EE67-4679-A764-ED3FDA5AE696"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EFB3F2FE-A47C-4F72-A1E8-101C2E354E8F"></a></span>Select an object with either Euler or quaternion rotation fcurves. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-69DDF7EF-2D4C-47FC-B82D-ECA7C0CAC83E"></a></span>Choose <span class="MenuCascade" id="GUID-DB980BE8-6F14-4548-86D5-F836B03FCC1D">Animation <img src="../images/ac.menuaro.gif"> Convert Euler Rotation to Quaternion</span> from the Animation panel. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6B5BA8FA-A6BF-4966-AE72-83B7BFE3FDC3"></a></span>If you select an object that already has Euler rotation fcurves, the curves are simply
+                           converted to quaternion. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EBE88B63-4B2B-4B5A-8905-8640CCD1CF09"></a></span>Key rotations as usual and the resulting fcurves will be quaternion. 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-97CD7936-9768-4BA7-9E0A-1E6B0945AE12"></a></span>Setting keys for one rotation axis creates corresponding keys on the other two rotation
+                           axes. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-B4E2424F-B4E0-4603-A040-B55F43EDAE12"></a></span>Edit the timing and interpolation of the quaternion curves in the fcurve editor using
+                           the Quaternion Key controls — see <span class="char_link"><a href="fcurves_EditingQuaternionFunctionCurves.htm">Editing Quaternion Function Curves</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-002C"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-BD1AB54B-E9B3-400E-BEE5-F2A11394C1C8"></a></span>Making Rotations Continuous
+                  </h3>   
+                  <p><span class="anchor_wrapper"><a name="GUID-EF13FBB5-0D72-4404-BD00-A2519F2E9670"></a></span>When you animate rotations 360 degrees or more, there may be problems with the rotations
+                     flipping or "spiking" when the values jump between equivalent but discontinuous numbers;
+                     for example, you're rotating a wheel 360 degrees in Y, and it goes 180 degrees in
+                     the correct direction but then rotates backwards to its original starting value. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-56D004D6-611F-430C-9D10-B763695F0910"></a></span>By making a rotation fcurve continuous, the flipping is eliminated. If two keys on
+                     the fcurve have a gap of more than 180 degrees, the second key is offset by 180 degrees
+                     so that the object's rotation continues in the same manner. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C2430C04-3FB8-4705-B741-277D04E39357"></a></span>You may want to make rotations continuous if you're planning to stretch, mix, or manipulate
+                     the animation as an action in the animation mixer. <span class="anchor_wrapper"><a name="UL_99B7213E25914AFEA763D78D81020865"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-B2927E73-F5B3-414C-AF94-6D2EE24828AF"></a></span>In the fcurve editor, select an fcurve and choose <span class="MenuCascade" id="GUID-A250284D-98F3-4F0E-8BC7-C6B8DD2FA26C">Curves <img src="../images/ac.menuaro.gif"> Euler Filter</span> from the fcurve editor command bar. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </p> 
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS79336AD9EA54DC4087CCC2F02945AB89-002E"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-977852ED-11B9-4501-BB63-C0F198F89B06"></a></span>Making Rotation Keys Continuous
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5B5B0A63-B273-4B4D-9F14-603DB374F3B1"></a></span>If you want to process more than one rotation fcurve at a time, you can choose the
+                     <span class="MenuCascade" id="GUID-348036F6-0053-4CD3-A3F3-8DA9C0CE0228">Make Rotation Keys Continuous</span> command from the Animation panel. This command processes all rotation curves on an
+                     object together as a complete orientation instead of individual X, Y, and Z rotation
+                     function curves. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C9BC3013-FA9B-4B6A-A720-069DE5764757"></a></span>This command also processes the local and global rotation keyframes on the selected
+                     objects to minimize the change between successive Euler angle rotation keyframes,
+                     making the values continuous between keys. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-342D69BA-C3B6-4365-BB98-C709F221BE5D"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-8ED96989-B3A8-4DAA-B6CF-8FE98FEF3DD0"></a></span>Select an object that has rotation fcurves (either Euler or quaternion). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-6AADB52B-E495-4FE0-A87C-FA83D4F028A3"></a></span>Choose <span class="MenuCascade" id="GUID-BD02A0EC-B494-4FA9-B731-74990E70FD56">Animation <img src="../images/ac.menuaro.gif"> Make Rotation Keys Continuous</span> from the Animation panel at the bottom of the Softimage window. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-5C2CC515-134C-4FC3-969C-773F98C372C3">
+      <meta name="indexterm" content="ICE modeling: applying texture projections">
+      <meta name="indexterm" content="texture projections: applying in ICE">
+      <meta name="indexterm" content="UV coordinates: applying in ICE">
+      <meta name="topic-type" content="concept">
+      <title>Applying Texture Projections in ICE</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-5C2CC515-134C-4FC3-969C-773F98C372C3"></a></span><div class="head">
+            <h1>Applying Texture Projections in ICE</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-74C0E5F3-360B-473F-90A1-1346A07AD1F7"></a></span> Using ICE, you can create an attribute that can be used as a texture projection.
+            In fact, any 3D vector per point or per polynode can be used as a texture projection.
+            (In Softimage, texture coordinates are always stored as UVW values even if only U
+            and V are used much of the time.) 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-257A7F85-AB87-420C-9C26-A4BC553D8905"></a></span>All you need to do is calculate the UVW values you want to use per point or per polynode
+            and set a custom attribute. You can then specify that attribute in a texture shader
+            or in the render tree. 
+         </p><img src="../images/GUID-855360E9-A4B6-4E1B-BC73-9796AF8582A2-low.png"><p><span class="anchor_wrapper"><a name="GUID-B309C3A9-D7CD-4956-A4A6-90A0B451CEF6"></a></span>Note that if you are using a custom ICE attribute as a texture projection, you cannot
+            edit its values in the texture editor. To edit values manually, you must first apply
+            a non-ICE texture projection and set its values with the ICE attribute. After that,
+            any modifications you make in the texture editor are applied on top of the values
+            set by ICE. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-9C9FC7E1-8636-430B-B5F7-E747638F378F"></a></span>There are some factory compounds that set an attribute that can be used as a texture
+            projection: <span class="anchor_wrapper"><a name="UL_1CEA3060166145A79DBF49BB6F78D4B6"></a></span><ul>
+               <li> <span class="char_link"><a href="iceref_Set_Texture_Projection_Camera.htm">Set Texture Projection Camera</a></span> 
+               </li>
+               <li> <span class="char_link"><a href="iceref_Set_Texture_Projection_Planar.htm">Set Texture Projection Planar</a></span> 
+               </li>
+               <li> <span class="char_link"><a href="GUID-75AC253B-7A4A-4F0E-940C-05FF635455AB.htm">Set Texture Projection Spatial</a></span> 
+               </li>
+            </ul> 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-AAE64415-FF12-414B-805C-148E4C139067"></a></span>Camera projections require that the UVW values be treated as homogeneous coordinates.
+            Homogeneous coordinates store values as (U, V, q) where q is the distance to the camera.
+            To tell the renderer that a 3D vector attribute should be treated as homogeneous coordinates,
+            you must define a Boolean attribute on the object using the same name as the 3D vector
+            with the suffix "IsHomogeneous" appended and set it to 1 (True). 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-C28990A4-74DE-4FB1-9D20-FF1A2C69AB22"></a></span>You can control other properties of the texture projection by setting per-object attributes
+            based on the name of the attribute being used as a texture projection with a special
+            suffix appended. 
+         </p><span class="anchor_wrapper"><a name="TABLE_7CE2DAA0D5674A6DACEAA5B98145A322"></a></span><div class="table_Ruled">
+            <table cellpadding="0" cellspacing="0" class="ruled">
+               <colgroup>
+                  <col>
+                  <col>
+                  <col>
+               </colgroup>
+               <tr class="ruledHeading">
+                  <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-734AEEA1-DEAD-4CA2-800C-9ED11F534056"></a></span><p class="table-heading">Suffix </p> 
+                  </th>
+                  <th class="table-heading"> <span class="anchor_wrapper"><a name="GUID-25F5C912-3F71-4032-A145-66DC9F366BFF"></a></span><p class="table-heading">Description </p> 
+                  </th>
+               </tr>
+               <tr class="ruledOddRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-0E7FEE5D-DE59-46F0-8D5E-9F107CA0FCF4"></a></span><p class="table-body">_u_wrap </p> 
+                  </td>
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5C1BE8D4-F66B-401B-A616-81A57AB1E10B"></a></span><p class="table-body"> Boolean to control texture wrapping in U. </p> 
+                  </td>
+               </tr>
+               <tr class="ruledEvenRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-EE57DDC4-2FFF-4C6A-B036-E6B7E1685D54"></a></span><p class="table-body">_v_wrap </p> 
+                  </td>
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-49DBD168-FC4F-4BC5-A535-6F790DC1BD3C"></a></span><p class="table-body"> Boolean to control texture wrapping in V. </p> 
+                  </td>
+               </tr>
+               <tr class="ruledOddRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-5024AA6C-2EF4-4A5E-A083-F3E7CE6F086D"></a></span><p class="table-body">_w_wrap </p> 
+                  </td>
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-B0907183-75B3-41FF-854C-69B972E3F505"></a></span><p class="table-body"> Boolean to control texture wrapping in W. </p> 
+                  </td>
+               </tr>
+               <tr class="ruledEvenRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-ACD637F9-75FC-4732-9752-A1C0ED1E77A1"></a></span><p class="table-body">_transform </p> 
+                  </td>
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-F8E468BD-DFB5-4964-A9FC-ACDFAB5F5A4B"></a></span><p class="table-body"> 4x4 Matrix to control texture transform. </p> 
+                  </td>
+               </tr>
+               <tr class="ruledOddRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-10CB8224-E351-4501-9D33-AA5B161137C2"></a></span><p class="table-body">_ishomogeneous </p> 
+                  </td>
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-C60D0401-E7C9-4A6B-8B43-71A8FCAD8BF8"></a></span><p class="table-body">Boolean to control whether coordinates are treated as homogeneous. </p> 
+                  </td>
+               </tr>
+               <tr class="ruledEvenRow">
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2E8C7ED0-3F32-47EF-A07F-DFF2686DF4B2"></a></span><p class="table-body">_smoothwhensubdi </p> 
+                  </td>
+                  <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-D7022EEC-B6DD-48AB-8A8D-221F913F6016"></a></span><p class="table-body">Boolean to control whether coordinates get smoothed based on the subdivision surface
+                        algorithm. 
+                     </p> 
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <div><span class="anchor_wrapper"><a name="GUID-C45FB166-32D8-4665-B32C-33EC20FB5978"></a></span><div class="note-note"><span class="label">NOTE:</span>The effect of these settings are visible only when rendering. You cannot see the effects
+               directly in the viewports without drawing a render region. 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

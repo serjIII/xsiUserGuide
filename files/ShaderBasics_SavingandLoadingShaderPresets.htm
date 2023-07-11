@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-7E8EFC1B-906B-4602-8014-F3440DCFAADA">
+      <meta name="indexterm" content="shaders: presets">
+      <meta name="indexterm" content="presets: for render trees">
+      <meta name="indexterm" content="presets: for shaders">
+      <meta name="topic-type" content="concept">
+      <title>Saving and Loading Shader Presets</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-7E8EFC1B-906B-4602-8014-F3440DCFAADA"></a></span><div class="head">
+            <h1>Saving and Loading Shader Presets</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-F8815704-0A13-4525-BE41-1E16BF29EB14"></a></span>Shader presets are files that contain values for all the settings in a shader's property
+               editor. You can save these values and then load them to use again with another shader.
+               Shader presets are saved to an xml file format with an <span class="MenuCascade" id="GUID-156144D0-ED50-4C2E-8B47-BBD2BBB5D4A5">.xsishaders</span> file name extension. This format ressembles that of the shader compounds (.xsirtcompound).
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-39253C07-469B-464D-BF92-6AE8BAA018C7"></a></span>Shader presets are useful if you want to select a particular shader and modify some
+               of its attributes, save the settings, and load them as a shader preset for other objects.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6C96F228-6DC7-4986-BB55-57B58C7A38C3"></a></span>When you create a preset for a shader, all of the shaders connected to it are included
+               in the preset. Loading the preset re-establishes all of its render tree connections.
+               The most important thing to consider when saving a render tree is which node to save.
+               Trees are saved from right to left, following the evalution flow. For example, saving
+               a preset for a node on the far right of the render tree saves the properties of every
+               node downstream from it (to the left).
+            </p>
+            <div class="figure-anchor"><img src="../images/GUID-D4083473-D220-4B5D-8C87-83218DA4B56E-low.png"></div>
+            <div class="table_Ruled">
+               <table cellpadding="0" cellspacing="0" class="ruled">
+                  <colgroup>
+                     <col align="left">
+                     <col align="left">
+                  </colgroup>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-2B53BBE8-1A9B-4580-8399-B1C12EB3F0CC"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-36E2580A-2D5D-466C-8EAE-63638D6F11CB">A</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-061A122F-8663-4E9A-AA64-8AA5619291AE"></a></span><p class="table-body">Saving from this node saves properties for this shader only.</p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledEvenRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-1CE692CA-A7A8-4207-8686-740E6A8CB4FD"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-D5A1A855-CB1E-4C14-9022-4DB1F5B52BA7">B</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-2E860307-B6F9-477E-8931-5F24C8842BB1"></a></span><p class="table-body">Saving from this node saves properties for the render tree from this shader back to
+                           the end.
+                        </p> 
+                     </td>
+                  </tr>
+                  <tr class="ruledOddRow">
+                     <td class="table-body"> <span class="anchor_wrapper"><a name="GUID-3E8CC658-6EE4-4CFF-A1C3-133B08331AD8"></a></span><p class="table-body"> <span class="MenuCascade" id="GUID-472070A1-CD7E-4B64-B4D1-159FA5E9E068">C</span> 
+                        </p> 
+                     </td>
+                     <td class="table-body" align="left"> <span class="anchor_wrapper"><a name="GUID-06249308-F048-49F4-81C8-462775CB84CB"></a></span><p class="table-body">Saving from this node saves properties for the entire render tree structure.</p> 
+                     </td>
+                  </tr>
+               </table>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4119D6A883BE8447A3B634DC3527230A-0046"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-ACFB31EF-3CAE-4238-8126-E2E6306309F4"></a></span>Saving Shader Presets
+               </h2> <span class="anchor_wrapper"><a name="GUID-6843779B-ECB5-4FF0-971C-CEB642E07C5B"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-EC94C1F5-D975-4985-9CB3-25DF61D7E812"></a></span>Right-click a node (on its name label) in a render tree.
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-7045594C-A8CE-446C-8A19-38AD4EBB3493"></a></span>Choose <span class="MenuCascade" id="GUID-3ED5DC2B-C23A-48CA-8596-0B0DA1876349">Export Selected....</span></p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-65347918-9F40-4570-841E-E712F034B8A6"></a></span>Select a directory and file name for your preset in the browser that opens. Click
+                        OK.
+                     </p> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS4119D6A883BE8447A3B634DC3527230A-0047"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A29F31FD-2CFC-42F8-AA57-91CFF54B2228"></a></span>Loading Shader Presets
+               </h2> 
+               <p><span class="anchor_wrapper"><a name="GUID-32584520-0D53-44AC-BDD5-414DC237D8E3"></a></span>After you have saved a shader preset, you can apply it to any other object in your
+                  scene. You can also apply the same preset to several objects at once if multiple objects
+                  are selected.
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-7BA0A737-2F1D-47DD-9625-22C51FD78D29"></a></span>If your preset contains a render tree (the properties of multiple connected shaders),
+                  you can achieve more accurate results if you load a material node preset on a material
+                  node, or a surface shader preset on a surface shader, and so on.
+               </p> 
+               <div><span class="anchor_wrapper"><a name="GUID-B2608419-64E9-4FCF-95F6-7659BE27E05E"></a></span><div class="note-note"><span class="label">NOTE:</span>A preset is loaded as a copy, so if you make changes to it, only that instance of
+                     the preset is affected.
+                  </div>
+               </div> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS4119D6A883BE8447A3B634DC3527230A-0048"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-0BE89AAA-64BC-4743-B785-F318FFA9295B"></a></span>To apply a preset to an object
+                  </h3> 
+                  <p><span class="anchor_wrapper"><a name="GUID-101F0010-76A9-4D74-AB45-BC6965AFEF6E"></a></span>Do one of the following:
+                  </p> 
+                  <ul>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-184E2149-135F-4F3E-AC44-CD5A955BD105"></a></span>Open a browser and drag the preset onto a shader connection point in the explorer
+                           or render tree.
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-F52B589E-3E25-4D75-8B16-1604BE348CCA"></a></span>Drag and drop a preset from the browser to an object in a 3D view. The shader preset
+                           is immediately applied to the material node.
+                        </p> 
+                     </li>
+                  </ul> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

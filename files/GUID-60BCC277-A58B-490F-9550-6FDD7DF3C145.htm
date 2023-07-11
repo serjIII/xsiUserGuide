@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-60BCC277-A58B-490F-9550-6FDD7DF3C145">
+      <meta name="indexterm" content="Syflex ICE: calculating physics values">
+      <meta name="indexterm" content="Syflex ICE: creating cloth simulations">
+      <meta name="indexterm" content="curves: Syflex ICE simulations">
+      <meta name="indexterm" content="Syflex ICE: creating curve simulations">
+      <meta name="topic-type" content="concept">
+      <title>Creating Syflex ICE Simulations</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-60BCC277-A58B-490F-9550-6FDD7DF3C145"></a></span><div class="head">
+            <h1> Creating Syflex ICE Simulations</h1>
+         </div>
+         <p><span class="anchor_wrapper"><a name="GUID-6093F6F8-6A94-417B-B965-54F57D01673E"></a></span>You can use the Syflex ICE Cloth compound to deform a polygon mesh by simulating its
+            vertex positions directly. Likewise, you can use the Syflex ICE Curve compound to
+            deform a linear curve in the same way. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-2C406446-1050-4DA2-8640-A4A0707323F3"></a></span>A Syflex ICE tree modifies an object's point positions without adding or deleting
+            points, creating a deformation. Deformations typically get the current point positions,
+            modify them based on various other data like normal direction, and then set the new
+            positions. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-9B82F954-97D2-4B17-9119-CC02BD32E593"></a></span>Because the Syflex Cloth and Curve compounds create simulated deformations, you use
+            a simulated ICETree operator. In a simulated deformation, the point positions are
+            updated based on the previous frame instead of the lower operators in the construction
+            stack. When you return to the first frame of the simulation, the geometry returns
+            to its initial undeformed state. 
+         </p>
+         <p><span class="anchor_wrapper"><a name="GUID-4297EB9C-08AE-45FA-9371-37F25F14B4A0"></a></span>For more information on ICE simulation basics, see <span class="char_link"><a href="ICE_simulation_TheSimulationRegionsandNodes.htm">ICE Simulation Regions and Nodes</a></span> and <span class="char_link"><a href="ICE_basics_UnderstandingtheICEFramework.htm#GUID-783FE509-D580-4B86-8B88-7317B6E74AAE">ICE Trees and the Construction Stack</a></span>. 
+         </p>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_3AF95379AFD9494DBDB2DBF03B84D826"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-E379F825-1450-4748-8E14-1FAC6D782B82"></a></span>Calculating Physics Values
+            </h2> 
+            <p><span class="anchor_wrapper"><a name="GUID-18FE90AC-5BC2-4230-9BE8-F9910E8C2944"></a></span>  
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-FE96443B-3317-4D24-9075-66237C1A4E96"></a></span>The Syflex ICE nodes are tuned so that 1 Softimage unit is equal to 10 cm, but you
+               can use a different scale as you need, keeping in mind the issues listed in <span class="char_link"><a href="GUID-1A8166A7-7768-42FC-8A6A-D4CC9913F845.htm">Creating the Cloth Geometry</a></span>. You can get a rough idea of which parameter values (such as for gravity and mass)
+               to use for your simulation with the JavaScript form in the Syflex Cloth (non-ICE)
+               reference documentation that is installed in your <em class="mild">Softimage install path</em>/Docs/Syflex folder - open the <em class="strong">syflex_units.html</em> file and scroll to the bottom of the page. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-93032097-B568-4C2C-94B3-F158C9DBDCC1"></a></span> <img src="../images/GUID-3D0B3CB8-F650-4190-B012-A872390AAA23-low.png"> 
+            </p> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_1B48042CBC4040CF88D6B02CA7EB7027"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-E181ED57-5B04-4D44-9011-79B121AA5B3C"></a></span>Creating a Syflex ICE Cloth Simulation
+            </h2>  
+            <p><span class="anchor_wrapper"><a name="GUID-B41DC567-AAB5-4F8F-8440-EE81B1265041"></a></span>The Syflex ICE Cloth operator is a deformer that can be applied to a polygon mesh
+               object. This creates a simulated ICE tree for that object: you can then modify this
+               ICE tree with most typical ICE nodes as usual. 
+            </p> 
+            <p><span class="anchor_wrapper"><a name="GUID-F1474B3F-040E-4CB0-BE63-2E5A17F4F6C6"></a></span>For an example Syflex ICE tree, see <span class="char_link"><a href="GUID-FFF815E2-1F03-404C-A6EF-0B542B4EBF16.htm">Anatomy of a Syflex ICE Tree</a></span>. 
+            </p> <span class="anchor_wrapper"><a name="OL_402CB2BE7C654DAAB81653CE3495F3EB"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-2B091C25-23D5-4943-BB9B-B06777D982D3"></a></span>Select the polygon mesh object that you want to simulate as cloth. See <span class="char_link"><a href="GUID-1A8166A7-7768-42FC-8A6A-D4CC9913F845.htm">Creating the Cloth Geometry</a></span> for tips on modelling the cloth. 
+                     <div><span class="anchor_wrapper"><a name="GUID-6B2CEF9F-7295-4E98-92C9-E4DE0E7D0764"></a></span><div class="note-note"><span class="label">NOTE:</span>Do <em class="strong">not</em> change the cloth object's scale after an ICE tree has been created for it. 
+                        </div>
+                     </div> 
+                  </p> <span class="anchor_wrapper"><a name="FIG_4C60FDA256804BD49495775FAFB068DC"></a></span><div class="figure-anchor"><img src="../images/GUID-6DAD781E-3210-4ED9-A6DC-2F10A69DFAC4-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-ECD2403D-09E8-4B25-9CF2-288D4FC7D091"></a></span>Choose <span class="MenuCascade" id="GUID-D6F55B6B-424B-4A31-98F8-6E72D337C2E5">Deform <img src="../images/ac.menuaro.gif"> Simulate <img src="../images/ac.menuaro.gif"> Syflex Cloth</span> from the ICE toolbar. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0A35C265-3ED3-40A8-8FB9-F803C6A90B35"></a></span>An ICE tree is created for the cloth object, with its operator in the Simulation region
+                     of the object's operating stack. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-CFDAB347-6189-48FA-96A3-CD131CD6D673"></a></span><div class="note-note"><span class="label">NOTE:</span>You can also build a Syflex Cloth ICE tree from scratch as described below for creating
+                        a Syflex Curve simulation, but using the Syflex Cloth node instead of Syflex Curve.
+                        
+                     </div>
+                  </div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-34DA41B3-9DCF-49BC-A43E-5D27263FB0D8"></a></span>In the Syflex Cloth property editor that opens, set the <span class="MenuCascade" id="GUID-6E864CA3-D7ED-46C2-A692-C9306D8F937C">First Frame</span> value to be the frame at which you want the simulation to start. This can be any
+                     frame within the timeline's playback range. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-99B75AC3-39D1-461D-9967-CA772AE4A202"></a></span>For example, if you need a tablecloth to be settled on a table by frame 1, you can
+                     set this to a negative frame value to create a pre-roll that gives enough time for
+                     the simulation to occur. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-C65196B4-B667-41BB-8A5F-A1A064B2A09A"></a></span>Set the other cloth properties in this property editor to define the cloth behavior,
+                     such as the stiffness, shear, and bend, as described in <span class="char_link"><a href="iceref_Syflex_Cloth.htm">Syflex Cloth</a></span>. This allows you to test the cloth stretching and speed of animation before the scene
+                     becomes to complex. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0320B301-6E7C-4F58-A737-209BAA361A4B"></a></span>If you want to set these properties later, just lock the property editor to keep it
+                     open as you're working in the ICE Tree view. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F6A415B4-A51A-4EF6-BB36-D4F657292879"></a></span>Press Alt+9 to open the ICE Tree view. Click the Refresh icon to update the view so
+                     that you can see the cloth object's ICE tree. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-CA9374CA-45BE-4446-A0A8-C1BE23910853"></a></span> <img src="../images/GUID-231F6490-B840-428F-884C-CAC6B8479795-low.png"> 
+                  </p> <span class="anchor_wrapper"><a name="FIG_DD00293ECD2744BAA1A61A3FC9F991A7"></a></span><div class="figure-anchor"><img src="../images/GUID-4E799E06-8381-48D3-B6D8-593C4F689645-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0F04222C-7E7C-42FC-B302-3628DAA20CC2"></a></span>Adjust the gravity and damping forces in the <span class="char_link"><a href="iceref_Syflex_Cloth.htm">Syflex Cloth</a></span> property editor, or add new ones to the cloth's ICE tree as described in <span class="char_link"><a href="GUID-EEE01841-DDA1-4962-81A0-989C3545173F.htm">Syflex ICE Forces</a></span>. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-415C0C9D-2957-4986-9709-0E161B06D8B0"></a></span>You can set up the cloth object to collide with obstacles or with itself, as described
+                     in <span class="char_link"><a href="GUID-CF2F04DC-A8CA-4BA9-AE18-EA382E3669B4.htm">Syflex ICE Collisions</a></span>. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-2514AD79-4548-49B8-94B8-19FEF564D9E3"></a></span><div class="note-note"><span class="label">NOTE:</span>You can plug in any of the Syflex node outputs into the Syflex Cloth node's Force
+                        ports. This includes Syflex Force, Collide, and Constraint nodes. The order in which
+                        you plug in nodes into these ports matters for Collide nodes - see <span class="char_link"><a href="GUID-CD0084E3-9389-466C-959E-52D79BB31F7D.htm#SECTION_469BC6306FED413488C3589FF97CED86">Evaluation Order of Collide Nodes</a></span>. 
+                     </div>
+                  </div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5FCF4751-32C2-4F36-8364-9B48EE0CFF12"></a></span>You can create constraints to create pinning, nailing, and mimicking effects on the
+                     cloth using vertex clusters or null objects, as described in <span class="char_link"><a href="GUID-149904D9-E42E-46AB-A745-5D919821B523.htm">Syflex ICE Constraints</a></span> . 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-457E6649-DC83-43AA-84BF-ECE3EB93DB51"></a></span>Play back the simulation - see <span class="char_link"><a href="GUID-1873AC45-01F6-46A0-AA0E-83DD81961A5E.htm">Playing and Caching Syflex ICE Simulations</a></span> for more information. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_C5E43349646C44B9B88E0CD9951BBAC8"></a></span><div class="figure-anchor"><img src="../images/GUID-28855203-982B-4B37-B887-11F74AA1D2F0-low.png"></div> 
+               </li>
+            </ol> 
+         </div>
+         <div class="section"><span class="anchor_wrapper"><a name="SECTION_A6E1186B1AFA45D2871E6B90FFA5B0B5"></a></span> 
+            <h2><span class="anchor_wrapper"><a name="GUID-7525108E-3E0D-4501-BD91-4D8C4F968BD3"></a></span>Creating a Syflex ICE Curve Simulation
+            </h2>   
+            <p><span class="anchor_wrapper"><a name="GUID-22EFC680-E5C4-41B7-B490-87B2BB62AEB6"></a></span>The Syflex Curve operator is a deformer that can be applied only to linear curve objects.
+               This creates a simulated ICE tree for that object: you can then modify this ICE tree
+               with most typical ICE nodes as usual. 
+            </p> <span class="anchor_wrapper"><a name="GUID-AFC4FFFB-CDE7-46C5-940F-2788AB1E6124"></a></span><ol type="1" start="1">
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-9BC57C1F-B84E-48DB-A146-BA16F854821F"></a></span>Select a linear curve object to be deformed. 
+                  </p> 
+                  <div><span class="anchor_wrapper"><a name="GUID-2A67C76E-FCDA-48BE-ACB1-03452A5B3DED"></a></span><div class="note-note"><span class="label">NOTE:</span>Do <em class="strong">not</em> change the curve object's scale after an ICE tree has been created for it. 
+                     </div>
+                  </div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-93CE9C87-082D-492A-A6DF-1709A1EBC8D0"></a></span>Press Alt+9 to open the ICE Tree view. Click the Refresh icon to update the tree for
+                     the curve object, it if it's locked. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-861BF2D0-C3A0-4C82-8946-E8059A7953F6"></a></span>In the ICE Tree view, choose <span class="MenuCascade" id="GUID-DF82784B-9560-43BE-98D4-86CFD046E52B">Create <img src="../images/ac.menuaro.gif"> Simulated ICE Tree</span> to create a simulated ICE tree for the curve. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-27B426C1-9AE7-4017-8AE7-6329789F63AF"></a></span>This creates an ICETree node whose operator is applied in the Simulation region of
+                     the curve's operating stack. 
+                  </p> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-FFF5CDA0-B1EF-4CDA-9F5F-0370F363EA02"></a></span>From the preset manager on the left side of the ICE Tree view, click the Task tab
+                     and select Syflex from the list. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5F20F2E5-BD7E-4DF0-ACF4-4B86A249516A"></a></span>From the Basic group, drag the Syflex Curve compound into the ICE Tree workspace.
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_C3A9AA5F5E104432B52EAC4C8EBF89F7"></a></span><div class="figure-anchor"><img src="../images/GUID-AF5E7AB2-7DB8-47D0-81B1-D4D959D9961A-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-5A3CE351-8CE9-491D-9737-328521DA8E3D"></a></span>Connect the Syflex Curve node's Value output to the top port on the Syflex_ICE node.
+                     
+                  </p> <span class="anchor_wrapper"><a name="FIG_A15812C4856E417A8E6155990671C4BB"></a></span><div class="figure-anchor"><img src="../images/GUID-20B668FD-A4F1-4E70-97DE-4EF3A265C502-low.png"></div> 
+               </li>
+               <li> 
+                  <p><span class="anchor_wrapper"><a name="GUID-0C6507D3-C104-4089-B0C8-576E1755E0BD"></a></span>You can now build the ICE tree for the curve deformation in a similar way as for described
+                     above for building a cloth ICE tree. 
+                  </p> 
+                  <p><span class="anchor_wrapper"><a name="GUID-F147957A-DA9A-47F7-81E2-E3311019BCDE"></a></span>For an example Syflex ICE tree, see <span class="char_link"><a href="GUID-FFF815E2-1F03-404C-A6EF-0B542B4EBF16.htm">Anatomy of a Syflex ICE Tree</a></span>. 
+                  </p> <span class="anchor_wrapper"><a name="FIG_64CA93E528EB48BDA66516863FC6A8A8"></a></span><div class="figure-anchor"><img src="../images/GUID-A0AB58CE-F415-4BD6-B050-0E0027F2D6E1-low.png"></div> 
+               </li>
+            </ol> 
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-12BBE396-DDE0-41E1-822F-162D524D57A5">
+      <meta name="indexterm" content="tspace_id">
+      <meta name="indexterm" content="texture projections: referencing with tspace_id">
+      <meta name="topic-type" content="concept">
+      <title>Attribute Mapping with tspace_id</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-12BBE396-DDE0-41E1-822F-162D524D57A5"></a></span><div class="head">
+            <h1>Attribute Mapping with tspace_id</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-A0FDCD20-EF3F-441D-B2AA-C67F185A17AA"></a></span>When a material is shared by several objects, an attached shader with texture projections
+               is said to have shader instance data. The instance data allows you to specify to the
+               shader which texture projection to use for each object that shares the material.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6D95ED61-714A-4641-A87D-CE62CF99C2AD"></a></span>You can write shader code that can reference the instance data value directly by specifying
+               the name of the tspace_id parameter between brackets as <span class="code">[MyRTSNodeThatHasATexture.tspace_id]</span>. Conveniently, the GLSLProgram node's hardware attribute mapping table lists the
+               tspace_id as an attribute when it is present in the current realtime shader tree.
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-D479C26C-D5EB-4328-84CA-4122D7C9B555"></a></span>For example, in a shader tree that looks like this...
+            </p>
+            <div class="figure-anchor"><img src="../images/GUID-EFF04E74-BEBF-4D9B-9B1C-57150DEEF4CE-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-C8A41DB2-0E8A-4763-A2DF-D868BB1E368B"></a></span>And a hardware attribute mapping table that looks like this...
+            </p>
+            <div class="figure-anchor"><img src="../images/GUID-7BC2726A-D150-4B79-B1CF-2855439402FB-low.png"></div>
+            <p><span class="anchor_wrapper"><a name="GUID-BD764249-42B9-412D-AF69-C4E86CD87085"></a></span>The GLSLProgram shader references the tspace_id of the OGLTexture shader and maps
+               whatever texture projection is specified in that tspace_id to a texture coordinates
+               hardware register named <em class="mild">texcoord0.xyz</em>.
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF638D26889205648A0C4AEC55F5BAD95-0012"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-24BBD24A-BDDA-4E7E-813F-77A01078955C"></a></span>Example 1
+               </h2> 
+               <div class="codeBlock"><pre>
+// Example of a custom realtime shader that uses hardcoded hardware mapping
+extern "C" RTSHADER_API XSI_RTS_Attribute* MyNormalMapShader_GetAttributeList
+(
+	IRTSExecutionState *in_pExecState,
+	MyNormalMapParameters_t *in_pParams,
+	void **io_pInstanceData
+)
+{
+// This shader needs vertex position and normals and 1 texture projection.
+// The texture projection must be an existing parameter
+// attached to the shader tree. In this example, the parameter
+//called 'OGLTexture.tspace_id'
+	char * l_szNormalShaderDataNeeded = "PointPosition,position.xyz,PointNormal,normal.xyz,[OGLTexture.tspace_id],texcoord0.xyz";
+// The RTS 3.0 architecture expects an array of XSI_RTS_Attributes, you can use the
+// GetAttributeDescriptorFromMapping API provided by the ExecutionState to create this structure for you.
+	XSI_RTS_Attribute* dataNeeded = in_pExecState-&gt;GetAttributeDescriptorFromMapping ( l_szNormalShaderDataNeeded );
+	return dataNeeded;
+}
+</pre></div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF638D26889205648A0C4AEC55F5BAD95-0013"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A8A28AED-45D5-4788-8A22-F9DB2AA3A43D"></a></span>Example 2
+               </h2> 
+               <div class="codeBlock"><pre>
+// Example of a custom realtime shader that uses ui-assisted hardware mapping
+XSI_RTS_Attribute g_MyNormalMapShader_HardCoded_Attributes[] =
+{
+	XSI_RTS_ATTRIBUTE_POSITION, ePOSITION,
+	"PointNormal", eNORMAL,
+	"Texture_Projection", eTEXCOORD0,
+	0,  eMAX_STANDARD_VERTEX_ATTRIBUTE
+};
+extern "C" RTSHADER_API XSI_RTS_Attribute* MyNormalMapShader_GetAttributeList
+(
+	IRTSExecutionState *in_pExecState,
+	MyNormalMapParameters_t *in_pParams,
+	void **io_pInstanceData
+)
+{
+// A parameter on the PPG drives which attributes are needed to execute the shader
+	if ( in_pParams-&gt;MyShaderTechnique == HighRes )
+	{
+	return in_pExecState-&gt;GetAttributeDescriptorFromMapping ( in_pParams-&gt;MyHardwareMappingWidget );
+	} else{
+	return g_MyNormalMapShader_HardCoded_Attributes;
+	}
+}</pre></div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

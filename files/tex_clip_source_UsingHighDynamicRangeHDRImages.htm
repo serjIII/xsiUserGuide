@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-F38B244F-8A27-405F-A547-9FB4B362EE60">
+      <meta name="indexterm" content="images: High Dynamic Range HDRI">
+      <meta name="indexterm" content="HDRI: using">
+      <meta name="indexterm" content="HDRI: compatible file formats">
+      <meta name="indexterm" content="HDRI: creating">
+      <meta name="indexterm" content="HDRI: and image management">
+      <meta name="indexterm" content="HDRI: adjusting gamma">
+      <meta name="indexterm" content="HDRI: adjusting exposure">
+      <meta name="topic-type" content="concept">
+      <title>Using High Dynamic Range (HDR) Images</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-F38B244F-8A27-405F-A547-9FB4B362EE60"></a></span><div class="head">
+            <h1>Using High Dynamic Range (HDR) Images</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-D9A2F177-165D-4863-8E57-62D5F224B962"></a></span>The dynamic range of a scene or image is the range of brightness values between its
+               darkest and brightest parts. Generally speaking, a standard camera cannot capture
+               a scene's entire dynamic range and a standard image cannot represent it because its
+               color component values cannot cover a broad enough range. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-6DBE79FB-6A5E-47F3-8546-80A20BA725AE"></a></span>High Dynamic Range (HDR) images solve this problem by combining multiple exposures
+               of the same scene into a single image file, which has a much greater range of illumination
+               than a standard image. Therefore, it can accurately represent real-world lighting.
+               
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-ADD45FD6-964E-4DFC-B680-DEFBD06AC741"></a></span>Because the amount of light in a scene can be virtually unlimited, HDR images need
+               to be able store much larger color component values (RGBA, for example) than their
+               low-dynamic-range counterparts. Instead of storing color component values as integers
+               between 0 and 255 like an 8-bit image, HDR images store them as floating point values
+               (decimal point values like 1.23123), which can range from 0 to 100000 and higher.
+               This lets an HDR image's pixel values correspond accurately to the amount of light
+               in the real world. 
+            </p>
+            <div><span class="anchor_wrapper"><a name="GUID-BD12CD7B-DAC6-4BA0-88AD-23912D657190"></a></span><div class="note-note"><span class="label">NOTE:</span>Be careful not to use the clip effects (see <span class="char_link"><a href="tex_clip_source_ApplyingClipEffects.htm">Applying Clip Effects</a></span>) on your HDR images. 
+               </div>
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-0049"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-A0007722-CBCA-45B0-B0B9-488A8F62D0ED"></a></span>HDR File Formats
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-F2FA1811-84A7-4C63-A91E-D3E1073300B6"></a></span>HDR images that you wish to use in Softimage should be saved in one of several formats
+                  supported by both Softimage and mental ray. For more information about converting
+                  images to supported formats, see the next section <span class="char_link"><a href="tex_clip_source_UsingHighDynamicRangeHDRImages.htm#WS268DA51328BC334380524F8F66369EBF-004A">Creating HDR Images for Softimage</a></span>. Supported formats include: 
+               </p> <span class="anchor_wrapper"><a name="UL_820C29BD85A548659B234DED1E352531"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-76D2568E-8A4F-433D-AEB0-ADB3E7D7AE3B"></a></span> <span class="MenuCascade" id="GUID-E348BCF2-1E95-4F3D-93DB-EA2002B2FB8F">mental ray color texture (.ct )</span> is a commonly used format. .ct images tend to be quite large, and may increase render
+                        time when loaded in memory by mental ray. <span class="MenuCascade" id="GUID-08FE42F0-DDCF-4603-8F52-52FC1D5DDE56">.ct</span> files can be saved at 8, 16, or floating point-bit depth. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-53B1C230-4B86-40C3-8443-9AC0578E2D9A"></a></span> <span class="MenuCascade" id="GUID-1541FB5F-E869-4E05-975E-DB923AEEB2DC">mental ray memory mapped texture (.map)</span> images are good to use when memory and/or rendering time is an issue because mental
+                        ray maps them into memory rather than loading them completely. This saves render time
+                        and reduces disk swapping, especially with large images. <span class="MenuCascade" id="GUID-B5E78C7A-17B6-457D-8A4B-40FCD5545181">.map</span> files can be saved at 8, 16, or floating point-bit depth. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-9E58BE73-76AB-4F14-823F-4934A1C9A25E"></a></span>For more information about .map files, see <span class="char_link"><a href="tex_clip_source_UsingMemoryMappedTextures.htm">Using Memory-Mapped Textures</a></span> [<span class="char_link"><a href="tex_cover.htm">Textures and Maps</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B53F5C25-8CB1-4C96-9A0D-A0EA0623F964"></a></span> <span class="MenuCascade" id="GUID-10F3153E-94F6-4FC6-B9D2-71AF7400D1BD">HDR (.hdr)</span> is a widely used high dynamic range image format that produces very compact files.
+                        However, the format does not support an alpha channel, so you'll need to use a different
+                        format if you intend to modify the image using the alpha channel. In addition to using
+                        them in the Fx Tree, you can adjust their brightness using the Exposure setting in
+                        the image clip property editor. <span class="MenuCascade" id="GUID-F40EDF01-1940-4379-A4AF-EE4B542D6DE1">.hdr</span> files are saved at floating point bit-depth. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CE9181B6-7724-4B77-BDB7-4479237D3F08"></a></span> <span class="MenuCascade" id="GUID-654F8E82-DBD2-42F8-AADC-060E025EFFE7">OpenEXR (.exr)</span> images have the advantage of being both highly precise and highly compact. In addition
+                        to modifying them in the Fx Tree, you can adjust their brightness using the Exposure
+                        setting in the image clip property editor. <span class="MenuCascade" id="GUID-BE04F444-0775-494C-97B8-E48B5EC040FF">.exr</span> files can be saved at 16-bit floating-point (half) or 32-bit floating-point bit depth.
+                        
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-004A"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-7A6B5B04-367E-4A5E-B061-EB5A7D110E73"></a></span>Creating HDR Images for Softimage
+                  </h3>  
+                  <p><span class="anchor_wrapper"><a name="GUID-7A6FE6EB-B4A8-42F5-98CE-6C63A72239B6"></a></span>Before you can use your HDR images in Softimage, you may have to convert them to a
+                     different format. You can do this using the imf_copy standalone. 
+                  </p> <span class="anchor_wrapper"><a name="GUID-4B034678-2EBA-4EE0-BE0B-07FF065B59F2"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-97F6161A-71C6-49B2-92AA-148869C97C9F"></a></span>Open a Autodesk Softimage command prompt. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1EC06AD6-2A7B-4952-B571-94A18F6F4B5B"></a></span>Type the path of the folder where the file(s) that you want to convert are stored
+                           (for example: <span class="filePath">C:\projects\myproj\pictures</span>). 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BD88CC7D-F0BF-412C-9FD7-C02FB9F71F46"></a></span>To convert an image, type the following command (all on one line): 
+                        </p> <span class="code">imf_copy [-v] [-p] inimage outimage [outformat [outtype]]</span> 
+                        <p><span class="anchor_wrapper"><a name="GUID-BE39D682-BEEF-4777-BEF5-70F451E3F38C"></a></span>for example: 
+                        </p> <span class="code">imf_copy -v myhdrimage.tif myhdrimage_test.map map rgba_fp</span> 
+                        <p><span class="anchor_wrapper"><a name="GUID-C30238A1-6A59-48CF-B317-5261627C941B"></a></span>You can also use imf_copy for other image conversions, <span class="MenuCascade" id="GUID-4B0C7FAC-6BC3-488B-B2D4-F308D06233A4">.map</span> to <span class="MenuCascade" id="GUID-E8736BE2-3790-4272-A252-5D0D8A899C54">.ct</span> for example, or <span class="MenuCascade" id="GUID-BAB73AC6-2585-4B67-9498-EFFAA777FCC5">.ct</span> to <span class="MenuCascade" id="GUID-5A44218A-E036-4838-B221-3215EF7805D6">.exr.</span> 
+                        </p> 
+                        <p><span class="anchor_wrapper"><a name="GUID-EDA7EF27-3A6E-4722-A75E-0A5A9831A0C1"></a></span>For more information about using imf_copy, type <span class="code">imf_copy -h</span> at the command prompt for command line usage or see <span class="char_link"><a href="standalones.htm">Standalones</a></span>. 
+                        </p> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-004B"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-0AC14B7D-8595-41E3-A27F-91B8344148FB"></a></span>HDR Files and Image Management
+               </h2>  
+               <p><span class="anchor_wrapper"><a name="GUID-6FEDDE7C-8469-4652-830A-E6F2C52745FF"></a></span>Using your HDR images in Softimage usually means creating source and clip instances
+                  of them. It's best to set any HDR image's image management mode to <span class="MenuCascade" id="GUID-56C94330-CDCF-4683-88ED-2E0D0F7E32CD">Use From Disk</span> or <span class="MenuCascade" id="GUID-5FFC4951-9C49-44DE-90F9-F65BEA0C90AC">Broadcast</span>, either of which passes the image's name and path directly to mental ray instead
+                  of loading it in memory. 
+               </p> 
+               <p><span class="anchor_wrapper"><a name="GUID-4A7A0288-5C96-42F2-9E27-D4F16AFD8F84"></a></span>For more information about image management modes, see <span class="char_link"><a href="interface_DisplayingandRenderingGammaCorrection.htm">Displaying and Rendering Gamma Correction</a></span>. 
+               </p> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-004C"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-451289C1-E377-4C18-AB11-8FFB44765BA3"></a></span>Adjusting HDR Image Exposure and Display Gamma
+               </h2>   
+               <p><span class="anchor_wrapper"><a name="GUID-B7936D5C-07BF-4419-9004-A10E1D4477B4"></a></span>If you are working with HDR files saved in the <span class="MenuCascade" id="GUID-FD21EA66-2589-4CB2-ABA6-D857FDE2C935">.hdr</span> or <span class="MenuCascade" id="GUID-30386513-2503-48F5-AC4E-4CC0A7491026">.exr</span> formats, you can adjust their exposure, and correct their display gamma from several
+                  places in Softimage. 
+               </p> <span class="anchor_wrapper"><a name="UL_F2209967DA184112A17642A017129A31"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B8D19C22-459C-4B9D-9602-9F49B51D5D00"></a></span>If you've created an image clip from a <span class="MenuCascade" id="GUID-53EFCE8F-8F48-4E3B-932E-436DC9CEDE3E">.hdr</span> or <span class="MenuCascade" id="GUID-4C30A24A-6491-412E-9563-055E6642C349">.exr</span> image, you can adjust its exposure and display gamma from the image clip property
+                        editor, as described in this section. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F669A5A4-11B4-4F26-81BB-011BE894C107"></a></span>If you've imported a .hdr or .exr image into the Fx Tree, via a File Input operator,
+                        you can adjust the image's exposure and display gamma from the File Input property
+                        editor, as described in <span class="char_link"><a href="compositing_proc_BuildingEffects.htm#WS2E3010F2F62D5B47AAEB8A4BA62C3857-000F">Setting File Input Properties</a></span> [<span class="char_link"><a href="compfx_cover.htm">Compositing</a></span>]. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-88B3EE9E-292A-4B92-B810-2C5F7E394432"></a></span>If you're previewing a <span class="MenuCascade" id="GUID-705C0507-C530-401B-8BB9-66E802CD6E89">.hdr</span> or <span class="MenuCascade" id="GUID-754D51EF-F44E-4CFE-81DD-907BCA8FA497">.exr</span> image in a standalone flipbook, you can adjust the image's exposure and display gamma
+                        from the flipbook's Display Options dialog box, as described in <span class="char_link"><a href="flip21.htm"> Previewing Animation in a Flipbook</a></span> [<span class="char_link"><a href="view_cover.htm">Basics</a></span>]. 
+                     </p> 
+                  </li>
+               </ul> 
+               <div class="section"><span class="anchor_wrapper"><a name="WS268DA51328BC334380524F8F66369EBF-004D"></a></span> 
+                  <h3><span class="anchor_wrapper"><a name="GUID-674C6E40-5D38-48B9-901E-2370F2012125"></a></span>To adjust a <span class="MenuCascade" id="GUID-17EFA3C5-036F-41B9-A9DF-2D9388D73BC2">.hdr</span> or .exr image clip's exposure and/or display gamma
+                  </h3> <span class="anchor_wrapper"><a name="GUID-AA867F9B-1EB1-46C9-90F7-37047D39CC3F"></a></span><ol type="1" start="1">
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-45AF23C8-BDDF-4022-AFBF-56F9AF2D9D6D"></a></span>Edit the image clip's properties as described in <span class="char_link"><a href="tex_clip_source_EditingImageClipProperties.htm">Editing Image Clip Properties</a></span>. 
+                        </p> 
+                     </li>
+                     <li> 
+                        <p><span class="anchor_wrapper"><a name="GUID-1B16F822-BA2E-4870-A823-05DAABDC23A0"></a></span>On the Adjust tab, set the following values as needed: 
+                        </p> <span class="anchor_wrapper"><a name="UL_97F675A325064B8BA624EAF1A2FB84D7"></a></span><ul>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-ECB45531-FD00-4ADC-8ACF-FFA716E2C953"></a></span> <span class="MenuCascade" id="GUID-95627488-681F-427A-8B40-A8717E66A816">HDR and OpenEXR <img src="../images/ac.menuaro.gif"> Display Gamma</span>: if the image format is <span class="MenuCascade" id="GUID-9AF587B3-247F-496E-A26E-9BB081D11240">.hdr</span> or .exr, this setting performs a gamma correction for display purposes only. For
+                                 example, 2.2 is the correct value for displaying images on a monitor. 
+                              </p> 
+                           </li>
+                           <li> 
+                              <p><span class="anchor_wrapper"><a name="GUID-40303212-3998-41DC-BAE5-095A12F0805F"></a></span> <span class="MenuCascade" id="GUID-F2AD91E6-A748-4B12-8D7E-CD082FF2D322">Exposure <img src="../images/ac.menuaro.gif"> Exposure (f-stop)</span>: if the image format is <span class="MenuCascade" id="GUID-74806088-E3EF-43DA-82C8-7429CF5087CD">.hdr</span> or <span class="MenuCascade" id="GUID-9414F4E9-17DB-4FF0-936B-EB2A37736789">.exr</span>, this setting offsets the exposure to brighten or darken the image. 
+                              </p> 
+                              <p><span class="anchor_wrapper"><a name="GUID-36B4F0BC-74ED-465D-95EB-308ABB4C4576"></a></span>The exposure value is measured in f-stops, so a value of 0 is the image's default
+                                 exposure, while non-zero values offset the default by the specified number of f-stops
+                                 in either direction. 
+                              </p> 
+                           </li>
+                        </ul> 
+                     </li>
+                  </ol> 
+               </div> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>

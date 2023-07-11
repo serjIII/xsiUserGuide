@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<!-- saved from url=(0024)http://docs.autodesk.com -->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="product" content="SI">
+      <meta name="release" content="2015">
+      <meta name="book" content="GeneralUser">
+      <meta name="created" content="2014-03-26">
+      <meta name="topicid" content="GUID-C15E84C8-1E10-440F-B4F7-3C063E5AB5D6">
+      <meta name="indexterm" content="realtime shaders: fragment shaders (glsl)">
+      <meta name="indexterm" content="OpenGL realtime shaders: vertex shaders (setting up with glsl program)">
+      <meta name="topic-type" content="concept">
+      <title>Setting Up a Unified GLSL Program</title>
+      <link rel="stylesheet" type="text/css" href="../style/softimage.css"><script type="text/javascript" src="../scripts/ac_common.js"></script><script type="text/javascript" src="../scripts/utils/adsk.redirect.js"></script></head>
+   <body height="100%">
+      <div class="body_content" id="body-content"><span class="anchor_wrapper"><a name="GUID-C15E84C8-1E10-440F-B4F7-3C063E5AB5D6"></a></span><div class="head">
+            <h1>Setting Up a Unified GLSL Program</h1>
+         </div>
+         <div class="bodyProcess">
+            <p><span class="anchor_wrapper"><a name="GUID-743805C6-106F-4A91-8CA8-4CD0385204EB"></a></span>Softimage's <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm">GLSL Shader</a></span> uses a unified shader model where both the vertex and fragment shaders can be coded
+               as one "entity". In other words, a single GLSL Shader node contains both the vertex
+               and pixel shaders. As long as your code is valid and the vertex program calls the
+               fragment program properly, then no further connections in the render tree are required
+               to allow for communication between the two shader types. 
+            </p>
+            <p><span class="anchor_wrapper"><a name="GUID-452562F4-952C-4F9F-99A5-FABC7A7BEA8E"></a></span>In addition, you can specify draw operations such as blending, alpha testing, and
+               point sprites directly within the GLSL Shader node. 
+            </p>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF638D26889205648A0C4AEC55F5BAD95-0004"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-5A411961-3627-4CD9-8618-C87348AC6410"></a></span>Connecting a GLSL Shader
+               </h2> <span class="anchor_wrapper"><a name="GUID-2E207E47-B398-49AC-82DE-3B1CE1012F71"></a></span><ol type="1" start="1">
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-B86335D7-52B0-4D17-99CF-7BB6B8963421"></a></span>Select the polygon mesh or the point cloud for which you want to create the realtime
+                        effect. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-CEC9017B-11FB-4618-A80B-53DB069E7769"></a></span>With the object still selected, open the render tree (press 7). 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A0533E60-B210-4E70-9910-98F14293A9DA"></a></span>From the preset manager, drag and drop the <span class="MenuCascade" id="GUID-DFA1D384-E7C2-4F83-8AFA-072CAA5D808F">RealTime <img src="../images/ac.menuaro.gif"> OpenGL <img src="../images/ac.menuaro.gif"> GLSL Program</span> node onto the render tree workspace. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A2919473-A422-47BB-AFC2-3ECCE8A7073A"></a></span>Connect the GLSLProgram node to the Material node's RealTime input. For details on
+                        how to build render trees in general, see <span class="char_link"><a href="rendertree_ConnectingShaderNodes.htm#WS0BA946C0C7F07C489426C340C08C4904-004B">Connecting Nodes</a></span>. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-6153EB58-F055-498B-9765-577252555722-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-785FDE9D-CA07-43C2-B506-E14808849CC9"></a></span>Double-click the GLSLProgram node to open its property editor. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-DC9351F4-A4B7-446E-B9FA-6447D0C6DE98"></a></span> <span class="MenuCascade" id="GUID-6567011F-10AB-4889-A897-570478DA31A6">Program Options</span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-938F5D38-10CE-43F6-B079-6D3E644105AF"></a></span>Click the Program tab and set the <span class="MenuCascade" id="GUID-58098701-CD22-4845-BD59-E5AE297D6EC6">Build</span> options for your GLSL program. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-284F0FE7-44B7-49F8-861A-CD37F055C7C5"></a></span>You can see compilation results by activating the <span class="MenuCascade" id="GUID-4E3CD708-EFA8-44A1-BD88-21E7CCFC7DC0">Debug messages</span> option. 
+                     </p> 
+                     <p><span class="anchor_wrapper"><a name="GUID-A39B4354-ED45-4CD8-9151-2A4E64ECEA48"></a></span>Compilation results are logged and available from the script editor's log window.
+                        To open the script editor, click the script icon at the bottom of the Softimage interface.
+                        
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-13E9469C-F539-442A-B42A-545DAA108D30-low.png"></div> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-F67FD139-932D-4A5B-8C94-4B38CBD038CD"></a></span>Enter the vertex and pixel program code in the appropriately labeled text editors.
+                        You can also load one of the preset shaders available from the <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm#WS349A1059FFC671449CEA65A315C2358D-001B">Presets</a></span> tab. For information about using the text editor, see <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm#WS349A1059FFC671449CEA65A315C2358D-0015">GLSL Vertex Program and Fragment Program</a></span>. 
+                     </p> 
+                     <div class="figure-anchor"><img src="../images/GUID-C87BBB11-8779-4C02-BBF4-408970EFB7FD-low.png"></div> 
+                     <p><span class="anchor_wrapper"><a name="GUID-AD1A94BF-7753-4665-BE8D-12219FC3AE57"></a></span> <span class="MenuCascade" id="GUID-2CB17F93-831C-4B59-A7C0-E31A1108A069">Draw Options</span> 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-976D43E7-BF70-4AEF-8935-127C763BF146"></a></span>Click the Draw tab where you can enable the integrated draw operations that you require
+                        for your effect. If needed, set the following options: 
+                     </p> <span class="anchor_wrapper"><a name="UL_2461269D29394C0AB7148F4E872F842B"></a></span><ul>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-A8954040-A6B9-4D5F-943B-67A439F68F8E"></a></span> <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm#WS349A1059FFC671449CEA65A315C2358D-0018">Blending</a></span> options. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-1F6F3CB9-D110-4427-9E5E-3369C3E86886"></a></span> <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm#WS349A1059FFC671449CEA65A315C2358D-0019">Alpha Testing</a></span> options. 
+                           </p> 
+                        </li>
+                        <li> 
+                           <p><span class="anchor_wrapper"><a name="GUID-2F251166-AD68-4E64-A4D2-0B488636D349"></a></span> <span class="char_link"><a href="realtime-ogl_shaders_GLSLProgram.htm#WS349A1059FFC671449CEA65A315C2358D-001A">Particle Cloud</a></span> (point sprites) option. 
+                           </p> 
+                        </li>
+                     </ul> 
+                  </li>
+               </ol> 
+            </div>
+            <div class="section"><span class="anchor_wrapper"><a name="WSF638D26889205648A0C4AEC55F5BAD95-0008"></a></span> 
+               <h2><span class="anchor_wrapper"><a name="GUID-65C0CDA1-576E-411A-8383-7D996EC3BDB6"></a></span>Uniform and Sampler Setup in the Render Tree
+               </h2> <span class="anchor_wrapper"><a name="FIG_E905F4FE096D4AC49B1372363094E78E"></a></span><div class="figure-anchor"><img src="../images/GUID-AFF0FD03-EDCD-4E79-A170-79656C02C252-low.png"></div> <span class="anchor_wrapper"><a name="UL_3126B7A38EEB4C169CB3FBF594F547F9"></a></span><ul>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-0CD7F0FF-E9C4-4F10-BA50-256C66F9E48C"></a></span> <span class="MenuCascade" id="GUID-F8579328-CC58-4F3A-8024-1EC2CCFFEA68">Uniform variables:</span> You must set the values for each uniform variable declared in your vertex and fragment
+                        shaders. In the render tree connect a <span class="char_link"><a href="realtime-ogl_shaders_GLSLUniform.htm">GLSL Uniform</a></span> node into one of the GLSLProgram node's previous input ports. Each uniform variable
+                        you declare in your code needs a GLSLUniform node connected in the render tree. 
+                     </p> 
+                  </li>
+                  <li> 
+                     <p><span class="anchor_wrapper"><a name="GUID-3459E647-8E72-4383-866C-E04C3AF75AFF"></a></span> <span class="MenuCascade" id="GUID-D8D07E48-AEE8-4DB5-A797-0FAE2C389505">Samplers:</span> If your program declares a sampler (for example, sampler2D) as a uniform variable,
+                        you need to connect an <span class="char_link"><a href="shaderpresets757.htm">OGL Texture</a></span> node into one of the GLSLProgram node's previous input ports. Each texture sampler
+                        you declare in your code needs an OGL13Texture node connected in the render tree in
+                        order to access each texture map. 
+                     </p> 
+                  </li>
+               </ul> 
+            </div>
+         </div>
+         <div class="footer-block"><a href="../html/ac.cmtdialog.htm" class="comments-anchor" target="_blank"><span class="comments-link">Please send us your comment about this page</span></a></div><br><p class="footer-license-block"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank"><img alt="Creative Commons License" style="border-width: 0;" src="../images/ccLink.png"></a>&nbsp;<em>Except where otherwise noted, this work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. Please see the <a href="http://autodesk.com/creativecommons" target="_blank">Autodesk Creative Commons FAQ</a> for more information.</em></p><br></div>
+   </body>
+</html>
